@@ -155,8 +155,12 @@
     <ClCompile Include="lifeEngine.cpp" />
     <ClCompile Include="lifeEngine\Button.cpp" />
     <ClCompile Include="lifeEngine\ButtonManager.cpp" />
+    <ClCompile Include="lifeEngine\LevelManager.cpp" />
+    <ClCompile Include="lifeEngine\Light.cpp" />
+    <ClCompile Include="lifeEngine\LightManager.cpp" />
     <ClCompile Include="lifeEngine\MouseCursor.cpp" />
     <ClCompile Include="lifeEngine\System.cpp" />
+    <ClCompile Include="lifeEngine\Text.cpp" />
     <ClCompile Include="lifeEngine\TextManager.cpp" />
     <ClCompile Include="XML\tinystr.cpp" />
     <ClCompile Include="XML\tinyxml.cpp" />
@@ -167,8 +171,12 @@
     <ClInclude Include="lifeEngine\BasicStageGame.h" />
     <ClInclude Include="lifeEngine\Button.h" />
     <ClInclude Include="lifeEngine\ButtonManager.h" />
+    <ClInclude Include="lifeEngine\LevelManager.h" />
+    <ClInclude Include="lifeEngine\Light.h" />
+    <ClInclude Include="lifeEngine\LightManager.h" />
     <ClInclude Include="lifeEngine\MouseCursor.h" />
     <ClInclude Include="lifeEngine\System.h" />
+    <ClInclude Include="lifeEngine\Text.h" />
     <ClInclude Include="lifeEngine\TextManager.h" />
     <ClInclude Include="XML\tinystr.h" />
     <ClInclude Include="XML\tinyxml.h" />

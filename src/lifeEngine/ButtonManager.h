@@ -1,4 +1,4 @@
-#ifndef BUTTON_MANAGER_H
+Ôªø#ifndef BUTTON_MANAGER_H
 #define BUTTON_MANAGER_H
 
 //////////////////
@@ -13,37 +13,37 @@ namespace le
     {
     public:
         /////////////////////////////////
-        // CONSTRUCTOR |  ŒÕ—“–” “Œ–
+        // CONSTRUCTOR | –ö–û–ù–°–¢–†–£–ö–¢–û–†
         ////////////////////////////////
         ButtonManager( System& System );
 
         ///////////////////////////////////////////////////
-        // DESTRUCTOR DEFAULT | ƒ≈—“–” “Œ– œŒ ”ÃŒÀ◊¿Õ»ﬁ
+        // DESTRUCTOR DEFAULT | –î–ï–°–¢–†–£–ö–¢–û–† –ü–û –£–ú–û–õ–ß–ê–ù–ò–Æ
         ///////////////////////////////////////////////////
         ~ButtonManager();
 
         ///////////////////////////////////
-        // CREATE BUTTON | —Œ«ƒ¿“‹  ÕŒœ ”  
+        // CREATE BUTTON | –°–û–ó–î–ê–¢–¨ –ö–ù–û–ü–ö–£  
         //////////////////////////////////
-        void CreateButton( const Text& Text );
+        void CreateButton( const sf::Text& Text );
 
         //////////////////////////////////////////
-        // UPDATE BUTTONS | Œ¡ÕŒ¬Àﬂ≈Ã ¬—≈  ÕŒœ »  
+        // UPDATE BUTTONS | –û–ë–ù–û–í–õ–Ø–ï–ú –í–°–ï –ö–ù–û–ü–ö–ò  
         /////////////////////////////////////////
         void UpdateButtons();
 
         /////////////////////////////////////////////
-        // DELETE ALL BUTTONS | ”ƒ¿Àﬂ≈Ã ¬—≈  ÕŒœ »  
+        // DELETE ALL BUTTONS | –£–î–ê–õ–Ø–ï–ú –í–°–ï –ö–ù–û–ü–ö–ò  
         ////////////////////////////////////////////
         void DeleteAllButtons();
 
         ///////////////////////////////////////////////
-        // DELETE BUTTON BY ID | ”ƒ¿Àﬂ≈Ã  ÕŒœ ” œŒ ID  
+        // DELETE BUTTON BY ID | –£–î–ê–õ–Ø–ï–ú –ö–ù–û–ü–ö–£ –ü–û ID  
         //////////////////////////////////////////////
         void DeleteButton( const int id );
 
         ///////////////////////////////////////////////////
-        // GET TEMP ID BUTTON | œŒÀ”◊¿≈Ã “≈ ”Ÿ»… ID  ÕŒœ » 
+        // GET TEMP ID BUTTON | –ü–û–õ–£–ß–ê–ï–ú –¢–ï–ö–£–©–ò–ô ID –ö–ù–û–ü–ö–ò 
         // @return int
         //////////////////////////////////////////////////
         int GetTmpIdButton() const;

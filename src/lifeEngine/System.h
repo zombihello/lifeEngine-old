@@ -1,4 +1,4 @@
-#ifndef SYSTEM_H
+Ôªø#ifndef SYSTEM_H
 #define SYSTEM_H
 
 /////////////
@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 #include <sstream>
 using namespace std;
 
@@ -56,100 +57,100 @@ namespace le
     {
     public:
         ///////////////////////////////////////////////////
-        // CONSTRUCTOR DEFAULT |  ŒÕ—“–” “Œ– œŒ ”ÃŒÀ◊¿Õ»ﬁ
+        // CONSTRUCTOR DEFAULT | –ö–û–ù–°–¢–†–£–ö–¢–û–† –ü–û –£–ú–û–õ–ß–ê–ù–ò–Æ
         ///////////////////////////////////////////////////
         System();
 
         ///////////////////////////////////////////////////
-        // DESTRUCTOR DEFAULT | ƒ≈—“–” “Œ– œŒ ”ÃŒÀ◊¿Õ»ﬁ
+        // DESTRUCTOR DEFAULT | –î–ï–°–¢–†–£–ö–¢–û–† –ü–û –£–ú–û–õ–ß–ê–ù–ò–Æ
         ///////////////////////////////////////////////////
         ~System();
 
         //////////////////////////////////////////////////////
-        // GET VALUE FROM FILE | œŒÀ”◊»“‹ œ≈–≈Ã≈Õ”ﬁ — ‘¿…À¿
+        // GET VALUE FROM FILE | –ü–û–õ–£–ß–ò–¢–¨ –ü–ï–†–ï–ú–ï–ù–ù–£–Æ –° –§–ê–ô–õ–ê
         // @return value ( int, string, ... )
         /////////////////////////////////////////////////////
         template<typename T> T ReadFile( const string sRoute , const string sTagName );
 
         //////////////////////////////////////////////////////
-        // GET VALUE FROM XML FILE | œŒÀ”◊»“‹ œ≈–≈Ã≈Õ”ﬁ — XML ‘¿…À¿
+        // GET VALUE FROM XML FILE | –ü–û–õ–£–ß–ò–¢–¨ –ü–ï–†–ï–ú–ï–ù–ù–£–Æ –° XML –§–ê–ô–õ–ê
         // @return string
         /////////////////////////////////////////////////////
         string ReadXMLFile( const string sRoute , const string sTagMain , const string sTag );
 
         //////////////////////////////////////////////////////
-        // SAVE VALUE IN FILE | —Œ’–¿Õ»“‹ œ≈–≈Ã≈Õ”ﬁ ¬ ‘¿…À¿
+        // SAVE VALUE IN FILE | –°–û–•–†–ê–ù–ò–¢–¨ –ü–ï–†–ï–ú–ï–ù–ù–£–Æ –í –§–ê–ô–õ
         /////////////////////////////////////////////////////
         template<typename T> void SaveFile( const string sRoute , const string sTagName , T Value , bool ClearFile = false );
 
         //////////////////////////////////////////////////////
-        // GET FILE EXISTS | œ–Œ¬≈– ¿ Õ¿ —”Ÿ≈—“¬Œ¬¿Õ»≈ ‘¿…À¿
+        // GET FILE EXISTS | –ü–†–û–í–ï–†–ö–ê –ù–ê –°–£–©–ï–°–¢–í–û–í–ê–ù–ò–ï –§–ê–ô–õ–ê
         // @return true or false
         /////////////////////////////////////////////////////
         bool FileExists( const string sRouteToFile );
 
         /////////////////////////////////////////////////////////////////
-        // GET DIRECTORY EXISTS | œ–Œ¬≈– ¿ Õ¿ —”Ÿ≈—“¬Œ¬¿Õ»≈ ƒ»–≈ “Œ–»»
+        // GET DIRECTORY EXISTS | –ü–†–û–í–ï–†–ö–ê –ù–ê –°–£–©–ï–°–¢–í–û–í–ê–ù–ò–ï –î–ò–†–ï–ö–¢–û–†–ò–ò
         // @return true or false
         ////////////////////////////////////////////////////////////////
         bool DirectoryExists( const string sRouteToDirectory );
 
         ////////////////////////////////////////////////////////
-        // UPDATE FILE CONFIG | Œ¡ÕŒ¬À≈Õ»≈ ‘¿…À¿  ŒÕ‘»√”–¿÷»…
+        // UPDATE FILE CONFIG | –û–ë–ù–û–í–õ–ï–ù–ò–ï –§–ê–ô–õ–ê –ö–û–ù–§–ò–ì–£–†–ê–¶–ò–ô
         ///////////////////////////////////////////////////////
         void UpdateConfig();
 
         ///////////////////////////////////////////
-        // CREATE WINDOW | —Œ«ƒ¿Õ»≈ Œ Õ¿
+        // CREATE WINDOW | –°–û–ó–î–ê–ù–ò–ï –û–ö–ù–ê
         /////////////////////////////////////////
         void WindowCreate( const int iStyle = Style::Default );
 
         ///////////////////////////////////////////
-        // MAIN LOOP GAME | √À¿¬Õ€… ÷» À »√–€
+        // MAIN LOOP GAME | –ì–õ–ê–í–ù–´–ô –¶–ò–ö–õ –ò–ì–†–´
         /////////////////////////////////////////
         void MainLoop( BasicStageGame& BasicStageGame );
 
         //////////////////////////////////////////////
-        // SET TITLE WINDOW | «¿ƒ¿“‹ Õ¿«¬¿Õ»≈ Œ Õ”
+        // SET TITLE WINDOW | –ó–ê–î–ê–¢–¨ –ù–ê–ó–í–ê–ù–ò–ï –û–ö–ù–ê
         //////////////////////////////////////////////
         void SetWindowTitle( const String WindowName , const String GameVersion );
 
         //////////////////////////////////////////////
-        // SET GAME SPEED  | «¿ƒ¿“‹  — Œ–Œ—“‹ »√–€
+        // SET GAME SPEED  | –ó–ê–î–ê–¢–¨ –°–ö–û–†–û–°–¢–¨ –ò–ì–†–´
         //////////////////////////////////////////////
         void SetGameSpeed( const float fGameSpeed );
 
         //////////////////////////////////////////////
-        // SET GAME TICK  | «¿ƒ¿“‹ “»  »√–€
+        // SET GAME TICK  | –ó–ê–î–ê–¢–¨ –¢–ò–ö –ò–ì–†–´
         //////////////////////////////////////////////
         void SetGameTick( const float fGameTick );
 
         //////////////////////////////////////////////
-        // GET CONFIGURATION | œŒÀ”◊»“‹  ŒÕ‘»√”–¿÷»»
+        // GET CONFIGURATION | –ü–û–õ–£–ß–ò–¢–¨ –ö–û–ù–§–ò–ì–£–†–ê–¶–ò–ò
         // @return Configuration
         //////////////////////////////////////////////
         Configuration GetConfiguration() const;
 
         //////////////////////////////////////////////
-        // GET TYPE EVENT | œŒÀ”◊»“‹ “»œ —Œ¡€“»ﬂ
+        // GET TYPE EVENT | –ü–û–õ–£–ß–ò–¢–¨ –¢–ò–ü –°–û–ë–´–¢–ò–Ø
         // @return TypeEvent
         //////////////////////////////////////////////
         Event::EventType GetTypeEvent() const;
 
         //////////////////////////////////////////////
-        // GET WINDOW | œŒÀ”◊»“‹ Œ ÕŒ
+        // GET WINDOW | –ü–û–õ–£–ß–ò–¢–¨ –û–ö–ù–û
         // @return RenderWindow
         //////////////////////////////////////////////
         RenderWindow& GetWindow();
 
         //////////////////////////////////////////////
-        // GET EVENT | œŒÀ”◊»“‹ —Œ¡€“»≈
+        // GET EVENT | –ü–û–õ–£–ß–ò–¢–¨ –°–û–ë–´–¢–ò–ï
         // @return Event
         //////////////////////////////////////////////
         Event GetEvent() const;
 
         /////////////////////////////////////////////
-        // GET MOUSE CURSOR | œŒÀ”◊»“‹  ”–—Œ– Ã€ÿ»
+        // GET MOUSE CURSOR | –ü–û–õ–£–ß–ò–¢–¨ –ö–£–†–°–û–† –ú–´–®–ò
         // @return MouseCursor
         /////////////////////////////////////////////
         MouseCursor& GetMouseCursor();

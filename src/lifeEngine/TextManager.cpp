@@ -54,3 +54,8 @@ Text le::TextManager::GetText( int ID )
 {
     return *vText[ ID - 1 ];
 }
+
+Font le::TextManager::GetFont() const
+{
+    return Font;
+}

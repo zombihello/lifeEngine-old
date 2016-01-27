@@ -1,4 +1,4 @@
-#ifndef TEXT_MANAGER_H
+Ôªø#ifndef TEXT_MANAGER_H
 #define TEXT_MANAGER_H
 
 ////////////////////
@@ -12,51 +12,57 @@ namespace le
     class TextManager
     {
     public:
-        ///////////////////////////////////////////////////
-        // CONSTRUCTOR |  ŒÕ—“–” “Œ–
-        ///////////////////////////////////////////////////
+        //////////////////////////////
+        // CONSTRUCTOR | –ö–û–ù–°–¢–†–£–ö–¢–û–†
+        /////////////////////////////
         TextManager( System& System );
 
         ///////////////////////////////////////////////////
-        // DESTRUCTOR DEFAULT | ƒ≈—“–” “Œ– œŒ ”ÃŒÀ◊¿Õ»ﬁ
+        // DESTRUCTOR DEFAULT | –î–ï–°–¢–†–£–ö–¢–û–† –ü–û –£–ú–û–õ–ß–ê–ù–ò–Æ
         ///////////////////////////////////////////////////
         ~TextManager();
 
         ///////////////////////////////////
-        // LOAD FONT | «¿√–”«»“‹ ÿ–»‘“  
+        // LOAD FONT | –ó–ê–ì–†–£–ó–ò–¢–¨ –®–†–ò–§–¢  
         //////////////////////////////////
         void LoadFont( const string sRoute );
 
         ///////////////////////////////////
-        //  WRITE TEXT  | Õ¿œ»—¿“‹ “≈ —“     
+        //  WRITE TEXT  | –ù–ê–ü–ò–°–ê–¢–¨ –¢–ï–ö–°–¢     
         ///////////////////////////////////
         void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText );
 
         ///////////////////////////////////////////////////////
-        //  WRITE TEXT WITH VALUE | Õ¿œ»—¿“‹ “≈ —“ — œ≈–≈Ã≈ÕŒ…    
+        //  WRITE TEXT WITH VALUE | –ù–ê–ü–ò–°–ê–¢–¨ –¢–ï–ö–°–¢ –° –ü–ï–†–ï–ú–ï–ù–ù–û–ô    
         ///////////////////////////////////////////////////////
         template<typename T> void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
 
         ///////////////////////////////////////
-        // UPDATE TEXTS  | Œ¡ÕŒ¬À≈Õ»≈ “≈ —“Œ¬   
+        // UPDATE TEXTS  | –û–ë–ù–û–í–õ–ï–ù–ò–ï –¢–ï–ö–°–¢–û–í 
         //////////////////////////////////////
         void UpdateText();
 
         //////////////////////////////////////////
-        // DELETE ALL TEXT  | ”ƒ¿À»“‹ ¬≈—‹ “≈ —“    
+        // DELETE ALL TEXT  | –£–î–ê–õ–ò–¢–¨ –í–ï–°–¨ –¢–ï–ö–°–¢   
         /////////////////////////////////////////
         void DeleteAllText();
 
         //////////////////////////////////////////////
-        // DELETE TEXT BY ID  | ”ƒ¿À»“‹ “≈ —“ œŒ ≈√Œ ID      
+        // DELETE TEXT BY ID  | –£–î–ê–õ–ò–¢–¨ –¢–ï–ö–°–¢ –ü–û ID      
         //////////////////////////////////////////////
         void DeleteText( int ID );
 
         //////////////////////////////////////////////
-        // GET TEXT BY ID | œŒÀ”◊»“‹ “≈ —“ œŒ ≈√Œ ID    
+        // GET TEXT BY ID | –ü–û–õ–£–ß–ò–¢–¨ –¢–ï–ö–°–¢ –ü–û ID    
         // @return Text
         /////////////////////////////////////////////
         Text GetText( int ID );
+
+        //////////////////////////////////////////////
+        // GET FONT | –ü–û–õ–£–ß–ò–¢–¨ –®–†–ò–§–¢     
+        // @return Font
+        /////////////////////////////////////////////
+        Font GetFont() const;
     private:
         RenderWindow*       RenderWindow;
         Font                Font;
@@ -66,8 +72,8 @@ namespace le
 
     template<typename T> void TextManager::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value )
     {
-        vText.push_back( new Text );
-        Text* Text = vText[ vText.size() - 1 ];
+        vText.push_back( new sf::Text );
+        sf::Text* Text = vText[ vText.size() - 1 ];
 
         ostringstream ostringstream;
         ostringstream << sText << " " << Value;
