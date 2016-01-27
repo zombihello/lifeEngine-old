@@ -14,7 +14,11 @@
     <ClCompile Include="XML\tinyxmlparser.cpp">
       <Filter>XML</Filter>
     </ClCompile>
-    <ClCompile Include="cppFiles\MouseCursor.cpp" />
+    <ClCompile Include="lifeEngine\MouseCursor.cpp" />
+    <ClCompile Include="lifeEngine\System.cpp" />
+    <ClCompile Include="lifeEngine\TextManager.cpp" />
+    <ClCompile Include="lifeEngine\ButtonManager.cpp" />
+    <ClCompile Include="lifeEngine\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="XML">
@@ -28,7 +32,11 @@
     <ClInclude Include="XML\tinyxml.h">
       <Filter>XML</Filter>
     </ClInclude>
-    <ClInclude Include="headerFiles\BasicStageGame.h" />
-    <ClInclude Include="headerFiles\MouseCursor.h" />
+    <ClInclude Include="lifeEngine\BasicStageGame.h" />
+    <ClInclude Include="lifeEngine\MouseCursor.h" />
+    <ClInclude Include="lifeEngine\System.h" />
+    <ClInclude Include="lifeEngine\TextManager.h" />
+    <ClInclude Include="lifeEngine\ButtonManager.h" />
+    <ClInclude Include="lifeEngine\Button.h" />
   </ItemGroup>
 </Project>
