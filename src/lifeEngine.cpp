@@ -1,24 +1,30 @@
-#include <SFML/Graphics.hpp>
+/////////////////////////////////////
+// This is example work this engine
+//////////////////////////////////////
+#include "headerFiles\System.h"
+
+class StageGame : public le::BasicStageGame
+{
+public:
+    StageGame( le::System& System )
+    {
+        this->System = &System;
+        System.GetMouseCursor().LoadTexture( "cur.png" );
+    }
+    void CheckStages()
+    {
+        System->GetMouseCursor().DrawCursor( System->GetWindow() );
+    }
+private:
+    le::System*     System;
+};
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    le::System System;
+    StageGame StageGame( System );
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+    System.MainLoop( StageGame );
 
     return 0;
 }
