@@ -173,7 +173,7 @@ void le::System::SetGameTick( const float fGameTick )
     Configuration.fGameTick = fGameTick;
 }
 
-Configuration le::System::GetConfiguration() const
+Configuration& le::System::GetConfiguration()
 {
     return Configuration;
 }

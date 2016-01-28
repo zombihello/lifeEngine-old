@@ -129,7 +129,7 @@ namespace le
         // GET CONFIGURATION | ПОЛУЧИТЬ КОНФИГУРАЦИИ
         // @return Configuration
         //////////////////////////////////////////////
-        Configuration GetConfiguration() const;
+        Configuration& GetConfiguration();
 
         //////////////////////////////////////////////
         // GET TYPE EVENT | ПОЛУЧИТЬ ТИП СОБЫТИЯ

@@ -14,7 +14,7 @@ le::Light::~Light()
 void le::Light::SetMask( sf::Texture & Texture )
 {
     this->Texture = Texture;
-    CircleShape.setTexture( &Texture );
+    CircleShape.setTexture( &this->Texture );
 }
 
 void le::Light::CreateLight( Vector2f PositionLight , const float fRadius , Color ColorLight )

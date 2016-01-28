@@ -483,20 +483,20 @@
   </data>
  </layer>
  <objectgroup name="Слой объектов 1" width="25" height="19">
-  <object name="solid" x="290" y="321" width="253" height="30"/>
-  <object name="solid" x="-36" y="-5" width="38" height="603"/>
-  <object name="solid" x="796" y="-3" width="27" height="602"/>
+  <object name="solid" type="solid" x="290" y="321" width="253" height="30"/>
+  <object name="solid" type="solid" x="-36" y="-5" width="38" height="603"/>
+  <object name="solid" type="solid" x="796" y="-3" width="27" height="602"/>
   <object name="player" x="322" y="244" width="85" height="35"/>
-  <object name="solid" x="-13" y="-13" width="832" height="18"/>
-  <object name="solid" x="1" y="581" width="810" height="24"/>
+  <object name="solid" type="solid" x="-13" y="-13" width="832" height="18"/>
+  <object name="solid" type="solid" x="1" y="581" width="810" height="24"/>
   <object name="light" x="641" y="452" width="67" height="41"/>
-  <object name="light" x="93" y="461" width="67" height="41"/>
+  <object name="light" x="91" y="431" width="67" height="41"/>
   <object name="light" type="2" x="429" y="242" width="67" height="41"/>
-  <object name="zombie" type="walk" x="362" y="514" width="85" height="35"/>
-  <object name="solid" x="513" y="545" width="63" height="35"/>
-  <object name="solid" x="256" y="545" width="63" height="35"/>
+  <object name="zombie" type="walk" x="369" y="516" width="85" height="35"/>
+  <object name="solid" type="solid" x="513" y="545" width="63" height="35"/>
+  <object name="solid" type="solid" x="256" y="545" width="63" height="35"/>
   <object name="zombie" type="guard" x="636" y="510" width="85" height="35"/>
-  <object name="zombie" type="stand" x="131" y="509" width="85" height="35"/>
-  <object name="zombie" type="walk" x="37" y="509" width="85" height="35"/>
+  <object name="zombie" type="stand" x="24" y="513" width="85" height="35"/>
+  <object name="zombie" type="walk" x="135" y="511" width="85" height="35"/>
  </objectgroup>
 </map>

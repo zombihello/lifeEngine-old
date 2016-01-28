@@ -23,6 +23,9 @@
     <ClCompile Include="lifeEngine\LevelManager.cpp" />
     <ClCompile Include="lifeEngine\LightManager.cpp" />
     <ClCompile Include="lifeEngine\Light.cpp" />
+    <ClCompile Include="lifeEngine\BasicEntity.cpp" />
+    <ClCompile Include="lifeEngine\EntityManager.cpp" />
+    <ClCompile Include="lifeEngine\PhysicManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="XML">
@@ -46,5 +49,8 @@
     <ClInclude Include="lifeEngine\LevelManager.h" />
     <ClInclude Include="lifeEngine\LightManager.h" />
     <ClInclude Include="lifeEngine\Light.h" />
+    <ClInclude Include="lifeEngine\BasicEntity.h" />
+    <ClInclude Include="lifeEngine\EntityManager.h" />
+    <ClInclude Include="lifeEngine\PhysicManager.h" />
   </ItemGroup>
 </Project>

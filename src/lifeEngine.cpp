@@ -8,6 +8,86 @@
 #include "lifeEngine\Text.h"
 #include "lifeEngine\LevelManager.h"
 #include "lifeEngine\LightManager.h"
+#include "lifeEngine\EntityManager.h"
+#include "lifeEngine\PhysicManager.h"
+
+class Player : public le::BasicEntity , private le::PhysicManager
+{
+public:
+    Player( le::System& System ) : le::PhysicManager( System.GetConfiguration().fTime )
+    {
+        RenderWindow = &System.GetWindow();
+        fTime = &System.GetConfiguration().fTime;
+
+        Texture.loadFromFile( "pl.png" ); // load texture for player
+        Sprite.setTexture( Texture );
+
+        Rect = FloatRect( 20 , 20 , Texture.getSize().x , Texture.getSize().y );
+
+        le::BasicEntity::Option( "Player" , 100 , 0 );  // init values
+        le::PhysicManager::Option();
+    }
+
+    void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*> vEntity )
+    {
+        if ( Keyboard::isKeyPressed( Keyboard::A ) ) fDx = -0.1;  // Move left
+        if ( Keyboard::isKeyPressed( Keyboard::D ) ) fDx = 0.1; // Move right
+        if ( Keyboard::isKeyPressed( Keyboard::W ) && bOnGround ) { fDy = -0.4; bOnGround = false; } // Move jump
+
+        Rect.left += fDx * *fTime;
+        UpdatePhysic( obj , vEntity , Rect , 0 ); // update physic
+
+        Rect.top += fDy * *fTime;
+        UpdatePhysic( obj , vEntity , Rect , 1 );
+
+        Sprite.setPosition( Rect.left , Rect.top ); // update position
+        RenderWindow->draw( Sprite );
+
+        fDx = 0;
+    }
+private:
+    RenderWindow*       RenderWindow;
+    float*              fTime;
+};
+
+
+
+class Zombie : public le::BasicEntity , private le::PhysicManager
+{
+public:
+    Zombie( le::System& System ) : le::PhysicManager( System.GetConfiguration().fTime )
+    {
+        RenderWindow = &System.GetWindow();
+        fTime = &System.GetConfiguration().fTime;
+
+        Texture.loadFromFile( "zh.png" ); // load texture for player
+        Sprite.setTexture( Texture );
+
+        Rect = FloatRect( 50 , 50 , Texture.getSize().x , Texture.getSize().y );
+
+        le::BasicEntity::Option( "Zombie" , 100 , 0 );  // init values
+        le::PhysicManager::Option();
+    }
+
+    void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*> vEntity )
+    {
+        Rect.left += fDx * *fTime;
+        UpdatePhysic( obj , vEntity , Rect , 0 ); // update physic
+
+        Rect.top += fDy * *fTime;
+        UpdatePhysic( obj , vEntity , Rect , 1 );
+
+        Sprite.setPosition( Rect.left , Rect.top ); // update position
+        RenderWindow->draw( Sprite );
+
+        fDx = 0;
+    }
+private:
+    RenderWindow*       RenderWindow;
+    float*              fTime;
+};
+
+
 
 class StageGame : public le::BasicStageGame
 {
@@ -22,6 +102,8 @@ public:
         Button = new le::Button( System );
         Text = new le::Text( System );
 
+        EntityManager.CreateEntity( new Player( System ) );
+        EntityManager.CreateEntity( new Zombie( System ) );
 
         TextManager->LoadFont( "1.ttf" ); // Load font for text
         MouseCursor->LoadTexture( "cur.png" ); // Load texture for cursor
@@ -46,9 +128,8 @@ public:
         //Create light
         LightManager->LoadMask( "Spotlight.png" ); // uploaded mask for light ID: 1
         LightManager->CreateLight( Vector2f( 50.f , 50.f ) , 100 , Color::White );
-        //LightManager->LoadMask( "light.png" ); // uploaded mask for light ID: 2
-        LightManager->CreateLight( Vector2f( 150.f , 150.f ) , 150 , Color::Green );
-
+        LightManager->LoadMask( "light.png" ); // uploaded mask for light ID: 2
+        LightManager->CreateLight( Vector2f( 450.f , 150.f ) , 50 , Color::Green );
     }
 
     ~StageGame()
@@ -68,6 +149,7 @@ public:
         Text->UpdateText();
         ButtonManager->UpdateButtons();
         Button->UpdateButton();
+        EntityManager.UpdateAllEntity( LevelManager.GetAllObjects() , EntityManager.GetAllEntity() );
         LightManager->DrawAllLight( System->GetWindow() );
         MouseCursor->DrawCursor( System->GetWindow() );
     }
@@ -80,7 +162,12 @@ private:
     le::Text*               Text;
     le::LevelManager        LevelManager;
     le::LightManager*       LightManager;
+    le::EntityManager       EntityManager;
 };
+
+
+
+
 
 int main()
 {
