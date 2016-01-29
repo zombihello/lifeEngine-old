@@ -3,6 +3,7 @@
 le::PhysicManager::PhysicManager( float& fTime )
 {
     this->fTime = &fTime;
+    sNameEntityCollided = "";
 }
 
 le::PhysicManager::~PhysicManager()
@@ -33,7 +34,24 @@ void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> 
     }
 
     // Check colision for entity
+    for ( int i = 0; i < vEntity.size(); i++ )
+    {
+        if ( RectEntity.intersects( vEntity[ i ]->GetRect() ) )
+            if ( RectEntity != vEntity[ i ]->GetRect() )
+            {
+                if ( fDx < 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left + vEntity[ i ]->GetRect().width;
+                if ( fDx > 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left - RectEntity.width;
+                if ( fDy < 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top + RectEntity.height; fDy = 0; }
+                if ( fDy > 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top - RectEntity.height; bOnGround = true; fDy = 0; }
+                sNameEntityCollided = vEntity[ i ]->GetNameEntity();
+            }
+    }
 
+}
+
+string le::PhysicManager::GetNameEntityCollided() const
+{
+    return sNameEntityCollided;
 }
 
 void le::PhysicManager::Option()

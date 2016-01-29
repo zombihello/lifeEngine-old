@@ -40,6 +40,9 @@ public:
         Rect.top += fDy * *fTime;
         UpdatePhysic( obj , vEntity , Rect , 1 );
 
+        if ( GetNameEntityCollided() == "Zombie" )
+            Sprite.setColor( Color::Red );
+
         Sprite.setPosition( Rect.left , Rect.top ); // update position
         RenderWindow->draw( Sprite );
 
@@ -71,11 +74,19 @@ public:
 
     void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*> vEntity )
     {
+
+        if ( Keyboard::isKeyPressed( Keyboard::Left ) ) fDx = -0.1;  // Move left
+        if ( Keyboard::isKeyPressed( Keyboard::Right ) ) fDx = 0.1; // Move right
+        if ( Keyboard::isKeyPressed( Keyboard::Up ) && bOnGround ) { fDy = -0.4; bOnGround = false; } // Move jump
+
         Rect.left += fDx * *fTime;
         UpdatePhysic( obj , vEntity , Rect , 0 ); // update physic
 
         Rect.top += fDy * *fTime;
         UpdatePhysic( obj , vEntity , Rect , 1 );
+
+        if ( GetNameEntityCollided() == "Player" )
+            Sprite.setColor( Color::Red );
 
         Sprite.setPosition( Rect.left , Rect.top ); // update position
         RenderWindow->draw( Sprite );
@@ -101,19 +112,21 @@ public:
         ButtonManager = new le::ButtonManager( System );
         Button = new le::Button( System );
         Text = new le::Text( System );
+        LevelManager = new le::LevelManager( System );
+        EntityManager = new le::EntityManager( System );
 
-        EntityManager.CreateEntity( new Player( System ) );
-        EntityManager.CreateEntity( new Zombie( System ) );
+        EntityManager->CreateEntity( new Player( System ) );
+        EntityManager->CreateEntity( new Zombie( System ) );
 
         TextManager->LoadFont( "1.ttf" ); // Load font for text
         MouseCursor->LoadTexture( "cur.png" ); // Load texture for cursor
         Text->SetFont( TextManager->GetFont() );
-        LevelManager.LoadFromFile( "a0a0.map" ); // map uploaded | Created in the program 'Tiled'
+        LevelManager->LoadFromFile( "a0a0.map" ); // map uploaded | Created in the program 'Tiled'
 
-        LightManager = new le::LightManager( LevelManager.GetMapSize().x * LevelManager.GetTileSize().x , LevelManager.GetMapSize().y * LevelManager.GetTileSize().y );
+        LightManager = new le::LightManager( System , LevelManager->GetMapSize().x * LevelManager->GetTileSize().x , LevelManager->GetMapSize().y * LevelManager->GetTileSize().y );
 
         // Write text
-        TextManager->WriteText( "Text" , 15 , Vector2f( 25.f , 25.f ) , Color::Red );
+        TextManager->WriteText( "For open console press '~'" , 15 , Vector2f( 25.f , 25.f ) , Color::Red );
         TextManager->WriteText( "Text and Value: " , 15 , Vector2f( 25.f , 50.f ) , Color::Red , 25 );
 
         // Create button
@@ -139,17 +152,19 @@ public:
         delete Button;
         delete Text;
         delete LightManager;
+        delete LevelManager;
+        delete EntityManager;
     }
 
     void CheckStages()
     {
         // RENDER
-        LevelManager.Draw( System->GetWindow() );
+        LevelManager->Draw( System->GetWindow() );
         TextManager->UpdateText();
         Text->UpdateText();
         ButtonManager->UpdateButtons();
         Button->UpdateButton();
-        EntityManager.UpdateAllEntity( LevelManager.GetAllObjects() , EntityManager.GetAllEntity() );
+        EntityManager->UpdateAllEntity( LevelManager->GetAllObjects() , EntityManager->GetAllEntity() );
         LightManager->DrawAllLight( System->GetWindow() );
         MouseCursor->DrawCursor( System->GetWindow() );
     }
@@ -160,9 +175,9 @@ private:
     le::MouseCursor*        MouseCursor;
     le::Button*             Button;
     le::Text*               Text;
-    le::LevelManager        LevelManager;
+    le::LevelManager*       LevelManager;
     le::LightManager*       LightManager;
-    le::EntityManager       EntityManager;
+    le::EntityManager*      EntityManager;
 };
 
 
@@ -171,7 +186,7 @@ private:
 
 int main()
 {
-    le::System System;
+    le::System System( "1.ttf" ); // "1.ttf" - this is route to font for console | ~ - open console
     StageGame StageGame( System );
 
     System.MainLoop( StageGame );

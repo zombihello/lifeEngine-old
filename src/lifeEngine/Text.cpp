@@ -3,6 +3,7 @@
 le::Text::Text( System & System )
 {
     RenderWindow = &System.GetWindow();
+    Console = &System.GetConsole();
 }
 
 le::Text::~Text()
@@ -11,7 +12,8 @@ le::Text::~Text()
 
 void le::Text::LoadFont( const string sRoute )
 {
-    Font.loadFromFile( sRoute );
+    if ( !Font.loadFromFile( sRoute ) )
+        Console->WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
 }
 
 void le::Text::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText )

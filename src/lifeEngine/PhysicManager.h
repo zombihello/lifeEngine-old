@@ -28,6 +28,12 @@ namespace le
         // num = 1 this check colision for y | num = 1 ЭТО ПРОВЕРКА СТОЛКНОВЕНИЙ ПО ИГРИКУ
         ////////////////////////////////////////////////////////////////////////////////////
         void UpdatePhysic( vector<Object> obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num );
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        // GET THE NAME OF THE ENTITY COLLIDED WITH | ПОЛУЧИТЬ ИМЯ ЭНТИТИ С КОТОРЫМ СТОЛКНУЛИСЬ
+        // @return sNameEntity | string
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        string GetNameEntityCollided() const;
     protected:
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
@@ -36,9 +42,11 @@ namespace le
 
         float               fDx;
         float               fDy;
-        float*              fTime;
 
         bool                bOnGround;
+    private:
+        float*              fTime;
+        string              sNameEntityCollided;
     };
 }
 

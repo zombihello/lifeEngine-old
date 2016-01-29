@@ -5,7 +5,6 @@
 // LIFEENGINE
 ///////////////////
 #include "System.h"
-#include <ostream>
 
 namespace le
 {
@@ -66,6 +65,7 @@ namespace le
     private:
         RenderWindow*       RenderWindow;
         Font                Font;
+        Console*            Console;
         vector<Text*>       vText;
     };
 

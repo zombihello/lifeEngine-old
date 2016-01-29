@@ -60,6 +60,7 @@ namespace le
     private:
         RenderWindow*           RenderWindow;
         Font                    Font;
+        Console*                Console;
         sf::Text                text;
     };
 

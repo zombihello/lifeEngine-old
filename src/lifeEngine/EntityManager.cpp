@@ -2,8 +2,9 @@
 
 
 
-le::EntityManager::EntityManager()
+le::EntityManager::EntityManager( System& System )
 {
+    Console = &System.GetConsole();
 }
 
 
@@ -48,6 +49,7 @@ le::BasicEntity * le::EntityManager::GetEntity( const string sName )
         if ( vEntity[ i ]->GetNameEntity() == sName )
             return vEntity[ i ];
 
+    Console->WriteToConsole( "Error: Entity [" + sName + "] Not Found" , Color::Red );
     return NULL;
 }
 

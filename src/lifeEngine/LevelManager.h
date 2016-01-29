@@ -14,24 +14,24 @@ namespace le
         float GetPropertyFloat( string name );
         string GetPropertyString( string name );
 
-        string name;
-        string type;
-        Rect<float> rect;
-        map<string , string> properties;
+        string                      name;
+        string                      type;
+        Rect<float>                 rect;
+        map<string , string>        properties;
 
         Sprite sprite;
     };
 
     struct Layer
     {
-        int opacity;
-        vector<Sprite> tiles;
+        int                 opacity;
+        vector<Sprite>      tiles;
     };
 
     class LevelManager
     {
     public:
-        LevelManager();
+        LevelManager( System& System );
         ~LevelManager();
 
         bool LoadFromFile( string filename );
@@ -46,11 +46,12 @@ namespace le
 
         int width , height , tileWidth , tileHeight;
     private:
-        int firstTileID;
-        Rect<float> drawingBounds;
-        Texture tilesetImage;
-        vector<Object> objects;
-        vector<Layer> layers;
+        int                 firstTileID;
+        Rect<float>         drawingBounds;
+        Texture             tilesetImage;
+        Console*            Console;
+        vector<Object>      objects;
+        vector<Layer>       layers;
     };
 }
 

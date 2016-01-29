@@ -13,10 +13,10 @@ namespace le
     class EntityManager
     {
     public:
-        ///////////////////////////////////////////////////
-        // CONSTRUCTOR DEFAULT | КОНСТРУКТОР ПО УМОЛЧАНИЮ
-        //////////////////////////////////////////////////
-        EntityManager();
+        ////////////////////////////////
+        // CONSTRUCTOR | КОНСТРУКТОР 
+        ////////////////////////////////
+        EntityManager( System& System );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -31,7 +31,7 @@ namespace le
         ////////////////////////////////////////////
         // UPDATE ALL ENTITY | ОБНОВИТЬ ВСЕ ЭНТИТИ
         ///////////////////////////////////////////
-        void UpdateAllEntity( vector<Object> obj , vector<BasicEntity*> vEntity  );
+        void UpdateAllEntity( vector<Object> obj , vector<BasicEntity*> vEntity );
 
         ////////////////////////////////////////////
         // REMOVE ALL ENTITY | УДАЛИТЬ ВСЕ ЭНТИТИ
@@ -50,6 +50,7 @@ namespace le
         ////////////////////////////////////////
         vector<BasicEntity*> GetAllEntity() const;
     private:
+        Console*                         Console;
         vector<BasicEntity*>            vEntity;
     };
 }

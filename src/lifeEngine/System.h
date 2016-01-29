@@ -27,6 +27,7 @@ using namespace sf;
 /////////////////
 #include "BasicStageGame.h"
 #include "MouseCursor.h"
+#include "Console.h"
 
 namespace le
 {
@@ -59,7 +60,7 @@ namespace le
         ///////////////////////////////////////////////////
         // CONSTRUCTOR DEFAULT | КОНСТРУКТОР ПО УМОЛЧАНИЮ
         ///////////////////////////////////////////////////
-        System();
+        System( const string sRouteToFontForConsole );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -154,6 +155,12 @@ namespace le
         // @return MouseCursor
         /////////////////////////////////////////////
         MouseCursor& GetMouseCursor();
+
+        ////////////////////////////////////
+        // GET CONSOLE | ПОЛУЧИТЬ КОНСОЛЬ 
+        // @return Console
+        ///////////////////////////////////
+        Console& GetConsole();
     private:
         template<typename T> T InitVar();
         void clock();
@@ -164,6 +171,7 @@ namespace le
         Event               Event;
         MouseCursor         MouseCursor;
         Clock               Clock;
+        Console*            Console;
     };
 
 

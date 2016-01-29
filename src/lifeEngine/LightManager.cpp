@@ -2,8 +2,10 @@
 
 
 
-le::LightManager::LightManager()
+le::LightManager::LightManager( System& System )
 {
+    Console = &System.GetConsole();
+
     iMapWidth = 800;
     iMapHeight = 600;
 
@@ -14,8 +16,10 @@ le::LightManager::LightManager()
     RenderTexture.create( iMapWidth , iMapHeight + 30 );
 }
 
-le::LightManager::LightManager( const int iMapWidth , const int iMapHeight )
+le::LightManager::LightManager( System& System , const int iMapWidth , const int iMapHeight )
 {
+    Console = &System.GetConsole();
+
     this->iMapWidth = iMapWidth;
     this->iMapHeight = iMapHeight;
 
@@ -34,8 +38,11 @@ le::LightManager::~LightManager()
 
 void le::LightManager::LoadMask( const string sRoute , bool Smooth )
 {
-    Texture.loadFromFile( sRoute );
-    Texture.setSmooth( Smooth );
+
+    if ( !Texture.loadFromFile( sRoute ) )
+        Console->WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
+    else
+        Texture.setSmooth( Smooth );
 }
 
 void le::LightManager::CreateLight( Vector2f PositionLight , const float fRadius , Color ColorLight )

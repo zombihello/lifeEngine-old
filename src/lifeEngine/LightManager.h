@@ -12,15 +12,15 @@ namespace le
     class LightManager
     {
     public:
-        ///////////////////////////////////////////////////
-        // CONSTRUCTOR DEFAULT | КОНСТРУКТОР ПО УМОЛЧАНИЮ
-        ///////////////////////////////////////////////////
-        LightManager();
+        ///////////////////////////////
+        // CONSTRUCTOR | КОНСТРУКТОР  
+        //////////////////////////////
+        LightManager( System& System );
 
         ///////////////////////////////////////////////////
         // CONSTRUCTOR | КОНСТРУКТОР  
         ///////////////////////////////////////////////////
-        LightManager( const int iMapWidth , const int iMapHeight );
+        LightManager( System& System , const int iMapWidth , const int iMapHeight );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -72,6 +72,7 @@ namespace le
         float                   color[ 3 ];
         RenderTexture           RenderTexture;
         Texture                 Texture;
+        Console*                Console;
         vector<Light*>          vLight;
     };
 }
