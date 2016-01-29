@@ -136,7 +136,7 @@ namespace le
         // GET TYPE EVENT | ПОЛУЧИТЬ ТИП СОБЫТИЯ
         // @return TypeEvent
         //////////////////////////////////////////////
-        Event::EventType GetTypeEvent() const;
+        Event::EventType& GetTypeEvent();
 
         //////////////////////////////////////////////
         // GET WINDOW | ПОЛУЧИТЬ ОКНО
@@ -148,7 +148,7 @@ namespace le
         // GET EVENT | ПОЛУЧИТЬ СОБЫТИЕ
         // @return Event
         //////////////////////////////////////////////
-        Event GetEvent() const;
+        Event& GetEvent();
 
         /////////////////////////////////////////////
         // GET MOUSE CURSOR | ПОЛУЧИТЬ КУРСОР МЫШИ

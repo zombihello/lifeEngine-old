@@ -10,6 +10,8 @@
 #include "lifeEngine\LightManager.h"
 #include "lifeEngine\EntityManager.h"
 #include "lifeEngine\PhysicManager.h"
+#include "lifeEngine\MusicManager.h"
+#include "lifeEngine\SoundManager.h"
 
 class Player : public le::BasicEntity , private le::PhysicManager
 {
@@ -114,6 +116,8 @@ public:
         Text = new le::Text( System );
         LevelManager = new le::LevelManager( System );
         EntityManager = new le::EntityManager( System );
+        MusicManager = new le::MusicManager( System );
+        SoundManager = new le::SoundManager( System );
 
         EntityManager->CreateEntity( new Player( System ) );
         EntityManager->CreateEntity( new Zombie( System ) );
@@ -122,12 +126,15 @@ public:
         MouseCursor->LoadTexture( "cur.png" ); // Load texture for cursor
         Text->SetFont( TextManager->GetFont() );
         LevelManager->LoadFromFile( "a0a0.map" ); // map uploaded | Created in the program 'Tiled'
+        MusicManager->LoadMusic( "XF_song2.ogg" , "music" , true );
+        SoundManager->LoadSound( "wpn_select.wav" , "sound" );
 
         LightManager = new le::LightManager( System , LevelManager->GetMapSize().x * LevelManager->GetTileSize().x , LevelManager->GetMapSize().y * LevelManager->GetTileSize().y );
 
         // Write text
         TextManager->WriteText( "For open console press '~'" , 15 , Vector2f( 25.f , 25.f ) , Color::Red );
         TextManager->WriteText( "Text and Value: " , 15 , Vector2f( 25.f , 50.f ) , Color::Red , 25 );
+
 
         // Create button
         Text->WriteText( "This is ButtonManager" , 15 , Vector2f( 25.f , 75.f ) , Color::Red );
@@ -154,11 +161,18 @@ public:
         delete LightManager;
         delete LevelManager;
         delete EntityManager;
+        delete MusicManager;
+        delete SoundManager;
     }
 
     void CheckStages()
     {
         // RENDER
+        MusicManager->PlayMusic( "music" );
+
+        if ( System->GetTypeEvent() == Event::MouseButtonPressed )
+                SoundManager->PlaySound( "sound" );
+
         LevelManager->Draw( System->GetWindow() );
         TextManager->UpdateText();
         Text->UpdateText();
@@ -178,6 +192,8 @@ private:
     le::LevelManager*       LevelManager;
     le::LightManager*       LightManager;
     le::EntityManager*      EntityManager;
+    le::MusicManager*       MusicManager;
+    le::SoundManager*       SoundManager;
 };
 
 

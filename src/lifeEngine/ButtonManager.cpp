@@ -48,7 +48,10 @@ void le::ButtonManager::DeleteAllButtons()
 void le::ButtonManager::DeleteButton( const int id )
 {
     if ( id - 1 > -1 && id - 1 < vButton.size() )
+    {
+        delete vButton[ id - 1 ];
         vButton.erase( vButton.begin() + id - 1 );
+    }
 }
 
 int le::ButtonManager::GetTmpIdButton() const

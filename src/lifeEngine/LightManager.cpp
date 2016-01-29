@@ -79,7 +79,10 @@ void le::LightManager::DeleteAllLight()
 void le::LightManager::DeleteLight( const int id )
 {
     if ( id - 1 > -1 && id - 1 < vLight.size() )
+    {
+        delete vLight[ id - 1 ];
         vLight.erase( vLight.begin() + id - 1 );
+    }
 }
 
 void le::LightManager::SetMapSize( const int iMapWith , const int iMapHeight )

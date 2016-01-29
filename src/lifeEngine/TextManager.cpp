@@ -13,7 +13,7 @@ le::TextManager::~TextManager()
 
 void le::TextManager::LoadFont( const string sRoute )
 {
-    if(!Font.loadFromFile( sRoute ))
+    if ( !Font.loadFromFile( sRoute ) )
         Console->WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
 }
 
@@ -49,7 +49,10 @@ void le::TextManager::DeleteAllText()
 void le::TextManager::DeleteText( int ID )
 {
     if ( ID - 1 > -1 && ID - 1 < vText.size() )
-        vText.erase( vText.begin() + ID - 1 );
+    {
+        delete vText[ ID - 1 ];
+        vText.erase( vText.begin() + ID - 1 );    
+    }
 }
 
 Text le::TextManager::GetText( int ID )

@@ -27,6 +27,8 @@
     <ClCompile Include="lifeEngine\EntityManager.cpp" />
     <ClCompile Include="lifeEngine\PhysicManager.cpp" />
     <ClCompile Include="lifeEngine\Console.cpp" />
+    <ClCompile Include="lifeEngine\MusicManager.cpp" />
+    <ClCompile Include="lifeEngine\SoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="XML">
@@ -54,5 +56,7 @@
     <ClInclude Include="lifeEngine\EntityManager.h" />
     <ClInclude Include="lifeEngine\PhysicManager.h" />
     <ClInclude Include="lifeEngine\Console.h" />
+    <ClInclude Include="lifeEngine\MusicManager.h" />
+    <ClInclude Include="lifeEngine\SoundManager.h" />
   </ItemGroup>
 </Project>

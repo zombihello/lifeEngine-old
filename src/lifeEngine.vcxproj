@@ -183,7 +183,9 @@
     <ClCompile Include="lifeEngine\Light.cpp" />
     <ClCompile Include="lifeEngine\LightManager.cpp" />
     <ClCompile Include="lifeEngine\MouseCursor.cpp" />
+    <ClCompile Include="lifeEngine\MusicManager.cpp" />
     <ClCompile Include="lifeEngine\PhysicManager.cpp" />
+    <ClCompile Include="lifeEngine\SoundManager.cpp" />
     <ClCompile Include="lifeEngine\System.cpp" />
     <ClCompile Include="lifeEngine\Text.cpp" />
     <ClCompile Include="lifeEngine\TextManager.cpp" />
@@ -203,7 +205,9 @@
     <ClInclude Include="lifeEngine\Light.h" />
     <ClInclude Include="lifeEngine\LightManager.h" />
     <ClInclude Include="lifeEngine\MouseCursor.h" />
+    <ClInclude Include="lifeEngine\MusicManager.h" />
     <ClInclude Include="lifeEngine\PhysicManager.h" />
+    <ClInclude Include="lifeEngine\SoundManager.h" />
     <ClInclude Include="lifeEngine\System.h" />
     <ClInclude Include="lifeEngine\Text.h" />
     <ClInclude Include="lifeEngine\TextManager.h" />

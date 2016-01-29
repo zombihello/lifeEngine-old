@@ -43,18 +43,30 @@ namespace le
         ///////////////////////////////////////
         // UPDATE CONSOLE  | ОБНОВИТЬ КОНСОЛЬ  
         //////////////////////////////////////
-        void UpdateCondole( RenderWindow& RenderWindow );
+        void UpdateConsole( RenderWindow& RenderWindow , Event& Event );
 
         //////////////////////////////////////
         // CLEAR CONSOLE  | ОЧИСТИТЬ КОНСОЛЬ  
         /////////////////////////////////////
         void ClearConsole();
     private:
+        ///////////////////////////////////////
+        // INPUT IN CONSOLE  | ВВОД В КОНСОЛЬ
+        //////////////////////////////////////
+        void InputInConsole( RenderWindow & RenderWindow , Event& Event );
+
+        ///////////////////////////////////////
+        // PARSING COMAND | ПАРСИНГ КОМАНДЫ  
+        //////////////////////////////////////
+        void ParsingComand( const string sComand );
         float                       fLastY;
+
+        bool                        bConsoleOpen;
 
         RectangleShape              Background;
         Color                       ColorBackground;
         Font                        Font;
+        Text                        InputText;
         vector<Text*>               vConsole;
     };
 }

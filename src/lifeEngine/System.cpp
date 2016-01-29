@@ -165,9 +165,10 @@ void le::System::MainLoop( BasicStageGame & BasicStageGame )
         if ( Event.type != Event::LostFocus )
         {
             BasicStageGame.CheckStages();
-            Console->UpdateCondole( RenderWindow );
+            Console->UpdateConsole( RenderWindow, Event );
         }
 
+        TypeEvent = (Event::EventType)-1;
         RenderWindow.display();
     }
 }
@@ -195,7 +196,7 @@ Configuration& le::System::GetConfiguration()
     return Configuration;
 }
 
-Event::EventType le::System::GetTypeEvent() const
+Event::EventType& le::System::GetTypeEvent()
 {
     return TypeEvent;
 }
@@ -205,7 +206,7 @@ RenderWindow & le::System::GetWindow()
     return RenderWindow;
 }
 
-Event le::System::GetEvent() const
+Event& le::System::GetEvent()
 {
     return Event;
 }
