@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="lifeEngine.cpp" />
     <ClCompile Include="XML\tinystr.cpp">
       <Filter>XML</Filter>
     </ClCompile>
@@ -29,6 +28,10 @@
     <ClCompile Include="lifeEngine\Console.cpp" />
     <ClCompile Include="lifeEngine\MusicManager.cpp" />
     <ClCompile Include="lifeEngine\SoundManager.cpp" />
+    <ClCompile Include="lifeEngine\BasicWeapon.cpp" />
+    <ClCompile Include="lifeEngine\WeaponManager.cpp" />
+    <ClCompile Include="lifeEngine\AnimationManager.cpp" />
+    <ClCompile Include="example\lifeEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="XML">
@@ -58,5 +61,8 @@
     <ClInclude Include="lifeEngine\Console.h" />
     <ClInclude Include="lifeEngine\MusicManager.h" />
     <ClInclude Include="lifeEngine\SoundManager.h" />
+    <ClInclude Include="lifeEngine\BasicWeapon.h" />
+    <ClInclude Include="lifeEngine\WeaponManager.h" />
+    <ClInclude Include="lifeEngine\AnimationManager.h" />
   </ItemGroup>
 </Project>
