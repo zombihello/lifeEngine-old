@@ -16,7 +16,7 @@ namespace le
         ////////////////////////////////
         // CONSTRUCTOR | КОНСТРУКТОР 
         ////////////////////////////////
-        EntityManager( System& System );
+        EntityManager();
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -31,7 +31,7 @@ namespace le
         ////////////////////////////////////////////
         // UPDATE ALL ENTITY | ОБНОВИТЬ ВСЕ ЭНТИТИ
         ///////////////////////////////////////////
-        void UpdateAllEntity( vector<Object> obj , vector<BasicEntity*> vEntity );
+        void UpdateAllEntity( vector<Object> obj , View Camera );
 
         ////////////////////////////////////////////
         // REMOVE ALL ENTITY | УДАЛИТЬ ВСЕ ЭНТИТИ
@@ -50,7 +50,6 @@ namespace le
         ////////////////////////////////////////
         vector<BasicEntity*> GetAllEntity() const;
     private:
-        Console*                         Console;
         vector<BasicEntity*>            vEntity;
     };
 }

@@ -3,7 +3,6 @@
 
 le::MusicManager::MusicManager( System & System )
 {
-    Console = &System.GetConsole();
     Configuration = &System.GetConfiguration();
 }
 
@@ -14,7 +13,7 @@ le::MusicManager::~MusicManager()
 
 void le::MusicManager::LoadMusic( const string sRoute , const string sNameMusic , bool loop )
 {
-    vMusic.push_back( new le::Music( *Console , sRoute , sNameMusic , loop ) );
+    vMusic.push_back( new le::Music( sRoute , sNameMusic , loop ) );
 }
 
 void le::MusicManager::PlayMusic( const string sNameMusic )
@@ -26,7 +25,18 @@ void le::MusicManager::PlayMusic( const string sNameMusic )
         if ( Music->sNameMusic == sNameMusic && Configuration->bMusic )
         {
             Music->music.setVolume( Configuration->iVolumeMusic );
-            if ( Music->music.getStatus() != sf::Music::Playing ) Music->music.play();
+
+            if ( !Music->bIsPlaying )
+            {
+                Music->music.play();
+                Music->bIsPlaying = true;
+            }
+            else if ( Music->music.getStatus() == sf::Music::Stopped )
+            {
+                delete Music;
+                vMusic.erase( vMusic.begin() + i );
+            }
+
         }
         else if ( Music->sNameMusic == sNameMusic && !Configuration->bMusic )
             Music->music.pause();
@@ -55,11 +65,11 @@ void le::MusicManager::DeleteMusic( const string sNameMusic )
     }
 }
 
-le::Music::Music( Console& Console , const string sRoute , const string sNameMusic , bool loop )
+le::Music::Music( const string sRoute , const string sNameMusic , bool loop )
 {
-    if ( !music.openFromFile( sRoute ) )
-        Console.WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
+    music.openFromFile( sRoute );
 
     music.setLoop( loop );
+    bIsPlaying = false;
     this->sNameMusic = sNameMusic;
 }

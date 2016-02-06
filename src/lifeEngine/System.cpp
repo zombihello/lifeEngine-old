@@ -2,11 +2,8 @@
 using namespace le;
 
 
-System::System( const string sRouteToFontForConsole )
+System::System()
 {
-    Console = new le::Console( Configuration.iWindowWidth , Configuration.iWindowHeight );
-    Console->LoadFont( sRouteToFontForConsole );
-
     if ( FileExists( "config.cfg" ) ) // if file configuration exists
     {
         Configuration.iWindowWidth = ReadFile<int>( "config.cfg" , "iWindowWidth" );
@@ -24,7 +21,6 @@ System::System( const string sRouteToFontForConsole )
     else // otherwise write file config.cfg
     {
         cout << "Error: File [config.cfg] Not Found\n";
-        Console->WriteToConsole( "Error: File [config.cfg] Not Found" , Color::Red );
         UpdateConfig();
     }
 
@@ -38,7 +34,6 @@ System::System( const string sRouteToFontForConsole )
 
 System::~System()
 {
-    delete Console;
 }
 
 string le::System::ReadXMLFile( const string sRoute , const string sTagMain , const string sTag )
@@ -54,7 +49,6 @@ string le::System::ReadXMLFile( const string sRoute , const string sTagMain , co
         if ( !File.FirstChildElement( sTagMain.c_str() ) )
         {
             cout << "Error: In File [" << sRoute << "] Not Found FirstChildElement " << sTagMain << "\n";
-            Console->WriteToConsole( "Error: In File [" + sRoute + "] Not Found FirstChildElement " + sTagMain , Color::Red );
             return "ERROR";
         }
 
@@ -63,7 +57,6 @@ string le::System::ReadXMLFile( const string sRoute , const string sTagMain , co
         if ( !Head->FirstChildElement( sTag.c_str() ) )
         {
             cout << "Error: In File [" << sRoute << "] Not Found FirstChildElement " << sTag << "\n";
-            Console->WriteToConsole( "Error: In File [" + sRoute + "] Not Found FirstChildElement " + sTag , Color::Red );
             return "ERROR";
         }
 
@@ -78,10 +71,7 @@ string le::System::ReadXMLFile( const string sRoute , const string sTagMain , co
         return sString;
     }
     else
-    {
         cout << "Error: File [" << sRoute << "] Not Found\n";
-        Console->WriteToConsole( "Error: File[" + sRoute + " ] Not Found" , Color::Red );
-    }
 
     return "ERROR";
 }
@@ -131,8 +121,6 @@ void le::System::UpdateConfig()
     SaveFile( "config.cfg" , "bMusic" , Configuration.bMusic );
     SaveFile( "config.cfg" , "iVolumeSound" , Configuration.iVolumeSound );
     SaveFile( "config.cfg" , "iVolumeMusic" , Configuration.iVolumeMusic );
-
-    Console->WriteToConsole( "Info: Save File [config.cfg]" , Color::White );
 }
 
 void le::System::WindowCreate( const int iStyle )
@@ -154,6 +142,7 @@ void le::System::MainLoop( BasicStageGame & BasicStageGame )
         {
             TypeEvent = Event.type;
             if ( TypeEvent == Event::Closed ) RenderWindow.close();
+
             MouseCursor.MousePosition( RenderWindow );
         }
 
@@ -162,13 +151,10 @@ void le::System::MainLoop( BasicStageGame & BasicStageGame )
         /////////////
         RenderWindow.clear();
 
-        if ( Event.type != Event::LostFocus )
-        {
+        if ( TypeEvent != Event::LostFocus )
             BasicStageGame.CheckStages();
-            Console->UpdateConsole( RenderWindow, Event );
-        }
 
-        TypeEvent = (Event::EventType)-1;
+        TypeEvent = ( Event::EventType ) - 1;
         RenderWindow.display();
     }
 }
@@ -214,11 +200,6 @@ Event& le::System::GetEvent()
 MouseCursor & le::System::GetMouseCursor()
 {
     return MouseCursor;
-}
-
-Console & le::System::GetConsole()
-{
-    return *Console;
 }
 
 void le::System::clock()

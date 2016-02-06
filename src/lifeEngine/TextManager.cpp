@@ -3,7 +3,6 @@
 le::TextManager::TextManager( le::System & System )
 {
     RenderWindow = &System.GetWindow();
-    Console = &System.GetConsole();
 }
 
 le::TextManager::~TextManager()
@@ -13,8 +12,7 @@ le::TextManager::~TextManager()
 
 void le::TextManager::LoadFont( const string sRoute )
 {
-    if ( !Font.loadFromFile( sRoute ) )
-        Console->WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
+    Font.loadFromFile( sRoute );
 }
 
 void le::TextManager::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText )

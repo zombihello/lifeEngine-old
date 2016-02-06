@@ -1,16 +1,22 @@
 ﻿#include "BasicEntity.h"
 
-int le::BasicEntity::GetHealtch() const
+le::BasicEntity::BasicEntity( System & System )
+{
+    RenderWindow = &System.GetWindow();
+    fTime = &System.GetConfiguration().fTime;
+}
+
+int& le::BasicEntity::GetHealtch()
 {
     return iHealtch;
 }
 
-int le::BasicEntity::GetArmor() const
+int& le::BasicEntity::GetArmor()
 {
     return iArmor;
 }
 
-bool le::BasicEntity::GetLife() const
+bool& le::BasicEntity::GetLife()
 {
     return bLife;
 }
@@ -30,11 +36,17 @@ FloatRect le::BasicEntity::GetRect() const
     return Rect;
 }
 
-void le::BasicEntity::Option( const string sName , const int Healtch , const int Armor )
+le::BasicEntity::TYPES_ENTITY le::BasicEntity::GetTypeEntity() const
+{
+    return TypeEntity;
+}
+
+void le::BasicEntity::Option( const string sName , const int Healtch , const int Armor , TYPES_ENTITY Type )
 {
     sNameEntity = sName;
     iHealtch = Healtch;
     iArmor = Armor;
+    TypeEntity = Type;
     fTimer = 0;
     bLife = true;
     bTick = false;

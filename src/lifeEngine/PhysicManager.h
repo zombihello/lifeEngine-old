@@ -22,6 +22,12 @@ namespace le
         ///////////////////////////////////////////////////
         ~PhysicManager();
 
+        enum TYPE_BODY
+        {
+            STATIC ,
+            DINAMIC
+        };
+
         ///////////////////////////////////////////////////////////////////////////////////
         // UPDATE PHYSIC | ОБНОВЛЕНИЕ ФИЗИКИ
         // num = 0 this check colision for x | num = 0 ЭТО ПРОВЕРКА СТОЛКНОВЕНИЙ ПО ИКСУ
@@ -29,16 +35,22 @@ namespace le
         ////////////////////////////////////////////////////////////////////////////////////
         void UpdatePhysic( vector<Object> obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num );
 
-        //////////////////////////////////////////////////////////////////////////////////////////
-        // GET THE NAME OF THE ENTITY COLLIDED WITH | ПОЛУЧИТЬ ИМЯ ЭНТИТИ С КОТОРЫМ СТОЛКНУЛИСЬ
+        //////////////////////////////////////////////////////////////////////
+        // GET ENTITY COLLIDED WITH | ПОЛУЧИТЬ ЭНТИТИ С КОТОРЫМ СТОЛКНУЛИСЬ
+        // @return BasicEntity*
+        //////////////////////////////////////////////////////////////////////
+        BasicEntity*  GetEntityCollided() const;
+
+        /////////////////////////////////////////////////////////////////////////
+        // GET THE OBJECT COLLIDED WITH | ПОЛУЧИТЬ ОБЪЕКТ С КОТОРЫМ СТОЛКНУЛИСЬ
         // @return sNameEntity | string
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        string GetNameEntityCollided() const;
+        ////////////////////////////////////////////////////////////////////////
+        Object GetObjectCollided() const;
     protected:
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
-        void Option();
+        void Option( TYPE_BODY Type = TYPE_BODY::DINAMIC );
 
         float               fDx;
         float               fDy;
@@ -46,7 +58,10 @@ namespace le
         bool                bOnGround;
     private:
         float*              fTime;
-        string              sNameEntityCollided;
+
+        TYPE_BODY           TypeBody;
+        BasicEntity*        EntityCollided;
+        Object              ObjectCollided;
     };
 }
 

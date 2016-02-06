@@ -44,7 +44,7 @@ namespace le
 
         ///////////////////////////////////////////////
         // GET COLOR BUTTON  | ПОЛУЧИТЬ ЦВЕТ КНОПКИ
-        // @return �olor
+        // @return Color
         //////////////////////////////////////////////
         Color GetColor() const;
 
@@ -61,6 +61,7 @@ namespace le
         int GetIdButton() const;
     private:
         int                 iId;
+
         Text                Text;
         Color               Color;
         FloatRect           RectButton;

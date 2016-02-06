@@ -5,6 +5,7 @@
 // LIFEENGINE
 ////////////////
 #include "System.h"
+#include "LevelManager.h"
 #include "Light.h"
 
 namespace le
@@ -36,11 +37,12 @@ namespace le
         // CREATE LIGHT | СОЗДАТЬ СВЕТ
         ///////////////////////////////
         void CreateLight( Vector2f PositionLight , const float fRadius , Color ColorLight );
+        void CreateLight( Object obj );
 
         //////////////////////////////////////////
         // DRAW All LIGHT | НАРИСОВАТЬ ВЕСЬ СВЕТ
         /////////////////////////////////////////
-        void DrawAllLight( RenderWindow& RenderWindow );
+        void DrawAllLight( RenderWindow& RenderWindow , View Camera );
 
         //////////////////////////////////////////
         // DELETE ALL LIGHT | УДАЛИТЬ ВЕСЬ СВЕТ
@@ -69,10 +71,11 @@ namespace le
     private:
         int                     iMapWidth;
         int                     iMapHeight;
+
         float                   color[ 3 ];
+
         RenderTexture           RenderTexture;
         Texture                 Texture;
-        Console*                Console;
         vector<Light*>          vLight;
     };
 }

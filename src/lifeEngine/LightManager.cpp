@@ -4,8 +4,6 @@
 
 le::LightManager::LightManager( System& System )
 {
-    Console = &System.GetConsole();
-
     iMapWidth = 800;
     iMapHeight = 600;
 
@@ -18,8 +16,6 @@ le::LightManager::LightManager( System& System )
 
 le::LightManager::LightManager( System& System , const int iMapWidth , const int iMapHeight )
 {
-    Console = &System.GetConsole();
-
     this->iMapWidth = iMapWidth;
     this->iMapHeight = iMapHeight;
 
@@ -38,10 +34,7 @@ le::LightManager::~LightManager()
 
 void le::LightManager::LoadMask( const string sRoute , bool Smooth )
 {
-
-    if ( !Texture.loadFromFile( sRoute ) )
-        Console->WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
-    else
+    if ( Texture.loadFromFile( sRoute ) )
         Texture.setSmooth( Smooth );
 }
 
@@ -52,17 +45,26 @@ void le::LightManager::CreateLight( Vector2f PositionLight , const float fRadius
     vLight[ vLight.size() - 1 ]->CreateLight( PositionLight , fRadius , ColorLight );
 }
 
-void le::LightManager::DrawAllLight( RenderWindow & RenderWindow )
+void le::LightManager::CreateLight( Object obj )
+{
+    vLight.push_back( new Light() );
+    LoadMask( obj.GetPropertyString( "route" ) );
+    vLight[ vLight.size() - 1 ]->SetMask( Texture );
+    vLight[ vLight.size() - 1 ]->CreateLight( Vector2f( obj.rect.left , obj.rect.top ) , obj.GetPropertyInt( "radius" ) , Color( obj.GetPropertyInt( "color_R" ) , obj.GetPropertyInt( "color_G" ) , obj.GetPropertyInt( "color_B" ) ) );
+}
+
+void le::LightManager::DrawAllLight( RenderWindow & RenderWindow , View Camera )
 {
     Sprite sLight_for_draw;
 
     for ( int i = 0; i < vLight.size(); i++ )
-        RenderTexture.draw( vLight[ i ]->GetLight() , sf::BlendAdd );
+        if ( FloatRect( Camera.getCenter().x - Camera.getSize().x / 2 , Camera.getCenter().y - Camera.getSize().y / 2 , Camera.getSize().x , Camera.getSize().y ).intersects( vLight[ i ]->GetRect() ) )
+            RenderTexture.draw( vLight[ i ]->GetLight() , sf::BlendAdd );
 
     const sf::Texture &tLight_for_draw = RenderTexture.getTexture();
 
     sLight_for_draw.setTexture( tLight_for_draw );
-    RenderWindow.draw( sLight_for_draw , sf::BlendMultiply );
+    RenderWindow.draw( sLight_for_draw , BlendMultiply );
 
     RenderTexture.clear( Color::Color( color[ 0 ] , color[ 1 ] , color[ 2 ] ) );
     RenderTexture.display();

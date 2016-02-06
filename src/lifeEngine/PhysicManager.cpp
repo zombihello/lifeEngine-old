@@ -3,7 +3,7 @@
 le::PhysicManager::PhysicManager( float& fTime )
 {
     this->fTime = &fTime;
-    sNameEntityCollided = "";
+    EntityCollided = NULL;
 }
 
 le::PhysicManager::~PhysicManager()
@@ -12,7 +12,7 @@ le::PhysicManager::~PhysicManager()
 
 void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num )
 {
-    if ( num == 0 )
+    if ( TypeBody == DINAMIC && num == 0 )
     {
         if ( !bOnGround ) fDy += 0.0005 * *fTime;
         bOnGround = false;
@@ -23,6 +23,7 @@ void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> 
     {
         if ( RectEntity.intersects( obj[ i ].rect ) )
         {
+            ObjectCollided = obj[ i ];
             if ( obj[ i ].type == "solid" )
             {
                 if ( fDx < 0 && num == 0 )  RectEntity.left = obj[ i ].rect.left + obj[ i ].rect.width;
@@ -37,25 +38,33 @@ void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> 
     for ( int i = 0; i < vEntity.size(); i++ )
     {
         if ( RectEntity.intersects( vEntity[ i ]->GetRect() ) )
-            if ( RectEntity != vEntity[ i ]->GetRect() )
+        {
+            if ( vEntity[ i ]->GetTypeEntity() != le::BasicEntity::BULLET  && vEntity[ i ]->GetTypeEntity() != le::BasicEntity::ITEM && RectEntity != vEntity[ i ]->GetRect() )
             {
                 if ( fDx < 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left + vEntity[ i ]->GetRect().width;
                 if ( fDx > 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left - RectEntity.width;
                 if ( fDy < 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top + RectEntity.height; fDy = 0; }
-                if ( fDy > 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top - RectEntity.height; bOnGround = true; fDy = 0; }
-                sNameEntityCollided = vEntity[ i ]->GetNameEntity();
+                if ( fDy > 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top - RectEntity.height; bOnGround = true; fDy = 0; }              
             }
+            EntityCollided = vEntity[ i ];
+        }
     }
 
 }
 
-string le::PhysicManager::GetNameEntityCollided() const
+le::BasicEntity* le::PhysicManager::GetEntityCollided() const
 {
-    return sNameEntityCollided;
+    return EntityCollided;
 }
 
-void le::PhysicManager::Option()
+le::Object le::PhysicManager::GetObjectCollided() const
+{
+    return ObjectCollided;
+}
+
+void le::PhysicManager::Option( TYPE_BODY Type )
 {
     fDx = fDy = 0;
+    TypeBody = Type;
     bOnGround = false;
 }

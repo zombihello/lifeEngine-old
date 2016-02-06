@@ -1,8 +1,7 @@
 ﻿#include "LevelManager.h"
 
-le::LevelManager::LevelManager( le::System& System )
+le::LevelManager::LevelManager()
 {
-    Console = &System.GetConsole();
 }
 
 le::LevelManager::~LevelManager()
@@ -30,6 +29,11 @@ Vector2i le::LevelManager::GetMapSize() const
     return Vector2i( width , height );
 }
 
+Vector2i le::LevelManager::GetSize() const
+{
+    return Vector2i( GetMapSize().x * GetTileSize().x , GetMapSize().y * GetTileSize().y );
+}
+
 void le::LevelManager::Clear()
 {
     objects.clear();
@@ -44,7 +48,6 @@ bool le::LevelManager::LoadFromFile( std::string filename )
     if ( !levelFile.LoadFile() )
     {
         cout << "Error: File [" << filename << "] Not Found" << endl;
-        Console->WriteToConsole( "Error: File [" + filename + "] Not Found" , Color::Red );
         return false;
     }
 
@@ -75,7 +78,6 @@ bool le::LevelManager::LoadFromFile( std::string filename )
     if ( !img.loadFromFile( imagepath ) )
     {
         std::cout << "Error: Failed to load tile sheet." << std::endl;
-        Console->WriteToConsole( "Error: Failed to load tile sheet." , Color::Red );
         return false;
     }
 
@@ -127,10 +129,7 @@ bool le::LevelManager::LoadFromFile( std::string filename )
         layerDataElement = layerElement->FirstChildElement( "data" );
 
         if ( layerDataElement == NULL )
-        {
             std::cout << "Error: Bad map. No layer information found." << std::endl;
-            Console->WriteToConsole( "Error: Bad map. No layer information found." , Color::Red );
-        }
 
         // Контейнер <tile> - описание тайлов каждого слоя
         TiXmlElement *tileElement;
@@ -139,7 +138,6 @@ bool le::LevelManager::LoadFromFile( std::string filename )
         if ( tileElement == NULL )
         {
             std::cout << "Error: Bad map. No tile information found." << std::endl;
-            Console->WriteToConsole( "Error: Bad map. No tile information found." , Color::Red );
             return false;
         }
 
@@ -271,10 +269,7 @@ bool le::LevelManager::LoadFromFile( std::string filename )
         }
     }
     else
-    {
         cout << "Error: No object layers found..." << endl;
-        Console->WriteToConsole( "Error: No object layers found..." , Color::Red );
-    }
 
     return true;
 }

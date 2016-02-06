@@ -3,12 +3,9 @@
 le::WeaponManager::WeaponManager( le::System & System )
 {
     this->System = &System;
-}
-
-le::WeaponManager::WeaponManager( le::System & System , BasicWeapon * Hand )
-{
-    this->System = &System;
-    vWeapon.push_back( Hand );
+    TypeEvent = &System.GetTypeEvent();
+    Event = &System.GetEvent();
+    iMaxWeapon = iIdTmpWeapon = 0;
 }
 
 le::WeaponManager::~WeaponManager()
@@ -18,6 +15,7 @@ le::WeaponManager::~WeaponManager()
 void le::WeaponManager::GiveWeapon( BasicWeapon * BasicWeapon )
 {
     vWeapon.push_back( BasicWeapon );
+    iMaxWeapon++;
 }
 
 void le::WeaponManager::DeleteAllWeapon()
@@ -43,10 +41,26 @@ void le::WeaponManager::DeleteWeapon( const string sNameWeapon )
     }
 }
 
-void le::WeaponManager::UpdateWeapons()
+void le::WeaponManager::UpdateWeapons( const float fDx , const float fDy )
 {
-    for ( int i = 0; i < vWeapon.size(); i++ )
-        vWeapon[ i ]->UpdateWeapon();
+    if ( *TypeEvent == Event::MouseWheelScrolled )
+    {
+        if ( Event->mouseWheelScroll.delta == 1 )
+        {
+            if ( iIdTmpWeapon < iMaxWeapon )   iIdTmpWeapon++;
+            else iIdTmpWeapon = 0;
+        }
+
+        if ( Event->mouseWheelScroll.delta == -1 )
+        {
+            if ( iIdTmpWeapon > 0 ) iIdTmpWeapon--;
+            else iIdTmpWeapon = iMaxWeapon;
+        }
+    }
+
+    if ( fDx == 0 && fDy == 0 )
+        if ( vWeapon.size() > 0 && iIdTmpWeapon > 0 )
+            vWeapon[ iIdTmpWeapon - 1 ]->UpdateWeapon();
 }
 
 le::BasicWeapon * le::WeaponManager::GetWeapon( const int id )
@@ -62,6 +76,14 @@ le::BasicWeapon * le::WeaponManager::GetWeapon( const string NameWeapon )
     for ( int i = 0; i < vWeapon.size(); i++ )
         if ( vWeapon[ i ]->GetNameWeapon() == NameWeapon )
             return vWeapon[ i ];
+
+    return NULL;
+}
+
+le::BasicWeapon * le::WeaponManager::GetTmpWeapon()
+{
+    if ( iIdTmpWeapon - 1 > -1 && iIdTmpWeapon - 1 < vWeapon.size() )
+        return vWeapon[ iIdTmpWeapon - 1 ];
 
     return NULL;
 }

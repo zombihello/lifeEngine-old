@@ -12,28 +12,40 @@ namespace le
     class BasicEntity
     {
     public:
+        ///////////////////////////////////////////////////
+        // CONSTRUCTOR DEFAULT | КОНСТРУКТОР ПО УМОЛЧАНИЮ
+        ///////////////////////////////////////////////////
+        BasicEntity( System& System );
+
+        enum TYPES_ENTITY
+        {
+            ENTITY ,
+            BULLET ,
+            ITEM
+        };
+
         ///////////////////////////////////////
         // UPDATE ENTITY  | ОБНОВЛЕНИЕ ЭНТИТИ 
         //////////////////////////////////////
-        virtual void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*> vEntity  ) = 0;
+        virtual void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*>& vEntity ) = 0;
 
         ///////////////////////////////////////
         // GET HEALTCH | ПОЛУЧИТЬ ЗДОРОВЬЕ  
         // @return iHealtch [ int ]
         //////////////////////////////////////
-        int GetHealtch() const;
+        int& GetHealtch();
 
         ///////////////////////////////////////
         // GET ARMOR | ПОЛУЧИТЬ БРОНЮ  
         // @return iArmor [ int ]
         //////////////////////////////////////
-        int GetArmor() const;
+        int& GetArmor();
 
         ///////////////////////////////////////
         // GET LIFE | ПОЛУЧИТЬ ЖИЗНЬ  
         // @return bLife [ bool ]
         //////////////////////////////////////
-        bool GetLife() const;
+        bool& GetLife();
 
         ///////////////////////////////////////
         // GET TICK | ПОЛУЧИТЬ ТИК  
@@ -52,11 +64,17 @@ namespace le
         // @return Rect [ FloatRect ]
         ////////////////////////////////////////////////////
         FloatRect GetRect() const;
+
+        /////////////////////////////////////////////////////
+        // GET TYPE ENTITY | ПОЛУЧИТЬ ТИП ЭНТИТИ  
+        // @return TypeEntity [ TYPES_ENTITY ]
+        ////////////////////////////////////////////////////
+        TYPES_ENTITY GetTypeEntity() const;
     protected:
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
-        void Option( const string sName , const int Healtch , const int Armor );
+        void Option( const string sName , const int Healtch , const int Armor, TYPES_ENTITY Type = TYPES_ENTITY::ENTITY );
 
         /////////////////////////////////////////
         // CHARACTER WOUNDED | ПЕРСОНАЖА РАНИЛИ  
@@ -67,14 +85,17 @@ namespace le
         int                 iArmor;
 
         float               fTimer;
+        float*              fTime;
 
         bool                bLife;
         bool                bTick;
 
         string              sNameEntity;
+        TYPES_ENTITY        TypeEntity;
         FloatRect           Rect;
         Sprite              Sprite;
         Texture             Texture;
+        RenderWindow*       RenderWindow;
     };
 }
 

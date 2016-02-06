@@ -1,13 +1,9 @@
 #include "BasicWeapon.h"
 
-
-le::BasicWeapon::BasicWeapon( System & System , float & fDx , const IntRect & RectEntitySprite , FloatRect & RectEntity , const bool IsPlayer )
+le::BasicWeapon::BasicWeapon( System & System , le::AnimationManager & AnimationManager , const bool IsPlayer )
 {
     RenderWindow = &System.GetWindow();
-    fTime = &System.GetConfiguration().fTime;
-    this->fDx = &fDx;
-    this->RectEntitySprite = &RectEntitySprite;
-    this->RectEntity = &RectEntity;
+    this->AnimationManager = &AnimationManager;
     bIsPlayer = IsPlayer;
 }
 
@@ -37,52 +33,15 @@ int le::BasicWeapon::GetDamage() const
 
 string le::BasicWeapon::GetNameWeapon() const
 {
-    return sNameWeapon;
+    return sNameAnimation;
 }
 
-FloatRect & le::BasicWeapon::GetRectWeapon()
-{
-    return RectWeapon;
-}
-
-sf::Sprite & le::BasicWeapon::GetSpriteWeapon()
-{
-    return Sprite;
-}
-
-void le::BasicWeapon::AnimationMove()
-{
-    if ( *fDx != 0 )
-    {
-        if ( fTimer < 500 )
-            Sprite.rotate( -1 );
-
-        fTimer += *fTime;
-
-        if ( fTimer > 500 )
-            Sprite.rotate( 1 );
-
-        if ( fTimer > 1000 )
-        {
-            fTimer = 0;
-            Sprite.setRotation( fAngle );
-        }
-    }
-    else
-    {
-        Sprite.setRotation( fAngle );
-        fTimer = 0;
-    }
-}
-
-void le::BasicWeapon::Option( const int MaxAmmo , const int Damage , const float Angle , const string sNameWeapon )
+void le::BasicWeapon::Option( const int MaxAmmo , const int Damage , const int ID , const string sNameAnimation )
 {
     iMaxAmmo = MaxAmmo;
     iDamage = Damage;
-    fAngle = Angle;
-    this->sNameWeapon = sNameWeapon;
-    Sprite.setRotation( Angle );
+    this->sNameAnimation = sNameAnimation;
 
-    iCartridgesInStore = iAmmoInStock = fTimer = fRotation = 0;
+    iCartridgesInStore = iAmmoInStock = 0;
     bIsAtack = false;
 }

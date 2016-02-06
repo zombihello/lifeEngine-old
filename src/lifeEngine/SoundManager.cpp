@@ -3,7 +3,6 @@
 
 le::SoundManager::SoundManager( System & System )
 {
-    Console = &System.GetConsole();
     Configuration = &System.GetConfiguration();
 }
 
@@ -14,7 +13,7 @@ le::SoundManager::~SoundManager()
 
 void le::SoundManager::LoadSound( const string sRoute , const string sNameSound )
 {
-    vSound.push_back( new le::Sound( *Console , sRoute , sNameSound ) );
+    vSound.push_back( new le::Sound( sRoute , sNameSound ) );
 }
 
 void le::SoundManager::PlaySound( const string sNameSound )
@@ -55,10 +54,18 @@ void le::SoundManager::DeleteSound( const string sNameSound )
     }
 }
 
-le::Sound::Sound( Console& Console , const string sRoute , const string sNameSound )
+bool le::SoundManager::GetLoadedSound( const string sNameSound )
 {
-    if ( !SoundBuffer.loadFromFile( sRoute ) )
-        Console.WriteToConsole( "Error: File [" + sRoute + "] Not Found" , Color::Red );
+    for ( int i = 0; i < vSound.size(); i++ )
+        if ( vSound[ i ]->sNameSound == sNameSound )
+            return true;
+
+    return false;
+}
+
+le::Sound::Sound( const string sRoute , const string sNameSound )
+{
+    SoundBuffer.loadFromFile( sRoute );
 
     sound.setBuffer( SoundBuffer );
     this->sNameSound = sNameSound;

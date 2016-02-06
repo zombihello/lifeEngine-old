@@ -6,6 +6,7 @@
 //////////////////////
 #include "System.h"
 #include "BasicWeapon.h"
+#include "BasicEntity.h"
 
 namespace le
 {
@@ -16,11 +17,6 @@ namespace le
         // CONSTRUCTOR | КОНСТРУКТОР 
         ////////////////////////////////
         WeaponManager( System& System );
-
-        ////////////////////////////////
-        // CONSTRUCTOR | КОНСТРУКТОР 
-        ////////////////////////////////
-        WeaponManager( System& System , BasicWeapon* Hand );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -45,7 +41,7 @@ namespace le
         ///////////////////////////////////////////
         // UPDATE ALL WEAPON | ОБНОВИТЬ ВСЕ ОРУЖИЕ   
         //////////////////////////////////////////
-        void UpdateWeapons();
+        void UpdateWeapons( const float fDx , const float fDy );
 
         //////////////////////////////////////////////
         // GET WEAPON BY ID | ПОЛУЧИТЬ ОРУЖИЕ ПО ID
@@ -58,10 +54,19 @@ namespace le
         // @return BasicWeapon*
         //////////////////////////////////////////////////
         BasicWeapon* GetWeapon( const string NameWeapon );
+
+        //////////////////////////////////////////////////
+        // GET TEMP WEAPON | ПОЛУЧИТЬ ТЕКУЩИЕ ОРУЖИЕ  
+        // @return BasicWeapon*
+        //////////////////////////////////////////////////
+        BasicWeapon* GetTmpWeapon();
     private:
         int                             iIdTmpWeapon;
         int                             iMaxWeapon;
+
         System*                         System;
+        Event*                          Event;
+        Event::EventType*               TypeEvent;
         vector<BasicWeapon*>            vWeapon;
     };
 }

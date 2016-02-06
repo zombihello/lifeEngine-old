@@ -33,11 +33,19 @@ namespace le
 
         ////////////////////////////////
         // GET LIGHT | ПОЛУЧИТЬ СВЕТ
+        // @return CircleShape
         ///////////////////////////////
         CircleShape GetLight() const;
+
+        //////////////////////////////////////////////
+        // GET RECT | ПОЛУЧИТЬ ПРЯМОУГОЛЬНИК СВЕТА
+        // @return Rect ( FloatRect )
+        /////////////////////////////////////////////
+        FloatRect GetRect() const;
     private:
         Texture                 Texture;
         CircleShape             CircleShape;
+        FloatRect               Rect;
     };
 }
 

@@ -31,7 +31,7 @@ namespace le
     class LevelManager
     {
     public:
-        LevelManager( System& System );
+        LevelManager();
         ~LevelManager();
 
         bool LoadFromFile( string filename );
@@ -43,13 +43,14 @@ namespace le
         vector<Object> GetAllObjects() const;
         Vector2i GetTileSize() const;
         Vector2i GetMapSize() const;
+        Vector2i GetSize() const;
 
         int width , height , tileWidth , tileHeight;
     private:
         int                 firstTileID;
+
         Rect<float>         drawingBounds;
         Texture             tilesetImage;
-        Console*            Console;
         vector<Object>      objects;
         vector<Layer>       layers;
     };

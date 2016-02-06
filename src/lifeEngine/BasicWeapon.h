@@ -5,6 +5,7 @@
 // LIFEENGINE
 ////////////////////
 #include "System.h"
+#include "AnimationManager.h"
 
 namespace le
 {
@@ -14,7 +15,7 @@ namespace le
         ///////////////////////////////
         // CONSTRUCTOR | КОНСТРУКТОР
         //////////////////////////////
-        BasicWeapon( System& System , float& fDx , const IntRect& RectEntitySprite , FloatRect& RectEntity, const bool IsPlayer = false );
+        BasicWeapon( System& System , AnimationManager& AnimationManager, const bool IsPlayer );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -55,55 +56,24 @@ namespace le
         // @return sNameWeapon ( string )
         //////////////////////////////////////////
         string GetNameWeapon() const;
-
-        ////////////////////////////////////////////////////
-        // GET RECT WEAPON | ПОЛУЧИТЬ ПРЯМОУГОЛЬНИК ОРУЖИЯ
-        // @return RectWeapon ( FloatRect )
-        ////////////////////////////////////////////////////
-        FloatRect& GetRectWeapon();
-
-        ////////////////////////////////////////////////////
-        // GET SPRITE WEAPON | ПОЛУЧИТЬ СПРАЙТ ОРУЖИЯ
-        // @return Sprite ( Sprite )
-        ////////////////////////////////////////////////////
-        Sprite& GetSpriteWeapon();
     protected:
-        ///////////////////////////////////////
-        // SHOOTING WEAPONS | СТРЕЛЬБА ОРУЖИЯ   
-        //////////////////////////////////////
-        virtual void Fire() = 0;
-
-        ///////////////////////////////////////////////////////////////////////////
-        // THE ANIMATION OF THE WEAPON WHEN MOVING | АНИМАЦИЯ ОРУЖИЯ ПРИ ДВИЖЕНИИ
-        ///////////////////////////////////////////////////////////////////////////
-        void AnimationMove();
-
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
-        void Option( const int MaxAmmo , const int Damage , const float Angle , const string sNameWeapon );
+        void Option( const int MaxAmmo , const int Damage , const int ID , const string sNameAnimation );
 
+        int                     iDamage;
+        int                     iId;
+        int                     iMaxAmmo;
         int                     iCartridgesInStore;
         int                     iAmmoInStock;
-        int                     iMaxAmmo;
-        int                     iDamage;
-
-        float                   fTimer;
-        float*                  fTime;
-        float                   fAngle;
-        float                   fRotation;
-        float*                  fDx;
 
         bool                    bIsAtack;
         bool                    bIsPlayer;
 
-        const IntRect*          RectEntitySprite;
-        FloatRect*              RectEntity;
-        FloatRect               RectWeapon;
+        AnimationManager*       AnimationManager;
         RenderWindow*           RenderWindow;
-        Texture                 Texture;
-        Sprite                  Sprite;
-        string                  sNameWeapon;
+        string                  sNameAnimation;
     };
 }
 

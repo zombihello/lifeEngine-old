@@ -17,7 +17,7 @@ namespace le
     class Sound
     {
     public:
-        Sound( Console& Console , const string sRoute , const string sNameSound );
+        Sound( const string sRoute , const string sNameSound );
 
         string              sNameSound;
         SoundBuffer         SoundBuffer;
@@ -56,8 +56,13 @@ namespace le
         // DELETE SOUND | УДАЛИТЬ ЗВУК
         //////////////////////////////////
         void DeleteSound( const string sNameSound );
+
+        //////////////////////////////////////////////////////////
+        // TO GET THE LOADED SOUND  | ПОЛУЧИТЬ ЗАГРУЖЕН ЛИ ЗВУК
+        // @return true or false
+        /////////////////////////////////////////////////////////
+        bool GetLoadedSound( const string sNameSound );
     private:
-        Console*                    Console;
         Configuration*              Configuration;
         vector<le::Sound*>          vSound;
     };

@@ -5,7 +5,6 @@ le::AnimationManager::AnimationManager( System & System )
 {
     RenderWindow = &System.GetWindow();
     fTime = &System.GetConfiguration().fTime;
-    Console = &System.GetConsole();
 }
 
 le::AnimationManager::~AnimationManager()
@@ -17,11 +16,7 @@ void le::AnimationManager::LoadAnimation( string fileName , Texture & t )
 {
     TiXmlDocument animFile( fileName.c_str() );
 
-    if ( !animFile.LoadFile() )
-    {
-        Console->WriteToConsole( "Error: File [" + fileName + "] Not Found" , Color::Red );
-        return;
-    }
+    if ( !animFile.LoadFile() ) return;
 
     TiXmlElement *head;
     head = animFile.FirstChildElement( "sprites" );
@@ -60,7 +55,7 @@ void le::AnimationManager::LoadAnimation( string fileName , Texture & t )
 void le::AnimationManager::SetAnimation( String name )
 {
     sCurrentAnim = name;
-    animList[ sCurrentAnim ].GetFlip() = 0;
+    animList[ sCurrentAnim ].GetFlip() = false;
 }
 
 void le::AnimationManager::DrawAnimation( FloatRect RectObject )
@@ -72,6 +67,11 @@ void le::AnimationManager::DrawAnimation( FloatRect RectObject )
 void le::AnimationManager::Flip( bool bFlip )
 {
     animList[ sCurrentAnim ].GetFlip() = bFlip;
+}
+
+void le::AnimationManager::Flip( const string NameAnimation , bool bFlip )
+{
+    animList[ NameAnimation ].GetFlip() = bFlip;
 }
 
 void le::AnimationManager::TickAnimation()
@@ -123,7 +123,7 @@ void le::Animation::TickAnimation( float time )
 
     if ( fCurrentFrame > vframes.size() )
     {
-        fCurrentFrame = 0;//-= frames.size();
+        fCurrentFrame = 0;
 
         if ( !bLoop )
         {

@@ -49,6 +49,7 @@ namespace le
         int GetTmpIdButton() const;
     private:
         int                     iIdButton;
+
         RenderWindow*           RenderWindow;
         Vector2i*               CursorPosition;
         System*                 System;

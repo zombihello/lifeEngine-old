@@ -2,9 +2,8 @@
 
 
 
-le::EntityManager::EntityManager( System& System )
+le::EntityManager::EntityManager()
 {
-    Console = &System.GetConsole();
 }
 
 
@@ -18,13 +17,14 @@ void le::EntityManager::CreateEntity( BasicEntity * BasicEntity )
     vEntity.push_back( BasicEntity );
 }
 
-void le::EntityManager::UpdateAllEntity( vector<Object> obj , vector<BasicEntity*> vEntity )
+void le::EntityManager::UpdateAllEntity( vector<Object> obj , View Camera )
 {
     for ( int i = 0; i < this->vEntity.size(); )
     {
         BasicEntity* BasicEntity = this->vEntity[ i ];
 
-        BasicEntity->UpdateEntity( obj , vEntity );
+        if ( FloatRect( Camera.getCenter().x - Camera.getSize().x / 2 , Camera.getCenter().y - Camera.getSize().y / 2 , Camera.getSize().x , Camera.getSize().y ).intersects( BasicEntity->GetRect() ) )
+            BasicEntity->UpdateEntity( obj , vEntity );
 
         if ( !BasicEntity->GetLife() )
         {
@@ -49,7 +49,6 @@ le::BasicEntity * le::EntityManager::GetEntity( const string sName )
         if ( vEntity[ i ]->GetNameEntity() == sName )
             return vEntity[ i ];
 
-    Console->WriteToConsole( "Error: Entity [" + sName + "] Not Found" , Color::Red );
     return NULL;
 }
 

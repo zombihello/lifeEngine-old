@@ -18,7 +18,9 @@ namespace le
     class Music
     {
     public:
-        Music( Console& Console , const string sRoute , const string sNameMusic , bool loop = false );
+        Music( const string sRoute , const string sNameMusic , bool loop = false );
+
+        bool                bIsPlaying;
 
         string              sNameMusic;
         sf::Music           music;
@@ -57,7 +59,6 @@ namespace le
         //////////////////////////////////
         void DeleteMusic( const string sNameMusic );
     private:
-        Console*                    Console;
         Configuration*              Configuration;
         vector<le::Music*>          vMusic;
     };

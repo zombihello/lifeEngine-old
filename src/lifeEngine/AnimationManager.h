@@ -108,6 +108,11 @@ namespace le
         ///////////////////////////////////////////////
         void Flip( bool bFlip = true );
 
+        ///////////////////////////////////////////////
+        // MIRROR THE SPRITE | ОТРАЗИТЬ ЗЕРКАЛЬНО СПРАЙТ
+        ///////////////////////////////////////////////
+        void Flip( const string NameAnimation , bool bFlip = true );
+
         ////////////////////////////////////
         // TICK ANIMATION | ТИК АНИМАЦИИ
         ///////////////////////////////////
@@ -145,7 +150,6 @@ namespace le
         String                          sCurrentAnim;
         map<String , Animation>         animList;
         RenderWindow*                   RenderWindow;
-        Console*                        Console;
     };
 }
 
