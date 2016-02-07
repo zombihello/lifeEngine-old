@@ -15,7 +15,7 @@ namespace le
         ///////////////////////////////
         // CONSTRUCTOR | КОНСТРУКТОР
         //////////////////////////////
-        BasicWeapon( System& System , AnimationManager& AnimationManager, const bool IsPlayer );
+        BasicWeapon( System& System , AnimationManager& AnimationManager , const bool IsPlayer );
 
         ///////////////////////////////////////////////////
         // DESTRUCTOR DEFAULT | ДЕСТРУКТОР ПО УМОЛЧАНИЮ
@@ -31,13 +31,13 @@ namespace le
         // GET CARTRIDGES IN STORE | ПОЛУЧИТЬ КОЛ-ВО БОЕПРИПАСОВ В МАГАЗИНЕ   
         // @return iCartridgesInStore ( int )
         ////////////////////////////////////////////////////////////////////
-        int GetCartridgesInStore() const;
+        int& GetCartridgesInStore();
 
         ////////////////////////////////////////////////////////////////
         // GET AMMO IN STOCK | ПОЛУЧИТЬ КОЛ-ВО БОЕПРИПАСОВ В НАЛИЧИИ   
         // @return iAmmoInStock ( int )
         ///////////////////////////////////////////////////////////////
-        int GetAmmoInStock() const;
+        int& GetAmmoInStock();
 
         ////////////////////////////////////////////////////////////////
         // GET MAX AMMO | ПОЛУЧИТЬ МАКСИМАЛЬНОЕ КОЛ-ВО БОЕПРЕПАСОВ
@@ -60,7 +60,7 @@ namespace le
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
-        void Option( const int MaxAmmo , const int Damage , const int ID , const string sNameAnimation );
+        void Option( const int MaxAmmo , const int AmmoInStock , const int Damage , const int ID , const string sNameAnimation );
 
         int                     iDamage;
         int                     iId;

@@ -6,6 +6,7 @@
 /////////////////////
 #include "System.h"
 #include "LevelManager.h"
+#include "WeaponManager.h"
 
 namespace le
 {
@@ -27,7 +28,7 @@ namespace le
         ///////////////////////////////////////
         // UPDATE ENTITY  | ОБНОВЛЕНИЕ ЭНТИТИ 
         //////////////////////////////////////
-        virtual void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*>& vEntity ) = 0;
+        virtual void UpdateEntity( vector<le::Object>& obj , vector<BasicEntity*>& vEntity ) = 0;
 
         ///////////////////////////////////////
         // GET HEALTCH | ПОЛУЧИТЬ ЗДОРОВЬЕ  
@@ -70,11 +71,17 @@ namespace le
         // @return TypeEntity [ TYPES_ENTITY ]
         ////////////////////////////////////////////////////
         TYPES_ENTITY GetTypeEntity() const;
+
+        /////////////////////////////////////////////////////
+        // GET WEAPON MANAGER | ПОЛУЧИТЬ МЕНЕДЖЕР ОРУЖИЯ
+        // @return WeaponManager [ WeaponManager ]
+        ////////////////////////////////////////////////////
+        le::WeaponManager& GetWeaponManager();
     protected:
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
-        void Option( const string sName , const int Healtch , const int Armor, TYPES_ENTITY Type = TYPES_ENTITY::ENTITY );
+        void Option( const string sName , const int Healtch , const int Armor , TYPES_ENTITY Type = TYPES_ENTITY::ENTITY );
 
         /////////////////////////////////////////
         // CHARACTER WOUNDED | ПЕРСОНАЖА РАНИЛИ  
@@ -96,6 +103,7 @@ namespace le
         Sprite              Sprite;
         Texture             Texture;
         RenderWindow*       RenderWindow;
+        le::WeaponManager*      WeaponManager;
     };
 }
 

@@ -177,6 +177,7 @@
     <ClCompile Include="example\lifeEngine.cpp" />
     <ClCompile Include="lifeEngine\AnimationManager.cpp" />
     <ClCompile Include="lifeEngine\BasicEntity.cpp" />
+    <ClCompile Include="lifeEngine\BasicHUD.cpp" />
     <ClCompile Include="lifeEngine\BasicWeapon.cpp" />
     <ClCompile Include="lifeEngine\Button.cpp" />
     <ClCompile Include="lifeEngine\ButtonManager.cpp" />
@@ -200,6 +201,7 @@
   <ItemGroup>
     <ClInclude Include="lifeEngine\AnimationManager.h" />
     <ClInclude Include="lifeEngine\BasicEntity.h" />
+    <ClInclude Include="lifeEngine\BasicHUD.h" />
     <ClInclude Include="lifeEngine\BasicStageGame.h" />
     <ClInclude Include="lifeEngine\BasicWeapon.h" />
     <ClInclude Include="lifeEngine\Button.h" />

@@ -18,6 +18,17 @@ void le::WeaponManager::GiveWeapon( BasicWeapon * BasicWeapon )
     iMaxWeapon++;
 }
 
+void le::WeaponManager::GiveAmmo( const int ammo , const string NameWeapon )
+{
+    for ( int i = 0; i < vWeapon.size(); i++ )
+        if ( vWeapon[ i ]->GetNameWeapon() == NameWeapon )
+        {
+            if ( vWeapon[ i ]->GetAmmoInStock() < vWeapon[ i ]->GetMaxAmmo() )
+                vWeapon[ i ]->GetAmmoInStock() += ammo;
+        }
+
+}
+
 void le::WeaponManager::DeleteAllWeapon()
 {
     for ( int i = 0; i < vWeapon.size(); i++ )

@@ -14,6 +14,7 @@
 #include "..\lifeEngine\SoundManager.h"
 #include "..\lifeEngine\WeaponManager.h"
 #include "..\lifeEngine\AnimationManager.h"
+#include "..\lifeEngine\BasicHUD.h"
 
 class Item : public le::BasicEntity , private le::PhysicManager
 {
@@ -26,12 +27,12 @@ public:
         Rect = FloatRect( obj.rect.left , obj.rect.top , Texture.getSize().x , Texture.getSize().y );
         iAddValue = obj.GetPropertyInt( "add" );
 
-        BasicEntity::Option( obj.GetPropertyString( "name" ) , 0 , 0 , TYPES_ENTITY::ITEM );
+        BasicEntity::Option( obj.GetPropertyString( "name" ) , iAddValue , 0 , TYPES_ENTITY::ITEM );
         PhysicManager::Option( TYPE_BODY::DINAMIC );
     }
 
 
-    void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*>& vEntity )
+    void UpdateEntity( vector<le::Object>& obj , vector<BasicEntity*>& vEntity )
     {
         Rect.left += fDx * *BasicEntity::fTime;
         UpdatePhysic( obj , vEntity , Rect , 0 );
@@ -51,7 +52,7 @@ class Pistolet : public le::BasicWeapon
 public:
     Pistolet( le::System& System , le::AnimationManager& AnimationManager , const bool IsPlayer ) : BasicWeapon( System , AnimationManager , IsPlayer )
     {
-        Option( 255 , 2 , 2 , "pistolet" );
+        Option( 255 , 15 , 2 , 2 , "pistolet" );
     }
 
     void UpdateWeapon()
@@ -85,16 +86,16 @@ public:
             fDx = 0.3f;
     }
 
-    void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*>& vEntity )
+    void UpdateEntity( vector<le::Object>& obj , vector<BasicEntity*>& vEntity )
     {
         Rect.left += fDx * *BasicEntity::fTime;
         UpdatePhysic( obj , vEntity , Rect , 0 );
 
-        if ( GetObjectCollided().type == "solid" )
+        if ( ObjectCollided.type == "solid" )
             bLife = false;
 
-        if ( GetEntityCollided() != NULL )
-            if ( GetEntityCollided()->GetTypeEntity() != TYPES_ENTITY::BULLET )
+        if ( EntityCollided != NULL )
+            if ( EntityCollided->GetTypeEntity() != TYPES_ENTITY::BULLET )
                 bLife = false;
 
         AnimationManager->TickAnimation();
@@ -120,6 +121,7 @@ public:
         AnimationManager = new le::AnimationManager( System );
         WeaponManager = new le::WeaponManager( System );
         SoundManager = new le::SoundManager( System );
+        MusicManager = new le::MusicManager( System );
 
         Event = &System.GetEvent();
         this->System = &System;
@@ -130,9 +132,7 @@ public:
 
         Rect = FloatRect( obj.rect.left , obj.rect.top , AnimationManager->GetSize().x , AnimationManager->GetSize().y );
 
-        WeaponManager->GiveWeapon( new Pistolet( System , *AnimationManager , true ) );
-
-        BasicEntity::Option( "Player" , 100 , 0 );
+        BasicEntity::Option( "Player" , 20 , 0 );
         PhysicManager::Option();
     }
 
@@ -166,13 +166,13 @@ public:
         if ( fDy != 0 )
             AnimationManager->SetAnimation( "jump" );
 
-        if ( fDx == 0 & fDy == 0 )
+        if ( fDx == 0 && fDy == 0 )
             AnimationManager->SetAnimation( "stay" );
 
         AnimationManager->Play();
     }
 
-    void UpdateEntity( vector<le::Object> obj , vector<BasicEntity*>& vEntity )
+    void UpdateEntity( vector<le::Object>& obj , vector<BasicEntity*>& vEntity )
     {
         KeyCheck();
         CheckAnim();
@@ -196,20 +196,70 @@ public:
                 Event->key.code = ( Keyboard::Key ) - 1;
             }
 
-        if ( GetEntityCollided() != NULL )
+        if ( EntityCollided != NULL )
         {
-            if ( GetEntityCollided()->GetNameEntity() == "healtch" )
-                GetEntityCollided()->GetLife() = false;
+            string sTemp = EntityCollided->GetNameEntity();
+
+            if ( sTemp.find( "ammo_" ) != string::npos )
+            {
+                sTemp.erase( sTemp.find( "ammo_" ) , 5 );
+
+                if ( WeaponManager->GetWeapon( sTemp ) != NULL )
+                    if ( WeaponManager->GetWeapon( sTemp )->GetCartridgesInStore() < WeaponManager->GetWeapon( sTemp )->GetMaxAmmo() )
+                    {
+                        WeaponManager->GiveAmmo( EntityCollided->GetHealtch() , sTemp );
+                        EntityCollided->GetLife() = false;
+                    }
+            }
+            else
+                if ( sTemp.find( "weapon_" ) != string::npos )
+                {
+                    sTemp.erase( sTemp.find( "weapon_" ) , 7 );
+
+                    if ( WeaponManager->GetWeapon( sTemp ) == NULL )
+                    {
+                        WeaponManager->GiveWeapon( new Pistolet( *System , *AnimationManager , true ) );
+                        EntityCollided->GetLife() = false;
+                    }
+                }
+                else
+                    if ( sTemp.find( "item_" ) != string::npos )
+                    {
+                        sTemp.erase( sTemp.find( "item_" ) , 5 );
+
+                        if ( sTemp == "healtch" && iHealtch < 100 )
+                        {
+                            iHealtch += EntityCollided->GetHealtch();
+                            EntityCollided->GetLife() = false;
+                        }
+                    }
         }
 
-        if ( GetObjectCollided().type == "solid" )
+        if ( ObjectCollided.type == "solid" )
         {
-            if ( !SoundManager->GetLoadedSound( GetObjectCollided().GetPropertyString( "name" ) ) )
-                SoundManager->LoadSound( GetObjectCollided().GetPropertyString( "route" ) , GetObjectCollided().GetPropertyString( "name" ) );
+            if ( !SoundManager->GetLoadedSound( ObjectCollided.GetPropertyString( "name" ) ) )
+                SoundManager->LoadSound( ObjectCollided.GetPropertyString( "route" ) , ObjectCollided.GetPropertyString( "name" ) );
 
             if ( fDx != 0 || fDy < 0 )
-                SoundManager->PlaySound( GetObjectCollided().GetPropertyString( "name" ) );
+                SoundManager->PlaySound( ObjectCollided.GetPropertyString( "name" ) );
         }
+
+        if ( ObjectCollided.name == "triger" )
+        {
+            if ( ObjectCollided.type == "music" )
+            {
+
+                if ( !MusicManager->GetLoadedMusic( ObjectCollided.GetPropertyString( "name" ) ) )
+                    MusicManager->LoadMusic( ObjectCollided.GetPropertyString( "route" ) , ObjectCollided.GetPropertyString( "name" ) );
+
+                TempMusicPlay = ObjectCollided.GetPropertyString( "name" );
+
+                obj.erase( obj.begin() + iIdObjectCollided );
+            }
+        }
+
+        if ( TempMusicPlay != "" )
+            MusicManager->PlayMusic( TempMusicPlay );
 
         AnimationManager->Flip( bLeft );
         AnimationManager->TickAnimation();
@@ -223,15 +273,17 @@ public:
         delete AnimationManager;
         delete SoundManager;
         delete WeaponManager;
+        delete MusicManager;
     }
 private:
     bool                                bLeft;
 
     le::AnimationManager*               AnimationManager;
-    le::WeaponManager*                  WeaponManager;
     le::SoundManager*                   SoundManager;
+    le::MusicManager*                   MusicManager;
     le::System*                         System;
     Event*                              Event;
+    string                              TempMusicPlay;
 };
 
 
@@ -250,7 +302,6 @@ public:
         Text = new le::Text( System );
         LevelManager = new le::LevelManager;
         EntityManager = new le::EntityManager;
-        MusicManager = new le::MusicManager( System );
 
         Game.reset( FloatRect( 0 , 0 , System.GetConfiguration().iWindowWidth , System.GetConfiguration().iWindowHeight ) );
 
@@ -258,7 +309,6 @@ public:
         MouseCursor->LoadTexture( "Resources/cur.png" ); // Load texture for cursor
         Text->SetFont( TextManager->GetFont() );
         LevelManager->LoadFromFile( "Resources/a0a0.map" ); // map uploaded | Created in the program 'Tiled'
-        MusicManager->LoadMusic( "Resources/XF_song2.ogg" , "music" , true );
 
         LightManager = new le::LightManager( System , LevelManager->GetMapSize().x * LevelManager->GetTileSize().x , LevelManager->GetMapSize().y * LevelManager->GetTileSize().y );
 
@@ -299,14 +349,11 @@ public:
         delete LightManager;
         delete LevelManager;
         delete EntityManager;
-        delete MusicManager;
     }
 
     void CheckStages()
     {
         // RENDER
-        MusicManager->PlayMusic( "music" );
-
         LevelManager->Draw( System->GetWindow() );
         TextManager->UpdateText();
         Text->UpdateText();
@@ -330,7 +377,6 @@ private:
     le::LevelManager*       LevelManager;
     le::LightManager*       LightManager;
     le::EntityManager*      EntityManager;
-    le::MusicManager*       MusicManager;
     View                    Game; // this game camera
 };
 

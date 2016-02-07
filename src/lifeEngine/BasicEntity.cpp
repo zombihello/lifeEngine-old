@@ -4,6 +4,8 @@ le::BasicEntity::BasicEntity( System & System )
 {
     RenderWindow = &System.GetWindow();
     fTime = &System.GetConfiguration().fTime;
+
+    WeaponManager = NULL;
 }
 
 int& le::BasicEntity::GetHealtch()
@@ -39,6 +41,11 @@ FloatRect le::BasicEntity::GetRect() const
 le::BasicEntity::TYPES_ENTITY le::BasicEntity::GetTypeEntity() const
 {
     return TypeEntity;
+}
+
+le::WeaponManager & le::BasicEntity::GetWeaponManager()
+{
+    return *WeaponManager;
 }
 
 void le::BasicEntity::Option( const string sName , const int Healtch , const int Armor , TYPES_ENTITY Type )

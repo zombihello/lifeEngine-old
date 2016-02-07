@@ -4,13 +4,14 @@ le::PhysicManager::PhysicManager( float& fTime )
 {
     this->fTime = &fTime;
     EntityCollided = NULL;
+    iIdObjectCollided = -1;
 }
 
 le::PhysicManager::~PhysicManager()
 {
 }
 
-void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num )
+void le::PhysicManager::UpdatePhysic( vector<Object>& obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num )
 {
     if ( TypeBody == DINAMIC && num == 0 )
     {
@@ -24,6 +25,8 @@ void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> 
         if ( RectEntity.intersects( obj[ i ].rect ) )
         {
             ObjectCollided = obj[ i ];
+            iIdObjectCollided = i;
+
             if ( obj[ i ].type == "solid" )
             {
                 if ( fDx < 0 && num == 0 )  RectEntity.left = obj[ i ].rect.left + obj[ i ].rect.width;
@@ -44,22 +47,12 @@ void le::PhysicManager::UpdatePhysic( vector<Object> obj , vector<BasicEntity*> 
                 if ( fDx < 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left + vEntity[ i ]->GetRect().width;
                 if ( fDx > 0 && num == 0 )  RectEntity.left = vEntity[ i ]->GetRect().left - RectEntity.width;
                 if ( fDy < 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top + RectEntity.height; fDy = 0; }
-                if ( fDy > 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top - RectEntity.height; bOnGround = true; fDy = 0; }              
+                if ( fDy > 0 && num == 1 ) { RectEntity.top = vEntity[ i ]->GetRect().top - RectEntity.height; bOnGround = true; fDy = 0; }
             }
             EntityCollided = vEntity[ i ];
         }
     }
 
-}
-
-le::BasicEntity* le::PhysicManager::GetEntityCollided() const
-{
-    return EntityCollided;
-}
-
-le::Object le::PhysicManager::GetObjectCollided() const
-{
-    return ObjectCollided;
 }
 
 void le::PhysicManager::Option( TYPE_BODY Type )

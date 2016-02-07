@@ -11,12 +11,12 @@ le::BasicWeapon::~BasicWeapon()
 {
 }
 
-int le::BasicWeapon::GetCartridgesInStore() const
+int& le::BasicWeapon::GetCartridgesInStore()
 {
     return iCartridgesInStore;
 }
 
-int le::BasicWeapon::GetAmmoInStock() const
+int& le::BasicWeapon::GetAmmoInStock()
 {
     return iAmmoInStock;
 }
@@ -36,12 +36,13 @@ string le::BasicWeapon::GetNameWeapon() const
     return sNameAnimation;
 }
 
-void le::BasicWeapon::Option( const int MaxAmmo , const int Damage , const int ID , const string sNameAnimation )
+void le::BasicWeapon::Option( const int MaxAmmo , const int AmmoInStock , const int Damage , const int ID , const string sNameAnimation )
 {
     iMaxAmmo = MaxAmmo;
     iDamage = Damage;
     this->sNameAnimation = sNameAnimation;
+    iAmmoInStock = AmmoInStock;
 
-    iCartridgesInStore = iAmmoInStock = 0;
+    iCartridgesInStore = 0;
     bIsAtack = false;
 }

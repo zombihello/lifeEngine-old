@@ -12,7 +12,7 @@ namespace le
     {
         int GetPropertyInt( string name );
         float GetPropertyFloat( string name );
-        string GetPropertyString( string name );
+        string& GetPropertyString( string name );
 
         string                      name;
         string                      type;
@@ -38,9 +38,9 @@ namespace le
         void Clear();
         void Draw( RenderWindow &window );
 
-        Object GetObject( string name ) const;
-        vector<Object> GetObjects( string name ) const;
-        vector<Object> GetAllObjects() const;
+        Object& GetObject( string name );
+        vector<Object>& GetObjects( string name );
+        vector<Object>& GetAllObjects();
         Vector2i GetTileSize() const;
         Vector2i GetMapSize() const;
         Vector2i GetSize() const;

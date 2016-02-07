@@ -31,7 +31,7 @@ namespace le
         ////////////////////////////////////////////
         // UPDATE ALL ENTITY | ОБНОВИТЬ ВСЕ ЭНТИТИ
         ///////////////////////////////////////////
-        void UpdateAllEntity( vector<Object> obj , View Camera );
+        void UpdateAllEntity( vector<Object>& obj , View Camera );
 
         ////////////////////////////////////////////
         // REMOVE ALL ENTITY | УДАЛИТЬ ВСЕ ЭНТИТИ

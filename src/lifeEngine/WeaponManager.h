@@ -6,7 +6,7 @@
 //////////////////////
 #include "System.h"
 #include "BasicWeapon.h"
-#include "BasicEntity.h"
+//#include "BasicEntity.h"
 
 namespace le
 {
@@ -27,6 +27,11 @@ namespace le
         // GIVE WEAPON | ДАТЬ ОРУЖИЕ  
         ////////////////////////////////
         void GiveWeapon( BasicWeapon* BasicWeapon );
+
+        ////////////////////////////////
+        // GIVE AMMO | ДАТЬ ПАТРОНЫ  
+        ////////////////////////////////
+        void GiveAmmo( const int ammo , const string NameWeapon );
 
         ///////////////////////////////////////////
         // DELETE ALL WEAPON | УДАЛИТЬ ВСЕ ОРУЖИЕ   

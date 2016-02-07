@@ -33,35 +33,26 @@ namespace le
         // num = 0 this check colision for x | num = 0 ЭТО ПРОВЕРКА СТОЛКНОВЕНИЙ ПО ИКСУ
         // num = 1 this check colision for y | num = 1 ЭТО ПРОВЕРКА СТОЛКНОВЕНИЙ ПО ИГРИКУ
         ////////////////////////////////////////////////////////////////////////////////////
-        void UpdatePhysic( vector<Object> obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num );
-
-        //////////////////////////////////////////////////////////////////////
-        // GET ENTITY COLLIDED WITH | ПОЛУЧИТЬ ЭНТИТИ С КОТОРЫМ СТОЛКНУЛИСЬ
-        // @return BasicEntity*
-        //////////////////////////////////////////////////////////////////////
-        BasicEntity*  GetEntityCollided() const;
-
-        /////////////////////////////////////////////////////////////////////////
-        // GET THE OBJECT COLLIDED WITH | ПОЛУЧИТЬ ОБЪЕКТ С КОТОРЫМ СТОЛКНУЛИСЬ
-        // @return sNameEntity | string
-        ////////////////////////////////////////////////////////////////////////
-        Object GetObjectCollided() const;
+        void UpdatePhysic( vector<Object>& obj , vector<BasicEntity*> vEntity , FloatRect& RectEntity , int num );
     protected:
         /////////////////////////////////
         // INIT VALUES | ИНИЦ. ЗНАЧЕНИЙ  
         /////////////////////////////////
         void Option( TYPE_BODY Type = TYPE_BODY::DINAMIC );
 
+        int                 iIdObjectCollided;
+
         float               fDx;
         float               fDy;
 
         bool                bOnGround;
+
+        BasicEntity*        EntityCollided;
+        Object              ObjectCollided;
     private:
         float*              fTime;
 
         TYPE_BODY           TypeBody;
-        BasicEntity*        EntityCollided;
-        Object              ObjectCollided;
     };
 }
 

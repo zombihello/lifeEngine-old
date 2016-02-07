@@ -58,6 +58,12 @@ namespace le
         // DELETE MUSIC | УДАЛИТЬ МУЗЫКУ
         //////////////////////////////////
         void DeleteMusic( const string sNameMusic );
+
+        ////////////////////////////////////////////////////////////
+        // TO GET THE LOADED MUSIC  | ПОЛУЧИТЬ ЗАГРУЖЕНА ЛИ МУЗЫКА
+        // @return true or false
+        ///////////////////////////////////////////////////////////
+        bool GetLoadedMusic( const string sNameMusic );
     private:
         Configuration*              Configuration;
         vector<le::Music*>          vMusic;

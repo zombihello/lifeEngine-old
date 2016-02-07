@@ -17,7 +17,7 @@ void le::EntityManager::CreateEntity( BasicEntity * BasicEntity )
     vEntity.push_back( BasicEntity );
 }
 
-void le::EntityManager::UpdateAllEntity( vector<Object> obj , View Camera )
+void le::EntityManager::UpdateAllEntity( vector<Object>& obj , View Camera )
 {
     for ( int i = 0; i < this->vEntity.size(); )
     {

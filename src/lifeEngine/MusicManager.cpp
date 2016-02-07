@@ -65,6 +65,15 @@ void le::MusicManager::DeleteMusic( const string sNameMusic )
     }
 }
 
+bool le::MusicManager::GetLoadedMusic( const string sNameMusic )
+{
+    for ( int i = 0; i < vMusic.size(); i++ )
+        if ( vMusic[ i ]->sNameMusic == sNameMusic )
+            return true;
+
+    return false;
+}
+
 le::Music::Music( const string sRoute , const string sNameMusic , bool loop )
 {
     music.openFromFile( sRoute );

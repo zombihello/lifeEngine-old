@@ -19,7 +19,7 @@ float le::Object::GetPropertyFloat( std::string name )
     return strtod( properties[ name ].c_str() , NULL );
 }
 
-std::string le::Object::GetPropertyString( std::string name )
+std::string& le::Object::GetPropertyString( std::string name )
 {
     return properties[ name ];
 }
@@ -274,7 +274,7 @@ bool le::LevelManager::LoadFromFile( std::string filename )
     return true;
 }
 
-le::Object le::LevelManager::GetObject( std::string name ) const
+le::Object& le::LevelManager::GetObject( std::string name )
 {
     // Только первый объект с заданным именем
     for ( int i = 0; i < objects.size(); i++ )
@@ -282,7 +282,7 @@ le::Object le::LevelManager::GetObject( std::string name ) const
             return objects[ i ];
 }
 
-vector<le::Object> le::LevelManager::GetObjects( std::string name ) const
+vector<le::Object>& le::LevelManager::GetObjects( std::string name )
 {
     // Все объекты с заданным именем
     vector<Object> vec;
@@ -294,7 +294,7 @@ vector<le::Object> le::LevelManager::GetObjects( std::string name ) const
 }
 
 
-vector<le::Object> le::LevelManager::GetAllObjects() const
+vector<le::Object>& le::LevelManager::GetAllObjects()
 {
     return objects;
 };
