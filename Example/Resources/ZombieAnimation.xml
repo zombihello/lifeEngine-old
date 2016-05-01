@@ -1,0 +1,6 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="zh.png" transparentColor="">
+ <animation title="walk" delay="150">
+  <cut w="27" x="2" y="1" h="31" row="1" col="1"/>
+ </animation>
+</sprites>
