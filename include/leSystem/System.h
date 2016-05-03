@@ -30,6 +30,7 @@ using namespace sf;
 ///////////////
 #include "BasicStagesGame.h"
 #include "MouseCursor.h"
+#include "FPS.h"
 
 namespace le
 {
@@ -99,12 +100,17 @@ namespace le
 		////////////////////
 		/// СОЗДАНИЕ ОКНА
 		///////////////////
-		void WindowCreate( const int iStyle = Style::Default );
+		void WindowCreate( int iStyle = Style::Default );
 
 		////////////////////
 		/// ГЛАВНЫЙ ЦИКЛ
 		///////////////////
 		void MainLoop( BasicStagesGame& BasicStagesGame );
+
+		///////////////////////////////
+		/// ОБНОВИТЬ ФАЙЛ КОНФИГУРАЦИЙ
+		///////////////////////////////
+		void UpdateFileConfiguration();
 
 		///////////////////////////
 		/// ЗАДАТЬ СКОРОСТЬ ИГРЫ
@@ -153,6 +159,7 @@ namespace le
 	private:
 		void Clock();
 
+		string					  sRouteFileConfiguration;
 		Configuration             Configuration;
 		MouseCursor               MouseCursor;
 		RenderWindow              RenderWindow;

@@ -66,10 +66,12 @@ void le::LightManager::CreateLight( le::Object obj )
 
 	Light->CreateLight( Vector2f( obj.rect.left, obj.rect.top ),
 						obj.GetPropertyInt( "radius" ),
-						Color( obj.GetPropertyInt( "color_R" ) ,
-							   obj.GetPropertyInt( "color_G" ) ,
-							   obj.GetPropertyInt( "color_B" ) )
+						Color( obj.GetPropertyInt( "r" ) ,
+							   obj.GetPropertyInt( "g" ) ,
+							   obj.GetPropertyInt( "b" ) )
 						);
+
+	vLight.push_back( Light );
 }
 
 //-------------------------------------------------------------------------//
@@ -126,6 +128,9 @@ void le::LightManager::DeleteLight( int id )
 void le::LightManager::SetSizeMap( Vector2f SizeMap )
 {
 	this->SizeMap = SizeMap;
+
+	RenderTexture.clear( Color( color[ 0 ], color[ 1 ], color[ 2 ] ) );
+	RenderTexture.create( SizeMap.x, SizeMap.y );
 }
 
 //-------------------------------------------------------------------------//

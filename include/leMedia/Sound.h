@@ -25,6 +25,7 @@ namespace le
 		/// КОНСТРУКТОР
 		////////////////
 		Sound( string Route, string NameSound );
+		Sound( string Route, string NameSound, int CoefficientVolume );
 
 		//////////////////////
 		/// ПРОИГРАТЬ МУЗЫКУ
@@ -41,6 +42,11 @@ namespace le
 		////////////////////////
 		string GetNameSound();
 
+		///////////////////////////////////////////
+		/// ПОЛУЧИТЬ КОЭФФИЦИЕНТ ГРОМКОСТИ ЗВУКА
+		//////////////////////////////////////////
+		int GetCoefficientVolume();
+
 		//////////////////////////
 		/// ПОЛУЧИТЬ БУФЕР ЗВУКА
 		//////////////////////////
@@ -51,6 +57,8 @@ namespace le
 		/////////////////////
 		sf::Sound& GetSound();
 	private:
+		int					iCoefficientVolume;
+
 		string				sNameSound;
 		SoundBuffer			SoundBuffer;
 		sf::Sound			sound;

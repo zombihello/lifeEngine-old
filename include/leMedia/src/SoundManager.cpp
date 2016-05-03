@@ -23,13 +23,25 @@ void le::SoundManager::LoadSound( string Route, string NameSound )
 
 //-------------------------------------------------------------------------//
 
+void le::SoundManager::LoadSound( string Route, string NameSound, int CoefficientVolume )
+{
+	vSound[ NameSound ] = new le::Sound( Route, NameSound, CoefficientVolume );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::SoundManager::PlaySound( string NameSound )
 {
 	if ( vSound.count( NameSound ) != 0 && Configuration->bSound )
 	{
 		le::Sound* Sound = vSound[ NameSound ];
 
-		Sound->GetSound().setVolume( Configuration->iVolumeSound );
+		float percentage = Configuration->iVolumeSound * abs( Sound->GetCoefficientVolume() ) / 100;
+
+		if ( Sound->GetCoefficientVolume() < 0 )
+			Sound->GetSound().setVolume( Configuration->iVolumeSound - percentage );
+		else
+			Sound->GetSound().setVolume( Configuration->iVolumeSound + percentage );
 
 		if ( !Sound->GetSound().getStatus() != sf::Sound::Playing )
 			Sound->Play();

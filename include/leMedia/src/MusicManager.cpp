@@ -23,13 +23,25 @@ void le::MusicManager::LoadMusic( string Route, string NameMusic, bool loop )
 
 //-------------------------------------------------------------------------//
 
+void le::MusicManager::LoadMusic( string Route, string NameMusic, int CoefficientVolume, bool loop )
+{
+	vMusic[ NameMusic ] = new le::Music( Route, NameMusic, CoefficientVolume, loop );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::MusicManager::PlayMusic( string NameMusic )
 {
 	if ( vMusic.count( NameMusic ) != 0 && Configuration->bMusic )
 	{
 		le::Music* Music = vMusic[ NameMusic ];
 
-		Music->GetMusic().setVolume( Configuration->iVolumeMusic );
+		float percentage = Configuration->iVolumeMusic * abs( Music->GetCoefficientVolume() ) / 100;
+
+		if ( Music->GetCoefficientVolume() < 0 )
+			Music->GetMusic().setVolume( Configuration->iVolumeMusic - percentage );
+		else
+			Music->GetMusic().setVolume( Configuration->iVolumeMusic + percentage );
 
 		if ( !Music->IsPlaying() )
 			Music->Play();
@@ -41,6 +53,25 @@ void le::MusicManager::PlayMusic( string NameMusic )
 	}
 	else if ( vMusic.count( NameMusic ) != 0 && !Configuration->bMusic )
 		vMusic[ NameMusic ]->Stop();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::MusicManager::StopMusic( string NameMusic )
+{
+	if ( vMusic.count( NameMusic ) != 0 )
+	{
+		le::Music* Music = vMusic[ NameMusic ];
+		Music->Stop();
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::MusicManager::StopMusic()
+{
+	for ( auto it = vMusic.begin(); it != vMusic.end(); it++ )
+		(*it).second->Stop();
 }
 
 //-------------------------------------------------------------------------//

@@ -11,14 +11,14 @@ le::TextManager::TextManager( le::System & System )
 
 le::TextManager::~TextManager()
 {
-    DeleteAllText();
+	DeleteAllText();
 }
 
 //-------------------------------------------------------------------------//
 
 void le::TextManager::LoadFont( const string sRoute )
 {
-    Font.loadFromFile( sRoute );
+	Font.loadFromFile( sRoute );
 }
 
 //-------------------------------------------------------------------------//
@@ -35,6 +35,14 @@ void le::TextManager::WriteText( const string sText , const int iSize , Vector2f
 
 //-------------------------------------------------------------------------//
 
+void le::TextManager::SetText( int id, string sText )
+{
+	if ( id - 1 > -1 && id - 1 < vText.size() )
+		vText[ id-1 ]->SetText( sText );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::TextManager::UpdateText()
 {
 	for ( int i = 0; i < vText.size() ; i++ )
@@ -45,35 +53,35 @@ void le::TextManager::UpdateText()
 
 void le::TextManager::DeleteAllText()
 {
-    for ( int i = 0; i < vText.size(); i++ )
-        delete vText[ i ];
+	for ( int i = 0; i < vText.size(); i++ )
+		delete vText[ i ];
 
-    vText.clear();
+	vText.clear();
 }
 
 //-------------------------------------------------------------------------//
 
 void le::TextManager::DeleteText( int ID )
 {
-    if ( ID - 1 > -1 && ID - 1 < vText.size() )
-    {
-        delete vText[ ID - 1 ];
-        vText.erase( vText.begin() + ID - 1 );
-    }
+	if ( ID - 1 > -1 && ID - 1 < vText.size() )
+	{
+		delete vText[ ID - 1 ];
+		vText.erase( vText.begin() + ID - 1 );
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 le::Text le::TextManager::GetText( int ID )
 {
-    return *vText[ ID - 1 ];
+	return *vText[ ID - 1 ];
 }
 
 //-------------------------------------------------------------------------//
 
 Font le::TextManager::GetFont() const
 {
-    return Font;
+	return Font;
 }
 
 //-------------------------------------------------------------------------//

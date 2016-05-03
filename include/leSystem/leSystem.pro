@@ -29,7 +29,8 @@ SOURCES += \
     src/TextManager.cpp \
     src/Button.cpp \
     src/ButtonManager.cpp \
-    src/System.cpp
+    src/System.cpp \
+    src/FPS.cpp
 
 HEADERS += \
     ../DllGlobal.h \
@@ -42,7 +43,8 @@ HEADERS += \
     Button.h \
     ButtonManager.h \
     System.h \
-    leSystem.h
+    leSystem.h \
+    FPS.h
 
 # Подключение SFML
 

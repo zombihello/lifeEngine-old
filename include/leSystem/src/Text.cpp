@@ -40,7 +40,17 @@ void le::Text::UpdateText()
 
 void le::Text::SetFont(const sf::Font Font)
 {
-    this->Font = Font;
+	this->Font = Font;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Text::SetText( string Text )
+{
+	ostringstream ostringstream;
+	ostringstream << Text;
+
+	text.setString( ostringstream.str() );
 }
 
 //-------------------------------------------------------------------------//

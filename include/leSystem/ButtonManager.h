@@ -36,9 +36,11 @@ namespace le
 		/// СОЗДАТЬ КНОПКУ
 		///////////////////
 		void CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText );
+		template<typename T> void CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText, T Value );
+		void CreateButton( sf::Text Text );
 
 		////////////////////
-		/// ОБНОВИТЬ КНОПКУ
+		/// ОБНОВИТЬ КНОПКИ
 		///////////////////
 		void ButtonsUpdate();
 
@@ -61,11 +63,13 @@ namespace le
 		/// ЗАДАТЬ ЦВЕТ ВЫДЕЛЕНИЯ
 		//////////////////////////
 		void SetColorSelect( const int IdButton, Color Color );
+		void SetColorSelect( Color Color );
 
 		/////////////////////////////
 		/// ЗАДАТЬ СТАНДАРТНЫЙ ЦВЕТ
 		////////////////////////////
 		void SetColorDefoult( const int IdButton, Color Color );
+		void SetColorDefoult( Color Color );
 
 		///////////////////////////
 		/// ЗАДАТЬ ТЕКСТ В КНОПКЕ
@@ -76,6 +80,23 @@ namespace le
 		/// ЗАДАТЬ РАЗМЕР КНОПКЕ
 		//////////////////////////
 		void SetSize( const int IdButton, const int iSize );
+		void SetSize( const int iSize );
+
+		////////////////////
+		/// ПОЛУЧИТЬ КНОПКУ
+		////////////////////
+		Button* GetButton( int id );
+		Button* GetButton( string textInButton );
+
+		///////////////////////
+		/// ПОЛУЧИТЬ ID КНОПКИ
+		///////////////////////
+		const int GetIdButton( string textInButton );
+
+		/////////////////////////
+		/// ПОЛУЧИТЬ ВСЕ КНОПКИ
+		/////////////////////////
+		vector<Button*>& GetAllButtons();
 
 		////////////////////////////////
 		/// ПОЛУЧАЕМ ТЕКУЩИЙ ID КНОПКИ
@@ -86,9 +107,21 @@ namespace le
 
 		System*                     System;
 		Font                        Font;
+		Color						ColorSelect;
 		vector<Button*>             vButton;
 	};
 	
+	//-------------------------------------------------------------------------//
+
+	template<typename T> void ButtonManager::CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText, T Value )
+	{
+		le::Button* Button = new le::Button( *System );
+		Button->SetFont( Font );
+		Button->CreateButton( sText, iSize, PositionText, ColorText, Value );
+
+		vButton.push_back( Button );
+	}
+
 	//-------------------------------------------------------------------------//
 }
 

@@ -5,12 +5,15 @@ using namespace le;
 
 System::System( const string FileConfiguration )
 {
+	sRouteFileConfiguration = FileConfiguration;
+
 	if ( FileExists( FileConfiguration ) )
 	{
 		Configuration.iWindowWidth = ReadTextFile<int>( FileConfiguration , "iWindowWidth" );
 		Configuration.iWindowHeight = ReadTextFile<int>( FileConfiguration , "iWindowHeight" );
 		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
 		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
+		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
 
 		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
 		Configuration.bMusic = ReadTextFile<int>( FileConfiguration , "bMusic" );
@@ -21,17 +24,7 @@ System::System( const string FileConfiguration )
 	{
 		cout << "Error: File [" << FileConfiguration << "] Not Found\n";
 
-		SaveInFile( FileConfiguration , "[SCREAN]" , "" , true );
-		SaveInFile( FileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
-		SaveInFile( FileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
-		SaveInFile( FileConfiguration , "bFullscreen" , Configuration.bFullscreen );
-		SaveInFile( FileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
-
-		SaveInFile( FileConfiguration , "\n[AUDIO]" , "" );
-		SaveInFile( FileConfiguration , "bSound" , Configuration.bSound );
-		SaveInFile( FileConfiguration , "bMusic" , Configuration.bMusic );
-		SaveInFile( FileConfiguration , "iVolumeSound" , Configuration.iVolumeSound );
-		SaveInFile( FileConfiguration , "iVolumeMusic" , Configuration.iVolumeMusic );
+		UpdateFileConfiguration();
 	}
 
 	if ( Configuration.bFullscreen )
@@ -116,9 +109,12 @@ bool System::DirectoryExists( const string sRouteToDirectory )
 
 //-------------------------------------------------------------------------//
 
-void System::WindowCreate( const int iStyle )
+void System::WindowCreate( int iStyle )
 {
 	RenderWindow.close();
+
+	if ( iStyle == Style::Default && Configuration.bFullscreen )
+		iStyle = Style::Fullscreen;
 
 	RenderWindow.create( VideoMode( Configuration.iWindowWidth , Configuration.iWindowHeight ) , Configuration.sWindowName + " | " + Configuration.sGameVersion , iStyle );
 	RenderWindow.setMouseCursorVisible( false );
@@ -151,6 +147,24 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 
 //-------------------------------------------------------------------------//
 
+void System::UpdateFileConfiguration()
+{
+	SaveInFile( sRouteFileConfiguration , "[SCREAN]" , "" , true );
+	SaveInFile( sRouteFileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
+	SaveInFile( sRouteFileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
+	SaveInFile( sRouteFileConfiguration , "iFrameLimit" , Configuration.iFrameLimit );
+	SaveInFile( sRouteFileConfiguration , "bFullscreen" , Configuration.bFullscreen );
+	SaveInFile( sRouteFileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
+
+	SaveInFile( sRouteFileConfiguration , "\n[AUDIO]" , "" );
+	SaveInFile( sRouteFileConfiguration , "bSound" , Configuration.bSound );
+	SaveInFile( sRouteFileConfiguration , "bMusic" , Configuration.bMusic );
+	SaveInFile( sRouteFileConfiguration , "iVolumeSound" , Configuration.iVolumeSound );
+	SaveInFile( sRouteFileConfiguration , "iVolumeMusic" , Configuration.iVolumeMusic );
+}
+
+//-------------------------------------------------------------------------//
+
 void System::SetGameSpeed( const float fGameSpeed )
 {
 	Configuration.fGameSpeed = fGameSpeed;
@@ -161,6 +175,8 @@ void System::SetGameSpeed( const float fGameSpeed )
 void System::SetFrameLimit( const int FrameLimit )
 {
 	Configuration.iFrameLimit = FrameLimit;
+
+	RenderWindow.setFramerateLimit( FrameLimit );
 }
 
 //-------------------------------------------------------------------------//

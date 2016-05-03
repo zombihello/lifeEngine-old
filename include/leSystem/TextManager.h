@@ -42,6 +42,12 @@ namespace le
 		/////////////////////////////////
 		template<typename T> void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
 
+		/////////////////
+		/// ЗАДАТЬ ТЕКСТ
+		/////////////////
+		void SetText( int id, string sText );
+		template<typename T> void SetText( int id, string sText, T Value );
+
 		///////////////////////
 		/// ОБНОВЛЕНИЕ ТЕКСТОВ
 		///////////////////////
@@ -82,6 +88,14 @@ namespace le
 		Text->WriteText( sText, iSize, PositionText, ColorText, Value );
 
 		vText.push_back( Text );
+	}
+
+	//-------------------------------------------------------------------------//
+
+	template<typename T> void TextManager::SetText( int id, string sText, T Value )
+	{
+		if ( id - 1 > -1 && id - 1 < vText.size() )
+			vText[ id-1 ]->SetText( sText, Value );
 	}
 
 	//-------------------------------------------------------------------------//

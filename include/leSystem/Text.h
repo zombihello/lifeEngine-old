@@ -46,6 +46,12 @@ namespace le
 		//////////////////
 		void SetFont( const Font Font );
 
+		//////////////////
+		/// ЗАДАТЬ ТЕКСТ
+		//////////////////
+		void SetText( string Text );
+		template<typename T> void SetText( string Text, T Value );
+
 		////////////////////
 		/// ПОЛУЧИТЬ ТЕКСТ
 		////////////////////
@@ -73,6 +79,16 @@ namespace le
 		text.setCharacterSize( iSize );
 		text.setColor( ColorText );
 		text.setPosition( PositionText );
+	}
+
+	//-------------------------------------------------------------------------//
+
+	template<typename T> void Text::SetText( string Text, T Value )
+	{
+		ostringstream ostringstream;
+		ostringstream << Text << " " << Value;
+
+		text.setString( ostringstream.str() );
 	}
 
 	//-------------------------------------------------------------------------//

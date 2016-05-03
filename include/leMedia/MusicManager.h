@@ -30,11 +30,18 @@ namespace le
 		/// ЗАГРУЗИТЬ МУЗЫКУ
 		/////////////////////
 		void LoadMusic( string Route, string NameMusic, bool loop = false );
+		void LoadMusic( string Route, string NameMusic, int CoefficientVolume, bool loop = false );
 
 		///////////////////
 		/// ИГРАТЬ МУЗЫКУ
 		//////////////////
 		void PlayMusic( string NameMusic );
+
+		//////////////////////
+		/// ОСТАНОВИТЬ МУЗЫКУ
+		/////////////////////
+		void StopMusic( string NameMusic );
+		void StopMusic();
 
 		////////////////////////
 		/// УДАЛИТЬ ВСЮ МУЗЫКУ

@@ -30,6 +30,7 @@ namespace le
 		/// ЗАГРУЗИТЬ МУЗЫКУ
 		/////////////////////
 		void LoadSound( string Route, string NameSound );
+		void LoadSound( string Route, string NameSound, int CoefficientVolume );
 
 		///////////////////
 		/// ИГРАТЬ МУЗЫКУ

@@ -8,6 +8,7 @@
 // SYSTEM
 /////////////////
 #include <string>
+#include <vector>
 using namespace std;
 
 ///////////////////
@@ -43,6 +44,11 @@ namespace le
 		//////////////////////
 		void DrawCursor( RenderWindow& RenderWindow );
 
+		////////////////////////////////////
+		/// ПРОВЕРКА НА НАЖАТИЕ КНОПКИ МЫШИ
+		////////////////////////////////////
+		bool ButtonPressed( Mouse::Button Button );
+
 		//////////////////////////////
 		/// ПОЛУЧИТЬ ВЕКТОР КУРСОРА
 		//////////////////////////////
@@ -53,9 +59,10 @@ namespace le
 		//////////////////////////////////
 		FloatRect& GetRectCursor();
 	private:
-		FloatRect       RectCursor;
-		Texture         Texture;
-		Sprite          Sprite;
+		FloatRect					RectCursor;
+		Texture						Texture;
+		Sprite						Sprite;
+		vector<Mouse::Button>		vButtonsPressed;
 	};
 	
 	//-------------------------------------------------------------------------//

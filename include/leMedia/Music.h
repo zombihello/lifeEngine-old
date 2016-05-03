@@ -25,6 +25,7 @@ namespace le
 		/// КОНСТРУКТОР
 		////////////////
 		Music( string Route, string NameMusic, bool loop = false );
+		Music( string Route, string NameMusic, int CoefficientVolume, bool loop = false );
 
 		//////////////////////
 		/// ПРОИГРАТЬ МУЗЫКУ
@@ -46,12 +47,19 @@ namespace le
 		////////////////////////
 		string GetNameMusic();
 
+		///////////////////////////////////////////
+		/// ПОЛУЧИТЬ КОЭФФИЦИЕНТ ГРОМКОСТИ МУЗЫКИ
+		//////////////////////////////////////////
+		int GetCoefficientVolume();
+
 		/////////////////////
 		/// ПОЛУЧИТЬ МУЗЫКУ
 		/////////////////////
 		sf::Music& GetMusic();
 	private:
 		bool			bIsPlaying;
+
+		int				iCoefficientVolume;
 
 		string			sNameMusic;
 		sf::Music		music;

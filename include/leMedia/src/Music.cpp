@@ -9,6 +9,20 @@ le::Music::Music( string Route, string NameMusic, bool loop )
 
 	sNameMusic = NameMusic;
 	bIsPlaying = false;
+	iCoefficientVolume = 0;
+}
+
+//-------------------------------------------------------------------------//
+
+le::Music::Music( string Route, string NameMusic, int CoefficientVolume, bool loop )
+{
+	music.openFromFile( Route );
+	music.setLoop( loop );
+	music.setVolume( music.getVolume() + CoefficientVolume );
+
+	sNameMusic = NameMusic;
+	bIsPlaying = false;
+	iCoefficientVolume = CoefficientVolume;
 }
 
 //-------------------------------------------------------------------------//
@@ -39,6 +53,13 @@ bool le::Music::IsPlaying()
 string le::Music::GetNameMusic()
 {
 	return sNameMusic;
+}
+
+//-------------------------------------------------------------------------//
+
+int le::Music::GetCoefficientVolume()
+{
+	return iCoefficientVolume;
 }
 
 //-------------------------------------------------------------------------//
