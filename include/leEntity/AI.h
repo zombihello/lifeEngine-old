@@ -13,15 +13,28 @@ namespace le
 {
 	//-------------------------------------------------------------------------//
 	
-	class DLL_API AI : private ViewAI
+	class DLL_API AI //: private ViewAI
 	{
 	public:
+		////////////////
+		/// КОНСТРУКТОР
+		////////////////
 		AI( System& System );
+
+		////////////////
+		/// ДЕСТРУКТОР
+		////////////////
+		~AI();
 
 		//////////////////
 		/// ОБНОВЛЕНИЕ ИИ
 		//////////////////
 		void UpdateAI( vector<BasicPersonages*> vPersonage );
+
+		/////////////////////////
+		/// ЗАДАТЬ РЕЖИМ ДЕБАГА
+		////////////////////////
+		void SetDebug( bool debug );
 
 		//////////////////////
 		/// ИИ УВИДЕЛ ВРАГА
@@ -36,12 +49,14 @@ namespace le
 		//////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ИИ
 		//////////////////////////
-		void InitAI( BasicPersonages* Personage );
+		void InitAI( BasicPersonages* Personage, GroupColision GroupColision );
 
 		/////////////////
 		/// ДЕЙСТВИЯ ИИ
 		/////////////////
 		virtual void Actions() = 0;
+	private:
+		le::ViewAI*				ViewAI;
 	};
 	
 	//-------------------------------------------------------------------------//

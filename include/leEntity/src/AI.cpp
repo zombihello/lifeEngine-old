@@ -2,35 +2,52 @@
 
 //-------------------------------------------------------------------------//
 
-le::AI::AI(le::System& System) : ViewAI(System) {}
+le::AI::AI( le::System& System )
+{
+	ViewAI = new le::ViewAI( System );
+}
+
+//-------------------------------------------------------------------------//
+
+le::AI::~AI()
+{
+	delete ViewAI;
+}
 
 //-------------------------------------------------------------------------//
 
 void le::AI::UpdateAI( vector<BasicPersonages*> vPersonage )
 {
-	UpdateViewAI( vPersonage );
+	ViewAI->UpdateViewAI( vPersonage );
 	Actions();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::AI::SetDebug( bool debug )
+{
+	ViewAI->SetDebug( debug );
 }
 
 //-------------------------------------------------------------------------//
 
 bool le::AI::IsLook()
 {
-	return bIsLook;
+	return ViewAI->IsLook();
 }
 
 //-------------------------------------------------------------------------//
 
 le::BasicPersonages*le::AI::GetLookPersonage()
 {
-	return LookPersonage;
+	return ViewAI->GetLookPersonage();
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AI::InitAI( le::BasicPersonages* Personage )
+void le::AI::InitAI( le::BasicPersonages* Personage, le::GroupColision GroupColision )
 {
-	InitViewAI( Personage );
+	ViewAI->InitViewAI( Personage, GroupColision );
 }
 
 //-------------------------------------------------------------------------//

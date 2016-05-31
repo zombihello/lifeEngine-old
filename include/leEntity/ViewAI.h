@@ -4,8 +4,6 @@
 #define COMPILING_LIBRARY
 #include "../DllGlobal.h"
 
-#define CATEGORY_VIEW_AI 0x0002
-
 //////////////////
 // LIFEENGINE
 /////////////////
@@ -32,20 +30,40 @@ namespace le
 		/// ОБНОВЛЕНИЕ ЗРЕНИЯ У ИИ
 		///////////////////////////
 		void UpdateViewAI( vector<BasicPersonages*> vPersonage );
-	protected:
+
 		/////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ОБЗОРА ИИ
 		/////////////////////////////
-		void InitViewAI( BasicPersonages* Personage );
+		void InitViewAI( BasicPersonages* Personage, GroupColision GroupColision );
 
-		bool						bIsLook;
+		/////////////////////////
+		/// ЗАДАТЬ РЕЖИМ ДЕБАГА
+		////////////////////////
+		void SetDebug( bool debug );
 
-		BasicPersonages*			PersonageAI;
-		BasicPersonages*			LookPersonage;
+		//////////////////////
+		/// УВИДЕЛ ЛИ ВРАГА
+		/////////////////////
+		bool IsLook();
+
+		//////////////////////////////
+		/// ПОЛУЧИТЬ УВИДЕНОГО ВРАГА
+		//////////////////////////////
+		BasicPersonages* GetLookPersonage();
 	private:
+		//////////////////////////////
+		/// НАРИСОВАТЬ "ЗРЕНИЕ" ИИ
+		//////////////////////////////
+		void DrawView();
+
 		int							iIdPersonage;
 
-		Body*						Body;
+		bool						bIsLook;
+		bool						bDebug;
+
+		le::Body*					Body;
+		BasicPersonages*			PersonageAI;
+		BasicPersonages*			LookPersonage;
 		RenderWindow*				Window;
 		RectangleShape				View;
 	};

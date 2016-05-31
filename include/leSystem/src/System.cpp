@@ -14,11 +14,15 @@ System::System( const string FileConfiguration )
 		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
 		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
 		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
+		Configuration.fKoefecientView = ReadTextFile<float>( FileConfiguration, "fKoefecientView" );
 
 		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
 		Configuration.bMusic = ReadTextFile<int>( FileConfiguration , "bMusic" );
 		Configuration.bSound = ReadTextFile<int>( FileConfiguration , "bSound" );
 		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration , "bV_Sinc" );
+
+		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration , "fGameSpeed" );
+		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration , "fGameTick" );
 	}
 	else
 	{
@@ -26,6 +30,13 @@ System::System( const string FileConfiguration )
 
 		UpdateFileConfiguration();
 	}
+
+	if ( Configuration.fKoefecientView < 0 )
+		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth * Configuration.fKoefecientView, Configuration.iWindowHeight * Configuration.fKoefecientView ) );
+	else
+		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth / Configuration.fKoefecientView, Configuration.iWindowHeight / Configuration.fKoefecientView ) );
+
+	MenuCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
 
 	if ( Configuration.bFullscreen )
 		WindowCreate( Style::Fullscreen );
@@ -120,8 +131,6 @@ void System::WindowCreate( int iStyle )
 	RenderWindow.setMouseCursorVisible( false );
 	RenderWindow.setFramerateLimit( Configuration.iFrameLimit );
 	RenderWindow.setVerticalSyncEnabled( Configuration.bV_Sinc );
-
-	Camera.reset( FloatRect( 0,0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -137,11 +146,14 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 				RenderWindow.close();
 		}
 
-		RenderWindow.clear();
-		RenderWindow.setView( Camera );
-		MouseCursor.UpdatePosition( RenderWindow );
-		BasicStagesGame.CheckStages();
-		RenderWindow.display();
+		if ( Event.type != Event::LostFocus )
+		{
+			RenderWindow.clear();
+			RenderWindow.setView( GameCamera );
+			MouseCursor.UpdatePosition( RenderWindow );
+			BasicStagesGame.CheckStages();
+			RenderWindow.display();
+		}
 	}
 }
 
@@ -152,7 +164,10 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "[SCREAN]" , "" , true );
 	SaveInFile( sRouteFileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
 	SaveInFile( sRouteFileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
+	SaveInFile( sRouteFileConfiguration , "iGameCameraWidth" , Configuration.iWindowWidth );
+	SaveInFile( sRouteFileConfiguration , "iGameCameraHeight" , Configuration.iWindowHeight );
 	SaveInFile( sRouteFileConfiguration , "iFrameLimit" , Configuration.iFrameLimit );
+	SaveInFile( sRouteFileConfiguration , "fKoefecientView" , Configuration.fKoefecientView );
 	SaveInFile( sRouteFileConfiguration , "bFullscreen" , Configuration.bFullscreen );
 	SaveInFile( sRouteFileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
 
@@ -161,6 +176,10 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "bMusic" , Configuration.bMusic );
 	SaveInFile( sRouteFileConfiguration , "iVolumeSound" , Configuration.iVolumeSound );
 	SaveInFile( sRouteFileConfiguration , "iVolumeMusic" , Configuration.iVolumeMusic );
+
+	SaveInFile( sRouteFileConfiguration , "\n[GAME]" , "" );
+	SaveInFile( sRouteFileConfiguration , "fGameSpeed" , Configuration.fGameSpeed );
+	SaveInFile( sRouteFileConfiguration , "fGameTick" , Configuration.fGameTick );
 }
 
 //-------------------------------------------------------------------------//
@@ -226,9 +245,16 @@ MouseCursor& System::GetMouseCursor()
 
 //-------------------------------------------------------------------------//
 
-View& System::GetCamera()
+View System::GetMenuCamera()
 {
-	return Camera;
+	return MenuCamera;
+}
+
+//-------------------------------------------------------------------------//
+
+View& System::GetGameCamera()
+{
+	return GameCamera;
 }
 
 //-------------------------------------------------------------------------//
@@ -248,11 +274,12 @@ void System::Clock()
 
 Configuration::Configuration()
 {
-	iWindowWidth = 800;
-	iWindowHeight = 600;
+	iWindowWidth = 1280;
+	iWindowHeight = 720;
 	iVolumeMusic = iVolumeSound = 100;
 	iFrameLimit = 60;
 
+	fKoefecientView = 1.f;
 	fGameSpeed = 300.f;
 	fGameTick = 40.f;
 	fTime = 0.f;
@@ -261,7 +288,7 @@ Configuration::Configuration()
 	bV_Sinc = bFullscreen = false;
 
 	sWindowName = "lifeEngine";
-	sGameVersion = "v0.0.1";
+	sGameVersion = "v0.1.1";
 }
 
 //-------------------------------------------------------------------------//

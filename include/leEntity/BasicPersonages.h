@@ -10,6 +10,7 @@
 #include "BasicEntity.h"
 #include "BasicBullet.h"
 #include "BasicItems.h"
+#include "GroupColision.h"
 #include "../leWeapons/leWeapons.h"
 
 namespace le
@@ -32,16 +33,56 @@ namespace le
 		///////////////////////////////
 		/// ПОЛУЧИТЬ МЕНЕДЖЕР ОРУЖИЯ
 		///////////////////////////////
-		WeaponManager& GetWeaponManager();
+		le::WeaponManager& GetWeaponManager();
+
+		////////////////////////////////////////
+		/// ПОЛУЧИТЬ ГРУППУ КОЛИЗИЙ У ПЕРСОНАЖА
+		////////////////////////////////////////
+		le::GroupColision& GetGroupColisionPersonage();
+
+		/////////////////////////////////////
+		/// ПОЛУЧИТЬ ГРУППУ КОЛИЗИЙ У ОРУЖИЯ
+		/////////////////////////////////////
+		le::GroupColision& GetGroupColisionWeapon();
+
+		/////////////////////////
+		/// ВРАГ ЛИ ЭТОТ ОБЪЕКТ
+		/////////////////////////
+		bool IsEnemy( string sNameEntity );
+
+		///////////////////////////
+		/// ПОЛУЧИТЬ СПИСОК ВРАГОВ
+		///////////////////////////
+		map<string,string> GetListEnemies();
 	protected:
 		////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПЕРСОНАЖА
 		////////////////////////////
-		void InitPersonage( int Armor );
+		void InitPersonage( int Armor, le::GroupColision GroupColisionPersonage );
+		void InitPersonage( int Armor, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon );
 
-		int                             iArmor;
+		/////////////////////////////
+		/// ДОБАВИТЬ ВРАГА В СПИСОК
+		/////////////////////////////
+		void AddEnemy( string sNameEntity );
 
-		WeaponManager*                  WeaponManager;
+		/////////////////////////////
+		/// ОЧИСТИТЬ СПИСОК ВРАГОВ
+		/////////////////////////////
+		void ClearListEnemies();
+
+		/////////////////////////////
+		/// УБРАТЬ ИЗ СПИСКА ВРАГА
+		/////////////////////////////
+		void RemoveEnemy( string sNameEntity );
+
+		int									iArmor;
+
+		le::WeaponManager*                  WeaponManager;
+		le::GroupColision					GroupColisionPersonage;
+		le::GroupColision					GroupColisionWeapon;
+
+		map<string,string>					ListEnemies;
 	};
 	
 	//-------------------------------------------------------------------------//

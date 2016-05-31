@@ -59,7 +59,7 @@ namespace le
         ////////////////////////
         /// ИГРАЕТ ЛИ АНИМАЦИЯ
         ///////////////////////
-        bool& isPlaying();
+		bool& IsPlaying();
     private:
         float                       fCurrentFrame;
         float                       fSpeed;

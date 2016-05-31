@@ -145,6 +145,7 @@ namespace le
 		float                           fRestitution;
 		float							fFriction;
 
+
 		bool							bMoveLeft;
 
 		string                          sNameBody;

@@ -25,7 +25,8 @@ SOURCES += \
     src/BasicPersonages.cpp \
     src/BasicBullet.cpp \
     src/AI.cpp \
-    src/ViewAI.cpp
+    src/ViewAI.cpp \
+    src/GroupColision.cpp
 
 HEADERS +=\
     ../DllGlobal.h \
@@ -36,7 +37,8 @@ HEADERS +=\
     BasicEntity.h \
     BasicBullet.h \
     AI.h \
-    ViewAI.h
+    ViewAI.h \
+    GroupColision.h
 
 # Подключение lifeEngine
 

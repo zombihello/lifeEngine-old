@@ -49,6 +49,7 @@ namespace le
 		int           iVolumeMusic;
 		int           iFrameLimit;
 
+		float		  fKoefecientView;
 		float         fGameSpeed;
 		float         fGameTick;
 		float         fTime;
@@ -152,10 +153,15 @@ namespace le
 		//////////////////////////
 		MouseCursor& GetMouseCursor();
 
-		////////////////////
-		/// ПОЛУЧИТЬ КАМЕРУ
-		////////////////////
-		View& GetCamera();
+		//////////////////////////////
+		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ ИГРЫ
+		/////////////////////////////
+		View& GetGameCamera();
+
+		//////////////////////////////
+		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ МЕНЮ
+		/////////////////////////////
+		View GetMenuCamera();
 	private:
 		void Clock();
 
@@ -165,7 +171,8 @@ namespace le
 		RenderWindow              RenderWindow;
 		sf::Clock                 clock;
 		Event                     Event;
-		View				      Camera;
+		View				      MenuCamera;
+		View				      GameCamera;
 	};
 
 	//-------------------------------------------------------------------------//

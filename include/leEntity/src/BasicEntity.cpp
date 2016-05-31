@@ -111,13 +111,13 @@ void le::BasicEntity::Render()
 {
 	AnimationManager->UpdateAnimation( System->GetConfiguration().fTime, Sprite );
 
-	if ( EntityRect.width != Sprite.getTextureRect().width || EntityRect.height != Sprite.getTextureRect().height )
+	if ( EntityRect.width != abs ( Sprite.getTextureRect().width ) || EntityRect.height != abs ( Sprite.getTextureRect().height ) )
 	{
-		EntityRect.width = Sprite.getTextureRect().width;
-		EntityRect.height = Sprite.getTextureRect().height;
-		Sprite.setOrigin( abs( EntityRect.width )/2, abs( EntityRect.height )/2 );
+		EntityRect.width = abs ( Sprite.getTextureRect().width );
+		EntityRect.height = abs ( Sprite.getTextureRect().height );
+		Sprite.setOrigin( EntityRect.width/2, EntityRect.height/2 );
 
-		EntityBody->SetSize( Vector2f( abs( EntityRect.width ), abs( EntityRect.height ) ) );
+		EntityBody->SetSize( Vector2f( EntityRect.width, EntityRect.height ) );
 	}
 
 	if ( EntityBody != NULL )

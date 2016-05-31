@@ -246,10 +246,8 @@ bool le::Body::IsColision()
 bool le::Body::IsOnGround( Vector2f SizeBody  )
 {
 	b2Vec2 Position = body->GetPosition();
-	//cout << Position.x << "  " << Position.y << endl;
-	Position.y += ((SizeBody.y+1)/2) / 30.f;
+	Position.y += (SizeBody.y/2+1) / 30.f;
 
-	//cout << Position.x << " | " << Position.y << endl;
 	for ( b2Body* it = body->GetWorld()->GetBodyList(); it != 0; it = it->GetNext()  )
 		for ( b2Fixture* fixture = it->GetFixtureList(); fixture != 0; fixture = fixture->GetNext() )
 			if ( fixture->TestPoint( Position ) )

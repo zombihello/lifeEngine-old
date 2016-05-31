@@ -82,7 +82,7 @@ bool &le::Animation::GetFlip()
 
 //-------------------------------------------------------------------------//
 
-bool &le::Animation::isPlaying()
+bool &le::Animation::IsPlaying()
 {
     return bIsPlaying;
 }

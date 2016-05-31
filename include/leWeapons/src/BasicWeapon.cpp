@@ -17,63 +17,78 @@ le::BasicWeapon::~BasicWeapon()
 
 void le::BasicWeapon::AddAmmoInStock( int Ammo )
 {
-    iAmmoInStock += Ammo;
+	iAmmoInStock += Ammo;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BasicWeapon::SetGroupColision( le::GroupColision GroupColision )
+{
+	this->GroupColision = GroupColision;
 }
 
 //-------------------------------------------------------------------------//
 
 int le::BasicWeapon::GetDamage()
 {
-    return iDamage;
+	return iDamage;
 }
 
 //-------------------------------------------------------------------------//
 
 int le::BasicWeapon::GetMaxAmmo()
 {
-    return iMaxAmmo;
+	return iMaxAmmo;
 }
 
 //-------------------------------------------------------------------------//
 
 int le::BasicWeapon::GetCartridgesInStore()
 {
-    return iCartridgesInStore;
+	return iCartridgesInStore;
 }
 
 //-------------------------------------------------------------------------//
 
 int le::BasicWeapon::GetAmmoInStock()
 {
-    return iAmmoInStock;
+	return iAmmoInStock;
 }
 
 //-------------------------------------------------------------------------//
 
 bool le::BasicWeapon::GetIsAtack()
 {
-    return bIsAtack;
+	return bIsAtack;
 }
 
 //-------------------------------------------------------------------------//
 
 string le::BasicWeapon::GetNameWeapon()
 {
-    return sNameAnimation;
+	return sNameAnimation;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, string sNameAnimation )
+le::GroupColision &le::BasicWeapon::GetGroupColision()
 {
-    iDamage = Damage;
-    iMaxAmmo = MaxAmmo;
-    iAmmoInStock = AmmoInStock;
-    iCartridgesInStore = 0;
+	return GroupColision;
+}
 
-    bIsAtack = false;
+//-------------------------------------------------------------------------//
 
-    this->sNameAnimation = sNameAnimation;
+void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::GroupColision GroupColision, string sNameAnimation )
+{
+	iDamage = Damage;
+	iMaxAmmo = MaxAmmo;
+	iAmmoInStock = AmmoInStock;
+	iCartridgesInStore = 0;
+
+	bIsAtack = false;
+
+	this->GroupColision = GroupColision;
+	this->sNameAnimation = sNameAnimation;
 }
 
 //-------------------------------------------------------------------------//

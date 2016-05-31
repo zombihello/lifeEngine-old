@@ -65,7 +65,18 @@ namespace le
 		////////////////////////
 		/// ИГРАЕТ ЛИ АНИМАЦИЯ
 		///////////////////////
-		bool isPlaying();
+		bool IsPlaying();
+
+		//////////////////////////
+		/// ОТРАЖЕНА ЛИ АНИМАЦИЯ
+		/////////////////////////
+		bool IsFlip();
+		bool IsFlip( string NameAnimation );
+
+		////////////////////////////////////////
+		/// ПОЛУЧИТЬ НАЗВАНИЕ ТЕКУЩЕЙ АНИМАЦИИ
+		///////////////////////////////////////
+		string GetNameCurrentAnim();
 	private:
 		string                          sCurrentAnim;
 		map<string , Animation>         mAnimList;

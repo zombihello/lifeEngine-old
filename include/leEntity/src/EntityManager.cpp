@@ -4,7 +4,7 @@
 
 le::EntityManager::EntityManager( le::System& System )
 {
-	Camera = &System.GetCamera();
+	Camera = &System.GetGameCamera();
 }
 
 //-------------------------------------------------------------------------//

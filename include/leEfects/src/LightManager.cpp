@@ -4,7 +4,7 @@
 
 le::LightManager::LightManager( le::System& System )
 {
-	Camera = &System.GetCamera();
+	Camera = &System.GetGameCamera();
 	RenderWindow = &System.GetWindow();
 	SizeMap = Vector2f( System.GetConfiguration().iWindowWidth, System.GetConfiguration().iWindowHeight );
 
@@ -19,7 +19,7 @@ le::LightManager::LightManager( le::System& System )
 
 le::LightManager::LightManager( le::System& System, Vector2f SizeMap )
 {
-	Camera = &System.GetCamera();
+	Camera = &System.GetGameCamera();
 	RenderWindow = &System.GetWindow();
 	this->SizeMap = SizeMap;
 

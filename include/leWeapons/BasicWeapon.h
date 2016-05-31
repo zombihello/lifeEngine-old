@@ -7,6 +7,7 @@
 //////////////////
 // LIFEENGINE
 /////////////////
+#include "../leEntity/GroupColision.h"
 #include "../leSystem/leSystem.h"
 
 namespace le
@@ -38,12 +39,17 @@ namespace le
         //////////////
         /// СТРЕЛЬБА
         //////////////
-        virtual void Shot( vector<le::BasicBullet*>& vBullet ) = 0;
+		virtual void Shot( vector<le::BasicBullet*>& vBullet, Vector2f Position, bool Flip ) = 0;
 
         //////////////////////////////
         /// ДОБАВИТЬ ПАТРОНОВ В ЗАПАС
         //////////////////////////////
         void AddAmmoInStock( int Ammo );
+
+		///////////////////////////
+		/// ЗАДАТЬ ГРУППУ КОЛИЗИЙ
+		///////////////////////////
+		void SetGroupColision( le::GroupColision GroupColision );
 
         ///////////////////
         /// ПОЛУЧИТЬ УРОН
@@ -74,20 +80,27 @@ namespace le
         /// ПОЛУЧИТЬ НАЗВАНИЕ ОРУЖИЯ
         /////////////////////////////
         string GetNameWeapon();
+
+		///////////////////////////
+		/// ПОЛУЧИТЬ ГРУППУ КОЛИЗИЙ
+		///////////////////////////
+		le::GroupColision& GetGroupColision();
     protected:
         //////////////////////////
         /// ИНИЦИАЛИЗАЦИЯ ОРУЖИЯ
         //////////////////////////
-        void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , string sNameAnimation );
+		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision, string sNameAnimation );
 
-        int                     iDamage;
-        int                     iMaxAmmo;
-        int                     iCartridgesInStore;
-        int                     iAmmoInStock;
+		int								iDamage;
+		int								iMaxAmmo;
+		int								iCartridgesInStore;
+		int								iAmmoInStock;
 
-        bool                    bIsAtack;
+		bool							bIsAtack;
 
-        string                  sNameAnimation;
+		string							sNameAnimation;
+
+		le::GroupColision				GroupColision;
     };
 	
 	//-------------------------------------------------------------------------//
