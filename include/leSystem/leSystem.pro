@@ -30,7 +30,8 @@ SOURCES += \
     src/Button.cpp \
     src/ButtonManager.cpp \
     src/System.cpp \
-    src/FPS.cpp
+    src/FPS.cpp \
+    src/GroupColision.cpp
 
 HEADERS += \
     ../DllGlobal.h \
@@ -44,7 +45,8 @@ HEADERS += \
     ButtonManager.h \
     System.h \
     leSystem.h \
-    FPS.h
+    FPS.h \
+    GroupColision.h
 
 # Подключение SFML
 

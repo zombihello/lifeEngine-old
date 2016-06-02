@@ -49,7 +49,14 @@ FloatRect le::BasicEntity::GetRect()
 
 //-------------------------------------------------------------------------//
 
-bool le::BasicEntity::GetTick()
+int &le::BasicEntity::GetTempHealtch()
+{
+	return iTempHealtch;
+}
+
+//-------------------------------------------------------------------------//
+
+bool& le::BasicEntity::GetTick()
 {
 	return bTick;
 }

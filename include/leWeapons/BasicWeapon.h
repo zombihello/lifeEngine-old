@@ -7,89 +7,91 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "../leEntity/GroupColision.h"
+#include "../leAnimation/leAnimation.h"
 #include "../leSystem/leSystem.h"
 
 namespace le
 {
 	//-------------------------------------------------------------------------//
 	
-    class BasicBullet;
+	class BasicBullet;
 	
 	//-------------------------------------------------------------------------//
 
-    class DLL_API BasicWeapon
-    {
-    public:
-        ////////////////
-        /// КОНСТРУКТОР
-        ////////////////
-        BasicWeapon();
+	class DLL_API BasicWeapon
+	{
+	public:
+		////////////////
+		/// КОНСТРУКТОР
+		////////////////
+		BasicWeapon();
 
-        ////////////////
-        /// ДЕСТРУКТОР
-        ////////////////
-       virtual ~BasicWeapon();
+		////////////////
+		/// ДЕСТРУКТОР
+		////////////////
+		virtual ~BasicWeapon();
 
-        ///////////////////////
-        /// ОБНОВЛЕНИЕ ОРУЖИЯ
-        ///////////////////////
-        virtual void Update() = 0;
+		///////////////////////
+		/// ОБНОВЛЕНИЕ ОРУЖИЯ
+		///////////////////////
+		virtual void Update() = 0;
 
-        //////////////
-        /// СТРЕЛЬБА
-        //////////////
+		//////////////
+		/// СТРЕЛЬБА
+		//////////////
 		virtual void Shot( vector<le::BasicBullet*>& vBullet, Vector2f Position, bool Flip ) = 0;
 
-        //////////////////////////////
-        /// ДОБАВИТЬ ПАТРОНОВ В ЗАПАС
-        //////////////////////////////
-        void AddAmmoInStock( int Ammo );
+		//////////////////////////////
+		/// ДОБАВИТЬ ПАТРОНОВ В ЗАПАС
+		//////////////////////////////
+		void AddAmmoInStock( int Ammo );
 
 		///////////////////////////
 		/// ЗАДАТЬ ГРУППУ КОЛИЗИЙ
 		///////////////////////////
 		void SetGroupColision( le::GroupColision GroupColision );
 
-        ///////////////////
-        /// ПОЛУЧИТЬ УРОН
-        ///////////////////
-        int GetDamage();
+		///////////////////
+		/// ПОЛУЧИТЬ УРОН
+		///////////////////
+		int GetDamage();
 
-        ////////////////////////////////////
-        /// ПОЛУЧИТЬ МАКС. КОЛ-ВО ПАТРОНОВ
-        ////////////////////////////////////
-        int GetMaxAmmo();
+		////////////////////////////////////
+		/// ПОЛУЧИТЬ МАКС. КОЛ-ВО ПАТРОНОВ
+		////////////////////////////////////
+		int GetMaxAmmo();
 
-        ////////////////////////////////////////
-        /// ПОЛУЧИТЬ КОЛ-ВО ПАТРОНОВ В МАГАЗИНЕ
-        ///////////////////////////////////////
-        int GetCartridgesInStore();
+		////////////////////////////////////////
+		/// ПОЛУЧИТЬ КОЛ-ВО ПАТРОНОВ В МАГАЗИНЕ
+		///////////////////////////////////////
+		int GetCartridgesInStore();
 
-        ////////////////////////////////////////
-        /// ПОЛУЧИТЬ КОЛ-ВО ПАТРОНОВ В ЗАПАСЕ
-        ///////////////////////////////////////
-        int GetAmmoInStock();
+		////////////////////////////////////////
+		/// ПОЛУЧИТЬ КОЛ-ВО ПАТРОНОВ В ЗАПАСЕ
+		///////////////////////////////////////
+		int GetAmmoInStock();
 
-        ////////////////////////////
-        /// АТАКУЕТ ЛИ ЭТО ОРУЖИЕ
-        ///////////////////////////
-        bool GetIsAtack();
+		////////////////////////////
+		/// АТАКУЕТ ЛИ ЭТО ОРУЖИЕ
+		///////////////////////////
+		bool GetIsAtack();
 
-        //////////////////////////////
-        /// ПОЛУЧИТЬ НАЗВАНИЕ ОРУЖИЯ
-        /////////////////////////////
-        string GetNameWeapon();
+		//////////////////////////////
+		/// ПОЛУЧИТЬ НАЗВАНИЕ ОРУЖИЯ
+		/////////////////////////////
+		string GetNameWeapon();
 
 		///////////////////////////
 		/// ПОЛУЧИТЬ ГРУППУ КОЛИЗИЙ
 		///////////////////////////
 		le::GroupColision& GetGroupColision();
-    protected:
-        //////////////////////////
-        /// ИНИЦИАЛИЗАЦИЯ ОРУЖИЯ
-        //////////////////////////
+	protected:
+		//////////////////////////
+		/// ИНИЦИАЛИЗАЦИЯ ОРУЖИЯ
+		//////////////////////////
 		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision, string sNameAnimation );
+		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision, le::AnimationManager& AnimationManager , string sNameAnimation );
+		void InitWeapon( int Damage , le::AnimationManager& AnimationManager , string sNameAnimation );
 
 		int								iDamage;
 		int								iMaxAmmo;
@@ -101,7 +103,8 @@ namespace le
 		string							sNameAnimation;
 
 		le::GroupColision				GroupColision;
-    };
+		le::AnimationManager*			AnimationManager;
+	};
 	
 	//-------------------------------------------------------------------------//
 }

@@ -73,6 +73,27 @@ bool le::BasicPersonages::IsEnemy( string sNameEntity )
 
 //-------------------------------------------------------------------------//
 
+bool le::BasicPersonages::IsAtackHand()
+{
+	return bAtackHand;
+}
+
+//-------------------------------------------------------------------------//
+
+int &le::BasicPersonages::GetArmor()
+{
+	return iArmor;
+}
+
+//-------------------------------------------------------------------------//
+
+int le::BasicPersonages::GetDamageHand()
+{
+	return iDamageHand;
+}
+
+//-------------------------------------------------------------------------//
+
 map<string, string> le::BasicPersonages::GetListEnemies()
 {
 	return ListEnemies;
@@ -80,17 +101,21 @@ map<string, string> le::BasicPersonages::GetListEnemies()
 
 //-------------------------------------------------------------------------//
 
-void le::BasicPersonages::InitPersonage( int Armor, le::GroupColision GroupColisionPersonage )
+void le::BasicPersonages::InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage )
 {
 	iArmor = Armor;
+	iDamageHand = DamageHand;
+	bAtackHand = false;
 	this->GroupColisionPersonage = GroupColisionPersonage;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::BasicPersonages::InitPersonage( int Armor, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon )
+void le::BasicPersonages::InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon )
 {
 	iArmor = Armor;
+	iDamageHand = DamageHand;
+	bAtackHand = false;
 	this->GroupColisionPersonage = GroupColisionPersonage;
 	this->GroupColisionWeapon = GroupColisionWeapon;
 }

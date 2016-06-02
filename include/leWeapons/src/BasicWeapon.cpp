@@ -4,7 +4,7 @@
 
 le::BasicWeapon::BasicWeapon()
 {
-
+	AnimationManager = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -89,6 +89,37 @@ void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::
 
 	this->GroupColision = GroupColision;
 	this->sNameAnimation = sNameAnimation;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::GroupColision GroupColision, le::AnimationManager &AnimationManager, string sNameAnimation )
+{
+	iDamage = Damage;
+	iMaxAmmo = MaxAmmo;
+	iAmmoInStock = AmmoInStock;
+	iCartridgesInStore = 0;
+
+	bIsAtack = false;
+
+	this->GroupColision = GroupColision;
+	this->sNameAnimation = sNameAnimation;
+	this->AnimationManager = &AnimationManager;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BasicWeapon::InitWeapon( int Damage, le::AnimationManager &AnimationManager, string sNameAnimation )
+{
+	iDamage = Damage;
+	iMaxAmmo = 0;
+	iAmmoInStock = 0;
+	iCartridgesInStore = 0;
+
+	bIsAtack = false;
+
+	this->sNameAnimation = sNameAnimation;
+	this->AnimationManager = &AnimationManager;
 }
 
 //-------------------------------------------------------------------------//

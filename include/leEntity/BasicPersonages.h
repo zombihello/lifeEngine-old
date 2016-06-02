@@ -7,11 +7,11 @@
 //////////////////
 // LIFEENGINE
 /////////////////
+#include "../leSystem/GroupColision.h"
+#include "../leWeapons/leWeapons.h"
 #include "BasicEntity.h"
 #include "BasicBullet.h"
 #include "BasicItems.h"
-#include "GroupColision.h"
-#include "../leWeapons/leWeapons.h"
 
 namespace le
 {
@@ -50,6 +50,21 @@ namespace le
 		/////////////////////////
 		bool IsEnemy( string sNameEntity );
 
+		///////////////////////////////
+		/// АТАКУЕТ ЛИ ПЕРСОНАЖ РУКОЙ
+		//////////////////////////////
+		bool IsAtackHand();
+
+		////////////////////
+		/// ПОЛУЧИТЬ БРОНЮ
+		////////////////////
+		int& GetArmor();
+
+		/////////////////////////
+		/// ПОЛУЧИТЬ УРОН ОТ РУК
+		/////////////////////////
+		int GetDamageHand();
+
 		///////////////////////////
 		/// ПОЛУЧИТЬ СПИСОК ВРАГОВ
 		///////////////////////////
@@ -58,8 +73,8 @@ namespace le
 		////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПЕРСОНАЖА
 		////////////////////////////
-		void InitPersonage( int Armor, le::GroupColision GroupColisionPersonage );
-		void InitPersonage( int Armor, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon );
+		void InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage );
+		void InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon );
 
 		/////////////////////////////
 		/// ДОБАВИТЬ ВРАГА В СПИСОК
@@ -77,6 +92,9 @@ namespace le
 		void RemoveEnemy( string sNameEntity );
 
 		int									iArmor;
+		int									iDamageHand;
+
+		bool								bAtackHand;
 
 		le::WeaponManager*                  WeaponManager;
 		le::GroupColision					GroupColisionPersonage;

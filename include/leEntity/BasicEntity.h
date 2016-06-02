@@ -49,10 +49,15 @@ namespace le
 		////////////////////////////
 		FloatRect GetRect();
 
+		///////////////////////////////
+		/// ПОЛУЧИТЬ ТЕКУЩЕЕ ЗДОРОВЬЕ
+		//////////////////////////////
+		int& GetTempHealtch();
+
 		//////////////////
 		/// ПОЛУЧИТЬ ТИК
 		//////////////////
-		bool GetTick();
+		bool& GetTick();
 
 		////////////////////////////
 		/// ЖИВОЙ ПЕРСОНАЖ ИЛИ НЕТ
@@ -98,8 +103,6 @@ namespace le
 
 		int                     iTempHealtch;
 		int                     iMaxHealtch;
-
-		//float*					fTime;
 
 		bool                    bTick;
 		bool                    bLife;

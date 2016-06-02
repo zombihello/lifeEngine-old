@@ -32,9 +32,9 @@ HEADERS += leWeapons.h \
 LIBS += -L$$PWD/../../lib
 
 CONFIG(release, debug|release):
- LIBS += -lleSystem -lleEntity
+ LIBS += -lleSystem -lleAnimation
 CONFIG(debug, debug|release):
- LIBS += -lleSystem-d -lleEntity-d
+ LIBS += -lleSystem-d -lleAnimation-d
 
 # Подключение SFML
 

@@ -60,10 +60,26 @@ void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 			}
 		}
 		else
+		{
 			iIdPersonage++;
+
+			if ( LookPersonage != NULL )
+			{
+				LookPersonage = NULL;
+				bIsLook = false;
+			}
+		}
 	}
 	else
+	{
 		iIdPersonage = 0;
+
+		if ( LookPersonage != NULL )
+		{
+			LookPersonage = NULL;
+			bIsLook = false;
+		}
+	}
 
 	if ( Body->IsColision() )
 	{
@@ -86,7 +102,7 @@ void le::ViewAI::InitViewAI( le::BasicPersonages *Personage, le::GroupColision G
 
 	Body->CreatePolygonShape( Vector2f( 2,2 ) );
 
-	Body->SetPropirtes( 1, 0, 0 );
+	Body->SetPropirtes( 0, 0, 0 );
 	Body->SetCategorieCollisions( GroupColision.ColisionGroup );
 	Body->SetIgnoreCategoryCollisions( GroupColision.ColisionGroup | GroupColision.IgnoreGroup );
 
