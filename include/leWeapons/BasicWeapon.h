@@ -45,6 +45,7 @@ namespace le
 		/// ДОБАВИТЬ ПАТРОНОВ В ЗАПАС
 		//////////////////////////////
 		void AddAmmoInStock( int Ammo );
+		void AddAmmoInStore( int Ammo );
 
 		///////////////////////////
 		/// ЗАДАТЬ ГРУППУ КОЛИЗИЙ

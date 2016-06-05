@@ -33,6 +33,8 @@ void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 	if ( bDebug )
 		DrawView();
 
+	Body->MoveBody( Vector2f( 0, -10*Body->body->GetMass() ), le::Body::FORCE );
+
 	if ( iIdPersonage < vPersonage.size() )
 	{
 		BasicPersonages* Enemy = vPersonage[ iIdPersonage ];
@@ -102,7 +104,6 @@ void le::ViewAI::InitViewAI( le::BasicPersonages *Personage, le::GroupColision G
 
 	Body->CreatePolygonShape( Vector2f( 2,2 ) );
 
-	Body->SetPropirtes( 0, 0, 0 );
 	Body->SetCategorieCollisions( GroupColision.ColisionGroup );
 	Body->SetIgnoreCategoryCollisions( GroupColision.ColisionGroup | GroupColision.IgnoreGroup );
 

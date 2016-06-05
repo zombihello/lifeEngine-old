@@ -288,7 +288,7 @@ Configuration::Configuration()
 	bV_Sinc = bFullscreen = false;
 
 	sWindowName = "lifeEngine";
-	sGameVersion = "v0.1.2";
+	sGameVersion = "v0.1.3";
 }
 
 //-------------------------------------------------------------------------//

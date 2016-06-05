@@ -79,6 +79,14 @@ le::Text le::TextManager::GetText( int ID )
 
 //-------------------------------------------------------------------------//
 
+string le::TextManager::GetString( int ID )
+{
+	if ( ID - 1 > -1 && ID - 1 < vText.size() )
+		return GetText( ID ).GetText().getString().toAnsiString();
+}
+
+//-------------------------------------------------------------------------//
+
 Font le::TextManager::GetFont() const
 {
 	return Font;

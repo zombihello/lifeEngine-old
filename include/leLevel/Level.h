@@ -50,7 +50,7 @@ namespace le
 		///////////////////////
 		/// ПОЛУЧИТЬ ОБЪЕКТЫ
 		//////////////////////
-		vector<Object>& GetObjects( const string sName );
+		vector<Object> GetObjects( const string sName );
 
 		/////////////////////////
 		/// ПОЛУЧИТЬ ВСЕ ОБЪЕКТЫ

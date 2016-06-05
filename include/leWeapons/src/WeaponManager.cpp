@@ -4,133 +4,149 @@
 
 le::WeaponManager::WeaponManager( System& System )
 {
-    Event = &System.GetEvent();
+	Event = &System.GetEvent();
 
-    iIdTmpWeapon = iMaxWeapon = -1;
+	iIdTmpWeapon = iMaxWeapon = -1;
 }
 
 //-------------------------------------------------------------------------//
 
 le::WeaponManager::~WeaponManager()
 {
-    DeleteAllWeapon();
+	DeleteAllWeapon();
 }
 
 //-------------------------------------------------------------------------//
 
 void le::WeaponManager::GiveWeapon(le::BasicWeapon *BasicWeapon)
 {
-    vWeapon.push_back( BasicWeapon );
-    iMaxWeapon++;
+	vWeapon.push_back( BasicWeapon );
+	iMaxWeapon++;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::WeaponManager::GiveAmmo( int ammo, string NameWeapon )
+void le::WeaponManager::GiveAmmoInStock( int ammo, string NameWeapon )
 {
-    for ( int i = 0; i < vWeapon.size(); i++ )
-    {
-        BasicWeapon* Weapon = vWeapon[ i ];
+	for ( int i = 0; i < vWeapon.size(); i++ )
+	{
+		BasicWeapon* Weapon = vWeapon[ i ];
 
-        if ( Weapon->GetNameWeapon() == NameWeapon )
-        {
-            Weapon->AddAmmoInStock( ammo );
-            return;
-        }
-    }
+		if ( Weapon->GetNameWeapon() == NameWeapon )
+		{
+			Weapon->AddAmmoInStock( ammo );
+			return;
+		}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::WeaponManager::GiveAmmoInStore( int ammo, string NameWeapon )
+{
+	for ( int i = 0; i < vWeapon.size(); i++ )
+	{
+		BasicWeapon* Weapon = vWeapon[ i ];
+
+		if ( Weapon->GetNameWeapon() == NameWeapon )
+		{
+			Weapon->AddAmmoInStore( ammo );
+			return;
+		}
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 void le::WeaponManager::DeleteAllWeapon()
 {
-    for ( int i = 0; i < vWeapon.size(); i++ )
-        delete vWeapon[ i ];
+	for ( int i = 0; i < vWeapon.size(); i++ )
+		delete vWeapon[ i ];
 
-    vWeapon.clear();
+	vWeapon.clear();
 }
 
 //-------------------------------------------------------------------------//
 
 void le::WeaponManager::DeleteWeapon( string sNameWeapon )
 {
-    for ( int i = 0; i < vWeapon.size(); i++ )
-    {
-        BasicWeapon* Weapon = vWeapon[ i ];
+	for ( int i = 0; i < vWeapon.size(); i++ )
+	{
+		BasicWeapon* Weapon = vWeapon[ i ];
 
-        if ( Weapon->GetNameWeapon() == sNameWeapon )
-        {
-            vWeapon.erase( vWeapon.begin() + i );
-            delete Weapon;
-            return;
-        }
-    }
+		if ( Weapon->GetNameWeapon() == sNameWeapon )
+		{
+			vWeapon.erase( vWeapon.begin() + i );
+			delete Weapon;
+			return;
+		}
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 void le::WeaponManager::UpdateWeapon()
 {
-    if ( iIdTmpWeapon >= 0 && iIdTmpWeapon <= iMaxWeapon )
-    {
-        BasicWeapon* Weapon = vWeapon[ iIdTmpWeapon ];
-        Weapon->Update();
-    }
+	if ( iIdTmpWeapon >= 0 && iIdTmpWeapon <= iMaxWeapon )
+	{
+		BasicWeapon* Weapon = vWeapon[ iIdTmpWeapon ];
+		Weapon->Update();
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 void le::WeaponManager::SetTmpWeapon( int IdWeapon )
 {
-    //if ( IdWeapon-1 >= 0 && IdWeapon-1 <= iMaxWeapon )
-        iIdTmpWeapon = IdWeapon-1;
+	//if ( IdWeapon-1 >= 0 && IdWeapon-1 <= iMaxWeapon )
+	iIdTmpWeapon = IdWeapon-1;
 }
 
 //-------------------------------------------------------------------------//
 
 le::BasicWeapon *le::WeaponManager::GetWeapon( int id )
 {
-    if ( id-1 >= 0 && id-1 < vWeapon.size() )
-        return vWeapon[ id-1 ];
+	if ( id-1 >= 0 && id-1 < vWeapon.size() )
+		return vWeapon[ id-1 ];
 
-    return NULL;
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//
 
 int le::WeaponManager::GetMaxWeapon()
 {
-    return iMaxWeapon+1;
+	return iMaxWeapon+1;
 }
 
 //-------------------------------------------------------------------------//
 
 le::BasicWeapon *le::WeaponManager::GetWeapon( string NameWeapon )
 {
-    for ( int i = 0; i < vWeapon.size(); i++ )
-    {
-        BasicWeapon* Weapon = vWeapon[ i ];
+	for ( int i = 0; i < vWeapon.size(); i++ )
+	{
+		BasicWeapon* Weapon = vWeapon[ i ];
 
-        if ( Weapon->GetNameWeapon() == NameWeapon )
-            return Weapon;
-    }
+		if ( Weapon->GetNameWeapon() == NameWeapon )
+			return Weapon;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 le::BasicWeapon *le::WeaponManager::GetTmpWeapon()
 {
-    if ( iIdTmpWeapon >= 0 && iIdTmpWeapon <= iMaxWeapon )
-        return vWeapon[ iIdTmpWeapon ];
+	if ( iIdTmpWeapon >= 0 && iIdTmpWeapon <= iMaxWeapon )
+		return vWeapon[ iIdTmpWeapon ];
 
-    return NULL;
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//
 
 vector<le::BasicWeapon *> le::WeaponManager::GetAllWeapon()
 {
-    return vWeapon;
+	return vWeapon;
 }
 
 //-------------------------------------------------------------------------//

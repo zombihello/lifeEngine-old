@@ -304,7 +304,7 @@ le::Object& le::Level::GetObject( const string sName )
 
 //-------------------------------------------------------------------------//
 
-vector<le::Object>& le::Level::GetObjects( const string sName )
+vector<le::Object> le::Level::GetObjects( const string sName )
 {
 	// Все объекты с заданным именем
 	vector<Object> vec;

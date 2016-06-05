@@ -38,7 +38,7 @@ void le::Text::UpdateText()
 
 //-------------------------------------------------------------------------//
 
-void le::Text::SetFont(const sf::Font Font)
+void le::Text::SetFont( const sf::Font Font )
 {
 	this->Font = Font;
 }

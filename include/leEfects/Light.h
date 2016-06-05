@@ -25,17 +25,55 @@ namespace le
 		/// СОЗДАТЬ СВЕТ
 		//////////////////
 		void CreateLight( Vector2f Position, float Radius, Color Color );
+		void CreateLight( Vector2f Position, float Radius, Color Color, string NameLight );
+
+		////////////////////////
+		/// ЗАДАТЬ РАДИУС СВЕТА
+		////////////////////////
+		void SetRadius( float Radius );
+
+		/////////////////////////
+		/// ЗАДАТЬ ПОЗИЦИЮ СВЕТА
+		////////////////////////
+		void SetPosition( Vector2f Position );
+
+		///////////////////////
+		/// ЗАДАТЬ ЦВЕТ СВЕТА
+		//////////////////////
+		void SetColor( Color Color );
 
 		///////////////////
 		/// ПОЛУЧИТЬ СВЕТ
 		//////////////////
-		CircleShape GetLight();
+		CircleShape GetCircleShape();
 
-		///////////////////////////////////
+		///////////////////////////
+		/// ПОЛУЧИТЬ РАДИУС СВЕТА
+		//////////////////////////
+		float GetRadius();
+
+		///////////////////////////
+		/// ПОЛУЧИТЬ ПОЗИЦИЮ СВЕТА
+		//////////////////////////
+		Vector2f GetPosition();
+
+		///////////////////////////
+		/// ПОЛУЧИТЬ ЦВЕТ СВЕТА
+		//////////////////////////
+		Color GetColor();
+
+		//////////////////////////////////
 		/// ПОЛУЧИТЬ ПРЯМОУГОЛЬНИК СВЕТА
-		///////////////////////////////////
+		/////////////////////////////////
 		FloatRect GetRect();
+
+		////////////////////////
+		/// ПОЛУЧИТЬ ИМЯ СВЕТА
+		////////////////////////
+		string GetNameLight();
 	private:
+		string				sNameLight;
+
 		Texture				Texture;
 		CircleShape			CircleShape;
 		FloatRect			Rect;

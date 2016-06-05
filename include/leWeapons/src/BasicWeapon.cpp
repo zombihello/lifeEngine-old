@@ -22,6 +22,13 @@ void le::BasicWeapon::AddAmmoInStock( int Ammo )
 
 //-------------------------------------------------------------------------//
 
+void le::BasicWeapon::AddAmmoInStore( int Ammo )
+{
+	iCartridgesInStore += Ammo;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::BasicWeapon::SetGroupColision( le::GroupColision GroupColision )
 {
 	this->GroupColision = GroupColision;

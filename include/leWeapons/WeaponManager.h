@@ -35,7 +35,8 @@ namespace le
         /////////////////
         /// ДАТЬ ПАТРОНЫ
         /////////////////
-        void GiveAmmo( int ammo , string NameWeapon );
+		void GiveAmmoInStock( int ammo , string NameWeapon );
+		void GiveAmmoInStore( int ammo , string NameWeapon );
 
         ////////////////////////
         // УДАЛИТЬ ВСЕ ОРУЖИЕ
