@@ -23,7 +23,7 @@ void le::TextManager::LoadFont( const string sRoute )
 
 //-------------------------------------------------------------------------//
 
-void le::TextManager::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText )
+void le::TextManager::WriteText( const String sText, const int iSize, Vector2f PositionText, Color ColorText )
 {
 	le::Text* Text = new le::Text( *System );
 
@@ -35,7 +35,7 @@ void le::TextManager::WriteText( const string sText , const int iSize , Vector2f
 
 //-------------------------------------------------------------------------//
 
-void le::TextManager::SetText( int id, string sText )
+void le::TextManager::SetText( int id, String sText )
 {
 	if ( id - 1 > -1 && id - 1 < vText.size() )
 		vText[ id-1 ]->SetText( sText );
@@ -79,10 +79,10 @@ le::Text le::TextManager::GetText( int ID )
 
 //-------------------------------------------------------------------------//
 
-string le::TextManager::GetString( int ID )
+String le::TextManager::GetString( int ID )
 {
 	if ( ID - 1 > -1 && ID - 1 < vText.size() )
-		return GetText( ID ).GetText().getString().toAnsiString();
+		return GetText( ID ).GetText().getString();
 }
 
 //-------------------------------------------------------------------------//

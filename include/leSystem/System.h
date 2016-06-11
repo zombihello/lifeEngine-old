@@ -31,6 +31,7 @@ using namespace sf;
 #include "BasicStagesGame.h"
 #include "MouseCursor.h"
 #include "FPS.h"
+#include "Localization.h"
 
 namespace le
 {
@@ -61,6 +62,7 @@ namespace le
 
 		string        sWindowName;
 		string        sGameVersion;
+		string		  sLanguage;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -162,17 +164,25 @@ namespace le
 		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ МЕНЮ
 		/////////////////////////////
 		View GetMenuCamera();
+
+		//////////////////////////////
+		/// ПОЛУЧИТЬ ЛОКАЛИЗАЦИЮ
+		/////////////////////////////
+		Localization& GetLocalization();
 	private:
 		void Clock();
 
-		string					  sRouteFileConfiguration;
-		Configuration             Configuration;
-		MouseCursor               MouseCursor;
-		RenderWindow              RenderWindow;
-		sf::Clock                 clock;
-		Event                     Event;
-		View				      MenuCamera;
-		View				      GameCamera;
+		le::Configuration             Configuration;
+		le::MouseCursor               MouseCursor;
+		le::Localization		      Localization;
+
+		sf::RenderWindow              RenderWindow;
+		sf::Clock					  clock;
+		sf::Event                     Event;
+		sf::View				      MenuCamera;
+		sf::View				      GameCamera;
+
+		std::string					  sRouteFileConfiguration;
 	};
 
 	//-------------------------------------------------------------------------//

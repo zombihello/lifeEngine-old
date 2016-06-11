@@ -26,7 +26,7 @@ void le::ButtonManager::LoadFont( const string sRoute )
 
 //-------------------------------------------------------------------------//
 
-void le::ButtonManager::CreateButton( const string sText, const int iSize, Vector2f PositionText, Color ColorText )
+void le::ButtonManager::CreateButton( const String sText, const int iSize, Vector2f PositionText, Color ColorText )
 {
 	le::Button* Button = new le::Button( *System );
 	Button->SetFont( Font );
@@ -128,7 +128,7 @@ void le::ButtonManager::SetColorDefoult( Color Color )
 
 //-------------------------------------------------------------------------//
 
-void le::ButtonManager::SetText( const int IdButton, const string sText )
+void le::ButtonManager::SetText( const int IdButton, const String sText )
 {
 	if ( IdButton - 1 > -1 && IdButton - 1 < vButton.size() )
 		vButton[ IdButton-1 ]->SetText( sText );
@@ -162,7 +162,7 @@ le::Button* le::ButtonManager::GetButton( int id )
 
 //-------------------------------------------------------------------------//
 
-le::Button*le::ButtonManager::GetButton( string textInButton )
+le::Button*le::ButtonManager::GetButton( String textInButton )
 {
 	for ( int i = 0; i < vButton.size(); i++ )
 	{
@@ -175,7 +175,7 @@ le::Button*le::ButtonManager::GetButton( string textInButton )
 
 //-------------------------------------------------------------------------//
 
-const int le::ButtonManager::GetIdButton( string textInButton )
+const int le::ButtonManager::GetIdButton( String textInButton )
 {
 	for ( int i = 0; i < vButton.size(); i++ )
 		if ( vButton[ i ]->GetTextInButton() == textInButton )

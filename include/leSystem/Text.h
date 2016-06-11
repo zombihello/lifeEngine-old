@@ -29,12 +29,12 @@ namespace le
 		////////////////////
 		/// НАПИСАТЬ ТЕКСТ
 		///////////////////
-		void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText );
+		void WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText );
 
 		//////////////////////////////////
 		/// НАПИСАТЬ ТЕКСТ С ПЕРЕМЕННОЙ
 		/////////////////////////////////
-		template<typename T> void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
+		template<typename T> void WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
 
 		/////////////////////
 		/// ОБНОВИТЬ ТЕКСТ
@@ -49,8 +49,8 @@ namespace le
 		//////////////////
 		/// ЗАДАТЬ ТЕКСТ
 		//////////////////
-		void SetText( string Text );
-		template<typename T> void SetText( string Text, T Value );
+		void SetText( String Text );
+		template<typename T> void SetText( String Text, T Value );
 
 		////////////////////
 		/// ПОЛУЧИТЬ ТЕКСТ
@@ -69,13 +69,13 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 	
-	template<typename T> void Text::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value )
+	template<typename T> void Text::WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText , T Value )
 	{
-		ostringstream ostringstream;
-		ostringstream << sText << " " << Value;
+		wostringstream wostringstream;
+		wostringstream << sText.toWideString() << " " << Value;
 
 		text.setFont( Font );
-		text.setString( ostringstream.str() );
+		text.setString( wostringstream.str() );
 		text.setCharacterSize( iSize );
 		text.setColor( ColorText );
 		text.setPosition( PositionText );
@@ -83,12 +83,12 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
-	template<typename T> void Text::SetText( string Text, T Value )
+	template<typename T> void Text::SetText( String Text, T Value )
 	{
-		ostringstream ostringstream;
-		ostringstream << Text << " " << Value;
+		wostringstream wostringstream;
+		wostringstream << Text.toWideString() << " " << Value;
 
-		text.setString( ostringstream.str() );
+		text.setString( wostringstream.str() );
 	}
 
 	//-------------------------------------------------------------------------//

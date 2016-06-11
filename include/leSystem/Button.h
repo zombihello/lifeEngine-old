@@ -35,8 +35,8 @@ namespace le
 		////////////////////
 		/// СОЗДАТЬ КНОПКУ
 		///////////////////
-		void CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText );
-		template<typename T> void CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText, T Value );
+		void CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText );
+		template<typename T> void CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText, T Value );
 		void CreateButton( sf::Text Text );
 
 		////////////////////
@@ -67,7 +67,7 @@ namespace le
 		///////////////////////////
 		/// ЗАДАТЬ ТЕКСТ В КНОПКЕ
 		//////////////////////////
-		void SetText( const string sText );
+		void SetText( const String sText );
 
 		///////////////////////////
 		/// ЗАДАТЬ РАЗМЕР КНОПКЕ
@@ -82,7 +82,7 @@ namespace le
 		/////////////////////////////
 		/// ПОЛУЧИТЬ ТЕКСТ В КНОПКЕ
 		/////////////////////////////
-		string GetTextInButton();
+		String GetTextInButton();
 	private:
 		bool                bClick;
 
@@ -98,14 +98,14 @@ namespace le
 	
 	//-------------------------------------------------------------------------//
 
-	template<typename T> void Button::CreateButton( const string sText , const int iSize , Vector2f PositionText , Color ColorText, T Value )
+	template<typename T> void Button::CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText, T Value )
 	{
 		Text->SetFont( Font );
 
 		Text->WriteText( sText, iSize, PositionText, ColorText, Value );
 		ColorDefoult = ColorText;
 
-		RectButton = FloatRect( PositionText, Vector2f( iSize * sText.size() / 1.5 , iSize ) );
+		RectButton = FloatRect( PositionText, Vector2f( iSize * sText.getSize() / 1.5 , iSize ) );
 	}
 
 	//-------------------------------------------------------------------------//

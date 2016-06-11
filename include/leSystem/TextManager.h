@@ -35,18 +35,18 @@ namespace le
 		///////////////////
 		/// НАПИСАТЬ ТЕКСТ
 		///////////////////
-		void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText );
+		void WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText );
 
 		/////////////////////////////////
 		/// НАПИСАТЬ ТЕКСТ С ПЕРЕМЕННОЙ
 		/////////////////////////////////
-		template<typename T> void WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
+		template<typename T> void WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText , T Value );
 
 		/////////////////
 		/// ЗАДАТЬ ТЕКСТ
 		/////////////////
-		void SetText( int id, string sText );
-		template<typename T> void SetText( int id, string sText, T Value );
+		void SetText( int id, String sText );
+		template<typename T> void SetText( int id, String sText, T Value );
 
 		///////////////////////
 		/// ОБНОВЛЕНИЕ ТЕКСТОВ
@@ -71,7 +71,7 @@ namespace le
 		/////////////////////////
 		/// ПОЛУЧИТЬ СТРОКУ ПО ID
 		/////////////////////////
-		string GetString( int ID );
+		String GetString( int ID );
 
 		////////////////////
 		/// ПОЛУЧИТЬ ШРИФТ
@@ -85,7 +85,7 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 	
-	template<typename T> void TextManager::WriteText( const string sText , const int iSize , Vector2f PositionText , Color ColorText , T Value )
+	template<typename T> void TextManager::WriteText( const String sText , const int iSize , Vector2f PositionText , Color ColorText , T Value )
 	{
 		le::Text* Text = new le::Text( *System );
 
@@ -97,7 +97,7 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
-	template<typename T> void TextManager::SetText( int id, string sText, T Value )
+	template<typename T> void TextManager::SetText( int id, String sText, T Value )
 	{
 		if ( id - 1 > -1 && id - 1 < vText.size() )
 			vText[ id-1 ]->SetText( sText, Value );

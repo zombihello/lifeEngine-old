@@ -21,6 +21,7 @@ System::System( const string FileConfiguration )
 		Configuration.bSound = ReadTextFile<int>( FileConfiguration , "bSound" );
 		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration , "bV_Sinc" );
 
+		Configuration.sLanguage = ReadTextFile<string> ( FileConfiguration , "sLanguage" );
 		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration , "fGameSpeed" );
 		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration , "fGameTick" );
 	}
@@ -178,6 +179,7 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "iVolumeMusic" , Configuration.iVolumeMusic );
 
 	SaveInFile( sRouteFileConfiguration , "\n[GAME]" , "" );
+	SaveInFile( sRouteFileConfiguration , "sLanguage" , Configuration.sLanguage );
 	SaveInFile( sRouteFileConfiguration , "fGameSpeed" , Configuration.fGameSpeed );
 	SaveInFile( sRouteFileConfiguration , "fGameTick" , Configuration.fGameTick );
 }
@@ -252,6 +254,13 @@ View System::GetMenuCamera()
 
 //-------------------------------------------------------------------------//
 
+le::Localization &System::GetLocalization()
+{
+	return Localization;
+}
+
+//-------------------------------------------------------------------------//
+
 View& System::GetGameCamera()
 {
 	return GameCamera;
@@ -287,8 +296,9 @@ Configuration::Configuration()
 	bSound = bMusic = true;
 	bV_Sinc = bFullscreen = false;
 
+	sLanguage = "EN";
 	sWindowName = "lifeEngine";
-	sGameVersion = "v0.1.3";
+	sGameVersion = "v1.1.0";
 }
 
 //-------------------------------------------------------------------------//

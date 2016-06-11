@@ -28,14 +28,14 @@ void le::Button::LoadFont( const string sRoute )
 
 //-------------------------------------------------------------------------//
 
-void le::Button::CreateButton( const string sText, const int iSize, Vector2f PositionText, Color ColorText )
+void le::Button::CreateButton( const String sText, const int iSize, Vector2f PositionText, Color ColorText )
 {
 	Text->SetFont( Font );
 
 	Text->WriteText( sText, iSize, PositionText, ColorText );
 	ColorDefoult = ColorText;
 
-	RectButton = FloatRect( PositionText, Vector2f( iSize * sText.size() / 1.5 , iSize ) );
+	RectButton = FloatRect( PositionText, Vector2f( iSize * sText.getSize() / 1.5 , iSize ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -101,7 +101,7 @@ void le::Button::SetColorDefoult( Color Color )
 
 //-------------------------------------------------------------------------//
 
-void le::Button::SetText( const string sText )
+void le::Button::SetText( const String sText )
 {
 	Text->GetText().setString( sText );
 }
@@ -125,9 +125,9 @@ bool le::Button::IsClick() const
 
 //-------------------------------------------------------------------------//
 
-string le::Button::GetTextInButton()
+String le::Button::GetTextInButton()
 {
-	return Text->GetText().getString().toAnsiString();
+	return Text->GetText().getString();
 }
 
 //-------------------------------------------------------------------------//
