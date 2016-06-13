@@ -32,6 +32,13 @@ void le::Sound::Play()
 
 //-------------------------------------------------------------------------//
 
+void le::Sound::Pause()
+{
+	sound.pause();
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Sound::Stop()
 {
 	sound.stop();
@@ -63,6 +70,15 @@ sf::SoundBuffer& le::Sound::GetBufferSound()
 sf::Sound& le::Sound::GetSound()
 {
 	return sound;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Sound::IsPlaying()
+{
+	if ( sound.getStatus() == sf::Sound::Playing )
+		return true;
+	return false;
 }
 
 //-------------------------------------------------------------------------//

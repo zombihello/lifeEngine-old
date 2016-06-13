@@ -83,3 +83,14 @@ bool le::SoundManager::GetLoadedSound( string NameSound )
 }
 
 //-------------------------------------------------------------------------//
+
+bool le::SoundManager::IsPlaying( string NameSound )
+{
+	if ( vSound.count( NameSound ) != 0 )
+	{
+		le::Sound* Sound = vSound[ NameSound ];
+		return Sound->IsPlaying();
+	}
+}
+
+//-------------------------------------------------------------------------//

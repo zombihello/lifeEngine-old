@@ -8,7 +8,6 @@ le::Music::Music( string Route, string NameMusic, bool loop )
 	music.setLoop( loop );
 
 	sNameMusic = NameMusic;
-	bIsPlaying = false;
 	iCoefficientVolume = 0;
 }
 
@@ -21,7 +20,6 @@ le::Music::Music( string Route, string NameMusic, int CoefficientVolume, bool lo
 	music.setVolume( music.getVolume() + CoefficientVolume );
 
 	sNameMusic = NameMusic;
-	bIsPlaying = false;
 	iCoefficientVolume = CoefficientVolume;
 }
 
@@ -30,7 +28,13 @@ le::Music::Music( string Route, string NameMusic, int CoefficientVolume, bool lo
 void le::Music::Play()
 {
 	music.play();
-	bIsPlaying = true;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Music::Pause()
+{
+	music.pause();
 }
 
 //-------------------------------------------------------------------------//
@@ -38,14 +42,15 @@ void le::Music::Play()
 void le::Music::Stop()
 {
 	music.stop();
-	bIsPlaying = false;
 }
 
 //-------------------------------------------------------------------------//
 
 bool le::Music::IsPlaying()
 {
-	return bIsPlaying;
+	if ( music.getStatus() == sf::Music::Playing )
+		return true;
+	return false;
 }
 
 //-------------------------------------------------------------------------//

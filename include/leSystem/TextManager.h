@@ -61,7 +61,7 @@ namespace le
 		/////////////////////////
 		/// УДАЛИТЬ ТЕКСТ ПО ID
 		/////////////////////////
-		void DeleteText( int ID );
+		bool DeleteText( int ID );
 
 		/////////////////////////
 		/// ПОЛУЧИТЬ ТЕКСТ ПО ID
@@ -77,6 +77,11 @@ namespace le
 		/// ПОЛУЧИТЬ ШРИФТ
 		///////////////////
 		Font GetFont() const;
+
+		///////////////////////////////
+		/// ПОЛУЧИТЬ ВЕКТОР C ТЕКСТОМ
+		//////////////////////////////
+		vector<le::Text*> GetAllText();
 	private:
 		System*					System;
 		Font					Font;

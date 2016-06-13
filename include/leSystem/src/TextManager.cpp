@@ -61,13 +61,16 @@ void le::TextManager::DeleteAllText()
 
 //-------------------------------------------------------------------------//
 
-void le::TextManager::DeleteText( int ID )
+bool le::TextManager::DeleteText( int ID )
 {
 	if ( ID - 1 > -1 && ID - 1 < vText.size() )
 	{
 		delete vText[ ID - 1 ];
-		vText.erase( vText.begin() + ID - 1 );
+		vText.erase( vText.begin() + (ID - 1) );
+		return true;
 	}
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//
@@ -90,6 +93,13 @@ String le::TextManager::GetString( int ID )
 Font le::TextManager::GetFont() const
 {
 	return Font;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::Text *> le::TextManager::GetAllText()
+{
+	return vText;
 }
 
 //-------------------------------------------------------------------------//

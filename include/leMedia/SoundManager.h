@@ -51,6 +51,11 @@ namespace le
 		/// ЗАГРУЖЕНА ЛИ МУЗЫКА
 		/////////////////////////
 		bool GetLoadedSound( string NameSound );
+
+		/////////////////////
+		/// ИГРАЕТ ЛИ ЗВУК
+		/////////////////////
+		bool IsPlaying( string NameSound );
 	private:
 		Configuration*							Configuration;
 		map<string,le::Sound*>					vSound;

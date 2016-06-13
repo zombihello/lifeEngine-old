@@ -298,7 +298,7 @@ Configuration::Configuration()
 
 	sLanguage = "EN";
 	sWindowName = "lifeEngine";
-	sGameVersion = "v1.1.0";
+	sGameVersion = "v1.2.0";
 }
 
 //-------------------------------------------------------------------------//

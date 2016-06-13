@@ -43,6 +43,12 @@ namespace le
 		void StopMusic( string NameMusic );
 		void StopMusic();
 
+		//////////////////////
+		/// ПОСТАВИТЬ МУЗЫКУ НА ПАУЗУ
+		/////////////////////
+		void PauseMusic( string NameMusic );
+		void PauseMusic();
+
 		////////////////////////
 		/// УДАЛИТЬ ВСЮ МУЗЫКУ
 		///////////////////////
@@ -57,6 +63,11 @@ namespace le
 		/// ЗАГРУЖЕНА ЛИ МУЗЫКА
 		/////////////////////////
 		bool GetLoadedMusic( string NameMusic );
+
+		/////////////////////
+		/// ИГРАЕТ ЛИ МУЗЫКА
+		/////////////////////
+		bool IsPlaying( string NameMusic );
 	private:
 		Configuration*							Configuration;
 		map<string,le::Music*>					vMusic;

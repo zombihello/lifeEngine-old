@@ -32,6 +32,11 @@ namespace le
 		/////////////////////
 		void Play();
 
+		///////////////////////////////
+		/// ПОСТАВИТЬ МУЗЫКУ НА ПАУЗУ
+		//////////////////////////////
+		void Pause();
+
 		////////////////////////
 		/// ОСТАНОВИТЬ МУЗЫКУ
 		///////////////////////
@@ -57,8 +62,6 @@ namespace le
 		/////////////////////
 		sf::Music& GetMusic();
 	private:
-		bool			bIsPlaying;
-
 		int				iCoefficientVolume;
 
 		string			sNameMusic;

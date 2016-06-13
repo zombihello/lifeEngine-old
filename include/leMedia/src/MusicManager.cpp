@@ -76,6 +76,25 @@ void le::MusicManager::StopMusic()
 
 //-------------------------------------------------------------------------//
 
+void le::MusicManager::PauseMusic( string NameMusic )
+{
+	if ( vMusic.count( NameMusic ) != 0 )
+	{
+		le::Music* Music = vMusic[ NameMusic ];
+		Music->Pause();
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::MusicManager::PauseMusic()
+{
+	for ( auto it = vMusic.begin(); it != vMusic.end(); it++ )
+		(*it).second->Pause();
+}
+
+//-------------------------------------------------------------------------//
+
 void le::MusicManager::DeleteAllMusic()
 {
 	for ( Iterator = vMusic.begin(); Iterator != vMusic.end(); Iterator++ )
@@ -104,6 +123,17 @@ bool le::MusicManager::GetLoadedMusic( string NameMusic )
 		return true;
 
 	return false;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::MusicManager::IsPlaying( string NameMusic )
+{
+	if ( vMusic.count( NameMusic ) != 0 )
+	{
+		le::Music* Music = vMusic[ NameMusic ];
+		return Music->IsPlaying();
+	}
 }
 
 //-------------------------------------------------------------------------//
