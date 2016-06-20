@@ -75,7 +75,7 @@ bool le::TextManager::DeleteText( int ID )
 
 //-------------------------------------------------------------------------//
 
-le::Text le::TextManager::GetText( int ID )
+le::Text& le::TextManager::GetText( int ID )
 {
 	return *vText[ ID - 1 ];
 }
