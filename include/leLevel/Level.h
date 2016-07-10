@@ -20,7 +20,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Level( System& System );
+		Level( le::System& System );
 
 		/////////////////
 		/// ДЕСТРУКТОР
@@ -75,7 +75,7 @@ namespace le
 
 		Rect<float>         drawingBounds;
 		Texture             tilesetImage;
-		RenderWindow*       RenderWindow;
+		le::System*			System;
 		vector<Object>      vObjects;
 		vector<Layer>       vLayers;
 	};

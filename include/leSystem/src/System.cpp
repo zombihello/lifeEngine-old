@@ -3,7 +3,7 @@ using namespace le;
 
 //-------------------------------------------------------------------------//
 
-System::System( const string FileConfiguration )
+System::System( const string FileConfiguration, int argc, char** argv )
 {
 	sRouteFileConfiguration = FileConfiguration;
 
@@ -14,7 +14,7 @@ System::System( const string FileConfiguration )
 		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
 		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
 		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
-		Configuration.fKoefecientView = ReadTextFile<float>( FileConfiguration, "fKoefecientView" );
+		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration, "fRatioView" );
 
 		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
 		Configuration.bMusic = ReadTextFile<int>( FileConfiguration , "bMusic" );
@@ -32,12 +32,25 @@ System::System( const string FileConfiguration )
 		UpdateFileConfiguration();
 	}
 
-	if ( Configuration.fKoefecientView < 0 )
-		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth * Configuration.fKoefecientView, Configuration.iWindowHeight * Configuration.fKoefecientView ) );
+	if ( Configuration.fRatioView < 0 )
+		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth * Configuration.fRatioView, Configuration.iWindowHeight * Configuration.fRatioView ) );
 	else
-		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth / Configuration.fKoefecientView, Configuration.iWindowHeight / Configuration.fKoefecientView ) );
+		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth / Configuration.fRatioView, Configuration.iWindowHeight / Configuration.fRatioView ) );
 
 	MenuCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
+
+	if ( argc > 1 )
+		for ( int id = 1; id < argc; id++ )
+		{
+			if ( strstr( argv[id], "-dev" ) )
+				SetDebug( true );
+
+			if ( strstr( argv[id], "-window" ) )
+				Configuration.bFullscreen = false;
+
+			if ( strstr( argv[id], "-fullscreen" ) )
+				Configuration.bFullscreen = true;
+		}
 
 	if ( Configuration.bFullscreen )
 		WindowCreate( Style::Fullscreen );
@@ -165,10 +178,8 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "[SCREAN]" , "" , true );
 	SaveInFile( sRouteFileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
 	SaveInFile( sRouteFileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
-	SaveInFile( sRouteFileConfiguration , "iGameCameraWidth" , Configuration.iWindowWidth );
-	SaveInFile( sRouteFileConfiguration , "iGameCameraHeight" , Configuration.iWindowHeight );
 	SaveInFile( sRouteFileConfiguration , "iFrameLimit" , Configuration.iFrameLimit );
-	SaveInFile( sRouteFileConfiguration , "fKoefecientView" , Configuration.fKoefecientView );
+	SaveInFile( sRouteFileConfiguration , "fRatioView" , Configuration.fRatioView );
 	SaveInFile( sRouteFileConfiguration , "bFullscreen" , Configuration.bFullscreen );
 	SaveInFile( sRouteFileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
 
@@ -182,6 +193,12 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "sLanguage" , Configuration.sLanguage );
 	SaveInFile( sRouteFileConfiguration , "fGameSpeed" , Configuration.fGameSpeed );
 	SaveInFile( sRouteFileConfiguration , "fGameTick" , Configuration.fGameTick );
+}
+
+void System::SetDebug( bool debug )
+{
+	Configuration.bDebug = debug;
+	cout << "Info: Debug mode enabled\n";
 }
 
 //-------------------------------------------------------------------------//
@@ -283,22 +300,22 @@ void System::Clock()
 
 Configuration::Configuration()
 {
-	iWindowWidth = 1280;
-	iWindowHeight = 720;
+	iWindowWidth = VideoMode::getDesktopMode().width;
+	iWindowHeight = VideoMode::getDesktopMode().height;
 	iVolumeMusic = iVolumeSound = 100;
 	iFrameLimit = 60;
 
-	fKoefecientView = 1.f;
+	fRatioView = 1.f;
 	fGameSpeed = 300.f;
 	fGameTick = 40.f;
 	fTime = 0.f;
 
-	bSound = bMusic = true;
-	bV_Sinc = bFullscreen = false;
+	bSound = bMusic = bFullscreen = true;
+	bV_Sinc = false;
 
 	sLanguage = "EN";
 	sWindowName = "lifeEngine";
-	sGameVersion = "v1.2.1";
+	sGameVersion = "v1.3.2";
 }
 
 //-------------------------------------------------------------------------//

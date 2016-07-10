@@ -10,6 +10,10 @@ le::BasicEntity::BasicEntity( le::System &System, le::Physic& Physic )
 	this->Physic = &Physic;
 	EntityBody = NULL;
 
+	BoxDebug.setFillColor( Color( 0,0,0,0 ) );
+	BoxDebug.setOutlineColor( Color::Green );
+	BoxDebug.setOutlineThickness( 1 );
+
 	AnimationManager = new le::AnimationManager;
 }
 
@@ -108,8 +112,10 @@ void le::BasicEntity::InitEntity( float fX, float fY, int MaxHealtch, string sNa
 
 	sNameEntity = sName;
 	EntityRect = FloatRect( fX, fY, Texture.getSize().x, Texture.getSize().y );
+	BoxDebug.setSize( Vector2f( EntityRect.width, EntityRect.height ) );
 
 	Sprite.setOrigin( Texture.getSize().x/2, Texture.getSize().y/2 );
+	BoxDebug.setOrigin( Sprite.getOrigin() );
 }
 
 //-------------------------------------------------------------------------//
@@ -122,9 +128,12 @@ void le::BasicEntity::Render()
 	{
 		EntityRect.width = abs ( Sprite.getTextureRect().width );
 		EntityRect.height = abs ( Sprite.getTextureRect().height );
+
 		Sprite.setOrigin( EntityRect.width/2, EntityRect.height/2 );
+		BoxDebug.setOrigin( Sprite.getOrigin() );
 
 		EntityBody->SetSize( Vector2f( EntityRect.width, EntityRect.height ) );
+		BoxDebug.setSize( Vector2f( EntityRect.width, EntityRect.height ) );
 	}
 
 	if ( EntityBody != NULL )
@@ -133,7 +142,13 @@ void le::BasicEntity::Render()
 			b2Body* BodyTmp = EntityBody->body;
 			Sprite.setPosition( BodyTmp->GetPosition().x*30.f, BodyTmp->GetPosition().y*30.f );
 			Sprite.setRotation( BodyTmp->GetAngle()*57.29577f );
+
+			BoxDebug.setPosition( Sprite.getPosition() );
+			BoxDebug.setRotation( Sprite.getRotation() );
 		}
+
+	if ( System->GetConfiguration().bDebug )
+		RenderWindow->draw( BoxDebug );
 
 	RenderWindow->draw( Sprite );
 }

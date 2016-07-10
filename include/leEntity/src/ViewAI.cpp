@@ -4,13 +4,13 @@
 
 le::ViewAI::ViewAI( le::System& System )
 {
-	Window = &System.GetWindow();
+	this->System = &System;
 
 	PersonageAI = NULL;
 	LookPersonage = NULL;
 	Body = NULL;
 
-	bIsLook = bDebug = false;
+	bIsLook = false;
 	iIdPersonage = 0;
 }
 
@@ -30,7 +30,7 @@ le::ViewAI::~ViewAI()
 
 void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 {
-	if ( bDebug )
+	if ( System->GetConfiguration().bDebug )
 		DrawView();
 
 	Body->MoveBody( Vector2f( 0, -10*Body->body->GetMass() ), le::Body::FORCE );
@@ -113,13 +113,6 @@ void le::ViewAI::InitViewAI( le::BasicPersonages *Personage, le::GroupColision G
 
 //-------------------------------------------------------------------------//
 
-void le::ViewAI::SetDebug( bool debug )
-{
-	bDebug = debug;
-}
-
-//-------------------------------------------------------------------------//
-
 bool le::ViewAI::IsLook()
 {
 	return bIsLook;
@@ -137,7 +130,7 @@ le::BasicPersonages *le::ViewAI::GetLookPersonage()
 void le::ViewAI::DrawView()
 {
 	View.setPosition( Vector2f( Body->body->GetPosition().x*30.f, Body->body->GetPosition().y*30.f ) );
-	Window->draw( View );
+	System->GetWindow().draw( View );
 }
 
 //-------------------------------------------------------------------------//

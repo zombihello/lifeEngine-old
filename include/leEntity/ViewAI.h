@@ -36,11 +36,6 @@ namespace le
 		/////////////////////////////
 		void InitViewAI( BasicPersonages* Personage, GroupColision GroupColision );
 
-		/////////////////////////
-		/// ЗАДАТЬ РЕЖИМ ДЕБАГА
-		////////////////////////
-		void SetDebug( bool debug );
-
 		//////////////////////
 		/// УВИДЕЛ ЛИ ВРАГА
 		/////////////////////
@@ -59,12 +54,11 @@ namespace le
 		int							iIdPersonage;
 
 		bool						bIsLook;
-		bool						bDebug;
 
 		le::Body*					Body;
 		BasicPersonages*			PersonageAI;
 		BasicPersonages*			LookPersonage;
-		RenderWindow*				Window;
+		le::System*					System;
 		RectangleShape				View;
 	};
 	

@@ -37,7 +37,7 @@ namespace le
 		///////////////////////
 		/// ОБНОВЛЕНИЕ ЭНТИТИ
 		///////////////////////
-		virtual void Update( vector<BasicBullet*>& vBullet, vector<BasicItems*> vItems, vector<BasicPersonages*> vPersonages ) = 0;
+		virtual void Update( vector<BasicBullet*>& vBullet, vector<BasicItems*>& vItems, vector<BasicPersonages*>& vPersonages ) = 0;
 
 		/////////////////
 		/// УБИТЬ ЭНТИТИ
@@ -110,6 +110,7 @@ namespace le
 
 		string                  sNameEntity;
 		FloatRect               EntityRect;
+		RectangleShape			BoxDebug;
 		RenderWindow*           RenderWindow;
 	};
 	

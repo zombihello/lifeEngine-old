@@ -50,7 +50,7 @@ namespace le
 		int           iVolumeMusic;
 		int           iFrameLimit;
 
-		float		  fKoefecientView;
+		float		  fRatioView;
 		float         fGameSpeed;
 		float         fGameTick;
 		float         fTime;
@@ -59,6 +59,7 @@ namespace le
 		bool          bMusic;
 		bool          bV_Sinc;
 		bool          bFullscreen;
+		bool		  bDebug;
 
 		string        sWindowName;
 		string        sGameVersion;
@@ -71,9 +72,9 @@ namespace le
 	{
 	public:
 		/////////////////
-		// КОНСТРУКТОР
+		/// КОНСТРУКТОР
 		/////////////////
-		System( const string FileConfiguration );
+		System( const string FileConfiguration, int argc, char** argv );
 
 		///////////////////////////////
 		/// ЧТЕНИЕ ПЕРЕМНОЙ ИЗ ФАЙЛА
@@ -115,6 +116,11 @@ namespace le
 		///////////////////////////////
 		void UpdateFileConfiguration();
 
+		///////////////////
+		/// РЕЖИМ ДЕБАГА
+		///////////////////
+		void SetDebug( bool debug );
+
 		///////////////////////////
 		/// ЗАДАТЬ СКОРОСТЬ ИГРЫ
 		///////////////////////////
@@ -128,7 +134,7 @@ namespace le
 		///////////////////////////
 		/// ЗАДАТЬ НАЗВАНИЕ ОКНА
 		///////////////////////////
-		void SetWindowTitle( const String WindowName , const String GameVersion );
+		void SetWindowTitle( const String WindowName , const String GameVersion = "" );
 
 		//////////////////////
 		/// ЗАДАТЬ ТИК ИГРЫ

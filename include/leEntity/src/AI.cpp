@@ -24,13 +24,6 @@ void le::AI::UpdateAI( vector<BasicPersonages*> vPersonage )
 
 //-------------------------------------------------------------------------//
 
-void le::AI::SetDebug( bool debug )
-{
-	ViewAI->SetDebug( debug );
-}
-
-//-------------------------------------------------------------------------//
-
 bool le::AI::IsLook()
 {
 	return ViewAI->IsLook();
@@ -38,7 +31,7 @@ bool le::AI::IsLook()
 
 //-------------------------------------------------------------------------//
 
-le::BasicPersonages*le::AI::GetLookPersonage()
+le::BasicPersonages* le::AI::GetLookPersonage()
 {
 	return ViewAI->GetLookPersonage();
 }

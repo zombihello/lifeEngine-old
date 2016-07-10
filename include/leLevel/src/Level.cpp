@@ -4,7 +4,7 @@
 
 le::Level::Level( le::System &System )
 {
-	RenderWindow = &System.GetWindow();
+	this->System = &System;
 }
 
 //-------------------------------------------------------------------------//
@@ -289,7 +289,7 @@ void le::Level::DrawLevel()
 	// Рисуем все тайлы (объекты НЕ рисуем!)
 	for ( int layer = 0; layer < vLayers.size(); layer++ )
 		for ( int tile = 0; tile < vLayers[ layer ].tiles.size(); tile++ )
-			RenderWindow->draw( vLayers[ layer ].tiles[ tile ] );
+			System->GetWindow().draw( vLayers[ layer ].tiles[ tile ] );
 }
 
 //-------------------------------------------------------------------------//
