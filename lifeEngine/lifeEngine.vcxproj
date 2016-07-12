@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5340812B-9A30-42A2-808C-ECFC14188A86}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>lifeEngine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)-d</TargetName>
+    <OutDir>..\bin</OutDir>
+    <IntDir>..\Debug_lifeEngine</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>..\Release_lifeEngine</IntDir>
+    <OutDir>..\bin</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Animation\Animation.h" />
+    <ClInclude Include="Animation\AnimationManager.h" />
+    <ClInclude Include="Animation\leAnimation.h" />
+    <ClInclude Include="DllGlobal.h" />
+    <ClInclude Include="Efects\leEfects.h" />
+    <ClInclude Include="Efects\Light.h" />
+    <ClInclude Include="Efects\LightManager.h" />
+    <ClInclude Include="Entity\AI.h" />
+    <ClInclude Include="Entity\BasicBullet.h" />
+    <ClInclude Include="Entity\BasicEntity.h" />
+    <ClInclude Include="Entity\BasicItems.h" />
+    <ClInclude Include="Entity\BasicPersonages.h" />
+    <ClInclude Include="Entity\EntityManager.h" />
+    <ClInclude Include="Entity\leEntity.h" />
+    <ClInclude Include="Entity\ViewAI.h" />
+    <ClInclude Include="Level\Layer.h" />
+    <ClInclude Include="Level\leLevel.h" />
+    <ClInclude Include="Level\Level.h" />
+    <ClInclude Include="Level\Object.h" />
+    <ClInclude Include="Media\leMedia.h" />
+    <ClInclude Include="Media\Music.h" />
+    <ClInclude Include="Media\MusicManager.h" />
+    <ClInclude Include="Media\Sound.h" />
+    <ClInclude Include="Media\SoundManager.h" />
+    <ClInclude Include="Physic\Body.h" />
+    <ClInclude Include="Physic\CircleShape.h" />
+    <ClInclude Include="Physic\lePhysic.h" />
+    <ClInclude Include="Physic\Physic.h" />
+    <ClInclude Include="Physic\PolygonShape.h" />
+    <ClInclude Include="System\BasicStagesGame.h" />
+    <ClInclude Include="System\Button.h" />
+    <ClInclude Include="System\ButtonManager.h" />
+    <ClInclude Include="System\FPS.h" />
+    <ClInclude Include="System\GroupColision.h" />
+    <ClInclude Include="System\leSystem.h" />
+    <ClInclude Include="System\Localization.h" />
+    <ClInclude Include="System\MouseCursor.h" />
+    <ClInclude Include="System\System.h" />
+    <ClInclude Include="System\Text.h" />
+    <ClInclude Include="System\TextManager.h" />
+    <ClInclude Include="Utils\Box2D\Box2D.h" />
+    <ClInclude Include="Utils\Box2D\Collision\b2BroadPhase.h" />
+    <ClInclude Include="Utils\Box2D\Collision\b2Collision.h" />
+    <ClInclude Include="Utils\Box2D\Collision\b2Distance.h" />
+    <ClInclude Include="Utils\Box2D\Collision\b2DynamicTree.h" />
+    <ClInclude Include="Utils\Box2D\Collision\b2TimeOfImpact.h" />
+    <ClInclude Include="Utils\Box2D\Collision\Shapes\b2ChainShape.h" />
+    <ClInclude Include="Utils\Box2D\Collision\Shapes\b2CircleShape.h" />
+    <ClInclude Include="Utils\Box2D\Collision\Shapes\b2EdgeShape.h" />
+    <ClInclude Include="Utils\Box2D\Collision\Shapes\b2PolygonShape.h" />
+    <ClInclude Include="Utils\Box2D\Collision\Shapes\b2Shape.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2BlockAllocator.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2Draw.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2GrowableStack.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2Math.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2Settings.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2StackAllocator.h" />
+    <ClInclude Include="Utils\Box2D\Common\b2Timer.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2Body.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2ContactManager.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2Fixture.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2Island.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2TimeStep.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2World.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\b2WorldCallbacks.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2CircleContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2Contact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2ContactSolver.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Contacts\b2PolygonContact.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2DistanceJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2FrictionJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2GearJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2Joint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2MotorJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2MouseJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2PrismaticJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2PulleyJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2RevoluteJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2RopeJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2WeldJoint.h" />
+    <ClInclude Include="Utils\Box2D\Dynamics\Joints\b2WheelJoint.h" />
+    <ClInclude Include="Utils\Box2D\Rope\b2Rope.h" />
+    <ClInclude Include="Utils\codecvt\codecvt.h" />
+    <ClInclude Include="Utils\XML\tinystr.h" />
+    <ClInclude Include="Utils\XML\tinyxml.h" />
+    <ClInclude Include="Weapons\BasicWeapon.h" />
+    <ClInclude Include="Weapons\leWeapons.h" />
+    <ClInclude Include="Weapons\WeaponManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Animation\src\Animation.cpp" />
+    <ClCompile Include="Animation\src\AnimationManager.cpp" />
+    <ClCompile Include="Efects\src\Light.cpp" />
+    <ClCompile Include="Efects\src\LightManager.cpp" />
+    <ClCompile Include="Entity\src\AI.cpp" />
+    <ClCompile Include="Entity\src\BasicBullet.cpp" />
+    <ClCompile Include="Entity\src\BasicEntity.cpp" />
+    <ClCompile Include="Entity\src\BasicItems.cpp" />
+    <ClCompile Include="Entity\src\BasicPersonages.cpp" />
+    <ClCompile Include="Entity\src\EntityManager.cpp" />
+    <ClCompile Include="Entity\src\ViewAI.cpp" />
+    <ClCompile Include="Level\src\Level.cpp" />
+    <ClCompile Include="Level\src\Object.cpp" />
+    <ClCompile Include="Media\src\Music.cpp" />
+    <ClCompile Include="Media\src\MusicManager.cpp" />
+    <ClCompile Include="Media\src\Sound.cpp" />
+    <ClCompile Include="Media\src\SoundManager.cpp" />
+    <ClCompile Include="Physic\src\Body.cpp" />
+    <ClCompile Include="Physic\src\CircleShape.cpp" />
+    <ClCompile Include="Physic\src\Physic.cpp" />
+    <ClCompile Include="Physic\src\PolygonShape.cpp" />
+    <ClCompile Include="System\src\Button.cpp" />
+    <ClCompile Include="System\src\ButtonManager.cpp" />
+    <ClCompile Include="System\src\FPS.cpp" />
+    <ClCompile Include="System\src\GroupColision.cpp" />
+    <ClCompile Include="System\src\Localization.cpp" />
+    <ClCompile Include="System\src\MouseCursor.cpp" />
+    <ClCompile Include="System\src\System.cpp" />
+    <ClCompile Include="System\src\Text.cpp" />
+    <ClCompile Include="System\src\TextManager.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2BroadPhase.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2CollideCircle.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2CollideEdge.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2CollidePolygon.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2Collision.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2Distance.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2DynamicTree.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\b2TimeOfImpact.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\Shapes\b2ChainShape.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\Shapes\b2CircleShape.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\Shapes\b2EdgeShape.cpp" />
+    <ClCompile Include="Utils\Box2D\Collision\Shapes\b2PolygonShape.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2BlockAllocator.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2Draw.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2Math.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2Settings.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2StackAllocator.cpp" />
+    <ClCompile Include="Utils\Box2D\Common\b2Timer.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2Body.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2ContactManager.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2Fixture.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2Island.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2World.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\b2WorldCallbacks.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2CircleContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2Contact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2ContactSolver.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Contacts\b2PolygonContact.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2DistanceJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2FrictionJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2GearJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2Joint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2MotorJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2MouseJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2PrismaticJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2PulleyJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2RevoluteJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2RopeJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
+    <ClCompile Include="Utils\Box2D\Rope\b2Rope.cpp" />
+    <ClCompile Include="Utils\codecvt\codecvt.cpp" />
+    <ClCompile Include="Utils\XML\tinystr.cpp" />
+    <ClCompile Include="Utils\XML\tinyxml.cpp" />
+    <ClCompile Include="Utils\XML\tinyxmlerror.cpp" />
+    <ClCompile Include="Utils\XML\tinyxmlparser.cpp" />
+    <ClCompile Include="Weapons\src\BasicWeapon.cpp" />
+    <ClCompile Include="Weapons\src\WeaponManager.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
