@@ -7,12 +7,12 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "ViewAI.h"
+#include "AI_View.h"
 
 namespace le
 {
 	//-------------------------------------------------------------------------//
-	
+
 	class DLL_API AI //: private ViewAI
 	{
 	public:
@@ -40,20 +40,22 @@ namespace le
 		/// ПОЛУЧИТЬ УВИДЕНОГО ВРАГА
 		//////////////////////////////
 		BasicPersonages* GetLookPersonage();
+
 	protected:
 		//////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ИИ
 		//////////////////////////
-		void InitAI( BasicPersonages* Personage, GroupColision GroupColision );
+		void InitAI( BasicPersonages* Personage , GroupColision GroupColision );
 
 		/////////////////
 		/// ДЕЙСТВИЯ ИИ
 		/////////////////
 		virtual void Actions() = 0;
+
 	private:
-		le::ViewAI*				ViewAI;
+		le::AI_View*				ViewAI;
 	};
-	
+
 	//-------------------------------------------------------------------------//
 }
 

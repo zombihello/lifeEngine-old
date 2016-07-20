@@ -30,6 +30,10 @@ namespace le
 		/// ЗАГРУЗИТЬ МУЗЫКУ
 		/////////////////////
 		void LoadSound( string Route, string NameSound );
+		void LoadSound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation );
+		void LoadSound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation );
+		void LoadSound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation , int CoefficientVolume );
+		void LoadSound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation , int CoefficientVolume );
 		void LoadSound( string Route, string NameSound, int CoefficientVolume );
 
 		///////////////////

@@ -101,7 +101,7 @@
     <ClInclude Include="Entity\BasicPersonages.h" />
     <ClInclude Include="Entity\EntityManager.h" />
     <ClInclude Include="Entity\leEntity.h" />
-    <ClInclude Include="Entity\ViewAI.h" />
+    <ClInclude Include="Entity\AI_View.h" />
     <ClInclude Include="Level\Layer.h" />
     <ClInclude Include="Level\leLevel.h" />
     <ClInclude Include="Level\Level.h" />
@@ -192,7 +192,7 @@
     <ClCompile Include="Entity\src\BasicItems.cpp" />
     <ClCompile Include="Entity\src\BasicPersonages.cpp" />
     <ClCompile Include="Entity\src\EntityManager.cpp" />
-    <ClCompile Include="Entity\src\ViewAI.cpp" />
+    <ClCompile Include="Entity\src\AI_View.cpp" />
     <ClCompile Include="Level\src\Level.cpp" />
     <ClCompile Include="Level\src\Object.cpp" />
     <ClCompile Include="Media\src\Music.cpp" />

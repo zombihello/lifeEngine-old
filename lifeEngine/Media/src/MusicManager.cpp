@@ -45,11 +45,6 @@ void le::MusicManager::PlayMusic( string NameMusic )
 
 		if ( !Music->IsPlaying() )
 			Music->Play();
-		else if ( Music->GetMusic().getStatus() == sf::Music::Stopped )
-		{
-			vMusic.erase( vMusic.find( NameMusic ) );
-			delete Music;
-		}
 	}
 	else if ( vMusic.count( NameMusic ) != 0 && !Configuration->bMusic )
 		vMusic[ NameMusic ]->Stop();

@@ -277,9 +277,6 @@
     <ClInclude Include="Entity\leEntity.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\ViewAI.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Media\leMedia.h">
       <Filter>Media</Filter>
     </ClInclude>
@@ -315,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="Efects\LightManager.h">
       <Filter>Efects</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AI_View.h">
+      <Filter>Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -540,9 +540,6 @@
     <ClCompile Include="Entity\src\EntityManager.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\src\ViewAI.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Media\src\Music.cpp">
       <Filter>Media</Filter>
     </ClCompile>
@@ -566,6 +563,9 @@
     </ClCompile>
     <ClCompile Include="Efects\src\LightManager.cpp">
       <Filter>Efects</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\AI_View.cpp">
+      <Filter>Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

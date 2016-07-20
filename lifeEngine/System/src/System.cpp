@@ -322,11 +322,11 @@ Configuration::Configuration()
 	fTime = 0.f;
 
 	bSound = bMusic = bFullscreen = true;
-	bV_Sinc = false;
+	bV_Sinc = bDebug = false;
 
 	sLanguage = "EN";
 	sWindowName = "lifeEngine";
-	sGameVersion = "v2.0.0";
+	sGameVersion = "v2.1.0";
 }
 
 //-------------------------------------------------------------------------//

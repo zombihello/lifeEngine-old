@@ -1,8 +1,8 @@
-#include "../ViewAI.h"
+#include "../AI_View.h"
 
 //-------------------------------------------------------------------------//
 
-le::ViewAI::ViewAI( le::System& System )
+le::AI_View::AI_View( le::System& System )
 {
 	this->System = &System;
 
@@ -16,7 +16,7 @@ le::ViewAI::ViewAI( le::System& System )
 
 //-------------------------------------------------------------------------//
 
-le::ViewAI::~ViewAI()
+le::AI_View::~AI_View()
 {
 	if ( Body != NULL )
 	{
@@ -28,12 +28,12 @@ le::ViewAI::~ViewAI()
 
 //-------------------------------------------------------------------------//
 
-void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
+void le::AI_View::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 {
 	if ( System->GetConfiguration().bDebug )
 		DrawView();
 
-	Body->MoveBody( Vector2f( 0, -10*Body->body->GetMass() ), le::Body::FORCE );
+	Body->MoveBody( Vector2f( 0 , -10 * Body->body->GetMass() ) , le::Body::FORCE );
 
 	if ( iIdPersonage < vPersonage.size() )
 	{
@@ -42,18 +42,18 @@ void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 		if ( PersonageAI->IsEnemy( Enemy->GetNameEntity() ) )
 		{
 			if ( Body->body->GetPosition().x*30.f < Enemy->GetRect().left )
-				Body->MoveBody( Vector2f( 0.1,0 ), le::Body::FORCE );
+				Body->MoveBody( Vector2f( 0.1 , 0 ) , le::Body::FORCE );
 			else
-				Body->MoveBody( Vector2f( -0.1,0 ), le::Body::FORCE );
+				Body->MoveBody( Vector2f( -0.1 , 0 ) , le::Body::FORCE );
 
 			if ( Body->body->GetPosition().y*30.f < Enemy->GetRect().top )
-				Body->MoveBody( Vector2f( 0,0.1 ), le::Body::FORCE );
+				Body->MoveBody( Vector2f( 0 , 0.1 ) , le::Body::FORCE );
 			else
-				Body->MoveBody( Vector2f( 0,-0.1 ), le::Body::FORCE );
+				Body->MoveBody( Vector2f( 0 , -0.1 ) , le::Body::FORCE );
 
 			if ( Body->IsBodyColision( &Enemy->GetBody() ) )
 			{
-				Body->SetPosition( Vector2f( PersonageAI->GetRect().left, PersonageAI->GetRect().top ) );
+				Body->SetPosition( Vector2f( PersonageAI->GetRect().left , PersonageAI->GetRect().top ) );
 
 				LookPersonage = Enemy;
 				bIsLook = true;
@@ -85,7 +85,7 @@ void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 
 	if ( Body->IsColision() )
 	{
-		Body->SetPosition( Vector2f( PersonageAI->GetRect().left, PersonageAI->GetRect().top ) );
+		Body->SetPosition( Vector2f( PersonageAI->GetRect().left , PersonageAI->GetRect().top ) );
 		LookPersonage = NULL;
 		bIsLook = false;
 
@@ -95,41 +95,41 @@ void le::ViewAI::UpdateViewAI( vector<BasicPersonages*> vPersonage )
 
 //-------------------------------------------------------------------------//
 
-void le::ViewAI::InitViewAI( le::BasicPersonages *Personage, le::GroupColision GroupColision )
+void le::AI_View::InitViewAI( le::BasicPersonages *Personage , le::GroupColision GroupColision )
 {
 	this->PersonageAI = Personage;
 
-	Body = new le::Body( Vector2f( Personage->GetRect().left, Personage->GetRect().top ), Personage->GetNameEntity()+"_view", le::Body::DINAMIC );
+	Body = new le::Body( Vector2f( Personage->GetRect().left , Personage->GetRect().top ) , Personage->GetNameEntity() + "_view" , le::Body::DINAMIC );
 	Personage->GetPhysic().CreateBody( Body );
 
-	Body->CreatePolygonShape( Vector2f( 2,2 ) );
+	Body->CreatePolygonShape( Vector2f( 2 , 2 ) );
 
 	Body->SetCategorieCollisions( GroupColision.ColisionGroup );
 	Body->SetIgnoreCategoryCollisions( GroupColision.ColisionGroup | GroupColision.IgnoreGroup );
 
 	View.setFillColor( Color::White );
-	View.setSize( Vector2f( 2,2 ) );
+	View.setSize( Vector2f( 2 , 2 ) );
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::ViewAI::IsLook()
+bool le::AI_View::IsLook()
 {
 	return bIsLook;
 }
 
 //-------------------------------------------------------------------------//
 
-le::BasicPersonages *le::ViewAI::GetLookPersonage()
+le::BasicPersonages *le::AI_View::GetLookPersonage()
 {
 	return LookPersonage;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::ViewAI::DrawView()
+void le::AI_View::DrawView()
 {
-	View.setPosition( Vector2f( Body->body->GetPosition().x*30.f, Body->body->GetPosition().y*30.f ) );
+	View.setPosition( Vector2f( Body->body->GetPosition().x*30.f , Body->body->GetPosition().y*30.f ) );
 	System->GetWindow().draw( View );
 }
 

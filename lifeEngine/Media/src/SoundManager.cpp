@@ -1,4 +1,5 @@
 #include "../SoundManager.h"
+#include "../../Entity/BasicEntity.h"
 
 //-------------------------------------------------------------------------//
 
@@ -16,16 +17,44 @@ le::SoundManager::~SoundManager()
 
 //-------------------------------------------------------------------------//
 
-void le::SoundManager::LoadSound( string Route, string NameSound )
+void le::SoundManager::LoadSound( string Route , string NameSound )
 {
-	vSound[ NameSound ] = new le::Sound( Route, NameSound );
+	vSound[ NameSound ] = new le::Sound( Route , NameSound );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::SoundManager::LoadSound( string Route, string NameSound, int CoefficientVolume )
+void le::SoundManager::LoadSound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation )
 {
-	vSound[ NameSound ] = new le::Sound( Route, NameSound, CoefficientVolume );
+	vSound[ NameSound ] = new le::Sound( Route , NameSound , Position , MinDistance , Attenuation );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::SoundManager::LoadSound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation )
+{
+	vSound[ NameSound ] = new le::Sound( Route , NameSound , Entity , MinDistance , Attenuation );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::SoundManager::LoadSound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation , int CoefficientVolume )
+{
+	vSound[ NameSound ] = new le::Sound( Route , NameSound , Position , MinDistance , Attenuation , CoefficientVolume );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::SoundManager::LoadSound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation , int CoefficientVolume )
+{
+	vSound[ NameSound ] = new le::Sound( Route , NameSound , Entity , MinDistance , Attenuation , CoefficientVolume );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::SoundManager::LoadSound( string Route , string NameSound , int CoefficientVolume )
+{
+	vSound[ NameSound ] = new le::Sound( Route , NameSound , CoefficientVolume );
 }
 
 //-------------------------------------------------------------------------//
@@ -43,7 +72,9 @@ void le::SoundManager::PlaySound( string NameSound )
 		else
 			Sound->GetSound().setVolume( Configuration->iVolumeSound + percentage );
 
-		if ( !Sound->GetSound().getStatus() != sf::Sound::Playing )
+		Sound->UpdatePositionSound();
+
+		if ( !Sound->IsPlaying() )
 			Sound->Play();
 	}
 	else if ( vSound.count( NameSound ) != 0 && !Configuration->bSound )

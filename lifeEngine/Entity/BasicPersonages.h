@@ -16,14 +16,14 @@
 namespace le
 {
 	//-------------------------------------------------------------------------//
-	
+
 	class DLL_API BasicPersonages : public BasicEntity
 	{
 	public:
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		BasicPersonages( le::System& System, le::Physic& Physic );
+		BasicPersonages( le::System& System , le::Physic& Physic );
 
 		////////////////
 		/// ДЕСТРУКТОР
@@ -68,13 +68,14 @@ namespace le
 		///////////////////////////
 		/// ПОЛУЧИТЬ СПИСОК ВРАГОВ
 		///////////////////////////
-		map<string,string> GetListEnemies();
+		map<string , string> GetListEnemies();
+
 	protected:
 		////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПЕРСОНАЖА
 		////////////////////////////
-		void InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage );
-		void InitPersonage( int Armor, int DamageHand, le::GroupColision GroupColisionPersonage, le::GroupColision GroupColisionWeapon );
+		void InitPersonage( int Armor , int DamageHand , le::GroupColision GroupColisionPersonage );
+		void InitPersonage( int Armor , int DamageHand , le::GroupColision GroupColisionPersonage , le::GroupColision GroupColisionWeapon );
 
 		/////////////////////////////
 		/// ДОБАВИТЬ ВРАГА В СПИСОК
@@ -100,9 +101,9 @@ namespace le
 		le::GroupColision					GroupColisionPersonage;
 		le::GroupColision					GroupColisionWeapon;
 
-		map<string,string>					ListEnemies;
+		map<string , string>				ListEnemies;
 	};
-	
+
 	//-------------------------------------------------------------------------//
 }
 

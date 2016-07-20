@@ -17,15 +17,30 @@
 namespace le
 {
 	//-------------------------------------------------------------------------//
-	
+
+	class BasicEntity;
+
+	//-------------------------------------------------------------------------//
+
 	class DLL_API Sound
 	{
 	public:
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Sound( string Route, string NameSound );
-		Sound( string Route, string NameSound, int CoefficientVolume );
+		Sound( string Route , string NameSound );
+		Sound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation );
+		Sound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation );
+		Sound( string Route , string NameSound , Vector2f Position , float MinDistance , float Attenuation , int CoefficientVolume );
+		Sound( string Route , string NameSound , BasicEntity& Entity , float MinDistance , float Attenuation , int CoefficientVolume );
+		Sound( string Route , string NameSound , int CoefficientVolume );
+
+		////////////////////////////
+		/// ОБНОВИТЬ ПОЗИЦИЮ ЗВУКА
+		////////////////////////////
+		void UpdatePositionSound( BasicEntity& Entity );
+		void UpdatePositionSound( Vector2f Position );
+		void UpdatePositionSound();
 
 		//////////////////////
 		/// ПРОИГРАТЬ ЗВУК
@@ -66,14 +81,17 @@ namespace le
 		/// ИГРАЕТ ЛИ ЗВУК
 		/////////////////////
 		bool IsPlaying();
+
 	private:
 		int					iCoefficientVolume;
+
+		BasicEntity*		Entity;
 
 		string				sNameSound;
 		SoundBuffer			SoundBuffer;
 		sf::Sound			sound;
 	};
-	
+
 	//-------------------------------------------------------------------------//
 }
 

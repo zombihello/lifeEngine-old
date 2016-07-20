@@ -4,7 +4,7 @@
 
 le::AI::AI( le::System& System )
 {
-	ViewAI = new le::ViewAI( System );
+	ViewAI = new le::AI_View( System );
 }
 
 //-------------------------------------------------------------------------//
@@ -38,9 +38,9 @@ le::BasicPersonages* le::AI::GetLookPersonage()
 
 //-------------------------------------------------------------------------//
 
-void le::AI::InitAI( le::BasicPersonages* Personage, le::GroupColision GroupColision )
+void le::AI::InitAI( le::BasicPersonages* Personage , le::GroupColision GroupColision )
 {
-	ViewAI->InitViewAI( Personage, GroupColision );
+	ViewAI->InitViewAI( Personage , GroupColision );
 }
 
 //-------------------------------------------------------------------------//

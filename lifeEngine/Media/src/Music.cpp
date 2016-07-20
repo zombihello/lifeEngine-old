@@ -18,7 +18,7 @@ le::Music::Music( string Route, string NameMusic, int CoefficientVolume, bool lo
 	music.openFromFile( Route );
 	music.setLoop( loop );
 	music.setVolume( music.getVolume() + CoefficientVolume );
-
+	
 	sNameMusic = NameMusic;
 	iCoefficientVolume = CoefficientVolume;
 }
