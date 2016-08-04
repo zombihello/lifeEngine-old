@@ -27,17 +27,10 @@ namespace le
 		////////////////
 		~ButtonManager();
 
-		//////////////////////
-		/// ЗАГРУЗИТЬ ШРИФТ
-		/////////////////////
-		void LoadFont( const string sRoute );
-
 		////////////////////
 		/// СОЗДАТЬ КНОПКУ
 		///////////////////
-		void CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText );
-		template<typename T> void CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText, T Value );
-		void CreateButton( sf::Text Text );
+		void CreateButton( Button* Button );
 
 		////////////////////
 		/// ОБНОВИТЬ КНОПКИ
@@ -53,11 +46,6 @@ namespace le
 		/// УДАЛЯЕМ КНОПКУ ПО ID
 		//////////////////////////
 		void DeleteButton( const int id );
-
-		//////////////////
-		/// ЗАДАТЬ ШРИФТ
-		//////////////////
-		void SetFont( const Font Font );
 
 		//////////////////////////
 		/// ЗАДАТЬ ЦВЕТ ВЫДЕЛЕНИЯ
@@ -106,22 +94,10 @@ namespace le
 		int                         iIdButton;
 
 		System*                     System;
-		Font                        Font;
 		Color						ColorSelect;
 		vector<Button*>             vButton;
 	};
 	
-	//-------------------------------------------------------------------------//
-
-	template<typename T> void ButtonManager::CreateButton( const String sText , const int iSize , Vector2f PositionText , Color ColorText, T Value )
-	{
-		le::Button* Button = new le::Button( *System );
-		Button->SetFont( Font );
-		Button->CreateButton( sText, iSize, PositionText, ColorText, Value );
-
-		vButton.push_back( Button );
-	}
-
 	//-------------------------------------------------------------------------//
 }
 

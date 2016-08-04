@@ -19,32 +19,8 @@ le::ButtonManager::~ButtonManager()
 
 //-------------------------------------------------------------------------//
 
-void le::ButtonManager::LoadFont( const string sRoute )
+void le::ButtonManager::CreateButton( le::Button* Button )
 {
-	Font.loadFromFile( sRoute );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::ButtonManager::CreateButton( const String sText, const int iSize, Vector2f PositionText, Color ColorText )
-{
-	le::Button* Button = new le::Button( *System );
-	Button->SetFont( Font );
-	Button->CreateButton( sText, iSize, PositionText, ColorText );
-	Button->SetId( vButton.size()+1 );
-	Button->SetColorSelect( ColorSelect );
-
-	vButton.push_back( Button );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::ButtonManager::CreateButton( sf::Text Text )
-{
-	le::Button* Button = new le::Button( *System );
-	Button->SetFont( Font );
-	Button->CreateButton( Text );
-
 	vButton.push_back( Button );
 }
 
@@ -83,13 +59,6 @@ void le::ButtonManager::DeleteButton( const int id )
 		delete vButton[ id - 1 ];
 		vButton.erase( vButton.begin() + id - 1 );
 	}
-}
-
-//-------------------------------------------------------------------------//
-
-void le::ButtonManager::SetFont( const sf::Font Font )
-{
-	this->Font = Font;
 }
 
 //-------------------------------------------------------------------------//

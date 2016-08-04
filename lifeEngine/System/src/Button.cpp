@@ -61,7 +61,10 @@ void le::Button::ButtonUpdate()
 		Text->GetText().setColor( ColorSelect );
 
 		if ( MouseCursor->ButtonPressed( Mouse::Left ) )
+		{
 			bClick = true;
+			Actions();
+		}
 	}
 	else
 		if ( Text->GetText().getColor() != ColorDefoult )
