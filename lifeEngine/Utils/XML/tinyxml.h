@@ -253,7 +253,7 @@ public:
 
     // Table that returs, for a given lead byte, the total number of bytes
     // in the UTF-8 sequence.
-    static const int utf8ByteTable[256];
+	static const int utf8ByteTable[ 256 ];
 
     virtual const char* Parse(	const char* p,
                                 TiXmlParsingData* data,

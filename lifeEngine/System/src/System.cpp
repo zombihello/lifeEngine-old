@@ -204,7 +204,11 @@ void System::UpdateFileConfiguration()
 void System::SetDebug( bool debug )
 {
 	Configuration.bDebug = debug;
-	cout << "Info: Debug mode enabled\n";
+
+	if ( debug )
+		cout << "Info: Debug mode enabled\n";
+	else
+		cout << "Info: Debug mode disabled\n";
 }
 
 //-------------------------------------------------------------------------//
@@ -326,7 +330,7 @@ Configuration::Configuration()
 
 	sLanguage = "EN";
 	sWindowName = "lifeEngine";
-	sGameVersion = "v2.2.0";
+	sGameVersion = "v2.2.1";
 }
 
 //-------------------------------------------------------------------------//

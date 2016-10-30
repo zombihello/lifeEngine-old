@@ -43,8 +43,8 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Body( Vector2f Position, string NameBody, TYPE_BODY TypeBody = STATIC );
-		Body( Vector2f Position, float Angle, string NameBody, TYPE_BODY TypeBody = STATIC );
+		Body( Physic& Physic, Vector2f Position, string NameBody, TYPE_BODY TypeBody = STATIC );
+		Body( Physic& Physic, Vector2f Position , float Angle , string NameBody , TYPE_BODY TypeBody = STATIC );
 
 		////////////////
 		/// ДЕСТРУКТОР

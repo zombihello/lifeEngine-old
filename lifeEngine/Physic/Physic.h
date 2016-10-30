@@ -75,18 +75,15 @@ namespace le
         //////////////////
         Body* GetBody( string sNameBody );
 
-        //////////////////
-        /// ПОЛУЧИТЬ МИР
-        //////////////////
-        b2World* GetWorld();
-
         //////////////////////
         /// ПОЛУЧИТЬ ВСЕ ТЕЛА
         //////////////////////
         vector<Body*> GetAllBody();
+
     private:
-        b2World* World;
-        vector<Body*> vBody;
+
+	   b2World* World;
+       vector<Body*> vBody;
     };
 	
 	//-------------------------------------------------------------------------//

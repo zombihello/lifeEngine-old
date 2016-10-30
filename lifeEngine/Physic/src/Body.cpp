@@ -3,7 +3,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::Body::Body( Vector2f Position, string NameBody, TYPE_BODY TypeBody )
+le::Body::Body( Physic& Physic , Vector2f Position , string NameBody , TYPE_BODY TypeBody )
 {
 	Filter = new b2Filter;
 
@@ -15,12 +15,12 @@ le::Body::Body( Vector2f Position, string NameBody, TYPE_BODY TypeBody )
 	fFriction = 0.2f;
 	sNameBody = NameBody;
 	bMoveLeft = false;
-	body = NULL;
+	Physic.CreateBody( this );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body::Body( Vector2f Position, float Angle, string NameBody, TYPE_BODY TypeBody )
+le::Body::Body( Physic& Physic , Vector2f Position , float Angle , string NameBody , TYPE_BODY TypeBody )
 {
 	Filter = new b2Filter;
 
@@ -33,7 +33,7 @@ le::Body::Body( Vector2f Position, float Angle, string NameBody, TYPE_BODY TypeB
 	fFriction = 0.2f;
 	sNameBody = NameBody;
 	bMoveLeft = false;
-	body = NULL;
+	Physic.CreateBody( this );
 }
 
 //-------------------------------------------------------------------------//

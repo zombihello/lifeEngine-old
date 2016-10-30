@@ -253,17 +253,14 @@ bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
 
 			if ( obj->sType == "solid" )
 			{
-				obj->BodyObject = new le::Body( Vector2f( obj->rect.left + obj->rect.width/2, obj->rect.top + obj->rect.height/2 ), obj->Rotation, obj->sName );
+				obj->BodyObject = new le::Body( Physic, Vector2f( obj->rect.left + obj->rect.width/2, obj->rect.top + obj->rect.height/2 ), obj->Rotation, obj->sName );
 
 				if ( obj->mProperties.count( "friction" ) != 0 )
 					obj->BodyObject->SetPropirtes( 1, 0, obj->GetPropertyFloat( "friction" ) );
 				else
 					obj->BodyObject->SetPropirtes( 1, 0, 0.2f );
 
-				Physic.CreateBody( obj->BodyObject );
-
 				obj->BodyObject->CreatePolygonShape( Vector2f( obj->rect.width, obj->rect.height ) );
-
 			}
 		}
 
