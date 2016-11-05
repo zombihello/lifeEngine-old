@@ -32,7 +32,7 @@ namespace le
 		/////////////////////////
 		/// ЗАГРУЗИТЬ ТЕКСТУРУ
 		////////////////////////
-		void LoadTexture( const string sRoute );
+		void LoadTexture( const string sRoute, bool bSmooth = false );
 
 		//////////////////////////////
 		/// ОБНОВЛЕНИЕ ПОЗИЦИИ МЫШИ

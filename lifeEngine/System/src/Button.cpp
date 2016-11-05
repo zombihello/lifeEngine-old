@@ -34,8 +34,6 @@ void le::Button::CreateButton( const String sText, const int iSize, Vector2f Pos
 
 	Text->WriteText( sText, iSize, PositionText, ColorText );
 	ColorDefoult = ColorText;
-
-	RectButton = FloatRect( PositionText, Vector2f( iSize * sText.getSize() / 1.5 , iSize ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -46,8 +44,6 @@ void le::Button::CreateButton( sf::Text Text )
 
 	this->Text->WriteText( Text.getString(), Text.getCharacterSize(), Text.getPosition(), Text.getColor() );
 	ColorDefoult = Text.getColor();
-
-	RectButton = FloatRect( Text.getPosition(), Vector2f( Text.getCharacterSize() * Text.getString().getSize() / 1.5 , Text.getCharacterSize() ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -56,7 +52,7 @@ void le::Button::ButtonUpdate()
 {
 	if ( bClick ) bClick = false;
 
-	if ( RectButton.intersects( MouseCursor->GetRectCursor() ) )
+	if ( Text->GetText().getGlobalBounds().intersects( MouseCursor->GetRectCursor() ) )
 	{
 		Text->GetText().setColor( ColorSelect );
 
@@ -114,9 +110,6 @@ void le::Button::SetText( const String sText )
 void le::Button::SetSize( const int iSize )
 {
 	Text->GetText().setCharacterSize( iSize );
-
-	RectButton.width = iSize * Text->GetText().getString().getSize() / 1.5 ;
-	RectButton.height = iSize;
 }
 
 //-------------------------------------------------------------------------//

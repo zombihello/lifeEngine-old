@@ -16,9 +16,11 @@ le::Level::~Level()
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
+bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoothTextures )
 {
 	TiXmlDocument levelFile( sRoute.c_str() );
+	std::vector<sf::Rect<int>> subRects;
+	vector<int> vFirstTileID;
 
 	// Загружаем XML-карту
 	if ( !levelFile.LoadFile() )
@@ -41,46 +43,52 @@ bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
 	// Берем описание тайлсета и идентификатор первого тайла
 	TiXmlElement *tilesetElement;
 	tilesetElement = map->FirstChildElement( "tileset" );
-	iFirstTileID = atoi( tilesetElement->Attribute( "firstgid" ) );
 
-	// source - путь до картинки в контейнере image
-	TiXmlElement *image;
-	image = tilesetElement->FirstChildElement( "image" );
-	std::string imagepath = image->Attribute( "source" );
-
-	// Пытаемся загрузить тайлсет
-	sf::Image img;
-
-	if ( !img.loadFromFile( imagepath ) )
+	while ( tilesetElement )
 	{
-		std::cout << "Error: Failed to load tile sheet." << std::endl;
-		return false;
-	}
+		vFirstTileID.push_back( atoi( tilesetElement->Attribute( "firstgid" ) ) );
 
+		// source - путь до картинки в контейнере image
+		TiXmlElement *image;
+		image = tilesetElement->FirstChildElement( "image" );
+		std::string imagepath = image->Attribute( "source" );
 
-	img.createMaskFromColor( sf::Color( 255 , 255 , 255 ) );
-	tilesetImage.loadFromImage( img );
-	tilesetImage.setSmooth( false );
+		// Пытаемся загрузить тайлсет
+		sf::Image img;
+		Texture tmp;
 
-	// Получаем количество столбцов и строк тайлсета
-	int columns = tilesetImage.getSize().x / iTileWidth;
-	int rows = tilesetImage.getSize().y / iTileHeight;
-
-	// Вектор из прямоугольников изображений (TextureRect)
-	std::vector<sf::Rect<int>> subRects;
-
-	for ( int y = 0; y < rows; y++ )
-		for ( int x = 0; x < columns; x++ )
+		if ( !img.loadFromFile( imagepath ) )
 		{
-			sf::Rect<int> rect;
-
-			rect.top = y * iTileHeight;
-			rect.height = iTileHeight;
-			rect.left = x * iTileWidth;
-			rect.width = iTileWidth;
-
-			subRects.push_back( rect );
+			std::cout << "Error: Failed to load tile sheet." << std::endl;
+			return false;
 		}
+
+
+		img.createMaskFromColor( sf::Color( 255 , 255 , 255 ) );
+		tmp.loadFromImage( img );
+		tmp.setSmooth( bSmoothTextures );
+		vTextures.push_back( tmp );
+
+		// Получаем количество столбцов и строк тайлсета
+		int columns = tmp.getSize().x / iTileWidth;
+		int rows = tmp.getSize().y / iTileHeight;
+
+		// Вектор из прямоугольников изображений (TextureRect)
+
+		for ( int y = 0; y < rows; y++ )
+			for ( int x = 0; x < columns; x++ )
+			{
+				sf::Rect<int> rect;
+
+				rect.top = y * iTileHeight;
+				rect.height = iTileHeight;
+				rect.left = x * iTileWidth;
+				rect.width = iTileWidth;
+
+				subRects.push_back( rect );
+			}
+		tilesetElement = tilesetElement->NextSiblingElement( "tileset" );
+	}
 
 	// Работа со слоями
 	TiXmlElement *layerElement;
@@ -121,13 +129,13 @@ bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
 		while ( tileElement )
 		{
 			int tileGID = atoi( tileElement->Attribute( "gid" ) );
-			int subRectToUse = tileGID - iFirstTileID;
+			int subRectToUse = tileGID - vFirstTileID[ tileGID - 1 ];
 
 			// Устанавливаем TextureRect каждого тайла
 			if ( subRectToUse >= 0 )
 			{
 				sf::Sprite sprite;
-				sprite.setTexture( tilesetImage );
+				sprite.setTexture( vTextures[ tileGID - 1 ] );
 				sprite.setTextureRect( subRects[ subRectToUse ] );
 				sprite.setPosition( x * iTileWidth , y * iTileHeight );
 				sprite.setColor( sf::Color( 255 , 255 , 255 , layer.iOpacity ) );
@@ -183,32 +191,20 @@ bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
 
 				int width , height;
 
-				sf::Sprite sprite;
-				sprite.setTexture( tilesetImage );
-				sprite.setTextureRect( sf::Rect<int>( 0 , 0 , 0 , 0 ) );
-				sprite.setPosition( x , y );
-
 				if ( objectElement->Attribute( "width" ) != NULL )
 				{
 					width = atoi( objectElement->Attribute( "width" ) );
 					height = atoi( objectElement->Attribute( "height" ) );
 				}
-				else
-				{
-					width = subRects[ atoi( objectElement->Attribute( "gid" ) ) - iFirstTileID ].width;
-					height = subRects[ atoi( objectElement->Attribute( "gid" ) ) - iFirstTileID ].height;
-					sprite.setTextureRect( subRects[ atoi( objectElement->Attribute( "gid" ) ) - iFirstTileID ] );
-				}
 
 				float roation = 0;
 				if ( objectElement->Attribute( "rotation" ) != NULL )
-					roation = strtod( objectElement->Attribute( "rotation" ), NULL );
+					roation = strtod( objectElement->Attribute( "rotation" ) , NULL );
 
 				// Экземпляр объекта
 				Object object( Physic );
 				object.sName = objectName;
 				object.sType = objectType;
-				object.sprite = sprite;
 
 				sf::Rect <float> objectRect;
 				objectRect.top = y;
@@ -253,14 +249,14 @@ bool le::Level::LoadLevel( const string sRoute, le::Physic& Physic )
 
 			if ( obj->sType == "solid" )
 			{
-				obj->BodyObject = new le::Body( Physic, Vector2f( obj->rect.left + obj->rect.width/2, obj->rect.top + obj->rect.height/2 ), obj->Rotation, obj->sName );
+				obj->BodyObject = new le::Body( Physic , Vector2f( obj->rect.left + obj->rect.width / 2 , obj->rect.top + obj->rect.height / 2 ) , obj->Rotation , obj->sName );
 
 				if ( obj->mProperties.count( "friction" ) != 0 )
-					obj->BodyObject->SetPropirtes( 1, 0, obj->GetPropertyFloat( "friction" ) );
+					obj->BodyObject->SetPropirtes( 1 , 0 , obj->GetPropertyFloat( "friction" ) );
 				else
-					obj->BodyObject->SetPropirtes( 1, 0, 0.2f );
+					obj->BodyObject->SetPropirtes( 1 , 0 , 0.2f );
 
-				obj->BodyObject->CreatePolygonShape( Vector2f( obj->rect.width, obj->rect.height ) );
+				obj->BodyObject->CreatePolygonShape( Vector2f( obj->rect.width , obj->rect.height ) );
 			}
 		}
 
@@ -330,7 +326,7 @@ Vector2i le::Level::GetTileSize() const
 
 Vector2i le::Level::GetMapSize() const
 {
-	return Vector2i( iWidth * iTileWidth, iHeight * iTileHeight );
+	return Vector2i( iWidth * iTileWidth , iHeight * iTileHeight );
 }
 
 //-------------------------------------------------------------------------//

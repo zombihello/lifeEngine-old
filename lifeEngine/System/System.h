@@ -2,6 +2,8 @@
 #define LESYSTEM_H
 
 #define COMPILING_LIBRARY
+#define ENGINE "lifeEngine"
+#define ENGINE_VERSION "v2.2.2"
 #include "../DllGlobal.h"
 
 /////////////////////
@@ -49,6 +51,7 @@ namespace le
 		int           iVolumeSound;
 		int           iVolumeMusic;
 		int           iFrameLimit;
+		int			  iAntialiasingLevel;
 
 		float		  fRatioView;
 		float         fGameSpeed;
@@ -169,7 +172,7 @@ namespace le
 		//////////////////////////////
 		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ МЕНЮ
 		/////////////////////////////
-		View GetMenuCamera();
+		View& GetMenuCamera();
 
 		//////////////////////////////
 		/// ПОЛУЧИТЬ ЛОКАЛИЗАЦИЮ

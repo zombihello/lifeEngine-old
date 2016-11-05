@@ -30,7 +30,7 @@ namespace le
 		///////////////////////
 		/// ЗАГРУЗИТЬ УРОВЕНЬ
 		//////////////////////
-		bool LoadLevel( const string sRoute, Physic& Physic );
+		bool LoadLevel( const string sRoute , Physic& Physic , bool bSmoothTextures = false );
 
 		///////////////////////
 		/// ОЧИСТИТЬ УРОВЕНЬ
@@ -66,16 +66,17 @@ namespace le
 		/// ПОЛУЧИТЬ РАЗМЕР КАРТЫ
 		///////////////////////////
 		Vector2i GetMapSize() const;
+
 	private:
-		int                 iFirstTileID;
+
 		int                 iWidth;
 		int                 iHeight;
 		int                 iTileWidth;
 		int                 iTileHeight;
 
 		Rect<float>         drawingBounds;
-		Texture             tilesetImage;
 		le::System*			System;
+		vector<Texture>		vTextures;
 		vector<Object>      vObjects;
 		vector<Layer>       vLayers;
 	};

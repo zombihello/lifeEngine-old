@@ -49,7 +49,6 @@ namespace le
 		Physic*                     Physic;
 		map<string , string>        mProperties;
 
-		Sprite                      sprite;		
 	};
 	
 	//-------------------------------------------------------------------------//

@@ -1,6 +1,6 @@
 #include "../MouseCursor.h"
 using namespace le;
-
+#include <iostream>
 //-------------------------------------------------------------------------//
 
 MouseCursor::MouseCursor()
@@ -10,9 +10,10 @@ MouseCursor::MouseCursor()
 
 //-------------------------------------------------------------------------//
 
-void MouseCursor::LoadTexture( const string sRoute )
+void MouseCursor::LoadTexture( const string sRoute , bool bSmooth )
 {
 	Texture.loadFromFile( sRoute );
+	Texture.setSmooth( bSmooth );
 
 	Sprite.setTexture( Texture );
 	RectCursor = FloatRect( 0 , 0 , 1 , 1 );
