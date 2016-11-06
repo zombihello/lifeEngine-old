@@ -87,6 +87,7 @@ bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoo
 
 				subRects.push_back( rect );
 			}
+
 		tilesetElement = tilesetElement->NextSiblingElement( "tileset" );
 	}
 
@@ -129,7 +130,7 @@ bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoo
 		while ( tileElement )
 		{
 			int tileGID = atoi( tileElement->Attribute( "gid" ) );
-			int subRectToUse = tileGID - vFirstTileID[ tileGID - 1 ];
+			int subRectToUse = tileGID - vFirstTileID[ abs( tileGID - 1 ) ];
 
 			// Устанавливаем TextureRect каждого тайла
 			if ( subRectToUse >= 0 )
