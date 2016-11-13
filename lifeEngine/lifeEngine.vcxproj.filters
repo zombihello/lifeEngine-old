@@ -172,6 +172,9 @@
     <ClInclude Include="Entity\AI_View.h">
       <Filter>Entity</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\AI_Route.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\Button.cpp">
@@ -283,6 +286,9 @@
       <Filter>Efects</Filter>
     </ClCompile>
     <ClCompile Include="Entity\src\AI_View.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\AI_Route.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
   </ItemGroup>

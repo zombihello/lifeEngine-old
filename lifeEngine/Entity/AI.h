@@ -8,6 +8,7 @@
 // LIFEENGINE
 /////////////////
 #include "AI_View.h"
+#include "../Level/Level.h"
 
 namespace le
 {
@@ -19,7 +20,7 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		AI( System& System );
+		AI( System& System, Level& Level );
 
 		////////////////
 		/// ДЕСТРУКТОР
@@ -31,6 +32,16 @@ namespace le
 		//////////////////
 		void UpdateAI( vector<BasicPersonages*> vPersonage );
 
+		//////////////////
+		/// ХОДИТЬ
+		//////////////////
+		void Walk( Vector2f Factor , Body::TYPE_MOVE typeMove );
+
+		////////////////////
+		/// ИДТИ К ОБЪЕКТУ
+		////////////////////
+		void MoveToObject( Vector2f Factor , Body::TYPE_MOVE typeMove, BasicPersonages *Personage, bool UseY = false );
+
 		//////////////////////
 		/// ИИ УВИДЕЛ ВРАГА
 		/////////////////////
@@ -40,20 +51,24 @@ namespace le
 		/// ПОЛУЧИТЬ УВИДЕНОГО ВРАГА
 		//////////////////////////////
 		BasicPersonages* GetLookPersonage();
-
 	protected:
 		//////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ИИ
 		//////////////////////////
 		void InitAI( BasicPersonages* Personage , GroupColision GroupColision );
+		void InitAI( BasicPersonages* Personage , string StartRoute , GroupColision GroupColision );
 
 		/////////////////
 		/// ДЕЙСТВИЯ ИИ
 		/////////////////
 		virtual void Actions() = 0;
-
+		
 	private:
-		le::AI_View*				ViewAI;
+		string								sTmpRouteAI;
+
+		le::AI_View*						ViewAI;
+		map<string , le::AI_Route>			mRoutesAI;
+		BasicPersonages*					Personage;
 	};
 
 	//-------------------------------------------------------------------------//

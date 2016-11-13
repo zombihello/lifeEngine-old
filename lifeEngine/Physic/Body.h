@@ -37,7 +37,8 @@ namespace le
 		enum TYPE_MOVE
 		{
 			FORCE,
-			LINEAR_IMPULSE
+			LINEAR_IMPULSE,
+			LINEAR_VELOCITY
 		};
 
 		////////////////
@@ -138,13 +139,17 @@ namespace le
 		///////////////////////////
 		Vector2f GetSpeedBody();
 
+		////////////////////////////
+		/// ПОЛУЧИТЬ ПОЗИЦИЮ ТЕЛА
+		///////////////////////////
+		Vector2f GetPositionBody();
+
 		b2Body*                         body;
 		b2BodyDef                       bDef;
 	private:
 		float                           fDensity;
 		float                           fRestitution;
 		float							fFriction;
-
 
 		bool							bMoveLeft;
 

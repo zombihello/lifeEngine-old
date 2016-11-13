@@ -95,6 +95,7 @@
     <ClInclude Include="Efects\Light.h" />
     <ClInclude Include="Efects\LightManager.h" />
     <ClInclude Include="Entity\AI.h" />
+    <ClInclude Include="Entity\AI_Route.h" />
     <ClInclude Include="Entity\BasicBullet.h" />
     <ClInclude Include="Entity\BasicEntity.h" />
     <ClInclude Include="Entity\BasicItems.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Efects\src\Light.cpp" />
     <ClCompile Include="Efects\src\LightManager.cpp" />
     <ClCompile Include="Entity\src\AI.cpp" />
+    <ClCompile Include="Entity\src\AI_Route.cpp" />
     <ClCompile Include="Entity\src\BasicBullet.cpp" />
     <ClCompile Include="Entity\src\BasicEntity.cpp" />
     <ClCompile Include="Entity\src\BasicItems.cpp" />

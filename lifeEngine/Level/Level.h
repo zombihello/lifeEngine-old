@@ -9,6 +9,7 @@
 /////////////////
 #include "Object.h"
 #include "Layer.h"
+#include "../Entity/AI_Route.h"
 
 namespace le
 {
@@ -67,18 +68,23 @@ namespace le
 		///////////////////////////
 		Vector2i GetMapSize() const;
 
+		///////////////////////////
+		/// ПОЛУЧИТЬ ПУТИ ИИ 
+		///////////////////////////
+		map<string , AI_Route> GetRoutesAI();
 	private:
 
-		int                 iWidth;
-		int                 iHeight;
-		int                 iTileWidth;
-		int                 iTileHeight;
+		int							iWidth;
+		int							iHeight;
+		int							iTileWidth;
+		int							iTileHeight;
 
-		Rect<float>         drawingBounds;
-		le::System*			System;
-		vector<Texture>		vTextures;
-		vector<Object>      vObjects;
-		vector<Layer>       vLayers;
+		Rect<float>					drawingBounds;
+		le::System*					System;
+		vector<Texture>				vTextures;
+		vector<Object>				vObjects;
+		vector<Layer>				vLayers;
+		map<string , AI_Route>		mRoutesAI;
 	};
 	
 	//-------------------------------------------------------------------------//

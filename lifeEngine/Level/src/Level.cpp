@@ -182,6 +182,7 @@ bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoo
 				{
 					objectType = objectElement->Attribute( "type" );
 				}
+
 				std::string objectName;
 				if ( objectElement->Attribute( "name" ) != NULL )
 				{
@@ -190,54 +191,98 @@ bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoo
 				int x = atoi( objectElement->Attribute( "x" ) );
 				int y = atoi( objectElement->Attribute( "y" ) );
 
-				int width , height;
-
-				if ( objectElement->Attribute( "width" ) != NULL )
+				if ( objectType == "AI_Routes" )
 				{
-					width = atoi( objectElement->Attribute( "width" ) );
-					height = atoi( objectElement->Attribute( "height" ) );
-				}
+					std::map<string , string> propertis;
 
-				float roation = 0;
-				if ( objectElement->Attribute( "rotation" ) != NULL )
-					roation = strtod( objectElement->Attribute( "rotation" ) , NULL );
+					int width , height;
 
-				// Экземпляр объекта
-				Object object( Physic );
-				object.sName = objectName;
-				object.sType = objectType;
-
-				sf::Rect <float> objectRect;
-				objectRect.top = y;
-				objectRect.left = x;
-				objectRect.height = height;
-				objectRect.width = width;
-				object.rect = objectRect;
-				object.Rotation = roation;
-
-				// "Переменные" объекта
-				TiXmlElement *properties;
-				properties = objectElement->FirstChildElement( "properties" );
-				if ( properties != NULL )
-				{
-					TiXmlElement *prop;
-					prop = properties->FirstChildElement( "property" );
-					if ( prop != NULL )
+					if ( objectElement->Attribute( "width" ) != NULL )
 					{
-						while ( prop )
+						width = atoi( objectElement->Attribute( "width" ) );
+						height = atoi( objectElement->Attribute( "height" ) );
+					}
+
+					TiXmlElement *properties;
+					properties = objectElement->FirstChildElement( "properties" );
+					if ( properties != NULL )
+					{
+						TiXmlElement *prop;
+						prop = properties->FirstChildElement( "property" );
+						if ( prop != NULL )
 						{
-							string propertyName = prop->Attribute( "name" );
-							string propertyValue = prop->Attribute( "value" );
+							while ( prop )
+							{
+								string propertyName = prop->Attribute( "name" );
+								string propertyValue = prop->Attribute( "value" );
 
-							object.mProperties[ propertyName ] = propertyValue;
+								propertis[ propertyName ] = propertyValue;
 
-							prop = prop->NextSiblingElement( "property" );
+								prop = prop->NextSiblingElement( "property" );
+							}
 						}
 					}
+
+					bool UseY;
+
+					if ( propertis[ "UseY" ] == "true" )
+						UseY = true;
+					else if ( propertis[ "UseY" ] != "true" )
+						UseY = false;
+
+					mRoutesAI[ objectName ] = le::AI_Route( FloatRect( x , y , width , height ) , propertis[ "next" ] , UseY );
 				}
+				else
+				{
+					int width , height;
+
+					if ( objectElement->Attribute( "width" ) != NULL )
+					{
+						width = atoi( objectElement->Attribute( "width" ) );
+						height = atoi( objectElement->Attribute( "height" ) );
+					}
+
+					float roation = 0;
+					if ( objectElement->Attribute( "rotation" ) != NULL )
+						roation = strtod( objectElement->Attribute( "rotation" ) , NULL );
+
+					// Экземпляр объекта
+					Object object( Physic );
+					object.sName = objectName;
+					object.sType = objectType;
+
+					sf::Rect <float> objectRect;
+					objectRect.top = y;
+					objectRect.left = x;
+					objectRect.height = height;
+					objectRect.width = width;
+					object.rect = objectRect;
+					object.Rotation = roation;
+
+					// "Переменные" объекта
+					TiXmlElement *properties;
+					properties = objectElement->FirstChildElement( "properties" );
+					if ( properties != NULL )
+					{
+						TiXmlElement *prop;
+						prop = properties->FirstChildElement( "property" );
+						if ( prop != NULL )
+						{
+							while ( prop )
+							{
+								string propertyName = prop->Attribute( "name" );
+								string propertyValue = prop->Attribute( "value" );
+
+								object.mProperties[ propertyName ] = propertyValue;
+
+								prop = prop->NextSiblingElement( "property" );
+							}
+						}
+					}
 
 
-				vObjects.push_back( object );
+					vObjects.push_back( object );
+				}
 
 				objectElement = objectElement->NextSiblingElement( "object" );
 			}
@@ -328,6 +373,13 @@ Vector2i le::Level::GetTileSize() const
 Vector2i le::Level::GetMapSize() const
 {
 	return Vector2i( iWidth * iTileWidth , iHeight * iTileHeight );
+}
+
+//-------------------------------------------------------------------------//
+
+map<string , le::AI_Route> le::Level::GetRoutesAI()
+{
+	return mRoutesAI;
 }
 
 //-------------------------------------------------------------------------//
