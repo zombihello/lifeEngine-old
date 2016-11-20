@@ -59,7 +59,7 @@ class DLL_API TiXmlString
 {
   public :
     // The size type used
-    typedef size_t size_type;
+	  typedef size_t size_type;
 
     // Error value for find primitive
     static const size_type npos; // = -1;

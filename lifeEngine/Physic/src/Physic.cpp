@@ -84,13 +84,6 @@ le::Body *le::Physic::GetBody( string sNameBody )
 
 //-------------------------------------------------------------------------//
 
-b2World *le::Physic::GetWorld()
-{
-    return World;
-}
-
-//-------------------------------------------------------------------------//
-
 vector<le::Body *> le::Physic::GetAllBody()
 {
     return vBody;

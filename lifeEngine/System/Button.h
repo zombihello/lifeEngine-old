@@ -95,7 +95,6 @@ namespace le
 
 		le::Text*           Text;
 		MouseCursor*        MouseCursor;
-		FloatRect           RectButton;
 		Font                Font;
 		Color               ColorSelect;
 		Color               ColorDefoult;
@@ -109,8 +108,6 @@ namespace le
 
 		Text->WriteText( sText, iSize, PositionText, ColorText, Value );
 		ColorDefoult = ColorText;
-
-		RectButton = FloatRect( PositionText, Vector2f( iSize * sText.getSize() / 1.5 , iSize ) );
 	}
 
 	//-------------------------------------------------------------------------//

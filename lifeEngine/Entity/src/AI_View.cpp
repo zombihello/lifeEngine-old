@@ -99,8 +99,8 @@ void le::AI_View::InitViewAI( le::BasicPersonages *Personage , le::GroupColision
 {
 	this->PersonageAI = Personage;
 
-	Body = new le::Body( Vector2f( Personage->GetRect().left , Personage->GetRect().top ) , Personage->GetNameEntity() + "_view" , le::Body::DINAMIC );
-	Personage->GetPhysic().CreateBody( Body );
+	Body = new le::Body( Personage->GetPhysic(), Vector2f( Personage->GetRect().left , Personage->GetRect().top ) , Personage->GetNameEntity() + "_view" , le::Body::DINAMIC );
+
 
 	Body->CreatePolygonShape( Vector2f( 2 , 2 ) );
 

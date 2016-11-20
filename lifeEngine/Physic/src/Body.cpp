@@ -3,7 +3,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::Body::Body( Vector2f Position, string NameBody, TYPE_BODY TypeBody )
+le::Body::Body( Physic& Physic , Vector2f Position , string NameBody , TYPE_BODY TypeBody )
 {
 	Filter = new b2Filter;
 
@@ -15,12 +15,12 @@ le::Body::Body( Vector2f Position, string NameBody, TYPE_BODY TypeBody )
 	fFriction = 0.2f;
 	sNameBody = NameBody;
 	bMoveLeft = false;
-	body = NULL;
+	Physic.CreateBody( this );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body::Body( Vector2f Position, float Angle, string NameBody, TYPE_BODY TypeBody )
+le::Body::Body( Physic& Physic , Vector2f Position , float Angle , string NameBody , TYPE_BODY TypeBody )
 {
 	Filter = new b2Filter;
 
@@ -33,7 +33,7 @@ le::Body::Body( Vector2f Position, float Angle, string NameBody, TYPE_BODY TypeB
 	fFriction = 0.2f;
 	sNameBody = NameBody;
 	bMoveLeft = false;
-	body = NULL;
+	Physic.CreateBody( this );
 }
 
 //-------------------------------------------------------------------------//
@@ -116,6 +116,13 @@ void le::Body::MoveBody( Vector2f Factor, TYPE_MOVE TypeMove )
 		body->ApplyForceToCenter( b2Vec2( Factor.x, Factor.y ), true );
 	else if ( TypeMove == LINEAR_IMPULSE )
 		body->ApplyLinearImpulse( b2Vec2( Factor.x, Factor.y ), b2Vec2( 0,0 ), true );
+	else if ( TypeMove == LINEAR_VELOCITY )
+	{
+		if ( Factor.x == 0 ) Factor.x = GetSpeedBody().x;
+		if ( Factor.y == 0 ) Factor.y = GetSpeedBody().y;
+
+		body->SetLinearVelocity( b2Vec2( Factor.x , Factor.y ) );
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -275,6 +282,13 @@ string le::Body::GetNameBody()
 Vector2f le::Body::GetSpeedBody()
 {
 	return Vector2f( body->GetLinearVelocity().x, body->GetLinearVelocity().y );
+}
+
+//-------------------------------------------------------------------------//
+
+Vector2f le::Body::GetPositionBody()
+{
+	return Vector2f( body->GetPosition().x * 30.f, body->GetPosition().y * 30.f );
 }
 
 //-------------------------------------------------------------------------//

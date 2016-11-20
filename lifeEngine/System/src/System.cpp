@@ -14,6 +14,7 @@ System::System( const string FileConfiguration, int argc, char** argv )
 		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
 		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
 		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
+		Configuration.iAntialiasingLevel = ReadTextFile<int>( FileConfiguration , "iAntialiasingLevel" );
 		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration, "fRatioView" );
 
 		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
@@ -50,6 +51,12 @@ System::System( const string FileConfiguration, int argc, char** argv )
 
 			if ( strstr( argv[id], "-fullscreen" ) )
 				Configuration.bFullscreen = true;
+
+			if ( strstr( argv[ id ] , "-width" ) )
+				Configuration.iWindowWidth = atoi( argv[ id + 1 ] );
+
+			if ( strstr( argv[ id ] , "-height" ) )
+				Configuration.iWindowHeight = atoi( argv[ id + 1 ] );
 		}
 
 	if ( Configuration.bFullscreen )
@@ -145,7 +152,10 @@ void System::WindowCreate( int iStyle )
 	if ( Configuration.sGameVersion != "" )
 		sTitleWindow += " | " + Configuration.sGameVersion;
 
-	RenderWindow.create( VideoMode( Configuration.iWindowWidth, Configuration.iWindowHeight ), sTitleWindow, iStyle );
+	ContextSettings ContextSettings;
+	ContextSettings.antialiasingLevel = Configuration.iAntialiasingLevel;
+
+	RenderWindow.create( VideoMode( Configuration.iWindowWidth, Configuration.iWindowHeight ), sTitleWindow, iStyle, ContextSettings );
 	RenderWindow.setMouseCursorVisible( false );
 	RenderWindow.setFramerateLimit( Configuration.iFrameLimit );
 	RenderWindow.setVerticalSyncEnabled( Configuration.bV_Sinc );
@@ -183,6 +193,7 @@ void System::UpdateFileConfiguration()
 	SaveInFile( sRouteFileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
 	SaveInFile( sRouteFileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
 	SaveInFile( sRouteFileConfiguration , "iFrameLimit" , Configuration.iFrameLimit );
+	SaveInFile( sRouteFileConfiguration , "iAntialiasingLevel" , Configuration.iAntialiasingLevel );
 	SaveInFile( sRouteFileConfiguration , "fRatioView" , Configuration.fRatioView );
 	SaveInFile( sRouteFileConfiguration , "bFullscreen" , Configuration.bFullscreen );
 	SaveInFile( sRouteFileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
@@ -204,7 +215,11 @@ void System::UpdateFileConfiguration()
 void System::SetDebug( bool debug )
 {
 	Configuration.bDebug = debug;
-	cout << "Info: Debug mode enabled\n";
+
+	if ( debug )
+		cout << "Info: Debug mode enabled\n";
+	else
+		cout << "Info: Debug mode disabled\n";
 }
 
 //-------------------------------------------------------------------------//
@@ -275,7 +290,7 @@ MouseCursor& System::GetMouseCursor()
 
 //-------------------------------------------------------------------------//
 
-View System::GetMenuCamera()
+View& System::GetMenuCamera()
 {
 	return MenuCamera;
 }
@@ -315,6 +330,7 @@ Configuration::Configuration()
 	iWindowHeight = VideoMode::getDesktopMode().height;
 	iVolumeMusic = iVolumeSound = 100;
 	iFrameLimit = 60;
+	iAntialiasingLevel = 0;
 
 	fRatioView = 1.f;
 	fGameSpeed = 300.f;
@@ -325,8 +341,8 @@ Configuration::Configuration()
 	bV_Sinc = bDebug = false;
 
 	sLanguage = "EN";
-	sWindowName = "lifeEngine";
-	sGameVersion = "v2.2.0";
+	sWindowName = ENGINE;
+	sGameVersion = ENGINE_VERSION;
 }
 
 //-------------------------------------------------------------------------//
