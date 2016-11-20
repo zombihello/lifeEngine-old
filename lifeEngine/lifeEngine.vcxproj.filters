@@ -175,6 +175,8 @@
     <ClInclude Include="Entity\AI_Route.h">
       <Filter>Entity</Filter>
     </ClInclude>
+    <ClInclude Include="System\Serialization.h" />
+    <ClInclude Include="System\SaveValuables.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\Button.cpp">
@@ -291,5 +293,7 @@
     <ClCompile Include="Entity\src\AI_Route.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
+    <ClCompile Include="System\src\Serialization.cpp" />
+    <ClCompile Include="System\src\SaveValuables.cpp" />
   </ItemGroup>
 </Project>

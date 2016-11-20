@@ -63,9 +63,10 @@ namespace le
 		/////////////////
 		virtual void Actions() = 0;
 		
-	private:
+	
 		string								sTmpRouteAI;
 
+	private:
 		le::AI_View*						ViewAI;
 		map<string , le::AI_Route>			mRoutesAI;
 		BasicPersonages*					Personage;

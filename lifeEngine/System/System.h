@@ -3,7 +3,7 @@
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.2.5"
+#define ENGINE_VERSION "v2.3.5"
 #include "../DllGlobal.h"
 
 /////////////////////
@@ -34,6 +34,7 @@ using namespace sf;
 #include "MouseCursor.h"
 #include "FPS.h"
 #include "Localization.h"
+#include "Serialization.h"
 
 namespace le
 {

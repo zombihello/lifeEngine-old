@@ -125,6 +125,8 @@
     <ClInclude Include="System\leSystem.h" />
     <ClInclude Include="System\Localization.h" />
     <ClInclude Include="System\MouseCursor.h" />
+    <ClInclude Include="System\SaveValuables.h" />
+    <ClInclude Include="System\Serialization.h" />
     <ClInclude Include="System\System.h" />
     <ClInclude Include="System\Text.h" />
     <ClInclude Include="System\TextManager.h" />
@@ -164,6 +166,8 @@
     <ClCompile Include="System\src\GroupColision.cpp" />
     <ClCompile Include="System\src\Localization.cpp" />
     <ClCompile Include="System\src\MouseCursor.cpp" />
+    <ClCompile Include="System\src\SaveValuables.cpp" />
+    <ClCompile Include="System\src\Serialization.cpp" />
     <ClCompile Include="System\src\System.cpp" />
     <ClCompile Include="System\src\Text.cpp" />
     <ClCompile Include="System\src\TextManager.cpp" />
