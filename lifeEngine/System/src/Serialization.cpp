@@ -4,7 +4,8 @@ using namespace le;
 
 //-------------------------------------------------------------------------//
 
-static string							sSaveText = "<!-- lifeEngine " + string( ENGINE_VERSION ) + " -->\n<SAVE>\n";
+static string							sSaveText = "<!-- lifeEngine " + string( ENGINE_VERSION ) + " -->\n<SAVE ";
+static string						    sAttributesSave;
 
 static vector<string>					vBuffer;
 static vector<SaveValuables>			vSaveValuables;
@@ -116,6 +117,8 @@ vector<SaveValuables> Serialization::GetSaveValuables()
 
 void Serialization::SaveInFile( string route )
 {
+	sSaveText += sAttributesSave + ">\n";
+
 	for ( auto i = 0; i < vBuffer.size(); i++ )
 		sSaveText += vBuffer[ i ];
 
@@ -141,6 +144,17 @@ void Serialization::LoadFromFile( string route )
 	// Работаем с контейнером SAVE
 	TiXmlElement *save;
 	save = File.FirstChildElement( "SAVE" );
+
+	SaveValuables MainSave;
+	MainSave.sNameClass = "Main";
+
+	if ( save->Attribute( "title" ) != NULL )
+		MainSave.mProperties[ "title" ] = save->Attribute( "title" );
+
+	if ( save->Attribute( "level" ) != NULL )
+		MainSave.mProperties[ "level" ] = save->Attribute( "level" );
+
+	vSaveValuables.push_back( MainSave );
 
 	// Работаем с контейнерами в SAVE
 	TiXmlElement *Tag;
@@ -183,7 +197,6 @@ void Serialization::LoadFromFile( string route )
 		}
 
 		vSaveValuables.push_back( Valuables );
-		//	mSaveValuables[ sNameClass ] = Valuables;
 		Tag = Tag->NextSiblingElement();
 	}
 }
@@ -219,7 +232,26 @@ void Serialization::CreateTag( string nameTag )
 
 void Serialization::Clear()
 {
-	sSaveText = "<!-- lifeEngine " + string( ENGINE_VERSION ) + " -->\n<SAVE>\n";
+	sSaveText = "<!-- lifeEngine " + string( ENGINE_VERSION ) + " -->\n<SAVE ";
+
+	// Сбрасываем буфер сохранения до такого типа [ <ИМЯ_КЛАССА/> ]
+	for ( int id = 0; id < vBuffer.size(); id++ )
+	{
+		string sNameClass;
+		string tmpString = vBuffer[ id ];
+
+		for ( int i = 0; i < tmpString.size() && tmpString[ i ] != ' ' && tmpString[ i ] != '/'; i++ )
+			sNameClass += tmpString[ i ];
+
+		vBuffer[ id ] = sNameClass + "/>\n";
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void Serialization::SetAttributsSave( string titleSave , string levelSave )
+{
+	sAttributesSave = "title=\"" + titleSave + "\" level=\"" + levelSave + "\"";
 }
 
 //-------------------------------------------------------------------------//

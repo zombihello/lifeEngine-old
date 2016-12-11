@@ -34,15 +34,18 @@
     <Filter Include="Efects">
       <UniqueIdentifier>{5ca2f6e2-2078-4f33-8414-b481839d2087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\HaffmanCode">
+      <UniqueIdentifier>{87ddb135-5860-44f6-8221-cd7adac33361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\UI">
+      <UniqueIdentifier>{66ff9e80-2519-4837-b17b-abe4a90d89b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\3D">
+      <UniqueIdentifier>{729944d2-f472-4297-9dd4-c6d7f59f3ae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\BasicStagesGame.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Button.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System\ButtonManager.h">
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\FPS.h">
@@ -61,12 +64,6 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\System.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Text.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System\TextManager.h">
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="Utils\XML\tinystr.h">
@@ -175,16 +172,35 @@
     <ClInclude Include="Entity\AI_Route.h">
       <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="System\Serialization.h" />
-    <ClInclude Include="System\SaveValuables.h" />
+    <ClInclude Include="System\SaveValuables.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Serialization.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\HaffmanCode\HaffmanCode.h">
+      <Filter>Utils\HaffmanCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\HaffmanCode\Node.h">
+      <Filter>Utils\HaffmanCode</Filter>
+    </ClInclude>
+    <ClInclude Include="System\UI\Button.h">
+      <Filter>System\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="System\UI\Text.h">
+      <Filter>System\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="System\UI\TextManager.h">
+      <Filter>System\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="System\UI\ButtonManager.h">
+      <Filter>System\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="System\3D\Model.h">
+      <Filter>System\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="System\src\Button.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="System\src\ButtonManager.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="System\src\FPS.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -198,12 +214,6 @@
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="System\src\System.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="System\src\Text.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="System\src\TextManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="Utils\XML\tinystr.cpp">
@@ -293,7 +303,32 @@
     <ClCompile Include="Entity\src\AI_Route.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="System\src\Serialization.cpp" />
-    <ClCompile Include="System\src\SaveValuables.cpp" />
+    <ClCompile Include="System\src\SaveValuables.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\Serialization.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\HaffmanCode\HaffmanCode.cpp">
+      <Filter>Utils\HaffmanCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\HaffmanCode\Node.cpp">
+      <Filter>Utils\HaffmanCode</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\UI\Button.cpp">
+      <Filter>System\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\UI\Text.cpp">
+      <Filter>System\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\UI\TextManager.cpp">
+      <Filter>System\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\UI\ButtonManager.cpp">
+      <Filter>System\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\3D\Model.cpp">
+      <Filter>System\3D</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

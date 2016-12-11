@@ -1,9 +1,10 @@
 #include "../System.h"
+#include "../../Utils/HaffmanCode/HaffmanCode.h"
 using namespace le;
 
 //-------------------------------------------------------------------------//
 
-System::System( const string FileConfiguration, int argc, char** argv )
+System::System( const string FileConfiguration , int argc , char** argv )
 {
 	sRouteFileConfiguration = FileConfiguration;
 
@@ -13,16 +14,16 @@ System::System( const string FileConfiguration, int argc, char** argv )
 		Configuration.iWindowHeight = ReadTextFile<int>( FileConfiguration , "iWindowHeight" );
 		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
 		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
-		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
+		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration , "iFrameLimit" );
 		Configuration.iAntialiasingLevel = ReadTextFile<int>( FileConfiguration , "iAntialiasingLevel" );
-		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration, "fRatioView" );
+		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration , "fRatioView" );
 
 		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
 		Configuration.bMusic = ReadTextFile<int>( FileConfiguration , "bMusic" );
 		Configuration.bSound = ReadTextFile<int>( FileConfiguration , "bSound" );
 		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration , "bV_Sinc" );
 
-		Configuration.sLanguage = ReadTextFile<string> ( FileConfiguration , "sLanguage" );
+		Configuration.sLanguage = ReadTextFile<string>( FileConfiguration , "sLanguage" );
 		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration , "fGameSpeed" );
 		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration , "fGameTick" );
 	}
@@ -34,22 +35,22 @@ System::System( const string FileConfiguration, int argc, char** argv )
 	}
 
 	if ( Configuration.fRatioView < 0 )
-		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth * Configuration.fRatioView, Configuration.iWindowHeight * Configuration.fRatioView ) );
+		GameCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth * Configuration.fRatioView , Configuration.iWindowHeight * Configuration.fRatioView ) );
 	else
-		GameCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth / Configuration.fRatioView, Configuration.iWindowHeight / Configuration.fRatioView ) );
+		GameCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth / Configuration.fRatioView , Configuration.iWindowHeight / Configuration.fRatioView ) );
 
-	MenuCamera.reset( FloatRect( 0,0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
+	MenuCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth , Configuration.iWindowHeight ) );
 
 	if ( argc > 1 )
 		for ( int id = 1; id < argc; id++ )
 		{
-			if ( strstr( argv[id], "-dev" ) )
+			if ( strstr( argv[ id ] , "-dev" ) )
 				SetDebug( true );
 
-			if ( strstr( argv[id], "-window" ) )
+			if ( strstr( argv[ id ] , "-window" ) )
 				Configuration.bFullscreen = false;
 
-			if ( strstr( argv[id], "-fullscreen" ) )
+			if ( strstr( argv[ id ] , "-fullscreen" ) )
 				Configuration.bFullscreen = true;
 
 			if ( strstr( argv[ id ] , "-width" ) )
@@ -67,7 +68,7 @@ System::System( const string FileConfiguration, int argc, char** argv )
 
 //-------------------------------------------------------------------------//
 
-string System::ReadXmlFile( const string sRoute, const string sTagMain, const string sTag )
+string System::ReadXmlFile( const string sRoute , const string sTagMain , const string sTag )
 {
 	if ( FileExists( sRoute ) )
 	{
@@ -153,12 +154,28 @@ void System::WindowCreate( int iStyle )
 		sTitleWindow += " | " + Configuration.sGameVersion;
 
 	ContextSettings ContextSettings;
+	ContextSettings.depthBits = 24;
+	ContextSettings.stencilBits = 8;
+	ContextSettings.majorVersion = 3;
+	ContextSettings.minorVersion = 0;
 	ContextSettings.antialiasingLevel = Configuration.iAntialiasingLevel;
 
-	RenderWindow.create( VideoMode( Configuration.iWindowWidth, Configuration.iWindowHeight ), sTitleWindow, iStyle, ContextSettings );
+	RenderWindow.create( VideoMode( Configuration.iWindowWidth , Configuration.iWindowHeight ) , sTitleWindow , iStyle , ContextSettings );
 	RenderWindow.setMouseCursorVisible( false );
 	RenderWindow.setFramerateLimit( Configuration.iFrameLimit );
 	RenderWindow.setVerticalSyncEnabled( Configuration.bV_Sinc );
+
+	glEnable( GL_DEPTH_TEST );
+	glDepthMask( GL_TRUE );
+	glClearDepth( 1.f );
+
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	glOrtho( -160 , 160 , -90 , 90 , -160 , 160 );
+
+	glEnable( GL_TEXTURE_2D );
+
+	RenderWindow.pushGLStates();
 }
 
 //-------------------------------------------------------------------------//
@@ -168,7 +185,7 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 	while ( RenderWindow.isOpen() )
 	{
 		Clock();
-		while( RenderWindow.pollEvent( Event ) )
+		while ( RenderWindow.pollEvent( Event ) )
 		{
 			if ( Event.type == Event::Closed )
 				RenderWindow.close();
@@ -240,7 +257,7 @@ void System::SetFrameLimit( const int FrameLimit )
 
 //-------------------------------------------------------------------------//
 
-void System::SetWindowTitle( const String WindowName, const String GameVersion )
+void System::SetWindowTitle( const String WindowName , const String GameVersion )
 {
 	Configuration.sWindowName = WindowName;
 	Configuration.sGameVersion = GameVersion;

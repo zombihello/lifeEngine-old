@@ -3,7 +3,7 @@
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.3.5"
+#define ENGINE_VERSION "v2.4.0"
 #include "../DllGlobal.h"
 
 /////////////////////
@@ -20,6 +20,8 @@ using namespace std;
 /// SFML
 //////////////
 #include <SFML/Graphics.hpp>
+#include <SFML/OpenGL.hpp>
+#include <gl/GLU.h>
 using namespace sf;
 
 //////////

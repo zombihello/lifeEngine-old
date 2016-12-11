@@ -2,12 +2,12 @@
 #define BUTTONMANAGER_H
 
 #define COMPILING_LIBRARY
-#include "../DllGlobal.h"
+#include "../../DllGlobal.h"
 
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "System.h"
+#include "../System.h"
 #include "Button.h"
 
 namespace le

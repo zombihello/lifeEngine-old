@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -44,11 +44,13 @@
     <TargetName>$(ProjectName)-d</TargetName>
     <OutDir>..\bin</OutDir>
     <IntDir>..\Debug_lifeEngine</IntDir>
+    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>..\Release_lifeEngine</IntDir>
     <OutDir>..\bin</OutDir>
+    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -57,13 +59,24 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FavorSizeOrSpeed>
+      </FavorSizeOrSpeed>
+      <WholeProgramOptimization>
+      </WholeProgramOptimization>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>E:\Egor\projects\lifeEngine\lifeEngine\Utils\Box2D;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;box2d-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;box2d-d.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -71,11 +84,23 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,8 +108,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>E:\Egor\projects\lifeEngine\lifeEngine\Utils\Box2D;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;box2d.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
@@ -117,9 +145,8 @@
     <ClInclude Include="Physic\lePhysic.h" />
     <ClInclude Include="Physic\Physic.h" />
     <ClInclude Include="Physic\PolygonShape.h" />
+    <ClInclude Include="System\3D\Model.h" />
     <ClInclude Include="System\BasicStagesGame.h" />
-    <ClInclude Include="System\Button.h" />
-    <ClInclude Include="System\ButtonManager.h" />
     <ClInclude Include="System\FPS.h" />
     <ClInclude Include="System\GroupColision.h" />
     <ClInclude Include="System\leSystem.h" />
@@ -128,9 +155,13 @@
     <ClInclude Include="System\SaveValuables.h" />
     <ClInclude Include="System\Serialization.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="System\Text.h" />
-    <ClInclude Include="System\TextManager.h" />
+    <ClInclude Include="System\UI\Button.h" />
+    <ClInclude Include="System\UI\ButtonManager.h" />
+    <ClInclude Include="System\UI\Text.h" />
+    <ClInclude Include="System\UI\TextManager.h" />
     <ClInclude Include="Utils\codecvt\codecvt.h" />
+    <ClInclude Include="Utils\HaffmanCode\HaffmanCode.h" />
+    <ClInclude Include="Utils\HaffmanCode\Node.h" />
     <ClInclude Include="Utils\XML\tinystr.h" />
     <ClInclude Include="Utils\XML\tinyxml.h" />
     <ClInclude Include="Weapons\BasicWeapon.h" />
@@ -160,8 +191,7 @@
     <ClCompile Include="Physic\src\CircleShape.cpp" />
     <ClCompile Include="Physic\src\Physic.cpp" />
     <ClCompile Include="Physic\src\PolygonShape.cpp" />
-    <ClCompile Include="System\src\Button.cpp" />
-    <ClCompile Include="System\src\ButtonManager.cpp" />
+    <ClCompile Include="System\src\3D\Model.cpp" />
     <ClCompile Include="System\src\FPS.cpp" />
     <ClCompile Include="System\src\GroupColision.cpp" />
     <ClCompile Include="System\src\Localization.cpp" />
@@ -169,9 +199,13 @@
     <ClCompile Include="System\src\SaveValuables.cpp" />
     <ClCompile Include="System\src\Serialization.cpp" />
     <ClCompile Include="System\src\System.cpp" />
-    <ClCompile Include="System\src\Text.cpp" />
-    <ClCompile Include="System\src\TextManager.cpp" />
+    <ClCompile Include="System\src\UI\Button.cpp" />
+    <ClCompile Include="System\src\UI\ButtonManager.cpp" />
+    <ClCompile Include="System\src\UI\Text.cpp" />
+    <ClCompile Include="System\src\UI\TextManager.cpp" />
     <ClCompile Include="Utils\codecvt\codecvt.cpp" />
+    <ClCompile Include="Utils\HaffmanCode\HaffmanCode.cpp" />
+    <ClCompile Include="Utils\HaffmanCode\Node.cpp" />
     <ClCompile Include="Utils\XML\tinystr.cpp" />
     <ClCompile Include="Utils\XML\tinyxml.cpp" />
     <ClCompile Include="Utils\XML\tinyxmlerror.cpp" />

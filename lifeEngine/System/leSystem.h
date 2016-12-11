@@ -5,10 +5,10 @@
 // LIFEENGINE
 /////////////////
 #include "System.h"
-#include "Button.h"
-#include "ButtonManager.h"
-#include "TextManager.h"
+#include "UI\Button.h"
+#include "UI\ButtonManager.h"
+#include "UI\TextManager.h"
 #include "GroupColision.h"
-#include "Text.h"
+#include "UI\Text.h"
 
 #endif // LESYSTEM
