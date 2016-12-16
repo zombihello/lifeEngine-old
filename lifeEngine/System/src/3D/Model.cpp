@@ -1,5 +1,7 @@
 #include  "../../3D/Model.h"
 #include <HaffmanCode.h>
+//#include <Matrix.h>
+//#include "../../Utils/Math/Quaternion.h"
 
 //-------------------------------------------------------------------------//
 
@@ -36,8 +38,142 @@ GLuint le::Model::LoadTexture( string route )
 
 	return texture;
 }
+/*
+Matrixf IMB
+{
+-0.000000, - 0.026077, - 0.999660, 0.261000,
+0.000000, 0.999660, - 0.026077, 1.107341,
+1.000000, - 0.000000, - 0.000000, 0.000000,
+0.000000, 0.000000, 0.000000, 1.000000
+};
 
+Matrixf IMB2
+{
+-0.000000, - 0.019414, - 0.999812, 34.607894,
+- 0.000000, 0.999812, - 0.019414, 0.984820,
+1.000000, - 0.000000, - 0.000000, 0.000000,
+0.000000, 0.000000, 0.000000, 1.000000
+};
+
+Matrixf BM =
+{
+-0.000000 , -0.000000 , 1.000000 , 0.000000 ,
+-0.019414 , 0.999812 , -0.000000 , -0.312757 ,
+-0.999812 , -0.019414 , -0.000000 , 34.620491 ,
+0.000000 , 0.000000 , 0.000000 , 1.000000
+};
+
+Matrixf BM2 =
+{
+0.999978 , 0.006665 , -0.000000 , 16.224157 ,
+-0.006665 , 0.999978 , -0.000000 , -0.000018 ,
+0.000000 , 0.000000 , 1.000000 , 0.000000 ,
+0.000000 , 0.000000 , 0.000000 , 1.000000
+};
+
+Matrixf BM3 =
+{
+1.000000 , 0.000000 , -0.000000 , 18.115768 ,
+0.000000 , 1.000000 , -0.000000 , -0.000003 ,
+0.000000 , 0.000000 , 1.000000 , 0.000000 ,
+0.000000 , 0.000000 , 0.000000 , 1.000000
+};
+
+MatrixMultiply( BM2 , BM , boun2 );
+MatrixMultiply( BM3 , boun2 , boun3 );
+
+for ( int i = 0 , count = 1; i < 16; i++ , count++ )
+{
+cout << boun3[ i ] << " ";
+if ( count == 4 )
+{
+cout << endl;
+count = 0;
+}
+}
+
+Vector3f pos = MatrixToXYZ( boun2 );
+cout << endl << pos.x << " " << pos.y << " " << pos.z << endl;
+
+pos = MatrixToXYZ( BM );
+cout << endl << pos.x << " " << pos.y << " " << pos.z << endl;
+
+
+Vector3f _bm1 = MatrixToXYZ( BM );
+Vector3f _bm2 = MatrixToXYZ( boun2 );
+
+glBegin( GL_LINES );
+glColor3f( 1 , 0 , 0 );
+glVertex3f( _bm1.x , _bm1.y , _bm1.z );
+glVertex3f( _bm2.x , _bm2.y , _bm2.z );
+glColor3f( 0 , 1 ,0 );
+
+_bm1 = MatrixToXYZ( boun2 );
+_bm2 = MatrixToXYZ( boun3 );
+
+glVertex3f( _bm1.x , _bm1.y , _bm1.z );
+glVertex3f( _bm2.x , _bm2.y , _bm2.z );
+glColor3f( 1 , 1 , 1);
+glEnd();
+
+
+Matrixf boun2;
+Matrixf boun3;
+Matrixf tmp;
+*/
 //-------------------------------------------------------------------------//
+
+void ReadingMatrix( TiXmlElement* node , le::Bone* bone )
+{
+		// Работаем с контейнером startMatrix
+		TiXmlElement *startMatrix;
+		startMatrix = node->FirstChildElement( "startMatrix" );
+
+		if ( startMatrix != NULL ){
+
+			Matrixf tmpBSM;
+			string sTmpMatrix = startMatrix->GetText();
+			istringstream strStream( sTmpMatrix );
+
+			for ( int i = 0; i < 16 && !strStream.eof(); i++ )
+			{
+				string sTmp;
+				strStream >> sTmp;
+				tmpBSM[ i ] = atof( sTmp.c_str() );
+			}
+
+			for ( int i = 0; i < 16; i++ )
+				bone->StartMatrix[ i ] = tmpBSM[ i ];
+
+			// Работаем с контейнером invertMatrix
+			TiXmlElement *invertMatrix;
+			invertMatrix = node->FirstChildElement( "invertMatrix" );
+
+			sTmpMatrix = string( invertMatrix->GetText() );
+			istringstream _strStream( sTmpMatrix );
+
+			/*for ( int i = 0; i < 16 && !_strStream.eof(); i++ )
+			{
+			string sTmp;
+			_strStream >> sTmp;
+			tmpBSM[ i ] = atof( sTmp.c_str() );
+			}
+
+			for ( int i = 0; i < 16; i++ )
+			bone->InvertMatrix[ i ] = tmpBSM[ i ];*/
+
+			node = node->FirstChildElement( "node" );
+
+			while ( node )
+			{
+				le::Bone out;
+				ReadingMatrix( node , &out );
+				bone->vChild.push_back( out );
+
+				node = node->NextSiblingElement();
+			}
+		}
+}
 
 bool le::Model::LoadModel( string route )
 {
@@ -54,12 +190,12 @@ bool le::Model::LoadModel( string route )
 
 	if ( sModel == "ERROR" ) return false;
 
-	TiXmlDocument MDL;
-	MDL.Parse( sModel.c_str() );
+	TiXmlDocument LMD;
+	LMD.Parse( sModel.c_str() );
 
 	// Работаем с контейнером model
 	TiXmlElement *model;
-	model = MDL.FirstChildElement( "model" );
+	model = LMD.FirstChildElement( "model" );
 
 	// Работаем с контейнером textures
 	TiXmlElement *textures;
@@ -229,6 +365,45 @@ bool le::Model::LoadModel( string route )
 		texture = texture->NextSiblingElement();
 	}
 
+	// Работаем с контейнером skeleton
+	TiXmlElement *skeleton;
+	skeleton = model->FirstChildElement( "skeleton" );
+
+	if ( skeleton != NULL )
+	{
+		// Работаем с контейнером bindShapeMatrix
+		TiXmlElement *bsm;
+		bsm = skeleton->FirstChildElement( "bindShapeMatrix" );
+
+		Matrixf tmpBSM;
+		stringstream strStream( bsm->GetText() );
+
+		for ( int i = 0; i < 16 && !strStream.eof(); i++ )
+		{
+			string sTmp;
+			strStream >> sTmp;
+			tmpBSM[ i ] = atof( sTmp.c_str() );
+		}
+
+		Skeleton.SetBindShape( tmpBSM );
+
+		// Работаем с контейнером mainNode
+		TiXmlElement *mainNode;
+		mainNode = skeleton->FirstChildElement( "mainNode" );
+
+		// Работаем с контейнером node
+		TiXmlElement *node;
+		node = mainNode->FirstChildElement( "node" );
+
+		while ( node )
+		{
+			Bone tmp;
+			ReadingMatrix( node , &tmp );
+			Skeleton.AddBone( tmp );
+			node = node->NextSiblingElement();
+		}
+	}
+
 	return true;
 }
 
@@ -239,6 +414,7 @@ void le::Model::RenderModel()
 	RenderWindow->popGLStates();
 
 	glClear( GL_DEPTH_BUFFER_BIT );
+
 	glRotatef( 0.5 , 10.f , 0.f , 0.f );
 	glRotatef( 0.5 , 0.f , 10.f , 0.f );
 	glRotatef( 0.5 , 0.f , 0.f , 10.f );
@@ -259,6 +435,7 @@ void le::Model::RenderModel()
 		glEnd();
 	}
 
+	Skeleton.DrawSkeleton();
 	RenderWindow->pushGLStates();
 }
 

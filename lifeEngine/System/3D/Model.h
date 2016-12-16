@@ -8,12 +8,13 @@
 /// LIFEENGINE
 ///////////////
 #include "../System.h"
+#include "Skeleton.h"
 
 namespace le
 {
 	//-------------------------------------------------------------------------//
 
-	struct Poligon
+	struct DLL_API Poligon
 	{
 		vector<Vector3f>		vPoints;
 		vector<Vector3f>		vNormals;
@@ -23,7 +24,7 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
-	struct MainPoligon
+	struct DLL_API MainPoligon
 	{
 		vector<Poligon>			vPoligons;
 		GLuint					gl_Texture;
@@ -57,10 +58,14 @@ namespace le
 	private:
 		GLuint LoadTexture( string route );
 
+		Skeleton						Skeleton;
+
 		sf::RenderWindow*				RenderWindow;
 
 		std::vector<MainPoligon>			vMainPoligons;
 	};
+
+	//-------------------------------------------------------------------------//
 }
 
 #endif // MODEL_H

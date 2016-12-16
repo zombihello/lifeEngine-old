@@ -43,6 +43,9 @@
     <Filter Include="System\3D">
       <UniqueIdentifier>{729944d2-f472-4297-9dd4-c6d7f59f3ae6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\Math">
+      <UniqueIdentifier>{8d65175a-af62-4dae-9378-360b8c079c6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\BasicStagesGame.h">
@@ -199,6 +202,15 @@
     <ClInclude Include="System\3D\Model.h">
       <Filter>System\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Math\Matrix.h">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Math\Quaternion.h">
+      <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="System\3D\Skeleton.h">
+      <Filter>System\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\FPS.cpp">
@@ -329,6 +341,12 @@
     </ClCompile>
     <ClCompile Include="System\src\3D\Model.cpp">
       <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\3D\Skeleton.cpp">
+      <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Math\Matrix.cpp">
+      <Filter>Utils\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

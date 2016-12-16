@@ -59,7 +59,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>
       </FavorSizeOrSpeed>
       <WholeProgramOptimization>
@@ -88,7 +88,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -146,6 +146,7 @@
     <ClInclude Include="Physic\Physic.h" />
     <ClInclude Include="Physic\PolygonShape.h" />
     <ClInclude Include="System\3D\Model.h" />
+    <ClInclude Include="System\3D\Skeleton.h" />
     <ClInclude Include="System\BasicStagesGame.h" />
     <ClInclude Include="System\FPS.h" />
     <ClInclude Include="System\GroupColision.h" />
@@ -162,6 +163,8 @@
     <ClInclude Include="Utils\codecvt\codecvt.h" />
     <ClInclude Include="Utils\HaffmanCode\HaffmanCode.h" />
     <ClInclude Include="Utils\HaffmanCode\Node.h" />
+    <ClInclude Include="Utils\Math\Matrix.h" />
+    <ClInclude Include="Utils\Math\Quaternion.h" />
     <ClInclude Include="Utils\XML\tinystr.h" />
     <ClInclude Include="Utils\XML\tinyxml.h" />
     <ClInclude Include="Weapons\BasicWeapon.h" />
@@ -192,6 +195,7 @@
     <ClCompile Include="Physic\src\Physic.cpp" />
     <ClCompile Include="Physic\src\PolygonShape.cpp" />
     <ClCompile Include="System\src\3D\Model.cpp" />
+    <ClCompile Include="System\src\3D\Skeleton.cpp" />
     <ClCompile Include="System\src\FPS.cpp" />
     <ClCompile Include="System\src\GroupColision.cpp" />
     <ClCompile Include="System\src\Localization.cpp" />
@@ -206,6 +210,7 @@
     <ClCompile Include="Utils\codecvt\codecvt.cpp" />
     <ClCompile Include="Utils\HaffmanCode\HaffmanCode.cpp" />
     <ClCompile Include="Utils\HaffmanCode\Node.cpp" />
+    <ClCompile Include="Utils\Math\Matrix.cpp" />
     <ClCompile Include="Utils\XML\tinystr.cpp" />
     <ClCompile Include="Utils\XML\tinyxml.cpp" />
     <ClCompile Include="Utils\XML\tinyxmlerror.cpp" />
