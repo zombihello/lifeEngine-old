@@ -1,7 +1,5 @@
-#include  "../../3D/Model.h"
+п»ї#include  "../../3D/Model.h"
 #include <HaffmanCode.h>
-//#include <Matrix.h>
-//#include "../../Utils/Math/Quaternion.h"
 
 //-------------------------------------------------------------------------//
 
@@ -125,66 +123,70 @@ Matrixf tmp;
 
 void ReadingMatrix( TiXmlElement* node , le::Bone* bone )
 {
-		// Работаем с контейнером startMatrix
-		TiXmlElement *startMatrix;
-		startMatrix = node->FirstChildElement( "startMatrix" );
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј startMatrix
+	TiXmlElement *startMatrix;
+	startMatrix = node->FirstChildElement( "startMatrix" );
 
-		if ( startMatrix != NULL ){
+	string sTmpMatrix;
 
-			Matrixf tmpBSM;
-			string sTmpMatrix = startMatrix->GetText();
-			istringstream strStream( sTmpMatrix );
+	if ( startMatrix->GetText() != NULL )
+	{
+		sTmpMatrix = startMatrix->GetText();
+		istringstream strStream( sTmpMatrix );
 
-			for ( int i = 0; i < 16 && !strStream.eof(); i++ )
-			{
-				string sTmp;
-				strStream >> sTmp;
-				tmpBSM[ i ] = atof( sTmp.c_str() );
-			}
+		for ( int i = 0; i < 16 && !strStream.eof(); i++ )
+		{
+			string sTmp;
+			strStream >> sTmp;
+			bone->StartMatrix[ i ] = atof( sTmp.c_str() );
+		}
+	}
 
-			for ( int i = 0; i < 16; i++ )
-				bone->StartMatrix[ i ] = tmpBSM[ i ];
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј invertMatrix
+	TiXmlElement *invertMatrix;
+	invertMatrix = node->FirstChildElement( "invertMatrix" );
 
-			// Работаем с контейнером invertMatrix
-			TiXmlElement *invertMatrix;
-			invertMatrix = node->FirstChildElement( "invertMatrix" );
+	if ( invertMatrix->GetText() != NULL )
+	{
+		sTmpMatrix = string( invertMatrix->GetText() );
+		istringstream _strStream( sTmpMatrix );
 
-			sTmpMatrix = string( invertMatrix->GetText() );
-			istringstream _strStream( sTmpMatrix );
-
-			/*for ( int i = 0; i < 16 && !_strStream.eof(); i++ )
-			{
+		for ( int i = 0; i < 16 && !_strStream.eof(); i++ )
+		{
 			string sTmp;
 			_strStream >> sTmp;
-			tmpBSM[ i ] = atof( sTmp.c_str() );
-			}
-
-			for ( int i = 0; i < 16; i++ )
-			bone->InvertMatrix[ i ] = tmpBSM[ i ];*/
-
-			node = node->FirstChildElement( "node" );
-
-			while ( node )
-			{
-				le::Bone out;
-				ReadingMatrix( node , &out );
-				bone->vChild.push_back( out );
-
-				node = node->NextSiblingElement();
-			}
+			bone->InvertMatrix[ i ] = atof( sTmp.c_str() );
 		}
+	}
+	if ( node->Attribute( "name" )!= NULL )
+		bone->name = node->Attribute( "name" );
+
+	for ( int i = 0; i < 16;i++ )
+	bone->Realese[i] = bone->StartMatrix[i];
+
+	node = node->FirstChildElement( "node" );
+
+	while ( node )
+	{
+		le::Bone* out = new le::Bone();
+		out->Perent = bone;
+		ReadingMatrix( node , out );
+		bone->vChild.push_back( out );
+
+		node = node->NextSiblingElement();
+	}
 }
 
 bool le::Model::LoadModel( string route )
 {
-	// Временые вектора для работы
+	// Р’СЂРµРјРµРЅС‹Рµ РІРµРєС‚РѕСЂР° РґР»СЏ СЂР°Р±РѕС‚С‹
 	vector<Vector3f>	vTmpPoints;
 	vector<Vector3f>	vTmpNormals;
 	vector<Vector2f>	vTmpTextureCoords;
 	vector<Color>		vTmpVertexColors;
 	vector<GLuint>		vTmpTextures;
 
-	// Декодируем модель
+	// Р”РµРєРѕРґРёСЂСѓРµРј РјРѕРґРµР»СЊ
 	HaffmanCode haffmanCode;
 	string sModel = haffmanCode.DecompressedFromFile( route );
 
@@ -193,11 +195,11 @@ bool le::Model::LoadModel( string route )
 	TiXmlDocument LMD;
 	LMD.Parse( sModel.c_str() );
 
-	// Работаем с контейнером model
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј model
 	TiXmlElement *model;
 	model = LMD.FirstChildElement( "model" );
 
-	// Работаем с контейнером textures
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј textures
 	TiXmlElement *textures;
 	TiXmlElement *img;
 
@@ -217,7 +219,7 @@ bool le::Model::LoadModel( string route )
 		}
 	}
 
-	// Работаем с контейнером geometries
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј geometries
 	TiXmlElement *geometries;
 	TiXmlElement *point;
 
@@ -322,11 +324,11 @@ bool le::Model::LoadModel( string route )
 
 				switch ( id )
 				{
-				case 1: // координаты			
+				case 1: // РєРѕРѕСЂРґРёРЅР°С‚С‹			
 					poligon.vPoints.push_back( vTmpPoints[ atoi( _tmp.c_str() ) ] );
 					break;
 
-				case 2: // нормали
+				case 2: // РЅРѕСЂРјР°Р»Рё
 					poligon.vNormals.push_back( vTmpNormals[ atoi( _tmp.c_str() ) ] );
 					break;
 
@@ -365,13 +367,13 @@ bool le::Model::LoadModel( string route )
 		texture = texture->NextSiblingElement();
 	}
 
-	// Работаем с контейнером skeleton
+	// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј skeleton
 	TiXmlElement *skeleton;
 	skeleton = model->FirstChildElement( "skeleton" );
 
 	if ( skeleton != NULL )
 	{
-		// Работаем с контейнером bindShapeMatrix
+		// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј bindShapeMatrix
 		TiXmlElement *bsm;
 		bsm = skeleton->FirstChildElement( "bindShapeMatrix" );
 
@@ -387,23 +389,23 @@ bool le::Model::LoadModel( string route )
 
 		Skeleton.SetBindShape( tmpBSM );
 
-		// Работаем с контейнером mainNode
+		// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј mainNode
 		TiXmlElement *mainNode;
 		mainNode = skeleton->FirstChildElement( "mainNode" );
 
-		// Работаем с контейнером node
+		// Р Р°Р±РѕС‚Р°РµРј СЃ РєРѕРЅС‚РµР№РЅРµСЂРѕРј node
 		TiXmlElement *node;
 		node = mainNode->FirstChildElement( "node" );
 
 		while ( node )
 		{
-			Bone tmp;
-			ReadingMatrix( node , &tmp );
+			Bone* tmp = new le::Bone();
+			ReadingMatrix( node , tmp );
 			Skeleton.AddBone( tmp );
 			node = node->NextSiblingElement();
 		}
 	}
-
+	Skeleton.init();
 	return true;
 }
 
@@ -435,7 +437,7 @@ void le::Model::RenderModel()
 		glEnd();
 	}
 
-	Skeleton.DrawSkeleton();
+	Skeleton.DrawSkeleton(Skeleton.GetAllBones());
 	RenderWindow->pushGLStates();
 }
 

@@ -1,4 +1,4 @@
-#ifndef MATRIX_H
+п»ї#ifndef MATRIX_H
 #define MATRIX_H
 
 #define COMPILING_LIBRARY
@@ -19,7 +19,7 @@ typedef float Matrixf[ 16 ];
 /*
 1	0	0	0
 0	1	0	0
-0	0	1	0   } матрица движения
+0	0	1	0   } РјР°С‚СЂРёС†Р° РґРІРёР¶РµРЅРёСЏ
 x	y	z	1
 */
 

@@ -1,4 +1,4 @@
-#ifndef QUATERNION_H
+﻿#ifndef QUATERNION_H
 #define QUATERNION_H
 
 #define COMPILING_LIBRARY
