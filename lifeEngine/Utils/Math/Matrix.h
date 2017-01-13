@@ -10,31 +10,45 @@
 #include <SFML/System.hpp>
 using namespace sf;
 
-//-------------------------------------------------------------------------//
+namespace le
+{
+	//-------------------------------------------------------------------------//
 
-typedef float Matrixf[ 16 ];
+	typedef float Matrixf[ 16 ];
 
-//-------------------------------------------------------------------------//
+	//-------------------------------------------------------------------------//
 
-/*
-1	0	0	0
-0	1	0	0
-0	0	1	0   } матрица движения
-x	y	z	1
-*/
+	class DLL_API Matrix
+	{
+	public:
+		//////////////////////////
+		/// КОНСТРУКТОР
+		//////////////////////////
+		Matrix();
 
-void DLL_API MatrixMove( Vector3f FactorMovie , float* Matrix );
+		//////////////////////////
+		/// ПЕРЕМЕСТИТЬ МАТРИЦУ
+		//////////////////////////
+		static void MatrixMove( Vector3f FactorMovie , float* Matrix );
 
-//-------------------------------------------------------------------------//
+		//////////////////////////
+		/// СЛОЖИТЬ МАТРИЦЫ
+		//////////////////////////
+		static void MatrixAddition( Matrixf Matrix1 , Matrixf Matrix2 , float* Matrix );
 
-void DLL_API MatrixMultiply( Matrixf Matrix1 , Matrixf Matrix2 , float* Matrix );
+		//////////////////////////
+		/// УМНОЖИТЬ МАТРИЦЫ
+		//////////////////////////
+		static void MatrixMultiply( Matrixf Matrix1 , Matrixf Matrix2 , float* Matrix );
+		static void MatrixMultiply( float value , Matrixf Matrix1 , float* Matrix );
 
-//-------------------------------------------------------------------------//
+		//////////////////////////////
+		/// ПЕРЕВЕСТИ МАТРИЦУ В XYZ
+		//////////////////////////////
+		static Vector3f MatrixToXYZ( Matrixf Matrix );
 
-Vector3f DLL_API MatrixToXYZ( Matrixf Matrix );
-
-void DLL_API MatrixInvert( float* Matrix );
-
-//-------------------------------------------------------------------------//
+		Matrixf matrix;
+	};
+}
 
 #endif // MATRIX_H

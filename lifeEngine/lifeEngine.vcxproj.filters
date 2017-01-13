@@ -199,9 +199,6 @@
     <ClInclude Include="System\UI\ButtonManager.h">
       <Filter>System\UI</Filter>
     </ClInclude>
-    <ClInclude Include="System\3D\Model.h">
-      <Filter>System\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Math\Matrix.h">
       <Filter>Utils\Math</Filter>
     </ClInclude>
@@ -210,6 +207,9 @@
     </ClInclude>
     <ClInclude Include="System\3D\Skeleton.h">
       <Filter>System\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="System\3D\Model.h">
+      <Filter>Physic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

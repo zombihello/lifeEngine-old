@@ -10,13 +10,6 @@ le::Model::Model( sf::RenderWindow& RenderWindow )
 
 //-------------------------------------------------------------------------//
 
-le::Model::~Model()
-{
-	vMainPoligons.clear();
-}
-
-//-------------------------------------------------------------------------//
-
 GLuint le::Model::LoadTexture( string route )
 {
 	Image image;
@@ -36,164 +29,56 @@ GLuint le::Model::LoadTexture( string route )
 
 	return texture;
 }
-/*
-Matrixf IMB
-{
--0.000000, - 0.026077, - 0.999660, 0.261000,
-0.000000, 0.999660, - 0.026077, 1.107341,
-1.000000, - 0.000000, - 0.000000, 0.000000,
-0.000000, 0.000000, 0.000000, 1.000000
-};
 
-Matrixf IMB2
-{
--0.000000, - 0.019414, - 0.999812, 34.607894,
-- 0.000000, 0.999812, - 0.019414, 0.984820,
-1.000000, - 0.000000, - 0.000000, 0.000000,
-0.000000, 0.000000, 0.000000, 1.000000
-};
-
-Matrixf BM =
-{
--0.000000 , -0.000000 , 1.000000 , 0.000000 ,
--0.019414 , 0.999812 , -0.000000 , -0.312757 ,
--0.999812 , -0.019414 , -0.000000 , 34.620491 ,
-0.000000 , 0.000000 , 0.000000 , 1.000000
-};
-
-Matrixf BM2 =
-{
-0.999978 , 0.006665 , -0.000000 , 16.224157 ,
--0.006665 , 0.999978 , -0.000000 , -0.000018 ,
-0.000000 , 0.000000 , 1.000000 , 0.000000 ,
-0.000000 , 0.000000 , 0.000000 , 1.000000
-};
-
-Matrixf BM3 =
-{
-1.000000 , 0.000000 , -0.000000 , 18.115768 ,
-0.000000 , 1.000000 , -0.000000 , -0.000003 ,
-0.000000 , 0.000000 , 1.000000 , 0.000000 ,
-0.000000 , 0.000000 , 0.000000 , 1.000000
-};
-
-MatrixMultiply( BM2 , BM , boun2 );
-MatrixMultiply( BM3 , boun2 , boun3 );
-
-for ( int i = 0 , count = 1; i < 16; i++ , count++ )
-{
-cout << boun3[ i ] << " ";
-if ( count == 4 )
-{
-cout << endl;
-count = 0;
-}
-}
-
-Vector3f pos = MatrixToXYZ( boun2 );
-cout << endl << pos.x << " " << pos.y << " " << pos.z << endl;
-
-pos = MatrixToXYZ( BM );
-cout << endl << pos.x << " " << pos.y << " " << pos.z << endl;
-
-
-Vector3f _bm1 = MatrixToXYZ( BM );
-Vector3f _bm2 = MatrixToXYZ( boun2 );
-
-glBegin( GL_LINES );
-glColor3f( 1 , 0 , 0 );
-glVertex3f( _bm1.x , _bm1.y , _bm1.z );
-glVertex3f( _bm2.x , _bm2.y , _bm2.z );
-glColor3f( 0 , 1 ,0 );
-
-_bm1 = MatrixToXYZ( boun2 );
-_bm2 = MatrixToXYZ( boun3 );
-
-glVertex3f( _bm1.x , _bm1.y , _bm1.z );
-glVertex3f( _bm2.x , _bm2.y , _bm2.z );
-glColor3f( 1 , 1 , 1);
-glEnd();
-
-
-Matrixf boun2;
-Matrixf boun3;
-Matrixf tmp;
-*/
 //-------------------------------------------------------------------------//
-
-void ReadingMatrix( TiXmlElement* node , le::Bone* bone )
-{
-	// Работаем с контейнером startMatrix
-	TiXmlElement *startMatrix;
-	startMatrix = node->FirstChildElement( "startMatrix" );
-
-	string sTmpMatrix;
-
-	if ( startMatrix->GetText() != NULL )
-	{
-		sTmpMatrix = startMatrix->GetText();
-		istringstream strStream( sTmpMatrix );
-
-		for ( int i = 0; i < 16 && !strStream.eof(); i++ )
-		{
-			string sTmp;
-			strStream >> sTmp;
-			bone->StartMatrix[ i ] = atof( sTmp.c_str() );
-		}
-	}
-
-	// Работаем с контейнером invertMatrix
-	TiXmlElement *invertMatrix;
-	invertMatrix = node->FirstChildElement( "invertMatrix" );
-
-	if ( invertMatrix->GetText() != NULL )
-	{
-		sTmpMatrix = string( invertMatrix->GetText() );
-		istringstream _strStream( sTmpMatrix );
-
-		for ( int i = 0; i < 16 && !_strStream.eof(); i++ )
-		{
-			string sTmp;
-			_strStream >> sTmp;
-			bone->InvertMatrix[ i ] = atof( sTmp.c_str() );
-		}
-	}
-	if ( node->Attribute( "name" )!= NULL )
-		bone->name = node->Attribute( "name" );
-
-	for ( int i = 0; i < 16;i++ )
-	bone->Realese[i] = bone->StartMatrix[i];
-
-	node = node->FirstChildElement( "node" );
-
-	while ( node )
-	{
-		le::Bone* out = new le::Bone();
-		out->Perent = bone;
-		ReadingMatrix( node , out );
-		bone->vChild.push_back( out );
-
-		node = node->NextSiblingElement();
-	}
-}
 
 bool le::Model::LoadModel( string route )
 {
-	// Временые вектора для работы
-	vector<Vector3f>	vTmpPoints;
-	vector<Vector3f>	vTmpNormals;
-	vector<Vector2f>	vTmpTextureCoords;
-	vector<Color>		vTmpVertexColors;
 	vector<GLuint>		vTmpTextures;
-
-	// Декодируем модель
-	HaffmanCode haffmanCode;
-	string sModel = haffmanCode.DecompressedFromFile( route );
-
-	if ( sModel == "ERROR" ) return false;
-
 	TiXmlDocument LMD;
-	LMD.Parse( sModel.c_str() );
+
+#ifdef DEBUG
+	string routeTmp = route;
+	routeTmp.erase( routeTmp.find_last_of( '.' ) + 1 , routeTmp.size() );
+	routeTmp += "xlmd";
+
+	if ( !LMD.LoadFile( routeTmp.c_str() ) )
+	{
+		cout << "Error: Model [" << routeTmp << "] Not Found\n";
+		return false;
+	}
+#else
+	string routeTmp = route;
+	routeTmp.erase( 0 , routeTmp.find_last_of( '.' ) + 1 );
+
+	if ( routeTmp == "lmd" )
+	{
+		// Декодируем модель
+		HaffmanCode haffmanCode;
+		string sModel = haffmanCode.DecompressedFromFile( route );
+
+		if ( sModel == "ERROR" )
+		{
+			cout << "Error: Model [" << route << "] Not Found\n";
+			return false;
+		}
+
+		LMD.Parse( sModel.c_str() );
+	}
+	else if ( routeTmp == "xlmd" )
+	{
+		if ( !LMD.LoadFile( route.c_str() ) )
+		{
+			cout << "Error: Model [" << route << "] Not Found\n";
+			return false;
+		}
+	}
+	else
+	{
+		cout << "Error: Model [" << route << "] Not Correct Format\n";
+		return false;
+	}
+#endif
 
 	// Работаем с контейнером model
 	TiXmlElement *model;
@@ -231,14 +116,13 @@ bool le::Model::LoadModel( string route )
 
 	while ( point )
 	{
-		Vector3f positionPoint;
+		Vertex Vertex;
 
-		positionPoint.x = atof( point->Attribute( "x" ) );
-		positionPoint.y = atof( point->Attribute( "y" ) );
-		positionPoint.z = atof( point->Attribute( "z" ) );
+		Vertex.Position.x = atof( point->Attribute( "x" ) );
+		Vertex.Position.y = atof( point->Attribute( "y" ) );
+		Vertex.Position.z = atof( point->Attribute( "z" ) );
 
-		vTmpPoints.push_back( positionPoint );
-
+		Mesh.vVertexs.push_back( Vertex );
 		point = point->NextSiblingElement();
 	}
 
@@ -254,8 +138,7 @@ bool le::Model::LoadModel( string route )
 		Normal.y = atof( point->Attribute( "y" ) );
 		Normal.z = atof( point->Attribute( "z" ) );
 
-		vTmpNormals.push_back( Normal );
-
+		Mesh.vNormals.push_back( Normal );
 		point = point->NextSiblingElement();
 	}
 
@@ -265,14 +148,14 @@ bool le::Model::LoadModel( string route )
 
 	while ( point )
 	{
-		Vector2f UV;
+		TextureCoord TexCoord;
 
-		UV.x = atof( point->Attribute( "x" ) );
-		UV.y = atof( point->Attribute( "y" ) );
+		TexCoord.Coords.x = atof( point->Attribute( "x" ) );
+		TexCoord.Coords.y = atof( point->Attribute( "y" ) );
 
-		vTmpTextureCoords.push_back( UV );
-
+		Mesh.vTextureCoords.push_back( TexCoord );
 		point = point->NextSiblingElement();
+
 	}
 
 	TiXmlElement *VertexColors;
@@ -291,8 +174,7 @@ bool le::Model::LoadModel( string route )
 			VertexColor.b = atof( point->Attribute( "b" ) );
 			VertexColor.a = atof( point->Attribute( "a" ) );
 
-			vTmpVertexColors.push_back( VertexColor );
-
+			Mesh.vVertexColors.push_back( VertexColor );
 			point = point->NextSiblingElement();
 		}
 	}
@@ -309,13 +191,13 @@ bool le::Model::LoadModel( string route )
 		p = texture->FirstChildElement( "p" );
 
 		int idTexture = atoi( texture->Attribute( "id" ) );
-		MainPoligon _mainPoligon;
+		IDsVNTC IDs;
 
 		while ( p )
 		{
+			TextureCoord* TexCoord;
 			string sTmp = string( p->GetText() );
 			istringstream iss( sTmp );
-			Poligon poligon;
 
 			for ( int id = 1; !iss.eof(); id++ )
 			{
@@ -324,46 +206,45 @@ bool le::Model::LoadModel( string route )
 
 				switch ( id )
 				{
-				case 1: // координаты			
-					poligon.vPoints.push_back( vTmpPoints[ atoi( _tmp.c_str() ) ] );
-					break;
+					case 1: // координаты	
+						IDs.idVertex = atoi( _tmp.c_str() );
+						break;
 
-				case 2: // нормали
-					poligon.vNormals.push_back( vTmpNormals[ atoi( _tmp.c_str() ) ] );
-					break;
+					case 2: // нормали
+						IDs.idNormal = atoi( _tmp.c_str() );
+						break;
 
-				case 3:
-					poligon.vTextureCoords.push_back( vTmpTextureCoords[ atoi( _tmp.c_str() ) ] );
+					case 3:
+						IDs.idTextureCoord = atoi( _tmp.c_str() );
 
-					if ( vTmpVertexColors.empty() )
-					{
-						if ( !vTmpTextures.empty() )
-							_mainPoligon.gl_Texture = vTmpTextures[ idTexture ];
+						TexCoord = &Mesh.vTextureCoords[ atoi( _tmp.c_str() ) ];
+						if ( TexCoord->TextureEmpty )
+						{
+							TexCoord->gl_Texture = vTmpTextures[ idTexture ];
+							TexCoord->TextureEmpty = false;
+						}
 
-						_mainPoligon.vPoligons.push_back( poligon );
-						poligon = Poligon();
+						if ( Mesh.vVertexColors.empty() )
+						{
+							Mesh.vIDs.push_back( IDs );
+							id = 0;
+							IDs = IDsVNTC();
+						}
+
+						break;
+
+					case 4:
+						IDs.idVertexColor = atoi( _tmp.c_str() );
+						Mesh.vIDs.push_back( IDs );
 						id = 0;
-					}
-
-					break;
-
-				case 4:
-					poligon.vVertexColors.push_back( vTmpVertexColors[ atoi( _tmp.c_str() ) ] );
-
-					if ( !vTmpTextures.empty() )
-						_mainPoligon.gl_Texture = vTmpTextures[ idTexture ];
-
-					_mainPoligon.vPoligons.push_back( poligon );
-					poligon = Poligon();
-					id = 0;
-					break;
+						IDs = IDsVNTC();
+						break;
 				}
 			}
 
 			p = p->NextSiblingElement();
 		}
 
-		vMainPoligons.push_back( _mainPoligon );
 		texture = texture->NextSiblingElement();
 	}
 
@@ -373,39 +254,10 @@ bool le::Model::LoadModel( string route )
 
 	if ( skeleton != NULL )
 	{
-		// Работаем с контейнером bindShapeMatrix
-		TiXmlElement *bsm;
-		bsm = skeleton->FirstChildElement( "bindShapeMatrix" );
-
-		Matrixf tmpBSM;
-		stringstream strStream( bsm->GetText() );
-
-		for ( int i = 0; i < 16 && !strStream.eof(); i++ )
-		{
-			string sTmp;
-			strStream >> sTmp;
-			tmpBSM[ i ] = atof( sTmp.c_str() );
-		}
-
-		Skeleton.SetBindShape( tmpBSM );
-
-		// Работаем с контейнером mainNode
-		TiXmlElement *mainNode;
-		mainNode = skeleton->FirstChildElement( "mainNode" );
-
-		// Работаем с контейнером node
-		TiXmlElement *node;
-		node = mainNode->FirstChildElement( "node" );
-
-		while ( node )
-		{
-			Bone* tmp = new le::Bone();
-			ReadingMatrix( node , tmp );
-			Skeleton.AddBone( tmp );
-			node = node->NextSiblingElement();
-		}
+		Skeleton.LoadSkeleton( skeleton , Mesh );
+		Skeleton.InitMesh( Mesh );
 	}
-	Skeleton.init();
+
 	return true;
 }
 
@@ -421,24 +273,53 @@ void le::Model::RenderModel()
 	glRotatef( 0.5 , 0.f , 10.f , 0.f );
 	glRotatef( 0.5 , 0.f , 0.f , 10.f );
 
-	for ( int j = 0; j < vMainPoligons.size(); j++ )
+	Skeleton.DrawSkeleton( Skeleton.GetAllBones() );
+
+	if ( !Keyboard::isKeyPressed( Keyboard::Q ) )
 	{
-		glBindTexture( GL_TEXTURE_2D , vMainPoligons[ j ].gl_Texture );
+		GLuint lastTexture = Mesh.vTextureCoords[ Mesh.vIDs[ 0 ].idTextureCoord ].gl_Texture;
+		glBindTexture( GL_TEXTURE_2D , lastTexture );
 		glBegin( GL_TRIANGLES );
 
-		for ( int i = 0; i < vMainPoligons[ j ].vPoligons.size(); i++ )
-			for ( int id = 0; id < vMainPoligons[ j ].vPoligons[ i ].vPoints.size(); id++ )
+		for ( int i = 0; i < Mesh.vIDs.size(); i++ )
+		{
+			IDsVNTC IDs = Mesh.vIDs[ i ];
+			TextureCoord TexCoord = Mesh.vTextureCoords[ IDs.idTextureCoord ];
+			Vector3f Vertex = Mesh.vVertexs[ IDs.idVertex ].Position;
+			Vector3f Normal = Mesh.vNormals[ IDs.idNormal ];
+
+			if ( TexCoord.gl_Texture != lastTexture )
 			{
-				glNormal3f( vMainPoligons[ j ].vPoligons[ i ].vNormals[ id ].x , vMainPoligons[ j ].vPoligons[ i ].vNormals[ id ].z , vMainPoligons[ j ].vPoligons[ i ].vNormals[ id ].z );
-				glTexCoord2f( vMainPoligons[ j ].vPoligons[ i ].vTextureCoords[ id ].x , vMainPoligons[ j ].vPoligons[ i ].vTextureCoords[ id ].y );
-				glVertex3f( vMainPoligons[ j ].vPoligons[ i ].vPoints[ id ].x , vMainPoligons[ j ].vPoligons[ i ].vPoints[ id ].y , vMainPoligons[ j ].vPoligons[ i ].vPoints[ id ].z );
+				lastTexture = TexCoord.gl_Texture;
+
+				glEnd();
+				glBindTexture( GL_TEXTURE_2D , TexCoord.gl_Texture );
+				glBegin( GL_TRIANGLES );
 			}
+
+			glNormal3f( Normal.x , Normal.y , Normal.z );
+			glTexCoord2f( TexCoord.Coords.x , TexCoord.Coords.y );
+			glVertex3f( Vertex.x , Vertex.y , Vertex.z );
+		}
 
 		glEnd();
 	}
 
-	Skeleton.DrawSkeleton(Skeleton.GetAllBones());
 	RenderWindow->pushGLStates();
+}
+
+//-------------------------------------------------------------------------//
+
+le::TextureCoord::TextureCoord()
+{
+	TextureEmpty = true;
+}
+
+//-------------------------------------------------------------------------//
+
+le::IDsVNTC::IDsVNTC()
+{
+	idVertex = idNormal = idTextureCoord = idVertexColor = 0;
 }
 
 //-------------------------------------------------------------------------//

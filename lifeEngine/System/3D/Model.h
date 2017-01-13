@@ -1,4 +1,4 @@
-#ifndef MODEL_H
+Ôªø#ifndef MODEL_H
 #define MODEL_H
 
 #define COMPILING_LIBRARY
@@ -14,55 +14,81 @@ namespace le
 {
 	//-------------------------------------------------------------------------//
 
-	struct DLL_API Poligon
+	struct DLL_API Vertex
 	{
-		vector<Vector3f>		vPoints;
+		Vector3f			Position;
+		vector<int>			vIdBones;
+		vector<float>		vIdWeihgt;
+	};
+
+	//-------------------------------------------------------------------------//
+
+	struct DLL_API TextureCoord
+	{
+		TextureCoord();
+
+		Vector2f		Coords;
+		GLuint			gl_Texture;
+		bool			TextureEmpty;
+	};
+
+	//-------------------------------------------------------------------------//
+
+	struct DLL_API IDsVNTC
+	{
+		IDsVNTC();
+
+		int		idVertex;
+		int		idNormal;
+		int		idTextureCoord;
+		int		idVertexColor;
+	};
+
+	//-------------------------------------------------------------------------//
+
+	struct DLL_API Mesh
+	{
+		vector<IDsVNTC>			vIDs;
+
+		vector<Vertex>			vVertexs;
 		vector<Vector3f>		vNormals;
-		vector<Vector2f>		vTextureCoords;
+		vector<TextureCoord>	vTextureCoords;
 		vector<Color>			vVertexColors;
 	};
 
 	//-------------------------------------------------------------------------//
 
-	struct DLL_API MainPoligon
+	struct TMP
 	{
-		vector<Poligon>			vPoligons;
-		GLuint					gl_Texture;
+		Color col = Color::Green;
+		Vector3f pos;
 	};
-
-	//-------------------------------------------------------------------------//
 
 	class DLL_API Model
 	{
 	public:
 		/////////////////
-		///  ŒÕ—“–” “Œ–
+		/// –ö–û–ù–°–¢–†–£–ö–¢–û–†
 		/////////////////
 		Model( RenderWindow& RenderWindow );
 
-		/////////////////
-		/// ƒ≈—“–” “Œ–
-		/////////////////
-		~Model();
-
 		//////////////////////
-		/// «¿√–”« ¿ ÃŒƒ≈À»
+		/// –ó–ê–ì–†–£–ó–ö–ê –ú–û–î–ï–õ–ò
 		//////////////////////
 		bool LoadModel( string route );
 
 		//////////////////////
-		/// Œ“–»—Œ¬ ¿ ÃŒƒ≈À»
+		/// –û–¢–†–ò–°–û–í–ö–ê –ú–û–î–ï–õ–ò
 		//////////////////////
 		void RenderModel();
 
 	private:
 		GLuint LoadTexture( string route );
 
+		Mesh							Mesh;
 		Skeleton						Skeleton;
 
 		sf::RenderWindow*				RenderWindow;
-
-		std::vector<MainPoligon>			vMainPoligons;
 	};
 
 	//-------------------------------------------------------------------------//
