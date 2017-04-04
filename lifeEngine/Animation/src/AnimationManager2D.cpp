@@ -1,22 +1,22 @@
-#include "../AnimationManager.h"
+#include "../AnimationManager2D.h"
 
 //-------------------------------------------------------------------------//
 
-le::AnimationManager::AnimationManager()
+le::AnimationManager2D::AnimationManager2D()
 {
 
 }
 
 //-------------------------------------------------------------------------//
 
-le::AnimationManager::~AnimationManager()
+le::AnimationManager2D::~AnimationManager2D()
 {
 	mAnimList.clear();
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::LoadAnimation( string sRoute )
+void le::AnimationManager2D::LoadAnimation( string sRoute )
 {
 	TiXmlDocument animFile( sRoute.c_str() );
 
@@ -29,7 +29,7 @@ void le::AnimationManager::LoadAnimation( string sRoute )
 	animElement = head->FirstChildElement( "animation" );
 	while ( animElement )
 	{
-		Animation anim;
+		Animation2D anim;
 		sCurrentAnim = animElement->Attribute( "title" );
 		int delay = atoi( animElement->Attribute( "delay" ) );
 		anim.SetSpeed( 1.0 / delay );
@@ -55,22 +55,22 @@ void le::AnimationManager::LoadAnimation( string sRoute )
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::SetAnimation( string sName, bool loop )
+void le::AnimationManager2D::SetAnimation( string sName , bool loop )
 {
 	sCurrentAnim = sName;
 
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-		{
-			mAnimList[ sCurrentAnim ].SetLoop( loop );
-			mAnimList[ sCurrentAnim ].IsPlaying() = true;
-			return;
-		}
+	if ( it->first == sCurrentAnim )
+	{
+		mAnimList[ sCurrentAnim ].SetLoop( loop );
+		mAnimList[ sCurrentAnim ].IsPlaying() = true;
+		return;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::Flip( bool bFlip )
+void le::AnimationManager2D::Flip( bool bFlip )
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
 		mAnimList[ it->first ].GetFlip() = bFlip;
@@ -78,82 +78,82 @@ void le::AnimationManager::Flip( bool bFlip )
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::Flip( const string NameAnimation, bool bFlip )
+void le::AnimationManager2D::Flip( const string NameAnimation , bool bFlip )
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == NameAnimation )
-		{
-			mAnimList[ NameAnimation ].GetFlip() = bFlip;
-			return;
-		}
+	if ( it->first == NameAnimation )
+	{
+		mAnimList[ NameAnimation ].GetFlip() = bFlip;
+		return;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::UpdateAnimation( float Time, sf::Sprite& Sprite )
+void le::AnimationManager2D::UpdateAnimation( float Time , sf::Sprite& Sprite )
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-		{
-			mAnimList[ sCurrentAnim ].TickAnimation( Time, Sprite );
-			return;
-		}
+	if ( it->first == sCurrentAnim )
+	{
+		mAnimList[ sCurrentAnim ].TickAnimation( Time , Sprite );
+		return;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::Pause()
+void le::AnimationManager2D::Pause()
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-		{
-			mAnimList[ sCurrentAnim ].IsPlaying() = false;
-			return;
-		}
+	if ( it->first == sCurrentAnim )
+	{
+		mAnimList[ sCurrentAnim ].IsPlaying() = false;
+		return;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::AnimationManager::Play()
+void le::AnimationManager2D::Play()
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-		{
-			mAnimList[ sCurrentAnim ].IsPlaying() = true;
-			return;
-		}
+	if ( it->first == sCurrentAnim )
+	{
+		mAnimList[ sCurrentAnim ].IsPlaying() = true;
+		return;
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::AnimationManager::IsPlaying()
+bool le::AnimationManager2D::IsPlaying()
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-			return mAnimList[ sCurrentAnim ].IsPlaying();
+	if ( it->first == sCurrentAnim )
+		return mAnimList[ sCurrentAnim ].IsPlaying();
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::AnimationManager::IsFlip()
+bool le::AnimationManager2D::IsFlip()
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == sCurrentAnim )
-			return mAnimList[ sCurrentAnim ].GetFlip();
+	if ( it->first == sCurrentAnim )
+		return mAnimList[ sCurrentAnim ].GetFlip();
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::AnimationManager::IsFlip( string NameAnimation )
+bool le::AnimationManager2D::IsFlip( string NameAnimation )
 {
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
-		if ( it->first == NameAnimation )
-			return mAnimList[ NameAnimation ].GetFlip();
+	if ( it->first == NameAnimation )
+		return mAnimList[ NameAnimation ].GetFlip();
 }
 
 //-------------------------------------------------------------------------//
 
-string le::AnimationManager::GetNameCurrentAnim()
+string le::AnimationManager2D::GetNameCurrentAnim()
 {
 	return sCurrentAnim;
 }

@@ -3,9 +3,36 @@
 
 //-------------------------------------------------------------------------//
 
+void le::Mesh::Clear()
+{
+	vIDs.clear();
+	vVertexColors.clear();
+	vNormals.clear();
+	vTextureCoords.clear();
+	vVertexs.clear();
+}
+
+//-------------------------------------------------------------------------//
+
 le::Model::Model( sf::RenderWindow& RenderWindow )
 {
 	this->RenderWindow = &RenderWindow;
+
+	Skeleton = NULL;
+	AnimationManager3D = NULL;
+}
+
+//-------------------------------------------------------------------------//
+
+le::Model::~Model()
+{
+	Mesh.Clear();
+
+	if ( Skeleton != NULL )
+		delete Skeleton;
+
+	if ( AnimationManager3D != NULL )
+		delete AnimationManager3D;
 }
 
 //-------------------------------------------------------------------------//
@@ -17,15 +44,15 @@ GLuint le::Model::LoadTexture( string route )
 	image.flipVertically();
 
 	GLuint texture = 0;
-	glGenTextures( 1 , &texture );
-	glBindTexture( GL_TEXTURE_2D , texture );
-	gluBuild2DMipmaps( GL_TEXTURE_2D , GL_RGBA , image.getSize().x , image.getSize().y , GL_RGBA , GL_UNSIGNED_BYTE , image.getPixelsPtr() );
+	glGenTextures( 1, &texture );
+	glBindTexture( GL_TEXTURE_2D, texture );
+	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, image.getSize().x, image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr() );
 
-	glTexParameteri( GL_TEXTURE_2D , GL_TEXTURE_MAG_FILTER , GL_LINEAR );
-	glTexParameteri( GL_TEXTURE_2D , GL_TEXTURE_MIN_FILTER , GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 
-	glTexParameteri( GL_TEXTURE_2D , GL_TEXTURE_WRAP_S , GL_REPEAT );
-	glTexParameteri( GL_TEXTURE_2D , GL_TEXTURE_WRAP_T , GL_REPEAT );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
 	return texture;
 }
@@ -39,7 +66,7 @@ bool le::Model::LoadModel( string route )
 
 #ifdef DEBUG
 	string routeTmp = route;
-	routeTmp.erase( routeTmp.find_last_of( '.' ) + 1 , routeTmp.size() );
+	routeTmp.erase( routeTmp.find_last_of( '.' ) + 1, routeTmp.size() );
 	routeTmp += "xlmd";
 
 	if ( !LMD.LoadFile( routeTmp.c_str() ) )
@@ -49,7 +76,7 @@ bool le::Model::LoadModel( string route )
 	}
 #else
 	string routeTmp = route;
-	routeTmp.erase( 0 , routeTmp.find_last_of( '.' ) + 1 );
+	routeTmp.erase( 0, routeTmp.find_last_of( '.' ) + 1 );
 
 	if ( routeTmp == "lmd" )
 	{
@@ -97,7 +124,7 @@ bool le::Model::LoadModel( string route )
 		while ( img )
 		{
 			string route = img->Attribute( "src" );
-			route.erase( 0 , route.find_last_of( '/' ) + 1 );
+			route.erase( 0, route.find_last_of( '/' ) + 1 );
 			vTmpTextures.push_back( LoadTexture( route ) );
 
 			img = img->NextSiblingElement();
@@ -121,6 +148,8 @@ bool le::Model::LoadModel( string route )
 		Vertex.Position.x = atof( point->Attribute( "x" ) );
 		Vertex.Position.y = atof( point->Attribute( "y" ) );
 		Vertex.Position.z = atof( point->Attribute( "z" ) );
+
+		Vertex.DefaultPosition = Vertex.Position;
 
 		Mesh.vVertexs.push_back( Vertex );
 		point = point->NextSiblingElement();
@@ -206,39 +235,39 @@ bool le::Model::LoadModel( string route )
 
 				switch ( id )
 				{
-					case 1: // координаты	
-						IDs.idVertex = atoi( _tmp.c_str() );
-						break;
+				case 1: // координаты	
+					IDs.idVertex = atoi( _tmp.c_str() );
+					break;
 
-					case 2: // нормали
-						IDs.idNormal = atoi( _tmp.c_str() );
-						break;
+				case 2: // нормали
+					IDs.idNormal = atoi( _tmp.c_str() );
+					break;
 
-					case 3:
-						IDs.idTextureCoord = atoi( _tmp.c_str() );
+				case 3:
+					IDs.idTextureCoord = atoi( _tmp.c_str() );
 
-						TexCoord = &Mesh.vTextureCoords[ atoi( _tmp.c_str() ) ];
-						if ( TexCoord->TextureEmpty )
-						{
-							TexCoord->gl_Texture = vTmpTextures[ idTexture ];
-							TexCoord->TextureEmpty = false;
-						}
+					TexCoord = &Mesh.vTextureCoords[atoi( _tmp.c_str() )];
+					if ( TexCoord->TextureEmpty )
+					{
+						TexCoord->gl_Texture = vTmpTextures[idTexture];
+						TexCoord->TextureEmpty = false;
+					}
 
-						if ( Mesh.vVertexColors.empty() )
-						{
-							Mesh.vIDs.push_back( IDs );
-							id = 0;
-							IDs = IDsVNTC();
-						}
-
-						break;
-
-					case 4:
-						IDs.idVertexColor = atoi( _tmp.c_str() );
+					if ( Mesh.vVertexColors.empty() )
+					{
 						Mesh.vIDs.push_back( IDs );
 						id = 0;
 						IDs = IDsVNTC();
-						break;
+					}
+
+					break;
+
+				case 4:
+					IDs.idVertexColor = atoi( _tmp.c_str() );
+					Mesh.vIDs.push_back( IDs );
+					id = 0;
+					IDs = IDsVNTC();
+					break;
 				}
 			}
 
@@ -254,8 +283,19 @@ bool le::Model::LoadModel( string route )
 
 	if ( skeleton != NULL )
 	{
-		Skeleton.LoadSkeleton( skeleton , Mesh );
-		Skeleton.InitMesh( Mesh );
+		Skeleton = new le::Skeleton( Mesh );
+		Skeleton->LoadSkeleton( skeleton );
+		Skeleton->InitMesh();
+	}
+
+	// Работаем с контейнером animations
+	TiXmlElement *animations;
+	animations = model->FirstChildElement( "animations" );
+
+	if ( animations != NULL )
+	{
+		AnimationManager3D = new le::AnimationManager3D( *Skeleton );
+		AnimationManager3D->LoadAnimations( animations );
 	}
 
 	return true;
@@ -269,43 +309,51 @@ void le::Model::RenderModel()
 
 	glClear( GL_DEPTH_BUFFER_BIT );
 
-	glRotatef( 0.5 , 10.f , 0.f , 0.f );
-	glRotatef( 0.5 , 0.f , 10.f , 0.f );
-	glRotatef( 0.5 , 0.f , 0.f , 10.f );
+	glRotatef( 0.5, 10.f, 0.f, 0.f );
+	glRotatef( 0.5, 0.f, 10.f, 0.f );
+	glRotatef( 0.5, 0.f, 0.f, 10.f );
 
-	Skeleton.DrawSkeleton( Skeleton.GetAllBones() );
+	if ( Skeleton != NULL )
+		Skeleton->DrawSkeleton( Skeleton->GetAllBones() );
 
 	if ( !Keyboard::isKeyPressed( Keyboard::Q ) )
 	{
-		GLuint lastTexture = Mesh.vTextureCoords[ Mesh.vIDs[ 0 ].idTextureCoord ].gl_Texture;
-		glBindTexture( GL_TEXTURE_2D , lastTexture );
+		GLuint lastTexture = Mesh.vTextureCoords[Mesh.vIDs[0].idTextureCoord].gl_Texture;
+		glBindTexture( GL_TEXTURE_2D, lastTexture );
 		glBegin( GL_TRIANGLES );
 
 		for ( int i = 0; i < Mesh.vIDs.size(); i++ )
 		{
-			IDsVNTC IDs = Mesh.vIDs[ i ];
-			TextureCoord TexCoord = Mesh.vTextureCoords[ IDs.idTextureCoord ];
-			Vector3f Vertex = Mesh.vVertexs[ IDs.idVertex ].Position;
-			Vector3f Normal = Mesh.vNormals[ IDs.idNormal ];
+			IDsVNTC IDs = Mesh.vIDs[i];
+			TextureCoord TexCoord = Mesh.vTextureCoords[IDs.idTextureCoord];
+			Vector3f Vertex = Mesh.vVertexs[IDs.idVertex].Position;
+			Vector3f Normal = Mesh.vNormals[IDs.idNormal];
 
 			if ( TexCoord.gl_Texture != lastTexture )
 			{
 				lastTexture = TexCoord.gl_Texture;
 
 				glEnd();
-				glBindTexture( GL_TEXTURE_2D , TexCoord.gl_Texture );
+				glBindTexture( GL_TEXTURE_2D, TexCoord.gl_Texture );
 				glBegin( GL_TRIANGLES );
 			}
 
-			glNormal3f( Normal.x , Normal.y , Normal.z );
-			glTexCoord2f( TexCoord.Coords.x , TexCoord.Coords.y );
-			glVertex3f( Vertex.x , Vertex.y , Vertex.z );
+			glNormal3f( Normal.x, Normal.y, Normal.z );
+			glTexCoord2f( TexCoord.Coords.x, TexCoord.Coords.y );
+			glVertex3f( Vertex.x, Vertex.y, Vertex.z );
 		}
 
 		glEnd();
 	}
 
 	RenderWindow->pushGLStates();
+}
+
+//-------------------------------------------------------------------------//
+
+le::AnimationManager3D& le::Model::GetAnimationManager()
+{
+	return *AnimationManager3D;
 }
 
 //-------------------------------------------------------------------------//

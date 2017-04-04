@@ -15,4 +15,3 @@ Convert Autodesk Collada *.DAE to lifeEngine Model *.lmd and *.xlmd [ cdm.exe ]
 Формат *.lmd для Release, а *.xlmd для Debug и Release
 
 Конвертер модели с Autodesk Collada (*.dae) в формат lifeEngine Model (*.lmd |*.xlmd)
-Аргументы запуска: путь к модели (*.dae) , путь к выходному каталогу. Например, C:\Vort C:\Vort

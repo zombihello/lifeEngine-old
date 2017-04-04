@@ -14,7 +14,7 @@ le::BasicEntity::BasicEntity( le::System &System , le::Physic& Physic )
 	BoxDebug.setOutlineColor( Color::Green );
 	BoxDebug.setOutlineThickness( 1 );
 
-	AnimationManager = new le::AnimationManager;
+	AnimationManager2D = new le::AnimationManager2D;
 }
 
 //-------------------------------------------------------------------------//
@@ -28,7 +28,7 @@ le::BasicEntity::~BasicEntity()
 		EntityBody = NULL;
 	}
 
-	delete AnimationManager;
+	delete AnimationManager2D;
 }
 
 //-------------------------------------------------------------------------//
@@ -81,9 +81,9 @@ string le::BasicEntity::GetNameEntity()
 
 //-------------------------------------------------------------------------//
 
-le::AnimationManager& le::BasicEntity::GetAnimationManager()
+le::AnimationManager2D& le::BasicEntity::GetAnimationManager2D()
 {
-	return *AnimationManager;
+	return *AnimationManager2D;
 }
 
 //-------------------------------------------------------------------------//
@@ -122,7 +122,7 @@ void le::BasicEntity::InitEntity( float fX , float fY , int MaxHealtch , string 
 
 void le::BasicEntity::Render()
 {
-	AnimationManager->UpdateAnimation( System->GetConfiguration().fTime , Sprite );
+	AnimationManager2D->UpdateAnimation( System->GetConfiguration().fTime , Sprite );
 
 	if ( EntityRect.width != abs( Sprite.getTextureRect().width ) || EntityRect.height != abs( Sprite.getTextureRect().height ) )
 	{

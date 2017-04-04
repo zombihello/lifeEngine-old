@@ -91,8 +91,8 @@ namespace le
 		/// ИНИЦИАЛИЗАЦИЯ ОРУЖИЯ
 		//////////////////////////
 		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision, string sNameAnimation );
-		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision, le::AnimationManager& AnimationManager , string sNameAnimation );
-		void InitWeapon( int Damage , le::AnimationManager& AnimationManager , string sNameAnimation );
+		void InitWeapon( int Damage , int MaxAmmo , int AmmoInStock , le::GroupColision GroupColision , le::AnimationManager2D& AnimationManager2D , string sNameAnimation );
+		void InitWeapon( int Damage , le::AnimationManager2D& AnimationManager2D , string sNameAnimation );
 
 		int								iDamage;
 		int								iMaxAmmo;
@@ -104,7 +104,7 @@ namespace le
 		string							sNameAnimation;
 
 		le::GroupColision				GroupColision;
-		le::AnimationManager*			AnimationManager;
+		le::AnimationManager2D*			AnimationManager2D;
 	};
 	
 	//-------------------------------------------------------------------------//

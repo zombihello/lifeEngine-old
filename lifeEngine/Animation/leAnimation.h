@@ -4,6 +4,6 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "AnimationManager.h"
+#include "AnimationManager2D.h"
 
 #endif // LEANIMATION_H

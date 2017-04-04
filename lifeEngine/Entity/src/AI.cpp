@@ -32,12 +32,12 @@ void le::AI::Walk( Vector2f Factor , Body::TYPE_MOVE typeMove )
 	if ( Personage->GetRect().left < RouteMove.GetRect().left )
 	{
 		Personage->GetBody().MoveBody( Vector2f( Factor.x , 0 ) , typeMove );
-		Personage->GetAnimationManager().Flip( true );
+		Personage->GetAnimationManager2D().Flip( true );
 	}
 	else
 	{
 		Personage->GetBody().MoveBody( Vector2f( -Factor.x , 0 ) , typeMove );
-		Personage->GetAnimationManager().Flip( false );
+		Personage->GetAnimationManager2D().Flip( false );
 	}
 
 	if ( RouteMove.IsUsedY() )
@@ -69,12 +69,12 @@ void le::AI::MoveToObject( Vector2f Factor , Body::TYPE_MOVE typeMove , BasicPer
 		if ( this->Personage->GetRect().left < Personage->GetRect().left )
 		{
 			this->Personage->GetBody().MoveBody( Vector2f( Factor.x , 0 ) , typeMove );
-			this->Personage->GetAnimationManager().Flip( true );
+			this->Personage->GetAnimationManager2D().Flip( true );
 		}
 		else
 		{
 			this->Personage->GetBody().MoveBody( Vector2f( -Factor.x , 0 ) , typeMove );
-			this->Personage->GetAnimationManager().Flip( false );
+			this->Personage->GetAnimationManager2D().Flip( false );
 		}
 
 		if ( UseY )

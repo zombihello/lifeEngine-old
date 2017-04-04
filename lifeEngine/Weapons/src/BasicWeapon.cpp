@@ -4,7 +4,7 @@
 
 le::BasicWeapon::BasicWeapon()
 {
-	AnimationManager = NULL;
+	AnimationManager2D = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -100,7 +100,7 @@ void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::
 
 //-------------------------------------------------------------------------//
 
-void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::GroupColision GroupColision, le::AnimationManager &AnimationManager, string sNameAnimation )
+void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::GroupColision GroupColision, le::AnimationManager2D &AnimationManager2D, string sNameAnimation )
 {
 	iDamage = Damage;
 	iMaxAmmo = MaxAmmo;
@@ -111,12 +111,12 @@ void le::BasicWeapon::InitWeapon( int Damage, int MaxAmmo, int AmmoInStock, le::
 
 	this->GroupColision = GroupColision;
 	this->sNameAnimation = sNameAnimation;
-	this->AnimationManager = &AnimationManager;
+	this->AnimationManager2D = &AnimationManager2D;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::BasicWeapon::InitWeapon( int Damage, le::AnimationManager &AnimationManager, string sNameAnimation )
+void le::BasicWeapon::InitWeapon( int Damage, le::AnimationManager2D &AnimationManager2D, string sNameAnimation )
 {
 	iDamage = Damage;
 	iMaxAmmo = 0;
@@ -126,7 +126,7 @@ void le::BasicWeapon::InitWeapon( int Damage, le::AnimationManager &AnimationMan
 	bIsAtack = false;
 
 	this->sNameAnimation = sNameAnimation;
-	this->AnimationManager = &AnimationManager;
+	this->AnimationManager2D = &AnimationManager2D;
 }
 
 //-------------------------------------------------------------------------//

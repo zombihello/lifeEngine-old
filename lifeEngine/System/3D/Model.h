@@ -9,6 +9,7 @@
 ///////////////
 #include "../System.h"
 #include "Skeleton.h"
+#include "../../Animation/AnimationManager3D.h"
 
 namespace le
 {
@@ -17,6 +18,7 @@ namespace le
 	struct DLL_API Vertex
 	{
 		Vector3f			Position;
+		Vector3f			DefaultPosition;
 		vector<int>			vIdBones;
 		vector<float>		vIdWeihgt;
 	};
@@ -48,6 +50,11 @@ namespace le
 
 	struct DLL_API Mesh
 	{
+		/////////////////
+		/// ОЧИСТИТЬ МЕШ
+		/////////////////
+		void Clear();
+
 		vector<IDsVNTC>			vIDs;
 
 		vector<Vertex>			vVertexs;
@@ -58,12 +65,6 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
-	struct TMP
-	{
-		Color col = Color::Green;
-		Vector3f pos;
-	};
-
 	class DLL_API Model
 	{
 	public:
@@ -71,6 +72,11 @@ namespace le
 		/// КОНСТРУКТОР
 		/////////////////
 		Model( RenderWindow& RenderWindow );
+
+		/////////////////
+		/// ДЕСТРУКТОР
+		/////////////////
+		~Model();
 
 		//////////////////////
 		/// ЗАГРУЗКА МОДЕЛИ
@@ -82,11 +88,17 @@ namespace le
 		//////////////////////
 		void RenderModel();
 
+		////////////////////////////////
+		/// ПОЛУЧИТЬ МЕНЕДЖЕР АНИМАЦИЙ
+		////////////////////////////////
+		AnimationManager3D& GetAnimationManager();
+
 	private:
 		GLuint LoadTexture( string route );
 
 		Mesh							Mesh;
-		Skeleton						Skeleton;
+		Skeleton*						Skeleton;
+		AnimationManager3D*				AnimationManager3D;
 
 		sf::RenderWindow*				RenderWindow;
 	};

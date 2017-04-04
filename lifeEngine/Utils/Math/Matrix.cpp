@@ -29,6 +29,14 @@ void le::Matrix::MatrixAddition( Matrixf Matrix1 , Matrixf Matrix2 , float* Matr
 
 //-------------------------------------------------------------------------//
 
+void le::Matrix::MatrixAddition( float value, Matrixf Matrix1, float* Matrix )
+{
+	for ( int i = 0; i < 16; i++ )
+		Matrix[i] = Matrix1[i] + value;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Matrix::MatrixMultiply( Matrixf Matrix1 , Matrixf Matrix2 , float* Matrix )
 {
 	Matrixf matrixTmp;

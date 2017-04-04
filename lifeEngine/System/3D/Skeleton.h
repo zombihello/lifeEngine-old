@@ -15,6 +15,7 @@ namespace le
 	//-------------------------------------------------------------------------//
 
 	struct Mesh;
+	struct Vertex;
 
 	//-------------------------------------------------------------------------//
 
@@ -27,8 +28,8 @@ namespace le
 		Matrixf				Realese;
 
 		vector<Bone*>		vChild;
-		Bone*				Perent;
 
+		Bone*				Perent;
 		string				name;
 	};
 
@@ -40,7 +41,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		/////////////////
-		Skeleton();
+		Skeleton( Mesh& Mesh );
 
 		/////////////////
 		/// ДЕСТРУКТОР
@@ -50,12 +51,12 @@ namespace le
 		//////////////////////
 		/// ЗАГРУЗИТЬ СКЕЛЕТ
 		/////////////////////
-		void LoadSkeleton( TiXmlElement *skeleton , Mesh& mesh );
+		void LoadSkeleton( TiXmlElement *skeleton );
 
 		//////////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПОЗИЦИИ ВЕРШИН
 		/////////////////////////////////
-		void InitMesh( Mesh& mesh );
+		void InitMesh();
 
 		//////////////////////////////
 		/// ДОБАВИТЬ КОСТЬ СКЕЛЕТУ
@@ -66,6 +67,11 @@ namespace le
 		/// ЗАДАТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
 		///////////////////////////////////////////////////
 		void SetBindShape( Matrixf bindShape );
+
+		///////////////////////////////////
+		/// ЗАДАТЬ МАТРИЦУ ДЛЯ КОСТИ
+		//////////////////////////////////
+		void SetMatrixBone( string nameBone, Matrixf matrix );
 
 		///////////////////////////////////////////////////
 		/// ПОЛУЧИТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
@@ -108,6 +114,7 @@ namespace le
 		//////////////////////////////////
 		void InitMatrixBone( Bone& bone );
 
+		Mesh*				Mesh;
 		Matrixf				BindShape;
 		vector<Bone*>		vBone;
 	};

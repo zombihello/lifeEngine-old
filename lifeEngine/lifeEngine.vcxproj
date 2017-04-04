@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -71,6 +71,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <CompileAs>CompileAsCpp</CompileAs>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,8 +116,10 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animation\Animation.h" />
-    <ClInclude Include="Animation\AnimationManager.h" />
+    <ClInclude Include="Animation\Animation2D.h" />
+    <ClInclude Include="Animation\Animation3D.h" />
+    <ClInclude Include="Animation\AnimationManager2D.h" />
+    <ClInclude Include="Animation\AnimationManager3D.h" />
     <ClInclude Include="Animation\leAnimation.h" />
     <ClInclude Include="DllGlobal.h" />
     <ClInclude Include="Efects\leEfects.h" />
@@ -164,7 +167,6 @@
     <ClInclude Include="Utils\HaffmanCode\HaffmanCode.h" />
     <ClInclude Include="Utils\HaffmanCode\Node.h" />
     <ClInclude Include="Utils\Math\Matrix.h" />
-    <ClInclude Include="Utils\Math\Quaternion.h" />
     <ClInclude Include="Utils\XML\tinystr.h" />
     <ClInclude Include="Utils\XML\tinyxml.h" />
     <ClInclude Include="Weapons\BasicWeapon.h" />
@@ -172,8 +174,10 @@
     <ClInclude Include="Weapons\WeaponManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation\src\Animation.cpp" />
-    <ClCompile Include="Animation\src\AnimationManager.cpp" />
+    <ClCompile Include="Animation\src\Animation2D.cpp" />
+    <ClCompile Include="Animation\src\Animation3D.cpp" />
+    <ClCompile Include="Animation\src\AnimationManager2D.cpp" />
+    <ClCompile Include="Animation\src\AnimationManager3D.cpp" />
     <ClCompile Include="Efects\src\Light.cpp" />
     <ClCompile Include="Efects\src\LightManager.cpp" />
     <ClCompile Include="Entity\src\AI.cpp" />

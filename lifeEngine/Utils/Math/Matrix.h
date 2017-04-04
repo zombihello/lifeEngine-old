@@ -35,6 +35,7 @@ namespace le
 		/// СЛОЖИТЬ МАТРИЦЫ
 		//////////////////////////
 		static void MatrixAddition( Matrixf Matrix1 , Matrixf Matrix2 , float* Matrix );
+		static void MatrixAddition( float value, Matrixf Matrix1, float* Matrix );
 
 		//////////////////////////
 		/// УМНОЖИТЬ МАТРИЦЫ

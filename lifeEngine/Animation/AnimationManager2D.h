@@ -1,5 +1,5 @@
-#ifndef ANIMATIONMANAGER_H
-#define ANIMATIONMANAGER_H
+#ifndef ANIMATIONMANAGER2D_H
+#define ANIMATIONMANAGER2D_H
 
 #define COMPILING_LIBRARY
 #include "../DllGlobal.h"
@@ -8,24 +8,24 @@
 // LIFEENGINE
 ////////////////////////
 #include "../System/System.h"
-#include "Animation.h"
+#include "Animation2D.h"
 
 namespace le
 {
 	//-------------------------------------------------------------------------//
-	
-	class DLL_API AnimationManager
+
+	class DLL_API AnimationManager2D
 	{
 	public:
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		AnimationManager();
+		AnimationManager2D();
 
 		////////////////
 		/// ДЕСТРУКТОР
 		///////////////
-		~AnimationManager();
+		~AnimationManager2D();
 
 		/////////////////////////////
 		/// ЗАГРУЗИТЬ АНИМАЦИЮ С XML
@@ -35,7 +35,7 @@ namespace le
 		/////////////////////
 		/// ЗАДАТЬ  АНИМАЦИЮ
 		/////////////////////
-		void SetAnimation( string sName, bool loop = false );
+		void SetAnimation( string sName , bool loop = false );
 
 		//////////////////////////////////////////////
 		/// ОТРАЗИТЬ ТЕКУЩУЮ АНИМАЦИЮ ( ЗЕРКАЛЬНО )
@@ -50,7 +50,7 @@ namespace le
 		//////////////////////////
 		/// ОБНОВИТЬ АНИМАЦИЮ
 		//////////////////////////
-		void UpdateAnimation( float Time, Sprite& Sprite );
+		void UpdateAnimation( float Time , Sprite& Sprite );
 
 		/////////////////////////////////
 		/// ПОСТАВИТЬ АНИМАЦИЮ НА ПАУЗУ
@@ -79,10 +79,10 @@ namespace le
 		string GetNameCurrentAnim();
 	private:
 		string                          sCurrentAnim;
-		map<string , Animation>         mAnimList;
+		map<string , Animation2D>         mAnimList;
 	};
-	
+
 	//-------------------------------------------------------------------------//
 }
 
-#endif // ANIMATIONMANAGER_H
+#endif // ANIMATIONMANAGER2D_H

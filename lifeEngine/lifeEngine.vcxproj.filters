@@ -94,12 +94,6 @@
     <ClInclude Include="Physic\PolygonShape.h">
       <Filter>Physic</Filter>
     </ClInclude>
-    <ClInclude Include="Animation\Animation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation\AnimationManager.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="Animation\leAnimation.h">
       <Filter>Animation</Filter>
     </ClInclude>
@@ -199,17 +193,26 @@
     <ClInclude Include="System\UI\ButtonManager.h">
       <Filter>System\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Math\Matrix.h">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Math\Quaternion.h">
-      <Filter>Utils\Math</Filter>
-    </ClInclude>
     <ClInclude Include="System\3D\Skeleton.h">
       <Filter>System\3D</Filter>
     </ClInclude>
     <ClInclude Include="System\3D\Model.h">
-      <Filter>Physic</Filter>
+      <Filter>System\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation2D.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationManager2D.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation3D.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationManager3D.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Math\Matrix.h">
+      <Filter>Utils\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,12 +257,6 @@
     </ClCompile>
     <ClCompile Include="Physic\src\PolygonShape.cpp">
       <Filter>Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\src\Animation.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\src\AnimationManager.cpp">
-      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Weapons\src\BasicWeapon.cpp">
       <Filter>Weapons</Filter>
@@ -347,6 +344,18 @@
     </ClCompile>
     <ClCompile Include="Utils\Math\Matrix.cpp">
       <Filter>Utils\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\Animation2D.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\AnimationManager2D.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\Animation3D.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\AnimationManager3D.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

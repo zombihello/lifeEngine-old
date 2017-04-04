@@ -72,7 +72,7 @@ namespace le
 		///////////////////////////////
 		/// ПОЛУЧИТЬ МЕНЕДЖЕР АНИМАЦИЙ
 		///////////////////////////////
-		AnimationManager& GetAnimationManager();
+		AnimationManager2D& GetAnimationManager2D();
 
 		///////////////////
 		/// ПОЛУЧИТЬ ТЕЛО
@@ -107,7 +107,7 @@ namespace le
 		Texture                 Texture;
 		Sprite                  Sprite;
 		Body*                   EntityBody;
-		AnimationManager*       AnimationManager;
+		AnimationManager2D*     AnimationManager2D;
 		Physic*                 Physic;
 		System*                 System;
 

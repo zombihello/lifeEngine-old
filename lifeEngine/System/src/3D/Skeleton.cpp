@@ -3,8 +3,9 @@
 
 //-------------------------------------------------------------------------//
 
-le::Skeleton::Skeleton()
+le::Skeleton::Skeleton( le::Mesh& Mesh )
 {
+	this->Mesh = &Mesh;
 }
 
 //-------------------------------------------------------------------------//
@@ -15,36 +16,38 @@ le::Skeleton::~Skeleton()
 
 //-------------------------------------------------------------------------//
 
-void le::Skeleton::InitMesh( Mesh& mesh )
+void le::Skeleton::InitMesh()
 {
-	for ( int i = 0; i < mesh.vVertexs.size(); i++ )
+	for ( int i = 0; i < Mesh->vVertexs.size(); i++ )
 	{
 		Matrix matrixBone;
 		Matrix matrixVertex;
-		le::Vertex& Vertex = mesh.vVertexs[ i ];
+		le::Vertex& Vertex = Mesh->vVertexs[i];
+		string nameBone;
 
 		for ( int j = 0; j < Vertex.vIdBones.size(); j++ )
 		{
-			le::Bone* Bone = vBone[ Vertex.vIdBones[ j ] ];
+			le::Bone* Bone = vBone[Vertex.vIdBones[j]];
+			nameBone = Bone->name;
 
-			float weight = Vertex.vIdWeihgt[ j ];
+			float weight = Vertex.vIdWeihgt[j];
 			Matrixf matrixBoneTmp;
 
 			if ( j == 0 )
 			{
-				Matrix::MatrixMultiply( Bone->InvertMatrix , Bone->Realese , matrixBone.matrix );
-				Matrix::MatrixMultiply( weight , matrixBone.matrix , matrixBone.matrix );
+				Matrix::MatrixMultiply( Bone->InvertMatrix, Bone->Realese, matrixBone.matrix );
+				Matrix::MatrixMultiply( weight, matrixBone.matrix, matrixBone.matrix );
 			}
 			else
 			{
-				Matrix::MatrixMultiply( Bone->InvertMatrix , Bone->Realese , matrixBoneTmp );
-				Matrix::MatrixMultiply( weight , matrixBoneTmp , matrixBoneTmp );
-				Matrix::MatrixAddition( matrixBone.matrix , matrixBoneTmp , matrixBone.matrix );
+				Matrix::MatrixMultiply( Bone->InvertMatrix, Bone->Realese, matrixBoneTmp );
+				Matrix::MatrixMultiply( weight, matrixBoneTmp, matrixBoneTmp );
+				Matrix::MatrixAddition( matrixBone.matrix, matrixBoneTmp, matrixBone.matrix );
 			}
 		}
 
-		Matrix::MatrixMove( Vertex.Position , matrixVertex.matrix );
-		Matrix::MatrixMultiply( matrixVertex.matrix , matrixBone.matrix , matrixVertex.matrix );
+		Matrix::MatrixMove( Vertex.DefaultPosition, matrixVertex.matrix );
+		Matrix::MatrixMultiply( matrixVertex.matrix, matrixBone.matrix, matrixVertex.matrix );
 
 		Vector3f posVer = Matrix::MatrixToXYZ( matrixVertex.matrix );
 		Vertex.Position = posVer;
@@ -53,7 +56,7 @@ void le::Skeleton::InitMesh( Mesh& mesh )
 
 //-------------------------------------------------------------------------//
 
-void le::Skeleton::ReadingBone( TiXmlElement* node , Bone* bone )
+void le::Skeleton::ReadingBone( TiXmlElement* node, Bone* bone )
 {
 	// Работаем с контейнером startMatrix
 	TiXmlElement *startMatrix;
@@ -70,7 +73,7 @@ void le::Skeleton::ReadingBone( TiXmlElement* node , Bone* bone )
 		{
 			string sTmp;
 			strStream >> sTmp;
-			bone->StartMatrix[ i ] = atof( sTmp.c_str() );
+			bone->StartMatrix[i] = atof( sTmp.c_str() );
 		}
 	}
 
@@ -87,14 +90,14 @@ void le::Skeleton::ReadingBone( TiXmlElement* node , Bone* bone )
 		{
 			string sTmp;
 			_strStream >> sTmp;
-			bone->InvertMatrix[ i ] = atof( sTmp.c_str() );
+			bone->InvertMatrix[i] = atof( sTmp.c_str() );
 		}
 	}
 	if ( node->Attribute( "name" ) != NULL )
 		bone->name = node->Attribute( "name" );
 
 	for ( int i = 0; i < 16; i++ )
-		bone->Realese[ i ] = bone->StartMatrix[ i ];
+		bone->Realese[i] = bone->StartMatrix[i];
 
 	node = node->FirstChildElement( "node" );
 
@@ -102,7 +105,7 @@ void le::Skeleton::ReadingBone( TiXmlElement* node , Bone* bone )
 	{
 		le::Bone* out = new le::Bone();
 		out->Perent = bone;
-		ReadingBone( node , out );
+		ReadingBone( node, out );
 		bone->vChild.push_back( out );
 		AddBone( out );
 
@@ -112,7 +115,7 @@ void le::Skeleton::ReadingBone( TiXmlElement* node , Bone* bone )
 
 //-------------------------------------------------------------------------//
 
-void le::Skeleton::LoadSkeleton( TiXmlElement *skeleton , Mesh& mesh )
+void le::Skeleton::LoadSkeleton( TiXmlElement *skeleton )
 {
 	vector<int>			vTmpIdVertexs;
 	vector<float>		vWeights;
@@ -128,7 +131,7 @@ void le::Skeleton::LoadSkeleton( TiXmlElement *skeleton , Mesh& mesh )
 	{
 		string sTmp;
 		strStream >> sTmp;
-		tmpBSM[ i ] = atof( sTmp.c_str() );
+		tmpBSM[i] = atof( sTmp.c_str() );
 	}
 
 	SetBindShape( tmpBSM );
@@ -172,7 +175,7 @@ void le::Skeleton::LoadSkeleton( TiXmlElement *skeleton , Mesh& mesh )
 	{
 		Bone* tmp = new Bone();
 
-		ReadingBone( node , tmp );
+		ReadingBone( node, tmp );
 		AddBone( tmp );
 
 		node = node->NextSiblingElement();
@@ -211,36 +214,65 @@ void le::Skeleton::LoadSkeleton( TiXmlElement *skeleton , Mesh& mesh )
 
 		switch ( id )
 		{
-			case 1:
-				idBone = GetIdBone( vJoints[ atoi( tmp.c_str() ) ] );
-				boneTmp = vBone[ idBone ];
-				break;
+		case 1:
+			idBone = GetIdBone( vJoints[atoi( tmp.c_str() )] );
+			boneTmp = vBone[idBone];
+			break;
 
-			case 2:
-				if ( tmpNumBones == 0 )
-				{
-					idVertex++;
-					numBones = vTmpIdVertexs[ idVertex ];
+		case 2:
+			if ( tmpNumBones == 0 )
+			{
+				idVertex++;
+				numBones = vTmpIdVertexs[idVertex];
 
-					if ( numBones != 1 )
-						tmpNumBones = numBones - 1;
+				if ( numBones != 1 )
+					tmpNumBones = numBones - 1;
 
-					mesh.vVertexs[ idVertex ].vIdBones.push_back( idBone );
-				}
-				else
-				{
-					mesh.vVertexs[ idVertex ].vIdBones.push_back( idBone );
-					tmpNumBones--;
-				}
+				Mesh->vVertexs[idVertex].vIdBones.push_back( idBone );
+			}
+			else
+			{
+				Mesh->vVertexs[idVertex].vIdBones.push_back( idBone );
+				tmpNumBones--;
+			}
 
-				mesh.vVertexs[ idVertex ].vIdWeihgt.push_back( vWeights[ atoi( tmp.c_str() ) ] );
+			Mesh->vVertexs[idVertex].vIdWeihgt.push_back( vWeights[atoi( tmp.c_str() )] );
 
-				id = 0;
-				break;
+			id = 0;
+			break;
 		}
 	}
 
 	InitBone();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Skeleton::SetMatrixBone( string nameBone, Matrixf matrix )
+{
+	Bone* bone = GetBone( nameBone );
+
+	if ( bone != NULL )
+	{
+
+		if ( bone->Perent != NULL )
+		{
+			Matrix::MatrixMultiply( matrix, bone->Perent->Realese, bone->Realese );
+
+			for ( int i = 0; i < bone->vChild.size(); i++ )
+			{
+				Bone* boneChild = bone->vChild[i];
+				InitMatrixBone( *boneChild );
+			}
+
+		}
+		else
+		{
+			for ( int i = 0; i < 16; i++ )
+				bone->Realese[i] = matrix[i];
+		}
+	}
+
 }
 
 //-------------------------------------------------------------------------//
@@ -255,7 +287,7 @@ void le::Skeleton::AddBone( Bone* bone )
 void le::Skeleton::SetBindShape( Matrixf bindShape )
 {
 	for ( int i = 0; i < 16; i++ )
-		BindShape[ i ] = bindShape[ i ];
+		BindShape[i] = bindShape[i];
 }
 
 //-------------------------------------------------------------------------//
@@ -278,7 +310,7 @@ le::Bone* le::Skeleton::GetBone( string NameBone )
 {
 	for ( int i = 0; i < vBone.size(); i++ )
 	{
-		Bone* tmp = vBone[ i ];
+		Bone* tmp = vBone[i];
 
 		if ( tmp->name == NameBone )
 			return tmp;
@@ -293,7 +325,7 @@ int	 le::Skeleton::GetIdBone( string NameBone )
 {
 	for ( int i = 0; i < vBone.size(); i++ )
 	{
-		Bone* tmp = vBone[ i ];
+		Bone* tmp = vBone[i];
 
 		if ( tmp->name == NameBone )
 			return i;
@@ -319,7 +351,7 @@ void le::Skeleton::DrawSkeleton( vector<Bone*> bones )
 {
 	for ( int i = 0; i < bones.size(); i++ )
 	{
-		Bone* bn = bones[ i ];
+		Bone* bn = bones[i];
 
 		if ( bn->Perent != NULL )
 		{
@@ -327,10 +359,10 @@ void le::Skeleton::DrawSkeleton( vector<Bone*> bones )
 			Vector3f bm2 = Matrix::MatrixToXYZ( bn->Realese );
 
 			glBegin( GL_LINES );
-			glColor3f( 1 , 0 , 0 );
-			glVertex3f( bm1.x , bm1.y , bm1.z );
-			glVertex3f( bm2.x , bm2.y , bm2.z );
-			glColor3f( 1 , 1 , 1 );
+			glColor3f( 1, 0, 0 );
+			glVertex3f( bm1.x, bm1.y, bm1.z );
+			glVertex3f( bm2.x, bm2.y, bm2.z );
+			glColor3f( 1, 1, 1 );
 			glEnd();
 		}
 
@@ -344,11 +376,11 @@ void le::Skeleton::DrawSkeleton( vector<Bone*> bones )
 void le::Skeleton::InitMatrixBone( Bone& bone )
 {
 	if ( bone.Perent != NULL )
-		Matrix::MatrixMultiply( bone.StartMatrix , bone.Perent->Realese , bone.Realese );
+		Matrix::MatrixMultiply( bone.StartMatrix, bone.Perent->Realese, bone.Realese );
 
 	for ( int i = 0; i < bone.vChild.size(); i++ )
 	{
-		Bone* boneChild = bone.vChild[ i ];
+		Bone* boneChild = bone.vChild[i];
 		InitMatrixBone( *boneChild );
 	}
 }
@@ -359,7 +391,7 @@ void le::Skeleton::InitBone()
 {
 	for ( int i = 0; i < vBone.size(); i++ )
 	{
-		Bone* bone = vBone[ i ];
+		Bone* bone = vBone[i];
 		InitMatrixBone( *bone );
 	}
 }
