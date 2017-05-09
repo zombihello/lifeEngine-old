@@ -1,0 +1,59 @@
+#ifndef LEVEL3D_H
+#define LEVEL3D_H
+
+#define COMPILING_LIBRARY
+#include "../../DllGlobal.h"
+
+//////////////////
+// LIFEENGINE
+/////////////////
+#include "../../System/System.h"
+#include "Brush.h"
+
+namespace le
+{
+	//-------------------------------------------------------------------------//
+
+	class DLL_API Level3D
+	{
+	public:
+		/////////////////
+		///  ŒÕ—“–” “Œ–
+		////////////////
+		Level3D( System& System );
+
+		/////////////////
+		/// ƒ≈—“–” “Œ–
+		////////////////
+		~Level3D();
+
+		///////////////////////
+		/// «¿√–”«»“‹ ”–Œ¬≈Õ‹
+		//////////////////////
+		bool LoadLevel( string sRoute );
+
+		///////////////////////
+		/// Œ◊»—“»“‹ ”–Œ¬≈Õ‹
+		//////////////////////
+		void ClearLevel();
+
+		///////////////////////
+		/// Œ“–≈Õƒ≈–»“‹ ”–Œ¬≈Õ‹
+		//////////////////////
+		void RenderLevel();
+
+	private:
+
+		string				sNameMap;
+		string				sDescriptionMap;
+		string				sSkyBoxName;
+
+		System*				System;
+
+		vector<Brush*>		vBrushes;
+	};
+
+	//-------------------------------------------------------------------------//
+}
+
+#endif // LEVEL3D_H

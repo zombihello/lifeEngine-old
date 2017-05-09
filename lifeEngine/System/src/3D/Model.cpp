@@ -14,9 +14,9 @@ void le::Mesh::Clear()
 
 //-------------------------------------------------------------------------//
 
-le::Model::Model( sf::RenderWindow& RenderWindow )
+le::Model::Model( le::System& System )
 {
-	this->RenderWindow = &RenderWindow;
+	this->System = &System;
 
 	Skeleton = NULL;
 	AnimationManager3D = NULL;
@@ -33,28 +33,6 @@ le::Model::~Model()
 
 	if ( AnimationManager3D != NULL )
 		delete AnimationManager3D;
-}
-
-//-------------------------------------------------------------------------//
-
-GLuint le::Model::LoadTexture( string route )
-{
-	Image image;
-	image.loadFromFile( route );
-	image.flipVertically();
-
-	GLuint texture = 0;
-	glGenTextures( 1, &texture );
-	glBindTexture( GL_TEXTURE_2D, texture );
-	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, image.getSize().x, image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr() );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-
-	return texture;
 }
 
 //-------------------------------------------------------------------------//
@@ -125,7 +103,7 @@ bool le::Model::LoadModel( string route )
 		{
 			string route = img->Attribute( "src" );
 			route.erase( 0, route.find_last_of( '/' ) + 1 );
-			vTmpTextures.push_back( LoadTexture( route ) );
+			vTmpTextures.push_back( System->LoadGLTexture( route ) );
 
 			img = img->NextSiblingElement();
 		}
@@ -305,14 +283,6 @@ bool le::Model::LoadModel( string route )
 
 void le::Model::RenderModel()
 {
-	RenderWindow->popGLStates();
-
-	glClear( GL_DEPTH_BUFFER_BIT );
-
-	glRotatef( 0.5, 10.f, 0.f, 0.f );
-	glRotatef( 0.5, 0.f, 10.f, 0.f );
-	glRotatef( 0.5, 0.f, 0.f, 10.f );
-
 	if ( Skeleton != NULL )
 		Skeleton->DrawSkeleton( Skeleton->GetAllBones() );
 
@@ -345,8 +315,6 @@ void le::Model::RenderModel()
 
 		glEnd();
 	}
-
-	RenderWindow->pushGLStates();
 }
 
 //-------------------------------------------------------------------------//

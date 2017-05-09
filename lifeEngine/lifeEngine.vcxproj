@@ -134,9 +134,11 @@
     <ClInclude Include="Entity\EntityManager.h" />
     <ClInclude Include="Entity\leEntity.h" />
     <ClInclude Include="Entity\AI_View.h" />
+    <ClInclude Include="Level\3D\Brush.h" />
+    <ClInclude Include="Level\3D\Level3D.h" />
     <ClInclude Include="Level\Layer.h" />
     <ClInclude Include="Level\leLevel.h" />
-    <ClInclude Include="Level\Level.h" />
+    <ClInclude Include="Level\Level2D.h" />
     <ClInclude Include="Level\Object.h" />
     <ClInclude Include="Media\leMedia.h" />
     <ClInclude Include="Media\Music.h" />
@@ -148,6 +150,7 @@
     <ClInclude Include="Physic\lePhysic.h" />
     <ClInclude Include="Physic\Physic.h" />
     <ClInclude Include="Physic\PolygonShape.h" />
+    <ClInclude Include="System\3D\Camera.h" />
     <ClInclude Include="System\3D\Model.h" />
     <ClInclude Include="System\3D\Skeleton.h" />
     <ClInclude Include="System\BasicStagesGame.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="System\System.h" />
     <ClInclude Include="System\UI\Button.h" />
     <ClInclude Include="System\UI\ButtonManager.h" />
+    <ClInclude Include="System\UI\GUI.h" />
     <ClInclude Include="System\UI\Text.h" />
     <ClInclude Include="System\UI\TextManager.h" />
     <ClInclude Include="Utils\codecvt\codecvt.h" />
@@ -188,7 +192,9 @@
     <ClCompile Include="Entity\src\BasicPersonages.cpp" />
     <ClCompile Include="Entity\src\EntityManager.cpp" />
     <ClCompile Include="Entity\src\AI_View.cpp" />
-    <ClCompile Include="Level\src\Level.cpp" />
+    <ClCompile Include="Level\src\3D\Brush.cpp" />
+    <ClCompile Include="Level\src\3D\Level3D.cpp" />
+    <ClCompile Include="Level\src\Level2D.cpp" />
     <ClCompile Include="Level\src\Object.cpp" />
     <ClCompile Include="Media\src\Music.cpp" />
     <ClCompile Include="Media\src\MusicManager.cpp" />
@@ -198,6 +204,7 @@
     <ClCompile Include="Physic\src\CircleShape.cpp" />
     <ClCompile Include="Physic\src\Physic.cpp" />
     <ClCompile Include="Physic\src\PolygonShape.cpp" />
+    <ClCompile Include="System\src\3D\Camera.cpp" />
     <ClCompile Include="System\src\3D\Model.cpp" />
     <ClCompile Include="System\src\3D\Skeleton.cpp" />
     <ClCompile Include="System\src\FPS.cpp" />
@@ -209,6 +216,7 @@
     <ClCompile Include="System\src\System.cpp" />
     <ClCompile Include="System\src\UI\Button.cpp" />
     <ClCompile Include="System\src\UI\ButtonManager.cpp" />
+    <ClCompile Include="System\src\UI\GUI.cpp" />
     <ClCompile Include="System\src\UI\Text.cpp" />
     <ClCompile Include="System\src\UI\TextManager.cpp" />
     <ClCompile Include="Utils\codecvt\codecvt.cpp" />

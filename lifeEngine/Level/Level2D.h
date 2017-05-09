@@ -1,5 +1,5 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#ifndef LEVEL2D_H
+#define LEVEL2D_H
 
 #define COMPILING_LIBRARY
 #include "../DllGlobal.h"
@@ -15,18 +15,18 @@ namespace le
 {
 	//-------------------------------------------------------------------------//
 	
-	class DLL_API Level
+	class DLL_API Level2D
 	{
 	public:
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Level( le::System& System );
+		Level2D( le::System& System );
 
 		/////////////////
 		/// ДЕСТРУКТОР
 		////////////////
-		~Level();
+		~Level2D( );
 
 		///////////////////////
 		/// ЗАГРУЗИТЬ УРОВЕНЬ
@@ -90,4 +90,4 @@ namespace le
 	//-------------------------------------------------------------------------//
 }
 
-#endif // LEVEL_H
+#endif // LEVEL2D_H

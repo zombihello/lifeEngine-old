@@ -1,22 +1,22 @@
-#include "../Level.h"
+#include "../Level2D.h"
 
 //-------------------------------------------------------------------------//
 
-le::Level::Level( le::System &System )
+le::Level2D::Level2D( le::System &System )
 {
 	this->System = &System;
 }
 
 //-------------------------------------------------------------------------//
 
-le::Level::~Level()
+le::Level2D::~Level2D( )
 {
 	ClearLevel();
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoothTextures )
+bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoothTextures )
 {
 	TiXmlDocument levelFile( sRoute.c_str() );
 	std::vector<sf::Rect<int>> subRects;
@@ -315,7 +315,7 @@ bool le::Level::LoadLevel( const string sRoute , le::Physic& Physic , bool bSmoo
 
 //-------------------------------------------------------------------------//
 
-void le::Level::ClearLevel()
+void le::Level2D::ClearLevel( )
 {
 	vObjects.clear();
 	vLayers.clear();
@@ -323,7 +323,7 @@ void le::Level::ClearLevel()
 
 //-------------------------------------------------------------------------//
 
-void le::Level::DrawLevel()
+void le::Level2D::DrawLevel( )
 {
 	// Рисуем все тайлы (объекты НЕ рисуем!)
 	for ( int layer = 0; layer < vLayers.size(); layer++ )
@@ -333,7 +333,7 @@ void le::Level::DrawLevel()
 
 //-------------------------------------------------------------------------//
 
-le::Object& le::Level::GetObject( const string sName )
+le::Object& le::Level2D::GetObject( const string sName )
 {
 	// Только первый объект с заданным именем
 	for ( int i = 0; i < vObjects.size(); i++ )
@@ -343,7 +343,7 @@ le::Object& le::Level::GetObject( const string sName )
 
 //-------------------------------------------------------------------------//
 
-vector<le::Object> le::Level::GetObjects( const string sName )
+vector<le::Object> le::Level2D::GetObjects( const string sName )
 {
 	// Все объекты с заданным именем
 	vector<Object> vec;
@@ -356,28 +356,28 @@ vector<le::Object> le::Level::GetObjects( const string sName )
 
 //-------------------------------------------------------------------------//
 
-vector<le::Object>& le::Level::GetAllObjects()
+vector<le::Object>& le::Level2D::GetAllObjects( )
 {
 	return vObjects;
 }
 
 //-------------------------------------------------------------------------//
 
-Vector2i le::Level::GetTileSize() const
+Vector2i le::Level2D::GetTileSize( ) const
 {
 	return Vector2i( iTileWidth , iTileHeight );
 }
 
 //-------------------------------------------------------------------------//
 
-Vector2i le::Level::GetMapSize() const
+Vector2i le::Level2D::GetMapSize( ) const
 {
 	return Vector2i( iWidth * iTileWidth , iHeight * iTileHeight );
 }
 
 //-------------------------------------------------------------------------//
 
-map<string , le::AI_Route> le::Level::GetRoutesAI()
+map<string, le::AI_Route> le::Level2D::GetRoutesAI( )
 {
 	return mRoutesAI;
 }

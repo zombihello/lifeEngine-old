@@ -2,7 +2,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::AI::AI( le::System& System , Level& Level )
+le::AI::AI( le::System& System , Level2D& Level )
 {
 	ViewAI = new le::AI_View( System );
 	mRoutesAI = Level.GetRoutesAI();

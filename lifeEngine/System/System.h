@@ -3,7 +3,7 @@
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.5.2"
+#define ENGINE_VERSION "v2.6.0"
 #include "../DllGlobal.h"
 
 /////////////////////
@@ -106,6 +106,11 @@ namespace le
 		/// ПРОВЕРКА НА СУЩЕСТВОВАНИЕ ДИРЕКТОРИИ
 		/////////////////////////////////////////
 		bool DirectoryExists( const string sRouteToDirectory );
+
+		////////////////////////////////
+		///	ЗАГРУЗИТЬ OPENGL ТЕКСТУРУ
+		////////////////////////////////
+		GLuint LoadGLTexture( string route );
 
 		////////////////////
 		/// СОЗДАНИЕ ОКНА

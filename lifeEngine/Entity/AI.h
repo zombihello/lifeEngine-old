@@ -8,7 +8,7 @@
 // LIFEENGINE
 /////////////////
 #include "AI_View.h"
-#include "../Level/Level.h"
+#include "../Level/Level2D.h"
 
 namespace le
 {
@@ -20,7 +20,7 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		AI( System& System, Level& Level );
+		AI( System& System, Level2D& Level );
 
 		////////////////
 		/// ДЕСТРУКТОР

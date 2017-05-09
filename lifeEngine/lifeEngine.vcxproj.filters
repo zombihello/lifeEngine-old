@@ -46,6 +46,9 @@
     <Filter Include="Utils\Math">
       <UniqueIdentifier>{8d65175a-af62-4dae-9378-360b8c079c6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\3D">
+      <UniqueIdentifier>{3c9ad599-a676-4c08-a9f4-d3ddbc7de10e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\BasicStagesGame.h">
@@ -148,9 +151,6 @@
     <ClInclude Include="Level\leLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="Level\Level.h">
-      <Filter>Level</Filter>
-    </ClInclude>
     <ClInclude Include="Level\Object.h">
       <Filter>Level</Filter>
     </ClInclude>
@@ -213,6 +213,21 @@
     </ClInclude>
     <ClInclude Include="Utils\Math\Matrix.h">
       <Filter>Utils\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="System\3D\Camera.h">
+      <Filter>System\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="System\UI\GUI.h">
+      <Filter>System\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\Level2D.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\3D\Level3D.h">
+      <Filter>Level\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\3D\Brush.h">
+      <Filter>Level\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -294,9 +309,6 @@
     <ClCompile Include="Media\src\SoundManager.cpp">
       <Filter>Media</Filter>
     </ClCompile>
-    <ClCompile Include="Level\src\Level.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="Level\src\Object.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -356,6 +368,21 @@
     </ClCompile>
     <ClCompile Include="Animation\src\AnimationManager3D.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\3D\Camera.cpp">
+      <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\UI\GUI.cpp">
+      <Filter>System\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\src\Level2D.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\src\3D\Level3D.cpp">
+      <Filter>Level\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\src\3D\Brush.cpp">
+      <Filter>Level\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

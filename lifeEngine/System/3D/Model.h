@@ -71,7 +71,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		/////////////////
-		Model( RenderWindow& RenderWindow );
+		Model( System& System );
 
 		/////////////////
 		/// ДЕСТРУКТОР
@@ -94,13 +94,12 @@ namespace le
 		AnimationManager3D& GetAnimationManager();
 
 	private:
-		GLuint LoadTexture( string route );
 
 		Mesh							Mesh;
 		Skeleton*						Skeleton;
 		AnimationManager3D*				AnimationManager3D;
 
-		sf::RenderWindow*				RenderWindow;
+		System*							System;
 	};
 
 	//-------------------------------------------------------------------------//

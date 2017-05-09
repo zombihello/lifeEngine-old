@@ -4,6 +4,7 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "Level.h"
+#include "Level2D.h"
+#include "3D\Level3D.h"
 
 #endif // LELEVEL_H

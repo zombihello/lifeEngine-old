@@ -4,28 +4,28 @@ using namespace le;
 
 //-------------------------------------------------------------------------//
 
-System::System( const string FileConfiguration , int argc , char** argv )
+System::System( const string FileConfiguration, int argc, char** argv )
 {
 	sRouteFileConfiguration = FileConfiguration;
 
 	if ( FileExists( FileConfiguration ) )
 	{
-		Configuration.iWindowWidth = ReadTextFile<int>( FileConfiguration , "iWindowWidth" );
-		Configuration.iWindowHeight = ReadTextFile<int>( FileConfiguration , "iWindowHeight" );
-		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration , "iVolumeMusic" );
-		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration , "iVolumeSound" );
-		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration , "iFrameLimit" );
-		Configuration.iAntialiasingLevel = ReadTextFile<int>( FileConfiguration , "iAntialiasingLevel" );
-		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration , "fRatioView" );
+		Configuration.iWindowWidth = ReadTextFile<int>( FileConfiguration, "iWindowWidth" );
+		Configuration.iWindowHeight = ReadTextFile<int>( FileConfiguration, "iWindowHeight" );
+		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration, "iVolumeMusic" );
+		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration, "iVolumeSound" );
+		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
+		Configuration.iAntialiasingLevel = ReadTextFile<int>( FileConfiguration, "iAntialiasingLevel" );
+		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration, "fRatioView" );
 
-		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration , "bFullscreen" );
-		Configuration.bMusic = ReadTextFile<int>( FileConfiguration , "bMusic" );
-		Configuration.bSound = ReadTextFile<int>( FileConfiguration , "bSound" );
-		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration , "bV_Sinc" );
+		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration, "bFullscreen" );
+		Configuration.bMusic = ReadTextFile<int>( FileConfiguration, "bMusic" );
+		Configuration.bSound = ReadTextFile<int>( FileConfiguration, "bSound" );
+		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration, "bV_Sinc" );
 
-		Configuration.sLanguage = ReadTextFile<string>( FileConfiguration , "sLanguage" );
-		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration , "fGameSpeed" );
-		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration , "fGameTick" );
+		Configuration.sLanguage = ReadTextFile<string>( FileConfiguration, "sLanguage" );
+		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration, "fGameSpeed" );
+		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration, "fGameTick" );
 	}
 	else
 	{
@@ -35,30 +35,30 @@ System::System( const string FileConfiguration , int argc , char** argv )
 	}
 
 	if ( Configuration.fRatioView < 0 )
-		GameCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth * Configuration.fRatioView , Configuration.iWindowHeight * Configuration.fRatioView ) );
+		GameCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth * Configuration.fRatioView, Configuration.iWindowHeight * Configuration.fRatioView ) );
 	else
-		GameCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth / Configuration.fRatioView , Configuration.iWindowHeight / Configuration.fRatioView ) );
+		GameCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth / Configuration.fRatioView, Configuration.iWindowHeight / Configuration.fRatioView ) );
 
-	MenuCamera.reset( FloatRect( 0 , 0 , Configuration.iWindowWidth , Configuration.iWindowHeight ) );
+	MenuCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
 
 	if ( argc > 1 )
-		for ( int id = 1; id < argc; id++ )
-		{
-			if ( strstr( argv[ id ] , "-dev" ) )
-				SetDebug( true );
+	for ( int id = 1; id < argc; id++ )
+	{
+		if ( strstr( argv[id], "-dev" ) )
+			SetDebug( true );
 
-			if ( strstr( argv[ id ] , "-window" ) )
-				Configuration.bFullscreen = false;
+		if ( strstr( argv[id], "-window" ) )
+			Configuration.bFullscreen = false;
 
-			if ( strstr( argv[ id ] , "-fullscreen" ) )
-				Configuration.bFullscreen = true;
+		if ( strstr( argv[id], "-fullscreen" ) )
+			Configuration.bFullscreen = true;
 
-			if ( strstr( argv[ id ] , "-width" ) )
-				Configuration.iWindowWidth = atoi( argv[ id + 1 ] );
+		if ( strstr( argv[id], "-width" ) )
+			Configuration.iWindowWidth = atoi( argv[id + 1] );
 
-			if ( strstr( argv[ id ] , "-height" ) )
-				Configuration.iWindowHeight = atoi( argv[ id + 1 ] );
-		}
+		if ( strstr( argv[id], "-height" ) )
+			Configuration.iWindowHeight = atoi( argv[id + 1] );
+	}
 
 	if ( Configuration.bFullscreen )
 		WindowCreate( Style::Fullscreen );
@@ -68,7 +68,7 @@ System::System( const string FileConfiguration , int argc , char** argv )
 
 //-------------------------------------------------------------------------//
 
-string System::ReadXmlFile( const string sRoute , const string sTagMain , const string sTag )
+string System::ReadXmlFile( const string sRoute, const string sTagMain, const string sTag )
 {
 	if ( FileExists( sRoute ) )
 	{
@@ -142,6 +142,28 @@ bool System::DirectoryExists( const string sRouteToDirectory )
 
 //-------------------------------------------------------------------------//
 
+GLuint System::LoadGLTexture( string route )
+{
+	Image image;
+	image.loadFromFile( route );
+	image.flipVertically();
+
+	GLuint texture = 0;
+	glGenTextures( 1, &texture );
+	glBindTexture( GL_TEXTURE_2D, texture );
+	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, image.getSize().x, image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr() );
+
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+	return texture;
+}
+
+//-------------------------------------------------------------------------//
+
 void System::WindowCreate( int iStyle )
 {
 	RenderWindow.close();
@@ -160,22 +182,21 @@ void System::WindowCreate( int iStyle )
 	ContextSettings.minorVersion = 0;
 	ContextSettings.antialiasingLevel = Configuration.iAntialiasingLevel;
 
-	RenderWindow.create( VideoMode( Configuration.iWindowWidth , Configuration.iWindowHeight ) , sTitleWindow , iStyle , ContextSettings );
+	RenderWindow.create( VideoMode( Configuration.iWindowWidth, Configuration.iWindowHeight ), sTitleWindow, iStyle, ContextSettings );
 	RenderWindow.setMouseCursorVisible( false );
 	RenderWindow.setFramerateLimit( Configuration.iFrameLimit );
 	RenderWindow.setVerticalSyncEnabled( Configuration.bV_Sinc );
 
 	glEnable( GL_DEPTH_TEST );
+	glEnable( GL_TEXTURE_2D );
+
 	glDepthMask( GL_TRUE );
 	glClearDepth( 1.f );
 
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	glOrtho( -160 , 160 , -90 , 90 , -160 , 160 );
 
-	glEnable( GL_TEXTURE_2D );
-
-	RenderWindow.pushGLStates();
+	gluPerspective( 45, Configuration.iWindowWidth / Configuration.iWindowHeight, 0.01f, 10000 );
 }
 
 //-------------------------------------------------------------------------//
@@ -193,10 +214,14 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 
 		if ( Event.type != Event::LostFocus )
 		{
-			RenderWindow.clear();
+			RenderWindow.clear();		
+			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+			glLoadIdentity( );
+
 			RenderWindow.setView( GameCamera );
 			MouseCursor.UpdatePosition( RenderWindow );
 			BasicStagesGame.CheckStages();
+
 			RenderWindow.display();
 		}
 	}
@@ -206,25 +231,25 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 
 void System::UpdateFileConfiguration()
 {
-	SaveInFile( sRouteFileConfiguration , "[SCREAN]" , "" , true );
-	SaveInFile( sRouteFileConfiguration , "iWindowWidth" , Configuration.iWindowWidth );
-	SaveInFile( sRouteFileConfiguration , "iWindowHeight" , Configuration.iWindowHeight );
-	SaveInFile( sRouteFileConfiguration , "iFrameLimit" , Configuration.iFrameLimit );
-	SaveInFile( sRouteFileConfiguration , "iAntialiasingLevel" , Configuration.iAntialiasingLevel );
-	SaveInFile( sRouteFileConfiguration , "fRatioView" , Configuration.fRatioView );
-	SaveInFile( sRouteFileConfiguration , "bFullscreen" , Configuration.bFullscreen );
-	SaveInFile( sRouteFileConfiguration , "bV_Sinc" , Configuration.bV_Sinc );
+	SaveInFile( sRouteFileConfiguration, "[SCREAN]", "", true );
+	SaveInFile( sRouteFileConfiguration, "iWindowWidth", Configuration.iWindowWidth );
+	SaveInFile( sRouteFileConfiguration, "iWindowHeight", Configuration.iWindowHeight );
+	SaveInFile( sRouteFileConfiguration, "iFrameLimit", Configuration.iFrameLimit );
+	SaveInFile( sRouteFileConfiguration, "iAntialiasingLevel", Configuration.iAntialiasingLevel );
+	SaveInFile( sRouteFileConfiguration, "fRatioView", Configuration.fRatioView );
+	SaveInFile( sRouteFileConfiguration, "bFullscreen", Configuration.bFullscreen );
+	SaveInFile( sRouteFileConfiguration, "bV_Sinc", Configuration.bV_Sinc );
 
-	SaveInFile( sRouteFileConfiguration , "\n[AUDIO]" , "" );
-	SaveInFile( sRouteFileConfiguration , "bSound" , Configuration.bSound );
-	SaveInFile( sRouteFileConfiguration , "bMusic" , Configuration.bMusic );
-	SaveInFile( sRouteFileConfiguration , "iVolumeSound" , Configuration.iVolumeSound );
-	SaveInFile( sRouteFileConfiguration , "iVolumeMusic" , Configuration.iVolumeMusic );
+	SaveInFile( sRouteFileConfiguration, "\n[AUDIO]", "" );
+	SaveInFile( sRouteFileConfiguration, "bSound", Configuration.bSound );
+	SaveInFile( sRouteFileConfiguration, "bMusic", Configuration.bMusic );
+	SaveInFile( sRouteFileConfiguration, "iVolumeSound", Configuration.iVolumeSound );
+	SaveInFile( sRouteFileConfiguration, "iVolumeMusic", Configuration.iVolumeMusic );
 
-	SaveInFile( sRouteFileConfiguration , "\n[GAME]" , "" );
-	SaveInFile( sRouteFileConfiguration , "sLanguage" , Configuration.sLanguage );
-	SaveInFile( sRouteFileConfiguration , "fGameSpeed" , Configuration.fGameSpeed );
-	SaveInFile( sRouteFileConfiguration , "fGameTick" , Configuration.fGameTick );
+	SaveInFile( sRouteFileConfiguration, "\n[GAME]", "" );
+	SaveInFile( sRouteFileConfiguration, "sLanguage", Configuration.sLanguage );
+	SaveInFile( sRouteFileConfiguration, "fGameSpeed", Configuration.fGameSpeed );
+	SaveInFile( sRouteFileConfiguration, "fGameTick", Configuration.fGameTick );
 }
 
 //-------------------------------------------------------------------------//
@@ -257,7 +282,7 @@ void System::SetFrameLimit( const int FrameLimit )
 
 //-------------------------------------------------------------------------//
 
-void System::SetWindowTitle( const String WindowName , const String GameVersion )
+void System::SetWindowTitle( const String WindowName, const String GameVersion )
 {
 	Configuration.sWindowName = WindowName;
 	Configuration.sGameVersion = GameVersion;
