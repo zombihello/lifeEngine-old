@@ -196,7 +196,10 @@ void System::WindowCreate( int iStyle )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 
-	gluPerspective( 45, Configuration.iWindowWidth / Configuration.iWindowHeight, 0.01f, 10000 );
+	gluPerspective( 45, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 10000 );
+
+	glMatrixMode( GL_MODELVIEW );
+	glLoadIdentity();
 }
 
 //-------------------------------------------------------------------------//
@@ -214,9 +217,9 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 
 		if ( Event.type != Event::LostFocus )
 		{
-			RenderWindow.clear();		
+			RenderWindow.clear();
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			glLoadIdentity( );
+			glLoadIdentity();
 
 			RenderWindow.setView( GameCamera );
 			MouseCursor.UpdatePosition( RenderWindow );

@@ -1,0 +1,28 @@
+{
+  "Entity": {
+    "StartPosition": {
+	  "Value": {
+      "Name": "",
+      "Healtch": "100",
+      "Armor": "0"
+	  },
+	  "Settings": {
+	  "Color": "181 230 29",	
+	  "Texture": "",	  
+	  "Size": "16 32 16"	 
+	  }
+    },
+    "light": {
+	"Value": {
+      "Name": "",
+      "Color": "255 255 255",
+      "Radius": "20"
+	  },
+	 "Settings": {
+	  "Color": "234 20 239",
+	  "Texture": "",	  
+	  "Size": "16 16 16"	 
+	  }
+    }
+  }
+}

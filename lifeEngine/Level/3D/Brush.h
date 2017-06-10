@@ -1,4 +1,4 @@
-#ifndef BASICBRUSH_H
+Ôªø#ifndef BASICBRUSH_H
 #define BASICBRUSH_H
 
 #define COMPILING_LIBRARY
@@ -28,22 +28,22 @@ namespace le
 		//-------------------------------------------------------------------------//
 
 		/////////////////
-		///  ŒÕ—“–” “Œ–
+		/// –ö–û–ù–°–¢–†–£–ö–¢–û–†
 		////////////////
 		Brush( System& System );
 
 		/////////////////
-		/// ƒ≈—“–” “Œ–
+		/// –î–ï–°–¢–†–£–ö–¢–û–†
 		////////////////
 		~Brush();
 
 		//////////////////////////
-		/// »Õ»÷»¿À»«¿÷»ﬂ ¡–¿ÿ¿
+		/// –ò–ù–ò–¶–ò–ê–õ–ò–ó–ê–¶–ò–Ø –ë–†–ê–®–ê
 		/////////////////////////
 		void InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f> Vertex, vector<Vector2f> TextureCoords );
 
 		///////////////////
-		/// –≈Õƒ≈– ¡–¿ÿ¿
+		/// –†–ï–ù–î–ï–† –ë–†–ê–®–ê
 		//////////////////
 		void RenderBrush();
 

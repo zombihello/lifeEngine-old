@@ -135,6 +135,7 @@
     <ClInclude Include="Entity\leEntity.h" />
     <ClInclude Include="Entity\AI_View.h" />
     <ClInclude Include="Level\3D\Brush.h" />
+    <ClInclude Include="Level\3D\Entity.h" />
     <ClInclude Include="Level\3D\Level3D.h" />
     <ClInclude Include="Level\Layer.h" />
     <ClInclude Include="Level\leLevel.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Entity\src\EntityManager.cpp" />
     <ClCompile Include="Entity\src\AI_View.cpp" />
     <ClCompile Include="Level\src\3D\Brush.cpp" />
+    <ClCompile Include="Level\src\3D\Entity.cpp" />
     <ClCompile Include="Level\src\3D\Level3D.cpp" />
     <ClCompile Include="Level\src\Level2D.cpp" />
     <ClCompile Include="Level\src\Object.cpp" />

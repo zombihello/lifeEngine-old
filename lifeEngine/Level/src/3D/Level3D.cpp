@@ -1,4 +1,4 @@
-#include "..\..\3D\Level3D.h"
+ï»¿#include "..\..\3D\Level3D.h"
 
 //-------------------------------------------------------------------------//
 
@@ -24,31 +24,31 @@ bool le::Level3D::LoadLevel( string sRoute )
 	if ( !LMAP.LoadFile( sRoute.c_str() ) )
 		return false;
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì Map
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Map
 	TiXmlElement *Map;
 	Map = LMAP.FirstChildElement( "Map" );
 
 	// -----MAP SETTINGS----- //
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì Settings
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Settings
 	TiXmlElement *Settings;
 	Settings = Map->FirstChildElement( "Settings" );
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì NameMap
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ NameMap
 	TiXmlElement *NameMap;
 	NameMap = Settings->FirstChildElement( "NameMap" );
 
 	if ( NameMap->Attribute( "Value" ) != NULL )
 		sNameMap = NameMap->Attribute( "Value" );
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì DescriptionMap
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ DescriptionMap
 	TiXmlElement *DescriptionMap;
 	DescriptionMap = Settings->FirstChildElement( "DescriptionMap" );
 
 	if ( DescriptionMap->Attribute( "Value" ) != NULL )
 		sDescriptionMap = DescriptionMap->Attribute( "Value" );
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì SkyBoxName
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ SkyBoxName
 	TiXmlElement *SkyBoxName;
 	SkyBoxName = Settings->FirstChildElement( "SkyBoxName" );
 
@@ -57,7 +57,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 
 	// -----TEXTURES----- //
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì Textures
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Textures
 	TiXmlElement *Textures;
 	TiXmlElement *Texture;
 	Textures = Map->FirstChildElement( "Textures" );
@@ -78,19 +78,19 @@ bool le::Level3D::LoadLevel( string sRoute )
 
 	// -----BRUSHES----- //
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì Brushes
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Brushes
 	TiXmlElement *Brushes;
 	Brushes = Map->FirstChildElement( "Brushes" );
 
 	// -----BRUSHES | SOLID----- //
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì Solid
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Solid
 	TiXmlElement *Solid;
 	Solid = Brushes->FirstChildElement( "Solid" );
 
 	if ( Solid != NULL )
 	{
-		// Ðàáîòàåì ñ êîíòåéíåðîì Brush
+		// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Brush
 		TiXmlElement *Brush;
 		Brush = Solid->FirstChildElement( "Brush" );
 
@@ -102,21 +102,21 @@ bool le::Level3D::LoadLevel( string sRoute )
 			vector<Vector3f> vertex;
 			vector<Vector2f> texCoord;
 
-			// Ðàáîòàåì ñ êîíòåéíåðîì Type
+			// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Type
 			TiXmlElement *Type;
 			Type = Brush->FirstChildElement( "Type" );
 
 			if ( Type->Attribute( "Value" ) != NULL )
 				typeBrush = Type->Attribute( "Value" );
 
-			// Ðàáîòàåì ñ êîíòåéíåðîì TextureName
+			// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ TextureName
 			TiXmlElement *TextureName;
 			TextureName = Brush->FirstChildElement( "TextureName" );
 
 			if ( TextureName->Attribute( "Value" ) != NULL )
 				textureName = TextureName->Attribute( "Value" );
 
-			// Ðàáîòàåì ñ êîíòåéíåðîì PositionVertex
+			// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ PositionVertex
 			TiXmlElement *PositionVertex;
 			TiXmlElement *Vertex;			
 			PositionVertex = Brush->FirstChildElement( "PositionVertex" );
@@ -134,7 +134,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 				Vertex = Vertex->NextSiblingElement( );
 			}
 
-			// Ðàáîòàåì ñ êîíòåéíåðîì TextureCoords
+			// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ TextureCoords
 			TiXmlElement *TextureCoords;
 			TiXmlElement *Point;
 			TextureCoords = Brush->FirstChildElement( "TextureCoords" );
@@ -159,6 +159,26 @@ bool le::Level3D::LoadLevel( string sRoute )
 		}
 	}
 
+	// -----ENTITYS----- //
+
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Entitys
+	TiXmlElement *Entitys;
+	Entitys = Map->FirstChildElement( "Entitys" );
+
+	// -----ENTITY----- //
+
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ Entity
+	TiXmlElement *entity;
+	entity = Entitys->FirstChildElement( "Entity" );
+
+	while ( entity )
+	{
+		Entity Entity( *entity );
+		vEntitys.push_back( Entity );
+
+		entity = entity->NextSiblingElement( );
+	}
+
 	return true;
 }
 
@@ -166,8 +186,15 @@ bool le::Level3D::LoadLevel( string sRoute )
 
 void le::Level3D::ClearLevel()
 {
+	sNameMap = "";
+	sDescriptionMap = "";
+	sSkyBoxName = "";
+
 	for ( int i = 0; i < vBrushes.size(); i++ )
 		delete vBrushes[i];
+
+	vBrushes.clear();
+	vEntitys.clear();
 }
 
 //-------------------------------------------------------------------------//
@@ -176,6 +203,22 @@ void le::Level3D::RenderLevel()
 {
 	for ( int i = 0; i < vBrushes.size(); i++ )
 		vBrushes[i]->RenderBrush();
+}
+
+//-------------------------------------------------------------------------//
+
+le::Entity& le::Level3D::GetEntity( string NameEntity )
+{
+	for ( int i = 0; i < vEntitys.size(); i++ )
+	if ( vEntitys[i].GetNameEntity() == NameEntity )
+		return vEntitys[i];
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::Entity>& le::Level3D::GetAllEntitys()
+{
+	return vEntitys;
 }
 
 //-------------------------------------------------------------------------//

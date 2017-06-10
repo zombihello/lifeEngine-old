@@ -229,6 +229,9 @@
     <ClInclude Include="Level\3D\Brush.h">
       <Filter>Level\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Level\3D\Entity.h">
+      <Filter>Level\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\FPS.cpp">
@@ -382,6 +385,9 @@
       <Filter>Level\3D</Filter>
     </ClCompile>
     <ClCompile Include="Level\src\3D\Brush.cpp">
+      <Filter>Level\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\src\3D\Entity.cpp">
       <Filter>Level\3D</Filter>
     </ClCompile>
   </ItemGroup>
