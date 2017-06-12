@@ -221,7 +221,7 @@ bool le::Model::LoadModel( string route )
 					IDs.idNormal = atoi( _tmp.c_str() );
 					break;
 
-				case 3:
+				case 3: // текстура
 					IDs.idTextureCoord = atoi( _tmp.c_str() );
 
 					TexCoord = &Mesh.vTextureCoords[atoi( _tmp.c_str() )];
@@ -240,7 +240,7 @@ bool le::Model::LoadModel( string route )
 
 					break;
 
-				case 4:
+				case 4: // цвет вершины
 					IDs.idVertexColor = atoi( _tmp.c_str() );
 					Mesh.vIDs.push_back( IDs );
 					id = 0;

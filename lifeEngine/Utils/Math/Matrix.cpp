@@ -65,7 +65,7 @@ void le::Matrix::MatrixMultiply( float value , Matrixf Matrix1 , float* Matrix )
 
 Vector3f le::Matrix::MatrixToXYZ( Matrixf Matrix )
 {
-	return Vector3f( Matrix[ 3 ] , -Matrix[ 11 ] , Matrix[ 7 ] );
+	return Vector3f( Matrix[ 3 ] , Matrix[ 7 ] , Matrix[ 11 ] );
 }
 
 //-------------------------------------------------------------------------//

@@ -3,7 +3,7 @@
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.7.0"
+#define ENGINE_VERSION "v2.7.1"
 #include "../DllGlobal.h"
 
 /////////////////////
