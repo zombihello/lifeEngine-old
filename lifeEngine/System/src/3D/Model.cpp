@@ -5,11 +5,15 @@
 
 void le::Mesh::Clear()
 {
+	for ( int i = 0; i < vTextures.size( ); i++ )
+		glDeleteTextures( 1, &vTextures[i] );
+
 	vIDs.clear();
 	vVertexColors.clear();
 	vNormals.clear();
 	vTextureCoords.clear();
 	vVertexs.clear();
+	vTextures.clear();	
 }
 
 //-------------------------------------------------------------------------//
@@ -17,6 +21,7 @@ void le::Mesh::Clear()
 le::Model::Model( le::System& System )
 {
 	this->System = &System;
+	ScaleModel = Vector3f( 1, 1, 1 );
 
 	Skeleton = NULL;
 	AnimationManager3D = NULL;
@@ -26,20 +31,13 @@ le::Model::Model( le::System& System )
 
 le::Model::~Model()
 {
-	Mesh.Clear();
-
-	if ( Skeleton != NULL )
-		delete Skeleton;
-
-	if ( AnimationManager3D != NULL )
-		delete AnimationManager3D;
+	DeleteModel();
 }
 
 //-------------------------------------------------------------------------//
 
 bool le::Model::LoadModel( string route )
 {
-	vector<GLuint>		vTmpTextures;
 	TiXmlDocument LMD;
 
 #ifdef DEBUG
@@ -103,8 +101,8 @@ bool le::Model::LoadModel( string route )
 		{
 			string route = img->Attribute( "src" );
 			route.erase( 0, route.find_last_of( '/' ) + 1 );
-			vTmpTextures.push_back( System->LoadGLTexture( route ) );
 
+			Mesh.vTextures.push_back( System->LoadGLTexture( route ) );
 			img = img->NextSiblingElement();
 		}
 	}
@@ -225,11 +223,7 @@ bool le::Model::LoadModel( string route )
 					IDs.idTextureCoord = atoi( _tmp.c_str() );
 
 					TexCoord = &Mesh.vTextureCoords[atoi( _tmp.c_str() )];
-					if ( TexCoord->TextureEmpty )
-					{
-						TexCoord->gl_Texture = vTmpTextures[idTexture];
-						TexCoord->TextureEmpty = false;
-					}
+					TexCoord->idTexture = idTexture;
 
 					if ( Mesh.vVertexColors.empty() )
 					{
@@ -283,14 +277,18 @@ bool le::Model::LoadModel( string route )
 
 void le::Model::RenderModel()
 {
+	glTranslatef( Position.x, Position.y, Position.z );
+	glRotatef( Angle.x, 1, 0, 0 );
+	glRotatef( Angle.y, 0, 1, 0 );
+	glRotatef( Angle.z, 0, 0, 1 );
+	glScalef( ScaleModel.x, ScaleModel.y, ScaleModel.z );
+
 	if ( Skeleton != NULL )
 		Skeleton->DrawSkeleton( Skeleton->GetAllBones() );
 
 	if ( !Keyboard::isKeyPressed( Keyboard::Q ) )
 	{
-		GLuint lastTexture = Mesh.vTextureCoords[Mesh.vIDs[0].idTextureCoord].gl_Texture;
-		glBindTexture( GL_TEXTURE_2D, lastTexture );
-		glBegin( GL_TRIANGLES );
+		GLuint lastTexture = 0;
 
 		for ( int i = 0; i < Mesh.vIDs.size(); i++ )
 		{
@@ -299,12 +297,13 @@ void le::Model::RenderModel()
 			Vector3f Vertex = Mesh.vVertexs[IDs.idVertex].Position;
 			Vector3f Normal = Mesh.vNormals[IDs.idNormal];
 
-			if ( TexCoord.gl_Texture != lastTexture )
+			if ( !Mesh.vTextures.empty() && TexCoord.idTexture < Mesh.vTextures.size() )
+			if ( Mesh.vTextures[TexCoord.idTexture] != lastTexture )
 			{
-				lastTexture = TexCoord.gl_Texture;
+				lastTexture = Mesh.vTextures[TexCoord.idTexture];
 
 				glEnd();
-				glBindTexture( GL_TEXTURE_2D, TexCoord.gl_Texture );
+				glBindTexture( GL_TEXTURE_2D, lastTexture );
 				glBegin( GL_TRIANGLES );
 			}
 
@@ -315,6 +314,67 @@ void le::Model::RenderModel()
 
 		glEnd();
 	}
+
+	glTranslatef( -Position.x, -Position.y, -Position.z );
+	glRotatef( -Angle.x, 1, 0, 0 );
+	glRotatef( -Angle.y, 0, 1, 0 );
+	glRotatef( -Angle.z, 0, 0, 1 );
+	glScalef( -ScaleModel.x, -ScaleModel.y, -ScaleModel.z );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetPosition( Vector3f Position )
+{
+	this->Position = Position;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetRotate( Vector3f Angle )
+{
+	this->Angle = Angle;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetScale( Vector3f Scale )
+{
+	this->ScaleModel = Scale;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Move( Vector3f FactorMove )
+{
+	Position += FactorMove;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Scale( Vector3f FactorScale )
+{
+	ScaleModel += FactorScale;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Rotate( Vector3f Angle )
+{
+	this->Angle += Angle;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::DeleteModel()
+{
+	Mesh.Clear( );
+
+	if ( Skeleton != NULL )
+		delete Skeleton;
+
+	if ( AnimationManager3D != NULL )
+		delete AnimationManager3D;
 }
 
 //-------------------------------------------------------------------------//
@@ -326,9 +386,23 @@ le::AnimationManager3D& le::Model::GetAnimationManager()
 
 //-------------------------------------------------------------------------//
 
-le::TextureCoord::TextureCoord()
+Vector3f le::Model::GetPosition()
 {
-	TextureEmpty = true;
+	return Position;
+}
+
+//-------------------------------------------------------------------------//
+
+Vector3f le::Model::GetScale()
+{
+	return ScaleModel;
+}
+
+//-------------------------------------------------------------------------//
+
+Vector3f le::Model::GetRotate()
+{
+	return Angle;
 }
 
 //-------------------------------------------------------------------------//

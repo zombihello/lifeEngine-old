@@ -27,11 +27,8 @@ namespace le
 
 	struct DLL_API TextureCoord
 	{
-		TextureCoord();
-
 		Vector2f		Coords;
-		GLuint			gl_Texture;
-		bool			TextureEmpty;
+		int				idTexture;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -61,6 +58,7 @@ namespace le
 		vector<Vector3f>		vNormals;
 		vector<TextureCoord>	vTextureCoords;
 		vector<Color>			vVertexColors;
+		vector<GLuint>			vTextures;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -78,10 +76,45 @@ namespace le
 		/////////////////
 		~Model();
 
+		/////////////////////
+		/// УДАЛИТЬ МОДЕЛЬ
+		/////////////////////
+		void DeleteModel();
+
 		//////////////////////
 		/// ЗАГРУЗКА МОДЕЛИ
 		//////////////////////
 		bool LoadModel( string route );
+
+		////////////////////////////
+		/// ЗАДАТЬ ПОЗИЦИЮ МОДЕЛИ
+		///////////////////////////
+		void SetPosition( Vector3f Position );
+
+		////////////////////////////
+		/// ЗАДАТЬ МАСШТАБ МОДЕЛИ
+		///////////////////////////
+		void SetScale( Vector3f Scale );
+
+		////////////////////////////
+		/// ЗАДАТЬ ПОВОРОТ МОДЕЛИ
+		///////////////////////////
+		void SetRotate( Vector3f Angle );
+
+		////////////////////
+		/// СМЕСТИТЬ МОДЕЛЬ
+		////////////////////
+		void Move( Vector3f FactorMove );
+
+		///////////////////////////
+		/// МАСШТАБИРОВАТЬ МОДЕЛЬ
+		//////////////////////////
+		void Scale( Vector3f FactorScale );
+
+		//////////////////////
+		/// ПОВЕРНУТЬ МОДЕЛЬ
+		//////////////////////
+		void Rotate( Vector3f Angle );
 
 		//////////////////////
 		/// ОТРИСОВКА МОДЕЛИ
@@ -93,12 +126,30 @@ namespace le
 		////////////////////////////////
 		AnimationManager3D& GetAnimationManager();
 
+		/////////////////////////////
+		/// ПОЛУЧИТЬ ПОЗИЦИЮ МОДЕЛИ
+		/////////////////////////////
+		Vector3f GetPosition();
+
+		////////////////////////////
+		/// ПОЛУЧИТЬ МАСШТАБ МОДЕЛИ
+		////////////////////////////
+		Vector3f GetScale();
+
+		////////////////////////////
+		/// ПОЛУЧИТЬ ПОВОРОТ МОДЕЛИ
+		////////////////////////////
+		Vector3f GetRotate();
+
 	private:
+
+		Vector3f						Position;
+		Vector3f						ScaleModel;
+		Vector3f						Angle;
 
 		Mesh							Mesh;
 		Skeleton*						Skeleton;
 		AnimationManager3D*				AnimationManager3D;
-
 		System*							System;
 	};
 
