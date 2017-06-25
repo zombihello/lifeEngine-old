@@ -13,6 +13,16 @@ namespace le
 {
 	//-------------------------------------------------------------------------//
 
+	struct DLL_API BrushVertex
+	{
+		Vector3f			Vertex;
+		Vector2f			TextureCoord;
+
+		bool operator==( BrushVertex& BrushVertex );
+	};
+
+	//-------------------------------------------------------------------------//
+
 	class DLL_API Brush
 	{
 	public:
@@ -49,12 +59,13 @@ namespace le
 
 	private:
 
-		System*					    System;
-		GLuint						TextureBrush;
+		int							iCountIndex;
 
-		vector<Vector3f>			vVertex;
-		vector<Vector2f>			vTextureCoords;
-		vector<int>					vIdVertex;
+		System*					    System;
+
+		GLuint						TextureBrush;
+		GLuint						VertexBuffer;
+		GLuint						IndexBuffer;
 	};
 
 	//-------------------------------------------------------------------------//

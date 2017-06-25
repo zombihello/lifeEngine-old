@@ -14,8 +14,8 @@ namespace le
 {
 	//-------------------------------------------------------------------------//
 
-	struct Mesh;
-	struct Vertex;
+	struct ModelVertex;
+	struct VBO_ModelVertex;
 
 	//-------------------------------------------------------------------------//
 
@@ -41,22 +41,32 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		/////////////////
-		Skeleton( Mesh& Mesh );
+		Skeleton();
 
 		/////////////////
 		/// ДЕСТРУКТОР
 		/////////////////
 		~Skeleton();
 
+		/////////////////////
+		/// ОЧИСТИТЬ СКЕЛЕТ
+		/////////////////////
+		void ClearSkeleton();
+
 		//////////////////////
 		/// ЗАГРУЗИТЬ СКЕЛЕТ
 		/////////////////////
-		void LoadSkeleton( TiXmlElement *skeleton );
+		void LoadSkeleton( TiXmlElement* skeleton, map<int, ModelVertex>& mVertexs );
 
 		//////////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПОЗИЦИИ ВЕРШИН
 		/////////////////////////////////
-		void InitMesh();
+		void InitMesh( map<int, ModelVertex>& ModelVertexs, vector<VBO_ModelVertex>& VBO_Vertexs );
+
+		////////////////////////////////////
+		/// ИНИЦИАЛИЗИРОВАТЬ СКЕЛЕТ МОДЕЛИ
+		////////////////////////////////////
+		void InitSkeleton( GLuint& VertexBuffer, vector<VBO_ModelVertex>& VBO_Vertexs, map<int, ModelVertex>& ModelVertexs );
 
 		//////////////////////////////
 		/// ДОБАВИТЬ КОСТЬ СКЕЛЕТУ
@@ -114,9 +124,14 @@ namespace le
 		//////////////////////////////////
 		void InitMatrixBone( Bone& bone );
 
-		Mesh*				Mesh;
-		Matrixf				BindShape;
-		vector<Bone*>		vBone;
+		bool							IsLoad;
+
+		GLuint*							VertexBuffer;
+		Matrixf							BindShape;
+
+		vector<Bone*>					vBone;
+		vector<VBO_ModelVertex>*		vVBO_Vertexs;
+		map<int, ModelVertex>*			mModelVertexs;
 	};
 
 	//-------------------------------------------------------------------------//

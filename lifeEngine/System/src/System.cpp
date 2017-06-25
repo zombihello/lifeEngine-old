@@ -1,5 +1,5 @@
 #include "../System.h"
-#include "../../Utils/HaffmanCode/HaffmanCode.h"
+#include <HaffmanCode.h>
 using namespace le;
 
 //-------------------------------------------------------------------------//
@@ -142,28 +142,6 @@ bool System::DirectoryExists( const string sRouteToDirectory )
 
 //-------------------------------------------------------------------------//
 
-GLuint System::LoadGLTexture( string route )
-{
-	Image image;
-	image.loadFromFile( route );
-	image.flipVertically();
-
-	GLuint texture = 0;
-	glGenTextures( 1, &texture );
-	glBindTexture( GL_TEXTURE_2D, texture );
-	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, image.getSize().x, image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr() );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-
-	return texture;
-}
-
-//-------------------------------------------------------------------------//
-
 void System::WindowCreate( int iStyle )
 {
 	RenderWindow.close();
@@ -187,6 +165,11 @@ void System::WindowCreate( int iStyle )
 	RenderWindow.setFramerateLimit( Configuration.iFrameLimit );
 	RenderWindow.setVerticalSyncEnabled( Configuration.bV_Sinc );
 
+	glewExperimental = GL_TRUE;
+
+	if ( glewInit() != GLEW_OK )
+		exit( -1 );
+
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_TEXTURE_2D );
 
@@ -196,7 +179,7 @@ void System::WindowCreate( int iStyle )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 
-	gluPerspective( 45, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 10000 );
+	gluPerspective( 75, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 10000 );
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();

@@ -7,9 +7,9 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "../../System/System.h"
 #include "Brush.h"
 #include "Entity.h"
+#include "../../System/System.h"
 
 namespace le
 {

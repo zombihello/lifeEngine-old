@@ -2,32 +2,43 @@
 
 //-------------------------------------------------------------------------//
 
+bool le::BrushVertex::operator==( BrushVertex& BrushVertex )
+{
+	return Vertex == BrushVertex.Vertex && TextureCoord == BrushVertex.TextureCoord;
+}
+
+//-------------------------------------------------------------------------//
+
 le::Brush::Brush( le::System& System )
 {
 	this->System = &System;
-	TextureBrush = 0;
+	TextureBrush = VertexBuffer = IndexBuffer = 0;
+	iCountIndex = 0;
 }
 
 //-------------------------------------------------------------------------//
 
 le::Brush::~Brush()
 {
-	if ( TextureBrush != 0 )
-		glDeleteTextures( 1, &TextureBrush );
+	if ( VertexBuffer != 0 )
+		glDeleteBuffers( 1, &VertexBuffer );
 
-	vVertex.clear();
-	vTextureCoords.clear();
-	vIdVertex.clear();
+	if ( IndexBuffer != 0 )
+		glDeleteBuffers( 1, &IndexBuffer );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f> Vertex, vector<Vector2f> TextureCoords )
 {
+	vector<BrushVertex> vBrushVertex;
+	vector<unsigned int> vIdVertex;
+	vector<unsigned int> tmpIdVertex;
+
 	switch ( Type )
 	{
 	case Cube:
-		vIdVertex =
+		vIdVertex = tmpIdVertex =
 		{
 			7, 3, 4,
 			3, 0, 4,
@@ -56,30 +67,66 @@ void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f>
 		break;
 	}
 
+	for ( int i = 0; i < tmpIdVertex.size(); i++ )
+	{
+		BrushVertex tmpVertex;
+		tmpVertex.Vertex = Vertex[tmpIdVertex[i]];
+		tmpVertex.TextureCoord = TextureCoords[i];
+
+		bool isFind = false;
+		for ( int j = 0; j < vBrushVertex.size(); j++ )
+			if ( tmpVertex == vBrushVertex[j] )
+			{
+				vIdVertex[i] = j;
+				isFind = true;
+				break;
+			}
+
+		if ( !isFind )
+		{
+			for ( int j = i; j < tmpIdVertex.size(); j++ )
+				if ( tmpIdVertex[j] == tmpIdVertex[i] )
+					vIdVertex[j] = vBrushVertex.size();
+
+			vBrushVertex.push_back( tmpVertex );
+		}
+	}
+
 	TextureBrush = Texture;
-	vVertex = Vertex;
-	vTextureCoords = TextureCoords;
+	iCountIndex = vIdVertex.size();
+
+	glGenBuffers( 1, &VertexBuffer );
+	glGenBuffers( 1, &IndexBuffer );
+
+	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IndexBuffer );
+
+	glBufferData( GL_ARRAY_BUFFER, vBrushVertex.size() * sizeof( BrushVertex ), vBrushVertex.data(), GL_STATIC_DRAW );
+	glBufferData( GL_ELEMENT_ARRAY_BUFFER, vIdVertex.size() * sizeof( unsigned int ), vIdVertex.data(), GL_STATIC_DRAW );
+
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Brush::RenderBrush()
 {
+	glEnableClientState( GL_VERTEX_ARRAY );
+	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+
 	glBindTexture( GL_TEXTURE_2D, TextureBrush );
-	glBegin( GL_TRIANGLES );
+	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IndexBuffer );
 
-	for ( int i = 0; i < vIdVertex.size(); i++ )
-	{
-		int id = vIdVertex[i];
+	glVertexPointer( 3, GL_FLOAT, sizeof( BrushVertex ), ( void* ) ( offsetof( BrushVertex, Vertex ) ) );
+	glTexCoordPointer( 2, GL_FLOAT, sizeof( BrushVertex ), ( void* ) ( offsetof( BrushVertex, TextureCoord ) ) );
 
-		Vector3f Vertex = vVertex[id];
-		Vector2f TexCoord = vTextureCoords[i];
+	glDrawElements( GL_TRIANGLES, iCountIndex, GL_UNSIGNED_INT, 0 );
 
-		glTexCoord2f( TexCoord.x, TexCoord.y );
-		glVertex3f( Vertex.x, Vertex.y, Vertex.z );
-	}
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
 
-	glEnd();
+	glDisableClientState( GL_VERTEX_ARRAY );
+	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 }
 
 //-------------------------------------------------------------------------//

@@ -3,6 +3,13 @@
 
 //-------------------------------------------------------------------------//
 
+le::AnimationManager3D::AnimationManager3D()
+{
+	Skeleton = NULL;
+}
+
+//-------------------------------------------------------------------------//
+
 le::AnimationManager3D::AnimationManager3D( le::Skeleton& Skeleton )
 {
 	this->Skeleton = &Skeleton;
@@ -54,6 +61,8 @@ void le::AnimationManager3D::UpdateAnimation()
 
 bool le::AnimationManager3D::LoadAnimations( TiXmlElement* animations )
 {
+	if ( Skeleton == NULL ) return false;
+
 	if ( animations != NULL )
 	{
 		// Работаем с контейнером animation
@@ -87,6 +96,15 @@ bool le::AnimationManager3D::IsPlaying()
 		return mAnimations[sCurrentAnimation].IsPlaying();
 	else
 		return false;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::AnimationManager3D::SetSkeleton( le::Skeleton& Skeleton )
+{
+	mAnimations.clear();
+
+	this->Skeleton = &Skeleton;
 }
 
 //-------------------------------------------------------------------------//

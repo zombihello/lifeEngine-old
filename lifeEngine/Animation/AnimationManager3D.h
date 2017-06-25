@@ -20,6 +20,7 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
+		AnimationManager3D();
 		AnimationManager3D( Skeleton& Skeleton );
 
 		////////////////
@@ -56,6 +57,11 @@ namespace le
 		/// ИГРАЕТ ЛИ АНИМАЦИЯ
 		///////////////////////
 		bool IsPlaying( );
+
+		//////////////////////////
+		/// ЗАДАТЬ СКЕЛЕТ МОДЕЛИ
+		/////////////////////////
+		void SetSkeleton( Skeleton& Skeleton );
 
 	private:
 

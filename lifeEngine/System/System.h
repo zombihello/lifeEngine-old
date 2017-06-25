@@ -6,6 +6,12 @@
 #define ENGINE_VERSION "v2.7.1"
 #include "../DllGlobal.h"
 
+//////////////
+/// OPENGL
+//////////////
+#include <glew/glew.h>
+#include <gl/GLU.h>
+
 /////////////////////
 /// СИСТЕМНЫЕ ЛИБЫ
 ////////////////////
@@ -21,7 +27,6 @@ using namespace std;
 //////////////
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include <gl/GLU.h>
 using namespace sf;
 
 //////////
@@ -106,11 +111,6 @@ namespace le
 		/// ПРОВЕРКА НА СУЩЕСТВОВАНИЕ ДИРЕКТОРИИ
 		/////////////////////////////////////////
 		bool DirectoryExists( const string sRouteToDirectory );
-
-		////////////////////////////////
-		///	ЗАГРУЗИТЬ OPENGL ТЕКСТУРУ
-		////////////////////////////////
-		GLuint LoadGLTexture( string route );
 
 		////////////////////
 		/// СОЗДАНИЕ ОКНА

@@ -94,7 +94,7 @@ void le::Animation3D::UpdateAnimation()
 	if ( fNowFrame >= iNextFrame )
 		iNextFrame++;
 
-	Skeleton->InitMesh();
+	//Skeleton->InitMesh();
 }
 
 //-------------------------------------------------------------------------//

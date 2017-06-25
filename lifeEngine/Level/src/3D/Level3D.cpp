@@ -1,4 +1,5 @@
 ﻿#include "..\..\3D\Level3D.h"
+#include "..\..\..\System\MaterialManager.h"
 
 //-------------------------------------------------------------------------//
 
@@ -70,8 +71,9 @@ bool le::Level3D::LoadLevel( string sRoute )
 		{
 			string name = Texture->Attribute( "Name" );
 			string route = Texture->Attribute( "Route" );
-			mTextures[name] = System->LoadGLTexture( route );
 
+			MaterialManager::LoadGLTexture( name, route );
+			mTextures[name] = MaterialManager::GetGLTexture(name);
 			Texture = Texture->NextSiblingElement();
 		}
 	}
