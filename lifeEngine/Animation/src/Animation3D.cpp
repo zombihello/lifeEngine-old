@@ -94,7 +94,7 @@ void le::Animation3D::UpdateAnimation()
 	if ( fNowFrame >= iNextFrame )
 		iNextFrame++;
 
-	//Skeleton->InitMesh();
+	Skeleton->UpdateMesh();
 }
 
 //-------------------------------------------------------------------------//
@@ -190,6 +190,13 @@ bool le::Animation3D::LoadAnimation( TiXmlElement* animation )
 bool le::Animation3D::IsPlaying()
 {
 	return bIsPlaying;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Animation3D::SetSkeleton( le::Skeleton& Skeleton )
+{
+	this->Skeleton = &Skeleton;
 }
 
 //-------------------------------------------------------------------------//

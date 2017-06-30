@@ -54,7 +54,10 @@ void le::AnimationManager3D::Stop()
 void le::AnimationManager3D::UpdateAnimation()
 {
 	if ( sCurrentAnimation != "" )
-		mAnimations[sCurrentAnimation].UpdateAnimation();
+	{
+		if ( Skeleton->IsInit() )
+			mAnimations[sCurrentAnimation].UpdateAnimation();
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -102,9 +105,25 @@ bool le::AnimationManager3D::IsPlaying()
 
 void le::AnimationManager3D::SetSkeleton( le::Skeleton& Skeleton )
 {
-	mAnimations.clear();
-
 	this->Skeleton = &Skeleton;
+
+	for ( auto it = mAnimations.begin(); it != mAnimations.end(); it++ )
+		it->second.SetSkeleton( *this->Skeleton );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::AnimationManager3D::DeleteAnimation( string nameAnimation )
+{
+	if ( mAnimations.count( nameAnimation ) != 0 )
+		mAnimations.erase( mAnimations.find( nameAnimation ) );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::AnimationManager3D::DeleteAllAnimations()
+{
+	mAnimations.clear();
 }
 
 //-------------------------------------------------------------------------//

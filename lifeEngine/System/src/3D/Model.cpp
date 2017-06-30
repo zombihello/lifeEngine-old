@@ -33,7 +33,11 @@ bool le::Model::LoadModel( string nameModel, string route )
 void le::Model::LoadModel( le::ModelMesh ModelMesh )
 {
 	Skeleton = ModelMesh.Skeleton;
+	Skeleton.InitSkeleton( VertexBuffer, vVBO_Vertexs, mVertexs );
+
 	AnimationManager3D = ModelMesh.AnimationManager3D;
+	AnimationManager3D.SetSkeleton( Skeleton );
+
 	mCountIndexs = ModelMesh.mCountIndexs;
 	vVBO_Vertexs = ModelMesh.vVBO_Vertexs;
 	mVertexs = ModelMesh.mVertexs;

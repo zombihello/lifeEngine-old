@@ -21,16 +21,21 @@ namespace le
 
 	struct DLL_API Bone
 	{
+		/////////////////
+		/// КОНСТРУКТОР
+		/////////////////
 		Bone();
 
 		Matrixf				StartMatrix;
 		Matrixf				InvertMatrix;
-		Matrixf				Realese;
+		Matrixf			    Realese;
 
-		vector<Bone*>		vChild;
+		int			        iIdPerent;
 
-		Bone*				Perent;
-		string				name;
+		string				sNameParentBone;
+		string				sNameBone;
+
+		vector<int>		    vIdChild;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -67,11 +72,16 @@ namespace le
 		/// ИНИЦИАЛИЗИРОВАТЬ СКЕЛЕТ МОДЕЛИ
 		////////////////////////////////////
 		void InitSkeleton( GLuint& VertexBuffer, vector<VBO_ModelVertex>& VBO_Vertexs, map<int, ModelVertex>& ModelVertexs );
+		
+		/////////////////////////////////////////
+		/// ОБНОВЛЕНИЕ ИЗМЕНЕНЫХ ПОЗИЦИИ ВЕРШИН
+		/////////////////////////////////////////
+		void UpdateMesh();
 
 		//////////////////////////////
 		/// ДОБАВИТЬ КОСТЬ СКЕЛЕТУ
 		//////////////////////////////
-		void AddBone( Bone* bone );
+		void AddBone( Bone bone );
 
 		///////////////////////////////////////////////////
 		/// ЗАДАТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
@@ -91,7 +101,7 @@ namespace le
 		/////////////////////////////////
 		/// ПОЛУЧИТЬ ВСЕ КОСТИ СКЕЛЕТА
 		////////////////////////////////
-		vector<Bone*> GetAllBones();
+		vector<Bone> GetAllBones();
 
 		////////////////////////////////////////
 		/// ПОЛУЧИТЬ КОСТЬ СКЕЛЕТА ПО ИМЕНИ
@@ -101,14 +111,25 @@ namespace le
 		//////////////////////////////////
 		/// ПОЛУЧИТЬ КОСТЬ СКЕЛЕТА ПО ID
 		/////////////////////////////////
+		Bone* GetBone( int idBone );
+
+		////////////////////////////////////////
+		/// ПОЛУЧИТЬ ID КОСТИ СКЕЛЕТА ПО ИМЕНИ
+		///////////////////////////////////////
 		int	GetIdBone( string NameBone );
 
 		///////////////////////
 		/// НАРИСОВАТЬ СКЕЛЕТ
 		//////////////////////
-		void DrawSkeleton( vector<Bone*> bones );
+		void DrawSkeleton( map<string, Bone> bones );
+
+		/////////////////////////////////////////////
+		/// ГОТОВ ЛИ СКЕЛЕТ К ПРОИГРЫВАНИЮ АНИМАЦИИ
+		/////////////////////////////////////////////
+		bool IsInit();
 
 	private:
+
 		////////////////////////////////////////////
 		/// СЧИТЫВАНИЕ КОСТЕЙ [РЕКУРСИВНЫЙ МЕТОД]
 		///////////////////////////////////////////
@@ -129,8 +150,9 @@ namespace le
 		GLuint*							VertexBuffer;
 		Matrixf							BindShape;
 
-		vector<Bone*>					vBone;
-		vector<VBO_ModelVertex>*		vVBO_Vertexs;
+		vector<VBO_ModelVertex>*		vVBO_Vertexs;	
+		vector<Bone>					vBones;
+		vector<Bone*>					vUpdateBones;
 		map<int, ModelVertex>*			mModelVertexs;
 	};
 

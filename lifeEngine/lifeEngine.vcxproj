@@ -90,7 +90,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML;Utils\OpenGL\glew\include;Utils\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformation>false</BrowseInformation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>

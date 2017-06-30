@@ -77,6 +77,11 @@ namespace le
 		/////////////////////////
 		bool LoadAnimation( TiXmlElement* animation );
 
+		//////////////////////////
+		/// ЗАДАТЬ СКЕЛЕТ МОДЕЛИ
+		/////////////////////////
+		void SetSkeleton( Skeleton& Skeleton );
+
 	private:
 
 		int							iNextFrame;

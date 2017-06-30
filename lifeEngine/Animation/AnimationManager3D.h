@@ -63,6 +63,16 @@ namespace le
 		/////////////////////////
 		void SetSkeleton( Skeleton& Skeleton );
 
+		//////////////////////////
+		/// УДАЛИТЬ АНИМАЦИЮ
+		/////////////////////////
+		void DeleteAnimation( string nameAnimation );
+
+		//////////////////////////
+		/// УДАЛИТЬ ВСЕ АНИМАЦИИ
+		/////////////////////////
+		void DeleteAllAnimations();
+
 	private:
 
 		string					 sCurrentAnimation;
