@@ -86,6 +86,8 @@ String le::TextManager::GetString( int ID )
 {
 	if ( ID - 1 > -1 && ID - 1 < vText.size() )
 		return GetText( ID ).GetText().getString();
+
+	return "ERROR";
 }
 
 //-------------------------------------------------------------------------//

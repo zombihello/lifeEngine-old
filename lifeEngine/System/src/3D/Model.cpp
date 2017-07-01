@@ -23,7 +23,7 @@ bool le::Model::LoadModel( string nameModel, string route )
 	if ( !MaterialManager::LoadModelMesh( nameModel, route ) )
 		return false;
 
-	LoadModel( MaterialManager::GetModelMesh( nameModel ) );
+	LoadModel( *MaterialManager::GetModelMesh( nameModel ) );
 
 	return true;
 }

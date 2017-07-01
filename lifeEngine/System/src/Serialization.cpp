@@ -97,13 +97,15 @@ void Serialization::Add( string value , string nameValue )
 
 //-------------------------------------------------------------------------//
 
-SaveValuables& Serialization::GetValuables()
+SaveValuables* Serialization::GetValuables()
 {
 	for ( int i = 0; i < vSaveValuables.size(); i++ )
 	{
 		if ( !vSaveValuables[ i ].bIsLoadSave && vSaveValuables[ i ].sNameClass == sNameClass )
-			return vSaveValuables[ i ];
+			return &vSaveValuables[ i ];
 	}
+
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//

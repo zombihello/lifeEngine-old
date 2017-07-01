@@ -209,11 +209,13 @@ void le::Level3D::RenderLevel()
 
 //-------------------------------------------------------------------------//
 
-le::Entity& le::Level3D::GetEntity( string NameEntity )
+le::Entity* le::Level3D::GetEntity( string NameEntity )
 {
 	for ( int i = 0; i < vEntitys.size(); i++ )
 	if ( vEntitys[i].GetNameEntity() == NameEntity )
-		return vEntitys[i];
+		return &vEntitys[i];
+
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//

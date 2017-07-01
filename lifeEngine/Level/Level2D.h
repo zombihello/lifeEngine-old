@@ -46,7 +46,7 @@ namespace le
 		///////////////////////
 		/// ПОЛУЧИТЬ ОБЪЕКТ
 		//////////////////////
-		Object& GetObject( const string sName );
+		Object* GetObject( const string sName );
 
 		///////////////////////
 		/// ПОЛУЧИТЬ ОБЪЕКТЫ

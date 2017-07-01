@@ -121,7 +121,7 @@ int le::WeaponManager::GetMaxWeapon()
 
 //-------------------------------------------------------------------------//
 
-le::BasicWeapon *le::WeaponManager::GetWeapon( string NameWeapon )
+le::BasicWeapon* le::WeaponManager::GetWeapon( string NameWeapon )
 {
 	for ( int i = 0; i < vWeapon.size(); i++ )
 	{
@@ -130,6 +130,8 @@ le::BasicWeapon *le::WeaponManager::GetWeapon( string NameWeapon )
 		if ( Weapon->GetNameWeapon() == NameWeapon )
 			return Weapon;
 	}
+
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//

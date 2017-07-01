@@ -29,11 +29,13 @@ namespace le
 
 	struct DLL_API ModelVertex
 	{
+		Matrix				MatrixBone;
+		Matrix				MatrixBoneTmp;
+		Matrix				MatrixVertex;
+
 		Vector3f			Position;
 
-		vector<int>			vIdBones;
 		vector<int>			vIdVBO_Vertex;
-		vector<float>		vWeights;
 	};
 
 	//-------------------------------------------------------------------------//

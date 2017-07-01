@@ -129,6 +129,8 @@ bool le::MusicManager::IsPlaying( string NameMusic )
 		le::Music* Music = vMusic[ NameMusic ];
 		return Music->IsPlaying();
 	}
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//

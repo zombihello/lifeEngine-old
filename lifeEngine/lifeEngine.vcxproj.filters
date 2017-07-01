@@ -7,9 +7,6 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{0a514661-a15f-45c5-bd15-3233d272ae51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utils\XML">
-      <UniqueIdentifier>{6f015feb-9184-45b2-ad10-313a0de21ae1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\codecvt">
       <UniqueIdentifier>{9c914e33-f5c4-4e22-ab5c-8675341d2be1}</UniqueIdentifier>
     </Filter>
@@ -71,12 +68,6 @@
     </ClInclude>
     <ClInclude Include="System\System.h">
       <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\XML\tinystr.h">
-      <Filter>Utils\XML</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\XML\tinyxml.h">
-      <Filter>Utils\XML</Filter>
     </ClInclude>
     <ClInclude Include="Utils\codecvt\codecvt.h">
       <Filter>Utils\codecvt</Filter>
@@ -254,18 +245,6 @@
     </ClCompile>
     <ClCompile Include="System\src\System.cpp">
       <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\XML\tinystr.cpp">
-      <Filter>Utils\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\XML\tinyxml.cpp">
-      <Filter>Utils\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\XML\tinyxmlerror.cpp">
-      <Filter>Utils\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\XML\tinyxmlparser.cpp">
-      <Filter>Utils\XML</Filter>
     </ClCompile>
     <ClCompile Include="Utils\codecvt\codecvt.cpp">
       <Filter>Utils\codecvt</Filter>

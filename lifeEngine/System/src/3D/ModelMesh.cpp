@@ -308,6 +308,8 @@ bool le::ModelMesh::LoadMesh( string route )
 		AnimationManager3D.SetSkeleton( Skeleton );
 		AnimationManager3D.LoadAnimations( animations );
 	}
+
+	return true;
 }
 
 //-------------------------------------------------------------------------//

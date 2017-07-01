@@ -122,6 +122,8 @@ bool le::SoundManager::IsPlaying( string NameSound )
 		le::Sound* Sound = vSound[ NameSound ];
 		return Sound->IsPlaying();
 	}
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//

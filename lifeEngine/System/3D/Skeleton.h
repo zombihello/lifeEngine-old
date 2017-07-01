@@ -36,6 +36,8 @@ namespace le
 		string				sNameBone;
 
 		vector<int>		    vIdChild;
+		vector<int>			vIdVertex;
+		vector<float>		vWeights;
 	};
 
 	//-------------------------------------------------------------------------//

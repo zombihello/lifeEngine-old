@@ -46,7 +46,7 @@ namespace le
 		///////////////////////
 		/// ПОЛУЧИТЬ ЭНТИТИ
 		//////////////////////
-		Entity& GetEntity( string NameEntity );
+		Entity* GetEntity( string NameEntity );
 
 		//////////////////////////
 		/// ПОЛУЧИТЬ ВСЕ ЭНТИТИ

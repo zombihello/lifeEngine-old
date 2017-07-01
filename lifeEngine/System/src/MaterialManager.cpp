@@ -67,10 +67,12 @@ const GLuint le::MaterialManager::GetGLTexture( string key )
 
 //-------------------------------------------------------------------------//
 
-const le::ModelMesh le::MaterialManager::GetModelMesh( string key )
+const le::ModelMesh* le::MaterialManager::GetModelMesh( string key )
 {
 	if ( mModelMesh.find( key ) != mModelMesh.end() )
-		return mModelMesh[key];
+		return &mModelMesh[key];
+
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//

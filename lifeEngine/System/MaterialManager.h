@@ -35,7 +35,7 @@ namespace le
 		//////////////////////////
 		/// онксвхрэ леь лндекх
 		//////////////////////////
-		static const ModelMesh GetModelMesh( string key );
+		static const ModelMesh* GetModelMesh( string key );
 
 		//////////////////////////
 		/// сдюкхрэ бяе люрепхюкш

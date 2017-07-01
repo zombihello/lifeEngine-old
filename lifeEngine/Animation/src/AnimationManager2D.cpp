@@ -131,6 +131,8 @@ bool le::AnimationManager2D::IsPlaying()
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
 	if ( it->first == sCurrentAnim )
 		return mAnimList[ sCurrentAnim ].IsPlaying();
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//
@@ -140,6 +142,8 @@ bool le::AnimationManager2D::IsFlip()
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
 	if ( it->first == sCurrentAnim )
 		return mAnimList[ sCurrentAnim ].GetFlip();
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//
@@ -149,6 +153,8 @@ bool le::AnimationManager2D::IsFlip( string NameAnimation )
 	for ( auto it = mAnimList.begin(); it != mAnimList.end(); it++ )
 	if ( it->first == NameAnimation )
 		return mAnimList[ NameAnimation ].GetFlip();
+
+	return false;
 }
 
 //-------------------------------------------------------------------------//

@@ -333,12 +333,14 @@ void le::Level2D::DrawLevel( )
 
 //-------------------------------------------------------------------------//
 
-le::Object& le::Level2D::GetObject( const string sName )
+le::Object* le::Level2D::GetObject( const string sName )
 {
 	// Только первый объект с заданным именем
 	for ( int i = 0; i < vObjects.size(); i++ )
 		if ( vObjects[ i ].sName == sName )
-			return vObjects[ i ];
+			return &vObjects[ i ];
+
+		return NULL;
 }
 
 //-------------------------------------------------------------------------//
