@@ -1,4 +1,4 @@
-#ifndef MATERIAL_MANAGER_H
+Ôªø#ifndef MATERIAL_MANAGER_H
 #define MATERIAL_MANAGER_H
 
 #define COMPILING_LIBRARY
@@ -18,37 +18,37 @@ namespace le
 	{
 	public:
 		///////////////////////////////
-		/// «¿√–”«»“‹ OPENGL “≈ —“”–”
+		/// –ó–ê–ì–†–£–ó–ò–¢–¨ OPENGL –¢–ï–ö–°–¢–£–†–£
 		//////////////////////////////
 		static bool LoadGLTexture( string key, string route );
 
 		//////////////////////////
-		/// «¿√–”«»“‹ Ã≈ÿ ÃŒƒ≈À»
+		/// –ó–ê–ì–†–£–ó–ò–¢–¨ –ú–ï–® –ú–û–î–ï–õ–ò
 		//////////////////////////
 		static bool LoadModelMesh( string key, string route );
 
 		//////////////////////////////
-		/// œŒÀ”◊»“‹ OPENGL “≈ —“”–”
+		/// –ü–û–õ–£–ß–ò–¢–¨ OPENGL –¢–ï–ö–°–¢–£–†–£
 		//////////////////////////////
 		static const GLuint GetGLTexture( string key );
 
 		//////////////////////////
-		/// œŒÀ”◊»“‹ Ã≈ÿ ÃŒƒ≈À»
+		/// –ü–û–õ–£–ß–ò–¢–¨ –ú–ï–® –ú–û–î–ï–õ–ò
 		//////////////////////////
 		static const ModelMesh* GetModelMesh( string key );
 
 		//////////////////////////
-		/// ”ƒ¿À»“‹ ¬—≈ Ã¿“≈–»¿À€
+		/// –£–î–ê–õ–ò–¢–¨ –í–°–ï –ú–ê–¢–ï–†–ò–ê–õ–´
 		//////////////////////////
 		static void DeleteAllMaterials( );
 
 		////////////////////////
-		/// ”ƒ¿À»“‹ Ã≈ÿ ÃŒƒ≈À»
+		/// –£–î–ê–õ–ò–¢–¨ –ú–ï–® –ú–û–î–ï–õ–ò
 		////////////////////////
 		static void DeleteModelMesh( string key );
 
 		/////////////////////////////
-		/// ”ƒ¿À»“‹ OPENGL “≈ —“”–”
+		/// –£–î–ê–õ–ò–¢–¨ OPENGL –¢–ï–ö–°–¢–£–†–£
 		/////////////////////////////
 		static void DeleteGlTexture( string key );
 

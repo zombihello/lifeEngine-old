@@ -1,4 +1,4 @@
-#include "..\..\3D\ModelMesh.h"
+ï»¿#include "..\..\3D\ModelMesh.h"
 #include "..\..\System\MaterialManager.h"
 #include <HaffmanCode.h>
 
@@ -36,7 +36,7 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	if ( routeTmp == "lmd" )
 	{
-		// Äåêîäèðóåì ìîäåëü
+		// Ð”ÐµÐºÐ¾Ð´Ð¸Ñ€ÑƒÐµÐ¼ Ð¼Ð¾Ð´ÐµÐ»ÑŒ
 		HaffmanCode haffmanCode;
 		string sModel = haffmanCode.DecompressedFromFile( route );
 
@@ -62,11 +62,11 @@ bool le::ModelMesh::LoadMesh( string route )
 		return false;
 	}
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì model
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ model
 	TiXmlElement *model;
 	model = LMD.FirstChildElement( "model" );
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì textures
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ textures
 	TiXmlElement *textures;
 	TiXmlElement *img;
 
@@ -90,7 +90,7 @@ bool le::ModelMesh::LoadMesh( string route )
 		}
 	}
 	
-	// Ðàáîòàåì ñ êîíòåéíåðîì geometries
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ geometries
 	TiXmlElement *geometries;
 	TiXmlElement *point;
 
@@ -193,17 +193,17 @@ bool le::ModelMesh::LoadMesh( string route )
 
 				switch ( id )
 				{
-				case 1: // êîîðäèíàòû			
+				case 1: // ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹			
 					idVertex = atoi( _tmp.c_str() );
 					VBO_ModelVertex.Position = vVertexPosition[idVertex];
 					ModelVertex.Position = VBO_ModelVertex.Position;
 					break;
 
-				case 2: // íîðìàëè
+				case 2: // Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸
 					VBO_ModelVertex.Normal = vVertexNormal[atoi( _tmp.c_str() )];
 					break;
 
-				case 3: // òåêñòóðà
+				case 3: // Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ð°
 					VBO_ModelVertex.TextureCoord = vTextureCoords[atoi( _tmp.c_str() )];
 
 
@@ -242,7 +242,7 @@ bool le::ModelMesh::LoadMesh( string route )
 
 					break;
 
-				case 4: // öâåò âåðøèíû
+				case 4: // Ñ†Ð²ÐµÑ‚ Ð²ÐµÑ€ÑˆÐ¸Ð½Ñ‹
 					VBO_ModelVertex.VertexColor = vVertexColor[atoi( _tmp.c_str() )];
 
 					bool isFind = false;
@@ -289,7 +289,7 @@ bool le::ModelMesh::LoadMesh( string route )
 		texture = texture->NextSiblingElement();
 	}
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì skeleton
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ skeleton
 	TiXmlElement *skeleton;
 	skeleton = model->FirstChildElement( "skeleton" );
 
@@ -299,7 +299,7 @@ bool le::ModelMesh::LoadMesh( string route )
 		Skeleton.InitMesh( mVertexs, vVBO_Vertexs );
 	}
 
-	// Ðàáîòàåì ñ êîíòåéíåðîì animations
+	// Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¾Ð¼ animations
 	TiXmlElement *animations;
 	animations = model->FirstChildElement( "animations" );
 

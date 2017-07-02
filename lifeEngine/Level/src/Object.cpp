@@ -2,7 +2,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::Object::Object( le::Physic& Physic )
+le::Object::Object( le::Physic2D& Physic )
 {
 	this->Physic = &Physic;
 	BodyObject = NULL;
@@ -25,21 +25,21 @@ le::Object::~Object()
 
 int le::Object::GetPropertyInt( const string sName )
 {
-	return atoi( mProperties[ sName ].c_str() );
+	return atoi( mProperties[sName].c_str() );
 }
 
 //-------------------------------------------------------------------------//
 
 float le::Object::GetPropertyFloat( const string sName )
 {
-	return strtod( mProperties[ sName ].c_str() , NULL );
+	return strtod( mProperties[sName].c_str(), NULL );
 }
 
 //-------------------------------------------------------------------------//
 
 string &le::Object::GetPropertyString( const string sName )
 {
-	return mProperties[ sName ];
+	return mProperties[sName];
 }
 
 //-------------------------------------------------------------------------//

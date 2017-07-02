@@ -4,7 +4,7 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "Physic.h"
+#include "Physic2D.h"
 
 #endif // LEPHYSIC
 

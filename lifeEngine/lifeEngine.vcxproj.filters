@@ -46,6 +46,9 @@
     <Filter Include="Level\3D">
       <UniqueIdentifier>{3c9ad599-a676-4c08-a9f4-d3ddbc7de10e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physic\3D">
+      <UniqueIdentifier>{0f5f2473-f639-4d90-a852-82bf96eccb52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\BasicStagesGame.h">
@@ -73,19 +76,7 @@
       <Filter>Utils\codecvt</Filter>
     </ClInclude>
     <ClInclude Include="DllGlobal.h" />
-    <ClInclude Include="Physic\Body.h">
-      <Filter>Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic\CircleShape.h">
-      <Filter>Physic</Filter>
-    </ClInclude>
     <ClInclude Include="Physic\lePhysic.h">
-      <Filter>Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic\Physic.h">
-      <Filter>Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic\PolygonShape.h">
       <Filter>Physic</Filter>
     </ClInclude>
     <ClInclude Include="Animation\leAnimation.h">
@@ -229,6 +220,24 @@
     <ClInclude Include="System\3D\ModelMesh.h">
       <Filter>System\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Physic\Body2D.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\CircleShape2D.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\Physic2D.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\PolygonShape2D.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\3D\Physic3D.h">
+      <Filter>Physic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\3D\Body3D.h">
+      <Filter>Physic\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\FPS.cpp">
@@ -248,18 +257,6 @@
     </ClCompile>
     <ClCompile Include="Utils\codecvt\codecvt.cpp">
       <Filter>Utils\codecvt</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\src\Body.cpp">
-      <Filter>Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\src\CircleShape.cpp">
-      <Filter>Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\src\Physic.cpp">
-      <Filter>Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\src\PolygonShape.cpp">
-      <Filter>Physic</Filter>
     </ClCompile>
     <ClCompile Include="Weapons\src\BasicWeapon.cpp">
       <Filter>Weapons</Filter>
@@ -380,6 +377,24 @@
     </ClCompile>
     <ClCompile Include="System\src\3D\ModelMesh.cpp">
       <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\Body2D.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\CircleShape2D.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\Physic2D.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\PolygonShape2D.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\3D\Physic3D.cpp">
+      <Filter>Physic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\3D\Body3D.cpp">
+      <Filter>Physic\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

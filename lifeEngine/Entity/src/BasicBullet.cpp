@@ -2,7 +2,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::BasicBullet::BasicBullet( le::System &System, le::Physic &Physic ) : BasicEntity( System, Physic )
+le::BasicBullet::BasicBullet( le::System &System, le::Physic2D& Physic ) : BasicEntity( System, Physic )
 {
 
 }

@@ -27,7 +27,7 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		BasicEntity( System& System, Physic& Physic );
+		BasicEntity( System& System, Physic2D& Physic );
 
 		////////////////
 		/// ДЕСТРУКТОР
@@ -77,12 +77,12 @@ namespace le
 		///////////////////
 		/// ПОЛУЧИТЬ ТЕЛО
 		//////////////////
-		Body& GetBody();
+		Body2D& GetBody();
 
 		/////////////////////
 		/// ПОЛУЧИТЬ ФИЗИКУ
 		////////////////////
-		Physic& GetPhysic();
+		Physic2D& GetPhysic();
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 		/// СОХРАНИТЬ ПЕРЕМЕННЫЕ КЛАССА [ДЛЯ ТОГО ЧТОБЫ МЕТОТ РАБОТАЛ ЕГО НУЖНО ПЕРЕОПРЕДЕЛИТЬ]
@@ -106,9 +106,9 @@ namespace le
 
 		Texture                 Texture;
 		Sprite                  Sprite;
-		Body*                   EntityBody;
+		Body2D*                 EntityBody;
 		AnimationManager2D*     AnimationManager2D;
-		Physic*                 Physic;
+		Physic2D*               Physic;
 		System*                 System;
 
 		int                     iTempHealtch;

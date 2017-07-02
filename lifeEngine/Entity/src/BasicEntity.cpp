@@ -3,7 +3,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::BasicEntity::BasicEntity( le::System &System , le::Physic& Physic )
+le::BasicEntity::BasicEntity( le::System &System , le::Physic2D& Physic )
 {
 	RenderWindow = &System.GetWindow();
 	this->System = &System;
@@ -88,14 +88,14 @@ le::AnimationManager2D& le::BasicEntity::GetAnimationManager2D()
 
 //-------------------------------------------------------------------------//
 
-le::Body& le::BasicEntity::GetBody()
+le::Body2D& le::BasicEntity::GetBody()
 {
 	return *EntityBody;
 }
 
 //-------------------------------------------------------------------------//
 
-le::Physic& le::BasicEntity::GetPhysic()
+le::Physic2D& le::BasicEntity::GetPhysic()
 {
 	return *Physic;
 }

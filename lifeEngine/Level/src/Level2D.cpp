@@ -9,14 +9,14 @@ le::Level2D::Level2D( le::System &System )
 
 //-------------------------------------------------------------------------//
 
-le::Level2D::~Level2D( )
+le::Level2D::~Level2D()
 {
 	ClearLevel();
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoothTextures )
+bool le::Level2D::LoadLevel( const string sRoute, le::Physic2D& Physic, bool bSmoothTextures )
 {
 	TiXmlDocument levelFile( sRoute.c_str() );
 	std::vector<sf::Rect<int>> subRects;
@@ -64,7 +64,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 		}
 
 
-		img.createMaskFromColor( sf::Color( 255 , 255 , 255 ) );
+		img.createMaskFromColor( sf::Color( 255, 255, 255 ) );
 		tmp.loadFromImage( img );
 		tmp.setSmooth( bSmoothTextures );
 		vTextures.push_back( tmp );
@@ -76,17 +76,17 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 		// Вектор из прямоугольников изображений (TextureRect)
 
 		for ( int y = 0; y < rows; y++ )
-			for ( int x = 0; x < columns; x++ )
-			{
-				sf::Rect<int> rect;
+		for ( int x = 0; x < columns; x++ )
+		{
+			sf::Rect<int> rect;
 
-				rect.top = y * iTileHeight;
-				rect.height = iTileHeight;
-				rect.left = x * iTileWidth;
-				rect.width = iTileWidth;
+			rect.top = y * iTileHeight;
+			rect.height = iTileHeight;
+			rect.left = x * iTileWidth;
+			rect.width = iTileWidth;
 
-				subRects.push_back( rect );
-			}
+			subRects.push_back( rect );
+		}
 
 		tilesetElement = tilesetElement->NextSiblingElement( "tileset" );
 	}
@@ -101,7 +101,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 		// Если присутствует opacity, то задаем прозрачность слоя, иначе он полностью непрозрачен
 		if ( layerElement->Attribute( "opacity" ) != NULL )
 		{
-			float opacity = strtod( layerElement->Attribute( "opacity" ) , NULL );
+			float opacity = strtod( layerElement->Attribute( "opacity" ), NULL );
 			layer.iOpacity = 255 * opacity;
 		}
 		else
@@ -130,16 +130,16 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 		while ( tileElement )
 		{
 			int tileGID = atoi( tileElement->Attribute( "gid" ) );
-			int subRectToUse = tileGID - vFirstTileID[ abs( tileGID - 1 ) ];
+			int subRectToUse = tileGID - vFirstTileID[abs( tileGID - 1 )];
 
 			// Устанавливаем TextureRect каждого тайла
 			if ( subRectToUse >= 0 )
 			{
 				sf::Sprite sprite;
-				sprite.setTexture( vTextures[ tileGID - 1 ] );
-				sprite.setTextureRect( subRects[ subRectToUse ] );
-				sprite.setPosition( x * iTileWidth , y * iTileHeight );
-				sprite.setColor( sf::Color( 255 , 255 , 255 , layer.iOpacity ) );
+				sprite.setTexture( vTextures[tileGID - 1] );
+				sprite.setTextureRect( subRects[subRectToUse] );
+				sprite.setPosition( x * iTileWidth, y * iTileHeight );
+				sprite.setColor( sf::Color( 255, 255, 255, layer.iOpacity ) );
 
 				layer.tiles.push_back( sprite );
 			}
@@ -193,9 +193,9 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 
 				if ( objectType == "AI_Routes" )
 				{
-					std::map<string , string> propertis;
+					std::map<string, string> propertis;
 
-					int width , height;
+					int width, height;
 
 					if ( objectElement->Attribute( "width" ) != NULL )
 					{
@@ -216,7 +216,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 								string propertyName = prop->Attribute( "name" );
 								string propertyValue = prop->Attribute( "value" );
 
-								propertis[ propertyName ] = propertyValue;
+								propertis[propertyName] = propertyValue;
 
 								prop = prop->NextSiblingElement( "property" );
 							}
@@ -225,16 +225,16 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 
 					bool UseY;
 
-					if ( propertis[ "UseY" ] == "true" )
+					if ( propertis["UseY"] == "true" )
 						UseY = true;
-					else if ( propertis[ "UseY" ] != "true" )
+					else if ( propertis["UseY"] != "true" )
 						UseY = false;
 
-					mRoutesAI[ objectName ] = le::AI_Route( FloatRect( x , y , width , height ) , propertis[ "next" ] , UseY );
+					mRoutesAI[objectName] = le::AI_Route( FloatRect( x, y, width, height ), propertis["next"], UseY );
 				}
 				else
 				{
-					int width , height;
+					int width, height;
 
 					if ( objectElement->Attribute( "width" ) != NULL )
 					{
@@ -244,7 +244,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 
 					float roation = 0;
 					if ( objectElement->Attribute( "rotation" ) != NULL )
-						roation = strtod( objectElement->Attribute( "rotation" ) , NULL );
+						roation = strtod( objectElement->Attribute( "rotation" ), NULL );
 
 					// Экземпляр объекта
 					Object object( Physic );
@@ -273,7 +273,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 								string propertyName = prop->Attribute( "name" );
 								string propertyValue = prop->Attribute( "value" );
 
-								object.mProperties[ propertyName ] = propertyValue;
+								object.mProperties[propertyName] = propertyValue;
 
 								prop = prop->NextSiblingElement( "property" );
 							}
@@ -291,18 +291,18 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 
 		for ( int i = 0; i < vObjects.size(); i++ )
 		{
-			Object* obj = &vObjects[ i ];
+			Object* obj = &vObjects[i];
 
 			if ( obj->sType == "solid" )
 			{
-				obj->BodyObject = new le::Body( Physic , Vector2f( obj->rect.left + obj->rect.width / 2 , obj->rect.top + obj->rect.height / 2 ) , obj->Rotation , obj->sName );
+				obj->BodyObject = new le::Body2D( Physic, Vector2f( obj->rect.left + obj->rect.width / 2, obj->rect.top + obj->rect.height / 2 ), obj->Rotation, obj->sName );
 
 				if ( obj->mProperties.count( "friction" ) != 0 )
-					obj->BodyObject->SetPropirtes( 1 , 0 , obj->GetPropertyFloat( "friction" ) );
+					obj->BodyObject->SetPropirtes( 1, 0, obj->GetPropertyFloat( "friction" ) );
 				else
-					obj->BodyObject->SetPropirtes( 1 , 0 , 0.2f );
+					obj->BodyObject->SetPropirtes( 1, 0, 0.2f );
 
-				obj->BodyObject->CreatePolygonShape( Vector2f( obj->rect.width , obj->rect.height ) );
+				obj->BodyObject->CreatePolygonShape( Vector2f( obj->rect.width, obj->rect.height ) );
 			}
 		}
 
@@ -315,7 +315,7 @@ bool le::Level2D::LoadLevel( const string sRoute, le::Physic& Physic, bool bSmoo
 
 //-------------------------------------------------------------------------//
 
-void le::Level2D::ClearLevel( )
+void le::Level2D::ClearLevel()
 {
 	vObjects.clear();
 	vLayers.clear();
@@ -323,12 +323,12 @@ void le::Level2D::ClearLevel( )
 
 //-------------------------------------------------------------------------//
 
-void le::Level2D::DrawLevel( )
+void le::Level2D::DrawLevel()
 {
 	// Рисуем все тайлы (объекты НЕ рисуем!)
 	for ( int layer = 0; layer < vLayers.size(); layer++ )
-		for ( int tile = 0; tile < vLayers[ layer ].tiles.size(); tile++ )
-			System->GetWindow().draw( vLayers[ layer ].tiles[ tile ] );
+	for ( int tile = 0; tile < vLayers[layer].tiles.size(); tile++ )
+		System->GetWindow().draw( vLayers[layer].tiles[tile] );
 }
 
 //-------------------------------------------------------------------------//
@@ -337,10 +337,10 @@ le::Object* le::Level2D::GetObject( const string sName )
 {
 	// Только первый объект с заданным именем
 	for ( int i = 0; i < vObjects.size(); i++ )
-		if ( vObjects[ i ].sName == sName )
-			return &vObjects[ i ];
+	if ( vObjects[i].sName == sName )
+		return &vObjects[i];
 
-		return NULL;
+	return NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -350,36 +350,36 @@ vector<le::Object> le::Level2D::GetObjects( const string sName )
 	// Все объекты с заданным именем
 	vector<Object> vec;
 	for ( int i = 0; i < vObjects.size(); i++ )
-		if ( vObjects[ i ].sName == sName )
-			vec.push_back( vObjects[ i ] );
+	if ( vObjects[i].sName == sName )
+		vec.push_back( vObjects[i] );
 
 	return vec;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<le::Object>& le::Level2D::GetAllObjects( )
+vector<le::Object>& le::Level2D::GetAllObjects()
 {
 	return vObjects;
 }
 
 //-------------------------------------------------------------------------//
 
-Vector2i le::Level2D::GetTileSize( ) const
+Vector2i le::Level2D::GetTileSize() const
 {
-	return Vector2i( iTileWidth , iTileHeight );
+	return Vector2i( iTileWidth, iTileHeight );
 }
 
 //-------------------------------------------------------------------------//
 
-Vector2i le::Level2D::GetMapSize( ) const
+Vector2i le::Level2D::GetMapSize() const
 {
-	return Vector2i( iWidth * iTileWidth , iHeight * iTileHeight );
+	return Vector2i( iWidth * iTileWidth, iHeight * iTileHeight );
 }
 
 //-------------------------------------------------------------------------//
 
-map<string, le::AI_Route> le::Level2D::GetRoutesAI( )
+map<string, le::AI_Route> le::Level2D::GetRoutesAI()
 {
 	return mRoutesAI;
 }

@@ -31,7 +31,7 @@ namespace le
 		///////////////////////
 		/// ЗАГРУЗИТЬ УРОВЕНЬ
 		//////////////////////
-		bool LoadLevel( const string sRoute , Physic& Physic , bool bSmoothTextures = false );
+		bool LoadLevel( const string sRoute , Physic2D& Physic , bool bSmoothTextures = false );
 
 		///////////////////////
 		/// ОЧИСТИТЬ УРОВЕНЬ

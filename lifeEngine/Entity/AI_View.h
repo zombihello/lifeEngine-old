@@ -56,7 +56,7 @@ namespace le
 
 		bool						bIsLook;
 
-		le::Body*					Body;
+		le::Body2D*					Body;
 		BasicPersonages*			PersonageAI;
 		BasicPersonages*			LookPersonage;
 		le::System*					System;

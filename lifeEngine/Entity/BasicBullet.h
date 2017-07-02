@@ -20,7 +20,7 @@ namespace le
         ////////////////
         /// КОНСТРУКТОР
         ////////////////
-		BasicBullet( le::System& System, le::Physic& Physic );
+		BasicBullet( le::System& System, le::Physic2D& Physic );
 
         ////////////////
         /// ДЕСТРУКТОР

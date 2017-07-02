@@ -58,8 +58,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LIFEENGINE_EXPORTS;GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Utils\Bullet\src;.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>
       </FavorSizeOrSpeed>
       <WholeProgramOptimization>
@@ -76,8 +76,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;XML-d.lib;Box2D-d.lib;opengl32.lib;glu32.lib;glew32sd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Utils\Bullet\lib;Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;XML-d.lib;Box2D-d.lib;opengl32.lib;glu32.lib;glew32sd.lib;BulletCollision-d.lib;BulletDynamics-d.lib;LinearMath-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,8 +88,8 @@
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Utils\Bullet\src;.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>false</BrowseInformation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -108,8 +108,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;XML.lib;opengl32.lib;glu32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Utils\Bullet\lib;Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;XML.lib;opengl32.lib;glu32.lib;glew32s.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -146,11 +146,13 @@
     <ClInclude Include="Media\MusicManager.h" />
     <ClInclude Include="Media\Sound.h" />
     <ClInclude Include="Media\SoundManager.h" />
-    <ClInclude Include="Physic\Body.h" />
-    <ClInclude Include="Physic\CircleShape.h" />
+    <ClInclude Include="Physic\3D\Body3D.h" />
+    <ClInclude Include="Physic\3D\Physic3D.h" />
+    <ClInclude Include="Physic\Body2D.h" />
+    <ClInclude Include="Physic\CircleShape2D.h" />
     <ClInclude Include="Physic\lePhysic.h" />
-    <ClInclude Include="Physic\Physic.h" />
-    <ClInclude Include="Physic\PolygonShape.h" />
+    <ClInclude Include="Physic\Physic2D.h" />
+    <ClInclude Include="Physic\PolygonShape2D.h" />
     <ClInclude Include="System\3D\Camera.h" />
     <ClInclude Include="System\3D\Model.h" />
     <ClInclude Include="System\3D\ModelMesh.h" />
@@ -202,10 +204,12 @@
     <ClCompile Include="Media\src\MusicManager.cpp" />
     <ClCompile Include="Media\src\Sound.cpp" />
     <ClCompile Include="Media\src\SoundManager.cpp" />
-    <ClCompile Include="Physic\src\Body.cpp" />
-    <ClCompile Include="Physic\src\CircleShape.cpp" />
-    <ClCompile Include="Physic\src\Physic.cpp" />
-    <ClCompile Include="Physic\src\PolygonShape.cpp" />
+    <ClCompile Include="Physic\src\3D\Body3D.cpp" />
+    <ClCompile Include="Physic\src\3D\Physic3D.cpp" />
+    <ClCompile Include="Physic\src\Body2D.cpp" />
+    <ClCompile Include="Physic\src\CircleShape2D.cpp" />
+    <ClCompile Include="Physic\src\Physic2D.cpp" />
+    <ClCompile Include="Physic\src\PolygonShape2D.cpp" />
     <ClCompile Include="System\src\3D\Camera.cpp" />
     <ClCompile Include="System\src\3D\Model.cpp" />
     <ClCompile Include="System\src\3D\ModelMesh.cpp" />

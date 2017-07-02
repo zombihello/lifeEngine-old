@@ -1,4 +1,4 @@
-#ifndef MODEL_MESH_H
+Ôªø#ifndef MODEL_MESH_H
 #define MODEL_MESH_H
 
 #define COMPILING_LIBRARY
@@ -43,17 +43,17 @@ namespace le
 	struct DLL_API ModelMesh
 	{
 		/////////////////
-		/// ƒ≈—“–” “Œ–
+		/// –î–ï–°–¢–†–£–ö–¢–û–†
 		/////////////////
 		~ModelMesh();
 
 		//////////////////////////
-		/// «¿√–”«»“‹ Ã≈ÿ ÃŒƒ≈À»
+		/// –ó–ê–ì–†–£–ó–ò–¢–¨ –ú–ï–® –ú–û–î–ï–õ–ò
 		//////////////////////////
 		bool LoadMesh( string route );
 
 		/////////////////
-		/// Œ◊»—“»“‹ Ã≈ÿ
+		/// –û–ß–ò–°–¢–ò–¢–¨ –ú–ï–®
 		/////////////////
 		void Clear();
 

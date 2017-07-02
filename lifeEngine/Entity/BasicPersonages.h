@@ -23,7 +23,7 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		BasicPersonages( le::System& System , le::Physic& Physic );
+		BasicPersonages( le::System& System , le::Physic2D& Physic );
 
 		////////////////
 		/// ДЕСТРУКТОР

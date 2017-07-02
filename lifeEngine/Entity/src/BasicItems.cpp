@@ -2,7 +2,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::BasicItems::BasicItems( le::System &System, le::Physic& Physic ) : le::BasicEntity( System, Physic )
+le::BasicItems::BasicItems( le::System &System, le::Physic2D& Physic ) : le::BasicEntity( System, Physic )
 {
 	iValue = 0;
 }

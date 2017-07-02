@@ -25,7 +25,7 @@ void le::AI::UpdateAI( vector<BasicPersonages*> vPersonage )
 
 //-------------------------------------------------------------------------//
 
-void le::AI::Walk( Vector2f Factor , Body::TYPE_MOVE typeMove )
+void le::AI::Walk( Vector2f Factor , Body2D::TYPE_MOVE typeMove )
 {
 	AI_Route RouteMove = mRoutesAI[ sTmpRouteAI ];
 
@@ -57,7 +57,7 @@ void le::AI::Walk( Vector2f Factor , Body::TYPE_MOVE typeMove )
 
 //-------------------------------------------------------------------------//
 
-void le::AI::MoveToObject( Vector2f Factor , Body::TYPE_MOVE typeMove , BasicPersonages *Personage , bool UseY )
+void le::AI::MoveToObject( Vector2f Factor , Body2D::TYPE_MOVE typeMove , BasicPersonages *Personage , bool UseY )
 {
 	FloatRect TempRect = this->Personage->GetRect();
 

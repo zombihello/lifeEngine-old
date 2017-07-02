@@ -19,7 +19,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Object( Physic& Physic );
+		Object( Physic2D& Physic );
 
 		/////////////////
 		/// ДЕСТРКУТОР
@@ -45,8 +45,8 @@ namespace le
 		string                      sType;
 		Rect<float>                 rect;
 		float                       Rotation;
-		Body*                       BodyObject;
-		Physic*                     Physic;
+		Body2D*                     BodyObject;
+		Physic2D*                   Physic;
 		map<string , string>        mProperties;
 
 	};

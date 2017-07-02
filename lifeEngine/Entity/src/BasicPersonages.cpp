@@ -2,7 +2,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::BasicPersonages::BasicPersonages( le::System &System, le::Physic& Physic ) : le::BasicEntity( System, Physic )
+le::BasicPersonages::BasicPersonages( le::System &System, le::Physic2D& Physic ) : le::BasicEntity( System, Physic )
 {
 	WeaponManager = NULL;
 }

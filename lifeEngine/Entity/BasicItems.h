@@ -24,7 +24,7 @@ namespace le
         ////////////////
         /// КОНСТРУКТОР
         ////////////////
-        BasicItems( le::System& System, le::Physic& Physic );
+        BasicItems( le::System& System, le::Physic2D& Physic );
 
         ////////////////
         /// ДЕСТРУКТОР

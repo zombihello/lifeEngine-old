@@ -35,12 +35,12 @@ namespace le
 		//////////////////
 		/// ХОДИТЬ
 		//////////////////
-		void Walk( Vector2f Factor , Body::TYPE_MOVE typeMove );
+		void Walk( Vector2f Factor , Body2D::TYPE_MOVE typeMove );
 
 		////////////////////
 		/// ИДТИ К ОБЪЕКТУ
 		////////////////////
-		void MoveToObject( Vector2f Factor , Body::TYPE_MOVE typeMove, BasicPersonages *Personage, bool UseY = false );
+		void MoveToObject( Vector2f Factor , Body2D::TYPE_MOVE typeMove, BasicPersonages *Personage, bool UseY = false );
 
 		//////////////////////
 		/// ИИ УВИДЕЛ ВРАГА
