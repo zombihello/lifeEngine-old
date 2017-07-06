@@ -81,6 +81,11 @@ namespace le
 		AnimationManager3D& GetAnimationManager();
 
 		/////////////////////////////
+		/// ПОЛУЧИТЬ РАЗМЕР МОДЕЛИ
+		/////////////////////////////
+		Vector3f GetSize();
+
+		/////////////////////////////
 		/// ПОЛУЧИТЬ ПОЗИЦИЮ МОДЕЛИ
 		/////////////////////////////
 		Vector3f GetPosition();
@@ -105,6 +110,16 @@ namespace le
 		///////////////////////////////////
 		vector<VBO_ModelVertex>& GetVBO_Vertexs();
 
+		//////////////////////////////////////
+		/// ПОЛУЧИТЬ ВЕРШИНЫ КОЛЛИЗИИ МОДЕЛИ
+		//////////////////////////////////////
+		vector<float> GetCollisionVertexs();
+
+		///////////////////////////////////////////////////////////
+		/// ПОЛУЧИТЬ ПОРЯДОК СОЕДИНЕНИЯ ВЕРШИН У КОЛЛИЗИИ МОДЕЛИ
+		///////////////////////////////////////////////////////////
+		vector<int> GetCollisionIdVertexs();
+
 		/////////////////////////
 		/// ПОЛУЧИТЬ VBO МОДЕЛИ
 		////////////////////////
@@ -114,6 +129,7 @@ namespace le
 
 		GLuint							VertexBuffer;
 
+		Vector3f						SizeModel;
 		Vector3f						Position;
 		Vector3f						ScaleModel;
 		Vector3f						Angle;
@@ -123,6 +139,8 @@ namespace le
 		System*							System;
 
 		vector<VBO_ModelVertex>			vVBO_Vertexs;
+		vector<float>					vCollision_Vertexs;
+		vector<int>						vCollision_IdVertexs;
 		map<string, GLuint>				mIndexBuffers;
 		map<string, int>				mCountIndexs;
 		map<int, ModelVertex>			mVertexs;

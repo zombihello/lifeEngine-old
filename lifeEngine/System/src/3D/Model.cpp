@@ -32,6 +32,7 @@ bool le::Model::LoadModel( string nameModel, string route )
 
 void le::Model::LoadModel( le::ModelMesh ModelMesh )
 {
+	SizeModel = ModelMesh.SizeModel;
 	Skeleton = ModelMesh.Skeleton;
 	Skeleton.InitSkeleton( VertexBuffer, vVBO_Vertexs, mVertexs );
 
@@ -41,6 +42,12 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 	mCountIndexs = ModelMesh.mCountIndexs;
 	vVBO_Vertexs = ModelMesh.vVBO_Vertexs;
 	mVertexs = ModelMesh.mVertexs;
+
+	if ( ModelMesh.IsCollisionMesh )
+	{
+		vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
+		vCollision_IdVertexs = ModelMesh.vCollision_IdVertexs;
+	}
 
 	for ( auto it = ModelMesh.mIdIndexs.begin(); it != ModelMesh.mIdIndexs.end(); it++ )
 	{
@@ -164,6 +171,13 @@ le::AnimationManager3D& le::Model::GetAnimationManager()
 
 //-------------------------------------------------------------------------//
 
+Vector3f le::Model::GetSize()
+{
+	return SizeModel;
+}
+
+//-------------------------------------------------------------------------//
+
 Vector3f le::Model::GetPosition()
 {
 	return Position;
@@ -202,6 +216,20 @@ vector<le::VBO_ModelVertex>& le::Model::GetVBO_Vertexs()
 GLuint& le::Model::GetVertexBuffer()
 {
 	return VertexBuffer;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<float> le::Model::GetCollisionVertexs()
+{
+	return vCollision_Vertexs;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<int> le::Model::GetCollisionIdVertexs()
+{
+	return vCollision_IdVertexs;
 }
 
 //-------------------------------------------------------------------------//

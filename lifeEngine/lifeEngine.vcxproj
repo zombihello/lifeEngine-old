@@ -147,6 +147,9 @@
     <ClInclude Include="Media\Sound.h" />
     <ClInclude Include="Media\SoundManager.h" />
     <ClInclude Include="Physic\3D\Body3D.h" />
+    <ClInclude Include="Physic\3D\Body3D_ConstructionInfo.h" />
+    <ClInclude Include="Physic\3D\Body3D_ShapeType.h" />
+    <ClInclude Include="Physic\3D\BulletDebugDrawer.h" />
     <ClInclude Include="Physic\3D\Physic3D.h" />
     <ClInclude Include="Physic\Body2D.h" />
     <ClInclude Include="Physic\CircleShape2D.h" />
@@ -205,6 +208,9 @@
     <ClCompile Include="Media\src\Sound.cpp" />
     <ClCompile Include="Media\src\SoundManager.cpp" />
     <ClCompile Include="Physic\src\3D\Body3D.cpp" />
+    <ClCompile Include="Physic\src\3D\Body3D_ConstructionInfo.cpp" />
+    <ClCompile Include="Physic\src\3D\Body3D_ShapeType.cpp" />
+    <ClCompile Include="Physic\src\3D\BulletDebugDrawer.cpp" />
     <ClCompile Include="Physic\src\3D\Physic3D.cpp" />
     <ClCompile Include="Physic\src\Body2D.cpp" />
     <ClCompile Include="Physic\src\CircleShape2D.cpp" />

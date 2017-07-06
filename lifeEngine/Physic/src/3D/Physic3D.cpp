@@ -1,8 +1,6 @@
 ﻿#include "..\..\3D\Physic3D.h"
 #include "..\..\3D\Body3D.h"
 
-//-------------------------------------------------------------------------//
-
 le::Physic3D::Physic3D( Vector3f Gravity )
 {
 	Broadphase = new btDbvtBroadphase();
@@ -12,6 +10,7 @@ le::Physic3D::Physic3D( Vector3f Gravity )
 
 	World = new btDiscreteDynamicsWorld( Dispatcher, Broadphase, Solver, CollisionConfiguration );
 	World->setGravity( btVector3( Gravity.x, Gravity.y, Gravity.z ) );
+	World->setDebugDrawer( &DebugDrawer );
 }
 
 //-------------------------------------------------------------------------//
@@ -19,6 +18,14 @@ le::Physic3D::Physic3D( Vector3f Gravity )
 void le::Physic3D::UpdatePhysic( btScalar TimeStep, int MaxSubStep )
 {
 	World->stepSimulation( TimeStep, MaxSubStep );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Physic3D::ShowDebug()
+{
+	if ( DebugDrawer.getDebugMode() != btIDebugDraw::DBG_NoDebug )
+		World->debugDrawWorld();
 }
 
 //-------------------------------------------------------------------------//
@@ -40,7 +47,7 @@ void le::Physic3D::AddBody( le::Body3D* Body )
 
 void le::Physic3D::DestroyBody( Body3D* Body )
 {
-	for ( int i = 0; i < vBodys.size( ); i++ )
+	for ( int i = 0; i < vBodys.size(); i++ )
 	if ( vBodys[i] == Body )
 	{
 		World->removeRigidBody( Body->GetBulletBody() );
@@ -80,8 +87,20 @@ vector<le::Body3D*>* le::Physic3D::GetAllBodys()
 
 //-------------------------------------------------------------------------//
 
+void le::Physic3D::EnableDebug( bool Enable )
+{
+	if ( Enable )
+		DebugDrawer.setDebugMode( btIDebugDraw::DBG_DrawWireframe );
+	else
+		DebugDrawer.setDebugMode( btIDebugDraw::DBG_NoDebug );
+}
+
+//-------------------------------------------------------------------------//
+
 le::Physic3D::~Physic3D()
 {
+	DestroyAllBodys();
+
 	delete World;
 	delete Dispatcher;
 	delete Broadphase;

@@ -57,10 +57,16 @@ namespace le
 		/////////////////
 		void Clear();
 
+		bool									IsCollisionMesh;
+
+		Vector3f								SizeModel;
+
 		Skeleton								Skeleton;
 		AnimationManager3D						AnimationManager3D;
 
 		vector<VBO_ModelVertex>					vVBO_Vertexs;
+		vector<float>							vCollision_Vertexs;
+		vector<int>								vCollision_IdVertexs;
 		map<string, vector<unsigned int> >		mIdIndexs;
 		map<string, int>						mCountIndexs;
 		map<int, ModelVertex>					mVertexs;

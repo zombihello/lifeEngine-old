@@ -9,7 +9,7 @@ le::Camera::Camera( le::System& System )
 	this->System = &System;
 	fSpeed = 1;
 	fSensitivityMouse = 4;
-	CenterWindow = Vector2f( System.GetConfiguration().iWindowWidth / 2, System.GetConfiguration().iWindowHeight / 2 );
+	CenterWindow = Vector2f( System.GetWindow( ).getSize( ).x / 2, System.GetWindow( ).getSize( ).y / 2 );
 }
 
 //-------------------------------------------------------------------------//
@@ -31,20 +31,17 @@ void le::Camera::UpdateCamera()
 {
 	Move();
 
-	Vector2i MousePosition = Mouse::getPosition();
+	Vector2i MousePosition = Mouse::getPosition( System->GetWindow( ) );
 
-	float xt = System->GetWindow().getPosition().x + CenterWindow.x;
-	float yt = System->GetWindow().getPosition().y + CenterWindow.y;
-	
-	Angle.x += ( xt - MousePosition.x ) / fSensitivityMouse;
-	Angle.y += ( yt - MousePosition.y ) / fSensitivityMouse;
+	Angle.x += ( CenterWindow.x - MousePosition.x ) / fSensitivityMouse;
+	Angle.y += ( CenterWindow.y - MousePosition.y ) / fSensitivityMouse;
 
 	if ( Angle.y < -89.0 )
 		Angle.y = -89.0;
 	else if ( Angle.y > 89.0 )
 		Angle.y = 89.0;
-
-	Mouse::setPosition( Vector2i( xt, yt ) );
+	
+	Mouse::setPosition( Vector2i( CenterWindow.x, CenterWindow.y ), System->GetWindow( ) );
 
 	gluLookAt( Position.x, Position.y, Position.z, Position.x - sin( Angle.x / 180 * PI ), Position.y + tan( Angle.y / 180 * PI ), Position.z - cos( Angle.x / 180 * PI ), 0, 1, 0 );
 }
@@ -85,6 +82,13 @@ void le::Camera::Move()
 void le::Camera::SetPosition( Vector3f NewPosition )
 {
 	Position = NewPosition;
+}
+
+//-------------------------------------------------------------------------//
+
+Vector3f le::Camera::GetPosition()
+{
+	return Position;
 }
 
 //-------------------------------------------------------------------------//

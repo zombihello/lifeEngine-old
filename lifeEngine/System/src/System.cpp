@@ -171,15 +171,17 @@ void System::WindowCreate( int iStyle )
 		exit( -1 );
 
 	glEnable( GL_DEPTH_TEST );
+	glEnable( GL_CULL_FACE );
 	glEnable( GL_TEXTURE_2D );
 
 	glDepthMask( GL_TRUE );
 	glClearDepth( 1.f );
+	glCullFace( GL_BACK );
 
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 
-	gluPerspective( 75, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 10000 );
+	gluPerspective( 75, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 1000 );
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();

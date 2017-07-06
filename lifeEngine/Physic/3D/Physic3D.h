@@ -13,7 +13,7 @@
 // LIFEENGINE
 /////////////////
 #include <System/System.h>
-
+#include "BulletDebugDrawer.h"
 
 namespace le
 {
@@ -41,6 +41,11 @@ namespace le
 		//////////////////////
 		void UpdatePhysic( btScalar TimeStep, int MaxSubStep = 1 );
 
+		///////////////////////////////////////
+		/// ПОКАЗАТЬ ОТЛАДАЧНУЮ ИНФОРМАЦИЮ
+		///////////////////////////////////////
+		void ShowDebug();
+
 		//////////////////////////
 		/// ДОБАВИТЬ ТЕЛО В МИР
 		//////////////////////////
@@ -55,6 +60,11 @@ namespace le
 		/// УНИЧТОЖИТЬ ВСЕ ТЕЛА ИЗ МИРА
 		/////////////////////////////////
 		void DestroyAllBodys();
+
+		//////////////////////
+		/// ВКЛЮЧИТЬ ОТЛАДКУ
+		//////////////////////
+		void EnableDebug( bool Enable = true );
 
 		///////////////////////
 		/// ЗАДАТЬ ГРАВИТАЦИЮ
@@ -79,6 +89,7 @@ namespace le
 		btSequentialImpulseConstraintSolver*			Solver;
 		btDefaultCollisionConfiguration*				CollisionConfiguration;
 
+		BulletDebugDrawer								DebugDrawer;
 		vector<Body3D*>									vBodys;
 	};
 

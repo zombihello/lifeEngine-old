@@ -19,10 +19,21 @@
 # Compiled Static libraries
 *.lai
 *.la
-#*.a
+*.a
 #*.lib
 
 # Executables
 #*.exe
 *.out
 *.app
+
+*.pdb
+*.ilk
+*.bsc
+*.exp
+*.sdf
+*.v12.suo
+
+Debug_lifeEngine
+Release_lifeEngine
+tmp

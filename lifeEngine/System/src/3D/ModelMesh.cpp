@@ -66,6 +66,15 @@ bool le::ModelMesh::LoadMesh( string route )
 	TiXmlElement *model;
 	model = LMD.FirstChildElement( "model" );
 
+	if ( model->Attribute( "SizeX" ) != NULL )
+		SizeModel.x = atof( model->Attribute( "SizeX" ) );
+
+	if ( model->Attribute( "SizeY" ) != NULL )
+		SizeModel.y = atof( model->Attribute( "SizeY" ) );
+
+	if ( model->Attribute( "SizeZ" ) != NULL )
+		SizeModel.z = atof( model->Attribute( "SizeZ" ) );
+
 	// Работаем с контейнером textures
 	TiXmlElement *textures;
 	TiXmlElement *img;
@@ -80,7 +89,7 @@ bool le::ModelMesh::LoadMesh( string route )
 		{
 			string route = img->Attribute( "src" );
 			route.erase( 0, route.find_last_of( '/' ) + 1 );
-			
+
 			string nameTexture = route;
 			nameTexture.erase( 0, nameTexture.find_last_of( '\\' ) + 1 );
 
@@ -89,7 +98,7 @@ bool le::ModelMesh::LoadMesh( string route )
 			img = img->NextSiblingElement();
 		}
 	}
-	
+
 	// Работаем с контейнером geometries
 	TiXmlElement *geometries;
 	TiXmlElement *point;
@@ -296,7 +305,7 @@ bool le::ModelMesh::LoadMesh( string route )
 	if ( skeleton != NULL )
 	{
 		Skeleton.LoadSkeleton( skeleton, mVertexs );
-		Skeleton.InitMesh( mVertexs, vVBO_Vertexs );
+		//Skeleton.InitMesh( mVertexs, vVBO_Vertexs );
 	}
 
 	// Работаем с контейнером animations
@@ -307,6 +316,48 @@ bool le::ModelMesh::LoadMesh( string route )
 	{
 		AnimationManager3D.SetSkeleton( Skeleton );
 		AnimationManager3D.LoadAnimations( animations );
+	}
+
+	// Работаем с контейнером collision_model
+	TiXmlElement *collision_model;
+	collision_model = LMD.FirstChildElement( "collision_model" );
+
+	if ( collision_model != NULL )
+	{
+		IsCollisionMesh = true;
+
+		// Работаем с контейнером geometries
+		geometries = collision_model->FirstChildElement( "geometries" );
+		position_point = geometries->FirstChildElement( "position_point" );
+		point = position_point->FirstChildElement( "point" );
+
+		while ( point )
+		{
+			vCollision_Vertexs.push_back( atof( point->Attribute( "x" ) ) );
+			vCollision_Vertexs.push_back( atof( point->Attribute( "y" ) ) );
+			vCollision_Vertexs.push_back( atof( point->Attribute( "z" ) ) );
+
+			point = point->NextSiblingElement();
+		}
+
+		polygons = geometries->FirstChildElement( "polygons" );
+		p = polygons->FirstChildElement( "p" );
+
+		while ( p )
+		{
+			string sTmp = p->GetText();
+			istringstream iss( sTmp );
+
+			while ( !iss.eof() )
+			{
+				string _tmp;
+				iss >> _tmp;
+
+				vCollision_IdVertexs.push_back( atoi( _tmp.c_str() ) );
+			}
+
+			p = p->NextSiblingElement();
+		}
 	}
 
 	return true;

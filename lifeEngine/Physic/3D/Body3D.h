@@ -8,48 +8,12 @@
 // LIFEENGINE
 /////////////////
 #include <System/System.h>
-#include "Physic3D.h"
+#include <Physic/3D/Body3D_ConstructionInfo.h>
+#include <Physic/3D/Body3D_ShapeType.h>
+#include <Physic/3D/Physic3D.h>
 
 namespace le
 {
-	//-------------------------------------------------------------------------//
-
-	struct DLL_API Body3D_ShapeType
-	{
-		enum PrimitivesType
-		{
-			Plane,
-			Sphere
-		};
-
-		////////////////
-		/// КОНСТРУКТОР
-		////////////////
-		Body3D_ShapeType( PrimitivesType PrimitiveType, float Radius );
-		Body3D_ShapeType( PrimitivesType PrimitiveType, Vector3f Size );
-
-		float			Radius;
-
-		PrimitivesType  PrimitiveType;
-		Vector3f		Size;
-	};
-
-	//-------------------------------------------------------------------------//
-
-	struct DLL_API Body3D_ConstructionInfo
-	{
-		////////////////
-		/// КОНСТРУКТОР
-		////////////////
-		Body3D_ConstructionInfo( float Mass, Vector3f Position, Vector3f Rotation, Vector3f Inertia = Vector3f( 0, 0, 0 ) );
-
-		float			fMass;
-
-		btVector3		Position;
-		btVector3		Inertia;
-		btQuaternion	Rotation;		
-	};
-
 	//-------------------------------------------------------------------------//
 
 	class DLL_API Body3D
@@ -92,12 +56,16 @@ namespace le
 
 	private:
 	
-		btTransform					Transform;
-		btDefaultMotionState*		MotionState;
-		btCollisionShape*			Shape;
-		btRigidBody*				Body;
+		btTransform							Transform;
+		btDefaultMotionState*				MotionState;
+		btCollisionShape*					Shape;
+		btRigidBody*						Body;
+		btTriangleIndexVertexArray*			IndexVertexArrays;
 
-		Physic3D*					Physic3D;
+		vector<float>					    vCollisionVertexs;
+		vector<int>							vCollisionIdVertexs;
+
+		Physic3D*							Physic3D;
 	};
 
 	//-------------------------------------------------------------------------//

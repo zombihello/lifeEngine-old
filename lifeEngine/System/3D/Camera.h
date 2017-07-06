@@ -41,6 +41,11 @@ namespace le
 		////////////////////////
 		void UpdateCamera();
 
+		/////////////////////////////
+		/// ПОЛУЧИТЬ ПОЗИЦИЮ КАМЕРЫ
+		/////////////////////////////
+		Vector3f GetPosition();
+
 	private:
 
 		void Move();

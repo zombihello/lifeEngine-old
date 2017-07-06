@@ -238,6 +238,15 @@
     <ClInclude Include="Physic\3D\Body3D.h">
       <Filter>Physic\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Physic\3D\Body3D_ShapeType.h">
+      <Filter>Physic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\3D\Body3D_ConstructionInfo.h">
+      <Filter>Physic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\3D\BulletDebugDrawer.h">
+      <Filter>Physic\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\FPS.cpp">
@@ -394,6 +403,15 @@
       <Filter>Physic\3D</Filter>
     </ClCompile>
     <ClCompile Include="Physic\src\3D\Body3D.cpp">
+      <Filter>Physic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\3D\Body3D_ConstructionInfo.cpp">
+      <Filter>Physic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\3D\Body3D_ShapeType.cpp">
+      <Filter>Physic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\src\3D\BulletDebugDrawer.cpp">
       <Filter>Physic\3D</Filter>
     </ClCompile>
   </ItemGroup>
