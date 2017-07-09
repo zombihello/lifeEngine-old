@@ -8,7 +8,6 @@
 /// LIFEENGINE
 ///////////////
 #include "../System.h"
-#include <Matrix.h>
 
 namespace le
 {
@@ -19,6 +18,18 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
+	struct DLL_API CollisionVertex
+	{
+		glm::mat4x4				Matrix;
+		glm::mat4x4				MatrixVertex;
+
+		float*					Position[3];
+
+		Vector3f				DefaultPosition;
+	};
+
+	//-------------------------------------------------------------------------//
+
 	struct DLL_API Bone
 	{
 		/////////////////
@@ -26,9 +37,9 @@ namespace le
 		/////////////////
 		Bone();
 
-		Matrixf				StartMatrix;
-		Matrixf				InvertMatrix;
-		Matrixf			    Realese;
+		glm::mat4x4			StartMatrix;
+		glm::mat4x4			InvertMatrix;
+		glm::mat4x4			Realese;
 
 		int			        iIdPerent;
 
@@ -37,7 +48,9 @@ namespace le
 
 		vector<int>		    vIdChild;
 		vector<int>			vIdVertex;
+		vector<int>			vCollision_IdVertex;
 		vector<float>		vWeights;
+		vector<float>		vCollision_Weights;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -63,18 +76,33 @@ namespace le
 		//////////////////////
 		/// ЗАГРУЗИТЬ СКЕЛЕТ
 		/////////////////////
-		void LoadSkeleton( TiXmlElement* skeleton, map<int, ModelVertex>& mVertexs );
+		void LoadSkeleton( TiXmlElement* skeleton );
+
+		//////////////////////////////////////////
+		/// ЗАГРУЗИТЬ ИНФОРМАЦИЮ ПРО МЕШ КОЛИЗИИ
+		//////////////////////////////////////////
+		void LoadCollisionInfo( TiXmlElement* skeleton );
 
 		//////////////////////////////////
 		/// ИНИЦИАЛИЗАЦИЯ ПОЗИЦИИ ВЕРШИН
 		/////////////////////////////////
 		void InitMesh( map<int, ModelVertex>& ModelVertexs, vector<VBO_ModelVertex>& VBO_Vertexs );
 
+		//////////////////////////////////////////////
+		/// ИНИЦИАЛИЗАЦИЯ ПОЗИЦИИ ВЕРШИН У КОЛЛИЗИИ
+		//////////////////////////////////////////////
+		void InitCollisionMesh( vector<float>& Vertexs );
+
 		////////////////////////////////////
 		/// ИНИЦИАЛИЗИРОВАТЬ СКЕЛЕТ МОДЕЛИ
 		////////////////////////////////////
 		void InitSkeleton( GLuint& VertexBuffer, vector<VBO_ModelVertex>& VBO_Vertexs, map<int, ModelVertex>& ModelVertexs );
-		
+
+		//////////////////////////////////////////
+		/// ИНИЦИАЛИЗИРОВАТЬ КОЛЛИЗИЮ ДЛЯ СКЕЛЕТА
+		//////////////////////////////////////////
+		void InitCollision( vector<float>& Vertexs );
+
 		/////////////////////////////////////////
 		/// ОБНОВЛЕНИЕ ИЗМЕНЕНЫХ ПОЗИЦИИ ВЕРШИН
 		/////////////////////////////////////////
@@ -85,20 +113,15 @@ namespace le
 		//////////////////////////////
 		void AddBone( Bone bone );
 
-		///////////////////////////////////////////////////
-		/// ЗАДАТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
-		///////////////////////////////////////////////////
-		void SetBindShape( Matrixf bindShape );
-
 		///////////////////////////////////
 		/// ЗАДАТЬ МАТРИЦУ ДЛЯ КОСТИ
 		//////////////////////////////////
-		void SetMatrixBone( string nameBone, Matrixf matrix );
+		void SetMatrixBone( string nameBone, glm::mat4x4 matrix );
 
 		///////////////////////////////////////////////////
 		/// ПОЛУЧИТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
 		///////////////////////////////////////////////////
-		float* GetBindShape();
+		glm::mat4x4 GetBindShape();
 
 		/////////////////////////////////
 		/// ПОЛУЧИТЬ ВСЕ КОСТИ СКЕЛЕТА
@@ -123,7 +146,7 @@ namespace le
 		///////////////////////
 		/// НАРИСОВАТЬ СКЕЛЕТ
 		//////////////////////
-		void DrawSkeleton( map<string, Bone> bones );
+		//void DrawSkeleton( vector<Bone>& bones );
 
 		/////////////////////////////////////////////
 		/// ГОТОВ ЛИ СКЕЛЕТ К ПРОИГРЫВАНИЮ АНИМАЦИИ
@@ -148,11 +171,14 @@ namespace le
 		void InitMatrixBone( Bone& bone );
 
 		bool							IsLoad;
+		bool							IsDebug;
+		bool							IsCollision;
 
 		GLuint*							VertexBuffer;
-		Matrixf							BindShape;
+		glm::mat4x4						BindShape;
 
 		vector<VBO_ModelVertex>*		vVBO_Vertexs;	
+		vector<CollisionVertex>		    vCollision_Vertexs;
 		vector<Bone>					vBones;
 		vector<Bone*>					vUpdateBones;
 		map<int, ModelVertex>*			mModelVertexs;

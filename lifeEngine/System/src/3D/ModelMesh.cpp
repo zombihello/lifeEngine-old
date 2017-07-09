@@ -304,18 +304,8 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	if ( skeleton != NULL )
 	{
-		Skeleton.LoadSkeleton( skeleton, mVertexs );
-		//Skeleton.InitMesh( mVertexs, vVBO_Vertexs );
-	}
-
-	// Работаем с контейнером animations
-	TiXmlElement *animations;
-	animations = model->FirstChildElement( "animations" );
-
-	if ( animations != NULL )
-	{
-		AnimationManager3D.SetSkeleton( Skeleton );
-		AnimationManager3D.LoadAnimations( animations );
+		Skeleton.LoadSkeleton( skeleton );
+		Skeleton.InitMesh( mVertexs, vVBO_Vertexs );
 	}
 
 	// Работаем с контейнером collision_model
@@ -337,7 +327,7 @@ bool le::ModelMesh::LoadMesh( string route )
 			vCollision_Vertexs.push_back( atof( point->Attribute( "y" ) ) );
 			vCollision_Vertexs.push_back( atof( point->Attribute( "z" ) ) );
 
-			point = point->NextSiblingElement();
+			point = point->NextSiblingElement( );
 		}
 
 		polygons = geometries->FirstChildElement( "polygons" );
@@ -345,19 +335,38 @@ bool le::ModelMesh::LoadMesh( string route )
 
 		while ( p )
 		{
-			string sTmp = p->GetText();
+			string sTmp = p->GetText( );
 			istringstream iss( sTmp );
 
-			while ( !iss.eof() )
+			while ( !iss.eof( ) )
 			{
 				string _tmp;
 				iss >> _tmp;
 
-				vCollision_IdVertexs.push_back( atoi( _tmp.c_str() ) );
+				vCollision_IdVertexs.push_back( atoi( _tmp.c_str( ) ) );
 			}
 
-			p = p->NextSiblingElement();
+			p = p->NextSiblingElement( );
 		}
+
+		// Работаем с контейнером skeleton
+		skeleton = collision_model->FirstChildElement( "skeleton" );
+
+		if ( skeleton != NULL )
+		{
+			Skeleton.LoadCollisionInfo( skeleton );
+			Skeleton.InitCollisionMesh( vCollision_Vertexs );
+		}
+	}
+
+	// Работаем с контейнером animations
+	TiXmlElement *animations;
+	animations = model->FirstChildElement( "animations" );
+
+	if ( animations != NULL )
+	{
+		AnimationManager3D.SetSkeleton( Skeleton );
+		AnimationManager3D.LoadAnimations( animations );
 	}
 
 	return true;

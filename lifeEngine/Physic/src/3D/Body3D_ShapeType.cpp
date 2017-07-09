@@ -2,36 +2,55 @@
 
 //-------------------------------------------------------------------------//
 
-le::Body3D_ShapeType::Body3D_ShapeType( PrimitivesType PrimitiveType, float Radius )
+le::ShapeType_StaticPlane::ShapeType_StaticPlane( Vector3f PlaneNormal, float PlaneConstant )
 {
-	this->PrimitiveType = PrimitiveType;
-	this->Radius = Radius;
+	this->PlaneNormal = PlaneNormal;
+	fPlaneConstant = PlaneConstant;
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D_ShapeType::Body3D_ShapeType( PrimitivesType PrimitiveType, float Radius, float Height )
+le::ShapeType_Sphere::ShapeType_Sphere( float Radius )
 {
-	this->PrimitiveType = PrimitiveType;
-	this->Radius = Radius;
-	this->Height = Height;
+	fRadius = Radius;
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D_ShapeType::Body3D_ShapeType( PrimitivesType PrimitiveType, Vector3f Size )
+le::ShapeType_Box::ShapeType_Box( Vector3f Size )
 {
-	this->PrimitiveType = PrimitiveType;
 	this->Size = Size;
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D_ShapeType::Body3D_ShapeType( PrimitivesType PrimitiveType, vector<float> CollisionVertexs, vector<int> CollisionIdVertexs )
+le::ShapeType_Cylinder::ShapeType_Cylinder( Vector3f Size )
 {
-	this->PrimitiveType = PrimitiveType;
-	vCollisionVertexs = CollisionVertexs;
-	vCollisionIdVertexs = CollisionIdVertexs;
+	this->Size = Size;
+}
+
+//-------------------------------------------------------------------------//
+
+le::ShapeType_Capsule::ShapeType_Capsule( float Radius, float Height )
+{
+	fRadius = Radius;
+	fHeight = Height;
+}
+
+//-------------------------------------------------------------------------//
+
+le::ShapeType_Cone::ShapeType_Cone( float Radius, float Height )
+{
+	fRadius = Radius;
+	fHeight = Height;
+}
+
+//-------------------------------------------------------------------------//
+
+le::ShapeType_Mesh::ShapeType_Mesh( vector<float>* CollisionVertexs, vector<int>* CollisionIdVertexs )
+{
+	vVertexs = CollisionVertexs;
+	vIdVertexs = CollisionIdVertexs;
 }
 
 //-------------------------------------------------------------------------//

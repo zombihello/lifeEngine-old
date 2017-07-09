@@ -22,7 +22,13 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, Body3D_ShapeType* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_StaticPlane* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Box* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Capsule* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cone* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cylinder* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Mesh* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Sphere* ShapeType );
 
 		////////////////
 		/// ДЕСТРУКТОР
@@ -62,8 +68,8 @@ namespace le
 		btRigidBody*						Body;
 		btTriangleIndexVertexArray*			IndexVertexArrays;
 
-		vector<float>					    vCollisionVertexs;
-		vector<int>							vCollisionIdVertexs;
+		vector<float>*					    vCollisionVertexs;
+		vector<int>*						vCollisionIdVertexs;
 
 		Physic3D*							Physic3D;
 	};

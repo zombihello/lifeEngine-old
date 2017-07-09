@@ -10,6 +10,8 @@
 /// OPENGL
 //////////////
 #include <glew/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 #include <gl/GLU.h>
 
 /////////////////////

@@ -17,10 +17,10 @@ namespace le
 
 	struct DLL_API VBO_ModelVertex
 	{
-		Vector3f Position;
-		Vector3f Normal;
-		Vector2f TextureCoord;
-		Color    VertexColor;
+		Vector3f			Position;
+		Vector3f			Normal;
+		Vector2f			TextureCoord;
+		Color				VertexColor;
 
 		bool operator==( VBO_ModelVertex& VBO_ModelVertex );
 	};
@@ -29,9 +29,8 @@ namespace le
 
 	struct DLL_API ModelVertex
 	{
-		Matrix				MatrixBone;
-		Matrix				MatrixBoneTmp;
-		Matrix				MatrixVertex;
+		glm::mat4x4			Matrix;
+		glm::mat4x4			MatrixVertex;
 
 		Vector3f			Position;
 

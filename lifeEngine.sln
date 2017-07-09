@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lifeEngine", "lifeEngine\lifeEngine.vcxproj", "{5340812B-9A30-42A2-808C-ECFC14188A86}"
 	ProjectSection(ProjectDependencies) = postProject
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4} = {664E6F0D-6784-4760-9565-D54F8EB1EDF4}
+		{39163E21-D147-32A6-948B-5002B8B569B8} = {39163E21-D147-32A6-948B-5002B8B569B8}
 		{9D454C64-2621-3208-B665-C2DFB4186447} = {9D454C64-2621-3208-B665-C2DFB4186447}
 		{E40D176E-74E1-4186-B58E-ADBDB336FD0F} = {E40D176E-74E1-4186-B58E-ADBDB336FD0F}
 		{A3D5587D-AE95-3222-B306-D6F52236B70D} = {A3D5587D-AE95-3222-B306-D6F52236B70D}
@@ -24,6 +25,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletDynamics", "lifeEngine\Utils\Bullet\src\BulletDynamics\BulletDynamics.vcxproj", "{9D454C64-2621-3208-B665-C2DFB4186447}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinearMath", "lifeEngine\Utils\Bullet\src\LinearMath\LinearMath.vcxproj", "{DDCB78D9-0156-3205-BE30-1FB604D4A4DA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glm", "lifeEngine\Utils\OpenGL\glm\glm\glm_static.vcxproj", "{39163E21-D147-32A6-948B-5002B8B569B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +80,12 @@ Global
 		{DDCB78D9-0156-3205-BE30-1FB604D4A4DA}.Release|Win32.ActiveCfg = Release|Win32
 		{DDCB78D9-0156-3205-BE30-1FB604D4A4DA}.Release|Win32.Build.0 = Release|Win32
 		{DDCB78D9-0156-3205-BE30-1FB604D4A4DA}.Release|x64.ActiveCfg = Release|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Debug|Win32.Build.0 = Debug|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Debug|x64.ActiveCfg = Debug|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Release|Win32.ActiveCfg = Release|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Release|Win32.Build.0 = Release|Win32
+		{39163E21-D147-32A6-948B-5002B8B569B8}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

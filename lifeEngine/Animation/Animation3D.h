@@ -9,7 +9,6 @@
 ////////////////////////
 #include <HaffmanCode.h>
 #include "../System/System.h"
-#include "../Utils/Math/Matrix.h"
 
 namespace le
 {
@@ -22,7 +21,7 @@ namespace le
 	struct DLL_API AnimationBone
 	{
 		vector<float>			vTimes;
-		vector<Matrix>			vFrames;
+		vector<glm::mat4x4>		vFrames;
 		vector<string>			vTypeInterpolation;
 	};
 

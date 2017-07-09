@@ -47,6 +47,8 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 	{
 		vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
 		vCollision_IdVertexs = ModelMesh.vCollision_IdVertexs;
+
+		Skeleton.InitCollision( vCollision_Vertexs );
 	}
 
 	for ( auto it = ModelMesh.mIdIndexs.begin(); it != ModelMesh.mIdIndexs.end(); it++ )
@@ -220,14 +222,14 @@ GLuint& le::Model::GetVertexBuffer()
 
 //-------------------------------------------------------------------------//
 
-vector<float> le::Model::GetCollisionVertexs()
+vector<float>& le::Model::GetCollisionVertexs()
 {
 	return vCollision_Vertexs;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<int> le::Model::GetCollisionIdVertexs()
+vector<int>& le::Model::GetCollisionIdVertexs()
 {
 	return vCollision_IdVertexs;
 }

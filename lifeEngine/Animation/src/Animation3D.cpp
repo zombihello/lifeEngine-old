@@ -80,12 +80,36 @@ void le::Animation3D::UpdateAnimation()
 	{
 		if ( iNextFrame < it->second.vFrames.size() )
 		{
-			Matrixf Mat;
+			glm::mat4x4 Matrix;
+			glm::vec4 tmpVec;
 
-			for ( int i = 0; i < 16; i++ )
-				Mat[i] = lerpFrames( fNowFrame, iNextFrame, it->second.vFrames[iNextFrame - 1].matrix[i], it->second.vFrames[iNextFrame].matrix[i] );
+			for ( int id = 0, axis = 1; id < 4; axis++ )
+			{
+				switch ( axis )
+				{
+				case 1:
+					tmpVec.x = lerpFrames( fNowFrame, iNextFrame, it->second.vFrames[iNextFrame - 1][id].x, it->second.vFrames[iNextFrame][id].x );
+					break;
 
-			Skeleton->SetMatrixBone( it->first, Mat );
+				case 2:
+					tmpVec.y = lerpFrames( fNowFrame, iNextFrame, it->second.vFrames[iNextFrame - 1][id].y, it->second.vFrames[iNextFrame][id].y );
+					break;
+
+				case 3:
+					tmpVec.z = lerpFrames( fNowFrame, iNextFrame, it->second.vFrames[iNextFrame - 1][id].z, it->second.vFrames[iNextFrame][id].z );
+					break;
+
+				case 4:
+					tmpVec.w = lerpFrames( fNowFrame, iNextFrame, it->second.vFrames[iNextFrame - 1][id].w, it->second.vFrames[iNextFrame][id].w );
+					Matrix[id] = tmpVec;
+
+					axis = 0;
+					id++;
+					break;
+				}
+			}
+
+			Skeleton->SetMatrixBone( it->first, Matrix );
 		}
 	}
 
@@ -139,21 +163,45 @@ bool le::Animation3D::LoadAnimation( TiXmlElement* animation )
 		matrix = animationBone->FirstChildElement( "matrix" );
 
 		int tmpMaxFrames = 0;
+
 		while ( matrix )
 		{
 			if ( matrix->Attribute( "frame" ) != NULL ) // TODO: ÈÑÐÏÀÂÈÒÜ
 			{
-				Matrix Matrix;
-
+				glm::mat4x4 Matrix;
+				glm::vec4 tmpVec;
 				sTmp = matrix->GetText();
+
 				ss.seekg( 0 );
 				ss.str( sTmp );
 
-				for ( int i = 0; !ss.eof(); i++ )
+				for ( int id = 0, axis = 1; id < 4 && !ss.eof(); axis++ )
 				{
 					string tmp;
 					ss >> tmp;
-					Matrix.matrix[i] = atof( tmp.c_str() );
+
+					switch ( axis )
+					{
+					case 1:
+						tmpVec.x = atof( tmp.c_str( ) );
+						break;
+
+					case 2:
+						tmpVec.y = atof( tmp.c_str( ) );
+						break;
+
+					case 3:
+						tmpVec.z = atof( tmp.c_str( ) );
+						break;
+
+					case 4:
+						tmpVec.w = atof( tmp.c_str( ) );
+
+						Matrix[id] = tmpVec;
+						axis = 0;
+						id++;
+						break;
+					}
 				}
 
 				AnimBone.vFrames.push_back( Matrix );

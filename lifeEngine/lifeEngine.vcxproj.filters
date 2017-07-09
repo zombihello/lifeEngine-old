@@ -40,9 +40,6 @@
     <Filter Include="System\3D">
       <UniqueIdentifier>{729944d2-f472-4297-9dd4-c6d7f59f3ae6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utils\Math">
-      <UniqueIdentifier>{8d65175a-af62-4dae-9378-360b8c079c6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\3D">
       <UniqueIdentifier>{3c9ad599-a676-4c08-a9f4-d3ddbc7de10e}</UniqueIdentifier>
     </Filter>
@@ -192,9 +189,6 @@
     </ClInclude>
     <ClInclude Include="Animation\AnimationManager3D.h">
       <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Math\Matrix.h">
-      <Filter>Utils\Math</Filter>
     </ClInclude>
     <ClInclude Include="System\3D\Camera.h">
       <Filter>System\3D</Filter>
@@ -347,9 +341,6 @@
     </ClCompile>
     <ClCompile Include="System\src\3D\Skeleton.cpp">
       <Filter>System\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\Math\Matrix.cpp">
-      <Filter>Utils\Math</Filter>
     </ClCompile>
     <ClCompile Include="Animation\src\Animation2D.cpp">
       <Filter>Animation</Filter>
