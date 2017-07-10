@@ -167,7 +167,7 @@ void le::Body3D::SetRotation( Vector3f Rotation )
 
 //-------------------------------------------------------------------------//
 
-Vector3f le::Body3D::GetPosition() // TODO: Возвращает позицию центра тела
+Vector3f le::Body3D::GetPosition()
 {
 	Body->getMotionState()->getWorldTransform( Transform );
 	btVector3 Position = Transform.getOrigin();
@@ -177,30 +177,12 @@ Vector3f le::Body3D::GetPosition() // TODO: Возвращает позицию 
 
 //-------------------------------------------------------------------------//
 
-Vector3f le::Body3D::GetRotation() // TODO: Проблема с переводом кватерниона в углы Эйлера
+glm::quat le::Body3D::GetRotation()
 {
 	Body->getMotionState()->getWorldTransform( Transform );
-	btQuaternion q = Transform.getRotation();
+	btQuaternion Rotation = Transform.getRotation();
 
-	float ysqr = q.y() * q.y();
-
-	// roll (x-axis rotation)
-	float t0 = +2.0 * ( q.w() * q.x() + q.y() * q.z() );
-	float t1 = +1.0 - 2.0 * ( q.x() * q.x() + ysqr );
-	float roll = std::atan2f( t0, t1 );
-
-	// pitch (y-axis rotation)
-	float t2 = +2.0 * ( q.w() * q.y() - q.z() * q.x() );
-	t2 = ( ( t2 > 1.0 ) ? 1.0 : t2 );
-	t2 = ( ( t2 < -1.0 ) ? -1.0 : t2 );
-	float pitch = std::asinf( t2 );
-
-	// yaw (z-axis rotation)
-	float t3 = +2.0 * ( q.w() * q.z() + q.x() * q.y() );
-	float t4 = +1.0 - 2.0 * ( ysqr + q.z() * q.z() );
-	float yaw = std::atan2f( t3, t4 );
-
-	return Vector3f( roll, pitch, yaw );
+	return glm::quat( Rotation.w(), Rotation.x(), Rotation.y(), Rotation.z() );
 }
 
 //-------------------------------------------------------------------------//

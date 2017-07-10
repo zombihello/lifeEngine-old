@@ -73,10 +73,9 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 void le::Model::RenderModel()
 {
 	glPushMatrix();
+	
 	glTranslatef( Position.x, Position.y, Position.z );
-	glRotatef( Angle.x, 1, 0, 0 );
-	glRotatef( Angle.y, 0, 1, 0 );
-	glRotatef( Angle.z, 0, 0, 1 );
+	glMultMatrixf( glm::value_ptr(MatrixRotation) );
 	glScalef( ScaleModel.x, ScaleModel.y, ScaleModel.z );
 
 	glEnableClientState( GL_VERTEX_ARRAY );
@@ -115,9 +114,26 @@ void le::Model::SetPosition( Vector3f Position )
 
 //-------------------------------------------------------------------------//
 
-void le::Model::SetRotate( Vector3f Angle )
+void le::Model::SetRotate( Vector3f Rotation )
 {
-	this->Angle = Angle;
+	Vector3f Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
+	Vector3f Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	this->Rotation = RotateX * RotateY * RotateZ;
+
+	MatrixRotation = glm::mat4_cast( this->Rotation );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetRotate( glm::quat Rotation )
+{
+	this->Rotation = Rotation;
+	MatrixRotation = glm::mat4_cast( this->Rotation );
 }
 
 //-------------------------------------------------------------------------//
@@ -143,9 +159,26 @@ void le::Model::Scale( Vector3f FactorScale )
 
 //-------------------------------------------------------------------------//
 
-void le::Model::Rotate( Vector3f Angle )
+void le::Model::Rotate( Vector3f Rotation )
 {
-	this->Angle += Angle;
+	Vector3f Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
+	Vector3f Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0);
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	this->Rotation *= RotateX * RotateY * RotateZ;
+	
+	MatrixRotation = glm::mat4_cast( this->Rotation );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Rotate( glm::quat Rotation )
+{
+	this->Rotation *= Rotation;
+	MatrixRotation = glm::mat4_cast( this->Rotation );
 }
 
 //-------------------------------------------------------------------------//
@@ -194,9 +227,9 @@ Vector3f le::Model::GetScale()
 
 //-------------------------------------------------------------------------//
 
-Vector3f le::Model::GetRotate()
+glm::quat le::Model::GetRotate()
 {
-	return Angle;
+	return Rotation;
 }
 
 //-------------------------------------------------------------------------//

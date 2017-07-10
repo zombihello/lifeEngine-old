@@ -53,7 +53,8 @@ namespace le
 		////////////////////////////
 		/// ЗАДАТЬ ПОВОРОТ МОДЕЛИ
 		///////////////////////////
-		void SetRotate( Vector3f Angle );
+		void SetRotate( Vector3f Rotation );
+		void SetRotate( glm::quat Rotation );
 
 		////////////////////
 		/// СМЕСТИТЬ МОДЕЛЬ
@@ -68,7 +69,8 @@ namespace le
 		//////////////////////
 		/// ПОВЕРНУТЬ МОДЕЛЬ
 		//////////////////////
-		void Rotate( Vector3f Angle );
+		void Rotate( Vector3f Rotation );
+		void Rotate( glm::quat Rotation );
 
 		//////////////////////
 		/// ОТРИСОВКА МОДЕЛИ
@@ -98,7 +100,7 @@ namespace le
 		////////////////////////////
 		/// ПОЛУЧИТЬ ПОВОРОТ МОДЕЛИ
 		////////////////////////////
-		Vector3f GetRotate();
+		glm::quat GetRotate();
 
 		////////////////////////////
 		/// ПОЛУЧИТЬ ВЕРШИНЫ МОДЕЛИ
@@ -132,7 +134,8 @@ namespace le
 		Vector3f						SizeModel;
 		Vector3f						Position;
 		Vector3f						ScaleModel;
-		Vector3f						Angle;
+		glm::quat						Rotation;
+		glm::mat4x4						MatrixRotation;
 
 		Skeleton						Skeleton;
 		AnimationManager3D				AnimationManager3D;
