@@ -143,6 +143,7 @@ namespace le
 
 		vector<VBO_ModelVertex>			vVBO_Vertexs;
 		vector<float>					vCollision_Vertexs;
+		vector<float>					vCollision_DefaultVertexs;
 		vector<int>						vCollision_IdVertexs;
 		map<string, GLuint>				mIndexBuffers;
 		map<string, int>				mCountIndexs;

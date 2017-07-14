@@ -49,12 +49,12 @@ namespace le
 		//////////////////////////
 		/// ДОБАВИТЬ ТЕЛО В МИР
 		//////////////////////////
-		void AddBody( Body3D* Body );
+		void AddBody( btRigidBody* Body );
 
 		/////////////////////////////
 		/// УНИЧТОЖИТЬ ТЕЛО ИЗ МИРА
 		/////////////////////////////
-		void DestroyBody( Body3D* Body );
+		void DestroyBody( btRigidBody* Body );
 
 		/////////////////////////////////
 		/// УНИЧТОЖИТЬ ВСЕ ТЕЛА ИЗ МИРА
@@ -79,7 +79,7 @@ namespace le
 		///////////////////////////////
 		/// ПОЛУЧИТЬ ВСЕ ТЕЛА В МИРЕ
 		///////////////////////////////
-		vector<Body3D*>* GetAllBodys();
+		vector<btRigidBody*>* GetAllBodys( );
 
 	private:
 
@@ -90,7 +90,7 @@ namespace le
 		btDefaultCollisionConfiguration*				CollisionConfiguration;
 
 		BulletDebugDrawer								DebugDrawer;
-		vector<Body3D*>									vBodys;
+		vector<btRigidBody*>							vBodys;
 	};
 
 	//-------------------------------------------------------------------------//

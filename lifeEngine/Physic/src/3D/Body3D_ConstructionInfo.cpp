@@ -2,14 +2,13 @@
 
 //-------------------------------------------------------------------------//
 
-le::Body3D_ConstructionInfo::Body3D_ConstructionInfo( float Mass, Vector3f Position, Vector3f Rotation, bool IsStatic, Vector3f Inertia )
+le::Body3D_ConstructionInfo::Body3D_ConstructionInfo( TypeBody typeBody, float Mass, Vector3f Position, Vector3f Rotation, Vector3f Inertia )
 {
-	if ( !IsStatic )
-		fMass = Mass;
-	else
+	if ( typeBody == TypeBody::Static )
 		fMass = 0;
+	else
+		fMass = Mass;
 
-	Static = IsStatic;
 	this->Position.setValue( Position.x, Position.y, Position.z );
 	this->Rotation.setValue( Rotation.x, Rotation.y, Rotation.z, 1 );
 	this->Inertia.setValue( Inertia.x, Inertia.y, Inertia.z );

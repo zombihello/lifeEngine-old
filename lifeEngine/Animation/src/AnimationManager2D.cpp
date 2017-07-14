@@ -32,7 +32,7 @@ void le::AnimationManager2D::LoadAnimation( string sRoute )
 		Animation2D anim;
 		sCurrentAnim = animElement->Attribute( "title" );
 		int delay = atoi( animElement->Attribute( "delay" ) );
-		anim.SetSpeed( 1.0 / delay );
+		anim.SetSpeed( 1.0f / delay );
 
 		TiXmlElement *cut;
 		cut = animElement->FirstChildElement( "cut" );

@@ -22,13 +22,13 @@ namespace le
 		////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_StaticPlane* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Box* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Capsule* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cone* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cylinder* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Mesh* ShapeType );
-		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Sphere* ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_StaticPlane ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Box ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Capsule ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cone ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Cylinder ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Mesh ShapeType );
+		Body3D( Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, ShapeType_Sphere ShapeType );
 
 		////////////////
 		/// ДЕСТРУКТОР

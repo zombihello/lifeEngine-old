@@ -45,7 +45,7 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 
 	if ( ModelMesh.IsCollisionMesh )
 	{
-		vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
+		vCollision_DefaultVertexs = vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
 		vCollision_IdVertexs = ModelMesh.vCollision_IdVertexs;
 
 		Skeleton.InitCollision( vCollision_Vertexs );
@@ -57,7 +57,7 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 		glGenBuffers( 1, &IndexBuffer );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IndexBuffer );
 		glBufferData( GL_ELEMENT_ARRAY_BUFFER, it->second.size() * sizeof( unsigned int ), it->second.data(), GL_DYNAMIC_DRAW );
-		mIndexBuffers[it->first] = IndexBuffer;
+		mIndexBuffers[ it->first ] = IndexBuffer;
 	}
 
 	glGenBuffers( 1, &VertexBuffer );
@@ -73,9 +73,9 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 void le::Model::RenderModel()
 {
 	glPushMatrix();
-	
+
 	glTranslatef( Position.x, Position.y, Position.z );
-	glMultMatrixf( glm::value_ptr(MatrixRotation) );
+	glMultMatrixf( glm::value_ptr( MatrixRotation ) );
 	glScalef( ScaleModel.x, ScaleModel.y, ScaleModel.z );
 
 	glEnableClientState( GL_VERTEX_ARRAY );
@@ -92,7 +92,7 @@ void le::Model::RenderModel()
 		glBindTexture( GL_TEXTURE_2D, MaterialManager::GetGLTexture( it->first ) );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, it->second );
 
-		glDrawElements( GL_TRIANGLES, mCountIndexs[it->first], GL_UNSIGNED_INT, 0 );
+		glDrawElements( GL_TRIANGLES, mCountIndexs[ it->first ], GL_UNSIGNED_INT, 0 );
 	}
 
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
@@ -141,6 +141,13 @@ void le::Model::SetRotate( glm::quat Rotation )
 void le::Model::SetScale( Vector3f Scale )
 {
 	this->ScaleModel = Scale;
+
+	for ( int i = 0, id = 0; id < vCollision_DefaultVertexs.size() / 3; id++, i += 3 )
+	{
+		vCollision_Vertexs[ i ] = vCollision_DefaultVertexs[ i ] * Scale.x;
+		vCollision_Vertexs[ i + 1 ] = vCollision_DefaultVertexs[ i + 1 ] * Scale.y;
+		vCollision_Vertexs[ i + 2 ] = vCollision_DefaultVertexs[ i + 2 ] * Scale.z;
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -155,6 +162,13 @@ void le::Model::Move( Vector3f FactorMove )
 void le::Model::Scale( Vector3f FactorScale )
 {
 	ScaleModel += FactorScale;
+
+	for ( int i = 0, id = 0; id < vCollision_Vertexs.size( ) / 3; id++, i += 3 )
+	{
+		vCollision_Vertexs[ i ] *= FactorScale.x;
+		vCollision_Vertexs[ i + 1 ] *= FactorScale.y;
+		vCollision_Vertexs[ i + 2 ] *= FactorScale.z;
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -164,12 +178,12 @@ void le::Model::Rotate( Vector3f Rotation )
 	Vector3f Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
 	Vector3f Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
 
-	glm::quat RotateX( Rotations.x, Axis.x, 0, 0);
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
 	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
 	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
 
 	this->Rotation *= RotateX * RotateY * RotateZ;
-	
+
 	MatrixRotation = glm::mat4_cast( this->Rotation );
 }
 

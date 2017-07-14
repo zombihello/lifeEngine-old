@@ -1,107 +1,107 @@
 ﻿#include "..\..\3D\Body3D.h"
-#include <cmath>
+
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_StaticPlane* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_StaticPlane ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btStaticPlaneShape( btVector3( ShapeType->PlaneNormal.x, ShapeType->PlaneNormal.y, ShapeType->PlaneNormal.z ), ShapeType->fPlaneConstant );
+	Shape = new btStaticPlaneShape( btVector3( ShapeType.PlaneNormal.x, ShapeType.PlaneNormal.y, ShapeType.PlaneNormal.z ), ShapeType.fPlaneConstant );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Box* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Box ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btBoxShape( btVector3( ShapeType->Size.x / 2, ShapeType->Size.y / 2, ShapeType->Size.z / 2 ) );
+	Shape = new btBoxShape( btVector3( ShapeType.Size.x / 2, ShapeType.Size.y / 2, ShapeType.Size.z / 2 ) );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Capsule* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Capsule ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btCapsuleShape( ShapeType->fRadius, ShapeType->fHeight );
+	Shape = new btCapsuleShape( ShapeType.fRadius, ShapeType.fHeight );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Cone* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Cone ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btConeShape( ShapeType->fRadius, ShapeType->fHeight );
+	Shape = new btConeShape( ShapeType.fRadius, ShapeType.fHeight );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Cylinder* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Cylinder ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btCylinderShape( btVector3( ShapeType->Size.x / 2, ShapeType->Size.y / 2, ShapeType->Size.z / 2 ) );
+	Shape = new btCylinderShape( btVector3( ShapeType.Size.x / 2, ShapeType.Size.y / 2, ShapeType.Size.z / 2 ) );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Mesh* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Mesh ShapeType )
 {
 	Physic3D = &Physic;
-	vCollisionIdVertexs = ShapeType->vIdVertexs;
-	vCollisionVertexs = ShapeType->vVertexs;
+	vCollisionIdVertexs = ShapeType.vIdVertexs;
+	vCollisionVertexs = ShapeType.vVertexs;
 
 	IndexVertexArrays = new btTriangleIndexVertexArray
 		(
@@ -116,32 +116,32 @@ le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionI
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
 	Shape = new btConvexTriangleMeshShape( IndexVertexArrays );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Sphere* ShapeType )
+le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionInfo, le::ShapeType_Sphere ShapeType )
 {
 	Physic3D = &Physic;
 	IndexVertexArrays = NULL;
 
 	MotionState = new btDefaultMotionState( btTransform( ConstructionInfo->Rotation, ConstructionInfo->Position ) );
-	Shape = new btSphereShape( ShapeType->fRadius );
+	Shape = new btSphereShape( ShapeType.fRadius );
 
-	if ( !ConstructionInfo->Static )
+	if ( ConstructionInfo->fMass != 0 )
 		Shape->calculateLocalInertia( ConstructionInfo->fMass, ConstructionInfo->Inertia );
 
 	btRigidBody::btRigidBodyConstructionInfo BulletConstructionInfo( ConstructionInfo->fMass, MotionState, Shape, ConstructionInfo->Inertia );
 
 	Body = new btRigidBody( BulletConstructionInfo );
-	Physic3D->AddBody( this );
+	Physic3D->AddBody( Body );
 }
 
 //-------------------------------------------------------------------------//
@@ -196,9 +196,10 @@ btRigidBody* le::Body3D::GetBulletBody()
 
 le::Body3D::~Body3D()
 {
+	Physic3D->DestroyBody( Body );
+
 	delete MotionState;
-	delete Shape;
-	delete Body;
+	delete Shape;	
 
 	if ( IndexVertexArrays != NULL )
 		delete IndexVertexArrays;

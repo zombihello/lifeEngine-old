@@ -37,24 +37,23 @@ void le::Physic3D::SetGravity( Vector3f Gravity )
 
 //-------------------------------------------------------------------------//
 
-void le::Physic3D::AddBody( le::Body3D* Body )
+void le::Physic3D::AddBody( btRigidBody* Body )
 {
-	World->addRigidBody( Body->GetBulletBody() );
+	World->addRigidBody( Body );
 	vBodys.push_back( Body );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Physic3D::DestroyBody( Body3D* Body )
+void le::Physic3D::DestroyBody( btRigidBody* Body )
 {
-	for ( int i = 0; i < vBodys.size(); i++ )
-	if ( vBodys[i] == Body )
-	{
-		World->removeRigidBody( Body->GetBulletBody() );
-		vBodys.erase( vBodys.end() + i );
+	if ( Body != NULL )
+	{	
+		vBodys.erase( remove( vBodys.begin( ), vBodys.end( ), Body ), vBodys.end( ) );
+		World->removeRigidBody( Body );
+
 		delete Body;
 		Body = NULL;
-		return;
 	}
 }
 
@@ -64,8 +63,10 @@ void le::Physic3D::DestroyAllBodys()
 {
 	for ( int i = 0; i < vBodys.size(); i++ )
 	{
-		World->removeRigidBody( vBodys[i]->GetBulletBody() );
-		delete vBodys[i];
+		World->removeRigidBody( vBodys[ i ] );
+
+		delete vBodys[ i ];
+		vBodys[ i ] = NULL;
 	}
 
 	vBodys.clear();
@@ -80,7 +81,7 @@ btDiscreteDynamicsWorld* le::Physic3D::GetWorld()
 
 //-------------------------------------------------------------------------//
 
-vector<le::Body3D*>* le::Physic3D::GetAllBodys()
+vector<btRigidBody*>* le::Physic3D::GetAllBodys( )
 {
 	return &vBodys;
 }

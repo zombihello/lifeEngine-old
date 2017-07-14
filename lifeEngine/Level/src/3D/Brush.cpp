@@ -9,9 +9,11 @@ bool le::BrushVertex::operator==( BrushVertex& BrushVertex )
 
 //-------------------------------------------------------------------------//
 
-le::Brush::Brush( le::System& System )
+le::Brush::Brush( le::System& System, le::Physic3D& Physic )
 {
 	this->System = &System;
+	this->Physic = &Physic;
+	Body = NULL;
 	TextureBrush = VertexBuffer = IndexBuffer = 0;
 	iCountIndex = 0;
 }
@@ -20,6 +22,9 @@ le::Brush::Brush( le::System& System )
 
 le::Brush::~Brush()
 {
+	if ( Body != NULL )
+		delete Body;
+
 	if ( VertexBuffer != 0 )
 		glDeleteBuffers( 1, &VertexBuffer );
 
@@ -29,7 +34,7 @@ le::Brush::~Brush()
 
 //-------------------------------------------------------------------------//
 
-void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f> Vertex, vector<Vector2f> TextureCoords )
+void le::Brush::CreateBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f> Vertex, vector<Vector2f> TextureCoords )
 {
 	vector<BrushVertex> vBrushVertex;
 	vector<unsigned int> vIdVertex;
@@ -40,24 +45,20 @@ void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f>
 	case Cube:
 		vIdVertex = tmpIdVertex =
 		{
-			7, 3, 4,
-			3, 0, 4,
-
-			2, 6, 1,
-			6, 5, 1,
-
-			7, 6, 3,
-			6, 2, 3,
-
-			0, 1, 4,
-			1, 5, 4,
-
-			6, 4, 5,
-			6, 7, 4,
-
-			0, 2, 1,
-			0, 3, 2
+			7, 3, 4, 3, 0, 4, 2, 6, 1,
+			6, 5, 1, 7, 6, 3, 6, 2, 3,
+			0, 1, 4, 1, 5, 4, 6, 4, 5,
+			6, 7, 4, 0, 2, 1, 0, 3, 2
 		};
+
+		vCollision_IdVertex = 
+		{
+			7, 3, 4, 3, 0, 4, 2, 6, 1,
+			6, 5, 1, 7, 6, 3, 6, 2, 3,
+			0, 1, 4, 1, 5, 4, 6, 4, 5,
+			6, 7, 4, 0, 2, 1, 0, 3, 2
+		};
+
 		break;
 
 	case Sphere:
@@ -67,26 +68,33 @@ void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f>
 		break;
 	}
 
+	for ( int i = 0; i < Vertex.size(); i++ )
+	{
+		vCollision_Vertex.push_back( Vertex[ i ].x );
+		vCollision_Vertex.push_back( Vertex[ i ].y );
+		vCollision_Vertex.push_back( Vertex[ i ].z );
+	}
+
 	for ( int i = 0; i < tmpIdVertex.size(); i++ )
 	{
 		BrushVertex tmpVertex;
-		tmpVertex.Vertex = Vertex[tmpIdVertex[i]];
-		tmpVertex.TextureCoord = TextureCoords[i];
+		tmpVertex.Vertex = Vertex[ tmpIdVertex[ i ] ];
+		tmpVertex.TextureCoord = TextureCoords[ i ];
 
 		bool isFind = false;
 		for ( int j = 0; j < vBrushVertex.size(); j++ )
-			if ( tmpVertex == vBrushVertex[j] )
-			{
-				vIdVertex[i] = j;
-				isFind = true;
-				break;
-			}
+		if ( tmpVertex == vBrushVertex[ j ] )
+		{
+			vIdVertex[ i ] = j;
+			isFind = true;
+			break;
+		}
 
 		if ( !isFind )
 		{
 			for ( int j = i; j < tmpIdVertex.size(); j++ )
-				if ( tmpIdVertex[j] == tmpIdVertex[i] )
-					vIdVertex[j] = vBrushVertex.size();
+			if ( tmpIdVertex[ j ] == tmpIdVertex[ i ] )
+				vIdVertex[ j ] = vBrushVertex.size();
 
 			vBrushVertex.push_back( tmpVertex );
 		}
@@ -94,6 +102,9 @@ void le::Brush::InitBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f>
 
 	TextureBrush = Texture;
 	iCountIndex = vIdVertex.size();
+
+	Body3D_ConstructionInfo constructionInfo( Body3D_ConstructionInfo::Static, 0, Vector3f(), Vector3f() );
+	Body = new Body3D( *Physic, &constructionInfo, ShapeType_Mesh( &vCollision_Vertex, &vCollision_IdVertex ) );
 
 	glGenBuffers( 1, &VertexBuffer );
 	glGenBuffers( 1, &IndexBuffer );

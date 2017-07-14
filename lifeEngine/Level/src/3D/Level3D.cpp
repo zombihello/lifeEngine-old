@@ -3,9 +3,10 @@
 
 //-------------------------------------------------------------------------//
 
-le::Level3D::Level3D( le::System& System )
+le::Level3D::Level3D( le::System& System, le::Physic3D& Physic )
 {
 	this->System = &System;
+	this->Physic = &Physic;
 }
 
 //-------------------------------------------------------------------------//
@@ -73,7 +74,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 			string route = Texture->Attribute( "Route" );
 
 			MaterialManager::LoadGLTexture( name, route );
-			mTextures[name] = MaterialManager::GetGLTexture(name);
+			mTextures[ name ] = MaterialManager::GetGLTexture( name );
 			Texture = Texture->NextSiblingElement();
 		}
 	}
@@ -120,7 +121,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 
 			// Работаем с контейнером PositionVertex
 			TiXmlElement *PositionVertex;
-			TiXmlElement *Vertex;			
+			TiXmlElement *Vertex;
 			PositionVertex = Brush->FirstChildElement( "PositionVertex" );
 			Vertex = PositionVertex->FirstChildElement( "Vertex" );
 
@@ -133,7 +134,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 				tmpVertex.z = atof( Vertex->Attribute( "Z" ) );
 
 				vertex.push_back( tmpVertex );
-				Vertex = Vertex->NextSiblingElement( );
+				Vertex = Vertex->NextSiblingElement();
 			}
 
 			// Работаем с контейнером TextureCoords
@@ -150,11 +151,11 @@ bool le::Level3D::LoadLevel( string sRoute )
 				tmpPoint.y = atof( Point->Attribute( "Y" ) );
 
 				texCoord.push_back( tmpPoint );
-				Point = Point->NextSiblingElement( );
+				Point = Point->NextSiblingElement();
 			}
 
-			le::Brush* tmpBrush = new le::Brush( *System );
-			tmpBrush->InitBrush( Brush::PrimitivesType::Cube, mTextures[textureName], vertex, texCoord );
+			le::Brush* tmpBrush = new le::Brush( *System, *Physic );
+			tmpBrush->CreateBrush( Brush::PrimitivesType::Cube, mTextures[ textureName ], vertex, texCoord );
 			vBrushes.push_back( tmpBrush );
 
 			Brush = Brush->NextSiblingElement();
@@ -178,7 +179,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 		Entity Entity( *entity );
 		vEntitys.push_back( Entity );
 
-		entity = entity->NextSiblingElement( );
+		entity = entity->NextSiblingElement();
 	}
 
 	return true;
@@ -193,7 +194,7 @@ void le::Level3D::ClearLevel()
 	sSkyBoxName = "";
 
 	for ( int i = 0; i < vBrushes.size(); i++ )
-		delete vBrushes[i];
+		delete vBrushes[ i ];
 
 	vBrushes.clear();
 	vEntitys.clear();
@@ -204,7 +205,7 @@ void le::Level3D::ClearLevel()
 void le::Level3D::RenderLevel()
 {
 	for ( int i = 0; i < vBrushes.size(); i++ )
-		vBrushes[i]->RenderBrush();
+		vBrushes[ i ]->RenderBrush();
 }
 
 //-------------------------------------------------------------------------//
@@ -212,8 +213,8 @@ void le::Level3D::RenderLevel()
 le::Entity* le::Level3D::GetEntity( string NameEntity )
 {
 	for ( int i = 0; i < vEntitys.size(); i++ )
-	if ( vEntitys[i].GetNameEntity() == NameEntity )
-		return &vEntitys[i];
+	if ( vEntitys[ i ].GetNameEntity() == NameEntity )
+		return &vEntitys[ i ];
 
 	return NULL;
 }

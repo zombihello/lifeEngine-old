@@ -110668,7 +110668,7 @@ _TEXT	SEGMENT
 ?length@?$tvec2@M$0A@@glm@@SAHXZ ENDP			; glm::tvec2<float,0>::length
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT ?sqrt@@YAMM@Z
 _TEXT	SEGMENT
 tv65 = -4						; size = 4
@@ -110693,7 +110693,7 @@ __X$ = 8						; size = 4
 ?sqrt@@YAMM@Z ENDP					; sqrt
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT ?sin@@YAMM@Z
 _TEXT	SEGMENT
 tv65 = 8						; size = 4
@@ -110715,7 +110715,7 @@ __X$ = 8						; size = 4
 ?sin@@YAMM@Z ENDP					; sin
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT ?cos@@YAMM@Z
 _TEXT	SEGMENT
 tv65 = 8						; size = 4
@@ -110737,7 +110737,7 @@ __X$ = 8						; size = 4
 ?cos@@YAMM@Z ENDP					; cos
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT _sqrtf
 _TEXT	SEGMENT
 tv68 = -4						; size = 4
@@ -110768,7 +110768,7 @@ _sqrtf	PROC						; COMDAT
 _sqrtf	ENDP
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT _sinf
 _TEXT	SEGMENT
 tv68 = 8						; size = 4
@@ -110796,7 +110796,7 @@ _sinf	PROC						; COMDAT
 _sinf	ENDP
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT _cosf
 _TEXT	SEGMENT
 tv68 = 8						; size = 4
@@ -110824,7 +110824,7 @@ _cosf	PROC						; COMDAT
 _cosf	ENDP
 _TEXT	ENDS
 ; Function compile flags: /Ogtp
-; File e:\visual studio 12.0\vc\include\math.h
+; File e:\egor\soft\visual studio 2013\vc\include\math.h
 ;	COMDAT _hypot
 _TEXT	SEGMENT
 __X$ = 8						; size = 8

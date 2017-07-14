@@ -26,7 +26,7 @@ subject to the following restrictions:
 ///Typical use case: create a debug drawer object, and assign it to a btCollisionWorld or btDynamicsWorld using setDebugDrawer and call debugDrawWorld.
 ///A class that implements the btIDebugDraw interface has to implement the drawLine method at a minimum.
 ///For color arguments the X,Y,Z components refer to Red, Green and Blue each in the range [0..1]
-class	btIDebugDraw
+class btIDebugDraw
 {
 	public:
 

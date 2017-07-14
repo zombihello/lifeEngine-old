@@ -10,6 +10,7 @@
 #include "Brush.h"
 #include "Entity.h"
 #include "../../System/System.h"
+#include <Physic/3D/Physic3D.h>
 
 namespace le
 {
@@ -21,7 +22,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
-		Level3D( System& System );
+		Level3D( System& System, Physic3D& Physic );
 
 		/////////////////
 		/// ДЕСТРУКТОР
@@ -60,6 +61,7 @@ namespace le
 		string				sSkyBoxName;
 
 		System*				System;
+		Physic3D*			Physic;
 
 		vector<Brush*>		vBrushes;
 		vector<Entity>		vEntitys;
