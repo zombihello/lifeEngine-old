@@ -122,7 +122,7 @@ void le::Skeleton::InitCollisionMesh( vector<float>& Vertexs )
 
 //-------------------------------------------------------------------------//
 
-void le::Skeleton::UpdateMesh()
+void le::Skeleton::UpdateMesh() // Проблемы с анимацией, не все кости двигаються!
 {
 	if ( !IsLoad ) return;
 

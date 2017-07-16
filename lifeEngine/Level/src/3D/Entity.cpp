@@ -25,7 +25,7 @@ le::Entity::Entity( TiXmlElement& ElementEntity )
 		string sValue = "";
 
 		if ( Value->Attribute( "Value" ) != NULL )
-			string sValue = Value->Attribute( "Value" );
+			sValue = Value->Attribute( "Value" );
 
 		mValues[Key] = sValue;
 
@@ -68,6 +68,28 @@ float le::Entity::GetValueFloat( string NameValue )
 		return atof( mValues[NameValue].c_str() );
 
 	return -1;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<float> le::Entity::GetVelueVectorFloat( string NameValue )
+{
+	vector<float> vVector;
+
+	if ( mValues.count( NameValue ) )
+	{
+		string sTmp;
+		stringstream strStream( mValues[NameValue] );
+
+		while ( !strStream.eof() )
+		{
+			strStream >> sTmp;
+			vVector.push_back( atof( sTmp.c_str() ) );
+			sTmp.clear();
+		}
+	}
+
+	return vVector;
 }
 
 //-------------------------------------------------------------------------//

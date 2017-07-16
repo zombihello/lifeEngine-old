@@ -12,6 +12,12 @@
 #include "../System.h"
 #include "../../Animation/AnimationManager3D.h"
 
+//-------------------------------------------------------------------------//
+
+class btTriangleIndexVertexArray;
+
+//-------------------------------------------------------------------------//
+
 namespace le
 {
 	//-------------------------------------------------------------------------//
@@ -49,6 +55,7 @@ namespace le
 		/// ЗАДАТЬ МАСШТАБ МОДЕЛИ
 		///////////////////////////
 		void SetScale( Vector3f Scale );
+		void SetScale( Vector3f Scale, btTriangleIndexVertexArray* IndexVertexArrays );
 
 		////////////////////////////
 		/// ЗАДАТЬ ПОВОРОТ МОДЕЛИ
@@ -65,6 +72,7 @@ namespace le
 		/// МАСШТАБИРОВАТЬ МОДЕЛЬ
 		//////////////////////////
 		void Scale( Vector3f FactorScale );
+		void Scale( Vector3f FactorScale, btTriangleIndexVertexArray* IndexVertexArrays );
 
 		//////////////////////
 		/// ПОВЕРНУТЬ МОДЕЛЬ

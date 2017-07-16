@@ -55,6 +55,8 @@ le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionI
 
 	Body = new btRigidBody( BulletConstructionInfo );
 	Physic3D->AddBody( Body );
+
+	//Body->setAngularFactor( btVector3( 0, 0, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -146,6 +148,34 @@ le::Body3D::Body3D( le::Physic3D& Physic, Body3D_ConstructionInfo* ConstructionI
 
 //-------------------------------------------------------------------------//
 
+void le::Body3D::Move( le::Body3D::TypeMove typeMove, Vector3f Factor, Vector3f CenterBody )
+{
+	switch ( typeMove )
+	{
+	case le::Body3D::Force:
+
+		if ( CenterBody == Vector3f() )
+			Body->applyCentralForce( btVector3( Factor.x, Factor.y, Factor.z ) );
+		else
+			Body->applyForce( btVector3( Factor.x, Factor.y, Factor.z ), btVector3( CenterBody.x, CenterBody.y, CenterBody.z ) );
+
+		break;
+
+	case le::Body3D::Impulse:
+
+		if ( CenterBody == Vector3f( ) )
+			Body->applyCentralImpulse( btVector3( Factor.x, Factor.y, Factor.z ) );
+		else
+			Body->applyImpulse( btVector3( Factor.x, Factor.y, Factor.z ), btVector3( CenterBody.x, CenterBody.y, CenterBody.z ) );
+
+		break;
+	}
+
+	Body->activate( true );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Body3D::SetPosition( Vector3f Position )
 {
 	Body->clearForces();
@@ -163,6 +193,32 @@ void le::Body3D::SetRotation( Vector3f Rotation )
 	Body->getMotionState()->getWorldTransform( Transform );
 	Transform.setRotation( btQuaternion( Rotation.x, Rotation.y, Rotation.z, 1 ) );
 	Body->getMotionState()->setWorldTransform( Transform );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Body3D::SetFreezeMoving( bool FreezeX, bool FreezeY, bool FreezeZ )
+{
+	btVector3 FreezeAxis( 0, 0, 0 );
+
+	if ( !FreezeX ) FreezeAxis.setX( 1 );
+	if ( !FreezeY ) FreezeAxis.setY( 1 );
+	if ( !FreezeZ ) FreezeAxis.setZ( 1 );
+
+	Body->setLinearFactor( FreezeAxis );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Body3D::SetFreezeRotation( bool FreezeX, bool FreezeY, bool FreezeZ )
+{
+	btVector3 FreezeAxis( 0, 0, 0 );
+
+	if ( !FreezeX ) FreezeAxis.setX( 1 );
+	if ( !FreezeY ) FreezeAxis.setY( 1 );
+	if ( !FreezeZ ) FreezeAxis.setZ( 1 );
+
+	Body->setAngularFactor( FreezeAxis );
 }
 
 //-------------------------------------------------------------------------//
@@ -190,6 +246,13 @@ glm::quat le::Body3D::GetRotation()
 btRigidBody* le::Body3D::GetBulletBody()
 {
 	return Body;
+}
+
+//-------------------------------------------------------------------------//
+
+btTriangleIndexVertexArray* le::Body3D::GetIndexVertexArrays()
+{
+	return IndexVertexArrays;
 }
 
 //-------------------------------------------------------------------------//

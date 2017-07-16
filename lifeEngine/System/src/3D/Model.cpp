@@ -1,4 +1,9 @@
-﻿#include  "../../3D/Model.h"
+﻿///////////////////////////
+/// BULLET PHYSICS
+///////////////////////////
+#include <btBulletDynamicsCommon.h>
+
+#include  "../../3D/Model.h"
 #include "../../System/MaterialManager.h"
 
 //-------------------------------------------------------------------------//
@@ -57,7 +62,7 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 		glGenBuffers( 1, &IndexBuffer );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IndexBuffer );
 		glBufferData( GL_ELEMENT_ARRAY_BUFFER, it->second.size() * sizeof( unsigned int ), it->second.data(), GL_DYNAMIC_DRAW );
-		mIndexBuffers[ it->first ] = IndexBuffer;
+		mIndexBuffers[it->first] = IndexBuffer;
 	}
 
 	glGenBuffers( 1, &VertexBuffer );
@@ -92,7 +97,7 @@ void le::Model::RenderModel()
 		glBindTexture( GL_TEXTURE_2D, MaterialManager::GetGLTexture( it->first ) );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, it->second );
 
-		glDrawElements( GL_TRIANGLES, mCountIndexs[ it->first ], GL_UNSIGNED_INT, 0 );
+		glDrawElements( GL_TRIANGLES, mCountIndexs[it->first], GL_UNSIGNED_INT, 0 );
 	}
 
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
@@ -141,13 +146,16 @@ void le::Model::SetRotate( glm::quat Rotation )
 void le::Model::SetScale( Vector3f Scale )
 {
 	this->ScaleModel = Scale;
+}
 
-	for ( int i = 0, id = 0; id < vCollision_DefaultVertexs.size() / 3; id++, i += 3 )
-	{
-		vCollision_Vertexs[ i ] = vCollision_DefaultVertexs[ i ] * Scale.x;
-		vCollision_Vertexs[ i + 1 ] = vCollision_DefaultVertexs[ i + 1 ] * Scale.y;
-		vCollision_Vertexs[ i + 2 ] = vCollision_DefaultVertexs[ i + 2 ] * Scale.z;
-	}
+//-------------------------------------------------------------------------//
+
+void le::Model::SetScale( Vector3f Scale, btTriangleIndexVertexArray* IndexVertexArrays )
+{
+	this->ScaleModel = Scale;
+
+	if ( IndexVertexArrays != NULL )
+		IndexVertexArrays->setScaling( btVector3( Scale.x, Scale.y, Scale.z ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -162,12 +170,22 @@ void le::Model::Move( Vector3f FactorMove )
 void le::Model::Scale( Vector3f FactorScale )
 {
 	ScaleModel += FactorScale;
+}
 
-	for ( int i = 0, id = 0; id < vCollision_Vertexs.size( ) / 3; id++, i += 3 )
+//-------------------------------------------------------------------------//
+
+void le::Model::Scale( Vector3f FactorScale, btTriangleIndexVertexArray* IndexVertexArrays )
+{
+	ScaleModel += FactorScale;
+
+	if ( IndexVertexArrays != NULL )
 	{
-		vCollision_Vertexs[ i ] *= FactorScale.x;
-		vCollision_Vertexs[ i + 1 ] *= FactorScale.y;
-		vCollision_Vertexs[ i + 2 ] *= FactorScale.z;
+		btVector3 CollisionScale = IndexVertexArrays->getScaling();
+
+		IndexVertexArrays->setScaling( btVector3(
+			CollisionScale.x() + FactorScale.x,
+			CollisionScale.y() + FactorScale.y,
+			CollisionScale.z() + FactorScale.z ) );
 	}
 }
 
