@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BlendMode.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Glsl.cpp" />
+    <ClCompile Include="GLCheck.cpp" />
+    <ClCompile Include="GLExtensions.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="RenderStates.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="RenderWindow.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureSaver.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Transformable.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="GLLoader.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="CircleShape.cpp" />
+    <ClCompile Include="RectangleShape.cpp" />
+    <ClCompile Include="ConvexShape.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
+    <ClCompile Include="RenderTextureImpl.cpp" />
+    <ClCompile Include="RenderTextureImplFBO.cpp" />
+    <ClCompile Include="RenderTextureImplDefault.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\SFML\Graphics\BlendMode.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Color.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Export.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Font.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glsl.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glsl.inl" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glyph.hpp" />
+    <ClInclude Include="GLCheck.hpp" />
+    <ClInclude Include="GLExtensions.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Image.hpp" />
+    <ClInclude Include="ImageLoader.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\PrimitiveType.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Rect.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Rect.inl" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderStates.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderTarget.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderWindow.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Shader.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Texture.hpp" />
+    <ClInclude Include="TextureSaver.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Transform.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Transformable.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\View.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Vertex.hpp" />
+    <ClInclude Include="GLLoader.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Drawable.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Shape.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\CircleShape.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RectangleShape.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\ConvexShape.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Sprite.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Text.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\VertexArray.hpp" />
+    <ClInclude Include="RenderTextureImpl.hpp" />
+    <ClInclude Include="RenderTextureImplFBO.hpp" />
+    <ClInclude Include="RenderTextureImplDefault.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="drawables">
+      <UniqueIdentifier>{02439C10-BB8A-34EE-A6E8-FB1514770E83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render texture">
+      <UniqueIdentifier>{D553C7D5-B97D-3C6C-A5DE-2E1140453513}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

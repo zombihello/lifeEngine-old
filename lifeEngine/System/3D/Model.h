@@ -9,6 +9,7 @@
 ///////////////
 #include "ModelMesh.h"
 #include "Skeleton.h"
+#include "Scene3D.h"
 #include "../System.h"
 #include "../../Animation/AnimationManager3D.h"
 
@@ -46,6 +47,11 @@ namespace le
 		bool LoadModel( string nameModel, string route );
 		void LoadModel( ModelMesh ModelMesh );
 
+		///////////////////////////////
+		/// ДОБАВИТЬ МОДЕЛЬ НА СЦЕНУ
+		///////////////////////////////
+		void AddToScene( Scene3D& Scene );
+
 		////////////////////////////
 		/// ЗАДАТЬ ПОЗИЦИЮ МОДЕЛИ
 		///////////////////////////
@@ -80,10 +86,10 @@ namespace le
 		void Rotate( Vector3f Rotation );
 		void Rotate( glm::quat Rotation );
 
-		//////////////////////
-		/// ОТРИСОВКА МОДЕЛИ
-		//////////////////////
-		void RenderModel();
+		//////////////////////////
+		/// ОБНОВИТЬ МОДЕЛЬ
+		//////////////////////////
+		void UpdateModel( Shader* Shader = NULL );
 
 		////////////////////////////////
 		/// ПОЛУЧИТЬ МЕНЕДЖЕР АНИМАЦИЙ
@@ -137,26 +143,32 @@ namespace le
 
 	private:
 
-		GLuint							VertexBuffer;
+		GLuint									VertexBuffer;
 
-		Vector3f						SizeModel;
-		Vector3f						Position;
-		Vector3f						ScaleModel;
-		glm::quat						Rotation;
-		glm::mat4x4						MatrixRotation;
+		Vector3f								SizeModel;
+		Vector3f								Position;
+		Vector3f								ScaleModel;
+		glm::quat								Rotation;
 
-		Skeleton						Skeleton;
-		AnimationManager3D				AnimationManager3D;
-		System*							System;
+		glm::mat4x4								MatrixPosition;
+		glm::mat4x4								MatrixRotation;
+		glm::mat4x4								MatrixScale;
+		glm::mat4x4								MatrixTransformation;
 
-		vector<VBO_ModelVertex>			vVBO_Vertexs;
-		vector<float>					vCollision_Vertexs;
-		vector<float>					vCollision_DefaultVertexs;
-		vector<int>						vCollision_IdVertexs;
-		map<string, GLuint>				mIndexBuffers;
-		map<string, int>				mCountIndexs;
-		map<int, ModelVertex>			mVertexs;
+		Skeleton								Skeleton;
+		AnimationManager3D						AnimationManager3D;
 
+		System*									System;
+		Scene3D*								Scene;
+
+		vector<VBO_ModelVertex>					vVBO_Vertexs;
+		vector<float>							vCollision_Vertexs;
+		vector<int>								vCollision_IdVertexs;
+		vector<GLuint>							vIndexBuffers;
+		vector<GLuint>							vArrayBuffers;
+
+		map<int, ModelVertex>					mVertexs;
+		map<GLuint, SceneInfoMesh>				mRenderMesh;
 	};
 
 	//-------------------------------------------------------------------------//

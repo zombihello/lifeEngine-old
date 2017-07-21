@@ -26,10 +26,10 @@ bool le::ModelMesh::LoadMesh( string route )
 	TiXmlDocument LMD;
 
 	vector<string>	 vNameTextures;
-	vector<Vector3f> vVertexPosition;
-	vector<Vector3f> vVertexNormal;
+	vector<glm::vec3> vVertexPosition;
+	vector<glm::vec3> vVertexNormal;
+	vector<glm::vec2> vTextureCoords;
 	vector<Color>	 vVertexColor;
-	vector<Vector2f> vTextureCoords;
 
 	string routeTmp = route;
 	routeTmp.erase( 0, routeTmp.find_last_of( '.' ) + 1 );
@@ -111,7 +111,7 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	while ( point )
 	{
-		Vector3f Vertex;
+		glm::vec3 Vertex;
 
 		Vertex.x = atof( point->Attribute( "x" ) );
 		Vertex.y = atof( point->Attribute( "y" ) );
@@ -127,7 +127,7 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	while ( point )
 	{
-		Vector3f Normal;
+		glm::vec3 Normal;
 
 		Normal.x = atof( point->Attribute( "x" ) );
 		Normal.y = atof( point->Attribute( "y" ) );
@@ -143,7 +143,7 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	while ( point )
 	{
-		Vector2f TexCoord;
+		glm::vec2 TexCoord;
 
 		TexCoord.x = atof( point->Attribute( "x" ) );
 		TexCoord.y = atof( point->Attribute( "y" ) );
@@ -205,11 +205,12 @@ bool le::ModelMesh::LoadMesh( string route )
 				case 1: // координаты			
 					idVertex = atoi( _tmp.c_str() );
 					VBO_ModelVertex.Position = vVertexPosition[idVertex];
-					ModelVertex.Position = VBO_ModelVertex.Position;
+					ModelVertex.Position = VBO_ModelVertex.Position;					
 					break;
 
 				case 2: // нормали
 					VBO_ModelVertex.Normal = vVertexNormal[atoi( _tmp.c_str() )];
+					ModelVertex.Normal = VBO_ModelVertex.Normal;
 					break;
 
 				case 3: // текстура
@@ -293,8 +294,6 @@ bool le::ModelMesh::LoadMesh( string route )
 		}
 
 		mIdIndexs[vNameTextures[idTexture]] = vIdVertex;;
-		mCountIndexs[vNameTextures[idTexture]] = vIdVertex.size();
-
 		texture = texture->NextSiblingElement();
 	}
 
@@ -376,7 +375,6 @@ bool le::ModelMesh::LoadMesh( string route )
 
 void le::ModelMesh::Clear()
 {
-	mCountIndexs.clear();
 	vVBO_Vertexs.clear();
 	mIdIndexs.clear();
 	mVertexs.clear();

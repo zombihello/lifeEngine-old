@@ -7,10 +7,11 @@
 //////////////////
 // LIFEENGINE
 /////////////////
+#include <System/3D/Scene3D.h>
+#include <System/System.h>
+#include <Physic/3D/Physic3D.h>
 #include "Brush.h"
 #include "Entity.h"
-#include "../../System/System.h"
-#include <Physic/3D/Physic3D.h>
 
 namespace le
 {
@@ -22,6 +23,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
+		Level3D( System& System, Scene3D& Scene, Physic3D& Physic );
 		Level3D( System& System, Physic3D& Physic );
 
 		/////////////////
@@ -39,10 +41,15 @@ namespace le
 		//////////////////////
 		void ClearLevel();
 
+		////////////////////////////////
+		/// ДОБАВИТЬ УРОВЕНЬ НА СЦЕНУ
+		////////////////////////////////
+		void AddToScene( Scene3D& Scene );
+
 		///////////////////////
 		/// ОТРЕНДЕРИТЬ УРОВЕНЬ
 		//////////////////////
-		void RenderLevel();
+		void UpdateLevel( Shader* Shader = NULL );
 
 		///////////////////////
 		/// ПОЛУЧИТЬ ЭНТИТИ
@@ -62,6 +69,7 @@ namespace le
 
 		System*				System;
 		Physic3D*			Physic;
+		Scene3D*			Scene;
 
 		vector<Brush*>		vBrushes;
 		vector<Entity>		vEntitys;

@@ -22,10 +22,23 @@ void le::Physic3D::UpdatePhysic( btScalar TimeStep, int MaxSubStep )
 
 //-------------------------------------------------------------------------//
 
-void le::Physic3D::ShowDebug()
+void le::Physic3D::ShowDebug( Camera* PlayerCamera )
 {
+	glPushMatrix();
+
+	if ( PlayerCamera != NULL )
+		glLoadMatrixf( glm::value_ptr( PlayerCamera->GetViewMatrix() ) );
+	else
+		glLoadMatrixf( glm::value_ptr( glm::lookAt(
+		glm::vec3( 0, 0, 0 ),
+		glm::vec3( 0, 0, 0 ),
+		glm::vec3( 0, 1, 0 ) )
+		) );
+
 	if ( DebugDrawer.getDebugMode() != btIDebugDraw::DBG_NoDebug )
 		World->debugDrawWorld();
+
+	glPopMatrix();
 }
 
 //-------------------------------------------------------------------------//
@@ -48,8 +61,8 @@ void le::Physic3D::AddBody( btRigidBody* Body )
 void le::Physic3D::DestroyBody( btRigidBody* Body )
 {
 	if ( Body != NULL )
-	{	
-		vBodys.erase( remove( vBodys.begin( ), vBodys.end( ), Body ), vBodys.end( ) );
+	{
+		vBodys.erase( remove( vBodys.begin(), vBodys.end(), Body ), vBodys.end() );
 		World->removeRigidBody( Body );
 
 		delete Body;
@@ -63,10 +76,10 @@ void le::Physic3D::DestroyAllBodys()
 {
 	for ( int i = 0; i < vBodys.size(); i++ )
 	{
-		World->removeRigidBody( vBodys[ i ] );
+		World->removeRigidBody( vBodys[i] );
 
-		delete vBodys[ i ];
-		vBodys[ i ] = NULL;
+		delete vBodys[i];
+		vBodys[i] = NULL;
 	}
 
 	vBodys.clear();
@@ -81,7 +94,7 @@ btDiscreteDynamicsWorld* le::Physic3D::GetWorld()
 
 //-------------------------------------------------------------------------//
 
-vector<btRigidBody*>* le::Physic3D::GetAllBodys( )
+vector<btRigidBody*>* le::Physic3D::GetAllBodys()
 {
 	return &vBodys;
 }

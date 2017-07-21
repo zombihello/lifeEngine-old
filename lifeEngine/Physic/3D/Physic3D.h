@@ -13,6 +13,7 @@
 // LIFEENGINE
 /////////////////
 #include <System/System.h>
+#include <System/3D/Camera.h>
 #include "BulletDebugDrawer.h"
 
 namespace le
@@ -44,7 +45,7 @@ namespace le
 		///////////////////////////////////////
 		/// ПОКАЗАТЬ ОТЛАДАЧНУЮ ИНФОРМАЦИЮ
 		///////////////////////////////////////
-		void ShowDebug();
+		void ShowDebug( Camera* PlayerCamera = NULL );
 
 		//////////////////////////
 		/// ДОБАВИТЬ ТЕЛО В МИР

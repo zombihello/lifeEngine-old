@@ -4,6 +4,6 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "LightManager.h"
+#include "LightManager2D.h"
 
 #endif // LEEFECTS_H

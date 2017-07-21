@@ -10,7 +10,10 @@
 /// OPENGL
 //////////////
 #include <glew/glew.h>
+#include <glm/fwd.hpp>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/matrix_interpolation.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -75,6 +78,8 @@ namespace le
 		bool          bV_Sinc;
 		bool          bFullscreen;
 		bool		  bDebug;
+
+		glm::mat4	  ProjectionMatrix;
 
 		string        sWindowName;
 		string        sGameVersion;

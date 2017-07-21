@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\\src\SFML\Window\Context.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\GlContext.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\GlResource.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Joystick.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\JoystickManager.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Keyboard.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Mouse.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Touch.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Sensor.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\SensorManager.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\VideoMode.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Window.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\WindowImpl.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\WglContext.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\WglExtensions.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\InputImpl.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\JoystickImpl.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\SensorImpl.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\VideoModeImpl.cpp" />
+    <ClCompile Include="..\..\..\\src\SFML\Window\Win32\WindowImplWin32.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\\include\SFML\Window\Context.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Export.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\GlContext.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\GlResource.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\ContextSettings.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Event.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\InputImpl.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Joystick.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\JoystickImpl.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\JoystickManager.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Keyboard.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Mouse.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Touch.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Sensor.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\SensorImpl.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\SensorManager.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\VideoMode.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\VideoModeImpl.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\Window.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\WindowHandle.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\WindowImpl.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\WglContext.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\WglExtensions.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\InputImpl.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\JoystickImpl.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\SensorImpl.hpp" />
+    <ClInclude Include="..\..\..\\src\SFML\Window\Win32\WindowImplWin32.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="windows">
+      <UniqueIdentifier>{E317E563-0677-312A-8FA6-BD115476FF01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

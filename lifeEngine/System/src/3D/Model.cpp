@@ -3,14 +3,19 @@
 ///////////////////////////
 #include <btBulletDynamicsCommon.h>
 
+////////////////
+/// LIFEENGINE
+///////////////
 #include  "../../3D/Model.h"
 #include "../../System/MaterialManager.h"
+#include "../../../System/LoaderVAO.h"
 
 //-------------------------------------------------------------------------//
 
 le::Model::Model( le::System& System )
 {
 	this->System = &System;
+	Scene = NULL;
 	ScaleModel = Vector3f( 1, 1, 1 );
 }
 
@@ -44,70 +49,59 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 	AnimationManager3D = ModelMesh.AnimationManager3D;
 	AnimationManager3D.SetSkeleton( Skeleton );
 
-	mCountIndexs = ModelMesh.mCountIndexs;
 	vVBO_Vertexs = ModelMesh.vVBO_Vertexs;
 	mVertexs = ModelMesh.mVertexs;
 
 	if ( ModelMesh.IsCollisionMesh )
 	{
-		vCollision_DefaultVertexs = vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
+		vCollision_Vertexs = ModelMesh.vCollision_Vertexs;
 		vCollision_IdVertexs = ModelMesh.vCollision_IdVertexs;
 
 		Skeleton.InitCollision( vCollision_Vertexs );
 	}
 
+	VertexBuffer = LoaderVAO::CreateBuffer( GL_ARRAY_BUFFER, vVBO_Vertexs, GL_DYNAMIC_DRAW );
+
+	SceneInfoMesh InfoMesh;
 	for ( auto it = ModelMesh.mIdIndexs.begin(); it != ModelMesh.mIdIndexs.end(); it++ )
 	{
-		GLuint IndexBuffer;
-		glGenBuffers( 1, &IndexBuffer );
-		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IndexBuffer );
-		glBufferData( GL_ELEMENT_ARRAY_BUFFER, it->second.size() * sizeof( unsigned int ), it->second.data(), GL_DYNAMIC_DRAW );
-		mIndexBuffers[it->first] = IndexBuffer;
+		GLuint VertexArray = LoaderVAO::CreateVAO();
+		LoaderVAO::BindVAO( VertexArray );
+
+		LoaderVAO::AtachBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+		GLuint IndexBuffer = LoaderVAO::AtachBuffer( GL_ELEMENT_ARRAY_BUFFER, it->second, GL_DYNAMIC_DRAW );
+
+		LoaderVAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, VBO_ModelVertex::Position ) ) );
+		LoaderVAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, VBO_ModelVertex::Normal ) ) );
+		LoaderVAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, VBO_ModelVertex::TextureCoord ) ) );
+
+		LoaderVAO::UnbindVAO();
+		LoaderVAO::UnbindBuffer( GL_ARRAY_BUFFER );
+		LoaderVAO::UnbindBuffer( GL_ELEMENT_ARRAY_BUFFER );
+
+		InfoMesh.CountIndexs = it->second.size();
+		InfoMesh.MatrixTransformation = &MatrixTransformation;
+		InfoMesh.VertexArray = VertexArray;	
+		
+		vArrayBuffers.push_back( VertexArray );
+		vIndexBuffers.push_back( IndexBuffer );
+		mRenderMesh[MaterialManager::GetGLTexture( it->first )] = InfoMesh;
 	}
-
-	glGenBuffers( 1, &VertexBuffer );
-	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
-	glBufferData( GL_ARRAY_BUFFER, vVBO_Vertexs.size() * sizeof( VBO_ModelVertex ), vVBO_Vertexs.data(), GL_DYNAMIC_DRAW );
-
-	glBindBuffer( GL_ARRAY_BUFFER, 0 );
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Model::RenderModel()
+void le::Model::AddToScene( Scene3D& Scene )
 {
-	glPushMatrix();
+	this->Scene = &Scene;
+}
 
-	glTranslatef( Position.x, Position.y, Position.z );
-	glMultMatrixf( glm::value_ptr( MatrixRotation ) );
-	glScalef( ScaleModel.x, ScaleModel.y, ScaleModel.z );
+//-------------------------------------------------------------------------//
 
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_NORMAL_ARRAY );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-
-	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
-	glNormalPointer( GL_FLOAT, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, Normal ) ) );
-	glTexCoordPointer( 2, GL_FLOAT, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, TextureCoord ) ) );
-	glVertexPointer( 3, GL_FLOAT, sizeof( VBO_ModelVertex ), ( void* ) ( offsetof( VBO_ModelVertex, Position ) ) );
-
-	for ( auto it = mIndexBuffers.begin(); it != mIndexBuffers.end(); it++ )
-	{
-		glBindTexture( GL_TEXTURE_2D, MaterialManager::GetGLTexture( it->first ) );
-		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, it->second );
-
-		glDrawElements( GL_TRIANGLES, mCountIndexs[it->first], GL_UNSIGNED_INT, 0 );
-	}
-
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
-	glBindBuffer( GL_ARRAY_BUFFER, 0 );
-
-	glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_NORMAL_ARRAY );
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-
-	glPopMatrix();
+void le::Model::UpdateModel( Shader* Shader )
+{
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	Scene->AddMeshToScene( mRenderMesh );
 }
 
 //-------------------------------------------------------------------------//
@@ -115,6 +109,7 @@ void le::Model::RenderModel()
 void le::Model::SetPosition( Vector3f Position )
 {
 	this->Position = Position;
+	MatrixPosition = glm::translate( glm::vec3( Position.x, Position.y, Position.z ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -146,6 +141,7 @@ void le::Model::SetRotate( glm::quat Rotation )
 void le::Model::SetScale( Vector3f Scale )
 {
 	this->ScaleModel = Scale;
+	MatrixScale = glm::scale( glm::vec3( Scale.x, Scale.y, Scale.z ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -153,6 +149,7 @@ void le::Model::SetScale( Vector3f Scale )
 void le::Model::SetScale( Vector3f Scale, btTriangleIndexVertexArray* IndexVertexArrays )
 {
 	this->ScaleModel = Scale;
+	MatrixScale = glm::scale( glm::vec3( Scale.x, Scale.y, Scale.z ) );
 
 	if ( IndexVertexArrays != NULL )
 		IndexVertexArrays->setScaling( btVector3( Scale.x, Scale.y, Scale.z ) );
@@ -163,6 +160,7 @@ void le::Model::SetScale( Vector3f Scale, btTriangleIndexVertexArray* IndexVerte
 void le::Model::Move( Vector3f FactorMove )
 {
 	Position += FactorMove;
+	MatrixPosition *= glm::translate( glm::vec3( FactorMove.x, FactorMove.y, FactorMove.z ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -170,6 +168,7 @@ void le::Model::Move( Vector3f FactorMove )
 void le::Model::Scale( Vector3f FactorScale )
 {
 	ScaleModel += FactorScale;
+	MatrixScale *= glm::scale( glm::vec3( FactorScale.x, FactorScale.y, FactorScale.z ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -177,6 +176,7 @@ void le::Model::Scale( Vector3f FactorScale )
 void le::Model::Scale( Vector3f FactorScale, btTriangleIndexVertexArray* IndexVertexArrays )
 {
 	ScaleModel += FactorScale;
+	MatrixScale *= glm::scale( glm::vec3( FactorScale.x, FactorScale.y, FactorScale.z ) );
 
 	if ( IndexVertexArrays != NULL )
 	{
@@ -217,15 +217,18 @@ void le::Model::Rotate( glm::quat Rotation )
 
 void le::Model::DeleteModel()
 {
-	glDeleteBuffers( 1, &VertexBuffer );
+	LoaderVAO::DeleteBuffer( &VertexBuffer );
 
-	for ( auto it = mIndexBuffers.begin(); it != mIndexBuffers.end(); it++ )
-		glDeleteBuffers( 1, &it->second );
+	for ( int i = 0; i < vArrayBuffers.size(); i++ )
+		LoaderVAO::DeleteVAO( &vArrayBuffers[i] );
+
+	for ( int i = 0; i < vIndexBuffers.size(); i++ )
+		LoaderVAO::DeleteBuffer( &vIndexBuffers[i] );
 
 	Skeleton.ClearSkeleton();
-	mCountIndexs.clear();
+	vArrayBuffers.clear();
 	vVBO_Vertexs.clear();
-	mIndexBuffers.clear();
+	vIndexBuffers.clear();
 	mVertexs.clear();
 }
 

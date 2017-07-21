@@ -20,12 +20,11 @@ namespace le
 
 	struct DLL_API CollisionVertex
 	{
-		glm::mat4x4				Matrix;
-		glm::mat4x4				MatrixVertex;
+		glm::mat4x4				BoneTransform;
 
 		float*					Position[3];
 
-		Vector3f				DefaultPosition;
+		glm::vec3				DefaultPosition;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -39,6 +38,7 @@ namespace le
 
 		glm::mat4x4			StartMatrix;
 		glm::mat4x4			InvertMatrix;
+		glm::mat4x4			InterpolatedMatrix;
 		glm::mat4x4			Realese;
 
 		int			        iIdPerent;
@@ -108,15 +108,21 @@ namespace le
 		/////////////////////////////////////////
 		void UpdateMesh();
 
+
+		/////////////////////////////////////////////
+		/// ОБНОВИТЬ ИЕРАРХИЮ КОСТЕЙ СКЕЛЕТА
+		/////////////////////////////////////////////
+		void UpdateHierarchy( );
+
+		/////////////////////////////////
+		/// ОБНОВИТЬ МАТРИЦУ КОСТИ
+		////////////////////////////////
+		void UpdateMatrixBone( string nameBone, glm::mat4x4 Matrix );
+
 		//////////////////////////////
 		/// ДОБАВИТЬ КОСТЬ СКЕЛЕТУ
 		//////////////////////////////
 		void AddBone( Bone bone );
-
-		///////////////////////////////////
-		/// ЗАДАТЬ МАТРИЦУ ДЛЯ КОСТИ
-		//////////////////////////////////
-		void SetMatrixBone( string nameBone, glm::mat4x4 matrix );
 
 		///////////////////////////////////////////////////
 		/// ПОЛУЧИТЬ ТРАНСФОРМАЦИЮ МОДЕЛИ ПЕРЕД БИНДИНГОМ 
@@ -170,6 +176,11 @@ namespace le
 		//////////////////////////////////
 		void InitMatrixBone( Bone& bone );
 
+		//////////////////////////////////////////////////
+		/// ОБНОВИТЬ МАТРИЦУ КОСТЕЙ [РЕКУРСИВНЫЙ МЕТОД]
+		//////////////////////////////////////////////////
+		void UpdateMatrixBone( Bone& bone );
+
 		bool							IsLoad;
 		bool							IsDebug;
 		bool							IsCollision;
@@ -180,7 +191,7 @@ namespace le
 		vector<VBO_ModelVertex>*		vVBO_Vertexs;	
 		vector<CollisionVertex>		    vCollision_Vertexs;
 		vector<Bone>					vBones;
-		vector<Bone*>					vUpdateBones;
+		vector<int>						vRootBones;
 		map<int, ModelVertex>*			mModelVertexs;
 	};
 

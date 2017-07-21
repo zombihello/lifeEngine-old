@@ -3,10 +3,20 @@
 
 //-------------------------------------------------------------------------//
 
+le::Level3D::Level3D( le::System& System, le::Scene3D& Scene, le::Physic3D& Physic )
+{
+	this->System = &System;
+	this->Physic = &Physic;
+	this->Scene = &Scene;
+}
+
+//-------------------------------------------------------------------------//
+
 le::Level3D::Level3D( le::System& System, le::Physic3D& Physic )
 {
 	this->System = &System;
 	this->Physic = &Physic;
+	Scene = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -74,7 +84,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 			string route = Texture->Attribute( "Route" );
 
 			MaterialManager::LoadGLTexture( name, route );
-			mTextures[ name ] = MaterialManager::GetGLTexture( name );
+			mTextures[name] = MaterialManager::GetGLTexture( name );
 			Texture = Texture->NextSiblingElement();
 		}
 	}
@@ -102,8 +112,9 @@ bool le::Level3D::LoadLevel( string sRoute )
 			string typeBrush;
 			string textureName;
 
-			vector<Vector3f> vertex;
-			vector<Vector2f> texCoord;
+			vector<glm::vec3> vertex;
+			vector<glm::vec3> normals;
+			vector<glm::vec2> texCoord;
 
 			// Работаем с контейнером Type
 			TiXmlElement *Type;
@@ -127,7 +138,7 @@ bool le::Level3D::LoadLevel( string sRoute )
 
 			while ( Vertex )
 			{
-				Vector3f tmpVertex;
+				glm::vec3 tmpVertex;
 
 				tmpVertex.x = atof( Vertex->Attribute( "X" ) );
 				tmpVertex.y = atof( Vertex->Attribute( "Y" ) );
@@ -137,15 +148,32 @@ bool le::Level3D::LoadLevel( string sRoute )
 				Vertex = Vertex->NextSiblingElement();
 			}
 
+			// Работаем с контейнером Normals
+			TiXmlElement *Normals;
+			TiXmlElement *Point;
+			Normals = Brush->FirstChildElement( "Normals" );
+			Point = Normals->FirstChildElement( "Point" );
+
+			while ( Point )
+			{
+				glm::vec3 tmpPoint;
+
+				tmpPoint.x = atof( Point->Attribute( "X" ) );
+				tmpPoint.y = atof( Point->Attribute( "Y" ) );
+				tmpPoint.z = atof( Point->Attribute( "Z" ) );
+
+				normals.push_back( tmpPoint );
+				Point = Point->NextSiblingElement();
+			}
+
 			// Работаем с контейнером TextureCoords
 			TiXmlElement *TextureCoords;
-			TiXmlElement *Point;
 			TextureCoords = Brush->FirstChildElement( "TextureCoords" );
 			Point = TextureCoords->FirstChildElement( "Point" );
 
 			while ( Point )
 			{
-				Vector2f tmpPoint;
+				glm::vec2 tmpPoint;
 
 				tmpPoint.x = atof( Point->Attribute( "X" ) );
 				tmpPoint.y = atof( Point->Attribute( "Y" ) );
@@ -154,8 +182,15 @@ bool le::Level3D::LoadLevel( string sRoute )
 				Point = Point->NextSiblingElement();
 			}
 
-			le::Brush* tmpBrush = new le::Brush( *System, *Physic );
-			tmpBrush->CreateBrush( Brush::PrimitivesType::Cube, mTextures[ textureName ], vertex, texCoord );
+
+			le::Brush* tmpBrush;
+
+			if ( Scene != NULL )
+				tmpBrush = new le::Brush( *System, *Scene, *Physic );
+			else
+				tmpBrush = new le::Brush( *System, *Physic );
+
+			tmpBrush->CreateBrush( Brush::PrimitivesType::Cube, mTextures[textureName], vertex, normals, texCoord );
 			vBrushes.push_back( tmpBrush );
 
 			Brush = Brush->NextSiblingElement();
@@ -194,7 +229,7 @@ void le::Level3D::ClearLevel()
 	sSkyBoxName = "";
 
 	for ( int i = 0; i < vBrushes.size(); i++ )
-		delete vBrushes[ i ];
+		delete vBrushes[i];
 
 	vBrushes.clear();
 	vEntitys.clear();
@@ -202,10 +237,11 @@ void le::Level3D::ClearLevel()
 
 //-------------------------------------------------------------------------//
 
-void le::Level3D::RenderLevel()
+void le::Level3D::UpdateLevel( Shader* Shader )
 {
+	if ( Scene != NULL )
 	for ( int i = 0; i < vBrushes.size(); i++ )
-		vBrushes[ i ]->RenderBrush();
+		vBrushes[i]->UpdateBrush( Shader );
 }
 
 //-------------------------------------------------------------------------//
@@ -213,8 +249,8 @@ void le::Level3D::RenderLevel()
 le::Entity* le::Level3D::GetEntity( string NameEntity )
 {
 	for ( int i = 0; i < vEntitys.size(); i++ )
-	if ( vEntitys[ i ].GetNameEntity() == NameEntity )
-		return &vEntitys[ i ];
+	if ( vEntitys[i].GetNameEntity() == NameEntity )
+		return &vEntitys[i];
 
 	return NULL;
 }
@@ -224,6 +260,16 @@ le::Entity* le::Level3D::GetEntity( string NameEntity )
 vector<le::Entity>& le::Level3D::GetAllEntitys()
 {
 	return vEntitys;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level3D::AddToScene( le::Scene3D& Scene )
+{
+	this->Scene = &Scene;
+
+	for ( int i = 0; i < vBrushes.size(); i++ )
+		vBrushes[i]->AddToScene( Scene );
 }
 
 //-------------------------------------------------------------------------//

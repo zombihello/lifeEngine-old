@@ -7,9 +7,10 @@
 //////////////////
 // LIFEENGINE
 /////////////////
-#include "../../System/System.h"
+#include <System/System.h>
 #include <Physic/3D/Physic3D.h>
 #include <Physic/3D/Body3D.h>
+#include <System/3D/Scene3D.h>
 
 namespace le
 {
@@ -17,8 +18,9 @@ namespace le
 
 	struct DLL_API BrushVertex
 	{
-		Vector3f			Vertex;
-		Vector2f			TextureCoord;
+		glm::vec3			Vertex;
+		glm::vec3			Normal;
+		glm::vec2			TextureCoord;
 
 		bool operator==( BrushVertex& BrushVertex );
 	};
@@ -42,6 +44,7 @@ namespace le
 		/////////////////
 		/// КОНСТРУКТОР
 		////////////////
+		Brush( System& System, Scene3D& Scene, Physic3D& Physic );
 		Brush( System& System, Physic3D& Physic );
 
 		/////////////////
@@ -49,30 +52,37 @@ namespace le
 		////////////////
 		~Brush();
 
+		/////////////////////////////
+		/// ДОБАВИТЬ БРАШ НА СЦЕНУ
+		/////////////////////////////
+		void AddToScene( Scene3D& Scene );
+
 		//////////////////
 		/// СОЗДАТЬ БРАШ
 		//////////////////
-		void CreateBrush( PrimitivesType Type, GLuint Texture, vector<Vector3f> Vertex, vector<Vector2f> TextureCoords );
+		void CreateBrush( PrimitivesType Type, GLuint Texture, vector<glm::vec3> Vertex, vector<glm::vec3> Normals, vector<glm::vec2> TextureCoords );
 
 		///////////////////
 		/// РЕНДЕР БРАША
 		//////////////////
-		void RenderBrush();
+		void UpdateBrush( Shader* Shader = NULL );
 
 	private:
 
-		int							iCountIndex;
+		System*										System;
+		Physic3D*									Physic;
+		Body3D*										Body;
+		Scene3D*									Scene;
 
-		System*					    System;
-		Physic3D*					Physic;
-		Body3D*						Body;
+		GLuint										VertexBuffer;
+		GLuint										VertexArray;
+		GLuint										IndexBuffer;
 
-		GLuint						TextureBrush;
-		GLuint						VertexBuffer;
-		GLuint						IndexBuffer;
+		glm::mat4x4									MatrixTransformation;
 
-		vector<float>				vCollision_Vertex;
-		vector<int>					vCollision_IdVertex;
+		vector<float>								vCollision_Vertex;
+		vector<int>									vCollision_IdVertex;
+		map<GLuint, SceneInfoMesh>					mRenderMesh;
 	};
 
 	//-------------------------------------------------------------------------//

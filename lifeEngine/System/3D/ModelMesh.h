@@ -17,9 +17,9 @@ namespace le
 
 	struct DLL_API VBO_ModelVertex
 	{
-		Vector3f			Position;
-		Vector3f			Normal;
-		Vector2f			TextureCoord;
+		glm::vec3			Position;
+		glm::vec3			Normal;
+		glm::vec2			TextureCoord;
 		Color				VertexColor;
 
 		bool operator==( VBO_ModelVertex& VBO_ModelVertex );
@@ -29,10 +29,10 @@ namespace le
 
 	struct DLL_API ModelVertex
 	{
-		glm::mat4x4			Matrix;
-		glm::mat4x4			MatrixVertex;
+		glm::mat4x4			BoneTransform;
 
-		Vector3f			Position;
+		glm::vec3			Position;
+		glm::vec3			Normal;
 
 		vector<int>			vIdVBO_Vertex;
 	};
@@ -67,7 +67,6 @@ namespace le
 		vector<float>							vCollision_Vertexs;
 		vector<int>								vCollision_IdVertexs;
 		map<string, vector<unsigned int> >		mIdIndexs;
-		map<string, int>						mCountIndexs;
 		map<int, ModelVertex>					mVertexs;
 	};
 

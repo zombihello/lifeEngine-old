@@ -28,9 +28,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{25a6b2f2-c5f8-49c4-9a93-5e2132b9fe6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Efects">
-      <UniqueIdentifier>{5ca2f6e2-2078-4f33-8414-b481839d2087}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\HaffmanCode">
       <UniqueIdentifier>{87ddb135-5860-44f6-8221-cd7adac33361}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,15 @@
     </Filter>
     <Filter Include="Physic\3D">
       <UniqueIdentifier>{0f5f2473-f639-4d90-a852-82bf96eccb52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\3D">
+      <UniqueIdentifier>{6d42ebab-c579-46fb-a47f-2c9e3c9132e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{5ca2f6e2-2078-4f33-8414-b481839d2087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\3D">
+      <UniqueIdentifier>{f32aac85-baab-498f-ab7c-08e39b09d786}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,13 +140,7 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="Efects\leEfects.h">
-      <Filter>Efects</Filter>
-    </ClInclude>
-    <ClInclude Include="Efects\Light.h">
-      <Filter>Efects</Filter>
-    </ClInclude>
-    <ClInclude Include="Efects\LightManager.h">
-      <Filter>Efects</Filter>
+      <Filter>Effects</Filter>
     </ClInclude>
     <ClInclude Include="Entity\AI_View.h">
       <Filter>Entity</Filter>
@@ -182,12 +182,6 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Animation\AnimationManager2D.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation\Animation3D.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation\AnimationManager3D.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="System\3D\Camera.h">
@@ -240,6 +234,27 @@
     </ClInclude>
     <ClInclude Include="Physic\3D\BulletDebugDrawer.h">
       <Filter>Physic\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\Light2D.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\LightManager2D.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation3D.h">
+      <Filter>Animation\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimationManager3D.h">
+      <Filter>Animation\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\3D\LightManager3D.h">
+      <Filter>Effects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="System\LoaderVAO.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\3D\Scene3D.h">
+      <Filter>System\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,12 +315,6 @@
     <ClCompile Include="Level\src\Object.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="Efects\src\Light.cpp">
-      <Filter>Efects</Filter>
-    </ClCompile>
-    <ClCompile Include="Efects\src\LightManager.cpp">
-      <Filter>Efects</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\src\AI_View.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
@@ -346,12 +355,6 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Animation\src\AnimationManager2D.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\src\Animation3D.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation\src\AnimationManager3D.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="System\src\3D\Camera.cpp">
@@ -404,6 +407,27 @@
     </ClCompile>
     <ClCompile Include="Physic\src\3D\BulletDebugDrawer.cpp">
       <Filter>Physic\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Efects\src\Light2D.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Efects\src\LightManager2D.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\Animation3D.cpp">
+      <Filter>Animation\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\src\AnimationManager3D.cpp">
+      <Filter>Animation\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Efects\src\3D\LightManager3D.cpp">
+      <Filter>Effects\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\LoaderVAO.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\3D\Scene3D.cpp">
+      <Filter>System\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

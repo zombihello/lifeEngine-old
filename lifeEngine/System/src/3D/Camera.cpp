@@ -42,20 +42,21 @@ void le::Camera::UpdateCamera()
 
 	Mouse::setPosition( Vector2i( CenterWindow.x, CenterWindow.y ), System->GetWindow() );
 
-	if ( fInclinationCamera != 0 )
-		glRotatef( fInclinationCamera, 0, 0, 1 );
-
-	gluLookAt( Position.x, Position.y, Position.z, Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ), 0, 1, 0 );
+	ViewMatrix = InclinationCameraMatrix * glm::lookAt(
+		glm::vec3( Position.x, Position.y, Position.z ),
+		glm::vec3( Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ) ),
+		glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Camera::ApplyCamera()
 {
-	if ( fInclinationCamera != 0 )
-		glRotatef( fInclinationCamera, 0, 0, 1 );
+	ViewMatrix = InclinationCameraMatrix * glm::lookAt(
+		glm::vec3( Position.x, Position.y, Position.z ),
+		glm::vec3( Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ) ),
+		glm::vec3( 0, 1, 0 ) );
 
-	gluLookAt( Position.x, Position.y, Position.z, Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ), 0, 1, 0 );
 }
 
 //-------------------------------------------------------------------------//
@@ -104,6 +105,7 @@ void le::Camera::Move( TypeMove typeMove, float MoveSpeed )
 void le::Camera::TiltCamera( float FactorTilt )
 {
 	fInclinationCamera += FactorTilt;
+	InclinationCameraMatrix *= glm::rotate( glm::radians( FactorTilt ), glm::vec3( 0, 0, 1 ) );
 
 	if ( fInclinationCamera > 360 || fInclinationCamera < -360 )
 		fInclinationCamera = 0;
@@ -124,6 +126,8 @@ void le::Camera::SetInclinationCamera( float InclinationCamera )
 		fInclinationCamera = 0;
 	else
 		fInclinationCamera = InclinationCamera;
+
+	InclinationCameraMatrix = glm::rotate( glm::radians( fInclinationCamera ), glm::vec3( 0, 0, 1 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -174,6 +178,13 @@ Vector3f le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 	}
 
 	return OffsetMove;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::mat4 le::Camera::GetViewMatrix()
+{
+	return ViewMatrix;
 }
 
 //-------------------------------------------------------------------------//

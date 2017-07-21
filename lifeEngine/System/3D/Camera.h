@@ -90,6 +90,11 @@ namespace le
 		////////////////////////////////////////////////////////////////////////////////
 		Vector3f GetVectorMove( TypeMove typeMove, float MoveSpeed );
 
+		/////////////////////////////////////////
+		/// ПОЛУЧИТЬ ВИДОВУЮ МАТРИЦУ
+		/////////////////////////////////////////
+		glm::mat4 GetViewMatrix();
+
 	private:
 
 		float			fSensitivityMouse;
@@ -100,6 +105,9 @@ namespace le
 		Vector2f		Angle;
 		Vector3f		Position;
 		Vector2f		CenterWindow;
+
+		glm::mat4		ViewMatrix;
+		glm::mat4		InclinationCameraMatrix;
 	};
 
 	//-------------------------------------------------------------------------//

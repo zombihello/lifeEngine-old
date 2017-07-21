@@ -430,6 +430,8 @@ public:
     ////////////////////////////////////////////////////////////
     void setUniform(const std::string& name, const Glsl::Mat4& matrix);
 
+	void setUniform(const std::string& name, const float* matrix );
+
     ////////////////////////////////////////////////////////////
     /// \brief Specify a texture as \p sampler2D uniform
     ///

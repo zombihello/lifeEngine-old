@@ -173,6 +173,7 @@ void System::WindowCreate( int iStyle )
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_CULL_FACE );
 	glEnable( GL_TEXTURE_2D );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glDepthMask( GL_TRUE );
 	glClearDepth( 1.f );
@@ -181,7 +182,8 @@ void System::WindowCreate( int iStyle )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 
-	gluPerspective( 75, ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 1000 );
+	Configuration.ProjectionMatrix = glm::perspective( glm::radians( 75.f ), ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 1000.f );
+	glLoadMatrixf( glm::value_ptr( Configuration.ProjectionMatrix ) );
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
@@ -202,9 +204,7 @@ void System::MainLoop( BasicStagesGame& BasicStagesGame )
 
 		if ( Event.type != Event::LostFocus )
 		{
-			RenderWindow.clear();
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			glLoadIdentity();
 
 			RenderWindow.setView( GameCamera );
 			MouseCursor.UpdatePosition( RenderWindow );
