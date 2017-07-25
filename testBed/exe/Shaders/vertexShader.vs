@@ -45,7 +45,7 @@ void main()
 
 	for ( int i = 0; i < UsingLights; i++ )
 	{
-		vertex.lightDir[i] =  (light[i].position - worldPosition).xyz;
+		vertex.lightDir[i] = ( vec4(light[i].position, 1.0f) - worldPosition).xyz;
 		vertex.distance[i] = length( vertex.lightDir[i] );
 	}
 
