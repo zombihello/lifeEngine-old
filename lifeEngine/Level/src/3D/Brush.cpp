@@ -137,10 +137,15 @@ void le::Brush::CreateBrush( PrimitivesType Type, GLuint Texture, vector<glm::ve
 
 	MatrixTransformation = glm::translate( glm::vec3( 0, 0, 0 ) );
 
+	Material MaterialBrush;
+	MaterialBrush.Texture = Texture;
+
 	SceneInfoMesh InfoMesh;
 	InfoMesh.CountIndexs = vIdVertex.size();
 	InfoMesh.VertexArray = VertexArray;
 	InfoMesh.MatrixTransformation = &MatrixTransformation;
+	InfoMesh.Material = MaterialBrush;
+
 	mRenderMesh[Texture] = InfoMesh;
 }
 

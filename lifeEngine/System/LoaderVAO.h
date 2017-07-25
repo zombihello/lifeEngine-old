@@ -23,60 +23,60 @@ namespace le
 		/////////////////
 		/// СОЗДАТЬ VAO
 		////////////////
-		static inline GLuint CreateVAO( );
+		static GLuint CreateVAO( );
 
 		////////////////////////////////
 		/// СОЗДАТЬ БУФЕР
 		////////////////////////////////
-		template<typename T> static inline GLuint CreateBuffer( GLenum TypeBuffer, vector<T> Data, GLenum Usage );
+		template<typename T> static GLuint CreateBuffer( GLenum TypeBuffer, vector<T> Data, GLenum Usage );
 
 		////////////////////////////////
 		/// ПРИСОЕДИНИТЬ БУФЕР К VAO
 		////////////////////////////////
-		template<typename T> static inline GLuint AtachBuffer( GLenum TypeBuffer, vector<T> Data, GLenum Usage );
-		static inline void AtachBuffer( GLenum TypeBuffer, GLuint Buffer );
+		template<typename T> static GLuint AtachBuffer( GLenum TypeBuffer, vector<T> Data, GLenum Usage );
+		static void AtachBuffer( GLenum TypeBuffer, GLuint Buffer );
 
 		//////////////////////////////////////////////
 		/// ЗАДАТЬ ИНДЕКС АТРИБУТА ВЕРШИНЫ В ШЕЙДЕРЕ
 		//////////////////////////////////////////////
-		static inline void SetVertexAttribPointer( GLuint Index, GLint Size, GLenum Type, GLboolean Normalized, GLsizei Stride, const void* Pointer );
+		static void SetVertexAttribPointer( GLuint Index, GLint Size, GLenum Type, GLboolean Normalized, GLsizei Stride, const void* Pointer );
 
 		//////////////////////////////////////////////
 		/// РАЗРЕШИТЬ ИСПОЛЬЗОВАТЬ ВЕРШИНЫЙ АТРИБУТ
 		/// ПОД ЗАДАНЫМ ИНДЕКСОМ
 		//////////////////////////////////////////////
-		static inline void EnableVertexPointer( GLuint Index );
+		static void EnableVertexPointer( GLuint Index );
 
 		//////////////////////////////////////////////
 		/// ЗАПРЕТИТЬ ИСПОЛЬЗОВАТЬ ВЕРШИНЫЙ АТРИБУТ
 		/// ПОД ЗАДАНЫМ ИНДЕКСОМ
 		//////////////////////////////////////////////
-		static inline void DisableVertexPointer( GLuint Index );
+		static void DisableVertexPointer( GLuint Index );
 
 		///////////////////////////
 		/// СДЕЛАТЬ АКТИВНЫМ VAO
 		///////////////////////////
-		static inline void BindVAO( GLuint VAO );
+		static void BindVAO( GLuint VAO );
 		
 		//////////////////////////////////
 		/// ДЕАКТИВИРОВАТЬ ТЕКУЩИЙ VAO
 		//////////////////////////////////
-		static inline void UnbindVAO( );
+		static void UnbindVAO( );
 
 		//////////////////////////////////
 		/// ДЕАКТИВИРОВАТЬ ТЕКУЩИЙ БУФЕР
 		//////////////////////////////////
-		static inline void UnbindBuffer( GLenum TypeBuffer );
+		static void UnbindBuffer( GLenum TypeBuffer );
 
 		///////////////////
 		/// УДАЛИТЬ БУФЕР
 		//////////////////
-		static inline void DeleteBuffer( GLuint* Buffer );
+		static void DeleteBuffer( GLuint* Buffer );
 
 		//////////////////
 		/// УДАЛИТЬ VAO
 		/////////////////
-		static inline void DeleteVAO( GLuint* VAO );
+		static void DeleteVAO( GLuint* VAO );
 	};
 
 	//-------------------------------------------------------------------------//

@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -122,6 +122,7 @@
     <ClInclude Include="Animation\AnimationManager3D.h" />
     <ClInclude Include="Animation\leAnimation.h" />
     <ClInclude Include="DllGlobal.h" />
+    <ClInclude Include="Efects\3D\Light3D.h" />
     <ClInclude Include="Efects\3D\LightManager3D.h" />
     <ClInclude Include="Efects\leEfects.h" />
     <ClInclude Include="Efects\Light2D.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Animation\src\Animation3D.cpp" />
     <ClCompile Include="Animation\src\AnimationManager2D.cpp" />
     <ClCompile Include="Animation\src\AnimationManager3D.cpp" />
+    <ClCompile Include="Efects\src\3D\Light3D.cpp" />
     <ClCompile Include="Efects\src\3D\LightManager3D.cpp" />
     <ClCompile Include="Efects\src\Light2D.cpp" />
     <ClCompile Include="Efects\src\LightManager2D.cpp" />

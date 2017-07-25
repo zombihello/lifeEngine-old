@@ -9,6 +9,7 @@
 #include  "../../3D/Model.h"
 #include "../../System/MaterialManager.h"
 #include "../../../System/LoaderVAO.h"
+#include <System\3D\Scene3D.h>
 
 //-------------------------------------------------------------------------//
 
@@ -82,10 +83,11 @@ void le::Model::LoadModel( le::ModelMesh ModelMesh )
 		InfoMesh.CountIndexs = it->second.size();
 		InfoMesh.MatrixTransformation = &MatrixTransformation;
 		InfoMesh.VertexArray = VertexArray;	
+		InfoMesh.Material = ModelMesh.mMaterials[it->first];
 		
 		vArrayBuffers.push_back( VertexArray );
 		vIndexBuffers.push_back( IndexBuffer );
-		mRenderMesh[MaterialManager::GetGLTexture( it->first )] = InfoMesh;
+		mRenderMesh[InfoMesh.Material.Texture] = InfoMesh;
 	}
 }
 

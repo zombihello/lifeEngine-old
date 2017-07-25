@@ -4,6 +4,19 @@
 
 //-------------------------------------------------------------------------//
 
+le::Material::Material( )
+{
+	Texture = 0;
+
+	Ambient = Color( 0.2f, 0.2f, 0.2f, 1.0f );
+	Diffuse = Color( 1.0f, 1.0f, 1.0f, 1.0f );
+	Specular = Color( 0.0f, 0.0f, 0.0f, 1.0f );
+	Emission = Color( 0.0f, 0.0f, 0.0f, 1.0f );
+	fShininess = 0.0f;
+}
+
+//-------------------------------------------------------------------------//
+
 bool le::VBO_ModelVertex::operator==( le::VBO_ModelVertex& VBO_ModelVertex )
 {
 	return Position == VBO_ModelVertex.Position &&
@@ -25,11 +38,11 @@ bool le::ModelMesh::LoadMesh( string route )
 {
 	TiXmlDocument LMD;
 
-	vector<string>	 vNameTextures;
-	vector<glm::vec3> vVertexPosition;
-	vector<glm::vec3> vVertexNormal;
-	vector<glm::vec2> vTextureCoords;
-	vector<Color>	 vVertexColor;
+	vector<glm::vec3>		vVertexPosition;
+	vector<glm::vec3>		vVertexNormal;
+	vector<glm::vec2>		vTextureCoords;
+	vector<Color>			vVertexColor;
+	map<string, string>		mNameTexture;
 
 	string routeTmp = route;
 	routeTmp.erase( 0, routeTmp.find_last_of( '.' ) + 1 );
@@ -83,10 +96,13 @@ bool le::ModelMesh::LoadMesh( string route )
 
 	if ( textures != NULL )
 	{
+		string IdTexture;
 		img = textures->FirstChildElement( "image" );
 
 		while ( img )
 		{
+			IdTexture = img->Attribute( "id" );
+
 			string route = img->Attribute( "src" );
 			route.erase( 0, route.find_last_of( '/' ) + 1 );
 
@@ -94,11 +110,94 @@ bool le::ModelMesh::LoadMesh( string route )
 			nameTexture.erase( 0, nameTexture.find_last_of( '\\' ) + 1 );
 
 			MaterialManager::LoadGLTexture( nameTexture, route );
-			vNameTextures.push_back( nameTexture );
+
+			mNameTexture[IdTexture] = nameTexture;
 			img = img->NextSiblingElement();
 		}
 	}
 
+	// Работаем с контейнером materials
+	TiXmlElement *materials;
+	TiXmlElement *material;
+
+	materials = model->FirstChildElement( "materials" );
+
+	if ( materials != NULL )
+	{
+		TiXmlElement *texture;
+		TiXmlElement *ambient;
+		TiXmlElement *diffuse;
+		TiXmlElement *emission;
+		TiXmlElement *specular;
+		TiXmlElement *shininess;
+		Color color;
+		string MaterialId;
+
+		material = materials->FirstChildElement( "material" );
+
+		while ( material )
+		{
+			Material Material;
+			MaterialId = material->Attribute( "id" );
+
+			texture = material->FirstChildElement( "texture" );
+			if ( texture != NULL )
+				Material.Texture = MaterialManager::GetGLTexture( mNameTexture[texture->Attribute( "id" )] );
+
+			ambient = material->FirstChildElement( "ambient" );
+			if ( ambient != NULL )
+			{
+				color.r = atof( ambient->Attribute( "r" ) );
+				color.g = atof( ambient->Attribute( "g" ) );
+				color.b = atof( ambient->Attribute( "b" ) );
+				color.a = atof( ambient->Attribute( "a" ) );
+
+				Material.Ambient = color;
+			}
+
+			diffuse = material->FirstChildElement( "diffuse" );
+			if ( diffuse != NULL )
+			{
+				color.r = atof( diffuse->Attribute( "r" ) );
+				color.g = atof( diffuse->Attribute( "g" ) );
+				color.b = atof( diffuse->Attribute( "b" ) );
+				color.a = atof( diffuse->Attribute( "a" ) );
+
+				Material.Diffuse = color;
+			}
+
+			emission = material->FirstChildElement( "emission" );
+			if ( diffuse != NULL )
+			{
+				color.r = atof( emission->Attribute( "r" ) );
+				color.g = atof( emission->Attribute( "g" ) );
+				color.b = atof( emission->Attribute( "b" ) );
+				color.a = atof( emission->Attribute( "a" ) );
+
+				Material.Emission = color;
+			}
+
+			specular = material->FirstChildElement( "specular" );
+			if ( diffuse != NULL )
+			{
+				color.r = atof( specular->Attribute( "r" ) );
+				color.g = atof( specular->Attribute( "g" ) );
+				color.b = atof( specular->Attribute( "b" ) );
+				color.a = atof( specular->Attribute( "a" ) );
+
+				Material.Specular = color;
+			}
+
+			shininess = material->FirstChildElement( "shininess" );
+			if ( shininess != NULL )
+				Material.fShininess = atof( shininess->Attribute( "value" ) );
+
+			mMaterials[MaterialId] = Material;
+			material = material->NextSiblingElement();
+		}
+	}
+
+	
 	// Работаем с контейнером geometries
 	TiXmlElement *geometries;
 	TiXmlElement *point;
@@ -174,16 +273,15 @@ bool le::ModelMesh::LoadMesh( string route )
 	}
 
 	TiXmlElement *polygons;
-	TiXmlElement *texture;
 	TiXmlElement *p;
 
 	polygons = geometries->FirstChildElement( "polygons" );
-	texture = polygons->FirstChildElement( "texture" );
+	material = polygons->FirstChildElement( "material" );
 
-	while ( texture )
+	while ( material )
 	{
-		p = texture->FirstChildElement( "p" );
-		int idTexture = atoi( texture->Attribute( "id" ) );
+		p = material->FirstChildElement( "p" );
+		string idMaterial = material->Attribute( "id" );
 		int idVertex = 0;
 
 		vector<unsigned int> vIdVertex;
@@ -293,8 +391,8 @@ bool le::ModelMesh::LoadMesh( string route )
 			p = p->NextSiblingElement();
 		}
 
-		mIdIndexs[vNameTextures[idTexture]] = vIdVertex;;
-		texture = texture->NextSiblingElement();
+		mIdIndexs[idMaterial] = vIdVertex;
+		material = material->NextSiblingElement( );
 	}
 
 	// Работаем с контейнером skeleton
@@ -378,6 +476,7 @@ void le::ModelMesh::Clear()
 	vVBO_Vertexs.clear();
 	mIdIndexs.clear();
 	mVertexs.clear();
+	mMaterials.clear();
 }
 
 //-------------------------------------------------------------------------//

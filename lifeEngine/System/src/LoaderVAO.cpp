@@ -14,6 +14,7 @@ GLuint le::LoaderVAO::CreateVAO( )
 void le::LoaderVAO::SetVertexAttribPointer( GLuint Index, GLint Size, GLenum Type, GLboolean Normalized, GLsizei Stride, const void* Pointer )
 {
 	glVertexAttribPointer( Index, Size, Type, Normalized, Stride, Pointer );
+	glEnableVertexAttribArray( Index );
 	
 }
 

@@ -2,62 +2,56 @@
 
 //-------------------------------------------------------------------------//
 
-le::LightManager3D::LightManager3D( le::Camera& PlayerCamera )
-{
-	this->PlayerCamera = &PlayerCamera;
+le::LightManager3D::LightManager3D() : Scene( NULL )
+{}
 
-	ShaderLight.loadFromFile( "vertexShader.vs", "fragmentShader.fs" );
+//-------------------------------------------------------------------------//
+
+void le::LightManager3D::AddLightsToScene( Scene3D & Scene )
+{
+	this->Scene = &Scene;
 }
 
 //-------------------------------------------------------------------------//
 
 void le::LightManager3D::UpdateLights()
 {
-//	ShaderLight.setUniform( "transformationMatrix" )
+	if ( Scene != NULL )
+		for ( int i = 0; i < vLights.size(); i++ )
+			Scene->AddLightToScene( vLights[ i ] );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager3D::StartApplyLights()
+void le::LightManager3D::CreateLight( le::Light3D Light3D )
 {
-//	Shader::bind( &ShaderLight );
+	vLights.push_back( Light3D );
 }
-
-//-------------------------------------------------------------------------//
-
-void le::LightManager3D::StopApplyLights()
-{
-	//Shader::bind( NULL );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::LightManager3D::CreateLight( string NameLight, le::Light3D Light3D )
-{}
 
 //-------------------------------------------------------------------------//
 
 void le::LightManager3D::DestroyLight( string NameLight )
-{}
+{
+	for ( int i = 0; i < vLights.size(); i++ )
+		if ( vLights[ i ].NameLight == NameLight )
+			vLights.erase( i + vLights.begin() );
+}
 
 //-------------------------------------------------------------------------//
 
 void le::LightManager3D::DestroyAllLights()
 {
-	mLights.clear();
-}
-
-//-------------------------------------------------------------------------//
-
-void le::LightManager3D::SetPlayerCamera( le::Camera& PlayerCamera )
-{
-	this->PlayerCamera = &PlayerCamera;
+	vLights.clear();
 }
 
 //-------------------------------------------------------------------------//
 
 le::Light3D* le::LightManager3D::GetLight( string NameLight )
 {
+	for ( int i = 0; i < vLights.size(); i++ )
+		if ( vLights[ i ].NameLight == NameLight )
+			return &vLights[ i ];
+
 	return NULL;
 }
 

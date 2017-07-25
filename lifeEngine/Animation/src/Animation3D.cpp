@@ -82,30 +82,30 @@ void le::Animation3D::UpdateAnimation()
 
 	for ( auto it = mAnimationBone.begin(); it != mAnimationBone.end(); it++ )
 	{
-		NowFrame = it->second.vFrames[iNextFrame - 1];
-		NextFrame = it->second.vFrames[iNextFrame];
-
 		if ( iNextFrame < it->second.vFrames.size() )
 		{
-			Interpolated[0].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[0].x, NextFrame[0].x );
-			Interpolated[0].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[0].y, NextFrame[0].y );
-			Interpolated[0].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[0].z, NextFrame[0].z );
-			Interpolated[0].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[0].w, NextFrame[0].w );
+			NowFrame = it->second.vFrames[ iNextFrame - 1 ];
+			NextFrame = it->second.vFrames[ iNextFrame ];
 
-			Interpolated[1].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[1].x, NextFrame[1].x );
-			Interpolated[1].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[1].y, NextFrame[1].y );
-			Interpolated[1].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[1].z, NextFrame[1].z );
-			Interpolated[1].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[1].w, NextFrame[1].w );
+			Interpolated[ 0 ].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 0 ].x, NextFrame[ 0 ].x );
+			Interpolated[ 0 ].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 0 ].y, NextFrame[ 0 ].y );
+			Interpolated[ 0 ].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 0 ].z, NextFrame[ 0 ].z );
+			Interpolated[ 0 ].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 0 ].w, NextFrame[ 0 ].w );
 
-			Interpolated[2].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[2].x, NextFrame[2].x );
-			Interpolated[2].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[2].y, NextFrame[2].y );
-			Interpolated[2].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[2].z, NextFrame[2].z );
-			Interpolated[2].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[2].w, NextFrame[2].w );
+			Interpolated[ 1 ].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 1 ].x, NextFrame[ 1 ].x );
+			Interpolated[ 1 ].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 1 ].y, NextFrame[ 1 ].y );
+			Interpolated[ 1 ].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 1 ].z, NextFrame[ 1 ].z );
+			Interpolated[ 1 ].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 1 ].w, NextFrame[ 1 ].w );
 
-			Interpolated[3].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[3].x, NextFrame[3].x );
-			Interpolated[3].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[3].y, NextFrame[3].y );
-			Interpolated[3].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[3].z, NextFrame[3].z );
-			Interpolated[3].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[3].w, NextFrame[3].w );
+			Interpolated[ 2 ].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 2 ].x, NextFrame[ 2 ].x );
+			Interpolated[ 2 ].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 2 ].y, NextFrame[ 2 ].y );
+			Interpolated[ 2 ].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 2 ].z, NextFrame[ 2 ].z );
+			Interpolated[ 2 ].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 2 ].w, NextFrame[ 2 ].w );
+
+			Interpolated[ 3 ].x = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 3 ].x, NextFrame[ 3 ].x );
+			Interpolated[ 3 ].y = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 3 ].y, NextFrame[ 3 ].y );
+			Interpolated[ 3 ].z = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 3 ].z, NextFrame[ 3 ].z );
+			Interpolated[ 3 ].w = lerpFrames( fNowFrame, iNextFrame, NowFrame[ 3 ].w, NextFrame[ 3 ].w );
 
 			Skeleton->UpdateMatrixBone( it->first, Interpolated );
 		}
@@ -195,7 +195,7 @@ bool le::Animation3D::LoadAnimation( TiXmlElement* animation )
 					case 4:
 						tmpVec.w = atof( tmp.c_str() );
 
-						Matrix[id] = tmpVec;
+						Matrix[ id ] = tmpVec;
 						axis = 0;
 						id++;
 						break;
@@ -223,7 +223,7 @@ bool le::Animation3D::LoadAnimation( TiXmlElement* animation )
 			AnimBone.vTypeInterpolation.push_back( sTmp );
 		}
 
-		mAnimationBone[sNameBone] = AnimBone;
+		mAnimationBone[ sNameBone ] = AnimBone;
 
 		animationBone = animationBone->NextSiblingElement();
 	}

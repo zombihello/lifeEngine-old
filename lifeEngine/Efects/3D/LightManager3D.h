@@ -7,48 +7,35 @@
 ////////////////
 /// LIFEENGINE
 ///////////////
-#include "../../System/System.h"
-#include "../../System/3D/Camera.h"
+#include <System\System.h>
+#include <System\3D\Camera.h>
+#include <System\3D\Scene3D.h>
+#include <Efects\3D\Light3D.h>
 
 namespace le
 {
-	//-------------------------------------------------------------------------//
-
-	struct DLL_API Light3D
-	{
-		glm::vec3		Position;
-		glm::vec3		Color;
-	};
-
-	//-------------------------------------------------------------------------//
-
 	class DLL_API LightManager3D
 	{
 	public:
 		/////////////////
 		/// КОНСТРУКТОР
 		/////////////////
-		LightManager3D( Camera& PlayerCamera );
+		LightManager3D();
+
+		///////////////////////////////////////
+		/// ДОБАВИТЬ ИСТОЧНИКИ СВЕТА НА СЦЕНУ
+		///////////////////////////////////////
+		void AddLightsToScene( Scene3D& Scene );
 
 		///////////////////////////////
 		/// ОБНОВИТЬ ИСТОЧНИКИ СВЕТА
 		///////////////////////////////
 		void UpdateLights();
 
-		/////////////////////////////
-		/// НАЧАТЬ ПРИМИНЯТЬ СВЕТ
-		/////////////////////////////
-		void StartApplyLights();
-
-		////////////////////////////////
-		/// ПРЕКРАТИТЬ ПРИМИНЯТЬ СВЕТ
-		////////////////////////////////
-		void StopApplyLights();
-
 		////////////////////////////////
 		/// СОЗДАТЬ СВЕТ
 		////////////////////////////////
-		void CreateLight( string NameLight, Light3D Light3D );
+		void CreateLight( Light3D Light3D );
 
 		////////////////////////////////
 		/// УНИЧТОЖИТЬ СВЕТ
@@ -61,22 +48,15 @@ namespace le
 		void DestroyAllLights();
 
 		////////////////////////////////
-		/// ЗАДАТЬ КАМЕРУ ИГРОКА
-		////////////////////////////////
-		void SetPlayerCamera( Camera& PlayerCamera );
-
-		////////////////////////////////
 		/// ПОЛУЧИТЬ СВЕТ
 		////////////////////////////////
 		Light3D* GetLight( string NameLight );
 
 	private:
 
-		Shader						ShaderLight;
+		Scene3D*					Scene;
 
-		Camera*						PlayerCamera;
-
-		map<string, Light3D>		mLights;
+		vector<Light3D>				vLights;
 	};
 
 	//-------------------------------------------------------------------------//

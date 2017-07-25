@@ -10,6 +10,8 @@
 #include "../System.h"
 #include "../LoaderVAO.h"
 #include "Camera.h"
+#include "ModelMesh.h"
+#include "../../Efects/3D/Light3D.h"
 
 namespace le
 {
@@ -20,19 +22,10 @@ namespace le
 		int					CountIndexs;
 
 		GLuint				VertexArray;
+		Material			Material;
 
 		glm::mat4*			MatrixTransformation;
 	};
-
-	//-------------------------------------------------------------------------//
-
-	/*struct DLL_API SceneRenderMesh
-	{
-		Shader*						Shader;
-		glm::mat4					MatrixTransformation;
-
-		//vector<SceneInfoMesh>		vInfoMesh;
-	};*/
 
 	//-------------------------------------------------------------------------//
 
@@ -47,6 +40,11 @@ namespace le
 		Scene3D( System& System, Camera& PlayerCamera );
 
 		////////////////////////////////////
+		/// ДЕСТРУКТОР
+		///////////////////////////////////
+		~Scene3D();
+
+		////////////////////////////////////
 		/// ЗАДАТЬ КАМЕРУ ИГРОКА
 		///////////////////////////////////
 		void SetPlayerCamera( Camera& PlayerCamera );
@@ -56,6 +54,11 @@ namespace le
 		///////////////////////////////////
 		void AddMeshToScene( GLuint Texture, SceneInfoMesh Mesh );
 		void AddMeshToScene( map<GLuint, SceneInfoMesh> Mesh );
+
+		/////////////////////////////////////////
+		///// ДОБАВИТЬ ИСТОЧНИК СВЕТА НА СЦЕНУ
+		/////////////////////////////////////////
+		void AddLightToScene( Light3D Light );
 
 		///////////////////////////
 		/// ОТРЕНДЕРИТЬ СЦЕНУ
@@ -69,13 +72,14 @@ namespace le
 
 	private:
 
-		Shader										ShaderRender;
+		Shader										GeometryRender;
 		glm::mat4									ViewMatrix;
 
 		System*										System;
 		Camera*										PlayerCamera;
 		glm::mat4*									ProjectionMatrix;
 		
+		vector<Light3D>								vPointLights;
 		map<GLuint, vector<SceneInfoMesh>>			mRenderBuffer;
 	};
 

@@ -68,6 +68,71 @@ System::System( const string FileConfiguration, int argc, char** argv )
 
 //-------------------------------------------------------------------------//
 
+le::System::System( const string FileConfiguration, const string ShadersDir, int argc, char ** argv )
+{
+	sRouteFileConfiguration = FileConfiguration;
+	Configuration.sShadersDir = ShadersDir;
+
+	if ( FileExists( FileConfiguration ) )
+	{
+		Configuration.iWindowWidth = ReadTextFile<int>( FileConfiguration, "iWindowWidth" );
+		Configuration.iWindowHeight = ReadTextFile<int>( FileConfiguration, "iWindowHeight" );
+		Configuration.iVolumeMusic = ReadTextFile<int>( FileConfiguration, "iVolumeMusic" );
+		Configuration.iVolumeSound = ReadTextFile<int>( FileConfiguration, "iVolumeSound" );
+		Configuration.iFrameLimit = ReadTextFile<int>( FileConfiguration, "iFrameLimit" );
+		Configuration.iAntialiasingLevel = ReadTextFile<int>( FileConfiguration, "iAntialiasingLevel" );
+		Configuration.fRatioView = ReadTextFile<float>( FileConfiguration, "fRatioView" );
+
+		Configuration.bFullscreen = ReadTextFile<int>( FileConfiguration, "bFullscreen" );
+		Configuration.bMusic = ReadTextFile<int>( FileConfiguration, "bMusic" );
+		Configuration.bSound = ReadTextFile<int>( FileConfiguration, "bSound" );
+		Configuration.bV_Sinc = ReadTextFile<int>( FileConfiguration, "bV_Sinc" );
+
+		Configuration.sLanguage = ReadTextFile<string>( FileConfiguration, "sLanguage" );
+		Configuration.fGameSpeed = ReadTextFile<float>( FileConfiguration, "fGameSpeed" );
+		Configuration.fGameTick = ReadTextFile<float>( FileConfiguration, "fGameTick" );
+	}
+	else
+	{
+		cout << "Error: File [" << FileConfiguration << "] Not Found\n";
+
+		UpdateFileConfiguration();
+	}
+
+	if ( Configuration.fRatioView < 0 )
+		GameCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth * Configuration.fRatioView, Configuration.iWindowHeight * Configuration.fRatioView ) );
+	else
+		GameCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth / Configuration.fRatioView, Configuration.iWindowHeight / Configuration.fRatioView ) );
+
+	MenuCamera.reset( FloatRect( 0, 0, Configuration.iWindowWidth, Configuration.iWindowHeight ) );
+
+	if ( argc > 1 )
+		for ( int id = 1; id < argc; id++ )
+		{
+			if ( strstr( argv[ id ], "-dev" ) )
+				SetDebug( true );
+
+			if ( strstr( argv[ id ], "-window" ) )
+				Configuration.bFullscreen = false;
+
+			if ( strstr( argv[ id ], "-fullscreen" ) )
+				Configuration.bFullscreen = true;
+
+			if ( strstr( argv[ id ], "-width" ) )
+				Configuration.iWindowWidth = atoi( argv[ id + 1 ] );
+
+			if ( strstr( argv[ id ], "-height" ) )
+				Configuration.iWindowHeight = atoi( argv[ id + 1 ] );
+		}
+
+	if ( Configuration.bFullscreen )
+		WindowCreate( Style::Fullscreen );
+	else
+		WindowCreate();
+}
+
+//-------------------------------------------------------------------------//
+
 string System::ReadXmlFile( const string sRoute, const string sTagMain, const string sTag )
 {
 	if ( FileExists( sRoute ) )

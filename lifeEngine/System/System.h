@@ -4,6 +4,7 @@
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
 #define ENGINE_VERSION "v2.7.1"
+#define MAX_LIGHT 4
 #include "../DllGlobal.h"
 
 //////////////
@@ -84,6 +85,7 @@ namespace le
 		string        sWindowName;
 		string        sGameVersion;
 		string		  sLanguage;
+		string		  sShadersDir;
 	};
 
 	//-------------------------------------------------------------------------//
@@ -95,6 +97,7 @@ namespace le
 		/// КОНСТРУКТОР
 		/////////////////
 		System( const string FileConfiguration, int argc, char** argv );
+		System( const string FileConfiguration, const string ShadersDir, int argc, char** argv );
 
 		///////////////////////////////
 		/// ЧТЕНИЕ ПЕРЕМНОЙ ИЗ ФАЙЛА

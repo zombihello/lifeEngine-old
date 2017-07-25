@@ -37,3 +37,7 @@
 Debug_lifeEngine
 Release_lifeEngine
 tmp
+*.db
+*.ipdb
+*.iobj
+*.log

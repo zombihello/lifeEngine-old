@@ -27,6 +27,12 @@ namespace le
 		//////////////////////////
 		static bool LoadModelMesh( string key, string route );
 
+		//////////////////////////////////////
+		/// СОЗДАТЬ ПУСТУЮ OPENGL ТЕКСТУРУ
+		//////////////////////////////////////
+		static GLuint CreateGLTexture( string key, GLint minFilter, GLint magFilter, GLint wrapS, GLint wrapT,
+									   float width, float height, GLint internalFormat, GLenum format, GLenum type );
+
 		//////////////////////////////
 		/// ПОЛУЧИТЬ OPENGL ТЕКСТУРУ
 		//////////////////////////////
@@ -40,7 +46,7 @@ namespace le
 		//////////////////////////
 		/// УДАЛИТЬ ВСЕ МАТЕРИАЛЫ
 		//////////////////////////
-		static void DeleteAllMaterials( );
+		static void DeleteAllMaterials();
 
 		////////////////////////
 		/// УДАЛИТЬ МЕШ МОДЕЛИ

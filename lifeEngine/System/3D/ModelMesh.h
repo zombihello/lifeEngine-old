@@ -39,6 +39,25 @@ namespace le
 
 	//-------------------------------------------------------------------------//
 
+	struct DLL_API Material
+	{
+		/////////////////
+		/// КОНСТРУКТОР
+		/////////////////
+		Material();
+
+		float			fShininess;
+
+		GLuint			Texture;
+
+		Color			Emission;
+		Color			Ambient;
+		Color			Diffuse;
+		Color			Specular;	
+	};
+
+	//-------------------------------------------------------------------------//
+
 	struct DLL_API ModelMesh
 	{
 		/////////////////
@@ -67,6 +86,7 @@ namespace le
 		vector<float>							vCollision_Vertexs;
 		vector<int>								vCollision_IdVertexs;
 		map<string, vector<unsigned int> >		mIdIndexs;
+		map<string, Material>					mMaterials;
 		map<int, ModelVertex>					mVertexs;
 	};
 

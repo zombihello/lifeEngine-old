@@ -247,14 +247,17 @@
     <ClInclude Include="Animation\AnimationManager3D.h">
       <Filter>Animation\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Efects\3D\LightManager3D.h">
-      <Filter>Effects\3D</Filter>
-    </ClInclude>
     <ClInclude Include="System\LoaderVAO.h">
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\3D\Scene3D.h">
       <Filter>System\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\3D\LightManager3D.h">
+      <Filter>Effects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\3D\Light3D.h">
+      <Filter>Effects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +431,9 @@
     </ClCompile>
     <ClCompile Include="System\src\3D\Scene3D.cpp">
       <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Efects\src\3D\Light3D.cpp">
+      <Filter>Effects\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

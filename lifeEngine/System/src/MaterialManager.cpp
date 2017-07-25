@@ -29,7 +29,7 @@ bool le::MaterialManager::LoadGLTexture( string key, string route )
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
-		mGlTexture[key] = texture;
+		mGlTexture[ key ] = texture;
 
 		return true;
 	}
@@ -48,7 +48,7 @@ bool le::MaterialManager::LoadModelMesh( string key, string route )
 		if ( !modelMesh.LoadMesh( route ) )
 			return false;
 
-		mModelMesh[key] = modelMesh;
+		mModelMesh[ key ] = modelMesh;
 
 		return true;
 	}
@@ -58,10 +58,41 @@ bool le::MaterialManager::LoadModelMesh( string key, string route )
 
 //-------------------------------------------------------------------------//
 
+GLuint le::MaterialManager::CreateGLTexture( string key, GLint minFilter, GLint magFilter, GLint wrapS, GLint wrapT, float width, float height, GLint internalFormat, GLenum format, GLenum type )
+{
+	if ( mGlTexture.find( key ) == mGlTexture.end() )
+	{
+		GLuint texture = 0;
+		glGenTextures( 1, &texture );
+		glBindTexture( GL_TEXTURE_2D, texture );
+
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter );
+
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT );
+
+		glTexImage2D( GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, NULL );
+		glBindTexture( GL_TEXTURE_2D, 0 );
+
+		if ( key != "" )
+			mGlTexture[ key ] = texture;
+
+		return texture;
+	}
+
+	cout << "Error: texture with a key [" << key << "] already exists. The function le::MaterialManager::CreateGLTexture() returned 0\n";
+	return 0;
+}
+
+//-------------------------------------------------------------------------//
+
 const GLuint le::MaterialManager::GetGLTexture( string key )
 {
 	if ( mGlTexture.find( key ) != mGlTexture.end() )
-		return mGlTexture[key];
+		return mGlTexture[ key ];
+
+	cout << "Error: texture with a key [" << key << "] not found. The function le::MaterialManager::GetGLTexture() returned 0\n";
 	return 0;
 }
 
@@ -70,8 +101,9 @@ const GLuint le::MaterialManager::GetGLTexture( string key )
 const le::ModelMesh* le::MaterialManager::GetModelMesh( string key )
 {
 	if ( mModelMesh.find( key ) != mModelMesh.end() )
-		return &mModelMesh[key];
+		return &mModelMesh[ key ];
 
+	cout << "Error: model mesh with a key [" << key << "] not found. The function le::MaterialManager::GetModelMesh() returned NULL\n";
 	return NULL;
 }
 
@@ -79,6 +111,9 @@ const le::ModelMesh* le::MaterialManager::GetModelMesh( string key )
 
 void le::MaterialManager::DeleteAllMaterials()
 {
+	for ( auto it = mGlTexture.begin(); it != mGlTexture.end(); it++ )
+		glDeleteTextures( 1, &mGlTexture[ it->first ] );
+
 	mGlTexture.clear();
 	mModelMesh.clear();
 }
@@ -96,7 +131,10 @@ void le::MaterialManager::DeleteModelMesh( string key )
 void le::MaterialManager::DeleteGlTexture( string key )
 {
 	if ( mGlTexture.find( key ) != mGlTexture.end() )
+	{
+		glDeleteTextures( 1, &mGlTexture[ key ] );
 		mGlTexture.erase( mGlTexture.find( key ) );
+	}
 }
 
 //-------------------------------------------------------------------------//
