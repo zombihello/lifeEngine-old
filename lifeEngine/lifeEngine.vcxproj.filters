@@ -259,6 +259,12 @@
     <ClInclude Include="Efects\3D\Light3D.h">
       <Filter>Effects\3D</Filter>
     </ClInclude>
+    <ClInclude Include="System\3D\GBuffer.h">
+      <Filter>System\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Efects\3D\LightSphere.h">
+      <Filter>Effects\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\FPS.cpp">
@@ -433,6 +439,12 @@
       <Filter>System\3D</Filter>
     </ClCompile>
     <ClCompile Include="Efects\src\3D\Light3D.cpp">
+      <Filter>Effects\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\3D\GBuffer.cpp">
+      <Filter>System\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Efects\src\3D\LightSphere.cpp">
       <Filter>Effects\3D</Filter>
     </ClCompile>
   </ItemGroup>

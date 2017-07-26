@@ -8,6 +8,7 @@
 /// LIFEENGINE
 ///////////////
 #include <System\System.h>
+#include "LightSphere.h"
 
 namespace le
 {
@@ -20,6 +21,7 @@ namespace le
 		/// КОНСТРУКТОР
 		/////////////////
 		Light3D();
+		Light3D( float Radius, glm::vec3 Position, glm::vec4 Ambient, glm::vec4 Diffuse, glm::vec4 Specular, glm::vec3 Attenuation );
 
 		string			NameLight;
 
@@ -28,6 +30,8 @@ namespace le
 		glm::vec4		Diffuse;
 		glm::vec4		Specular;
 		glm::vec3		Attenuation;
+
+		LightSphere     LightSphere;	
 	};
 
 	//-------------------------------------------------------------------------//

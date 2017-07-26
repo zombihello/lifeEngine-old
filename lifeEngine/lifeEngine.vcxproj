@@ -124,6 +124,7 @@
     <ClInclude Include="DllGlobal.h" />
     <ClInclude Include="Efects\3D\Light3D.h" />
     <ClInclude Include="Efects\3D\LightManager3D.h" />
+    <ClInclude Include="Efects\3D\LightSphere.h" />
     <ClInclude Include="Efects\leEfects.h" />
     <ClInclude Include="Efects\Light2D.h" />
     <ClInclude Include="Efects\LightManager2D.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Physic\Physic2D.h" />
     <ClInclude Include="Physic\PolygonShape2D.h" />
     <ClInclude Include="System\3D\Camera.h" />
+    <ClInclude Include="System\3D\GBuffer.h" />
     <ClInclude Include="System\3D\Model.h" />
     <ClInclude Include="System\3D\ModelMesh.h" />
     <ClInclude Include="System\3D\Scene3D.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Animation\src\AnimationManager3D.cpp" />
     <ClCompile Include="Efects\src\3D\Light3D.cpp" />
     <ClCompile Include="Efects\src\3D\LightManager3D.cpp" />
+    <ClCompile Include="Efects\src\3D\LightSphere.cpp" />
     <ClCompile Include="Efects\src\Light2D.cpp" />
     <ClCompile Include="Efects\src\LightManager2D.cpp" />
     <ClCompile Include="Entity\src\AI.cpp" />
@@ -222,6 +225,7 @@
     <ClCompile Include="Physic\src\Physic2D.cpp" />
     <ClCompile Include="Physic\src\PolygonShape2D.cpp" />
     <ClCompile Include="System\src\3D\Camera.cpp" />
+    <ClCompile Include="System\src\3D\GBuffer.cpp" />
     <ClCompile Include="System\src\3D\Model.cpp" />
     <ClCompile Include="System\src\3D\ModelMesh.cpp" />
     <ClCompile Include="System\src\3D\Scene3D.cpp" />

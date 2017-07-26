@@ -18,7 +18,7 @@ void le::LightManager3D::UpdateLights()
 {
 	if ( Scene != NULL )
 		for ( int i = 0; i < vLights.size(); i++ )
-			Scene->AddLightToScene( vLights[ i ] );
+			Scene->AddPointLightToScene( &vLights[ i ] );
 }
 
 //-------------------------------------------------------------------------//

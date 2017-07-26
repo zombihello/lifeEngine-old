@@ -1,70 +1,23 @@
 #version 330 core
 
-#define MAX_LIGHT 4
+in vec3 WorldPos;
+in vec3 TexCoord;
+in vec3 Normal;
 
-uniform struct PointLight
-{
-  vec3 position;
-  vec4 ambient;
-  vec4 diffuse;
-  vec4 specular;
-  vec3 attenuation;
-} light[MAX_LIGHT];
+layout (location = 0) out vec3 worldPos;
+layout (location = 1) out vec3 diffuse;
+layout (location = 2) out vec3 normal;
 
-uniform struct Material
-{
-  sampler2D texture;
-
-  vec4  ambient;
-  vec4  diffuse;
-  vec4  specular;
-  vec4  emission;
-  float shininess;
-} material;
-
-in Vertex {
-  vec2  texcoord;
-  vec3  normal;
-  vec3  viewDir;
-  
-  vec3 lightDir[MAX_LIGHT];
-  float distance[MAX_LIGHT];
-  
-} vertex;
-
-out vec4 color;
-
-uniform int UsingLights;
+uniform sampler2D ColorMap;
 
 void main()
-{	
-  // нормализуем полученные данные для коррекции интерполяции
-  vec3 normal   = normalize(vertex.normal);
-  vec3 viewDir  = normalize(vertex.viewDir);
- 
-  
-    // добавим собственное свечение материала
-  color = material.emission;
-  
-  	for ( int i = 0; i < UsingLights; i++ )
-	{
-	 vec3 lightDir =normalize( vertex.lightDir[i] ); 
-  // коэффициент затухания
- float attenuation = 1.0 / (light[i].attenuation.x +
-    light[i].attenuation.y * vertex.distance[i] +
-    light[i].attenuation.z * vertex.distance[i] * vertex.distance[i]);
+{		
+	worldPos = WorldPos;
+	diffuse = texture( ColorMap, TexCoord ).xyz;
+	normal = normalize( Normal ) ;
 	
-  // добавим фоновое освещение
-  color += material.ambient * light[i].ambient * attenuation;
-
-  // добавим рассеянный свет
-  float NdotL = max(dot(normal, lightDir), 0.0);
-  color += material.diffuse * light[i].diffuse * NdotL * attenuation;
-
-  // добавим отраженный свет
-  float RdotVpow = max(pow(dot(reflect(-lightDir, normal), viewDir), material.shininess), 0.0);
-  color += material.specular * light[i].specular * RdotVpow * attenuation;
-}
-  // вычислим итоговый цвет пикселя на экране с учетом текстуры
-  color *= texture(material.texture, vertex.texcoord);
+	//worldPos = WorldPos;
+	//Diffuse = texture( gColorMap, TexCoord ).xyz;
+	//normal = normalize( Normal );
+	//texCoord = vec3( TexCoord, 0.0f );
 }

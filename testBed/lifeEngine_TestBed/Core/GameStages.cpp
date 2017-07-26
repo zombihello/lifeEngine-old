@@ -74,6 +74,7 @@ GameStages::GameStages( le::System& System )
 
 			light.Diffuse = glm::vec4( vColor[0] / 255, vColor[1] / 255, vColor[2] / 255, 1 );
 			light.Position = glm::vec3( Entity.GetPosition().x, Entity.GetPosition().y, Entity.GetPosition().z );
+			light.LightSphere.SetPosition( light.Position );
 			LightManager3D->CreateLight( light );
 		}
 	}

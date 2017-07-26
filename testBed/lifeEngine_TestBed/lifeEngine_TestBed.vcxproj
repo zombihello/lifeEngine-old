@@ -65,7 +65,7 @@
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;lifeEngine-d.lib;Box2D-d.lib;glew32sd.lib;XML-d.lib;BulletCollision-d.lib;BulletDynamics-d.lib;LinearMath-d.lib;glm-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>..\..\lifeEngine\tools\bc.exe BuildNumber.h</Command>
+      <Command>..\..\tools\bc.exe BuildNumber.h</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,11 +88,11 @@
       <AdditionalLibraryDirectories>..\..\lifeEngine\Utils\OpenGL\glm\lib;..\..\lifeEngine\Utils\Bullet\lib;..\..\lifeEngine\Utils\XML\lib;..\..\lifeEngine\Utils\OpenGL\glew\lib;..\..\bin;..\..\lifeEngine\Utils\SFML\lib;..\..\lifeEngine\Utils\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>..\..\lifeEngine\tools\bc.exe BuildNumber.h</Command>
+      <Command>..\..\tools\bc.exe BuildNumber.h</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\наработки\Game\Game\Core\Main.cpp" />
+    <ClCompile Include="Core\Main.cpp" />
     <ClCompile Include="Core\GameStages.cpp" />
     <ClCompile Include="Core\PlayerController.cpp" />
   </ItemGroup>

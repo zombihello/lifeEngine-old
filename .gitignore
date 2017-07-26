@@ -41,3 +41,5 @@ tmp
 *.ipdb
 *.iobj
 *.log
+*.tlog
+.vs/lifeEngine/v14/.suo

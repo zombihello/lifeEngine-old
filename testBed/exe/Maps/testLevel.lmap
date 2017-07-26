@@ -6,14 +6,14 @@
 <SkyBoxName Value=""/>
 </Settings>
 <Textures>
-<Texture Name="wood1.jpg" Route="..\Resources\Map\wood1.jpg"/>
-<Texture Name="brick1.jpg" Route="..\Resources\Map\brick1.jpg"/>
-<Texture Name="metal5.jpg" Route="..\Resources\Map\metal5.jpg"/>
-<Texture Name="brick2.jpg" Route="..\Resources\Map\brick2.jpg"/>
-<Texture Name="metal1.jpg" Route="..\Resources\Map\metal1.jpg"/>
-<Texture Name="brick4.jpg" Route="..\Resources\Map\brick4.jpg"/>
-<Texture Name="wood2.jpg" Route="..\Resources\Map\wood2.jpg"/>
-<Texture Name="skybox.jpg" Route="..\Resources\Map\skybox.jpg"/>
+<Texture Name="wood1.jpg" Route="..\..\exe\Resources\Map\wood1.jpg"/>
+<Texture Name="brick1.jpg" Route="..\..\exe\Resources\Map\brick1.jpg"/>
+<Texture Name="metal5.jpg" Route="..\..\exe\Resources\Map\metal5.jpg"/>
+<Texture Name="brick2.jpg" Route="..\..\exe\Resources\Map\brick2.jpg"/>
+<Texture Name="metal1.jpg" Route="..\..\exe\Resources\Map\metal1.jpg"/>
+<Texture Name="brick4.jpg" Route="..\..\exe\Resources\Map\brick4.jpg"/>
+<Texture Name="wood2.jpg" Route="..\..\exe\Resources\Map\wood2.jpg"/>
+<Texture Name="skybox.jpg" Route="..\..\exe\Resources\Map\skybox.jpg"/>
 </Textures>
 <Brushes>
 <Solid>
@@ -3365,7 +3365,7 @@
 <Entity Name="light">
 <Position X="152" Y="48" Z="0"/>
 <Value Name="Name" Value=""/>
-<Value Name="Color" Value="255 255 255"/>
+<Value Name="Color" Value="0 150 150"/>
 <Value Name="Radius" Value="20"/>
 </Entity>
 <Entity Name="light">

@@ -13,8 +13,18 @@ le::Scene3D::Scene3D( le::System& System )
 		glm::vec3( 0, 0, 0 ),
 		glm::vec3( 0, 1, 0 ) );
 
-	string ShadersDir = System.GetConfiguration().sShadersDir;
-	GeometryRender.loadFromFile( ShadersDir + "/vertexShader.vs", ShadersDir + "/fragmentShader.fs" );
+	SizeWindow = System.GetWindow().getSize();
+	string ShaderDir = System.GetConfiguration().sShadersDir;
+
+	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
+	
+	GeometryRender.loadFromFile( ShaderDir + "/vertexShader.vs", ShaderDir + "/fragmentShader.fs" );
+	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
+
+	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
+	PointLight.setUniform( "PositionMap", GBuffer::Position );
+	PointLight.setUniform( "ColorMap", GBuffer::Textures );
+	PointLight.setUniform( "NormalMap", GBuffer::Normal );
 }
 
 //-------------------------------------------------------------------------//
@@ -25,9 +35,18 @@ le::Scene3D::Scene3D( le::System& System, le::Camera& PlayerCamera )
 	this->System = &System;
 
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
+	SizeWindow = System.GetWindow().getSize();
+	string ShaderDir = System.GetConfiguration().sShadersDir;
 
-	string ShadersDir = System.GetConfiguration().sShadersDir;
-	GeometryRender.loadFromFile( ShadersDir + "/vertexShader.vs", ShadersDir + "/fragmentShader.fs" );
+	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
+
+	GeometryRender.loadFromFile( ShaderDir + "/vertexShader.vs", ShaderDir + "/fragmentShader.fs" );
+	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
+
+	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
+	PointLight.setUniform( "PositionMap", GBuffer::Position );
+	PointLight.setUniform( "ColorMap", GBuffer::Textures );
+	PointLight.setUniform( "NormalMap", GBuffer::Normal );
 }
 
 //-------------------------------------------------------------------------//
@@ -52,7 +71,7 @@ void le::Scene3D::AddMeshToScene( map<GLuint, SceneInfoMesh> Mesh )
 
 //-------------------------------------------------------------------------//
 
-void le::Scene3D::AddLightToScene( Light3D Light )
+void le::Scene3D::AddPointLightToScene( le::Light3D* Light )
 {
 	vPointLights.push_back( Light );
 }
@@ -68,17 +87,43 @@ void le::Scene3D::SetPlayerCamera( Camera& PlayerCamera )
 
 void le::Scene3D::RenderScene()
 {
+	GeometryPass();
+	LightPass();
+
+	Shader::bind( NULL );
+	ClearScene();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene3D::ClearScene()
+{	
+	mRenderBuffer.clear();
+	vPointLights.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene3D::GeometryPass()
+{
 	vector<SceneInfoMesh>* vRenderBuffer_Meshes;
 	SceneInfoMesh* InfoMesh;
 
 	if ( PlayerCamera != NULL )
 		ViewMatrix = PlayerCamera->GetViewMatrix();
 
-	GeometryRender.setUniform( "transform.projectionMatrix", *ProjectionMatrix );
-	GeometryRender.setUniform( "transform.viewMatrix", ViewMatrix );
-	GeometryRender.setUniform( "transform.viewPosition", PlayerCamera->GetPosition() );
+	GeometryRender.setUniform( "projectionMatrix", *ProjectionMatrix );
+	GeometryRender.setUniform( "viewMatrix", ViewMatrix );
 
 	Shader::bind( &GeometryRender );
+
+	GBuffer.BindForWriting();
+	glDepthMask( GL_TRUE );
+
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glEnable( GL_DEPTH_TEST );
+	glDisable( GL_BLEND );
 
 	for ( auto it = mRenderBuffer.begin(); it != mRenderBuffer.end(); it++ )
 	{
@@ -89,53 +134,57 @@ void le::Scene3D::RenderScene()
 		{
 			InfoMesh = &( *vRenderBuffer_Meshes )[ i ];
 
-			GeometryRender.setUniform( "transform.transformationMatrix", *InfoMesh->MatrixTransformation );
-
-			GeometryRender.setUniform( "material.ambient", InfoMesh->Material.Ambient );
-			GeometryRender.setUniform( "material.diffuse", InfoMesh->Material.Diffuse );
-			GeometryRender.setUniform( "material.specular", InfoMesh->Material.Specular );
-			GeometryRender.setUniform( "material.emission", InfoMesh->Material.Emission );
-			GeometryRender.setUniform( "material.shininess", InfoMesh->Material.fShininess );
+			GeometryRender.setUniform( "transformationMatrix", *InfoMesh->MatrixTransformation );
 
 			LoaderVAO::BindVAO( InfoMesh->VertexArray );
-			LoaderVAO::EnableVertexPointer( VERT_POSITION );
-			LoaderVAO::EnableVertexPointer( VERT_NORMAL );
-			LoaderVAO::EnableVertexPointer( VERT_TEXCOORD );
-
-			for ( int id = 0, j = 0; id < abs((float)vPointLights.size() - MAX_LIGHT); id += MAX_LIGHT ) // TODO: НЕ ОПТИМИЗИРОВАНО! ИСПРАВИТЬ!
-			{
-				int CountLights = 0;
-				for ( ; CountLights < MAX_LIGHT && vPointLights.size() > j; CountLights++, j++ )
-				{
-					GeometryRender.setUniform( "light[" + to_string( j ) + "].position", vPointLights[ j ].Position );
-					GeometryRender.setUniform( "light[" + to_string( j ) + "].ambient", vPointLights[ j ].Ambient );
-					GeometryRender.setUniform( "light[" + to_string( j ) + "].diffuse", vPointLights[ j ].Diffuse );
-					GeometryRender.setUniform( "light[" + to_string( j ) + "].specular", vPointLights[ j ].Specular );
-					GeometryRender.setUniform( "light[" + to_string( j ) + "].attenuation", vPointLights[ j ].Attenuation );
-					
-				}
-
-				GeometryRender.setUniform( "UsingLights", CountLights );
-				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-			}
+			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 		}
 	}
 
-	LoaderVAO::UnbindVAO();
-	LoaderVAO::DisableVertexPointer( VERT_POSITION );
-	LoaderVAO::DisableVertexPointer( VERT_NORMAL );
-	LoaderVAO::DisableVertexPointer( VERT_TEXCOORD );
+	LoaderVAO::UnbindVAO();		
 
-	Shader::bind( NULL );
-	ClearScene();
+	glDepthMask( GL_FALSE );
+	glDisable( GL_DEPTH_TEST );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Scene3D::ClearScene()
+void le::Scene3D::LightPass()
 {
-	mRenderBuffer.clear();
-	vPointLights.clear();
+	BeginLightPasses();
+	PointLightPass();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene3D::PointLightPass()
+{
+	Shader::bind( &PointLight );
+
+	PointLight.setUniform( "projectionMatrix", *ProjectionMatrix );
+	PointLight.setUniform( "viewMatrix", ViewMatrix );
+
+	for ( int i = 0; i < vPointLights.size(); i++ )
+	{
+		PointLight.setUniform( "transformationMatrix", *vPointLights[i]->LightSphere.GetTransformationMatrix() );
+
+		PointLight.setUniform( "light.Position", vPointLights[ i ]->Position );
+		PointLight.setUniform( "light.Color", vPointLights[i]->Diffuse );
+
+		vPointLights[ i ]->LightSphere.RenderSphere();
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene3D::BeginLightPasses()
+{
+	glEnable( GL_BLEND );
+	glBlendEquation( GL_FUNC_ADD );
+	glBlendFunc( GL_ONE, GL_ONE );
+
+	GBuffer.BindForReading();
+	glClear( GL_COLOR_BUFFER_BIT );
 }
 
 //-------------------------------------------------------------------------//

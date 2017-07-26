@@ -11,7 +11,8 @@
 #include "../LoaderVAO.h"
 #include "Camera.h"
 #include "ModelMesh.h"
-#include "../../Efects/3D/Light3D.h"
+#include "GBuffer.h"
+#include <Efects\3D\Light3D.h>
 
 namespace le
 {
@@ -55,10 +56,10 @@ namespace le
 		void AddMeshToScene( GLuint Texture, SceneInfoMesh Mesh );
 		void AddMeshToScene( map<GLuint, SceneInfoMesh> Mesh );
 
-		/////////////////////////////////////////
-		///// ДОБАВИТЬ ИСТОЧНИК СВЕТА НА СЦЕНУ
-		/////////////////////////////////////////
-		void AddLightToScene( Light3D Light );
+		///////////////////////////////////////////////
+		/// ДОБАВИТЬ ТОЧЕЧНЫЙ ИСТОЧНИК СВЕТА НА СЦЕНУ
+		//////////////////////////////////////////////
+		void AddPointLightToScene( le::Light3D* Light );
 
 		///////////////////////////
 		/// ОТРЕНДЕРИТЬ СЦЕНУ
@@ -72,14 +73,37 @@ namespace le
 
 	private:
 
+		////////////////////////////////////
+		/// ГЕОМЕТРИЧЕСКИЙ ПРОХОД ПО СЦЕНЕ
+		////////////////////////////////////
+		void GeometryPass();
+
+		////////////////////////////////////
+		/// СВЕТОВОЙ ПРОХОД ПО СЦЕНЕ
+		////////////////////////////////////
+		void LightPass();
+
+		//////////////////////////////////////////
+		/// ПРОХОД ПО ТОЧЕЧНЫМ ИСТОЧНИКАМ СВЕТА
+		//////////////////////////////////////////
+		void PointLightPass();
+
+		////////////////////////////////////////////////
+		/// ПОДГОТОВКА ДЛЯ СВЕТОВОГО ПРОХОДА ПО СЦЕНЕ
+		////////////////////////////////////////////////
+		void BeginLightPasses();
+
 		Shader										GeometryRender;
+		Shader										PointLight;
+		Vector2u									SizeWindow;
+		GBuffer										GBuffer;
 		glm::mat4									ViewMatrix;
 
 		System*										System;
 		Camera*										PlayerCamera;
 		glm::mat4*									ProjectionMatrix;
 		
-		vector<Light3D>								vPointLights;
+		vector<Light3D*>							vPointLights;
 		map<GLuint, vector<SceneInfoMesh>>			mRenderBuffer;
 	};
 
