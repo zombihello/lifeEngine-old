@@ -77,15 +77,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;dIDESINGLE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\lifeEngine\Utils\OpenGL\glm;..\..\lifeEngine\Utils\Bullet\src;..\..\lifeEngine\Utils\OpenGL\glew\include;..\..\lifeEngine\Utils\Math;..\..\lifeEngine\Utils\HaffmanCode;..\..\lifeEngine\Utils\XML\include;..\..\lifeEngine\Utils\SFML\include;..\..\lifeEngine\Utils\Box2D\include\Box2D;..\..\lifeEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\lifeEngine\Utils\OpenGL\glm;..\..\lifeEngine\Utils\Bullet\src;..\..\lifeEngine\Utils\OpenGL\glew\include;..\..\lifeEngine\Utils\Math;..\..\lifeEngine\Utils\HaffmanCode;..\..\lifeEngine\Utils\XML\include;..\..\lifeEngine\Utils\SFML\include;..\..\lifeEngine\Utils\Box2D\include\Box2D;..\..\lifeEngine\Utils\TGUI\include;..\..\lifeEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-main.lib;lifeEngine.lib;Box2D.lib;XML.lib;glew32s.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;glm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\lifeEngine\Utils\OpenGL\glm\lib;..\..\lifeEngine\Utils\Bullet\lib;..\..\lifeEngine\Utils\XML\lib;..\..\lifeEngine\Utils\OpenGL\glew\lib;..\..\bin;..\..\lifeEngine\Utils\SFML\lib;..\..\lifeEngine\Utils\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-audio.lib;sfml-main.lib;lifeEngine.lib;Box2D.lib;XML.lib;glew32s.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;glm.lib;tgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lifeEngine\Utils\OpenGL\glm\lib;..\..\lifeEngine\Utils\Bullet\lib;..\..\lifeEngine\Utils\XML\lib;..\..\lifeEngine\Utils\OpenGL\glew\lib;..\..\bin;..\..\lifeEngine\Utils\SFML\lib;..\..\lifeEngine\Utils\Box2D\lib;..\..\lifeEngine\Utils\TGUI\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\..\tools\bc.exe BuildNumber.h</Command>
