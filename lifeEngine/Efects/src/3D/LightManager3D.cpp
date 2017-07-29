@@ -23,8 +23,11 @@ void le::LightManager3D::UpdateLights()
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager3D::CreateLight( le::Light3D Light3D )
+void le::LightManager3D::CreateLight( le::Light3D Light3D, string NameLight )
 {
+	if ( NameLight != "" )
+		Light3D.SetName( NameLight );
+
 	vLights.push_back( Light3D );
 }
 

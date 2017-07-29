@@ -4,24 +4,62 @@
 
 //-------------------------------------------------------------------------//
 
-le::LightSphere::LightSphere() /*: VertexArray( 0 ), VertexBuffer( 0 )*/
+le::LightSphere::LightSphere() : fDetail( 15 ), VertexArray( 0 ), VertexBuffer( 0 )
 {}
 
 //-------------------------------------------------------------------------//
 
-le::LightSphere::~LightSphere() // TODO: ИСПРАВИТЬ! ПРИ ВЫЗОВЕ ДЕСТРУКТОРА УДАЛЯЕТСЯ VAO VBO КОГДА ЕЩЕ НУЖЕН
+le::LightSphere::LightSphere( const LightSphere & Copy )
 {
-	/*if ( VertexBuffer != 0 )
+	vector<glm::vec3> Vertexs;
+
+	iCountVertexs = Copy.iCountVertexs;
+	fDetail = Copy.fDetail;
+	fRadius = Copy.fRadius;
+	Position = Copy.Position;
+	transformationMatrix = Copy.transformationMatrix;
+	vVertexs = Copy.vVertexs;
+	
+	if ( !vVertexs.empty() )
+	{
+		for ( int i = 0; i < vVertexs.size(); i++ )
+			Vertexs.push_back( vVertexs[ i ] * fRadius );
+
+		VertexArray = LoaderVAO::CreateVAO();
+		LoaderVAO::BindVAO( VertexArray );
+
+		VertexBuffer = LoaderVAO::AtachBuffer( GL_ARRAY_BUFFER, Vertexs, GL_STATIC_DRAW );
+
+		LoaderVAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
+
+		LoaderVAO::UnbindVAO();
+		LoaderVAO::UnbindBuffer( GL_ARRAY_BUFFER );
+	}
+	else
+	{
+		VertexArray = 0;
+		VertexBuffer = 0;
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+le::LightSphere::~LightSphere()
+{
+	if ( VertexBuffer != 0 )
 		LoaderVAO::DeleteBuffer( &VertexBuffer );
 
 	if ( VertexArray != 0 )
-		LoaderVAO::DeleteVAO( &VertexArray );*/
+		LoaderVAO::DeleteVAO( &VertexArray );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::LightSphere::InitSphere( float Radius, float Detail )
 {
+	fDetail = Detail;
+	fRadius = Radius;
+
 	vector<glm::vec3> Vertexs;
 	glm::vec3 Coord;
 	float theta1, theta2, phi;
@@ -37,9 +75,11 @@ void le::LightSphere::InitSphere( float Radius, float Detail )
 
 			Coord = glm::vec3( cosf( theta2 )*cosf( phi ), sinf( theta2 ), cosf( theta2 )*sinf( phi ) );
 			Vertexs.push_back( Coord * Radius );
+			vVertexs.push_back( Coord );
 
 			Coord = glm::vec3( cosf( theta1 )*cosf( phi ), sinf( theta1 ), cosf( theta1 )*sinf( phi ) );
 			Vertexs.push_back( Coord * Radius );
+			vVertexs.push_back( Coord );
 		}
 	}
 
@@ -76,9 +116,25 @@ void le::LightSphere::SetPosition( glm::vec3 Position )
 
 //-------------------------------------------------------------------------//
 
-glm::mat4 * le::LightSphere::GetTransformationMatrix()
+void le::LightSphere::SetRadius( float Radius )
 {
-	return &transformationMatrix;
+	fRadius = Radius;
+
+	vector<glm::vec3> Vertexs;
+
+	for ( int i = 0; i < vVertexs.size(); i++ )
+		Vertexs.push_back( vVertexs[ i ] * Radius );
+
+	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	glBufferData( GL_ARRAY_BUFFER, Vertexs.size() * sizeof( glm::vec3 ), Vertexs.data(), GL_STATIC_DRAW );
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+//-------------------------------------------------------------------------//
+
+glm::mat4& le::LightSphere::GetTransformationMatrix()
+{
+	return transformationMatrix;
 }
 
 //-------------------------------------------------------------------------//

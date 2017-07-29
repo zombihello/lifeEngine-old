@@ -1,9 +1,10 @@
-#version 330 core
-
 struct PointLight
 {
 	vec3 Position;
 	vec4 Color;
+	
+	float Radius;
+	float Intensivity;
 };
 
 uniform sampler2D PositionMap;
@@ -14,27 +15,28 @@ uniform PointLight light;
 
 out vec4 FragColor;
 
-
-
 vec2 CalcTexCoord()
 {
     return gl_FragCoord.xy / ScreenSize;
 }
 
 void main()
-{	
+{		
 	vec2 TexCoord = CalcTexCoord();
-	
 	vec3 WorlPos = texture( PositionMap, TexCoord ).xyz;
 	vec3 Color = texture( ColorMap, TexCoord ).rgb;
 	vec3 Normal = texture( NormalMap, TexCoord ).xyz;
-	
 	Normal = normalize( Normal );	
-	vec3 lightDir = normalize( light.Position - WorlPos );
+
+	vec3 lightDirection = WorlPos - light.Position;
+	float Distance = length( lightDirection );
+	lightDirection = normalize( lightDirection );
 	
-	float nDotl = dot( Normal, lightDir );
-	float brightness = max( nDotl, 0.0f );
-	vec3 diffuse = brightness * light.Color;
-	
-	FragColor = vec4( Color, 1.0f ) * vec4( diffuse, 1.0f ) ;
-	}
+	float DiffuseFactor = dot( Normal, -lightDirection );
+	DiffuseFactor = max( 0.0, DiffuseFactor );
+		
+	float Attenuation = 1 - pow( Distance / light.Radius, 2 );
+	vec4 DiffuseColor = (light.Color * light.Intensivity * DiffuseFactor) * Attenuation ;
+		
+	FragColor = vec4( Color, 1.0f ) * DiffuseColor;
+}

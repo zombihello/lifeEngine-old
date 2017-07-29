@@ -64,7 +64,7 @@ bool le::GBuffer::InitGBuffer( float WindowWidth, float WindowHeight )
 
 void le::GBuffer::BindForWriting()
 {
-	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FBO );
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FBO );
 }
 
 //-------------------------------------------------------------------------//

@@ -54,7 +54,7 @@ namespace le
 		//////////////////////////////
 		void BindForReading();
 	
-	private:
+private:
 
 		bool				IsGBufferInit;
 

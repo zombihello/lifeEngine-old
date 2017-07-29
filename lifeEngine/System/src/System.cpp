@@ -247,7 +247,7 @@ void System::WindowCreate( int iStyle )
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 
-	Configuration.ProjectionMatrix = glm::perspective( glm::radians( 75.f ), ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.01f, 1000.f );
+	Configuration.ProjectionMatrix = glm::perspective( glm::radians( 75.f ), ( float ) Configuration.iWindowWidth / ( float ) Configuration.iWindowHeight, 0.1f, 1500.f );
 	glLoadMatrixf( glm::value_ptr( Configuration.ProjectionMatrix ) );
 
 	glMatrixMode( GL_MODELVIEW );

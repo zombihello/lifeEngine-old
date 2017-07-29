@@ -87,6 +87,11 @@ void le::Scene3D::SetPlayerCamera( Camera& PlayerCamera )
 
 void le::Scene3D::RenderScene()
 {
+	if ( PlayerCamera != NULL )
+		ViewMatrix = PlayerCamera->GetViewMatrix();
+
+	PVMatrix = *ProjectionMatrix * ViewMatrix;
+
 	GeometryPass();
 	LightPass();
 
@@ -109,11 +114,7 @@ void le::Scene3D::GeometryPass()
 	vector<SceneInfoMesh>* vRenderBuffer_Meshes;
 	SceneInfoMesh* InfoMesh;
 
-	if ( PlayerCamera != NULL )
-		ViewMatrix = PlayerCamera->GetViewMatrix();
-
-	GeometryRender.setUniform( "projectionMatrix", *ProjectionMatrix );
-	GeometryRender.setUniform( "viewMatrix", ViewMatrix );
+	GeometryRender.setUniform( "PVMatrix", PVMatrix );
 
 	Shader::bind( &GeometryRender );
 
@@ -151,7 +152,13 @@ void le::Scene3D::GeometryPass()
 
 void le::Scene3D::LightPass()
 {
-	BeginLightPasses();
+	glEnable( GL_BLEND );
+	glBlendEquation( GL_MAX );
+	glBlendFunc( GL_ONE, GL_ONE );
+
+	GBuffer.BindForReading();
+	glClear( GL_COLOR_BUFFER_BIT );
+
 	PointLightPass();
 }
 
@@ -161,30 +168,18 @@ void le::Scene3D::PointLightPass()
 {
 	Shader::bind( &PointLight );
 
-	PointLight.setUniform( "projectionMatrix", *ProjectionMatrix );
-	PointLight.setUniform( "viewMatrix", ViewMatrix );
+	PointLight.setUniform( "PVMatrix", PVMatrix );
 
 	for ( int i = 0; i < vPointLights.size(); i++ )
 	{
-		PointLight.setUniform( "transformationMatrix", *vPointLights[i]->LightSphere.GetTransformationMatrix() );
-
+		PointLight.setUniform( "transformationMatrix", vPointLights[i]->LightSphere.GetTransformationMatrix() );
 		PointLight.setUniform( "light.Position", vPointLights[ i ]->Position );
-		PointLight.setUniform( "light.Color", vPointLights[i]->Diffuse );
+		PointLight.setUniform( "light.Color", vPointLights[ i ]->Color );
+		PointLight.setUniform( "light.Intensivity", vPointLights[ i ]->fIntensivity );
+		PointLight.setUniform( "light.Radius", vPointLights[ i ]->fRadius );
 
 		vPointLights[ i ]->LightSphere.RenderSphere();
 	}
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene3D::BeginLightPasses()
-{
-	glEnable( GL_BLEND );
-	glBlendEquation( GL_FUNC_ADD );
-	glBlendFunc( GL_ONE, GL_ONE );
-
-	GBuffer.BindForReading();
-	glClear( GL_COLOR_BUFFER_BIT );
 }
 
 //-------------------------------------------------------------------------//

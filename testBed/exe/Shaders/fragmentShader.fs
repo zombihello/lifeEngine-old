@@ -1,14 +1,12 @@
-#version 330 core
+layout (location = 0) out vec3 worldPos;
+layout (location = 1) out vec3 Diffuse;
+layout (location = 2) out vec3 normal;
+
+uniform sampler2D gColorMap;
 
 in vec2 TexCoord;
 in vec3 Normal;
 in vec3 WorldPos;
-
-uniform sampler2D gColorMap;
-
-layout (location = 0) out vec3 worldPos;
-layout (location = 1) out vec3 Diffuse;
-layout (location = 2) out vec3 normal;
 
 void main()
 {	

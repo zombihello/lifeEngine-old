@@ -88,16 +88,12 @@ namespace le
 		//////////////////////////////////////////
 		void PointLightPass();
 
-		////////////////////////////////////////////////
-		/// ПОДГОТОВКА ДЛЯ СВЕТОВОГО ПРОХОДА ПО СЦЕНЕ
-		////////////////////////////////////////////////
-		void BeginLightPasses();
-
 		Shader										GeometryRender;
 		Shader										PointLight;
 		Vector2u									SizeWindow;
 		GBuffer										GBuffer;
 		glm::mat4									ViewMatrix;
+		glm::mat4									PVMatrix;					// ProjectionMatrix * ViewMatrix
 
 		System*										System;
 		Camera*										PlayerCamera;

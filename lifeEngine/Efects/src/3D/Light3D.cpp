@@ -4,28 +4,71 @@
 
 le::Light3D::Light3D()
 {
-	Position = glm::vec3( 0.0f, 0.0f, 0.0f );
-	Ambient = glm::vec4( 0.2f, 0.2f, 0.2f, 1.0f );
-	Diffuse = glm::vec4( 0.6f, 0.6f, 0.6f, 1.0f );
-	Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f );
-	Attenuation = glm::vec3( 0.5f, 0.0f, 0.0f );
+	Specular.w = 1;
+	fIntensivity = 1;
+	Color = glm::vec4( 0.6f, 0.6f, 0.6f, 1.0f );
 
-	LightSphere.InitSphere( 150, 15 );
+	fRadius = 25;
+	LightSphere.InitSphere( fRadius, 15 );
 	LightSphere.SetPosition( Position );
 }
 
 //-------------------------------------------------------------------------//
 
-le::Light3D::Light3D( float Radius, glm::vec3 Position, glm::vec4 Ambient, glm::vec4 Diffuse, glm::vec4 Specular, glm::vec3 Attenuation )
+le::Light3D::Light3D( glm::vec3 Position, float Radius, float Intensivity, glm::vec4 Color, glm::vec4 Specular )
 {
 	this->Position = Position;
-	this->Ambient = Ambient;
-	this->Diffuse = Diffuse;
-	this->Specular = Specular;
-	this->Attenuation = Attenuation;
+	fIntensivity = Intensivity;
+	this->Color = Color / 255.f;
+	this->Specular = Specular / 255.f;
+	fRadius = Radius;
 
-	LightSphere.InitSphere( Radius, 15 );
+	LightSphere.InitSphere( fRadius, 15 );
 	LightSphere.SetPosition( Position );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetRadius( float Radius )
+{
+	fRadius = Radius;
+	LightSphere.SetRadius( fRadius );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetIntensivity( float Intensivity )
+{
+	fIntensivity = Intensivity;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetPosition( glm::vec3 Position )
+{
+	this->Position = Position;
+	LightSphere.SetPosition( Position );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetColor( glm::vec4 Color )
+{
+	this->Color = Color / 255.f;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetSpecular( glm::vec4 Specular )
+{
+	this->Specular = Specular / 255.f;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Light3D::SetName( string NameLight )
+{
+	this->NameLight = NameLight;
 }
 
 //-------------------------------------------------------------------------//

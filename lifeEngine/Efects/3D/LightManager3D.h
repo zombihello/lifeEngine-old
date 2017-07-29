@@ -35,7 +35,7 @@ namespace le
 		////////////////////////////////
 		/// СОЗДАТЬ СВЕТ
 		////////////////////////////////
-		void CreateLight( Light3D Light3D );
+		void CreateLight( Light3D Light3D, string NameLight = "" );
 
 		////////////////////////////////
 		/// УНИЧТОЖИТЬ СВЕТ

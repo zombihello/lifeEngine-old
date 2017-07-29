@@ -19445,7 +19445,7 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "20"
+        "Radius": "100"
       }
     },
     {
@@ -19457,21 +19457,21 @@
       },
       "Values": {
         "Name": "",
-        "Color": "255 255 255",
-        "Radius": "20"
+        "Color": "0 150 150",
+        "Radius": "45"
       }
     },
     {
       "EntityName": "light",
       "Position": {
         "X": 304.0,
-        "Y": 56.0,
-        "Z": 0.0
+        "Y": 64.0,
+        "Z": -8.0
       },
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "20"
+        "Radius": "100"
       }
     },
     {
@@ -19545,6 +19545,45 @@
         "ModelName": "box",
         "AnimationName": "",
         "Massa": "5"
+      }
+    },
+    {
+      "EntityName": "light",
+      "Position": {
+        "X": 272.0,
+        "Y": 40.0,
+        "Z": 24.0
+      },
+      "Values": {
+        "Name": "",
+        "Color": "255 0 0",
+        "Radius": "20"
+      }
+    },
+    {
+      "EntityName": "light",
+      "Position": {
+        "X": 272.0,
+        "Y": 40.0,
+        "Z": -8.0
+      },
+      "Values": {
+        "Name": "",
+        "Color": "0 0 255",
+        "Radius": "20"
+      }
+    },
+    {
+      "EntityName": "light",
+      "Position": {
+        "X": 296.0,
+        "Y": 40.0,
+        "Z": 8.0
+      },
+      "Values": {
+        "Name": "",
+        "Color": "0 255 0",
+        "Radius": "20"
       }
     }
   ]

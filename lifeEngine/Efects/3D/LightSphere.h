@@ -22,6 +22,7 @@ namespace le
 		/// КОНСТРУКТОР
 		///////////////////////////////////
 		LightSphere();
+		LightSphere( const LightSphere& Copy );
 
 		////////////////////////////////////
 		/// ДЕСТРУКТОР
@@ -44,19 +45,29 @@ namespace le
 		void SetPosition( glm::vec3 Position );
 
 		////////////////////////////////////
+		/// ЗАДАТЬ РАДИУС СФЕРЫ
+		///////////////////////////////////
+		void SetRadius( float Radius );
+
+		////////////////////////////////////
 		/// ПОЛУЧИТЬ МАТРИЦУ ТРАНСФОРМАЦИИ
 		///////////////////////////////////
-		glm::mat4* GetTransformationMatrix();
+		glm::mat4& GetTransformationMatrix();
 
 	private:
 
 		int					iCountVertexs;
+
+		float				fDetail;
+		float				fRadius;
 
 		glm::vec3			Position;
 		glm::mat4			transformationMatrix;
 
 		GLuint				VertexArray;
 		GLuint				VertexBuffer;
+
+		vector<glm::vec3>	vVertexs;
 	};
 
 	//-------------------------------------------------------------------------//

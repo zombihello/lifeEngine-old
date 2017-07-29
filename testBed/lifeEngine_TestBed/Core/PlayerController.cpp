@@ -35,32 +35,54 @@ void PlayerController::SetPosition( Vector3f Position )
 
 void PlayerController::Update()
 {
+	//if ( Keyboard::isKeyPressed( Keyboard::W ) )
+	//	BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Forward, 10) );
+
+	//if ( Keyboard::isKeyPressed( Keyboard::S ) )
+	//	BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Back, 10 ) );
+
+	//if ( Keyboard::isKeyPressed( Keyboard::A ) )
+	//{
+	//	BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Left, 10 ) );
+
+	//	if ( CameraPlayer->GetInclinationCamera() > -5 )
+	//		CameraPlayer->TiltCamera( -0.2f );
+	//}
+
+	//if ( Keyboard::isKeyPressed( Keyboard::D ) )
+	//{
+	//	BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Right, 10 ) );
+
+	//	if ( CameraPlayer->GetInclinationCamera() < 5 )
+	//		CameraPlayer->TiltCamera( 0.2f );
+	//}
+
+	//Vector3f BodyPosition = BodyPlayer->GetPosition();
+	//BodyPosition.y += SizePlayer.y / 2;
+
+	//CameraPlayer->SetPosition( BodyPosition );
+	//CameraPlayer->UpdateCamera();
+
+	//if ( !Keyboard::isKeyPressed( Keyboard::A ) && !Keyboard::isKeyPressed( Keyboard::D ) )
+	//{
+	//	if ( CameraPlayer->GetInclinationCamera() + 0.5f < 0 )
+	//		CameraPlayer->TiltCamera( 0.5f );
+	//	else if ( CameraPlayer->GetInclinationCamera() - 0.5f > 0 )
+	//		CameraPlayer->TiltCamera( -0.5f );
+	//}
+
 	if ( Keyboard::isKeyPressed( Keyboard::W ) )
-		BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Forward, 10) );
+		CameraPlayer->Move( Camera::Forward, 1 );
 
 	if ( Keyboard::isKeyPressed( Keyboard::S ) )
-		BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Back, 10 ) );
+		CameraPlayer->Move( Camera::Back, 1 );
 
 	if ( Keyboard::isKeyPressed( Keyboard::A ) )
-	{
-		BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Left, 10 ) );
-
-		if ( CameraPlayer->GetInclinationCamera() > -5 )
-			CameraPlayer->TiltCamera( -0.2f );
-	}
+		CameraPlayer->Move( Camera::Left, 1 );
 
 	if ( Keyboard::isKeyPressed( Keyboard::D ) )
-	{
-		BodyPlayer->Move( Body3D::Impulse, CameraPlayer->GetVectorMove( Camera::Right, 10 ) );
+		CameraPlayer->Move( Camera::Right, 1 );
 
-		if ( CameraPlayer->GetInclinationCamera() < 5 )
-			CameraPlayer->TiltCamera( 0.2f );
-	}
-
-	Vector3f BodyPosition = BodyPlayer->GetPosition();
-	BodyPosition.y += SizePlayer.y / 2;
-
-	CameraPlayer->SetPosition( BodyPosition );
 	CameraPlayer->UpdateCamera();
 
 	if ( !Keyboard::isKeyPressed( Keyboard::A ) && !Keyboard::isKeyPressed( Keyboard::D ) )

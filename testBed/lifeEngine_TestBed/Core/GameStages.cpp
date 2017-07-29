@@ -72,9 +72,10 @@ GameStages::GameStages( le::System& System )
 			Light3D light;
 			vector<float> vColor = Entity.GetVelueVectorFloat( "Color" );
 
-			light.Diffuse = glm::vec4( vColor[0] / 255, vColor[1] / 255, vColor[2] / 255, 1 );
-			light.Position = glm::vec3( Entity.GetPosition().x, Entity.GetPosition().y, Entity.GetPosition().z );
-			light.LightSphere.SetPosition( light.Position );
+			light.SetPosition( glm::vec3( Entity.GetPosition().x, Entity.GetPosition().y, Entity.GetPosition().z ) );
+			light.SetColor( glm::vec4( vColor[ 0 ], vColor[ 1 ], vColor[ 2 ], 1 ) );
+			light.SetRadius( Entity.GetValueFloat( "Radius" ) );
+
 			LightManager3D->CreateLight( light );
 		}
 	}
@@ -143,7 +144,6 @@ void GameStages::CheckStages()
 		vStaticModels[i]->GetAnimationManager().UpdateAnimation();
 		vStaticModels[i]->UpdateModel();
 	}
-
 
 	Scene->RenderScene();
 	
