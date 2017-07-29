@@ -28,15 +28,14 @@ void main()
 	vec3 Normal = texture( NormalMap, TexCoord ).xyz;
 	Normal = normalize( Normal );	
 
-	vec3 lightDirection = WorlPos - light.Position;
+	vec3 lightDirection = light.Position - WorlPos;
 	float Distance = length( lightDirection );
 	lightDirection = normalize( lightDirection );
 	
-	float DiffuseFactor = dot( Normal, -lightDirection );
-	DiffuseFactor = max( 0.0, DiffuseFactor );
+	float DiffuseFactor = max( 0.0, dot( Normal, lightDirection ) );
 		
 	float Attenuation = 1 - pow( Distance / light.Radius, 2 );
-	vec4 DiffuseColor = (light.Color * light.Intensivity * DiffuseFactor) * Attenuation ;
-		
+	vec4 DiffuseColor = ( light.Color * light.Intensivity * DiffuseFactor ) * Attenuation ;
+	
 	FragColor = vec4( Color, 1.0f ) * DiffuseColor;
 }

@@ -11,6 +11,6 @@ in vec3 WorldPos;
 void main()
 {	
 	worldPos = WorldPos;
-	Diffuse = texture( gColorMap, TexCoord );
+	Diffuse = texture( gColorMap, TexCoord ).xyz;
 	normal = normalize( Normal );
 }

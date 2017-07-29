@@ -1,25 +1,25 @@
-#include "console.h"
-// РАБОЧИЙ ВАРИАНТ
+п»ї#include "../Console.h"
+// Р РђР‘РћР§РР™ Р’РђР РРђРќРў
 /*
 void le::Console::loadWidgets( tgui::Gui & gui )
 {
-	// Загружаем тему
+	// Р—Р°РіСЂСѓР¶Р°РµРј С‚РµРјСѓ
 	auto theme = tgui::Theme::create("../scripts/gui/console.txt");
 
-	// Задаём размер
+	// Р—Р°РґР°С‘Рј СЂР°Р·РјРµСЂ
 	//auto windowWidth = tgui::bindWidth(gui);
 	//auto windowHeight = tgui::bindHeight(gui);
 	auto windowWidth = 500;
 	auto windowHeight = 100;
 
-	// Текстбокс
+	// РўРµРєСЃС‚Р±РѕРєСЃ
 	tgui::EditBox::Ptr editBoxUsername = theme->load("EditBox");
 	editBoxUsername->setSize(windowWidth * 2 / 3, windowHeight / 8);
 	editBoxUsername->setPosition(windowWidth / 6, windowHeight / 6);
 	editBoxUsername->setDefaultText("Username");
 	gui.add(editBoxUsername, "Username");
 
-	// Кнопка
+	// РљРЅРѕРїРєР°
 	tgui::Button::Ptr button = theme->load("Button");
 	button->setSize(windowWidth / 2, windowHeight / 6);
 	button->setPosition(windowWidth / 4, windowHeight * 7 / 10);
@@ -49,7 +49,7 @@ le::Console::Console(System & system)
 	sf::Event event;
 	while (system.GetWindow().pollEvent(event))
 	{
-		// Пройти событие для всех виджетов
+		// РџСЂРѕР№С‚Рё СЃРѕР±С‹С‚РёРµ РґР»СЏ РІСЃРµС… РІРёРґР¶РµС‚РѕРІ
 		gui.handleEvent(event);
 	}
 	// Draw all created widgets
@@ -61,7 +61,7 @@ delete gui;
 }
 */
 
-// НЕ РАБОЧИЙ
+// РќР• Р РђР‘РћР§РР™
 /*
 le::Console::Console(System & system)
 {
@@ -83,18 +83,18 @@ le::Console::Console(System & system)
 		sf::Event event;
 		while (system.GetWindow().pollEvent(event))
 		{
-			// При закрытии окна работа приложения завершается
+			// РџСЂРё Р·Р°РєСЂС‹С‚РёРё РѕРєРЅР° СЂР°Р±РѕС‚Р° РїСЂРёР»РѕР¶РµРЅРёСЏ Р·Р°РІРµСЂС€Р°РµС‚СЃСЏ
 			if (event.type == sf::Event::Closed)
 				system.GetWindow().close();
 
-			// При изменении размеров окна, меняется вид
+			// РџСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°, РјРµРЅСЏРµС‚СЃСЏ РІРёРґ
 			else if (event.type == sf::Event::Resized)
 			{
 				system.GetWindow().setView(sf::View(sf::FloatRect(10, 0, event.size.width, event.size.height)));
 				gui.setView(system.GetWindow().getView());
 			}
 
-			// Пройти событие для всех виджетов
+			// РџСЂРѕР№С‚Рё СЃРѕР±С‹С‚РёРµ РґР»СЏ РІСЃРµС… РІРёРґР¶РµС‚РѕРІ
 			gui.handleEvent(event);
 		}
 

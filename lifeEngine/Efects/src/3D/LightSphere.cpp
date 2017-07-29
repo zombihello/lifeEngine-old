@@ -55,7 +55,7 @@ le::LightSphere::~LightSphere()
 
 //-------------------------------------------------------------------------//
 
-void le::LightSphere::InitSphere( float Radius, float Detail )
+void le::LightSphere::InitSphere( float Radius, float Detail ) // TODO: НЕКОРЕКТНАЯ СФЕРА (НЕПОНЯТНАЯ "ЗВЕЗДА" ПРИ СМЕШИВАНИИ ОБРАЗОВЫВАЕТСЯ НА КУПАЛЕ СФЕРЫ)
 {
 	fDetail = Detail;
 	fRadius = Radius;

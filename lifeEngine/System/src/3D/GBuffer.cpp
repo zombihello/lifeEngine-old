@@ -11,9 +11,10 @@ le::GBuffer::~GBuffer()
 {
 	if ( IsGBufferInit )
 	{
-		glDeleteFramebuffers( 1, &FBO );
+		glDeleteFramebuffers( 1, &FrameBuffer );
+		glDeleteRenderbuffers( 1, &DepthBuffer );
 		glDeleteTextures( GBUFFER_NUM_TEXTURES, Buffers );
-		glDeleteTextures( 1, &DepthTexture );
+		glDeleteTextures( 1, &FinalFrame );
 	}
 }
 
@@ -21,11 +22,12 @@ le::GBuffer::~GBuffer()
 
 bool le::GBuffer::InitGBuffer( float WindowWidth, float WindowHeight )
 {
-	glGenFramebuffers( 1, &FBO );
-	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FBO );
+	glGenFramebuffers( 1, &FrameBuffer );
+	glGenRenderbuffers( 1, &DepthBuffer );
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 
 	glGenTextures( GBUFFER_NUM_TEXTURES, Buffers );
-	glGenTextures( 1, &DepthTexture );
+	glGenTextures( 1, &FinalFrame );
 
 	for ( int i = 0; i < GBUFFER_NUM_TEXTURES; i++ )
 	{
@@ -38,9 +40,14 @@ bool le::GBuffer::InitGBuffer( float WindowWidth, float WindowHeight )
 		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, Buffers[i], 0 );
 	}
 
-	glBindTexture( GL_TEXTURE_2D, DepthTexture );
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, WindowWidth, WindowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
-	glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, DepthTexture, 0 );
+	glBindTexture( GL_TEXTURE_2D, FinalFrame );
+	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, WindowWidth, WindowHeight, 0, GL_RGB, GL_FLOAT, NULL );
+	glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, FinalFrame, 0 );
+
+	glBindRenderbuffer( GL_RENDERBUFFER, DepthBuffer );
+	glRenderbufferStorage( GL_RENDERBUFFER, GL_DEPTH32F_STENCIL8, WindowWidth, WindowHeight );
+	glFramebufferRenderbufferEXT( GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, DepthBuffer );
+	glBindRenderbuffer( GL_RENDERBUFFER, 0 );
 
 	GLenum DrawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
 
@@ -62,16 +69,46 @@ bool le::GBuffer::InitGBuffer( float WindowWidth, float WindowHeight )
 
 //-------------------------------------------------------------------------//
 
-void le::GBuffer::BindForWriting()
+void le::GBuffer::ClearFrame()
 {
-		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FBO );
+	glBindFramebuffer( GL_FRAMEBUFFER, FrameBuffer );
+	glDrawBuffer( GL_COLOR_ATTACHMENT4 );
+	glClear( GL_COLOR_BUFFER_BIT );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::GBuffer::BindForReading()
+void le::GBuffer::RenderFrame( Vector2u WindowSize )
 {
 	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, 0 );
+	glBindFramebuffer( GL_READ_FRAMEBUFFER, FrameBuffer );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT4 );
+	glBlitFramebuffer( 0, 0, WindowSize.x, WindowSize.y, 0, 0, WindowSize.x, WindowSize.y, GL_COLOR_BUFFER_BIT, GL_LINEAR );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::GBuffer::BindForRenderBuffers()
+{
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
+
+	GLenum DrawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+	glDrawBuffers( 3, DrawBuffers );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::GBuffer::BindForStencilTest()
+{
+	glDrawBuffer( GL_NONE );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::GBuffer::BindForRenderLight()
+{
+	glDrawBuffer( GL_COLOR_ATTACHMENT4 );
 
 	for ( unsigned int i = 0; i < GBUFFER_NUM_TEXTURES; i++ )
 	{

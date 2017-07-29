@@ -235,14 +235,8 @@ void System::WindowCreate( int iStyle )
 	if ( glewInit() != GLEW_OK )
 		exit( -1 );
 
-	glEnable( GL_DEPTH_TEST );
-	glEnable( GL_CULL_FACE );
-	glEnable( GL_TEXTURE_2D );
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	glDepthMask( GL_TRUE );
-	glClearDepth( 1.f );
-	glCullFace( GL_BACK );
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); 
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();

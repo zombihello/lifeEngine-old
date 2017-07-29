@@ -3,8 +3,7 @@
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.7.1"
-#define MAX_LIGHT 4
+#define ENGINE_VERSION "v2.8.0"
 #include "../DllGlobal.h"
 
 //////////////

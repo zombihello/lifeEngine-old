@@ -17,9 +17,10 @@ le::Scene3D::Scene3D( le::System& System )
 	string ShaderDir = System.GetConfiguration().sShadersDir;
 
 	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
-	
-	GeometryRender.loadFromFile( ShaderDir + "/vertexShader.vs", ShaderDir + "/fragmentShader.fs" );
+
+	GeometryRender.loadFromFile( ShaderDir + "/geometryRender.vs", ShaderDir + "/geometryRender.fs" );
 	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
+	StencilTest.loadFromFile( ShaderDir + "/stencilTest.vs", ShaderDir + "/stencilTest.fs" );
 
 	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
 	PointLight.setUniform( "PositionMap", GBuffer::Position );
@@ -40,8 +41,9 @@ le::Scene3D::Scene3D( le::System& System, le::Camera& PlayerCamera )
 
 	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
 
-	GeometryRender.loadFromFile( ShaderDir + "/vertexShader.vs", ShaderDir + "/fragmentShader.fs" );
+	GeometryRender.loadFromFile( ShaderDir + "/geometryRender.vs", ShaderDir + "/geometryRender.fs" );
 	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
+	StencilTest.loadFromFile( ShaderDir + "/stencilTest.vs", ShaderDir + "/stencilTest.fs" );
 
 	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
 	PointLight.setUniform( "PositionMap", GBuffer::Position );
@@ -87,22 +89,29 @@ void le::Scene3D::SetPlayerCamera( Camera& PlayerCamera )
 
 void le::Scene3D::RenderScene()
 {
+	glEnable( GL_TEXTURE_2D );
+
 	if ( PlayerCamera != NULL )
 		ViewMatrix = PlayerCamera->GetViewMatrix();
-
 	PVMatrix = *ProjectionMatrix * ViewMatrix;
+
+	GBuffer.ClearFrame();
 
 	GeometryPass();
 	LightPass();
 
+	GBuffer.RenderFrame( SizeWindow );
+
 	Shader::bind( NULL );
 	ClearScene();
+
+	glDisable( GL_TEXTURE_2D );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Scene3D::ClearScene()
-{	
+{
 	mRenderBuffer.clear();
 	vPointLights.clear();
 }
@@ -114,17 +123,12 @@ void le::Scene3D::GeometryPass()
 	vector<SceneInfoMesh>* vRenderBuffer_Meshes;
 	SceneInfoMesh* InfoMesh;
 
-	GeometryRender.setUniform( "PVMatrix", PVMatrix );
-
 	Shader::bind( &GeometryRender );
+	GBuffer.BindForRenderBuffers();
 
-	GBuffer.BindForWriting();
 	glDepthMask( GL_TRUE );
-
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	
 	glEnable( GL_DEPTH_TEST );
-	glDisable( GL_BLEND );
 
 	for ( auto it = mRenderBuffer.begin(); it != mRenderBuffer.end(); it++ )
 	{
@@ -135,51 +139,78 @@ void le::Scene3D::GeometryPass()
 		{
 			InfoMesh = &( *vRenderBuffer_Meshes )[ i ];
 
-			GeometryRender.setUniform( "transformationMatrix", *InfoMesh->MatrixTransformation );
+			GeometryRender.setUniform( "PVTMatrix", PVMatrix * (*InfoMesh->MatrixTransformation) );
+			GeometryRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 			LoaderVAO::BindVAO( InfoMesh->VertexArray );
 			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 		}
 	}
 
-	LoaderVAO::UnbindVAO();		
+	LoaderVAO::UnbindVAO();
 
 	glDepthMask( GL_FALSE );
-	glDisable( GL_DEPTH_TEST );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Scene3D::LightPass()
 {
-	glEnable( GL_BLEND );
-	glBlendEquation( GL_MAX );
-	glBlendFunc( GL_ONE, GL_ONE );
+	glEnable( GL_STENCIL_TEST );
 
-	GBuffer.BindForReading();
-	glClear( GL_COLOR_BUFFER_BIT );
+	for ( int i = 0; i < vPointLights.size(); i++ )
+	{
+		StencilTestPointLight( i );
+		RenderPointLight( i );
+	}
 
-	PointLightPass();
+	glDisable( GL_STENCIL_TEST );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Scene3D::PointLightPass()
+void le::Scene3D::StencilTestPointLight( int IndexLight )
+{
+	Shader::bind( &StencilTest );
+	GBuffer.BindForStencilTest();
+
+	glEnable( GL_DEPTH_TEST );
+	glClear( GL_STENCIL_BUFFER_BIT );
+	glDisable( GL_CULL_FACE );
+
+	glStencilFunc( GL_ALWAYS, 0, 0 );
+	glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
+	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
+
+	StencilTest.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
+	vPointLights[ IndexLight ]->LightSphere.RenderSphere();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene3D::RenderPointLight( int IndexLight )
 {
 	Shader::bind( &PointLight );
+	GBuffer.BindForRenderLight();
 
-	PointLight.setUniform( "PVMatrix", PVMatrix );
+	glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+	glDisable( GL_DEPTH_TEST );
 
-	for ( int i = 0; i < vPointLights.size(); i++ )
-	{
-		PointLight.setUniform( "transformationMatrix", vPointLights[i]->LightSphere.GetTransformationMatrix() );
-		PointLight.setUniform( "light.Position", vPointLights[ i ]->Position );
-		PointLight.setUniform( "light.Color", vPointLights[ i ]->Color );
-		PointLight.setUniform( "light.Intensivity", vPointLights[ i ]->fIntensivity );
-		PointLight.setUniform( "light.Radius", vPointLights[ i ]->fRadius );
+	glEnable( GL_BLEND );
+	glBlendEquation( GL_FUNC_ADD );
+	glBlendFunc( GL_ONE, GL_ONE );
 
-		vPointLights[ i ]->LightSphere.RenderSphere();
-	}
+	glEnable( GL_CULL_FACE );
+
+	PointLight.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
+	PointLight.setUniform( "light.Position", vPointLights[ IndexLight ]->Position );
+	PointLight.setUniform( "light.Color", vPointLights[ IndexLight ]->Color );
+	PointLight.setUniform( "light.Intensivity", vPointLights[ IndexLight ]->fIntensivity );
+	PointLight.setUniform( "light.Radius", vPointLights[ IndexLight ]->fRadius );
+
+	vPointLights[ IndexLight ]->LightSphere.RenderSphere();
+
+	glDisable( GL_BLEND );
 }
 
 //-------------------------------------------------------------------------//

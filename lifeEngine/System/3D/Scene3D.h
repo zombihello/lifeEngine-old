@@ -83,13 +83,20 @@ namespace le
 		////////////////////////////////////
 		void LightPass();
 
+		//////////////////////////////////////////////////
+		/// ТЕСТ ТРАФАРЕТА ДЛЯ ТОЧЕЧНОГО ИСТОЧНИКА СВЕТА
+		//////////////////////////////////////////////////
+		void StencilTestPointLight( int IndexLight );
+
 		//////////////////////////////////////////
-		/// ПРОХОД ПО ТОЧЕЧНЫМ ИСТОЧНИКАМ СВЕТА
+		/// РЕНДЕР ТОЧЕЧНОГО ИСТОЧНИКА СВЕТА
 		//////////////////////////////////////////
-		void PointLightPass();
+		void RenderPointLight( int IndexLight );
 
 		Shader										GeometryRender;
 		Shader										PointLight;
+		Shader										StencilTest;
+
 		Vector2u									SizeWindow;
 		GBuffer										GBuffer;
 		glm::mat4									ViewMatrix;
