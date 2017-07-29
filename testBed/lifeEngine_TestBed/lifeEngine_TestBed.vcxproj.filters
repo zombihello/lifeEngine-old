@@ -18,10 +18,10 @@
     <ClCompile Include="Core\GameStages.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\наработки\Game\Game\Core\Main.cpp">
+    <ClCompile Include="Core\PlayerController.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PlayerController.cpp">
+    <ClCompile Include="Core\Main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

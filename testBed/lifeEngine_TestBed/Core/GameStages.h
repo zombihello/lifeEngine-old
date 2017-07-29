@@ -16,6 +16,11 @@ using namespace le;
 
 #include "PlayerController.h"
 
+/////////////////////
+// Консоль
+/////////////////////
+//#include "System\console.h"
+
 //---------------------------------------------------------
 
 class GameStages : public BasicStagesGame
@@ -26,6 +31,11 @@ public:
 	~GameStages();
 
 	void CheckStages();
+
+	/////////////////////
+	// Консоль
+	/////////////////////
+	//Console* console_main;
 
 private:
 

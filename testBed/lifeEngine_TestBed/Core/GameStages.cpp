@@ -1,5 +1,9 @@
 #include "GameStages.h"
 #include "../BuildNumber.h"
+/////////////////////
+// Консоль
+/////////////////////
+//#include <TGUI/TGUI.hpp>
 
 //---------------------------------------------------------
 
@@ -87,6 +91,12 @@ GameStages::GameStages( le::System& System )
 	TextManager->WriteText( "Build: " BUILD_NUMBER, 15, Vector2f( 5, 700 ), Color::White ); // id 2
 
 	GUI->AddTextManager( TextManager );
+
+	/////////////////////
+	// Консоль
+	/////////////////////
+	//console_main = new le::Console(System);
+	//console_main->loadWidgets(*console_main->gui);
 }
 
 //---------------------------------------------------------
@@ -154,6 +164,11 @@ void GameStages::CheckStages()
 	TextManager->GetText( 1 ).SetText( L"FPS: ", FPS.GetFPS() );
 
 	GUI->UpdateGUI();
+
+	/////////////////////
+	// Консоль
+	/////////////////////
+	//console_main->Update(*console_main->gui);
 }
 
 //---------------------------------------------------------

@@ -56,6 +56,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sfml-system", "lifeEngine\U
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sfml-window", "lifeEngine\Utils\SFML\src\SFML\Window\sfml-window.vcxproj", "{B2BFDB55-D040-373C-9336-BE620413A48F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lifeEngine_TestBed", "testBed\lifeEngine_TestBed\lifeEngine_TestBed.vcxproj", "{42404B34-B691-4A06-B9FB-E38140A3F1EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -150,6 +152,12 @@ Global
 		{B2BFDB55-D040-373C-9336-BE620413A48F}.Release|Win32.ActiveCfg = Release|Win32
 		{B2BFDB55-D040-373C-9336-BE620413A48F}.Release|Win32.Build.0 = Release|Win32
 		{B2BFDB55-D040-373C-9336-BE620413A48F}.Release|x64.ActiveCfg = Release|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Debug|Win32.Build.0 = Debug|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Debug|x64.ActiveCfg = Debug|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Release|Win32.ActiveCfg = Release|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Release|Win32.Build.0 = Release|Win32
+		{42404B34-B691-4A06-B9FB-E38140A3F1EE}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
