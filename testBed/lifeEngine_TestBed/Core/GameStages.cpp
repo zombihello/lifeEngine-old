@@ -15,9 +15,8 @@ GameStages::GameStages( le::System& System )
 	GUI = new le::GUI( System );
 	Scene = new le::Scene3D( System );
 	Physic = new le::Physic3D( Vector3f( 0, -100, 0 ) );
-	LightManager3D = new le::LightManager3D();
+	LightManager3D = new le::LightManager3D( System );
 	Physic->EnableDebug();
-	
 
 	Player = new PlayerController( System, *Physic, Vector2f( 10, 20 ) );
 	Scene->SetPlayerCamera( *Player->GetPlayerCamera() );
@@ -75,15 +74,16 @@ GameStages::GameStages( le::System& System )
 		{
 			Light3D light;
 			vector<float> vColor = Entity.GetVelueVectorFloat( "Color" );
-
+			light.SetRadius( Entity.GetValueFloat( "Radius" ) );
 			light.SetPosition( glm::vec3( Entity.GetPosition().x, Entity.GetPosition().y, Entity.GetPosition().z ) );
 			light.SetColor( glm::vec4( vColor[ 0 ], vColor[ 1 ], vColor[ 2 ], 1 ) );
-			light.SetRadius( Entity.GetValueFloat( "Radius" ) );
+			
 
-			LightManager3D->CreateLight( light );
+			LightManager3D->CreateLight( light, Entity.GetValueString( "Name" ) );
 		}
 	}
 
+	LightManager3D->InitShadows( *Level );
 	LightManager3D->AddLightsToScene( *Scene );
 
 	TextManager->LoadFont( "../Resources/Fonts/UIFont.ttf" );

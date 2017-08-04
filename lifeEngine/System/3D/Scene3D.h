@@ -93,9 +93,7 @@ namespace le
 		//////////////////////////////////////////
 		void RenderPointLight( int IndexLight );
 
-		Shader										GeometryRender;
-		Shader										PointLight;
-		Shader										StencilTest;
+		Shader										SceneRender;
 
 		Vector2u									SizeWindow;
 		GBuffer										GBuffer;

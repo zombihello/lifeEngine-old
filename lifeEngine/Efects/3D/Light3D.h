@@ -2,6 +2,8 @@
 #define LIGHT_3D_H
 
 #define COMPILING_LIBRARY
+#define SHADOW_WIDTH 1024
+#define SHADOW_HEIGHT 1024
 #include "../../DllGlobal.h"
 
 ////////////////
@@ -21,7 +23,18 @@ namespace le
 		/// КОНСТРУКТОР
 		/////////////////
 		Light3D();
+		Light3D( const Light3D& Copy );
 		Light3D( glm::vec3 Position, float Radius, float Intensivity, glm::vec4 Color, glm::vec4 Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+
+		/////////////////
+		/// ДЕСТРУКТОР
+		/////////////////
+		~Light3D();
+
+		/////////////////////////////////////////
+		/// ИНИЦИАЛИЗИРОВАТЬ КАРТУ ГЛУБИНЫ
+		/////////////////////////////////////////
+		void InitDepthMap();
 
 		///////////////////////////
 		/// ЗАДАТЬ РАДИУС СВЕТА
@@ -53,16 +66,24 @@ namespace le
 		//////////////////////////////
 		void SetName( string NameLight );
 
-		float			fRadius;
-		float			fIntensivity;
+		bool					bIsInitDepthMap;
 
-		string			NameLight;
+		float					fRadius;
+		float					fIntensivity;
 
-		glm::vec3		Position;
-		glm::vec4		Specular;
-		glm::vec4		Color;
+		string					sNameLight;
 
-		LightSphere     LightSphere;	
+		GLuint					Cubemap_DepthMap;
+		GLuint					FBO_DepthMap;
+
+		glm::vec3				Position;
+		glm::vec4				Specular;
+		glm::vec4				Color;
+
+		LightSphere				LightSphere;
+
+		glm::mat4x4				ShadowTransforms[ 6 ];
+		glm::mat4x4				ShadowProjection;
 	};
 
 	//-------------------------------------------------------------------------//

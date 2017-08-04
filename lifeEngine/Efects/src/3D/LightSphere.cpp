@@ -138,3 +138,40 @@ glm::mat4& le::LightSphere::GetTransformationMatrix()
 }
 
 //-------------------------------------------------------------------------//
+
+le::LightSphere & le::LightSphere::operator=( const le::LightSphere & Copy )
+{
+	vector<glm::vec3> Vertexs;
+
+	iCountVertexs = Copy.iCountVertexs;
+	fDetail = Copy.fDetail;
+	fRadius = Copy.fRadius;
+	Position = Copy.Position;
+	transformationMatrix = Copy.transformationMatrix;
+	vVertexs = Copy.vVertexs;
+
+	if ( !vVertexs.empty() )
+	{
+		for ( int i = 0; i < vVertexs.size(); i++ )
+			Vertexs.push_back( vVertexs[ i ] * fRadius );
+
+		VertexArray = LoaderVAO::CreateVAO();
+		LoaderVAO::BindVAO( VertexArray );
+
+		VertexBuffer = LoaderVAO::AtachBuffer( GL_ARRAY_BUFFER, Vertexs, GL_STATIC_DRAW );
+
+		LoaderVAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
+
+		LoaderVAO::UnbindVAO();
+		LoaderVAO::UnbindBuffer( GL_ARRAY_BUFFER );
+	}
+	else
+	{
+		VertexArray = 0;
+		VertexBuffer = 0;
+	}
+
+	return *this;
+}
+
+//-------------------------------------------------------------------------//

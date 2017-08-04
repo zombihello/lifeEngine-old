@@ -69,6 +69,11 @@ namespace le
 		//////////////////////////////////////////
 		void BindForRenderLight();
 
+		//////////////////////////////////////////
+		/// ПОКАЗАТЬ ОТЛАДАЧНУЮ ИНФОРМАЦИЮ
+		//////////////////////////////////////////
+		void ShowDebug( Vector2u SizeWindow );
+
 private:
 
 		bool				IsGBufferInit;

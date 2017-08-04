@@ -54,6 +54,8 @@ namespace le
 		///////////////////////////////////
 		glm::mat4& GetTransformationMatrix();
 
+		LightSphere& operator=( const LightSphere& Copy );
+
 	private:
 
 		int					iCountVertexs;

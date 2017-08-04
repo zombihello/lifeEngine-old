@@ -61,6 +61,11 @@ namespace le
 		//////////////////////////
 		vector<Entity>& GetAllEntitys();
 
+		//////////////////////////
+		/// ПОЛУЧИТЬ ВСЕ БРАШИ
+		//////////////////////////
+		vector<Brush*>& GetAllBrushes();
+
 	private:
 
 		string				sNameMap;

@@ -1,5 +1,9 @@
 ﻿#include "../../3D/Scene3D.h"
 
+#define GEOMETRY_RENDER 0
+#define STENCIL_TEST 1
+#define POINT_LIGHT 2
+
 //-------------------------------------------------------------------------//
 
 le::Scene3D::Scene3D( le::System& System )
@@ -18,14 +22,12 @@ le::Scene3D::Scene3D( le::System& System )
 
 	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
 
-	GeometryRender.loadFromFile( ShaderDir + "/geometryRender.vs", ShaderDir + "/geometryRender.fs" );
-	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
-	StencilTest.loadFromFile( ShaderDir + "/stencilTest.vs", ShaderDir + "/stencilTest.fs" );
+	SceneRender.loadFromFile( ShaderDir + "/sceneRender.vs", ShaderDir + "/sceneRender.fs" );
 
-	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
-	PointLight.setUniform( "PositionMap", GBuffer::Position );
-	PointLight.setUniform( "ColorMap", GBuffer::Textures );
-	PointLight.setUniform( "NormalMap", GBuffer::Normal );
+	SceneRender.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
+	SceneRender.setUniform( "PositionMap", GBuffer::Position );
+	SceneRender.setUniform( "NormalMap", GBuffer::Normal );
+	SceneRender.setUniform( "DepthMap", 3 );
 }
 
 //-------------------------------------------------------------------------//
@@ -41,14 +43,12 @@ le::Scene3D::Scene3D( le::System& System, le::Camera& PlayerCamera )
 
 	GBuffer.InitGBuffer( SizeWindow.x, SizeWindow.y );
 
-	GeometryRender.loadFromFile( ShaderDir + "/geometryRender.vs", ShaderDir + "/geometryRender.fs" );
-	PointLight.loadFromFile( ShaderDir + "/pointlight.vs", ShaderDir + "/pointlight.fs" );
-	StencilTest.loadFromFile( ShaderDir + "/stencilTest.vs", ShaderDir + "/stencilTest.fs" );
+	SceneRender.loadFromFile( ShaderDir + "/sceneRender.vs", ShaderDir + "/sceneRender.fs" );
 
-	PointLight.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
-	PointLight.setUniform( "PositionMap", GBuffer::Position );
-	PointLight.setUniform( "ColorMap", GBuffer::Textures );
-	PointLight.setUniform( "NormalMap", GBuffer::Normal );
+	SceneRender.setUniform( "ScreenSize", Glsl::Vec2( SizeWindow ) );
+	SceneRender.setUniform( "PositionMap", GBuffer::Position );
+	SceneRender.setUniform( "NormalMap", GBuffer::Normal );
+	SceneRender.setUniform( "DepthMap", 3 );
 }
 
 //-------------------------------------------------------------------------//
@@ -89,6 +89,7 @@ void le::Scene3D::SetPlayerCamera( Camera& PlayerCamera )
 
 void le::Scene3D::RenderScene()
 {
+	Shader::bind( &SceneRender );
 	glEnable( GL_TEXTURE_2D );
 
 	if ( PlayerCamera != NULL )
@@ -100,12 +101,15 @@ void le::Scene3D::RenderScene()
 	GeometryPass();
 	LightPass();
 
-	GBuffer.RenderFrame( SizeWindow );
+	if ( !Keyboard::isKeyPressed( Keyboard::E ) )
+		GBuffer.RenderFrame( SizeWindow );
+	else
+		GBuffer.ShowDebug( SizeWindow );
 
-	Shader::bind( NULL );
+	
 	ClearScene();
-
 	glDisable( GL_TEXTURE_2D );
+	Shader::bind( NULL );
 }
 
 //-------------------------------------------------------------------------//
@@ -123,7 +127,8 @@ void le::Scene3D::GeometryPass()
 	vector<SceneInfoMesh>* vRenderBuffer_Meshes;
 	SceneInfoMesh* InfoMesh;
 
-	Shader::bind( &GeometryRender );
+	SceneRender.setUniform( "TypeShader", GEOMETRY_RENDER );
+	SceneRender.setUniform( "ColorMap", 0 );
 	GBuffer.BindForRenderBuffers();
 
 	glDepthMask( GL_TRUE );
@@ -139,8 +144,8 @@ void le::Scene3D::GeometryPass()
 		{
 			InfoMesh = &( *vRenderBuffer_Meshes )[ i ];
 
-			GeometryRender.setUniform( "PVTMatrix", PVMatrix * (*InfoMesh->MatrixTransformation) );
-			GeometryRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+			SceneRender.setUniform( "PVTMatrix", PVMatrix * (*InfoMesh->MatrixTransformation) );
+			SceneRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 			LoaderVAO::BindVAO( InfoMesh->VertexArray );
 			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -156,6 +161,7 @@ void le::Scene3D::GeometryPass()
 
 void le::Scene3D::LightPass()
 {
+	SceneRender.setUniform( "ColorMap", GBuffer::Textures );
 	glEnable( GL_STENCIL_TEST );
 
 	for ( int i = 0; i < vPointLights.size(); i++ )
@@ -171,7 +177,7 @@ void le::Scene3D::LightPass()
 
 void le::Scene3D::StencilTestPointLight( int IndexLight )
 {
-	Shader::bind( &StencilTest );
+	SceneRender.setUniform( "TypeShader", STENCIL_TEST );
 	GBuffer.BindForStencilTest();
 
 	glEnable( GL_DEPTH_TEST );
@@ -182,7 +188,7 @@ void le::Scene3D::StencilTestPointLight( int IndexLight )
 	glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
 	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
-	StencilTest.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
+	SceneRender.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
 	vPointLights[ IndexLight ]->LightSphere.RenderSphere();
 }
 
@@ -190,8 +196,11 @@ void le::Scene3D::StencilTestPointLight( int IndexLight )
 
 void le::Scene3D::RenderPointLight( int IndexLight )
 {
-	Shader::bind( &PointLight );
+	SceneRender.setUniform( "TypeShader", POINT_LIGHT );
 	GBuffer.BindForRenderLight();
+
+	glActiveTexture( GL_TEXTURE0 + GBUFFER_NUM_TEXTURES );
+	glBindTexture( GL_TEXTURE_CUBE_MAP, vPointLights[ IndexLight ]->Cubemap_DepthMap );
 
 	glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 	glDisable( GL_DEPTH_TEST );
@@ -202,11 +211,11 @@ void le::Scene3D::RenderPointLight( int IndexLight )
 
 	glEnable( GL_CULL_FACE );
 
-	PointLight.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
-	PointLight.setUniform( "light.Position", vPointLights[ IndexLight ]->Position );
-	PointLight.setUniform( "light.Color", vPointLights[ IndexLight ]->Color );
-	PointLight.setUniform( "light.Intensivity", vPointLights[ IndexLight ]->fIntensivity );
-	PointLight.setUniform( "light.Radius", vPointLights[ IndexLight ]->fRadius );
+	SceneRender.setUniform( "PVTMatrix", PVMatrix * vPointLights[ IndexLight ]->LightSphere.GetTransformationMatrix() );
+	SceneRender.setUniform( "light.Position", vPointLights[ IndexLight ]->Position );
+	SceneRender.setUniform( "light.Color", vPointLights[ IndexLight ]->Color );
+	SceneRender.setUniform( "light.Intensivity", vPointLights[ IndexLight ]->fIntensivity );
+	SceneRender.setUniform( "light.Radius", vPointLights[ IndexLight ]->fRadius );
 
 	vPointLights[ IndexLight ]->LightSphere.RenderSphere();
 

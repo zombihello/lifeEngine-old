@@ -14,13 +14,24 @@
 
 namespace le
 {
+	//-------------------------------------------------------------------------//
+
+	class Level3D;
+
+	//-------------------------------------------------------------------------//
+
 	class DLL_API LightManager3D
 	{
 	public:
 		/////////////////
 		/// КОНСТРУКТОР
 		/////////////////
-		LightManager3D();
+		LightManager3D( System& System );
+
+		////////////////////////////////////////
+		/// ИНИЦИАЛИЗИРОВАТЬ ТЕНИ НА УРОВНЕ
+		////////////////////////////////////////
+		void InitShadows( Level3D& Level );
 
 		///////////////////////////////////////
 		/// ДОБАВИТЬ ИСТОЧНИКИ СВЕТА НА СЦЕНУ
@@ -53,6 +64,10 @@ namespace le
 		Light3D* GetLight( string NameLight );
 
 	private:
+
+		Shader						DepthRender;
+		Vector2u					SizeWindow;
+		glm::mat4x4*				ProjectionMatrix;
 
 		Scene3D*					Scene;
 

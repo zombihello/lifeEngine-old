@@ -15,7 +15,6 @@ void le::LoaderVAO::SetVertexAttribPointer( GLuint Index, GLint Size, GLenum Typ
 {
 	glVertexAttribPointer( Index, Size, Type, Normalized, Stride, Pointer );
 	glEnableVertexAttribArray( Index );
-	
 }
 
 //-------------------------------------------------------------------------//

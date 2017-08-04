@@ -159,6 +159,13 @@ void le::Brush::UpdateBrush( Shader* Shader )
 
 //-------------------------------------------------------------------------//
 
+map<GLuint, le::SceneInfoMesh>& le::Brush::GetRenderMesh()
+{
+	return mRenderMesh;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Brush::AddToScene( le::Scene3D& Scene )
 {
 	this->Scene = &Scene;

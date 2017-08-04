@@ -46,7 +46,7 @@ bool le::GBuffer::InitGBuffer( float WindowWidth, float WindowHeight )
 
 	glBindRenderbuffer( GL_RENDERBUFFER, DepthBuffer );
 	glRenderbufferStorage( GL_RENDERBUFFER, GL_DEPTH32F_STENCIL8, WindowWidth, WindowHeight );
-	glFramebufferRenderbufferEXT( GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, DepthBuffer );
+	glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, DepthBuffer );
 	glBindRenderbuffer( GL_RENDERBUFFER, 0 );
 
 	GLenum DrawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
@@ -115,6 +115,27 @@ void le::GBuffer::BindForRenderLight()
 		glActiveTexture( GL_TEXTURE0 + i );
 		glBindTexture( GL_TEXTURE_2D, Buffers[ i ] );
 	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::GBuffer::ShowDebug( Vector2u SizeWindow )
+{
+	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glBindFramebuffer( GL_READ_FRAMEBUFFER, FrameBuffer );
+
+	GLsizei HalfWidth = ( GLsizei ) ( SizeWindow.x / 2.0f );
+	GLsizei HalfHeight = ( GLsizei ) ( SizeWindow.y / 2.0f );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT0 );
+	glBlitFramebuffer( 0, 0, SizeWindow.x, SizeWindow.y, 0, 0, HalfWidth, HalfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT1 );
+	glBlitFramebuffer( 0, 0, SizeWindow.x, SizeWindow.y, 0, HalfHeight, HalfWidth, SizeWindow.y, GL_COLOR_BUFFER_BIT, GL_LINEAR );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT2 );
+	glBlitFramebuffer( 0, 0, SizeWindow.x, SizeWindow.y, HalfWidth, HalfHeight, SizeWindow.x, SizeWindow.y, GL_COLOR_BUFFER_BIT, GL_LINEAR );
 }
 
 //-------------------------------------------------------------------------//

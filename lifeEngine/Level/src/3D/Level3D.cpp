@@ -264,6 +264,13 @@ vector<le::Entity>& le::Level3D::GetAllEntitys()
 
 //-------------------------------------------------------------------------//
 
+vector<le::Brush*>& le::Level3D::GetAllBrushes()
+{
+	return vBrushes;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Level3D::AddToScene( le::Scene3D& Scene )
 {
 	this->Scene = &Scene;

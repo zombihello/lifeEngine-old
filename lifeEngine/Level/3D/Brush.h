@@ -67,6 +67,11 @@ namespace le
 		//////////////////
 		void UpdateBrush( Shader* Shader = NULL );
 
+		////////////////////////////////////
+		/// ПОЛУЧИТЬ МЕШ БРАША ДЛЯ РЕНДЕРА
+		////////////////////////////////////
+		map<GLuint, SceneInfoMesh>& GetRenderMesh();
+
 	private:
 
 		System*										System;
