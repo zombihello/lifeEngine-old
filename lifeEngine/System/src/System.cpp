@@ -1,4 +1,4 @@
-#include "..\System.h"
+ï»¿#include "..\System.h"
 
 //-------------------------------------------------------------------------//
 
@@ -11,13 +11,13 @@ le::System::System( const string& ConfigFile, const string& LogFile, string Plug
 {
 	Root = new Ogre::Root( "", ConfigFile, "" );
 
-	// Ñîçäàåì ôàéë ëîãîâ
+	// Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» Ð»Ð¾Ð³Ð¾Ð²
 	if ( LogFile != "" )
 		LogManager.createLog( LogFile );
 
 	LogManager.logMessage( ENGINE " " ENGINE_VERSION );
 
-	// Çàãðóçêà ïëàãèíîâ äëÿ Ogre3D
+	// Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð¿Ð»Ð°Ð³Ð¸Ð½Ð¾Ð² Ð´Ð»Ñ Ogre3D
 	if ( PluginDir != "" && PluginDir[ PluginDir.size() - 1 ] != '/' )
 		PluginDir += "/";
 
@@ -27,7 +27,7 @@ le::System::System( const string& ConfigFile, const string& LogFile, string Plug
 	Root->loadPlugin( PluginDir + "RenderSystem_GL" );
 #endif
 
-	// Çàãðóçêà êîíôèãóðàöèé
+	// Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¹
 	if ( !Root->restoreConfig() )
 	{
 		Ogre::RenderSystem* RenderSystem = Root->getRenderSystemByName( "OpenGL Rendering Subsystem" );
