@@ -9,28 +9,52 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5340812B-9A30-42A2-808C-ECFC14188A86}</ProjectGuid>
+    <ProjectGuid>{99A085E8-0B27-4B78-A6D3-8FA914A0685E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>lifeEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -38,19 +62,29 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>$(ProjectName)-d</TargetName>
     <OutDir>..\bin\</OutDir>
-    <IntDir>..\Debug_lifeEngine</IntDir>
-    <GenerateManifest>false</GenerateManifest>
+    <IntDir>..\Build\Debug\</IntDir>
+    <TargetName>$(ProjectName)-d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>..\Release_lifeEngine</IntDir>
     <OutDir>..\bin\</OutDir>
-    <GenerateManifest>false</GenerateManifest>
+    <IntDir>..\Build\Release\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -58,26 +92,27 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>LIFEENGINE_EXPORTS;GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\OpenGL\glm;Utils\Bullet\src;.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <FavorSizeOrSpeed>
-      </FavorSizeOrSpeed>
-      <WholeProgramOptimization>
-      </WholeProgramOptimization>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <BasicRuntimeChecks>
-      </BasicRuntimeChecks>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;Utils\Ogre3D\include\OgreMain\include;Utils\Ogre3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Utils\OpenGL\glm\lib;Utils\Bullet\lib;Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;XML-d.lib;Box2D-d.lib;opengl32.lib;glu32.lib;glew32sd.lib;BulletCollision-d.lib;BulletDynamics-d.lib;LinearMath-d.lib;glm-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Utils\Ogre3D\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,170 +120,46 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Utils\OpenGL\glm;Utils\Bullet\src;.\;Utils\Math;Utils\HaffmanCode;Utils\codecvt;Utils\SFML\include;Utils\XML\include;Utils\OpenGL\glew\include;Utils\Box2D\include\Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BrowseInformation>false</BrowseInformation>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <BasicRuntimeChecks>
-      </BasicRuntimeChecks>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <StringPooling>true</StringPooling>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\;Utils\Ogre3D\include\OgreMain\include;Utils\Ogre3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>Utils\OpenGL\glm\lib;Utils\Bullet\lib;Utils\XML\lib;Utils\OpenGL\glew\lib;Utils\Box2D\lib;Utils\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;XML.lib;opengl32.lib;glu32.lib;glew32s.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;glm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>Utils\Ogre3D\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;LIFEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animation\Animation2D.h" />
-    <ClInclude Include="Animation\Animation3D.h" />
-    <ClInclude Include="Animation\AnimationManager2D.h" />
-    <ClInclude Include="Animation\AnimationManager3D.h" />
-    <ClInclude Include="Animation\leAnimation.h" />
     <ClInclude Include="DllGlobal.h" />
-    <ClInclude Include="Efects\3D\Light3D.h" />
-    <ClInclude Include="Efects\3D\LightManager3D.h" />
-    <ClInclude Include="Efects\3D\LightSphere.h" />
-    <ClInclude Include="Efects\leEfects.h" />
-    <ClInclude Include="Efects\Light2D.h" />
-    <ClInclude Include="Efects\LightManager2D.h" />
-    <ClInclude Include="Entity\AI.h" />
-    <ClInclude Include="Entity\AI_Route.h" />
-    <ClInclude Include="Entity\BasicBullet.h" />
-    <ClInclude Include="Entity\BasicEntity.h" />
-    <ClInclude Include="Entity\BasicItems.h" />
-    <ClInclude Include="Entity\BasicPersonages.h" />
-    <ClInclude Include="Entity\EntityManager.h" />
-    <ClInclude Include="Entity\leEntity.h" />
-    <ClInclude Include="Entity\AI_View.h" />
-    <ClInclude Include="Level\3D\Brush.h" />
-    <ClInclude Include="Level\3D\Entity.h" />
-    <ClInclude Include="Level\3D\Level3D.h" />
-    <ClInclude Include="Level\Layer.h" />
-    <ClInclude Include="Level\leLevel.h" />
-    <ClInclude Include="Level\Level2D.h" />
-    <ClInclude Include="Level\Object.h" />
-    <ClInclude Include="Media\leMedia.h" />
-    <ClInclude Include="Media\Music.h" />
-    <ClInclude Include="Media\MusicManager.h" />
-    <ClInclude Include="Media\Sound.h" />
-    <ClInclude Include="Media\SoundManager.h" />
-    <ClInclude Include="Physic\3D\Body3D.h" />
-    <ClInclude Include="Physic\3D\Body3D_ConstructionInfo.h" />
-    <ClInclude Include="Physic\3D\Body3D_ShapeType.h" />
-    <ClInclude Include="Physic\3D\BulletDebugDrawer.h" />
-    <ClInclude Include="Physic\3D\Physic3D.h" />
-    <ClInclude Include="Physic\Body2D.h" />
-    <ClInclude Include="Physic\CircleShape2D.h" />
-    <ClInclude Include="Physic\lePhysic.h" />
-    <ClInclude Include="Physic\Physic2D.h" />
-    <ClInclude Include="Physic\PolygonShape2D.h" />
-    <ClInclude Include="System\3D\Camera.h" />
-    <ClInclude Include="System\3D\GBuffer.h" />
-    <ClInclude Include="System\3D\Model.h" />
-    <ClInclude Include="System\3D\ModelMesh.h" />
-    <ClInclude Include="System\3D\Scene3D.h" />
-    <ClInclude Include="System\3D\Skeleton.h" />
-    <ClInclude Include="System\BasicStagesGame.h" />
-    <ClInclude Include="System\FPS.h" />
-    <ClInclude Include="System\GroupColision.h" />
-    <ClInclude Include="System\leSystem.h" />
-    <ClInclude Include="System\LoaderVAO.h" />
-    <ClInclude Include="System\Localization.h" />
-    <ClInclude Include="System\MaterialManager.h" />
-    <ClInclude Include="System\MouseCursor.h" />
-    <ClInclude Include="System\SaveValuables.h" />
-    <ClInclude Include="System\Serialization.h" />
+    <ClInclude Include="System\BasicApplication.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="System\UI\Button.h" />
-    <ClInclude Include="System\UI\ButtonManager.h" />
-    <ClInclude Include="System\UI\GUI.h" />
-    <ClInclude Include="System\UI\Text.h" />
-    <ClInclude Include="System\UI\TextManager.h" />
-    <ClInclude Include="Utils\codecvt\codecvt.h" />
-    <ClInclude Include="Utils\HaffmanCode\HaffmanCode.h" />
-    <ClInclude Include="Utils\HaffmanCode\Node.h" />
-    <ClInclude Include="Weapons\BasicWeapon.h" />
-    <ClInclude Include="Weapons\leWeapons.h" />
-    <ClInclude Include="Weapons\WeaponManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation\src\Animation2D.cpp" />
-    <ClCompile Include="Animation\src\Animation3D.cpp" />
-    <ClCompile Include="Animation\src\AnimationManager2D.cpp" />
-    <ClCompile Include="Animation\src\AnimationManager3D.cpp" />
-    <ClCompile Include="Efects\src\3D\Light3D.cpp" />
-    <ClCompile Include="Efects\src\3D\LightManager3D.cpp" />
-    <ClCompile Include="Efects\src\3D\LightSphere.cpp" />
-    <ClCompile Include="Efects\src\Light2D.cpp" />
-    <ClCompile Include="Efects\src\LightManager2D.cpp" />
-    <ClCompile Include="Entity\src\AI.cpp" />
-    <ClCompile Include="Entity\src\AI_Route.cpp" />
-    <ClCompile Include="Entity\src\BasicBullet.cpp" />
-    <ClCompile Include="Entity\src\BasicEntity.cpp" />
-    <ClCompile Include="Entity\src\BasicItems.cpp" />
-    <ClCompile Include="Entity\src\BasicPersonages.cpp" />
-    <ClCompile Include="Entity\src\EntityManager.cpp" />
-    <ClCompile Include="Entity\src\AI_View.cpp" />
-    <ClCompile Include="Level\src\3D\Brush.cpp" />
-    <ClCompile Include="Level\src\3D\Entity.cpp" />
-    <ClCompile Include="Level\src\3D\Level3D.cpp" />
-    <ClCompile Include="Level\src\Level2D.cpp" />
-    <ClCompile Include="Level\src\Object.cpp" />
-    <ClCompile Include="Media\src\Music.cpp" />
-    <ClCompile Include="Media\src\MusicManager.cpp" />
-    <ClCompile Include="Media\src\Sound.cpp" />
-    <ClCompile Include="Media\src\SoundManager.cpp" />
-    <ClCompile Include="Physic\src\3D\Body3D.cpp" />
-    <ClCompile Include="Physic\src\3D\Body3D_ConstructionInfo.cpp" />
-    <ClCompile Include="Physic\src\3D\Body3D_ShapeType.cpp" />
-    <ClCompile Include="Physic\src\3D\BulletDebugDrawer.cpp" />
-    <ClCompile Include="Physic\src\3D\Physic3D.cpp" />
-    <ClCompile Include="Physic\src\Body2D.cpp" />
-    <ClCompile Include="Physic\src\CircleShape2D.cpp" />
-    <ClCompile Include="Physic\src\Physic2D.cpp" />
-    <ClCompile Include="Physic\src\PolygonShape2D.cpp" />
-    <ClCompile Include="System\src\3D\Camera.cpp" />
-    <ClCompile Include="System\src\3D\GBuffer.cpp" />
-    <ClCompile Include="System\src\3D\Model.cpp" />
-    <ClCompile Include="System\src\3D\ModelMesh.cpp" />
-    <ClCompile Include="System\src\3D\Scene3D.cpp" />
-    <ClCompile Include="System\src\3D\Skeleton.cpp" />
-    <ClCompile Include="System\src\FPS.cpp" />
-    <ClCompile Include="System\src\GroupColision.cpp" />
-    <ClCompile Include="System\src\LoaderVAO.cpp" />
-    <ClCompile Include="System\src\Localization.cpp" />
-    <ClCompile Include="System\src\MaterialManager.cpp" />
-    <ClCompile Include="System\src\MouseCursor.cpp" />
-    <ClCompile Include="System\src\SaveValuables.cpp" />
-    <ClCompile Include="System\src\Serialization.cpp" />
+    <ClCompile Include="System\src\BasicApplication.cpp" />
     <ClCompile Include="System\src\System.cpp" />
-    <ClCompile Include="System\src\UI\Button.cpp" />
-    <ClCompile Include="System\src\UI\ButtonManager.cpp" />
-    <ClCompile Include="System\src\UI\GUI.cpp" />
-    <ClCompile Include="System\src\UI\Text.cpp" />
-    <ClCompile Include="System\src\UI\TextManager.cpp" />
-    <ClCompile Include="Utils\codecvt\codecvt.cpp" />
-    <ClCompile Include="Utils\HaffmanCode\HaffmanCode.cpp" />
-    <ClCompile Include="Utils\HaffmanCode\Node.cpp" />
-    <ClCompile Include="Weapons\src\BasicWeapon.cpp" />
-    <ClCompile Include="Weapons\src\WeaponManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

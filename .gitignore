@@ -1,45 +1,11 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-#*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-#*.lib
-
-# Executables
-#*.exe
-*.out
-*.app
-
-*.pdb
+Build
+Utils
+*.VC.db
+*.suo
 *.ilk
-*.bsc
 *.exp
-*.sdf
-*.v12.suo
-
-Debug_lifeEngine
-Release_lifeEngine
-tmp
-*.db
-*.ipdb
+*.obj
+*.idb
 *.iobj
-*.log
-*.tlog
-.vs/lifeEngine/v14/.suo
+*.ipdb
+lifeEngine.log

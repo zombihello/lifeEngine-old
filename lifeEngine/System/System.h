@@ -1,264 +1,112 @@
-#ifndef LESYSTEM_H
-#define LESYSTEM_H
+﻿//////////////////////////////////////////////////////////////////////////
+// 
+//			*** lifeEngine (Двигатель Жизни) ***
+//					Copyright (C) 2017
+//
+// Связь со мной:		https://vk.com/zombihello
+// Репозиторий движка:  https://github.com/zombihello/lifeEngine
+// 
+//////////////////////////////////////////////////////////////////////////
+
+#ifndef SYSTEM_H
+#define SYSTEM_H
 
 #define COMPILING_LIBRARY
 #define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v2.8.0"
-#include "../DllGlobal.h"
+#define ENGINE_VERSION "v3.0.0"
+#include <DllGlobal.h>
 
-//////////////
-/// OPENGL
-//////////////
-#include <glew/glew.h>
-#include <glm/fwd.hpp>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_interpolation.hpp>
-#include <glm/gtx/transform.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <gl/GLU.h>
-
-/////////////////////
-/// СИСТЕМНЫЕ ЛИБЫ
-////////////////////
+///////////////////////////
+// СИСТЕМНЫЕ БИБЛИОТЕКИ
+///////////////////////////
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
 using namespace std;
 
 //////////////
-/// SFML
+// OGRE
 //////////////
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
-using namespace sf;
+#include <Ogre.h>
+#include <OgrePlugin.h>
+#include <OgreLogManager.h>
 
-//////////
-/// XML
-//////////
-#include <tinyxml.h>
-
-////////////////
-/// LIFEENGINE
-///////////////
-#include "BasicStagesGame.h"
-#include "MouseCursor.h"
-#include "FPS.h"
-#include "Localization.h"
-#include "Serialization.h"
+//////////////////
+// LIFEENGINE
+//////////////////
+#include <System/BasicApplication.h>
 
 namespace le
 {
 	//-------------------------------------------------------------------------//
-	
-	struct DLL_API Configuration
-	{
-		/////////////////
-		/// КОНСТРУКТОР
-		/////////////////
-		Configuration();
 
-		int           iWindowWidth;
-		int           iWindowHeight;
-		int           iVolumeSound;
-		int           iVolumeMusic;
-		int           iFrameLimit;
-		int			  iAntialiasingLevel;
-
-		float		  fRatioView;
-		float         fGameSpeed;
-		float         fGameTick;
-		float         fTime;
-
-		bool          bSound;
-		bool          bMusic;
-		bool          bV_Sinc;
-		bool          bFullscreen;
-		bool		  bDebug;
-
-		glm::mat4	  ProjectionMatrix;
-
-		string        sWindowName;
-		string        sGameVersion;
-		string		  sLanguage;
-		string		  sShadersDir;
-	};
-
-	//-------------------------------------------------------------------------//
-	
+	//////////////////////////////////////////////////////////////////////
+	/// \brief Класс необходимый для работы движка
+	///
+	/// Это самый главный класс в движке. Он обеспечивает базовые
+	/// методы по работе с Ogre (создание и обновление окна), так же
+	/// он необходим для работы других классов
+	//////////////////////////////////////////////////////////////////////
 	class DLL_API System
 	{
 	public:
-		/////////////////
-		/// КОНСТРУКТОР
-		/////////////////
-		System( const string FileConfiguration, int argc, char** argv );
-		System( const string FileConfiguration, const string ShadersDir, int argc, char** argv );
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Конструктор
+		/// \details В этом конструкторе идет инициализация движка 
+		///		
+		/// \param[in] ConfigFile Путь к файлу конфигураций окна
+		/// \param[in] LogFile Путь к файлу логов
+		/// \param[in] PluginDir Путь к каталогу плагинов
+		//////////////////////////////////////////////////////////////////////
+		System( const string& ConfigFile, const string& LogFile, string PluginDir = "" );
 
-		///////////////////////////////
-		/// ЧТЕНИЕ ПЕРЕМНОЙ ИЗ ФАЙЛА
-		//////////////////////////////
-		template<typename T> T ReadTextFile( const string sRoute, const string sTagName );
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Деструктор
+		//////////////////////////////////////////////////////////////////////
+		~System();
 
-		//////////////////////////////////
-		/// ЧТЕНИЕ ПЕРЕМНОЙ ИЗ XML ФАЙЛА
-		/////////////////////////////////
-		string ReadXmlFile( const string sRoute , const string sTagMain , const string sTag );
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Создание окна
+		/// \details Этот метод создает окно
+		/// 
+		/// \param[in] NameWindow Имя окна
+		//////////////////////////////////////////////////////////////////////
+		void WindowCreate( const string& NameWindow );
 
-		///////////////////////////////
-		/// СОХРАНЕНИЕ ПЕРЕМНОЙ В ФАЙЛ
-		//////////////////////////////
-		template<typename T> void SaveInFile( const string sRoute, const string sTagName, T Value, bool bClearFile = false ) const;
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Главный цикл игры
+		/// \details В этом методе происходить обновление игрового окна
+		///		
+		/// \param[in] Application Объект приложения
+		//////////////////////////////////////////////////////////////////////
+		void MainLoop( BasicApplication& Application );
 
-		/////////////////////////////////////
-		/// ПРОВЕРКА НА СУЩЕСТВОВАНИЕ ФАЙЛА
-		////////////////////////////////////
-		bool FileExists( const string sRouteToFile );
+		//////////////////////////////////////////////////////////////////////
+		/// Возвращает главгый объект Ogre (Root)
+		/// \return Ogre::Root*
+		//////////////////////////////////////////////////////////////////////
+		Ogre::Root* GetOgreRoot();
 
-		//////////////////////////////////////////
-		/// ПРОВЕРКА НА СУЩЕСТВОВАНИЕ ДИРЕКТОРИИ
-		/////////////////////////////////////////
-		bool DirectoryExists( const string sRouteToDirectory );
+		//////////////////////////////////////////////////////////////////////
+		/// Возвращает окно игры
+		/// \return Ogre::RenderWindow*
+		//////////////////////////////////////////////////////////////////////
+		Ogre::RenderWindow* GetWindow();
 
-		////////////////////
-		/// СОЗДАНИЕ ОКНА
-		///////////////////
-		void WindowCreate( int iStyle = Style::Default );
+		//////////////////////////////////////////////////////////////////////
+		/// Возвращает игровую сцену
+		/// \return Ogre::SceneManager*	
+		//////////////////////////////////////////////////////////////////////
+		Ogre::SceneManager* GetScene();
 
-		////////////////////
-		/// ГЛАВНЫЙ ЦИКЛ
-		///////////////////
-		void MainLoop( BasicStagesGame& BasicStagesGame );
+		static Ogre::LogManager			LogManager; ///< Предназначен для работы с логами
 
-		///////////////////////////////
-		/// ОБНОВИТЬ ФАЙЛ КОНФИГУРАЦИЙ
-		///////////////////////////////
-		void UpdateFileConfiguration();
-
-		///////////////////
-		/// РЕЖИМ ДЕБАГА
-		///////////////////
-		void SetDebug( bool debug );
-
-		///////////////////////////
-		/// ЗАДАТЬ СКОРОСТЬ ИГРЫ
-		///////////////////////////
-		void SetGameSpeed( const float fGameSpeed );
-
-		///////////////////////////
-		/// ЗАДАТЬ ЛИМИТ КАДРОВ
-		///////////////////////////
-		void SetFrameLimit( const int FrameLimit );
-
-		///////////////////////////
-		/// ЗАДАТЬ НАЗВАНИЕ ОКНА
-		///////////////////////////
-		void SetWindowTitle( const String WindowName , const String GameVersion = "" );
-
-		//////////////////////
-		/// ЗАДАТЬ ТИК ИГРЫ
-		//////////////////////
-		void SetGameTick( const float fGameTick );
-
-		///////////////////////////
-		/// ПОЛУЧИТЬ КОНФИГУРАЦИИ
-		///////////////////////////
-		Configuration& GetConfiguration();
-
-		//////////////////
-		/// ПЛУЧИТЬ ОКНО
-		/////////////////
-		RenderWindow& GetWindow();
-
-		//////////////////////
-		/// ПОЛУЧИТЬ СОБЫТИЕ
-		/////////////////////
-		Event& GetEvent();
-
-		//////////////////////////
-		/// ПОЛУЧИТЬ КУРСОР МЫШИ
-		//////////////////////////
-		MouseCursor& GetMouseCursor();
-
-		//////////////////////////////
-		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ ИГРЫ
-		/////////////////////////////
-		View& GetGameCamera();
-
-		//////////////////////////////
-		/// ПОЛУЧИТЬ КАМЕРУ ДЛЯ МЕНЮ
-		/////////////////////////////
-		View& GetMenuCamera();
-
-		//////////////////////////////
-		/// ПОЛУЧИТЬ ЛОКАЛИЗАЦИЮ
-		/////////////////////////////
-		Localization& GetLocalization();
 	private:
-		void Clock();
-
-		le::Configuration             Configuration;
-		le::MouseCursor               MouseCursor;
-		le::Localization		      Localization;
-
-		sf::RenderWindow              RenderWindow;
-		sf::Clock					  clock;
-		sf::Event                     Event;
-		sf::View				      MenuCamera;
-		sf::View				      GameCamera;
-
-		std::string					  sRouteFileConfiguration;
+		
+		Ogre::Root*						Root; ///< Главный класс который необходим для Ogre
+		Ogre::RenderWindow*				Window; ///< Окно игры
+		Ogre::SceneManager*				Scene; ///< Игровая сцена
 	};
-
-	//-------------------------------------------------------------------------//
-	
-	template<typename T> void System::SaveInFile( const string sRoute, const string sTagName, T Value, bool bClearFile ) const
-	{
-		ofstream fos;
-
-		if ( bClearFile )
-			fos.open( sRoute );
-		else
-			fos.open( sRoute, ios::app );
-
-		fos << sTagName << " " << Value << "\n";
-	}
-
-	//-------------------------------------------------------------------------//
-	
-	template<typename T> T System::ReadTextFile( const string sRoute, const string sTagName )
-	{
-		T Value = T();
-
-		if ( FileExists( sRoute ) )
-		{
-			ifstream fis( sRoute );
-			string sString;
-
-			for ( int i = 0; !fis.eof(); i++ )
-			{
-				fis >> sString;
-
-				if ( sString == sTagName )
-				{
-					fis >> Value;
-					return Value;
-				}
-
-				if ( fis.eof() )
-					cout << "Error: Tag [" << sTagName << "] Not Found In File [" << sRoute << "]\n";
-			}
-		}
-		else
-			cout << "Error: File [" << sRoute << "] Not Found\n";
-
-		return Value;
-	}
 
 	//-------------------------------------------------------------------------//
 }
 
-#endif // LESYSTEM_H
+#endif // SYSTEM_H
