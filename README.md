@@ -3,16 +3,16 @@
 
 ## Подключение к проету
 **Для того чтобы подключить движок к проету необходимо сделать следующие:**
-1. Создать консольный или оконный проект и добавить в него *.cpp файл
+1. Создать проект в Visual Studio (Консольный или оконный) и в нем добавить *.cpp файл, например main.cpp.
 1. Зайти в свойства проекта
 1. В поле конфигураций выбрать `"Все конфигурации"`
-1. Перейти во вкладку `[C/C++ -> Общее]` и в поле `"Доп. каталоги включаемых файлов"` прописать такие пути: `<каталог lifeEngine>\lifeEngine`, `<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\include`, `<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\include\OgreMain\include`
-1. Перейти во вкладку `[Компановщик -> Общее]` и в поле `"Доп. каталоги библиотек"` прописать такие пути для `Debug` конфигурации: `<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\lib\Debug`, `<каталог lifeEngine>\bin`, а для `Release` такие: `<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\lib\Release`, `<каталог lifeEngine>\bin`
-1. Перейти во вкладку `[Компановщик -> Ввод]` и в поле "Доп. зависимости" прописать следующие для Debug: `lifeEngine-d.lib`, `OgreMain_d.lib`, а для Release `lifeEngine.lib`, `OgreMain.lib`
+1. Перейти во вкладку `[C/C++ -> Общее]` и в поле `"Доп. каталоги включаемых файлов"` прописать такие пути: *<каталог lifeEngine>\lifeEngine*, *<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\include*, *<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\include\OgreMain\include*
+1. Перейти во вкладку `[Компановщик -> Общее]` и в поле `"Доп. каталоги библиотек"` прописать такие пути для `Debug` конфигурации: *<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\lib\Debug*, *<каталог lifeEngine>\bin*, а для `Release` такие: *<каталог lifeEngine>\lifeEngine\Utils\Ogre3D\lib\Release*, *<каталог lifeEngine>\bin*
+1. Перейти во вкладку `[Компановщик -> Ввод]` и в поле `"Доп. зависимости"` прописать следующие для `Debug`: *lifeEngine-d.lib*, *OgreMain_d.lib*, а для `Release` *lifeEngine.lib*, *OgreMain.lib*
 1. Нажать на `"Применить"`. Теперь проект готов к работе с движком
 
 **Код для теста:**
-```с++
+```с
 #include <System\System.h>
 
 class Game : public le::BasicApplication
