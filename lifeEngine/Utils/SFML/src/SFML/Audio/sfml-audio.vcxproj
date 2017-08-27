@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{936C5B6A-3A89-35CB-B8D5-DF65B1E4753C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>sfml-audio</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\tmp\Debug</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">sfml-audio-d-2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\tmp\Release</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">sfml-audio-2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\AL;..\..\..\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;OV_EXCLUDE_STATIC_CALLBACKS;FLAC__NO_DLL;CMAKE_INTDIR="Debug";SFML_AUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;OV_EXCLUDE_STATIC_CALLBACKS;FLAC__NO_DLL;CMAKE_INTDIR=\"Debug\";SFML_AUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\\include;..\..\..\\src;..\..\..\\extlibs\headers\AL;..\..\..\\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>..\..\..\\include;..\..\..\\src;..\..\..\\extlibs\headers\AL;..\..\..\\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\sfml-system-d.lib;..\..\..\extlibs\libs-msvc\x86\openal32.lib;..\..\..\extlibs\libs-msvc\x86\vorbisenc.lib;..\..\..\extlibs\libs-msvc\x86\vorbisfile.lib;..\..\..\extlibs\libs-msvc\x86\vorbis.lib;..\..\..\extlibs\libs-msvc\x86\ogg.lib;..\..\..\extlibs\libs-msvc\x86\flac.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>../../../lib/sfml-audio-d.lib</ImportLibrary>
+      <ProgramDataBaseFile>
+      </ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\AL;..\..\..\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;OV_EXCLUDE_STATIC_CALLBACKS;FLAC__NO_DLL;CMAKE_INTDIR="Release";SFML_AUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;OV_EXCLUDE_STATIC_CALLBACKS;FLAC__NO_DLL;CMAKE_INTDIR=\"Release\";SFML_AUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\\include;..\..\..\\src;..\..\..\\extlibs\headers\AL;..\..\..\\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>..\..\..\\include;..\..\..\\src;..\..\..\\extlibs\headers\AL;..\..\..\\extlibs\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\..\lib\sfml-system.lib;..\..\..\extlibs\libs-msvc\x86\flac.lib;..\..\..\extlibs\libs-msvc\x86\openal32.lib;..\..\..\extlibs\libs-msvc\x86\vorbisenc.lib;..\..\..\extlibs\libs-msvc\x86\vorbisfile.lib;..\..\..\extlibs\libs-msvc\x86\vorbis.lib;..\..\..\extlibs\libs-msvc\x86\ogg.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>../../../lib/sfml-audio.lib</ImportLibrary>
+      <ProgramDataBaseFile>
+      </ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ALCheck.cpp" />
+    <ClInclude Include="ALCheck.hpp" />
+    <ClCompile Include="AlResource.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\AlResource.hpp" />
+    <ClCompile Include="AudioDevice.cpp" />
+    <ClInclude Include="AudioDevice.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\Export.hpp" />
+    <ClCompile Include="Listener.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\Listener.hpp" />
+    <ClCompile Include="Music.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\Music.hpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\Sound.hpp" />
+    <ClCompile Include="SoundBuffer.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundBuffer.hpp" />
+    <ClCompile Include="SoundBufferRecorder.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundBufferRecorder.hpp" />
+    <ClCompile Include="InputSoundFile.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\InputSoundFile.hpp" />
+    <ClCompile Include="OutputSoundFile.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\OutputSoundFile.hpp" />
+    <ClCompile Include="SoundRecorder.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundRecorder.hpp" />
+    <ClCompile Include="SoundSource.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundSource.hpp" />
+    <ClCompile Include="SoundStream.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundStream.hpp" />
+    <ClCompile Include="SoundFileFactory.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundFileFactory.hpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundFileFactory.inl" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundFileReader.hpp" />
+    <ClInclude Include="SoundFileReaderFlac.hpp" />
+    <ClCompile Include="SoundFileReaderFlac.cpp" />
+    <ClInclude Include="SoundFileReaderOgg.hpp" />
+    <ClCompile Include="SoundFileReaderOgg.cpp" />
+    <ClInclude Include="SoundFileReaderWav.hpp" />
+    <ClCompile Include="SoundFileReaderWav.cpp" />
+    <ClInclude Include="..\..\..\\include\SFML\Audio\SoundFileWriter.hpp" />
+    <ClInclude Include="SoundFileWriterFlac.hpp" />
+    <ClCompile Include="SoundFileWriterFlac.cpp" />
+    <ClInclude Include="SoundFileWriterOgg.hpp" />
+    <ClCompile Include="SoundFileWriterOgg.cpp" />
+    <ClInclude Include="SoundFileWriterWav.hpp" />
+    <ClCompile Include="SoundFileWriterWav.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\\src\SFML\System\sfml-system.vcxproj">
+      <Project>{D05A5DF8-8476-31EA-8789-99BACB75BBE1}</Project>
+      <Name>sfml-system</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

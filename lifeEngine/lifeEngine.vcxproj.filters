@@ -4,12 +4,30 @@
     <Filter Include="System">
       <UniqueIdentifier>{9263d24f-16f4-40f1-949a-94fb9ea84dc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{79dd348b-e023-4fe6-9734-c1212bd21fdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\System.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="System\src\BasicApplication.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\ConfigFile.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\Configuration.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\Logger.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Mesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\ResourcesManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -19,6 +37,21 @@
     </ClInclude>
     <ClInclude Include="DllGlobal.h" />
     <ClInclude Include="System\BasicApplication.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Configuration.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ConfigFile.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Logger.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Mesh.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ResourcesManager.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>

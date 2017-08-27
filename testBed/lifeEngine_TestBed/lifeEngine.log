@@ -1,0 +1,12 @@
+lifeEngine v3.0.0
+*** lifeEngine Start ***
+[Info] Loading File Configurations [lifeEngine.log]
+[Info] File Configurations [lifeEngine.log] Not Found. Created Default Configuration File
+[Info] Window Created (800x600)
+*** OpenGL Info ***
+OpenGL Version: 4.5.13399 Compatibility Profile Context 15.200.1062.1004
+OpenGL Vendor: ATI Technologies Inc.
+OpenGL Renderer: AMD Radeon HD 6670
+OpenGL GLSL Version: 4.40
+*** OpenGL Info End ***
+*** lifeEngine End ***

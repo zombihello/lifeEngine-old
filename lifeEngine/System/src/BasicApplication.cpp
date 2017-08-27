@@ -8,9 +8,6 @@
 
 le::BasicApplication::BasicApplication( System& System )
 {
-	Root = System.GetOgreRoot();
-	Window = System.GetWindow();
-	Scene = System.GetScene();
 }
 
 //-------------------------------------------------------------------------//

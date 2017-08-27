@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Класс le::ConfigFile</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>le</b></li><li class="navelem"><a class="el" href="classle_1_1_config_file.html">ConfigFile</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="classle_1_1_config_file-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс le::ConfigFile</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс отвечающий за работу с конфиг-файлами  
+ <a href="classle_1_1_config_file.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_config_file_8h_source.html">ConfigFile.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:ae34f5224c56d4511cb8022aef3093fbf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#ae34f5224c56d4511cb8022aef3093fbf">LoadFromFile</a> (const string &amp;RouteToFile)</td></tr>
+<tr class="memdesc:ae34f5224c56d4511cb8022aef3093fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка конфигураций с файла  <a href="#ae34f5224c56d4511cb8022aef3093fbf">Подробнее...</a><br /></td></tr>
+<tr class="separator:ae34f5224c56d4511cb8022aef3093fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4acf355992015a169b8077b62a66af1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a4acf355992015a169b8077b62a66af1c">SaveInFile</a> (const string &amp;RouteToFile)</td></tr>
+<tr class="memdesc:a4acf355992015a169b8077b62a66af1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранить данные в файл конфигураций  <a href="#a4acf355992015a169b8077b62a66af1c">Подробнее...</a><br /></td></tr>
+<tr class="separator:a4acf355992015a169b8077b62a66af1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e251813cf6dc6023f1867ac1fb382f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a46e251813cf6dc6023f1867ac1fb382f">WriteValue</a> (const string &amp;NameValue, const string &amp;Value)</td></tr>
+<tr class="memdesc:a46e251813cf6dc6023f1867ac1fb382f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать строку в буффер сохранения  <a href="#a46e251813cf6dc6023f1867ac1fb382f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a46e251813cf6dc6023f1867ac1fb382f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065b9a5e27bd233e1d1acf0ea1fe52a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a065b9a5e27bd233e1d1acf0ea1fe52a8">WriteValue</a> (const string &amp;NameValue, const int &amp;Value)</td></tr>
+<tr class="memdesc:a065b9a5e27bd233e1d1acf0ea1fe52a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать целое число в буффер сохранения  <a href="#a065b9a5e27bd233e1d1acf0ea1fe52a8">Подробнее...</a><br /></td></tr>
+<tr class="separator:a065b9a5e27bd233e1d1acf0ea1fe52a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac606007c51a98ec955fb58c574cb67a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#ac606007c51a98ec955fb58c574cb67a4">WriteValue</a> (const string &amp;NameValue, const float &amp;Value)</td></tr>
+<tr class="memdesc:ac606007c51a98ec955fb58c574cb67a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать дробное число в буффер сохранения  <a href="#ac606007c51a98ec955fb58c574cb67a4">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac606007c51a98ec955fb58c574cb67a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6be8f1319f48cc6aaad9bebee4c84f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a7d6be8f1319f48cc6aaad9bebee4c84f">WriteValue</a> (const string &amp;NameValue, const bool &amp;Value)</td></tr>
+<tr class="memdesc:a7d6be8f1319f48cc6aaad9bebee4c84f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать логическую переменную в буффер сохранения  <a href="#a7d6be8f1319f48cc6aaad9bebee4c84f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7d6be8f1319f48cc6aaad9bebee4c84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24563aaff57170322afff7d6bcaa6522"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a24563aaff57170322afff7d6bcaa6522">WriteComent</a> (const string &amp;Coment)</td></tr>
+<tr class="memdesc:a24563aaff57170322afff7d6bcaa6522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать коментарий в буффер сохранения  <a href="#a24563aaff57170322afff7d6bcaa6522">Подробнее...</a><br /></td></tr>
+<tr class="separator:a24563aaff57170322afff7d6bcaa6522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0727fac672dd5f9262314144ae33cbb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a0727fac672dd5f9262314144ae33cbb8">WriteGroup</a> (const string &amp;NameGroup)</td></tr>
+<tr class="memdesc:a0727fac672dd5f9262314144ae33cbb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Написать группу в буффер сохранения  <a href="#a0727fac672dd5f9262314144ae33cbb8">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0727fac672dd5f9262314144ae33cbb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d8694b8cb6cb42f661cfc4cb3cf030"><td class="memItemLeft" align="right" valign="top"><a id="ab8d8694b8cb6cb42f661cfc4cb3cf030"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#ab8d8694b8cb6cb42f661cfc4cb3cf030">ClearSaveBuffer</a> ()</td></tr>
+<tr class="memdesc:ab8d8694b8cb6cb42f661cfc4cb3cf030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистить буффер сохранения <br /></td></tr>
+<tr class="separator:ab8d8694b8cb6cb42f661cfc4cb3cf030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f7952a7e12b0913797fb079e46d48f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a02f7952a7e12b0913797fb079e46d48f">GetValueString</a> (const string &amp;NameValue)</td></tr>
+<tr class="memdesc:a02f7952a7e12b0913797fb079e46d48f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить значение конфигурации в виде строки  <a href="#a02f7952a7e12b0913797fb079e46d48f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a02f7952a7e12b0913797fb079e46d48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad3d1e182918f9a52669c6cd529482a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#aad3d1e182918f9a52669c6cd529482a8">GetValueInt</a> (const string &amp;NameValue)</td></tr>
+<tr class="memdesc:aad3d1e182918f9a52669c6cd529482a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить значение конфигурации в виде целого числа  <a href="#aad3d1e182918f9a52669c6cd529482a8">Подробнее...</a><br /></td></tr>
+<tr class="separator:aad3d1e182918f9a52669c6cd529482a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab73fdcb25ceb96b2f03990c108faa058"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#ab73fdcb25ceb96b2f03990c108faa058">GetValueFloat</a> (const string &amp;NameValue)</td></tr>
+<tr class="memdesc:ab73fdcb25ceb96b2f03990c108faa058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить значение конфигурации в виде дробного числа  <a href="#ab73fdcb25ceb96b2f03990c108faa058">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab73fdcb25ceb96b2f03990c108faa058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00df2e2da310584e35163f6709851467"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_config_file.html#a00df2e2da310584e35163f6709851467">GetValueBool</a> (const string &amp;NameValue)</td></tr>
+<tr class="memdesc:a00df2e2da310584e35163f6709851467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить значение конфигурации в виде логической переменной  <a href="#a00df2e2da310584e35163f6709851467">Подробнее...</a><br /></td></tr>
+<tr class="separator:a00df2e2da310584e35163f6709851467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс отвечающий за работу с конфиг-файлами </p>
+<p>Данный класс предназначен для загрузки и сохранения конфиг-файлов </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="a00df2e2da310584e35163f6709851467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00df2e2da310584e35163f6709851467">&#9670;&nbsp;</a></span>GetValueBool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool le::ConfigFile::GetValueBool </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить значение конфигурации в виде логической переменной </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Тег/имя значения </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>значение в виде логической переменной </dd></dl>
+
+</div>
+</div>
+<a id="ab73fdcb25ceb96b2f03990c108faa058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73fdcb25ceb96b2f03990c108faa058">&#9670;&nbsp;</a></span>GetValueFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float le::ConfigFile::GetValueFloat </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить значение конфигурации в виде дробного числа </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Тег/имя значения </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>значение в виде дробного числа </dd></dl>
+
+</div>
+</div>
+<a id="aad3d1e182918f9a52669c6cd529482a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad3d1e182918f9a52669c6cd529482a8">&#9670;&nbsp;</a></span>GetValueInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int le::ConfigFile::GetValueInt </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить значение конфигурации в виде целого числа </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Тег/имя значения </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>значение в виде целого числа </dd></dl>
+
+</div>
+</div>
+<a id="a02f7952a7e12b0913797fb079e46d48f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f7952a7e12b0913797fb079e46d48f">&#9670;&nbsp;</a></span>GetValueString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string le::ConfigFile::GetValueString </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить значение конфигурации в виде строки </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Тег/имя значения </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>значение в виде строки </dd></dl>
+
+</div>
+</div>
+<a id="ae34f5224c56d4511cb8022aef3093fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34f5224c56d4511cb8022aef3093fbf">&#9670;&nbsp;</a></span>LoadFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool le::ConfigFile::LoadFromFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>RouteToFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Загрузка конфигураций с файла </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">RouteToFile</td><td>Путь к файлу </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если все прошло успешно, иначе false </dd></dl>
+
+</div>
+</div>
+<a id="a4acf355992015a169b8077b62a66af1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4acf355992015a169b8077b62a66af1c">&#9670;&nbsp;</a></span>SaveInFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::SaveInFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>RouteToFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Сохранить данные в файл конфигураций </p>
+<p>Метод сохраняет данные которые были введены с помощью WriteValue/WriteComent/WriteGroup, после чего буффер очиститься (SaveBuffer)</p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">RouteToFile</td><td>Путь к файлу </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a24563aaff57170322afff7d6bcaa6522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24563aaff57170322afff7d6bcaa6522">&#9670;&nbsp;</a></span>WriteComent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteComent </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>Coment</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать коментарий в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Coment</td><td>Коментарий </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0727fac672dd5f9262314144ae33cbb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0727fac672dd5f9262314144ae33cbb8">&#9670;&nbsp;</a></span>WriteGroup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteGroup </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameGroup</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать группу в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameGroup</td><td>Имя группы </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a46e251813cf6dc6023f1867ac1fb382f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e251813cf6dc6023f1867ac1fb382f">&#9670;&nbsp;</a></span>WriteValue() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteValue </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать строку в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Название значение </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>Значение </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a065b9a5e27bd233e1d1acf0ea1fe52a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065b9a5e27bd233e1d1acf0ea1fe52a8">&#9670;&nbsp;</a></span>WriteValue() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteValue </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать целое число в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Название значение </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>Значение </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac606007c51a98ec955fb58c574cb67a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac606007c51a98ec955fb58c574cb67a4">&#9670;&nbsp;</a></span>WriteValue() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteValue </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать дробное число в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Название значение </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>Значение </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7d6be8f1319f48cc6aaad9bebee4c84f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6be8f1319f48cc6aaad9bebee4c84f">&#9670;&nbsp;</a></span>WriteValue() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::ConfigFile::WriteValue </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Написать логическую переменную в буффер сохранения </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameValue</td><td>Название значение </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>Значение </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/<a class="el" href="_config_file_8h_source.html">ConfigFile.h</a></li>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/src/ConfigFile.cpp</li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

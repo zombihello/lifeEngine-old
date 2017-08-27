@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\SFML\System\Clock.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Err.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Lock.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Mutex.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Sleep.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\String.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Thread.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\ThreadLocal.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Time.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\FileInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\MemoryInputStream.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Win32\ClockImpl.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Win32\MutexImpl.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Win32\SleepImpl.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Win32\ThreadImpl.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\System\Win32\ThreadLocalImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\SFML\System\Clock.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Err.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Export.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\InputStream.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Lock.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Mutex.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\NativeActivity.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\NonCopyable.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Sleep.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\String.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\String.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\Thread.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Thread.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\ThreadLocal.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\ThreadLocalPtr.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\ThreadLocalPtr.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\Time.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Utf.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Utf.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\Vector2.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Vector2.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\Vector3.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\Vector3.inl" />
+    <ClInclude Include="..\..\..\include\SFML\System\FileInputStream.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\System\MemoryInputStream.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\System\Win32\ClockImpl.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\System\Win32\MutexImpl.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\System\Win32\SleepImpl.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\System\Win32\ThreadImpl.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\System\Win32\ThreadLocalImpl.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="windows">
+      <UniqueIdentifier>{E317E563-0677-312A-8FA6-BD115476FF01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

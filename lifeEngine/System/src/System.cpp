@@ -2,104 +2,149 @@
 
 //-------------------------------------------------------------------------//
 
-Ogre::LogManager le::System::LogManager;
-
-//-------------------------------------------------------------------------//
-
-le::System::System( const string& ConfigFile, const string& LogFile, string PluginDir )
-	: Window( NULL )
+le::System::System( int argc, char** argv, const string& ConfigFile, const string& LogFile )
 {
-	Root = new Ogre::Root( "", ConfigFile, "" );
+	Logger::SetLogFile( LogFile );
+	Logger::Log( Logger::None, ENGINE " " ENGINE_VERSION );
+	Logger::Log( Logger::None, "*** " ENGINE " Start ***" );
+	Logger::Log( Logger::Info, "Loading File Configurations [" + LogFile + "]" );
 
-	// Создаем файл логов
-	if ( LogFile != "" )
-		LogManager.createLog( LogFile );
+	le::ConfigFile Config;
 
-	LogManager.logMessage( ENGINE " " ENGINE_VERSION );
-
-	// Загрузка плагинов для Ogre3D
-	if ( PluginDir != "" && PluginDir[ PluginDir.size() - 1 ] != '/' )
-		PluginDir += "/";
-
-#ifdef _DEBUG
-	Root->loadPlugin( PluginDir + "RenderSystem_GL_d" );
-#else
-	Root->loadPlugin( PluginDir + "RenderSystem_GL" );
-#endif
-
-	// Загрузка конфигураций
-	if ( !Root->restoreConfig() )
+	if ( Config.LoadFromFile( ConfigFile ) )
 	{
-		Ogre::RenderSystem* RenderSystem = Root->getRenderSystemByName( "OpenGL Rendering Subsystem" );
+		Logger::Log( Logger::Info, "Loaded File Configurations [" + LogFile + "]" );
 
-		if ( RenderSystem->getName() != "OpenGL Rendering Subsystem" )
-		{
-			LogManager.logMessage( Ogre::LogMessageLevel::LML_CRITICAL, "Render System [OpenGL Rendering Subsystem] Not Found" );
-			exit( -1 );
-		}
+		Configuration.WindowSize = glm::vec2( Config.GetValueInt( "Width" ), Config.GetValueInt( "Height" ) );
+		Configuration.FrameLimit = Config.GetValueInt( "FrameLimit" );
+		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
+		Configuration.FOV = Config.GetValueInt( "FOV" );
+	}
+	else
+	{
+		Logger::Log( Logger::Info, "File Configurations [" + LogFile + "] Not Found. Created Default Configuration File" );
 
-		RenderSystem->setConfigOption( "Full Screen", "No" );
-		RenderSystem->setConfigOption( "VSync", "No" );
-		RenderSystem->setConfigOption( "Video Mode", "800 x 600 @ 32-bit" );
-
-		Root->setRenderSystem( RenderSystem );
-		Root->saveConfig();
+		Config.WriteGroup( "SCREAN" );
+		Config.WriteValue( "Width", Configuration.WindowSize.x );
+		Config.WriteValue( "Height", Configuration.WindowSize.y );
+		Config.WriteValue( "FrameLimit", Configuration.FrameLimit );
+		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
+		Config.WriteValue( "FOV", Configuration.FOV );
+		Config.SaveInFile( ConfigFile );
 	}
 
-	Scene = Root->createSceneManager( Ogre::ST_GENERIC );
+	Configuration.Projection = glm::perspective( glm::radians( (float) Configuration.FOV ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, 1500.0f );
 }
 
 //-------------------------------------------------------------------------//
 
 le::System::~System()
 {
-	delete Root;
+	Logger::Log( Logger::None, "*** " ENGINE " End ***" );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::System::WindowCreate( const string& NameWindow )
+void le::System::WindowCreate( const string& NameWindow, int Style )
 {
-	Window = Root->initialise( true, NameWindow );
+	glewExperimental = GL_TRUE;
+
+	ContextSettings ContextSettings;
+	ContextSettings.depthBits = 24;
+	ContextSettings.stencilBits = 8;
+	ContextSettings.antialiasingLevel = Configuration.AntialiasingLevel;
+
+	RenderWindow.create( VideoMode( Configuration.WindowSize.x, Configuration.WindowSize.y ), NameWindow, Style, ContextSettings );
+
+	Logger::Log( Logger::Info, "Window Created (" + to_string( ( int ) Configuration.WindowSize.x ) + "x" + to_string( ( int ) Configuration.WindowSize.y ) + ")" );
+	Logger::Log( Logger::None, "*** OpenGL Info ***" );
+
+	stringstream GLInfo;
+	GLInfo << "OpenGL Version: " << glGetString( GL_VERSION ) << endl;
+	GLInfo << "OpenGL Vendor: " << glGetString( GL_VENDOR ) << endl;
+	GLInfo << "OpenGL Renderer: " << glGetString( GL_RENDERER ) << endl;
+	GLInfo << "OpenGL GLSL Version: " << glGetString( GL_SHADING_LANGUAGE_VERSION );
+
+	Logger::Log( Logger::None, GLInfo.str() );
+	Logger::Log( Logger::None, "*** OpenGL Info End ***" );
+
+	if ( glewInit() != GLEW_OK )
+	{
+		Logger::Log( Logger::Error, "OpenGL Context Is Broken" );
+		exit( -1 );
+	}
+	else if ( !GLEW_VERSION_3_0 )
+	{
+		Logger::Log( Logger::Error, "OpenGL 3.0+ Not Available" );
+		exit( -1 );
+	}
+	else if ( !Shader::isAvailable() )
+	{
+		Logger::Log( Logger::Error, "System Not Supported Shaders" );
+		exit( -1 );
+	}
 }
 
 //-------------------------------------------------------------------------//
 
 void le::System::MainLoop( BasicApplication& Application )
 {
-	if ( Window == NULL )
+	while ( RenderWindow.isOpen() )
 	{
-		LogManager.logMessage( "Window Not Created" );
-		return;
+		while ( RenderWindow.pollEvent( Event ) )
+		{
+			if ( Event.type == Event::Closed )
+				RenderWindow.close();
+		}
+
+		if ( Event.type != Event::LostFocus )
+		{
+			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+			Application.Update();
+			RenderWindow.display();
+		}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::System::FileExists( const string& RouteToFile )
+{
+	bool IsExists = false;
+	ifstream FileInput( RouteToFile );
+
+	if ( FileInput.is_open() )
+		IsExists = true;
+
+	FileInput.close();
+	return IsExists;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::System::DirectoryExists( const string& RouteToDirectory )
+{
+	string RouteToTmpFile = RouteToDirectory + "/tmp";
+	ofstream FileOutput( RouteToTmpFile );
+	FileOutput.close();
+
+	ifstream FileInput( RouteToTmpFile );
+
+	if ( FileInput.is_open() )
+	{
+		remove( RouteToTmpFile.c_str() );
+		return true;
 	}
 
-	while ( !Window->isClosed() )
-	{
-		Ogre::WindowEventUtilities::messagePump();
-		Application.Update();
-		Root->renderOneFrame();
-	}
+	return false;
 }
 
 //-------------------------------------------------------------------------//
 
-Ogre::Root* le::System::GetOgreRoot()
+const le::Configuration& le::System::GetConfiguration()
 {
-	return Root;
-}
-
-//-------------------------------------------------------------------------//
-
-Ogre::RenderWindow* le::System::GetWindow()
-{
-	return Window;
-}
-
-//-------------------------------------------------------------------------//
-
-Ogre::SceneManager* le::System::GetScene()
-{
-	return Scene;
+	return Configuration;
 }
 
 //-------------------------------------------------------------------------//

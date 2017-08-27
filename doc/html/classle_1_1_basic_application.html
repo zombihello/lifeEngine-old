@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Класс le::BasicApplication</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>le</b></li><li class="navelem"><a class="el" href="classle_1_1_basic_application.html">BasicApplication</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="classle_1_1_basic_application-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс le::BasicApplication<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Базовый класс приложения  
+ <a href="classle_1_1_basic_application.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_basic_application_8h_source.html">BasicApplication.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a1a5ec9144b3ba0d7038b6ce3e1edd081"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_basic_application.html#a1a5ec9144b3ba0d7038b6ce3e1edd081">BasicApplication</a> (<a class="el" href="classle_1_1_system.html">System</a> &amp;<a class="el" href="classle_1_1_system.html">System</a>)</td></tr>
+<tr class="separator:a1a5ec9144b3ba0d7038b6ce3e1edd081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad829e3199cb61f69d549a96b51f1dbac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_basic_application.html#ad829e3199cb61f69d549a96b51f1dbac">Update</a> ()=0</td></tr>
+<tr class="memdesc:ad829e3199cb61f69d549a96b51f1dbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновление приложения  <a href="#ad829e3199cb61f69d549a96b51f1dbac">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad829e3199cb61f69d549a96b51f1dbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Базовый класс приложения </p>
+<p>Данный класс необходим для работы приложения. Он содержит все необходимые объекты/методы которые нужны, например, для добовления на сцену какой-то модели</p>
+<dl class="section warning"><dt>Предупреждения</dt><dd>Необходимо определить <a class="el" href="classle_1_1_basic_application.html#ad829e3199cb61f69d549a96b51f1dbac" title="Обновление приложения ">Update()</a> (В этом методе проходит обновление приложения, например, загрузка карты, движение персонажей и т.д) </dd></dl>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="a1a5ec9144b3ba0d7038b6ce3e1edd081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5ec9144b3ba0d7038b6ce3e1edd081">&#9670;&nbsp;</a></span>BasicApplication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">le::BasicApplication::BasicApplication </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classle_1_1_system.html">System</a> &amp;&#160;</td>
+          <td class="paramname"><em>System</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Конструктор который подготавливает приложение к работе</p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_system.html" title="Класс необходимый для работы движка ">System</a></td><td>Класс сисетмы движка </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="ad829e3199cb61f69d549a96b51f1dbac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad829e3199cb61f69d549a96b51f1dbac">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void le::BasicApplication::Update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Обновление приложения </p>
+<p>В этом методе должен быть ваш код игры </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/<a class="el" href="_basic_application_8h_source.html">BasicApplication.h</a></li>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/src/BasicApplication.cpp</li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

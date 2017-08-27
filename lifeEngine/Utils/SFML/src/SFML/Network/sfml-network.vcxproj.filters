@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\SFML\Network\Ftp.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\Http.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\IpAddress.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\Packet.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\Socket.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\SocketSelector.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\TcpListener.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\TcpSocket.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\UdpSocket.cpp" />
+    <ClCompile Include="..\..\..\src\SFML\Network\Win32\SocketImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\SFML\Network\Export.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\Ftp.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\Http.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\IpAddress.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\Packet.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\Socket.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\Network\SocketImpl.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\SocketHandle.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\SocketSelector.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\TcpListener.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\TcpSocket.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Network\UdpSocket.hpp" />
+    <ClInclude Include="..\..\..\src\SFML\Network\Win32\SocketImpl.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

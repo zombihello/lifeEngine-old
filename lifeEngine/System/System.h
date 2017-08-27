@@ -20,19 +20,30 @@
 // СИСТЕМНЫЕ БИБЛИОТЕКИ
 ///////////////////////////
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //////////////
-// OGRE
+// OPENGL
 //////////////
-#include <Ogre.h>
-#include <OgrePlugin.h>
-#include <OgreLogManager.h>
+#include <glew\glew.h>
+#include <glm\glm.hpp>
+#include <glm/gtx/transform.hpp>
+
+//////////////////
+// SFML
+//////////////////
+#include <SFML\Graphics.hpp>
+#include <SFML\OpenGL.hpp>
+using namespace sf;
 
 //////////////////
 // LIFEENGINE
 //////////////////
-#include <System/BasicApplication.h>
+#include <System\Configuration.h>
+#include <System\ConfigFile.h>
+#include <System\Logger.h>
+#include <System\BasicApplication.h>
 
 namespace le
 {
@@ -42,8 +53,8 @@ namespace le
 	/// \brief Класс необходимый для работы движка
 	///
 	/// Это самый главный класс в движке. Он обеспечивает базовые
-	/// методы по работе с Ogre (создание и обновление окна), так же
-	/// он необходим для работы других классов
+	/// методы (создание и обновление окна), так же он необходим
+	/// для работы других классов
 	//////////////////////////////////////////////////////////////////////
 	class DLL_API System
 	{
@@ -52,11 +63,11 @@ namespace le
 		/// \brief Конструктор
 		/// \details В этом конструкторе идет инициализация движка 
 		///		
-		/// \param[in] ConfigFile Путь к файлу конфигураций окна
+		/// \param[in] argc, argv Аргументы запуска программы
+		/// \param[in] ConfigFile Путь к файлу конфигураций
 		/// \param[in] LogFile Путь к файлу логов
-		/// \param[in] PluginDir Путь к каталогу плагинов
 		//////////////////////////////////////////////////////////////////////
-		System( const string& ConfigFile, const string& LogFile, string PluginDir = "" );
+		System( int argc, char** argv, const string& ConfigFile = "config.cfg", const string& LogFile = ENGINE ".log" );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Деструктор
@@ -68,8 +79,9 @@ namespace le
 		/// \details Этот метод создает окно
 		/// 
 		/// \param[in] NameWindow Имя окна
+		/// \param[in] Style Стиль окна (полноэекранный, оконный и т.д)
 		//////////////////////////////////////////////////////////////////////
-		void WindowCreate( const string& NameWindow );
+		void WindowCreate( const string& NameWindow, int Style = sf::Style::Default );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Главный цикл игры
@@ -80,30 +92,33 @@ namespace le
 		void MainLoop( BasicApplication& Application );
 
 		//////////////////////////////////////////////////////////////////////
-		/// Возвращает главгый объект Ogre (Root)
-		/// \return Ogre::Root*
+		/// \brief Проверка на существование файла
+		///		
+		/// \param[in] RouteToFile Путь к файлу
+		/// \return true - если файл есть, иначе false
 		//////////////////////////////////////////////////////////////////////
-		Ogre::Root* GetOgreRoot();
+		static bool FileExists( const string& RouteToFile );
 
 		//////////////////////////////////////////////////////////////////////
-		/// Возвращает окно игры
-		/// \return Ogre::RenderWindow*
+		/// \brief Проверка на существование директории
+		///		
+		/// \param[in] RouteToDirectory Путь к директории
+		/// \return true - если директория есть, иначе false
 		//////////////////////////////////////////////////////////////////////
-		Ogre::RenderWindow* GetWindow();
+		static bool DirectoryExists( const string& RouteToDirectory );
 
 		//////////////////////////////////////////////////////////////////////
-		/// Возвращает игровую сцену
-		/// \return Ogre::SceneManager*	
+		/// \brief Получить конфигурации окна
+		///
+		/// \return const Configuration&
 		//////////////////////////////////////////////////////////////////////
-		Ogre::SceneManager* GetScene();
-
-		static Ogre::LogManager			LogManager; ///< Предназначен для работы с логами
+		const Configuration& GetConfiguration();
 
 	private:
 		
-		Ogre::Root*						Root; ///< Главный класс который необходим для Ogre
-		Ogre::RenderWindow*				Window; ///< Окно игры
-		Ogre::SceneManager*				Scene; ///< Игровая сцена
+		Configuration			Configuration; ///< Конфигурации окна
+		RenderWindow			RenderWindow; ///< Окно игры
+		Event                   Event; ///< Cобытия окна
 	};
 
 	//-------------------------------------------------------------------------//

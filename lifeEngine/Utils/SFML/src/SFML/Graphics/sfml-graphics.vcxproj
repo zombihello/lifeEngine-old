@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E45A7A2F-CA57-3412-93E6-802CF006C8AA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>sfml-graphics</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\tmp\Debug</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">sfml-graphics-d-2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\tmp\Release</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">sfml-graphics-2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\OpenGL\glm;..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;STBI_FAILURE_USERMSG;CMAKE_INTDIR="Debug";SFML_GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;STBI_FAILURE_USERMSG;CMAKE_INTDIR=\"Debug\";SFML_GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\..\..\OpenGL\glm\lib\glm-d.lib;..\..\..\lib\sfml-window-d.lib;..\..\..\lib\sfml-system-d.lib;opengl32.lib;..\..\..\extlibs\libs-msvc\x86\freetype.lib;..\..\..\extlibs\libs-msvc\x86\jpeg.lib;winmm.lib;gdi32.lib;kernel32.lib;user32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>..\..\..\lib\sfml-graphics-d.lib</ImportLibrary>
+      <ProgramDataBaseFile>
+      </ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\OpenGL\glm;..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;STBI_FAILURE_USERMSG;CMAKE_INTDIR="Release";SFML_GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;STBI_FAILURE_USERMSG;CMAKE_INTDIR=\"Release\";SFML_GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\src;..\..\..\extlibs\headers\stb_image;..\..\..\extlibs\headers\jpeg;..\..\..\extlibs\headers\freetype2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\..\..\OpenGL\glm\lib\glm.lib;..\..\..\lib\sfml-window.lib;..\..\..\lib\sfml-system.lib;opengl32.lib;..\..\..\extlibs\libs-msvc\x86\freetype.lib;..\..\..\extlibs\libs-msvc\x86\jpeg.lib;winmm.lib;gdi32.lib;kernel32.lib;user32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>..\..\..\lib\sfml-graphics.lib</ImportLibrary>
+      <ProgramDataBaseFile>
+      </ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BlendMode.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\BlendMode.hpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Color.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Export.hpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Font.hpp" />
+    <ClCompile Include="Glsl.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glsl.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glsl.inl" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Glyph.hpp" />
+    <ClCompile Include="GLCheck.cpp" />
+    <ClInclude Include="GLCheck.hpp" />
+    <ClInclude Include="GLExtensions.hpp" />
+    <ClCompile Include="GLExtensions.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Image.hpp" />
+    <ClCompile Include="ImageLoader.cpp" />
+    <ClInclude Include="ImageLoader.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\PrimitiveType.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Rect.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Rect.inl" />
+    <ClCompile Include="RenderStates.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderStates.hpp" />
+    <ClCompile Include="RenderTexture.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderTexture.hpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderTarget.hpp" />
+    <ClCompile Include="RenderWindow.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RenderWindow.hpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Shader.hpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Texture.hpp" />
+    <ClCompile Include="TextureSaver.cpp" />
+    <ClInclude Include="TextureSaver.hpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Transform.hpp" />
+    <ClCompile Include="Transformable.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Transformable.hpp" />
+    <ClCompile Include="View.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\View.hpp" />
+    <ClCompile Include="Vertex.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Vertex.hpp" />
+    <ClCompile Include="GLLoader.cpp" />
+    <ClInclude Include="GLLoader.hpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Drawable.hpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Shape.hpp" />
+    <ClCompile Include="CircleShape.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\CircleShape.hpp" />
+    <ClCompile Include="RectangleShape.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\RectangleShape.hpp" />
+    <ClCompile Include="ConvexShape.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\ConvexShape.hpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Sprite.hpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\Text.hpp" />
+    <ClCompile Include="VertexArray.cpp" />
+    <ClInclude Include="..\..\..\include\SFML\Graphics\VertexArray.hpp" />
+    <ClCompile Include="RenderTextureImpl.cpp" />
+    <ClInclude Include="RenderTextureImpl.hpp" />
+    <ClCompile Include="RenderTextureImplFBO.cpp" />
+    <ClInclude Include="RenderTextureImplFBO.hpp" />
+    <ClCompile Include="RenderTextureImplDefault.cpp" />
+    <ClInclude Include="RenderTextureImplDefault.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\SFML\System\sfml-system.vcxproj">
+      <Project>{D05A5DF8-8476-31EA-8789-99BACB75BBE1}</Project>
+      <Name>sfml-system</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\SFML\Window\sfml-window.vcxproj">
+      <Project>{B2BFDB55-D040-373C-9336-BE620413A48F}</Project>
+      <Name>sfml-window</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
