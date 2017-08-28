@@ -38,6 +38,7 @@ using namespace sf;
 //////////////////
 // LIFEENGINE
 //////////////////
+#include <Graphics\Mesh.h>
 #include <System\Logger.h>
 
 namespace le
@@ -63,6 +64,15 @@ namespace le
 		static bool LoadGlTexture( const string& NameTexture, const string& RouteToFile );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Загрузить меш
+		///		
+		/// \param[in] NameMesh Идентификатор меша
+		/// \param[in] RouteToFile Путь к файлу
+		/// \return true если все прошло успешно, иначе false
+		//////////////////////////////////////////////////////////////////////
+		static bool LoadMesh( const string& NameMesh, const string& RouteToFile );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить OpenGL текстуру
 		///		
 		/// \param[in] NameTexture Идентификатор текстуры
@@ -70,9 +80,21 @@ namespace le
 		static void DeleteGlTexture( const string& NameTexture );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить меш
+		///		
+		/// \param[in] NameMesh Идентификатор меша
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteMesh( const string& NameMesh );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить все OpenGL текстуры
 		//////////////////////////////////////////////////////////////////////
 		static void DeleteAllGlTexture();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить все меши
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteAllMeshes();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить все ресурсы
@@ -88,9 +110,19 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		static const GLuint GetGlTexture( const string& NameTexture );
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить меш
+		///		
+		/// \param[in] NameMesh Идентификатор меша
+		/// \return const Mesh*. Если меша с данным названием
+		/// нету, то вернет NULL (0)
+		//////////////////////////////////////////////////////////////////////
+		static const Mesh* GetMesh( const string& NameMesh );
+
 	private:
 
 		static map<string, GLuint>			GlTextures; ///< Массив OpenGL текстур
+		static map<string, Mesh>			Meshes; ///< Массив мешей
 	};
 
 	//-------------------------------------------------------------------------//
