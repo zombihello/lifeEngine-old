@@ -125,7 +125,7 @@ const GLuint le::ResourcesManager::GetGlTexture( const string& NameTexture )
 
 //-------------------------------------------------------------------------//
 
-const le::Mesh* le::ResourcesManager::GetMesh( const string& NameMesh )
+le::Mesh* le::ResourcesManager::GetMesh( const string& NameMesh )
 {
 	if ( Meshes.find( NameMesh ) != Meshes.end() )
 		return &Meshes[ NameMesh ];

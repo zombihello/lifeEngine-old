@@ -12,8 +12,13 @@
 #define SYSTEM_H
 
 #define COMPILING_LIBRARY
-#define ENGINE "lifeEngine"
-#define ENGINE_VERSION "v3.0.0"
+#define NUMBER_TO_DOUBLE( X )		static_cast< double > ( X )
+#define NUMBER_TO_FLOAT( X )		static_cast< float > ( X )
+#define NUMBER_TO_INT( X )			static_cast< int > ( X )
+#define NUMBER_TO_UINT( X )			static_cast< unsigned int > ( X )
+#define NUMBER_TO_STRING( X )		to_string( X );
+#define ENGINE						"lifeEngine"
+#define ENGINE_VERSION				"v3.0.0"
 #include <DllGlobal.h>
 
 ///////////////////////////
@@ -112,10 +117,10 @@ namespace le
 		///
 		/// \return const Configuration&
 		//////////////////////////////////////////////////////////////////////
-		const Configuration& GetConfiguration();
+		Configuration& GetConfiguration();
 
 	private:
-		
+
 		Configuration			Configuration; ///< Конфигурации окна
 		RenderWindow			RenderWindow; ///< Окно игры
 		Event                   Event; ///< Cобытия окна

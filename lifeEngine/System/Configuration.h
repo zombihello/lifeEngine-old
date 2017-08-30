@@ -10,6 +10,9 @@
 
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
+#pragma warning( push )
+
+#pragma warning( disable: 4251 )
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
@@ -41,10 +44,11 @@ namespace le
 		int					FOV; ///< Угол обзора
 
 		glm::vec2			WindowSize; ///< Размеры окна
-		glm::mat4			Projection; ///< Матрица проекции
+		glm::mat4			ProjectionMatrix; ///< Матрица проекции
 	};
 }
 
 //-------------------------------------------------------------------------//
 
+#pragma warning( pop )
 #endif // CONFIGURATION_H

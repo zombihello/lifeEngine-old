@@ -1,4 +1,5 @@
 ﻿#include <System\ResourcesManager.h>
+#include <System\System.h>
 #include "..\Mesh.h"
 
 //-------------------------------------------------------------------------//
@@ -83,9 +84,9 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	while ( Point )
 	{
-		TempVector3.x = atof( Point->Attribute( "x" ) );
-		TempVector3.y = atof( Point->Attribute( "y" ) );
-		TempVector3.z = atof( Point->Attribute( "z" ) );
+		TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
+		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
+		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
 
 		VertexPosition.push_back( TempVector3 );
 		Point = Point->NextSiblingElement();
@@ -107,9 +108,9 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	while ( Point )
 	{
-		TempVector3.x = atof( Point->Attribute( "x" ) );
-		TempVector3.y = atof( Point->Attribute( "y" ) );
-		TempVector3.z = atof( Point->Attribute( "z" ) );
+		TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
+		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
+		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
 
 		VertexNormal.push_back( TempVector3 );
 		Point = Point->NextSiblingElement();
@@ -131,8 +132,8 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	while ( Point )
 	{
-		TempVector2.x = atof( Point->Attribute( "x" ) );
-		TempVector2.y = atof( Point->Attribute( "y" ) );
+		TempVector2.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
+		TempVector2.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
 
 		TextureCoords.push_back( TempVector2 );
 		Point = Point->NextSiblingElement();
@@ -194,14 +195,17 @@ bool le::Mesh::LoadMesh( const string & Route )
 					for ( size_t i = 0; i < VBO_Vertexs.size(); i++ )
 						if ( MeshVertex == VBO_Vertexs[ i ] )
 						{
+							TmpIdVertexs.push_back( i );
 							IsFind = true;
 							break;
 						}
 
 					if ( !IsFind )
 					{
-						Vertexs[ IdVertex ].push_back( VBO_Vertexs.size() ); // TODO: VBO_Vertexs.size() сменить на IdVertex
-						TmpIdVertexs.push_back( VBO_Vertexs.size() );
+						size_t VBOsize = VBO_Vertexs.size();
+
+						Vertexs[ IdVertex ].push_back( VBOsize );
+						TmpIdVertexs.push_back( VBOsize );
 						VBO_Vertexs.push_back( MeshVertex );
 					}
 
@@ -233,6 +237,34 @@ void le::Mesh::ClearMesh()
 	Mesh::Vertexs.clear();
 	IdVertexs.clear();
 	Textures.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+const vector<le::Mesh::MeshVertex>& le::Mesh::GetVBO_Vertexs()
+{
+	return VBO_Vertexs;
+}
+
+//-------------------------------------------------------------------------//
+
+const vector<GLuint>& le::Mesh::GetTextures()
+{
+	return Textures;
+}
+
+//-------------------------------------------------------------------------//
+
+const map<int, vector<int>>& le::Mesh::GetVertexs()
+{
+	return Vertexs;
+}
+
+//-------------------------------------------------------------------------//
+
+const map<GLuint, vector<unsigned int>>& le::Mesh::GetIdVertexs()
+{
+	return IdVertexs;
 }
 
 //-------------------------------------------------------------------------//

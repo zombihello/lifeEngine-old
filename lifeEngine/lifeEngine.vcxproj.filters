@@ -30,6 +30,15 @@
     <ClCompile Include="System\src\ResourcesManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\Model.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\VAO.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Scene.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -53,6 +62,15 @@
     </ClInclude>
     <ClInclude Include="System\ResourcesManager.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Model.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="System\VAO.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Scene.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

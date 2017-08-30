@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Класс le::VAO</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>le</b></li><li class="navelem"><a class="el" href="classle_1_1_v_a_o.html">VAO</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Открытые типы</a> &#124;
+<a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="classle_1_1_v_a_o-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс le::VAO</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс для работы с <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  
+ <a href="classle_1_1_v_a_o.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_v_a_o_8h_source.html">VAO.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Открытые типы</h2></td></tr>
+<tr class="memitem:a83aaf777deaaa4f88e9e9c14ec13876e"><td class="memItemLeft" align="right" valign="top"><a id="a83aaf777deaaa4f88e9e9c14ec13876e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>TypeBuffer</b> { <b>Vertex_Buffer</b> = GL_ARRAY_BUFFER, 
+<b>Index_Buffer</b> = GL_ELEMENT_ARRAY_BUFFER
+ }</td></tr>
+<tr class="separator:a83aaf777deaaa4f88e9e9c14ec13876e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab72f125c9d1ddeca6f250499392ffcff"><td class="memItemLeft" align="right" valign="top"><a id="ab72f125c9d1ddeca6f250499392ffcff"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>TypeUpdate</b> { <b>Static_Draw</b> = GL_STATIC_DRAW, 
+<b>Dynamic_Draw</b> = GL_DYNAMIC_DRAW, 
+<b>Stream_Draw</b> = GL_STREAM_DRAW
+ }</td></tr>
+<tr class="separator:ab72f125c9d1ddeca6f250499392ffcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Открытые статические члены</h2></td></tr>
+<tr class="memitem:a7c5268f07df49926073996716332fbd7"><td class="memItemLeft" align="right" valign="top">static GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7">CreateVAO</a> ()</td></tr>
+<tr class="memdesc:a7c5268f07df49926073996716332fbd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#a7c5268f07df49926073996716332fbd7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7c5268f07df49926073996716332fbd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81040b7e07de5f21095fff3cda950120"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a81040b7e07de5f21095fff3cda950120"><td class="memTemplItemLeft" align="right" valign="top">static GLuint&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120">CreateBuffer</a> (TypeBuffer TypeBuffer, vector&lt; T &gt; Data, TypeUpdate Usage)</td></tr>
+<tr class="memdesc:a81040b7e07de5f21095fff3cda950120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать буффер для <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#a81040b7e07de5f21095fff3cda950120">Подробнее...</a><br /></td></tr>
+<tr class="separator:a81040b7e07de5f21095fff3cda950120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1870d1ffbb906306e5304845507651b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#ae1870d1ffbb906306e5304845507651b">AtachBuffer</a> (TypeBuffer TypeBuffer, GLuint Buffer)</td></tr>
+<tr class="memdesc:ae1870d1ffbb906306e5304845507651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Присоединить буффер к <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#ae1870d1ffbb906306e5304845507651b">Подробнее...</a><br /></td></tr>
+<tr class="separator:ae1870d1ffbb906306e5304845507651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a4f610952e74c6a1a5e4e0324740e3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3">SetVertexAttribPointer</a> (GLuint Index, GLint Size, GLenum Type, GLboolean Normalized, GLsizei Stride, const void *Pointer)</td></tr>
+<tr class="memdesc:af1a4f610952e74c6a1a5e4e0324740e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задать индекс атрибута вершины в шейдере  <a href="#af1a4f610952e74c6a1a5e4e0324740e3">Подробнее...</a><br /></td></tr>
+<tr class="separator:af1a4f610952e74c6a1a5e4e0324740e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3877aeaa438f018f7ab433366dd75590"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a3877aeaa438f018f7ab433366dd75590">EnableVertexPointer</a> (GLuint Index)</td></tr>
+<tr class="memdesc:a3877aeaa438f018f7ab433366dd75590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Разрешить использовать вершиный атрибут под заданым индексом  <a href="#a3877aeaa438f018f7ab433366dd75590">Подробнее...</a><br /></td></tr>
+<tr class="separator:a3877aeaa438f018f7ab433366dd75590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a2db591abaf4ff0e9207f30e1ab41f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a52a2db591abaf4ff0e9207f30e1ab41f">DisableVertexPointer</a> (GLuint Index)</td></tr>
+<tr class="memdesc:a52a2db591abaf4ff0e9207f30e1ab41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запретить использовать вершиный атрибут под заданым индексом  <a href="#a52a2db591abaf4ff0e9207f30e1ab41f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a52a2db591abaf4ff0e9207f30e1ab41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17f28b7cc021d6588b6f3870405938cf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a17f28b7cc021d6588b6f3870405938cf">BindBuffer</a> (TypeBuffer TypeBuffer, GLuint Buffer)</td></tr>
+<tr class="memdesc:a17f28b7cc021d6588b6f3870405938cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сделать активным буффер  <a href="#a17f28b7cc021d6588b6f3870405938cf">Подробнее...</a><br /></td></tr>
+<tr class="separator:a17f28b7cc021d6588b6f3870405938cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a517121811f8c1aa42ebe86d832aee7af"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af">BindVAO</a> (GLuint <a class="el" href="classle_1_1_v_a_o.html">VAO</a>)</td></tr>
+<tr class="memdesc:a517121811f8c1aa42ebe86d832aee7af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сделать активным <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#a517121811f8c1aa42ebe86d832aee7af">Подробнее...</a><br /></td></tr>
+<tr class="separator:a517121811f8c1aa42ebe86d832aee7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47c90585678509f0382eab3c83205316"><td class="memItemLeft" align="right" valign="top"><a id="a47c90585678509f0382eab3c83205316"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316">UnbindVAO</a> ()</td></tr>
+<tr class="memdesc:a47c90585678509f0382eab3c83205316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Деактивировать текущий <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. <br /></td></tr>
+<tr class="separator:a47c90585678509f0382eab3c83205316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10109764bf7ad1f3f12fe414dc4f40c4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4">UnbindBuffer</a> (TypeBuffer TypeBuffer)</td></tr>
+<tr class="memdesc:a10109764bf7ad1f3f12fe414dc4f40c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Деактивировать текущий буффер  <a href="#a10109764bf7ad1f3f12fe414dc4f40c4">Подробнее...</a><br /></td></tr>
+<tr class="separator:a10109764bf7ad1f3f12fe414dc4f40c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c1df378d6f41da99e9061ea08ffa4b6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a9c1df378d6f41da99e9061ea08ffa4b6">DeleteBuffer</a> (GLuint *Buffer)</td></tr>
+<tr class="memdesc:a9c1df378d6f41da99e9061ea08ffa4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удалить буффер  <a href="#a9c1df378d6f41da99e9061ea08ffa4b6">Подробнее...</a><br /></td></tr>
+<tr class="separator:a9c1df378d6f41da99e9061ea08ffa4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22a77f57c18fcc63d5710c6b1c31dc00"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a22a77f57c18fcc63d5710c6b1c31dc00">DeleteVAO</a> (GLuint *<a class="el" href="classle_1_1_v_a_o.html">VAO</a>)</td></tr>
+<tr class="memdesc:a22a77f57c18fcc63d5710c6b1c31dc00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удалить <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#a22a77f57c18fcc63d5710c6b1c31dc00">Подробнее...</a><br /></td></tr>
+<tr class="separator:a22a77f57c18fcc63d5710c6b1c31dc00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для работы с <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<p>Данный класс предназначен для работы с <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a> (его создание, удалением и т.д) </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="ae1870d1ffbb906306e5304845507651b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1870d1ffbb906306e5304845507651b">&#9670;&nbsp;</a></span>AtachBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::AtachBuffer </td>
+          <td>(</td>
+          <td class="paramtype">TypeBuffer&#160;</td>
+          <td class="paramname"><em>TypeBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>Buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Присоединить буффер к <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Buffer</td><td>Идентификатор буффера </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a17f28b7cc021d6588b6f3870405938cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17f28b7cc021d6588b6f3870405938cf">&#9670;&nbsp;</a></span>BindBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::BindBuffer </td>
+          <td>(</td>
+          <td class="paramtype">TypeBuffer&#160;</td>
+          <td class="paramname"><em>TypeBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>Buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сделать активным буффер </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Buffer</td><td>Идентификатор буффера </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a517121811f8c1aa42ebe86d832aee7af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a517121811f8c1aa42ebe86d832aee7af">&#9670;&nbsp;</a></span>BindVAO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::BindVAO </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>VAO</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сделать активным <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a></td><td>Идентификатор <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a81040b7e07de5f21095fff3cda950120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81040b7e07de5f21095fff3cda950120">&#9670;&nbsp;</a></span>CreateBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint le::VAO::CreateBuffer </td>
+          <td>(</td>
+          <td class="paramtype">TypeBuffer&#160;</td>
+          <td class="paramname"><em>TypeBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TypeUpdate&#160;</td>
+          <td class="paramname"><em>Usage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создать буффер для <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Массив данных </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Usage</td><td>Тип обновления </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>GLuint. Идентификатор буффера </dd></dl>
+
+</div>
+</div>
+<a id="a7c5268f07df49926073996716332fbd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c5268f07df49926073996716332fbd7">&#9670;&nbsp;</a></span>CreateVAO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint le::VAO::CreateVAO </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создать <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>GLuint. Идентификатор <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a> </dd></dl>
+
+</div>
+</div>
+<a id="a9c1df378d6f41da99e9061ea08ffa4b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c1df378d6f41da99e9061ea08ffa4b6">&#9670;&nbsp;</a></span>DeleteBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::DeleteBuffer </td>
+          <td>(</td>
+          <td class="paramtype">GLuint *&#160;</td>
+          <td class="paramname"><em>Buffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Удалить буффер </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Buffer</td><td>Указатель на идентификатор буффера </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a22a77f57c18fcc63d5710c6b1c31dc00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22a77f57c18fcc63d5710c6b1c31dc00">&#9670;&nbsp;</a></span>DeleteVAO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::DeleteVAO </td>
+          <td>(</td>
+          <td class="paramtype">GLuint *&#160;</td>
+          <td class="paramname"><em>VAO</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Удалить <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a></td><td>Указатель на идентификатор <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a52a2db591abaf4ff0e9207f30e1ab41f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a2db591abaf4ff0e9207f30e1ab41f">&#9670;&nbsp;</a></span>DisableVertexPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::DisableVertexPointer </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>Index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Запретить использовать вершиный атрибут под заданым индексом </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>Номер аргумента в шейдере </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3877aeaa438f018f7ab433366dd75590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3877aeaa438f018f7ab433366dd75590">&#9670;&nbsp;</a></span>EnableVertexPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::EnableVertexPointer </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>Index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Разрешить использовать вершиный атрибут под заданым индексом </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>Номер аргумента в шейдере </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af1a4f610952e74c6a1a5e4e0324740e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a4f610952e74c6a1a5e4e0324740e3">&#9670;&nbsp;</a></span>SetVertexAttribPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::SetVertexAttribPointer </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>Index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>Size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>Type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLboolean&#160;</td>
+          <td class="paramname"><em>Normalized</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLsizei&#160;</td>
+          <td class="paramname"><em>Stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>Pointer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Задать индекс атрибута вершины в шейдере </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>Номер аргумента в шейдере </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>Размер аргумента в шейедре </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>Исп. тип данных </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Normalized</td><td>Нужно ли нормализовывать данные </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Stride</td><td>Расстояние между наборами данных </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Pointer</td><td>Смещение начала данных в буфере </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a10109764bf7ad1f3f12fe414dc4f40c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10109764bf7ad1f3f12fe414dc4f40c4">&#9670;&nbsp;</a></span>UnbindBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::VAO::UnbindBuffer </td>
+          <td>(</td>
+          <td class="paramtype">TypeBuffer&#160;</td>
+          <td class="paramname"><em>TypeBuffer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Деактивировать текущий буффер </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/<a class="el" href="_v_a_o_8h_source.html">VAO.h</a></li>
+<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/System/src/VAO.cpp</li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

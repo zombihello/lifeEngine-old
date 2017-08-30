@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['windowcreate',['WindowCreate',['../classle_1_1_system.html#a7885d378a80466da7f2b6fa0bcce10dd',1,'le::System']]],
-  ['windowsize',['WindowSize',['../structle_1_1_configuration.html#ad12803f441d24588aaa0dfc24ac75bd5',1,'le::Configuration']]],
-  ['writecoment',['WriteComent',['../classle_1_1_config_file.html#a24563aaff57170322afff7d6bcaa6522',1,'le::ConfigFile']]],
-  ['writegroup',['WriteGroup',['../classle_1_1_config_file.html#a0727fac672dd5f9262314144ae33cbb8',1,'le::ConfigFile']]],
-  ['writevalue',['WriteValue',['../classle_1_1_config_file.html#a46e251813cf6dc6023f1867ac1fb382f',1,'le::ConfigFile::WriteValue(const string &amp;NameValue, const string &amp;Value)'],['../classle_1_1_config_file.html#a065b9a5e27bd233e1d1acf0ea1fe52a8',1,'le::ConfigFile::WriteValue(const string &amp;NameValue, const int &amp;Value)'],['../classle_1_1_config_file.html#ac606007c51a98ec955fb58c574cb67a4',1,'le::ConfigFile::WriteValue(const string &amp;NameValue, const float &amp;Value)'],['../classle_1_1_config_file.html#a7d6be8f1319f48cc6aaad9bebee4c84f',1,'le::ConfigFile::WriteValue(const string &amp;NameValue, const bool &amp;Value)']]]
+  ['removefromscene',['RemoveFromScene',['../classle_1_1_model.html#a8d0977a0bbab0cf127bdc85cccc7e9c8',1,'le::Model']]],
+  ['removemodelfromscene',['RemoveModelFromScene',['../classle_1_1_scene.html#aaedcf867db03ecad4df4bb93f5591644',1,'le::Scene']]],
+  ['renderscene',['RenderScene',['../classle_1_1_scene.html#ac89fee499aac01c8ddc54262c4cb9710',1,'le::Scene']]],
+  ['resourcesmanager',['ResourcesManager',['../classle_1_1_resources_manager.html',1,'le']]]
 ];

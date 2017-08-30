@@ -33,6 +33,12 @@ using namespace std;
 #include <tinyxml.h>
 
 //////////////////
+// SFML
+//////////////////
+#include <SFML\OpenGL.hpp>
+using namespace sf;
+
+//////////////////
 // LIFEENGINE
 //////////////////
 #include <System\Logger.h>
@@ -81,12 +87,40 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		void ClearMesh();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить массив вершин для VBO	
+		///
+		/// \return const vector<MeshVertex>&
+		//////////////////////////////////////////////////////////////////////
+		const vector<MeshVertex>& GetVBO_Vertexs();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить массив текстур
+		///
+		/// \return const vector<GLuint>&
+		//////////////////////////////////////////////////////////////////////
+		const vector<GLuint>& GetTextures();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить массив id вершин без повторений
+		///
+		/// \return const map<int, vector<int>>&
+		//////////////////////////////////////////////////////////////////////
+		const map<int, vector<int>>& GetVertexs();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить ID вершин, порядок соединения
+		///
+		/// \return const map<GLuint, vector<unsigned int>>&
+		//////////////////////////////////////////////////////////////////////
+		const map<GLuint, vector<unsigned int>>& GetIdVertexs();
+
 	private:
 
 		vector<MeshVertex>						VBO_Vertexs; ///< Массив вершин для VBO	
 		vector<GLuint>							Textures; ///< Массив текстур
 		map<GLuint, vector<unsigned int>>		IdVertexs; ///< ID Вершин, порядок соединения
-		map<int, vector<int>>					Vertexs; ///< Мессив id вершин без повторений
+		map<int, vector<int>>					Vertexs; ///< Массив id вершин без повторений
 	};
 
 	//-------------------------------------------------------------------------//

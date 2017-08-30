@@ -1,6 +1,9 @@
 #include <System\System.h>
 #include <System\ResourcesManager.h>
 #include <Graphics\Mesh.h>
+#include <Graphics\Model.h>
+#include <Graphics\Scene.h>
+#include <System\Logger.h>
 
 class Game : public le::BasicApplication
 {
@@ -8,21 +11,28 @@ public:
 	Game( le::System& System ) : le::BasicApplication( System )
 	{
 		le::ResourcesManager::LoadGlTexture( "Door1", "../textures/1.jpg" );
-		le::ResourcesManager::LoadGlTexture( "Door1", "../textures/1.jpg" );
-		le::ResourcesManager::LoadGlTexture( "Door2", "../textures/2.jpg" );
-		le::ResourcesManager::LoadGlTexture( "Door3", "../textures/13.jpg" );
 
 		le::Mesh mesh;
 		mesh.LoadMesh( "../models/box.lmd" );
 
 		le::ResourcesManager::LoadMesh( "Box", "../models/box.lmd" );
-		le::ResourcesManager::LoadMesh( "Box1", "../models/box2.lmd" );
-		le::ResourcesManager::LoadMesh( "Box", "../models/box.lmd" );
+
+		model.LoadModel( "Box", "../models/box.lmd" );
+
+		le::Model model1;
+		model1.LoadModel( *le::ResourcesManager::GetMesh( "Box" ) );
+
+		Scene = new le::Scene( System );
+		Scene->AddModelToScene( &model );
 	}
 
 	void Update()
 	{
+		Scene->RenderScene();
 	}
+
+	le::Model model;
+	le::Scene* Scene;
 };
 
 int main( int argc, char** argv )

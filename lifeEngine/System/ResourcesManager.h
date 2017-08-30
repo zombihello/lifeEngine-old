@@ -117,7 +117,7 @@ namespace le
 		/// \return const Mesh*. Если меша с данным названием
 		/// нету, то вернет NULL (0)
 		//////////////////////////////////////////////////////////////////////
-		static const Mesh* GetMesh( const string& NameMesh );
+		static Mesh* GetMesh( const string& NameMesh );
 
 	private:
 

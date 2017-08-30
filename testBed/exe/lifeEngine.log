@@ -11,12 +11,6 @@ OpenGL GLSL Version: 4.40
 *** OpenGL Info End ***
 [Info] Loading Texture [../textures/1.jpg] With Name [Door1]
 [Info] Texture With Name [Door1] Loaded
-[Info] Loading Texture [../textures/1.jpg] With Name [Door1]
-[Info] Texture With Name [Door1] Already Loaded
-[Info] Loading Texture [../textures/2.jpg] With Name [Door2]
-[Info] Texture With Name [Door2] Loaded
-[Info] Loading Texture [../textures/13.jpg] With Name [Door3]
-[Error] Texture [../textures/13.jpg] Not Found
 [Info] Loading Mesh [../models/box.lmd]
 [Info] Loading Texture [..\textures\1.jpg] With Name [1.jpg]
 [Info] Texture With Name [1.jpg] Loaded
@@ -25,7 +19,5 @@ OpenGL GLSL Version: 4.40
 [Info] Loading Texture [..\textures\1.jpg] With Name [1.jpg]
 [Info] Texture With Name [1.jpg] Already Loaded
 [Info] Mesh [../models/box.lmd] Loaded
-[Info] Loading Mesh [../models/box2.lmd]
-[Error] Mesh [../models/box2.lmd] Not Found
 [Info] Mesh With Name [Box] Already Loaded
 *** lifeEngine End ***

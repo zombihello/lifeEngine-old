@@ -10,6 +10,9 @@
 
 #ifndef LOGGER_H
 #define LOGGER_H
+#pragma warning( push )
+
+#pragma warning( disable: 4251 )
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
@@ -70,5 +73,6 @@ namespace le
 	//-------------------------------------------------------------------------//
 }
 
+#pragma warning( pop )
 #endif // LOGGER_H
 

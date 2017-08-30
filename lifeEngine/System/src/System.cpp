@@ -33,7 +33,8 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.SaveInFile( ConfigFile );
 	}
 
-	Configuration.Projection = glm::perspective( glm::radians( (float) Configuration.FOV ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, 1500.0f );
+	Configuration.ProjectionMatrix = glm::perspective( glm::radians( NUMBER_TO_FLOAT( Configuration.FOV ) ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, 1500.0f );
+	
 }
 
 //-------------------------------------------------------------------------//
@@ -54,7 +55,7 @@ void le::System::WindowCreate( const string& NameWindow, int Style )
 	ContextSettings.stencilBits = 8;
 	ContextSettings.antialiasingLevel = Configuration.AntialiasingLevel;
 
-	RenderWindow.create( VideoMode( Configuration.WindowSize.x, Configuration.WindowSize.y ), NameWindow, Style, ContextSettings );
+	RenderWindow.create( VideoMode( NUMBER_TO_UINT( Configuration.WindowSize.x ), NUMBER_TO_UINT( Configuration.WindowSize.y ) ), NameWindow, Style, ContextSettings );
 
 	Logger::Log( Logger::Info, "Window Created (" + to_string( ( int ) Configuration.WindowSize.x ) + "x" + to_string( ( int ) Configuration.WindowSize.y ) + ")" );
 	Logger::Log( Logger::None, "*** OpenGL Info ***" );
@@ -142,7 +143,7 @@ bool le::System::DirectoryExists( const string& RouteToDirectory )
 
 //-------------------------------------------------------------------------//
 
-const le::Configuration& le::System::GetConfiguration()
+le::Configuration& le::System::GetConfiguration()
 {
 	return Configuration;
 }

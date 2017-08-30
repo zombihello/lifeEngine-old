@@ -155,21 +155,27 @@
   <ItemGroup>
     <ClInclude Include="DllGlobal.h" />
     <ClInclude Include="Graphics\Mesh.h" />
+    <ClInclude Include="Graphics\Model.h" />
+    <ClInclude Include="Graphics\Scene.h" />
     <ClInclude Include="System\BasicApplication.h" />
     <ClInclude Include="System\ConfigFile.h" />
     <ClInclude Include="System\Configuration.h" />
     <ClInclude Include="System\Logger.h" />
     <ClInclude Include="System\ResourcesManager.h" />
     <ClInclude Include="System\System.h" />
+    <ClInclude Include="System\VAO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\src\Mesh.cpp" />
+    <ClCompile Include="Graphics\src\Model.cpp" />
+    <ClCompile Include="Graphics\src\Scene.cpp" />
     <ClCompile Include="System\src\BasicApplication.cpp" />
     <ClCompile Include="System\src\ConfigFile.cpp" />
     <ClCompile Include="System\src\Configuration.cpp" />
     <ClCompile Include="System\src\Logger.cpp" />
     <ClCompile Include="System\src\ResourcesManager.cpp" />
     <ClCompile Include="System\src\System.cpp" />
+    <ClCompile Include="System\src\VAO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
