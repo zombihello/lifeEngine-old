@@ -25,7 +25,7 @@ public:
 
 		Scene = new le::Scene( System );
 		Scene->AddModelToScene( &model );
-
+		
 		Camera = new le::Camera( System );
 		Scene->SetCamera( *Camera );
 	}
@@ -33,17 +33,17 @@ public:
 	void Update()
 	{
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			Camera->Move( le::Camera::Forward, 1 );
+			Camera->Move( le::Camera::Forward, 1 * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			Camera->Move( le::Camera::Back, 1 );
+			Camera->Move( le::Camera::Back, 1 * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
-			Camera->Move( le::Camera::Left, 1 );
+			Camera->Move( le::Camera::Left, 1 * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
-			Camera->Move( le::Camera::Right, 1 );
-
+			Camera->Move( le::Camera::Right, 1 * Configuration->Time );
+		
 		Camera->UpdateCamera();
 		Scene->RenderScene();
 	}

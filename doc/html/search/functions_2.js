@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['camera',['Camera',['../classle_1_1_camera.html#a37703b059c80624453f2cff29b958031',1,'le::Camera']]],
   ['clearmesh',['ClearMesh',['../classle_1_1_mesh.html#a8737f3bfb41ebee530472ad9602e07a3',1,'le::Mesh']]],
   ['clearsavebuffer',['ClearSaveBuffer',['../classle_1_1_config_file.html#ab8d8694b8cb6cb42f661cfc4cb3cf030',1,'le::ConfigFile']]],
   ['clearscene',['ClearScene',['../classle_1_1_scene.html#aced9026445b5a6cd9d9522d7e8ddaf1f',1,'le::Scene']]],

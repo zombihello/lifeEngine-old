@@ -6,8 +6,10 @@
 
 //-------------------------------------------------------------------------//
 
-le::BasicApplication::BasicApplication( System& System )
+le::BasicApplication::BasicApplication( le::System& System )
 {
+	Configuration = &System.GetConfiguration();
+	this->System = &System;
 }
 
 //-------------------------------------------------------------------------//

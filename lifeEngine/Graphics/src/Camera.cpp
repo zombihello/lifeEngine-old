@@ -1,4 +1,4 @@
-#include "..\Camera.h"
+п»ї#include "..\Camera.h"
 
 #define PI 3.141592653f
 
@@ -20,7 +20,7 @@ le::Camera::~Camera()
 
 void le::Camera::UpdateCamera()
 {
-	// 1.55 радиан = 89 градусов
+	// 1.55 СЂР°РґРёР°РЅ = 89 РіСЂР°РґСѓСЃРѕРІ
 
 	MousePosition = Mouse::getPosition( *RenderWindow );
 	SizeWindow = RenderWindow->getSize();
@@ -56,7 +56,7 @@ void le::Camera::Move( const glm::vec3& FactorMove )
 
 void le::Camera::Move( TypeMove typeMove, float MoveSpeed )
 {
-	// 1.5707 радиан = 90 градусов
+	// 1.5707 СЂР°РґРёР°РЅ = 90 РіСЂР°РґСѓСЃРѕРІ
 
 	switch ( typeMove )
 	{
@@ -139,7 +139,7 @@ float le::Camera::GetInclinationCamera()
 
 glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 {
-	// 1.5707 радиан = 90 градусов
+	// 1.5707 СЂР°РґРёР°РЅ = 90 РіСЂР°РґСѓСЃРѕРІ
 
 	glm::vec3 OffsetMove;
 

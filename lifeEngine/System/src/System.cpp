@@ -2,7 +2,8 @@
 
 //-------------------------------------------------------------------------//
 
-le::System::System( int argc, char** argv, const string& ConfigFile, const string& LogFile )
+le::System::System( int argc, char** argv, const string& ConfigFile, const string& LogFile ) :
+	IsLostFocus( false )
 {
 	Logger::SetLogFile( LogFile );
 	Logger::Log( Logger::None, ENGINE " " ENGINE_VERSION );
@@ -34,7 +35,6 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 	}
 
 	Configuration.ProjectionMatrix = glm::perspective( glm::radians( NUMBER_TO_FLOAT( Configuration.FOV ) ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, 1500.0f );
-	
 }
 
 //-------------------------------------------------------------------------//
@@ -97,18 +97,30 @@ void le::System::MainLoop( BasicApplication& Application )
 		Configuration.Time = Clock.getElapsedTime().asMicroseconds();
 		Clock.restart();
 
-		Configuration.Time /= 300;
+		Configuration.Time /= 800;
 
 		if ( Configuration.Time > 40 )
 			Configuration.Time = 40;
 
 		while ( RenderWindow.pollEvent( Event ) )
 		{
-			if ( Event.type == Event::Closed )
+			switch ( Event.type )
+			{
+			case Event::Closed:
 				RenderWindow.close();
+				break;
+
+			case Event::LostFocus:
+				IsLostFocus = true;
+				break;
+
+			case Event::GainedFocus:
+				IsLostFocus = false;
+				break;
+			}
 		}
 
-		if ( Event.type != Event::LostFocus )
+		if ( !IsLostFocus )
 		{
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 

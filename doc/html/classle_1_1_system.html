@@ -88,15 +88,18 @@ $(function() {
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#a9633bc3e0c684412e373bd49e1c4cbc2">~System</a> ()</td></tr>
 <tr class="memdesc:a9633bc3e0c684412e373bd49e1c4cbc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Деструктор <br /></td></tr>
 <tr class="separator:a9633bc3e0c684412e373bd49e1c4cbc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7885d378a80466da7f2b6fa0bcce10dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#a7885d378a80466da7f2b6fa0bcce10dd">WindowCreate</a> (const string &amp;NameWindow, int Style=sf::Style::Default)</td></tr>
-<tr class="memdesc:a7885d378a80466da7f2b6fa0bcce10dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создание окна  <a href="#a7885d378a80466da7f2b6fa0bcce10dd">Подробнее...</a><br /></td></tr>
-<tr class="separator:a7885d378a80466da7f2b6fa0bcce10dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05564f951d6001d367ecbc5b52a9f483"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#a05564f951d6001d367ecbc5b52a9f483">WindowCreate</a> (const string &amp;NameWindow, int Style=sf::Style::Default, bool IsMouseCursorVisible=false)</td></tr>
+<tr class="memdesc:a05564f951d6001d367ecbc5b52a9f483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создание окна  <a href="#a05564f951d6001d367ecbc5b52a9f483">Подробнее...</a><br /></td></tr>
+<tr class="separator:a05564f951d6001d367ecbc5b52a9f483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a652bcd765f9e75ca571c231daaa4554d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#a652bcd765f9e75ca571c231daaa4554d">MainLoop</a> (<a class="el" href="classle_1_1_basic_application.html">BasicApplication</a> &amp;Application)</td></tr>
 <tr class="memdesc:a652bcd765f9e75ca571c231daaa4554d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Главный цикл игры  <a href="#a652bcd765f9e75ca571c231daaa4554d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a652bcd765f9e75ca571c231daaa4554d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdf5b9960d1c2799cb389d818014de4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structle_1_1_configuration.html">Configuration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#abdf5b9960d1c2799cb389d818014de4e">GetConfiguration</a> ()</td></tr>
 <tr class="memdesc:abdf5b9960d1c2799cb389d818014de4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить конфигурации окна  <a href="#abdf5b9960d1c2799cb389d818014de4e">Подробнее...</a><br /></td></tr>
 <tr class="separator:abdf5b9960d1c2799cb389d818014de4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5b77bbb01775668b89028c01937c535"><td class="memItemLeft" align="right" valign="top">RenderWindow &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#aa5b77bbb01775668b89028c01937c535">GetWindow</a> ()</td></tr>
+<tr class="memdesc:aa5b77bbb01775668b89028c01937c535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить окно  <a href="#aa5b77bbb01775668b89028c01937c535">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa5b77bbb01775668b89028c01937c535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Открытые статические члены</h2></td></tr>
@@ -253,6 +256,26 @@ $(function() {
 
 </div>
 </div>
+<a id="aa5b77bbb01775668b89028c01937c535"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5b77bbb01775668b89028c01937c535">&#9670;&nbsp;</a></span>GetWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RenderWindow &amp; le::System::GetWindow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить окно </p>
+<dl class="section return"><dt>Возвращает</dt><dd>RenderWindow&amp; </dd></dl>
+
+</div>
+</div>
 <a id="a652bcd765f9e75ca571c231daaa4554d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a652bcd765f9e75ca571c231daaa4554d">&#9670;&nbsp;</a></span>MainLoop()</h2>
 
@@ -280,8 +303,8 @@ $(function() {
 
 </div>
 </div>
-<a id="a7885d378a80466da7f2b6fa0bcce10dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7885d378a80466da7f2b6fa0bcce10dd">&#9670;&nbsp;</a></span>WindowCreate()</h2>
+<a id="a05564f951d6001d367ecbc5b52a9f483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05564f951d6001d367ecbc5b52a9f483">&#9670;&nbsp;</a></span>WindowCreate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,7 +319,13 @@ $(function() {
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>Style</em> = <code>sf::Style::Default</code>&#160;</td>
+          <td class="paramname"><em>Style</em> = <code>sf::Style::Default</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>IsMouseCursorVisible</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -312,6 +341,7 @@ $(function() {
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">NameWindow</td><td>Имя окна </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Style</td><td>Стиль окна (полноэекранный, оконный и т.д) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsMouseCursorVisible</td><td>Будет ли видно курсор в окне </td></tr>
   </table>
   </dd>
 </dl>

@@ -129,7 +129,8 @@ namespace le
 
 	private:
 
-		Configuration			Configuration; ///< Конфигурации окна
+		bool					IsLostFocus; ///< Окно потеряло ли фокус
+		Configuration			Configuration; ///< Конфигурации движка
 		RenderWindow			RenderWindow; ///< Окно игры
 		Event                   Event; ///< Cобытия окна
 		Clock					Clock; ///< Счетчик прошедшего времени
