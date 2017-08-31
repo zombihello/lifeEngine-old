@@ -19,5 +19,8 @@ OpenGL GLSL Version: 4.40
 [Info] Loading Texture [..\textures\1.jpg] With Name [1.jpg]
 [Info] Texture With Name [1.jpg] Already Loaded
 [Info] Mesh [../models/box.lmd] Loaded
-[Info] Mesh With Name [Box] Already Loaded
+[Info] Loading Mesh [../models/leanna.lmd]
+[Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
+[Info] Texture With Name [leanna.tga] Loaded
+[Info] Mesh [../models/leanna.lmd] Loaded
 *** lifeEngine End ***

@@ -85,8 +85,9 @@ namespace le
 		/// 
 		/// \param[in] NameWindow Имя окна
 		/// \param[in] Style Стиль окна (полноэекранный, оконный и т.д)
+		/// \param[in] IsMouseCursorVisible Будет ли видно курсор в окне
 		//////////////////////////////////////////////////////////////////////
-		void WindowCreate( const string& NameWindow, int Style = sf::Style::Default );
+		void WindowCreate( const string& NameWindow, int Style = sf::Style::Default, bool IsMouseCursorVisible = false );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Главный цикл игры
@@ -119,11 +120,19 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		Configuration& GetConfiguration();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить окно
+		///
+		/// \return RenderWindow&
+		//////////////////////////////////////////////////////////////////////
+		RenderWindow& GetWindow();
+
 	private:
 
 		Configuration			Configuration; ///< Конфигурации окна
 		RenderWindow			RenderWindow; ///< Окно игры
 		Event                   Event; ///< Cобытия окна
+		Clock					Clock; ///< Счетчик прошедшего времени
 	};
 
 	//-------------------------------------------------------------------------//

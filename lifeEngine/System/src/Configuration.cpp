@@ -6,7 +6,8 @@ le::Configuration::Configuration() :
 	WindowSize( 800, 600 ),
 	FrameLimit( 0 ),
 	AntialiasingLevel( 0 ),
-	FOV( 75 )
+	FOV( 75 ),
+	Time( 0 )
 {}
 
 //-------------------------------------------------------------------------//

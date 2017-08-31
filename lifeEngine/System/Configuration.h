@@ -42,6 +42,7 @@ namespace le
 		int					FrameLimit; ///< Макс. FPS
 		int					AntialiasingLevel; ///< Уровень сглаживания
 		int					FOV; ///< Угол обзора
+		float				Time; ///< Прошедшие время
 
 		glm::vec2			WindowSize; ///< Размеры окна
 		glm::mat4			ProjectionMatrix; ///< Матрица проекции

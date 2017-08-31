@@ -1,5 +1,6 @@
 ﻿#include <System\VAO.h>
 #include <Graphics\Model.h>
+#include <Graphics\Camera.h>
 #include "..\Scene.h"
 
 //-------------------------------------------------------------------------//
@@ -7,11 +8,7 @@
 le::Scene::Scene( System& System )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
-
-	ViewMatrix = glm::lookAt(
-		glm::vec3( 0, 0, -100 ),
-		glm::vec3( 0, 0, 0 ),
-		glm::vec3( 0, 1, 0 ) );
+	ViewMatrix = NULL;
 
 	if ( !GeometryRender.loadFromFile( "geometryRender.vs", "geometryRender.fs" ) )
 		Logger::Log( Logger::Error, GeometryRender.getErrorMessage().str() );
@@ -66,6 +63,13 @@ void le::Scene::RemoveModelFromScene( Model* Model )
 
 //-------------------------------------------------------------------------//
 
+void le::Scene::RemoveCamera()
+{
+	ViewMatrix = NULL;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Scene::RenderScene()
 {
 	glEnable( GL_TEXTURE_2D );
@@ -74,7 +78,12 @@ void le::Scene::RenderScene()
 	InfoMesh* InfoMesh;
 
 	Shader::bind( &GeometryRender );
-	glm::mat4 PVMatrix = *ProjectionMatrix * ViewMatrix;
+	glm::mat4 PVMatrix;
+
+	if ( ViewMatrix )
+		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
+	else
+		PVMatrix = *ProjectionMatrix;
 
 	glDepthMask( GL_TRUE );
 	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -108,5 +117,12 @@ void le::Scene::RenderScene()
 
 void le::Scene::ClearScene()
 {}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::SetCamera( Camera& Camera )
+{
+	ViewMatrix = &Camera.GetViewMatrix();
+}
 
 //-------------------------------------------------------------------------//

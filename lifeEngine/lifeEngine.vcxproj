@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DllGlobal.h" />
+    <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\Scene.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="System\VAO.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\src\Camera.cpp" />
     <ClCompile Include="Graphics\src\Mesh.cpp" />
     <ClCompile Include="Graphics\src\Model.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />

@@ -46,7 +46,7 @@ le::System::~System()
 
 //-------------------------------------------------------------------------//
 
-void le::System::WindowCreate( const string& NameWindow, int Style )
+void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouseCursorVisible )
 {
 	glewExperimental = GL_TRUE;
 
@@ -56,6 +56,8 @@ void le::System::WindowCreate( const string& NameWindow, int Style )
 	ContextSettings.antialiasingLevel = Configuration.AntialiasingLevel;
 
 	RenderWindow.create( VideoMode( NUMBER_TO_UINT( Configuration.WindowSize.x ), NUMBER_TO_UINT( Configuration.WindowSize.y ) ), NameWindow, Style, ContextSettings );
+	RenderWindow.setFramerateLimit( Configuration.FrameLimit );
+	RenderWindow.setMouseCursorVisible( IsMouseCursorVisible );
 
 	Logger::Log( Logger::Info, "Window Created (" + to_string( ( int ) Configuration.WindowSize.x ) + "x" + to_string( ( int ) Configuration.WindowSize.y ) + ")" );
 	Logger::Log( Logger::None, "*** OpenGL Info ***" );
@@ -92,6 +94,14 @@ void le::System::MainLoop( BasicApplication& Application )
 {
 	while ( RenderWindow.isOpen() )
 	{
+		Configuration.Time = Clock.getElapsedTime().asMicroseconds();
+		Clock.restart();
+
+		Configuration.Time /= 300;
+
+		if ( Configuration.Time > 40 )
+			Configuration.Time = 40;
+
 		while ( RenderWindow.pollEvent( Event ) )
 		{
 			if ( Event.type == Event::Closed )
@@ -146,6 +156,13 @@ bool le::System::DirectoryExists( const string& RouteToDirectory )
 le::Configuration& le::System::GetConfiguration()
 {
 	return Configuration;
+}
+
+//-------------------------------------------------------------------------//
+
+RenderWindow& le::System::GetWindow()
+{
+	return RenderWindow;
 }
 
 //-------------------------------------------------------------------------//

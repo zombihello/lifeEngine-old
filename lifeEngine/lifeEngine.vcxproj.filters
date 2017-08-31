@@ -39,6 +39,9 @@
     <ClCompile Include="Graphics\src\Scene.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\Camera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -70,6 +73,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Scene.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Camera.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
