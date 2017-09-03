@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['removecamera',['RemoveCamera',['../classle_1_1_scene.html#ab19d69a97e293d20e5471f65ef212fbb',1,'le::Scene']]],
-  ['removefromscene',['RemoveFromScene',['../classle_1_1_model.html#a8d0977a0bbab0cf127bdc85cccc7e9c8',1,'le::Model']]],
-  ['removemodelfromscene',['RemoveModelFromScene',['../classle_1_1_scene.html#aaedcf867db03ecad4df4bb93f5591644',1,'le::Scene']]],
-  ['renderscene',['RenderScene',['../classle_1_1_scene.html#ac89fee499aac01c8ddc54262c4cb9710',1,'le::Scene']]]
+  ['mainloop',['MainLoop',['../classle_1_1_system.html#a652bcd765f9e75ca571c231daaa4554d',1,'le::System']]],
+  ['model',['Model',['../classle_1_1_model.html#acc67d73488f710f0b35e5ac931338eab',1,'le::Model']]],
+  ['move',['Move',['../classle_1_1_camera.html#ac6aaee5ef217a571b35db09e32df2326',1,'le::Camera::Move(const glm::vec3 &amp;FactorMove)'],['../classle_1_1_camera.html#a880f5af55949b4637b4ec8c4445f348b',1,'le::Camera::Move(TypeMove typeMove, float MoveSpeed)']]]
 ];

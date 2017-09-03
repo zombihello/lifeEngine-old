@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['position',['Position',['../structle_1_1_mesh_1_1_mesh_vertex.html#ac70063d3f42d6c124bb67325a5778459',1,'le::Mesh::MeshVertex']]],
-  ['projectionmatrix',['ProjectionMatrix',['../structle_1_1_configuration.html#a4b49ba65f67f4c3855ecd0638226e8ad',1,'le::Configuration']]]
+  ['name',['Name',['../structle_1_1_skeleton_1_1_bone.html#a89181fea5049778036b689e876157fa8',1,'le::Skeleton::Bone']]],
+  ['normal',['Normal',['../structle_1_1_mesh_vertex.html#a7e90e243a0f81ad4218bfea09f6736cb',1,'le::MeshVertex']]]
 ];

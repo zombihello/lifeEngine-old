@@ -40,9 +40,11 @@ bool le::Model::LoadModel( const string& NameModel, const string& RouteToFile )
 
 void le::Model::LoadModel( Mesh& Mesh )
 {
-	vector<Mesh::MeshVertex> VBO_Vertexs = Mesh.GetVBO_Vertexs();
+	vector<MeshVertex> VBO_Vertexs = Mesh.GetVBO_Vertexs();
 	vector<GLuint> Textures = Mesh.GetTextures();
 	map<GLuint, vector<unsigned int>> IdVertexs = Mesh.GetIdVertexs();
+	Skeleton = Mesh.GetSkeleton();
+	AnimationManager = Mesh.GetAnimations();
 
 	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, VBO_Vertexs, VAO::Dynamic_Draw );
 
@@ -57,9 +59,9 @@ void le::Model::LoadModel( Mesh& Mesh )
 		VAO::AtachBuffer( VAO::Vertex_Buffer, VertexBuffer );
 		GLuint IndexArray = VAO::CreateBuffer( VAO::Index_Buffer, it->second, VAO::Static_Draw );
 
-		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( Mesh::MeshVertex ), ( void* ) ( offsetof( Mesh::MeshVertex, Position ) ) );
-		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( Mesh::MeshVertex ), ( void* ) ( offsetof( Mesh::MeshVertex, Normal ) ) );
-		VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( Mesh::MeshVertex ), ( void* ) ( offsetof( Mesh::MeshVertex, TextureCoord ) ) );
+		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Position ) ) );
+		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Normal ) ) );
+		VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, TextureCoord ) ) );
 
 		VAO::UnbindVAO();
 		VAO::UnbindBuffer( VAO::Vertex_Buffer );
@@ -73,6 +75,9 @@ void le::Model::LoadModel( Mesh& Mesh )
 		IndexBuffers.push_back( IndexArray );
 		RenderMesh[ it->first ] = InfoMesh;
 	}
+
+	Skeleton.InitSkeleton( VertexBuffer, VBO_Vertexs, Mesh.GetVertexs() );
+	AnimationManager.SetSkeleton( Skeleton );
 }
 
 //-------------------------------------------------------------------------//
@@ -95,6 +100,13 @@ void le::Model::RemoveFromScene()
 map<GLuint, le::Scene::InfoMesh>& le::Model::GetRenderMesh()
 {
 	return RenderMesh;
+}
+
+//-------------------------------------------------------------------------//
+
+le::AnimationManager* le::Model::GetAnimationManager()
+{
+	return &AnimationManager;
 }
 
 //-------------------------------------------------------------------------//

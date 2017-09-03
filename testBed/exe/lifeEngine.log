@@ -22,5 +22,9 @@ OpenGL GLSL Version: 4.40
 [Info] Loading Mesh [../models/leanna.lmd]
 [Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
 [Info] Texture With Name [leanna.tga] Loaded
+[Info] Loading Skeleton Mesh
+[Info] Loaded Skeleton Mesh
+[Info] Loading Animations Mesh
+[Info] Loaded Animations Mesh
 [Info] Mesh [../models/leanna.lmd] Loaded
 *** lifeEngine End ***

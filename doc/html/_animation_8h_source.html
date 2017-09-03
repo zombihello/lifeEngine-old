@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Исходный файл E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/Graphics/Animation.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_9e17f58e0750a0bc3c41a22727112217.html">lifeEngine</a></li><li class="navelem"><a class="el" href="dir_e09c625450b9a262e133012df5176766.html">Graphics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Animation.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          *** lifeEngine (Двигатель Жизни) ***</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                  Copyright (C) 2017</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Связь со мной:       https://vk.com/zombihello</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// Репозиторий движка:  https://github.com/zombihello/lifeEngine</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef ANIMATION_H</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define ANIMATION_H</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define COMPILING_LIBRARY</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;DllGlobal.h&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// XML</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;tinyxml.h&gt;</span></div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// LIFEENGINE</span></div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;System\Logger.h&gt;</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;System\System.h&gt;</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacele.html">le</a></div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">class </span>Skeleton;</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div><div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classle_1_1_animation.html">   41</a></span>&#160;    <span class="keyword">class </span>DLL_API <a class="code" href="classle_1_1_animation.html">Animation</a></div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">public</span>:</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div><div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structle_1_1_animation_1_1_animation_bone.html">   50</a></span>&#160;        <span class="keyword">struct </span>DLL_API <a class="code" href="structle_1_1_animation_1_1_animation_bone.html">AnimationBone</a></div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        {</div><div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structle_1_1_animation_1_1_animation_bone.html#a354be4c1c6ddbea8c41e773b59f739d2">   52</a></span>&#160;            vector&lt;glm::mat4x4&gt;     <a class="code" href="structle_1_1_animation_1_1_animation_bone.html#a354be4c1c6ddbea8c41e773b59f739d2">Frames</a>; </div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        };</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classle_1_1_animation.html">Animation</a>();</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">bool</span> LoadAnimation( TiXmlElement* <a class="code" href="classle_1_1_animation.html">Animation</a>, <span class="keywordtype">int</span> MaxFrames = 0 );</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordtype">void</span> Play( <span class="keywordtype">bool</span> IsLoop = <span class="keyword">false</span> );</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">void</span> Pause();</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">void</span> Stop();</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">void</span> Update();</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">void</span> SetSkeleton( <a class="code" href="classle_1_1_skeleton.html">Skeleton</a>&amp; <a class="code" href="classle_1_1_skeleton.html">Skeleton</a> );</div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">void</span> SetFPS( <span class="keywordtype">float</span> FPS );</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordtype">bool</span> IsPlaying();</div><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">private</span>:</div><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordtype">bool</span>                            Loop; </div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordtype">bool</span>                            Playing; </div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordtype">int</span>                             NextFrame; </div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordtype">int</span>                             MaxFrames; </div><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordtype">float</span>                           NowFrame; </div><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">float</span>                           DeltaFrame; </div><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="classle_1_1_skeleton.html">Skeleton</a>*                       <a class="code" href="classle_1_1_skeleton.html">Skeleton</a>; </div><div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        glm::mat4x4                     MatrixInterpolated; </div><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        glm::mat4x4*                    MatrixNowFrame; </div><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        glm::mat4x4*                    MatrixNextFrame; </div><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        map&lt;string, AnimationBone&gt;      AnimationBones; </div><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    };</div><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif // ANIMATION_H</span></div><div class="ttc" id="structle_1_1_animation_1_1_animation_bone_html_a354be4c1c6ddbea8c41e773b59f739d2"><div class="ttname"><a href="structle_1_1_animation_1_1_animation_bone.html#a354be4c1c6ddbea8c41e773b59f739d2">le::Animation::AnimationBone::Frames</a></div><div class="ttdeci">vector&lt; glm::mat4x4 &gt; Frames</div><div class="ttdoc">Позиция кости на каждый кадр </div><div class="ttdef"><b>Definition:</b> Animation.h:52</div></div>
+<div class="ttc" id="classle_1_1_animation_html"><div class="ttname"><a href="classle_1_1_animation.html">le::Animation</a></div><div class="ttdoc">Класс для работы с анимацией </div><div class="ttdef"><b>Definition:</b> Animation.h:41</div></div>
+<div class="ttc" id="structle_1_1_animation_1_1_animation_bone_html"><div class="ttname"><a href="structle_1_1_animation_1_1_animation_bone.html">le::Animation::AnimationBone</a></div><div class="ttdoc">Структура для хранения анимации одной кости </div><div class="ttdef"><b>Definition:</b> Animation.h:50</div></div>
+<div class="ttc" id="classle_1_1_skeleton_html"><div class="ttname"><a href="classle_1_1_skeleton.html">le::Skeleton</a></div><div class="ttdoc">Класс для работы со скелетом модели </div><div class="ttdef"><b>Definition:</b> Skeleton.h:33</div></div>
+<div class="ttc" id="namespacele_html"><div class="ttname"><a href="namespacele.html">le</a></div><div class="ttdef"><b>Definition:</b> BasicApplication.h:22</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

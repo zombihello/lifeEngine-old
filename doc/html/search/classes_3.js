@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger',['Logger',['../classle_1_1_logger.html',1,'le']]]
+  ['infomesh',['InfoMesh',['../structle_1_1_scene_1_1_info_mesh.html',1,'le::Scene']]]
 ];

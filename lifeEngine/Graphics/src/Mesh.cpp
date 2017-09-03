@@ -64,7 +64,9 @@ bool le::Mesh::LoadMesh( const string & Route )
 		return false;
 	}
 
+	// ****************************
 	// Загружаем позицию вершин
+	// ****************************
 
 	TiXmlElement* PositionPoint;
 	PositionPoint = Geometries->FirstChildElement( "position_point" );
@@ -85,14 +87,16 @@ bool le::Mesh::LoadMesh( const string & Route )
 	while ( Point )
 	{
 		TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
-		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
-		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
+		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
+		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
 
 		VertexPosition.push_back( TempVector3 );
 		Point = Point->NextSiblingElement();
 	}
 
+	// ****************************
 	// Загружаем нормали
+	// ****************************
 
 	TiXmlElement* Normals;
 	Normals = Geometries->FirstChildElement( "normals" );
@@ -116,7 +120,9 @@ bool le::Mesh::LoadMesh( const string & Route )
 		Point = Point->NextSiblingElement();
 	}
 
+	// ****************************
 	// Загружаем текстурные координаты
+	// ****************************
 
 	TiXmlElement* UV;
 	UV = Geometries->FirstChildElement( "UV" );
@@ -139,8 +145,10 @@ bool le::Mesh::LoadMesh( const string & Route )
 		Point = Point->NextSiblingElement();
 	}
 
+	// ****************************
 	// Считываем id вершин, нормалей и uv, и записуем 
 	// в окончательный массив
+	// ****************************
 
 	TiXmlElement* Polygons;
 	Polygons = Geometries->FirstChildElement( "polygons" );
@@ -204,7 +212,12 @@ bool le::Mesh::LoadMesh( const string & Route )
 					{
 						size_t VBOsize = VBO_Vertexs.size();
 
-						Vertexs[ IdVertex ].push_back( VBOsize );
+						if ( Vertexs.find( IdVertex ) == Vertexs.end() )
+							Vertexs[ IdVertex ].push_back( VBOsize );
+						else
+							if ( VBO_Vertexs[ Vertexs[ IdVertex ][ 0 ] ].Position == MeshVertex.Position )
+								Vertexs[ IdVertex ].push_back( VBOsize );
+
 						TmpIdVertexs.push_back( VBOsize );
 						VBO_Vertexs.push_back( MeshVertex );
 					}
@@ -223,7 +236,21 @@ bool le::Mesh::LoadMesh( const string & Route )
 		Material = Material->NextSiblingElement();
 	}
 
-	// TODO: Написать загрузку скелета и анимаций
+	// ****************************
+	// Загружаем скелет модели если он имеется
+	// ****************************
+
+	TiXmlElement* Skeleton;
+	Skeleton = Model->FirstChildElement( "skeleton" );
+
+	if ( Skeleton != NULL && this->Skeleton.LoadSkeleton( Skeleton ) )
+	{
+		TiXmlElement* Animations;
+		Animations = Model->FirstChildElement( "animations" );
+
+		if ( Animations != NULL )
+			AnimationManager.LoadAnimations( Animations );
+	}
 
 	Logger::Log( Logger::Info, "Mesh [" + Route + "] Loaded" );
 	return true;
@@ -241,7 +268,7 @@ void le::Mesh::ClearMesh()
 
 //-------------------------------------------------------------------------//
 
-const vector<le::Mesh::MeshVertex>& le::Mesh::GetVBO_Vertexs()
+const vector<le::MeshVertex>& le::Mesh::GetVBO_Vertexs()
 {
 	return VBO_Vertexs;
 }
@@ -269,11 +296,16 @@ const map<GLuint, vector<unsigned int>>& le::Mesh::GetIdVertexs()
 
 //-------------------------------------------------------------------------//
 
-bool le::Mesh::MeshVertex::operator==( MeshVertex& MeshVertex )
+const le::Skeleton& le::Mesh::GetSkeleton()
 {
-	return Position == MeshVertex.Position &&
-		Normal == MeshVertex.Normal &&
-		TextureCoord == MeshVertex.TextureCoord;
+	return Skeleton;
+}
+
+//-------------------------------------------------------------------------//
+
+const le::AnimationManager& le::Mesh::GetAnimations()
+{
+	return AnimationManager;
 }
 
 //-------------------------------------------------------------------------//

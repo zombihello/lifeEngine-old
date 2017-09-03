@@ -19,6 +19,7 @@ public:
 		le::ResourcesManager::LoadMesh( "Box", "../models/box.lmd" );
 
 		model.LoadModel( "Leanna", "../models/leanna.lmd" );
+		model.GetAnimationManager()->Play( "leanna_anim", true );
 
 		le::Model model1;
 		model1.LoadModel( *le::ResourcesManager::GetMesh( "Box" ) );
@@ -44,6 +45,7 @@ public:
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
 			Camera->Move( le::Camera::Right, 1 * Configuration->Time );
 		
+		model.GetAnimationManager()->Update();
 		Camera->UpdateCamera();
 		Scene->RenderScene();
 	}

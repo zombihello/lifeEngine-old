@@ -1,4 +1,14 @@
-﻿#ifndef SCENE_H
+﻿//////////////////////////////////////////////////////////////////////////
+// 
+//			*** lifeEngine (Двигатель Жизни) ***
+//					Copyright (C) 2017
+//
+// Связь со мной:		https://vk.com/zombihello
+// Репозиторий движка:  https://github.com/zombihello/lifeEngine
+// 
+//////////////////////////////////////////////////////////////////////////
+
+#ifndef SCENE_H
 #define SCENE_H
 
 #define COMPILING_LIBRARY

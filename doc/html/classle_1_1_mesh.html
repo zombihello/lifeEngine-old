@@ -66,7 +66,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Классы</a> &#124;
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="classle_1_1_mesh-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
@@ -79,12 +78,6 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="_mesh_8h_source.html">Mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structle_1_1_mesh_1_1_mesh_vertex.html">MeshVertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Структура хранит информацию вершины (позиция, нормаль и т.д )  <a href="structle_1_1_mesh_1_1_mesh_vertex.html#details">Подробнее...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
 <tr class="memitem:ab9d84bb4efb85dc42a31dd8d927f0382"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#ab9d84bb4efb85dc42a31dd8d927f0382">LoadMesh</a> (const string &amp;Route)</td></tr>
@@ -93,9 +86,9 @@ $(function() {
 <tr class="memitem:a8737f3bfb41ebee530472ad9602e07a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#a8737f3bfb41ebee530472ad9602e07a3">ClearMesh</a> ()</td></tr>
 <tr class="memdesc:a8737f3bfb41ebee530472ad9602e07a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистить меш  <a href="#a8737f3bfb41ebee530472ad9602e07a3">Подробнее...</a><br /></td></tr>
 <tr class="separator:a8737f3bfb41ebee530472ad9602e07a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c36b73444465e3e0580a7fc3125239d"><td class="memItemLeft" align="right" valign="top">const vector&lt; <a class="el" href="structle_1_1_mesh_1_1_mesh_vertex.html">MeshVertex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#a9c36b73444465e3e0580a7fc3125239d">GetVBO_Vertexs</a> ()</td></tr>
-<tr class="memdesc:a9c36b73444465e3e0580a7fc3125239d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить массив вершин для VBO.  <a href="#a9c36b73444465e3e0580a7fc3125239d">Подробнее...</a><br /></td></tr>
-<tr class="separator:a9c36b73444465e3e0580a7fc3125239d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa619b8aa8bdbd75ad61864846ffa8c38"><td class="memItemLeft" align="right" valign="top">const vector&lt; <a class="el" href="structle_1_1_mesh_vertex.html">MeshVertex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#aa619b8aa8bdbd75ad61864846ffa8c38">GetVBO_Vertexs</a> ()</td></tr>
+<tr class="memdesc:aa619b8aa8bdbd75ad61864846ffa8c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить массив вершин для VBO.  <a href="#aa619b8aa8bdbd75ad61864846ffa8c38">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa619b8aa8bdbd75ad61864846ffa8c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebf0512245d2cc41079a6110c1c9d46c"><td class="memItemLeft" align="right" valign="top">const vector&lt; GLuint &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#aebf0512245d2cc41079a6110c1c9d46c">GetTextures</a> ()</td></tr>
 <tr class="memdesc:aebf0512245d2cc41079a6110c1c9d46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить массив текстур  <a href="#aebf0512245d2cc41079a6110c1c9d46c">Подробнее...</a><br /></td></tr>
 <tr class="separator:aebf0512245d2cc41079a6110c1c9d46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +98,12 @@ $(function() {
 <tr class="memitem:a32d8ad6c622a293a55c254c01bdbc99d"><td class="memItemLeft" align="right" valign="top">const map&lt; GLuint, vector&lt; unsigned int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#a32d8ad6c622a293a55c254c01bdbc99d">GetIdVertexs</a> ()</td></tr>
 <tr class="memdesc:a32d8ad6c622a293a55c254c01bdbc99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить ID вершин, порядок соединения  <a href="#a32d8ad6c622a293a55c254c01bdbc99d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a32d8ad6c622a293a55c254c01bdbc99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bfaa054f30efd736acb531e5b644f89"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classle_1_1_skeleton.html">Skeleton</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#a5bfaa054f30efd736acb531e5b644f89">GetSkeleton</a> ()</td></tr>
+<tr class="memdesc:a5bfaa054f30efd736acb531e5b644f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить скелет меша  <a href="#a5bfaa054f30efd736acb531e5b644f89">Подробнее...</a><br /></td></tr>
+<tr class="separator:a5bfaa054f30efd736acb531e5b644f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf723564af1205298bc0accf93cdfcf5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classle_1_1_animation_manager.html">AnimationManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_mesh.html#acf723564af1205298bc0accf93cdfcf5">GetAnimations</a> ()</td></tr>
+<tr class="memdesc:acf723564af1205298bc0accf93cdfcf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить анимации меша  <a href="#acf723564af1205298bc0accf93cdfcf5">Подробнее...</a><br /></td></tr>
+<tr class="separator:acf723564af1205298bc0accf93cdfcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс для загрузки мешей </p>
@@ -130,6 +129,26 @@ $(function() {
 
 </div>
 </div>
+<a id="acf723564af1205298bc0accf93cdfcf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf723564af1205298bc0accf93cdfcf5">&#9670;&nbsp;</a></span>GetAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classle_1_1_animation_manager.html">le::AnimationManager</a> &amp; le::Mesh::GetAnimations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить анимации меша </p>
+<dl class="section return"><dt>Возвращает</dt><dd>const <a class="el" href="classle_1_1_animation_manager.html" title="Класс для работы с анимациями ">AnimationManager</a>&amp; </dd></dl>
+
+</div>
+</div>
 <a id="a32d8ad6c622a293a55c254c01bdbc99d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a32d8ad6c622a293a55c254c01bdbc99d">&#9670;&nbsp;</a></span>GetIdVertexs()</h2>
 
@@ -147,6 +166,26 @@ $(function() {
 
 <p>Получить ID вершин, порядок соединения </p>
 <dl class="section return"><dt>Возвращает</dt><dd>const map&lt;GLuint, vector&lt;unsigned int&gt;&gt;&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a5bfaa054f30efd736acb531e5b644f89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bfaa054f30efd736acb531e5b644f89">&#9670;&nbsp;</a></span>GetSkeleton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classle_1_1_skeleton.html">le::Skeleton</a> &amp; le::Mesh::GetSkeleton </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить скелет меша </p>
+<dl class="section return"><dt>Возвращает</dt><dd>const <a class="el" href="classle_1_1_skeleton.html" title="Класс для работы со скелетом модели ">Skeleton</a>&amp; </dd></dl>
 
 </div>
 </div>
@@ -170,14 +209,14 @@ $(function() {
 
 </div>
 </div>
-<a id="a9c36b73444465e3e0580a7fc3125239d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c36b73444465e3e0580a7fc3125239d">&#9670;&nbsp;</a></span>GetVBO_Vertexs()</h2>
+<a id="aa619b8aa8bdbd75ad61864846ffa8c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa619b8aa8bdbd75ad61864846ffa8c38">&#9670;&nbsp;</a></span>GetVBO_Vertexs()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const vector&lt; <a class="el" href="structle_1_1_mesh_1_1_mesh_vertex.html">le::Mesh::MeshVertex</a> &gt; &amp; le::Mesh::GetVBO_Vertexs </td>
+          <td class="memname">const vector&lt; <a class="el" href="structle_1_1_mesh_vertex.html">le::MeshVertex</a> &gt; &amp; le::Mesh::GetVBO_Vertexs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
