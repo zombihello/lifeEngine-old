@@ -189,6 +189,14 @@ bool le::Skeleton::LoadSkeleton( TiXmlElement* Skeleton )
 	int IdVertex = -1;
 	int IdBone = 0;
 
+	// даный масив содержит отсорт. массив костей 
+	// по такому типу: вершина - какие кости на нее 
+	// действуют, и с каким весом
+
+	map<int, vector<pair<Bone*, float>>>	VertexBonesById;
+	vector<pair<Bone*, float>>*				VertexBones;
+	pair<Bone*, float>						VertexBone;
+
 	for ( int id = 1; !StrStream.eof(); id++ )
 	{
 		StrStream >> TempString;
@@ -207,22 +215,70 @@ bool le::Skeleton::LoadSkeleton( TiXmlElement* Skeleton )
 
 				if ( NumBones != 1 )
 					TempNumBones = NumBones - 1;
-
-				TmpBone->IdVertex.push_back( IdVertex );
 			}
 			else
-			{
-				TmpBone->IdVertex.push_back( IdVertex );
 				TempNumBones--;
-			}
 
-			TmpBone->Weights.push_back( Weights[ atoi( TempString.c_str() ) ] );
+			VertexBones = &VertexBonesById[ IdVertex ];
+
+			// Проверяем чтобы не было 
+			// повторений костей в массиве
+
+			bool IsFind = false;
+			for ( size_t i = 0; i < VertexBones->size(); i++ )
+				if ( ( *VertexBones )[ i ].first == TmpBone )
+				{
+					IsFind = true;
+					break;
+				}
+
+			if ( !IsFind )
+			{
+				VertexBone.first = TmpBone;
+				VertexBone.second = Weights[ atoi( TempString.c_str() ) ];
+				VertexBones->push_back( VertexBone );
+			}
 
 			id = 0;
 			break;
 		}
 
 		TempString.clear();
+	}
+
+	// ****************************
+	// Убираем лишнии кости чтобы на одну вершину
+	// припадало макс. 4х кости
+	// ****************************
+
+	for ( auto it = VertexBonesById.begin(); it != VertexBonesById.end(); it++ )
+	{
+		// Сортируем веса костей по уменьшению
+		// чтобы можно было взять четыре кости
+		// с наиболее высоким весом
+
+		float MaxWeight = it->second[ 0 ].second;
+		for ( size_t i = 0; i < it->second.size() - 1; i++ )
+			if ( it->second[ i ].second > MaxWeight )
+			{
+				float TmpWeight = it->second[ i ].second;
+				it->second[ i ].second = it->second[ i + 1 ].second;
+				it->second[ i + 1 ].second = TmpWeight;
+				i = -1;
+			}
+
+		// Нормализовываем веса костей
+		// чтобы в сумме они давали 1
+
+		float accumInv = 0.0f;
+
+		for ( size_t i = 0; i < 4 && i < VertexBones->size(); i++ ) // 4 - макс. кол-во костей на вершину
+			accumInv += it->second[ i ].second;
+
+		accumInv = 1.0f / accumInv;
+
+		for ( size_t i = 0; i < 4 && i < VertexBones->size(); i++ )
+			it->second[ i ].first->Weights[ it->first ] = it->second[ i ].second * accumInv;
 	}
 
 	// ****************************
@@ -274,15 +330,14 @@ void le::Skeleton::UpdateMesh()
 	{
 		Bone* Bone = &Bones[ i ];
 
-		for ( size_t j = 0; j < Bone->IdVertex.size(); j++ )
+		for ( auto it = Bone->Weights.begin(); it != Bone->Weights.end(); it++ )
 		{
-			int IdVertex = Bone->IdVertex[ j ];
-			float weight = Bone->Weights[ j ];
+			float weight = it->second;
 
-			if ( BoneTransforms.find( IdVertex ) == BoneTransforms.end() )
-				BoneTransforms[ IdVertex ] = ( Bone->InvertMatrix * Bone->Realese ) * weight;
+			if ( BoneTransforms.find( it->first ) == BoneTransforms.end() )
+				BoneTransforms[ it->first ] = ( Bone->InvertMatrix * Bone->Realese ) * weight;
 			else
-				BoneTransforms[ IdVertex ] += ( Bone->InvertMatrix * Bone->Realese ) * weight;
+				BoneTransforms[ it->first ] += ( Bone->InvertMatrix * Bone->Realese ) * weight;
 		}
 	}
 

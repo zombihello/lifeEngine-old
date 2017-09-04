@@ -41,16 +41,15 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		struct DLL_API Bone
 		{
-			int				IdParent; ///< ID родительской кости
-			string			Name; ///< Имя кости
-			string			ParentName; ///< Имя родительской кости
-			glm::mat4		StartMatrix; ///< Начальная матрица
-			glm::mat4		InvertMatrix; ///< Инверт. матрица
-			glm::mat4		Realese; ///< Итоговая матрица
-			glm::mat4		InterpolatedMatrix; ///< Интерполированая матрица
-			vector<int>		IdChild; ///< ID дочерних костей
-			vector<int>		IdVertex; ///< ID вершин на которые действует кость
-			vector<float>	Weights; ///< Веса кости
+			int					IdParent; ///< ID родительской кости
+			string				Name; ///< Имя кости
+			string				ParentName; ///< Имя родительской кости
+			glm::mat4			StartMatrix; ///< Начальная матрица
+			glm::mat4			InvertMatrix; ///< Инверт. матрица
+			glm::mat4			Realese; ///< Итоговая матрица
+			glm::mat4			InterpolatedMatrix; ///< Интерполированая матрица
+			vector<int>			IdChild; ///< ID дочерних костей
+			map<int, float>		Weights; ///< Вес кости на вершину
 		};
 
 		//-------------------------------------------------------------------------//
