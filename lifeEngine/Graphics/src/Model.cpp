@@ -62,6 +62,8 @@ void le::Model::LoadModel( Mesh& Mesh )
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Position ) ) );
 		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Normal ) ) );
 		VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, TextureCoord ) ) );
+		VAO::SetVertexAttribPointer( VERT_IDBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, IdBones ) ) );
+		VAO::SetVertexAttribPointer( VERT_WEIGHTSBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Weights ) ) );
 
 		VAO::UnbindVAO();
 		VAO::UnbindBuffer( VAO::Vertex_Buffer );
@@ -70,6 +72,7 @@ void le::Model::LoadModel( Mesh& Mesh )
 		InfoMesh.CountIndexs = NUMBER_TO_INT( it->second.size() );
 		InfoMesh.MatrixTransformation = &MatrixTransformation;
 		InfoMesh.VertexArray = VertexArray;
+		InfoMesh.Skeleton = &Skeleton;
 
 		ArrayBuffers.push_back( VertexArray );
 		IndexBuffers.push_back( IndexArray );

@@ -6,8 +6,6 @@ out vec4 Color;
 
 //------------------------------------------
 
-in vec3 Position;
-in vec3 Normal;
 in vec2 TexCoord;
 
 //------------------------------------------

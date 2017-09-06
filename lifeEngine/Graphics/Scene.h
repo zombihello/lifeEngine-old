@@ -45,6 +45,7 @@ namespace le
 
 	class Model;
 	class Camera;
+	class Skeleton;
 
 	//-------------------------------------------------------------------------//
 
@@ -67,6 +68,7 @@ namespace le
 			int					CountIndexs; ///< Количество индексов вершин
 
 			GLuint				VertexArray; ///< VAO
+			Skeleton*			Skeleton; ///< Скелет меша
 			glm::mat4*			MatrixTransformation; ///< Матрица трансформации меша
 		};
 

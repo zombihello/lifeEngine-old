@@ -32,6 +32,8 @@ namespace le
 		glm::vec3		Position; ///< Позиция вершины
 		glm::vec3		Normal; ///< Нормаль вершины
 		glm::vec2		TextureCoord; ///< Текстурная координата
+		glm::vec4		Weights; ///< Веса костей
+		glm::vec4		IdBones; ///< ID костей
 
 		bool operator==( MeshVertex& MeshVertex );
 	};

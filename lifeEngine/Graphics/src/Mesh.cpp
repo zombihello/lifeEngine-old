@@ -245,6 +245,53 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	if ( Skeleton != NULL && this->Skeleton.LoadSkeleton( Skeleton ) )
 	{
+		// ****************************
+		// Передаем в каждую вершину
+		// id костей и веса
+		// ****************************
+
+		vector<le::Skeleton::Bone>* Bones = this->Skeleton.GetAllBones();
+		map<int, int> CountRepeat;
+
+		for ( size_t i = 0; i < Bones->size(); i++ )
+		{
+			le::Skeleton::Bone* Bone = &( *Bones )[ i ];
+
+			for ( auto it = Bone->Weights.begin(); it != Bone->Weights.end(); it++ )
+			{
+				CountRepeat[ it->first ]++;
+
+				for ( size_t j = 0; j < Vertexs[ it->first ].size(); j++ )
+				{
+					int IdVertex = Vertexs[ it->first ][ j ];
+					le::MeshVertex* Vertex = &VBO_Vertexs[ IdVertex ];
+
+					switch ( CountRepeat[ it->first ] )
+					{
+					case 1: // x
+						Vertex->IdBones.x = i;
+						Vertex->Weights.x = it->second;
+						break;
+
+					case 2: // y
+						Vertex->IdBones.y = i;
+						Vertex->Weights.y = it->second;
+						break;
+
+					case 3: // z
+						Vertex->IdBones.z = i;
+						Vertex->Weights.z = it->second;
+						break;
+
+					case 4: // w
+						Vertex->IdBones.w = i;
+						Vertex->Weights.w = it->second;
+						break;
+					}
+				}
+			}
+		}
+
 		TiXmlElement* Animations;
 		Animations = Model->FirstChildElement( "animations" );
 

@@ -101,6 +101,11 @@ void le::Scene::RenderScene()
 			GeometryRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
 			GeometryRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
+			vector<le::Skeleton::Bone>* Bones = InfoMesh->Skeleton->GetAllBones();
+
+			for ( size_t i = 0; i < Bones->size(); i++ )
+				GeometryRender.setUniform( "Bones[" + to_string( i ) + "]", (*Bones )[ i ].TransformMatrix );
+
 			VAO::BindVAO( InfoMesh->VertexArray );
 			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 		}
@@ -109,7 +114,7 @@ void le::Scene::RenderScene()
 	VAO::UnbindVAO();
 	Shader::bind( NULL );
 	//glDepthMask( GL_FALSE );
-	
+
 	glDisable( GL_TEXTURE_2D );
 }
 

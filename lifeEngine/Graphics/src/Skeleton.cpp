@@ -324,42 +324,48 @@ void le::Skeleton::UpdateMatrixBone( const string& NameBone, const glm::mat4& Ma
 
 void le::Skeleton::UpdateMesh()
 {
-	map<int, glm::mat4> BoneTransforms;
-
 	for ( size_t i = 0; i < Bones.size(); i++ )
 	{
 		Bone* Bone = &Bones[ i ];
-
-		for ( auto it = Bone->Weights.begin(); it != Bone->Weights.end(); it++ )
-		{
-			float weight = it->second;
-
-			if ( BoneTransforms.find( it->first ) == BoneTransforms.end() )
-				BoneTransforms[ it->first ] = ( Bone->InvertMatrix * Bone->Realese ) * weight;
-			else
-				BoneTransforms[ it->first ] += ( Bone->InvertMatrix * Bone->Realese ) * weight;
-		}
+		Bone->TransformMatrix = Bone->InvertMatrix * Bone->Realese;
 	}
 
-	glm::vec3 newVertex;
-	glm::vec3 newNormal;
-	vector<MeshVertex> VBO = VBO_Vertexs; // zombiHello: Этот код (и что ниже) временно, буду переписывать скелетку в шейдер
-	for ( auto it = Vertexs.begin(); it != Vertexs.end(); it++ )
-	{
-		MeshVertex* Vertex = &VBO_Vertexs[ it->second[ 0 ] ];
-		newVertex = glm::vec4( Vertex->Position.x, Vertex->Position.y, -Vertex->Position.z, 1.0f ) * BoneTransforms[ it->first ];
-		newNormal = glm::vec4( Vertex->Normal.x, Vertex->Normal.y, -Vertex->Normal.z, 0.0f ) * BoneTransforms[ it->first ];
+	//map<int, glm::mat4> BoneTransforms;
 
-		for ( size_t i = 0; i < it->second.size(); i++ )
-		{
-			VBO[ it->second[ i ] ].Position = newVertex;
-			VBO[ it->second[ i ] ].Normal = glm::normalize( newNormal );
-		}
-	}
+	//for ( size_t i = 0; i < Bones.size(); i++ )
+	//{
+	//	Bone* Bone = &Bones[ i ];
 
-	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
-	glBufferData( GL_ARRAY_BUFFER, VBO.size() * sizeof( MeshVertex ), VBO.data(), GL_DYNAMIC_DRAW );
-	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+	//	for ( auto it = Bone->Weights.begin(); it != Bone->Weights.end(); it++ )
+	//	{
+	//		float weight = it->second;
+
+	//		if ( BoneTransforms.find( it->first ) == BoneTransforms.end() )
+	//			BoneTransforms[ it->first ] = ( Bone->InvertMatrix * Bone->Realese ) * weight;
+	//		else
+	//			BoneTransforms[ it->first ] += ( Bone->InvertMatrix * Bone->Realese ) * weight;
+	//	}
+	//}
+
+	//glm::vec3 newVertex;
+	//glm::vec3 newNormal;
+	//vector<MeshVertex> VBO = VBO_Vertexs; // zombiHello: Этот код (и что ниже) временно, буду переписывать скелетку в шейдер
+	//for ( auto it = Vertexs.begin(); it != Vertexs.end(); it++ )
+	//{
+	//	MeshVertex* Vertex = &VBO_Vertexs[ it->second[ 0 ] ];
+	//	newVertex = glm::vec4( Vertex->Position.x, Vertex->Position.y, -Vertex->Position.z, 1.0f ) * BoneTransforms[ it->first ];
+	//	newNormal = glm::vec4( Vertex->Normal.x, Vertex->Normal.y, -Vertex->Normal.z, 0.0f ) * BoneTransforms[ it->first ];
+
+	//	for ( size_t i = 0; i < it->second.size(); i++ )
+	//	{
+	//		VBO[ it->second[ i ] ].Position = newVertex;
+	//		VBO[ it->second[ i ] ].Normal = glm::normalize( newNormal );
+	//	}
+	//}
+
+	//glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	//glBufferData( GL_ARRAY_BUFFER, VBO.size() * sizeof( MeshVertex ), VBO.data(), GL_DYNAMIC_DRAW );
+	//glBindBuffer( GL_ARRAY_BUFFER, 0 );
 }
 
 //-------------------------------------------------------------------------//
@@ -375,6 +381,17 @@ int le::Skeleton::GetIdBone( const string& NameBone )
 
 //-------------------------------------------------------------------------//
 
+int le::Skeleton::GetIdBone( const Bone& Bone )
+{
+	for ( size_t i = 0; i < Bones.size(); i++ )
+		if ( Bones[ i ].Name == Bone.Name )
+			return i;
+
+	return -1;
+}
+
+//-------------------------------------------------------------------------//
+
 le::Skeleton::Bone* le::Skeleton::GetBone( const string& NameBone )
 {
 	for ( size_t i = 0; i < Bones.size(); i++ )
@@ -382,6 +399,25 @@ le::Skeleton::Bone* le::Skeleton::GetBone( const string& NameBone )
 			return &Bones[ i ];
 
 	return NULL;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::Skeleton::Bone>* le::Skeleton::GetAllBones()
+{
+	return &Bones;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<glm::mat4>& le::Skeleton::GetAllTransformsBones()
+{
+	vector<glm::mat4> BonesTranforms;
+
+	for ( size_t i = 0; i < Bones.size(); i++ )
+		BonesTranforms.push_back( Bones[i].TransformMatrix );
+
+	return BonesTranforms;
 }
 
 //-------------------------------------------------------------------------//
@@ -436,7 +472,7 @@ void le::Skeleton::ReadingBone( TiXmlElement* Node, Bone* Bone )
 
 			case 4:
 				TempVector4.w = NUMBER_TO_FLOAT( atof( TempString.c_str() ) );
-				Bone->StartMatrix[ id ] = TempVector4;
+				Bone->InterpolatedMatrix[ id ] = TempVector4;
 
 				id++;
 				axis = 0;
@@ -498,7 +534,7 @@ void le::Skeleton::ReadingBone( TiXmlElement* Node, Bone* Bone )
 		}
 	}
 
-	Bone->Realese = Bone->InterpolatedMatrix = Bone->StartMatrix;
+	Bone->Realese = Bone->InterpolatedMatrix;
 
 	Node = Node->FirstChildElement( "node" );
 
