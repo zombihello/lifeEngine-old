@@ -79,7 +79,6 @@ void le::Model::LoadModel( Mesh& Mesh )
 		RenderMesh[ it->first ] = InfoMesh;
 	}
 
-	Skeleton.InitSkeleton( VertexBuffer, VBO_Vertexs, Mesh.GetVertexs() );
 	AnimationManager.SetSkeleton( Skeleton );
 }
 

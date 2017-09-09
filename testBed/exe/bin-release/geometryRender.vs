@@ -1,5 +1,5 @@
 #version 330 core
-#define MAX_BONES 100
+#define MAX_BONES 255
 
 //------------------------------------------
 

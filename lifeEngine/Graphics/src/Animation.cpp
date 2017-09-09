@@ -192,7 +192,7 @@ void le::Animation::Update()
 	if ( NowFrame >= NextFrame )
 		NextFrame++;
 
-	Skeleton->UpdateMesh();
+	Skeleton->UpdateSkeleton();
 }
 
 //-------------------------------------------------------------------------//

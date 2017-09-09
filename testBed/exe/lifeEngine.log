@@ -8,6 +8,8 @@ OpenGL Version: 4.5.13399 Compatibility Profile Context 15.200.1062.1004
 OpenGL Vendor: ATI Technologies Inc.
 OpenGL Renderer: AMD Radeon HD 6670
 OpenGL GLSL Version: 4.40
+Max Floats in Fragment Shader: 16384
+Max Floats in Vertex Shader: 16384
 *** OpenGL Info End ***
 [Info] Loading Texture [../textures/1.jpg] With Name [Door1]
 [Info] Texture With Name [Door1] Loaded

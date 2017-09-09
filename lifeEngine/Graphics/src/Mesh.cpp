@@ -269,22 +269,22 @@ bool le::Mesh::LoadMesh( const string & Route )
 					switch ( CountRepeat[ it->first ] )
 					{
 					case 1: // x
-						Vertex->IdBones.x = i;
+						Vertex->IdBones.x = NUMBER_TO_FLOAT( i );
 						Vertex->Weights.x = it->second;
 						break;
 
 					case 2: // y
-						Vertex->IdBones.y = i;
+						Vertex->IdBones.y = NUMBER_TO_FLOAT( i );
 						Vertex->Weights.y = it->second;
 						break;
 
 					case 3: // z
-						Vertex->IdBones.z = i;
+						Vertex->IdBones.z = NUMBER_TO_FLOAT( i );
 						Vertex->Weights.z = it->second;
 						break;
 
 					case 4: // w
-						Vertex->IdBones.w = i;
+						Vertex->IdBones.w = NUMBER_TO_FLOAT( i );
 						Vertex->Weights.w = it->second;
 						break;
 					}

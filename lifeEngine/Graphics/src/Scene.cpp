@@ -72,7 +72,11 @@ void le::Scene::RemoveCamera()
 
 void le::Scene::RenderScene()
 {
+	glDepthMask( GL_TRUE );
+
 	glEnable( GL_TEXTURE_2D );
+	glEnable( GL_CULL_FACE );
+	glEnable( GL_DEPTH_TEST );
 
 	vector<InfoMesh*>* RenderBuffer_Meshes;
 	InfoMesh* InfoMesh;
@@ -84,10 +88,6 @@ void le::Scene::RenderScene()
 		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
 	else
 		PVMatrix = *ProjectionMatrix;
-
-	glDepthMask( GL_TRUE );
-	//glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	glEnable( GL_DEPTH_TEST );
 
 	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
 	{
@@ -111,11 +111,12 @@ void le::Scene::RenderScene()
 		}
 	}
 
-	VAO::UnbindVAO();
 	Shader::bind( NULL );
-	//glDepthMask( GL_FALSE );
+	VAO::UnbindVAO();
 
 	glDisable( GL_TEXTURE_2D );
+	glDisable( GL_CULL_FACE );
+	glDisable( GL_DEPTH_TEST );
 }
 
 //-------------------------------------------------------------------------//

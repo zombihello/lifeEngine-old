@@ -63,10 +63,18 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 	Logger::Log( Logger::None, "*** OpenGL Info ***" );
 
 	stringstream GLInfo;
+	int MaxUniformComponents;
+
 	GLInfo << "OpenGL Version: " << glGetString( GL_VERSION ) << endl;
 	GLInfo << "OpenGL Vendor: " << glGetString( GL_VENDOR ) << endl;
 	GLInfo << "OpenGL Renderer: " << glGetString( GL_RENDERER ) << endl;
-	GLInfo << "OpenGL GLSL Version: " << glGetString( GL_SHADING_LANGUAGE_VERSION );
+	GLInfo << "OpenGL GLSL Version: " << glGetString( GL_SHADING_LANGUAGE_VERSION ) << endl;
+
+	glGetIntegerv( GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &MaxUniformComponents );
+	GLInfo << "Max Floats in Fragment Shader: " << to_string( MaxUniformComponents ) << endl;
+
+	glGetIntegerv( GL_MAX_VERTEX_UNIFORM_COMPONENTS, &MaxUniformComponents );
+	GLInfo << "Max Floats in Vertex Shader: " << to_string( MaxUniformComponents );
 
 	Logger::Log( Logger::None, GLInfo.str() );
 	Logger::Log( Logger::None, "*** OpenGL Info End ***" );
