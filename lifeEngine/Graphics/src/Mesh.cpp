@@ -12,7 +12,7 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	if ( !LMD.LoadFile( Route.c_str() ) )
 	{
-		Logger::Log( Logger::Error, "Mesh [" + Route + "] Not Found" );
+		Logger::Log( Logger::Error, "Mesh [" + Route + "] Not Found Or Not Currect Format" );
 		return false;
 	}
 

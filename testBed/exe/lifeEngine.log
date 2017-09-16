@@ -11,16 +11,6 @@ OpenGL GLSL Version: 4.40
 Max Floats in Fragment Shader: 16384
 Max Floats in Vertex Shader: 16384
 *** OpenGL Info End ***
-[Info] Loading Texture [../textures/1.jpg] With Name [Door1]
-[Info] Texture With Name [Door1] Loaded
-[Info] Loading Mesh [../models/box.lmd]
-[Info] Loading Texture [..\textures\1.jpg] With Name [1.jpg]
-[Info] Texture With Name [1.jpg] Loaded
-[Info] Mesh [../models/box.lmd] Loaded
-[Info] Loading Mesh [../models/box.lmd]
-[Info] Loading Texture [..\textures\1.jpg] With Name [1.jpg]
-[Info] Texture With Name [1.jpg] Already Loaded
-[Info] Mesh [../models/box.lmd] Loaded
 [Info] Loading Mesh [../models/leanna.lmd]
 [Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
 [Info] Texture With Name [leanna.tga] Loaded
@@ -29,4 +19,24 @@ Max Floats in Vertex Shader: 16384
 [Info] Loading Animations Mesh
 [Info] Loaded Animations Mesh
 [Info] Mesh [../models/leanna.lmd] Loaded
+[Info] Loading Level [../maps/test.lmap]
+[Info] Loading Texture [..\textures\brick1.jpg] With Name [brick1.jpg]
+[Info] Texture With Name [brick1.jpg] Loaded
+[Info] Loading Texture [..\textures\brick2.jpg] With Name [brick2.jpg]
+[Info] Texture With Name [brick2.jpg] Loaded
+[Info] Loading Texture [..\textures\brick3.jpg] With Name [brick3.jpg]
+[Info] Texture With Name [brick3.jpg] Loaded
+[Info] Loading Texture [..\textures\metal5.jpg] With Name [metal5.jpg]
+[Info] Texture With Name [metal5.jpg] Loaded
+[Info] Loading Texture [..\textures\skybox2.jpg] With Name [skybox2.jpg]
+[Info] Texture With Name [skybox2.jpg] Loaded
+[Info] Loading Texture [..\textures\fs_madbrick.jpg] With Name [fs_madbrick.jpg]
+[Info] Texture With Name [fs_madbrick.jpg] Loaded
+[Info] Loading Texture [..\textures\fs_madbrick_plain.jpg] With Name [fs_madbrick_plain.jpg]
+[Info] Texture With Name [fs_madbrick_plain.jpg] Loaded
+[Info] Loading Texture [..\textures\sf2_brick1.jpg] With Name [sf2_brick1.jpg]
+[Info] Texture With Name [sf2_brick1.jpg] Loaded
+[Info] Loading Texture [..\textures\wood2.jpg] With Name [wood2.jpg]
+[Info] Texture With Name [wood2.jpg] Loaded
+[Info] Level [../maps/test.lmap] Loaded
 *** lifeEngine End ***

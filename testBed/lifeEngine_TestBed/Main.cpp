@@ -4,31 +4,25 @@
 #include <Graphics\Model.h>
 #include <Graphics\Scene.h>
 #include <Graphics\Camera.h>
+#include <Graphics\Level.h>
 #include <System\Logger.h>
 
 class Game : public le::BasicApplication
 {
 public:
 	Game( le::System& System ) : le::BasicApplication( System )
-	{
-		le::ResourcesManager::LoadGlTexture( "Door1", "../textures/1.jpg" );
-
-		le::Mesh mesh;
-		mesh.LoadMesh( "../models/box.lmd" );
-
-		le::ResourcesManager::LoadMesh( "Box", "../models/box.lmd" );
-
+	{	
 		model.LoadModel( "Leanna", "../models/leanna.lmd" );
 		model.GetAnimationManager()->Play( "leanna_anim", true );
-
-		le::Model model1;
-		model1.LoadModel( *le::ResourcesManager::GetMesh( "Box" ) );
 
 		Scene = new le::Scene( System );
 		Scene->AddModelToScene( &model );
 		
 		Camera = new le::Camera( System );
 		Scene->SetCamera( *Camera );
+
+		Level.LoadLevel( "../maps/test.lmap" );
+		Level.AddToScene( *Scene );
 	}
 
 	void Update()
@@ -53,6 +47,7 @@ public:
 	le::Model model;
 	le::Scene* Scene;
 	le::Camera* Camera;
+	le::Level Level;
 };
 
 int main( int argc, char** argv )

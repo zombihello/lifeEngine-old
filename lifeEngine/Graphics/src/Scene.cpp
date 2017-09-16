@@ -1,6 +1,7 @@
 ﻿#include <System\VAO.h>
 #include <Graphics\Model.h>
 #include <Graphics\Camera.h>
+#include <Graphics\Level.h>
 #include "..\Scene.h"
 
 //-------------------------------------------------------------------------//
@@ -10,8 +11,11 @@ le::Scene::Scene( System& System )
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 	ViewMatrix = NULL;
 
-	if ( !GeometryRender.loadFromFile( "geometryRender.vs", "geometryRender.fs" ) )
-		Logger::Log( Logger::Error, GeometryRender.getErrorMessage().str() );
+	if ( !ModelsRender.loadFromFile( "../shaders/ModelsRender.vs", "../shaders/ModelsRender.fs" ) )
+		Logger::Log( Logger::Error, ModelsRender.getErrorMessage().str() );
+
+	if ( !LevelRender.loadFromFile( "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" ) )
+		Logger::Log( Logger::Error, LevelRender.getErrorMessage().str() );
 }
 
 //-------------------------------------------------------------------------//
@@ -27,7 +31,7 @@ void le::Scene::AddModelToScene( Model* Model )
 	ModelsInScene.push_back( Model );
 
 	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-		RenderBuffer[ it->first ].push_back( &it->second );
+		RenderBuffer_Models[ it->first ].push_back( &it->second );
 
 	Model->SetScene( this );
 }
@@ -41,7 +45,7 @@ void le::Scene::RemoveModelFromScene( Model* Model )
 
 	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
 	{
-		InfoMeshes = &RenderBuffer[ it->first ];
+		InfoMeshes = &RenderBuffer_Models[ it->first ];
 
 		for ( size_t i = 0; i < InfoMeshes->size(); i++ )
 			if ( ( *InfoMeshes )[ i ] == &it->second )
@@ -63,6 +67,56 @@ void le::Scene::RemoveModelFromScene( Model* Model )
 
 //-------------------------------------------------------------------------//
 
+void le::Scene::AddLevelToScene( Level* Level )
+{
+	LevelInScene = Level;
+	vector<Level::Brush*>* Brushes = &Level->GetAllBrushes();
+	map<GLuint, InfoMesh>* RenderMesh;
+
+	for ( size_t i = 0; i < Brushes->size(); i++ )
+	{
+		Level::Brush* Brush = ( *Brushes )[ i ];
+		RenderMesh = &Brush->GetRenderMesh();
+
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+			RenderBuffer_Level[ it->first ].push_back( &it->second );
+	}
+
+	Level->SetScene( this );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemoveLevelFromScene( Level* Level )
+{
+	vector<Level::Brush*>* Brushes = &Level->GetAllBrushes();
+	map<GLuint, InfoMesh>* RenderMesh;
+	vector<InfoMesh*>* InfoMeshes;
+
+	for ( size_t i = 0; i < Brushes->size(); i++ )
+	{
+		Level::Brush* Brush = ( *Brushes )[ i ];
+		RenderMesh = &Brush->GetRenderMesh();
+
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+		{
+			InfoMeshes = &RenderBuffer_Level[ it->first ];
+
+			for ( size_t j = 0; j < InfoMeshes->size(); j++ )
+				if ( ( *InfoMeshes )[ j ] == &it->second )
+				{
+					InfoMeshes->erase( InfoMeshes->begin() + j );
+					break;
+				}
+		}
+	}
+
+	Level->SetScene( NULL );
+	LevelInScene = NULL;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Scene::RemoveCamera()
 {
 	ViewMatrix = NULL;
@@ -78,10 +132,9 @@ void le::Scene::RenderScene()
 	glEnable( GL_CULL_FACE );
 	glEnable( GL_DEPTH_TEST );
 
-	vector<InfoMesh*>* RenderBuffer_Meshes;
+	vector<InfoMesh*>* RenderBuffer;
 	InfoMesh* InfoMesh;
 
-	Shader::bind( &GeometryRender );
 	glm::mat4 PVMatrix;
 
 	if ( ViewMatrix )
@@ -89,22 +142,49 @@ void le::Scene::RenderScene()
 	else
 		PVMatrix = *ProjectionMatrix;
 
-	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
+	// ****************************
+	// Рендерим модели на сцене
+	// ****************************
+
+	Shader::bind( &ModelsRender );
+
+	for ( auto it = RenderBuffer_Models.begin(); it != RenderBuffer_Models.end(); it++ )
 	{
-		RenderBuffer_Meshes = &it->second;
+		RenderBuffer = &it->second;
 		glBindTexture( GL_TEXTURE_2D, it->first );
 
-		for ( size_t i = 0; i < RenderBuffer_Meshes->size(); i++ )
+		for ( size_t i = 0; i < RenderBuffer->size(); i++ )
 		{
-			InfoMesh = ( *RenderBuffer_Meshes )[ i ];
+			InfoMesh = ( *RenderBuffer )[ i ];
 
-			GeometryRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
-			GeometryRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+			ModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+			ModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 			vector<le::Skeleton::Bone>* Bones = InfoMesh->Skeleton->GetAllBones();
 
 			for ( size_t i = 0; i < Bones->size(); i++ )
-				GeometryRender.setUniform( "Bones[" + to_string( i ) + "]", (*Bones )[ i ].TransformMatrix );
+				ModelsRender.setUniform( "Bones[" + to_string( i ) + "]", ( *Bones )[ i ].TransformMatrix );
+
+			VAO::BindVAO( InfoMesh->VertexArray );
+			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+		}
+	}
+
+	// ****************************
+	// Рендерим уровень
+	// ****************************
+
+	Shader::bind( &LevelRender );
+	LevelRender.setUniform( "PVMatrix", PVMatrix );
+
+	for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
+	{
+		RenderBuffer = &it->second;
+		glBindTexture( GL_TEXTURE_2D, it->first );
+
+		for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+		{
+			InfoMesh = ( *RenderBuffer )[ i ];		
 
 			VAO::BindVAO( InfoMesh->VertexArray );
 			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -130,5 +210,12 @@ void le::Scene::SetCamera( Camera& Camera )
 {
 	ViewMatrix = &Camera.GetViewMatrix();
 }
+
+//-------------------------------------------------------------------------//
+
+le::Scene::InfoMesh::InfoMesh() :
+	Skeleton( NULL ),
+	MatrixTransformation( NULL )
+{}
 
 //-------------------------------------------------------------------------//

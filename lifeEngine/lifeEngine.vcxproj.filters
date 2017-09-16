@@ -54,6 +54,9 @@
     <ClCompile Include="Graphics\src\MeshVertex.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\Level.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -100,6 +103,9 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\MeshVertex.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
