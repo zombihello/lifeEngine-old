@@ -23,6 +23,7 @@
 // LIFEENGINE
 //////////////////
 #include <Graphics\Scene.h>
+#include <Graphics\BoundingBox.h>
 #include <System\Logger.h>
 #include <System\System.h>
 #include <System\ResourcesManager.h>
@@ -104,6 +105,7 @@ namespace le
 			GLuint							VertexBuffer; ///< Вершиный буффер
 			GLuint							IndexBuffer; ///< Индексный буффер
 			GLuint							ArrayBuffer; ///< VAO буффер
+			BoundingBox						BoundingBox; ///< Ограничивающее тело браша
 			map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Меш для рендера
 		};
 

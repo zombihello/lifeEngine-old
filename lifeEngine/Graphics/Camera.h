@@ -29,6 +29,7 @@ using namespace sf;
 // LIFEENGINE
 //////////////////
 #include <System\System.h>
+#include <Graphics\Frustum.h>
 
 namespace le
 {
@@ -146,6 +147,13 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		glm::mat4& GetViewMatrix();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить пирамиду усечения
+		///
+		/// \return Frustum&
+		//////////////////////////////////////////////////////////////////////
+		Frustum& GetFrustum();
+
 	private:
 
 		float			SensitivityMouse; ///< Чуствительность мыши
@@ -153,7 +161,9 @@ namespace le
 		glm::vec2		Angle; ///< Угол поворота камеры
 		glm::vec3		Position; ///< Позиция камеры		
 		glm::mat4		ViewMatrix; ///< Матрица вида
+		glm::mat4*		ProjectionMatrix; ///< Матрица проекции
 		glm::mat4		InclinationCameraMatrix; ///< Матрица наклона камеры
+		Frustum			Frustum; ///< Пирамида усечения (для отсечения невидимой геометрии)
 
 		RenderWindow*	RenderWindow; ///< Игровое окно
 		glm::vec2		CenterWindow; ///< Центр окна

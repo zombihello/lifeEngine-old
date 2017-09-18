@@ -90,6 +90,17 @@ namespace le
 		template<typename T> static GLuint CreateBuffer( TypeBuffer TypeBuffer, vector<T> Data, TypeUpdate Usage );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Создать буффер для VAO
+		///		
+		/// \param[in] TypeBuffer Тип буффера
+		/// \param[in] SizeData Размер массива данный
+		/// \param[in] Data Массив данных
+		///	\param[in] Usage Тип обновления
+		/// \return GLuint. Идентификатор буффера
+		//////////////////////////////////////////////////////////////////////
+		template<typename T> static GLuint CreateBuffer( TypeBuffer TypeBuffer, int SizeData, T* Data, TypeUpdate Usage );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Присоединить буффер к VAO
 		///		
 		/// \param[in] TypeBuffer Тип буффера
@@ -176,6 +187,19 @@ namespace le
 		glGenBuffers( 1, &Buffer );
 		glBindBuffer( TypeBuffer, Buffer );
 		glBufferData( TypeBuffer, Data.size() * sizeof( T ), Data.data(), Usage );
+
+		return Buffer;
+	}
+
+	//-------------------------------------------------------------------------//
+
+	template<typename T> inline GLuint VAO::CreateBuffer( TypeBuffer TypeBuffer, int SizeData, T* Data, TypeUpdate Usage )
+	{
+		GLuint Buffer;
+
+		glGenBuffers( 1, &Buffer );
+		glBindBuffer( TypeBuffer, Buffer );
+		glBufferData( TypeBuffer, SizeData * sizeof( T ), Data, Usage );
 
 		return Buffer;
 	}

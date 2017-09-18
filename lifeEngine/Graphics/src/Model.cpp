@@ -43,7 +43,9 @@ void le::Model::LoadModel( Mesh& Mesh )
 	vector<MeshVertex> VBO_Vertexs = Mesh.GetVBO_Vertexs();
 	vector<GLuint> Textures = Mesh.GetTextures();
 	map<GLuint, vector<unsigned int>> IdVertexs = Mesh.GetIdVertexs();
+	NoSkeleton = Mesh.IsNoSkeleton();
 	Skeleton = Mesh.GetSkeleton();
+	BoundingBox = Mesh.GetBoundingBox();
 	AnimationManager = Mesh.GetAnimations();
 
 	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, VBO_Vertexs, VAO::Dynamic_Draw );
@@ -59,20 +61,26 @@ void le::Model::LoadModel( Mesh& Mesh )
 		VAO::AtachBuffer( VAO::Vertex_Buffer, VertexBuffer );
 		GLuint IndexArray = VAO::CreateBuffer( VAO::Index_Buffer, it->second, VAO::Static_Draw );
 
+		InfoMesh.CountIndexs = NUMBER_TO_INT( it->second.size() );
+		InfoMesh.MatrixTransformation = &MatrixTransformation;
+		InfoMesh.BoundingBox = &BoundingBox;
+		InfoMesh.VertexArray = VertexArray;
+		
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Position ) ) );
 		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Normal ) ) );
 		VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, TextureCoord ) ) );
-		VAO::SetVertexAttribPointer( VERT_IDBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, IdBones ) ) );
-		VAO::SetVertexAttribPointer( VERT_WEIGHTSBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Weights ) ) );
+
+		if ( !NoSkeleton )
+		{
+			VAO::SetVertexAttribPointer( VERT_IDBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, IdBones ) ) );
+			VAO::SetVertexAttribPointer( VERT_WEIGHTSBONES, 4, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Weights ) ) );
+
+			InfoMesh.Skeleton = &Skeleton;
+		}
 
 		VAO::UnbindVAO();
 		VAO::UnbindBuffer( VAO::Vertex_Buffer );
 		VAO::UnbindBuffer( VAO::Index_Buffer );
-
-		InfoMesh.CountIndexs = NUMBER_TO_INT( it->second.size() );
-		InfoMesh.MatrixTransformation = &MatrixTransformation;
-		InfoMesh.VertexArray = VertexArray;
-		InfoMesh.Skeleton = &Skeleton;
 
 		ArrayBuffers.push_back( VertexArray );
 		IndexBuffers.push_back( IndexArray );
@@ -109,6 +117,13 @@ map<GLuint, le::Scene::InfoMesh>& le::Model::GetRenderMesh()
 le::AnimationManager* le::Model::GetAnimationManager()
 {
 	return &AnimationManager;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Model::IsNoSkeleton()
+{
+	return NoSkeleton;
 }
 
 //-------------------------------------------------------------------------//

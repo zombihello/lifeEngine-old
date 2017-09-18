@@ -9,6 +9,7 @@ le::Camera::Camera( System& System ) :
 	InclinationCamera( 0 )
 {
 	RenderWindow = &System.GetWindow();
+	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 }
 
 //-------------------------------------------------------------------------//
@@ -41,6 +42,8 @@ void le::Camera::UpdateCamera()
 		glm::vec3( Position.x, Position.y, Position.z ),
 		glm::vec3( Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ) ),
 		glm::vec3( 0, 1, 0 ) );
+
+	Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
 }
 
 //-------------------------------------------------------------------------//
@@ -176,6 +179,13 @@ glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 glm::mat4& le::Camera::GetViewMatrix()
 {
 	return ViewMatrix;
+}
+
+//-------------------------------------------------------------------------//
+
+le::Frustum& le::Camera::GetFrustum()
+{
+	return Frustum;
 }
 
 //-------------------------------------------------------------------------//

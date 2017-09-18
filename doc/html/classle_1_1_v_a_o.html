@@ -100,6 +100,10 @@ $(function() {
 <tr class="memitem:a81040b7e07de5f21095fff3cda950120"><td class="memTemplItemLeft" align="right" valign="top">static GLuint&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120">CreateBuffer</a> (TypeBuffer TypeBuffer, vector&lt; T &gt; Data, TypeUpdate Usage)</td></tr>
 <tr class="memdesc:a81040b7e07de5f21095fff3cda950120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать буффер для <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#a81040b7e07de5f21095fff3cda950120">Подробнее...</a><br /></td></tr>
 <tr class="separator:a81040b7e07de5f21095fff3cda950120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78812d666f6b933a589491cead16df3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad78812d666f6b933a589491cead16df3"><td class="memTemplItemLeft" align="right" valign="top">static GLuint&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#ad78812d666f6b933a589491cead16df3">CreateBuffer</a> (TypeBuffer TypeBuffer, int SizeData, T *Data, TypeUpdate Usage)</td></tr>
+<tr class="memdesc:ad78812d666f6b933a589491cead16df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать буффер для <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#ad78812d666f6b933a589491cead16df3">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad78812d666f6b933a589491cead16df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1870d1ffbb906306e5304845507651b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_v_a_o.html#ae1870d1ffbb906306e5304845507651b">AtachBuffer</a> (TypeBuffer TypeBuffer, GLuint Buffer)</td></tr>
 <tr class="memdesc:ae1870d1ffbb906306e5304845507651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Присоединить буффер к <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>.  <a href="#ae1870d1ffbb906306e5304845507651b">Подробнее...</a><br /></td></tr>
 <tr class="separator:ae1870d1ffbb906306e5304845507651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,7 +265,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div>
 </div>
 <a id="a81040b7e07de5f21095fff3cda950120"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81040b7e07de5f21095fff3cda950120">&#9670;&nbsp;</a></span>CreateBuffer()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81040b7e07de5f21095fff3cda950120">&#9670;&nbsp;</a></span>CreateBuffer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,6 +310,68 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Массив данных </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Usage</td><td>Тип обновления </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>GLuint. Идентификатор буффера </dd></dl>
+
+</div>
+</div>
+<a id="ad78812d666f6b933a589491cead16df3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad78812d666f6b933a589491cead16df3">&#9670;&nbsp;</a></span>CreateBuffer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint le::VAO::CreateBuffer </td>
+          <td>(</td>
+          <td class="paramtype">TypeBuffer&#160;</td>
+          <td class="paramname"><em>TypeBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>SizeData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TypeUpdate&#160;</td>
+          <td class="paramname"><em>Usage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создать буффер для <a class="el" href="classle_1_1_v_a_o.html" title="Класс для работы с VAO. ">VAO</a>. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">TypeBuffer</td><td>Тип буффера </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SizeData</td><td>Размер массива данный </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Массив данных </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Usage</td><td>Тип обновления </td></tr>
   </table>

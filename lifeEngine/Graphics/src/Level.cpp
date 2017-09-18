@@ -71,7 +71,7 @@ bool le::Level::LoadLevel( const string& Route )
 		{
 			Name = Texture->Attribute( "Name" );
 			Route = Texture->Attribute( "Route" );
-			
+
 			ResourcesManager::LoadGlTexture( Name, Route );
 			mTextures[ Name ] = ResourcesManager::GetGlTexture( Name );
 
@@ -264,6 +264,8 @@ void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const GLuin
 	vector<BrushVertex> BrushVertex;
 	vector<unsigned int> IdVertex, TmpIdVertex;
 
+	BoundingBox.InitBox( Vertex );
+
 	switch ( TypeBrush )
 	{
 	case Cube:
@@ -326,6 +328,7 @@ void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const GLuin
 
 	InfoMesh.CountIndexs = NUMBER_TO_INT( IdVertex.size() );
 	InfoMesh.VertexArray = ArrayBuffer;
+	InfoMesh.BoundingBox = &BoundingBox;
 
 	RenderMesh[ Texture ] = InfoMesh;
 }

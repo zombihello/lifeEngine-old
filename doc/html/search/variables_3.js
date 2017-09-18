@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['idchild',['IdChild',['../structle_1_1_skeleton_1_1_bone.html#a6c4092aa1ba1ab7908a50e84037a12b4',1,'le::Skeleton::Bone']]],
-  ['idparent',['IdParent',['../structle_1_1_skeleton_1_1_bone.html#aaa86d21670b1735fa531401c2e22a611',1,'le::Skeleton::Bone']]],
-  ['idvertex',['IdVertex',['../structle_1_1_skeleton_1_1_bone.html#adb66d1c602025d02696d09d81e3c2144',1,'le::Skeleton::Bone']]],
-  ['interpolatedmatrix',['InterpolatedMatrix',['../structle_1_1_skeleton_1_1_bone.html#a0dea37e82ae70ca8c24ff0bbec26188b',1,'le::Skeleton::Bone']]],
-  ['invertmatrix',['InvertMatrix',['../structle_1_1_skeleton_1_1_bone.html#aad472d06f2f6c545cbe96c250a5e116c',1,'le::Skeleton::Bone']]]
+  ['fov',['FOV',['../structle_1_1_configuration.html#aa6094d4896ce2f745613280c61e353d1',1,'le::Configuration']]],
+  ['framelimit',['FrameLimit',['../structle_1_1_configuration.html#ab74a9f64569c1335fe431ad54d2e82e9',1,'le::Configuration']]],
+  ['frames',['Frames',['../structle_1_1_animation_1_1_animation_bone.html#a354be4c1c6ddbea8c41e773b59f739d2',1,'le::Animation::AnimationBone']]]
 ];

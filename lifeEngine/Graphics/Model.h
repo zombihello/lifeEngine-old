@@ -95,11 +95,21 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		AnimationManager* GetAnimationManager();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Нет ли скелета
+		///
+		/// \return bool
+		//////////////////////////////////////////////////////////////////////
+		bool IsNoSkeleton();
+
 	private:
 
+		bool							NoSkeleton; ///< Нет ли скелета
 		Scene*							Scene; ///< Сцена на котором находится модель
 		Skeleton						Skeleton; ///< Скелет модели
 		AnimationManager				AnimationManager; ///< Менеджер анимаций
+		BoundingBox						BoundingBox; ///< Ограничивающее тело модели
+
 		GLuint							VertexBuffer; ///< Вершиный буффер
 		glm::mat4x4						MatrixPosition; ///< Матрица позиции
 		glm::mat4x4						MatrixRotation; ///< Матрица вращения

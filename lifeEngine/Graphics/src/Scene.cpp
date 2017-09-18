@@ -6,13 +6,17 @@
 
 //-------------------------------------------------------------------------//
 
-le::Scene::Scene( System& System )
+le::Scene::Scene( System& System ) :
+	ViewMatrix( NULL ),
+	Frustum( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
-	ViewMatrix = NULL;
 
-	if ( !ModelsRender.loadFromFile( "../shaders/ModelsRender.vs", "../shaders/ModelsRender.fs" ) )
-		Logger::Log( Logger::Error, ModelsRender.getErrorMessage().str() );
+	if ( !AnimationModelsRender.loadFromFile( "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" ) )
+		Logger::Log( Logger::Error, AnimationModelsRender.getErrorMessage().str() );
+
+	if ( !StaticModelsRender.loadFromFile( "../shaders/StaticModelsRender.vs", "../shaders/StaticModelsRender.fs" ) )
+		Logger::Log( Logger::Error, StaticModelsRender.getErrorMessage().str() );
 
 	if ( !LevelRender.loadFromFile( "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" ) )
 		Logger::Log( Logger::Error, LevelRender.getErrorMessage().str() );
@@ -30,8 +34,16 @@ void le::Scene::AddModelToScene( Model* Model )
 	map<GLuint, InfoMesh>* RenderMesh = &Model->GetRenderMesh();
 	ModelsInScene.push_back( Model );
 
-	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-		RenderBuffer_Models[ it->first ].push_back( &it->second );
+	if ( Model->IsNoSkeleton() )
+	{
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+			RenderBuffer_StaticModels[ it->first ].push_back( &it->second );
+	}
+	else
+	{
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+			RenderBuffer_AnimationModels[ it->first ].push_back( &it->second );
+	}
 
 	Model->SetScene( this );
 }
@@ -41,11 +53,18 @@ void le::Scene::AddModelToScene( Model* Model )
 void le::Scene::RemoveModelFromScene( Model* Model )
 {
 	map<GLuint, InfoMesh>* RenderMesh = &Model->GetRenderMesh();
+	map<GLuint, vector<InfoMesh*>>* RenderBuffer_Models;
+
+	if ( Model->IsNoSkeleton() )
+		RenderBuffer_Models = &RenderBuffer_StaticModels;
+	else
+		RenderBuffer_Models = &RenderBuffer_AnimationModels;
+
 	vector<InfoMesh*>* InfoMeshes;
 
 	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
 	{
-		InfoMeshes = &RenderBuffer_Models[ it->first ];
+		InfoMeshes = &( *RenderBuffer_Models )[ it->first ];
 
 		for ( size_t i = 0; i < InfoMeshes->size(); i++ )
 			if ( ( *InfoMeshes )[ i ] == &it->second )
@@ -120,6 +139,7 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 void le::Scene::RemoveCamera()
 {
 	ViewMatrix = NULL;
+	Frustum = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -146,27 +166,60 @@ void le::Scene::RenderScene()
 	// Рендерим модели на сцене
 	// ****************************
 
-	Shader::bind( &ModelsRender );
-
-	for ( auto it = RenderBuffer_Models.begin(); it != RenderBuffer_Models.end(); it++ )
+	// Рендерим анимируемые модели (со скелетом)
+	if ( !RenderBuffer_AnimationModels.empty() ) // Если они есть (чтобы меньше переключаться между шейдерами)
 	{
-		RenderBuffer = &it->second;
-		glBindTexture( GL_TEXTURE_2D, it->first );
+		Shader::bind( &AnimationModelsRender );
 
-		for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+		for ( auto it = RenderBuffer_AnimationModels.begin(); it != RenderBuffer_AnimationModels.end(); it++ )
 		{
-			InfoMesh = ( *RenderBuffer )[ i ];
+			RenderBuffer = &it->second;
+			glBindTexture( GL_TEXTURE_2D, it->first );
 
-			ModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
-			ModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+			{
+				InfoMesh = ( *RenderBuffer )[ i ];
 
-			vector<le::Skeleton::Bone>* Bones = InfoMesh->Skeleton->GetAllBones();
+				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					break;
 
-			for ( size_t i = 0; i < Bones->size(); i++ )
-				ModelsRender.setUniform( "Bones[" + to_string( i ) + "]", ( *Bones )[ i ].TransformMatrix );
+				AnimationModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
-			VAO::BindVAO( InfoMesh->VertexArray );
-			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				vector<le::Skeleton::Bone>* Bones = InfoMesh->Skeleton->GetAllBones();
+
+				for ( size_t i = 0; i < Bones->size(); i++ )
+					AnimationModelsRender.setUniform( "Bones[" + to_string( i ) + "]", ( *Bones )[ i ].TransformMatrix );
+
+				VAO::BindVAO( InfoMesh->VertexArray );
+				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			}
+		}
+	}
+
+	// Рендерим статические модели (без скелета)
+	if ( !RenderBuffer_StaticModels.empty() )
+	{
+		Shader::bind( &StaticModelsRender );
+
+		for ( auto it = RenderBuffer_StaticModels.begin(); it != RenderBuffer_StaticModels.end(); it++ )
+		{
+			RenderBuffer = &it->second;
+			glBindTexture( GL_TEXTURE_2D, it->first );
+
+			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+			{
+				InfoMesh = ( *RenderBuffer )[ i ];
+
+				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					break;
+
+				StaticModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+
+				VAO::BindVAO( InfoMesh->VertexArray );
+				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			}
 		}
 	}
 
@@ -174,20 +227,26 @@ void le::Scene::RenderScene()
 	// Рендерим уровень
 	// ****************************
 
-	Shader::bind( &LevelRender );
-	LevelRender.setUniform( "PVMatrix", PVMatrix );
-
-	for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
+	if ( !RenderBuffer_Level.empty() )
 	{
-		RenderBuffer = &it->second;
-		glBindTexture( GL_TEXTURE_2D, it->first );
+		Shader::bind( &LevelRender );
+		LevelRender.setUniform( "PVMatrix", PVMatrix );
 
-		for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
-			InfoMesh = ( *RenderBuffer )[ i ];		
+			RenderBuffer = &it->second;
+			glBindTexture( GL_TEXTURE_2D, it->first );
 
-			VAO::BindVAO( InfoMesh->VertexArray );
-			glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+			{
+				InfoMesh = ( *RenderBuffer )[ i ];
+
+				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					break;
+
+				VAO::BindVAO( InfoMesh->VertexArray );
+				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			}
 		}
 	}
 
@@ -209,6 +268,7 @@ void le::Scene::ClearScene()
 void le::Scene::SetCamera( Camera& Camera )
 {
 	ViewMatrix = &Camera.GetViewMatrix();
+	Frustum = &Camera.GetFrustum();
 }
 
 //-------------------------------------------------------------------------//

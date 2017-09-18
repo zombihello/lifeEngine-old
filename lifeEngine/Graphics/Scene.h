@@ -44,8 +44,10 @@ namespace le
 	//-------------------------------------------------------------------------//
 
 	class Model;
+	class BoundingBox;
 	class Level;
 	class Camera;
+	class Frustum;
 	class Skeleton;
 
 	//-------------------------------------------------------------------------//
@@ -75,6 +77,7 @@ namespace le
 
 			GLuint				VertexArray; ///< VAO
 			Skeleton*			Skeleton; ///< Скелет меша
+			BoundingBox*		BoundingBox; ///< Ограничивающее тело меша
 			glm::mat4*			MatrixTransformation; ///< Матрица трансформации меша
 		};
 
@@ -142,14 +145,18 @@ namespace le
 
 	private:
 
-		Shader								ModelsRender; ///< Шейдер рендера моделей
+		Shader								AnimationModelsRender; ///< Шейдер рендера анимируемых моделей
+		Shader								StaticModelsRender; ///< Шейдер рендера статичных моделей
 		Shader								LevelRender; ///< Шейдер рендера уровня
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
+		Frustum*							Frustum; ///< Пирамида усечения
 
 		Level*								LevelInScene; ///< Уровень который нах. на сцене
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
-		map<GLuint, vector<InfoMesh*>>		RenderBuffer_Models; ///< Буффер рендера моделей
+
+		map<GLuint, vector<InfoMesh*>>		RenderBuffer_AnimationModels; ///< Буффер рендера анимируемых моделей
+		map<GLuint, vector<InfoMesh*>>		RenderBuffer_StaticModels; ///< Буффер рендера статичных моделей
 		map<GLuint, vector<InfoMesh*>>		RenderBuffer_Level; ///< Буффер рендера уровня
 	};
 

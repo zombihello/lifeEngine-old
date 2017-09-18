@@ -25,6 +25,16 @@ bool le::Mesh::LoadMesh( const string & Route )
 		return false;
 	}
 
+	float MinX = NUMBER_TO_FLOAT( atof( Model->Attribute( "MinX" ) ) );
+	float MinY = NUMBER_TO_FLOAT( atof( Model->Attribute( "MinY" ) ) );
+	float MinZ = NUMBER_TO_FLOAT( atof( Model->Attribute( "MinZ" ) ) );
+
+	float MaxX = NUMBER_TO_FLOAT( atof( Model->Attribute( "MaxX" ) ) );
+	float MaxY = NUMBER_TO_FLOAT( atof( Model->Attribute( "MaxY" ) ) );
+	float MaxZ = NUMBER_TO_FLOAT( atof( Model->Attribute( "MaxZ" ) ) );
+
+	BoundingBox.InitBox( glm::vec3( MinX, MinY, MinZ ), glm::vec3( MaxX, MaxY, MaxZ ) );
+
 	//====== ЗАГРУЖАЕМ ТЕКСТУРЫ ======//
 
 	TiXmlElement* Textues;
@@ -245,6 +255,8 @@ bool le::Mesh::LoadMesh( const string & Route )
 
 	if ( Skeleton != NULL && this->Skeleton.LoadSkeleton( Skeleton ) )
 	{
+		NoSkeleton = false;
+
 		// ****************************
 		// Передаем в каждую вершину
 		// id костей и веса
@@ -298,6 +310,8 @@ bool le::Mesh::LoadMesh( const string & Route )
 		if ( Animations != NULL )
 			AnimationManager.LoadAnimations( Animations );
 	}
+	else
+		NoSkeleton = true;
 
 	Logger::Log( Logger::Info, "Mesh [" + Route + "] Loaded" );
 	return true;
@@ -353,6 +367,20 @@ const le::Skeleton& le::Mesh::GetSkeleton()
 const le::AnimationManager& le::Mesh::GetAnimations()
 {
 	return AnimationManager;
+}
+
+//-------------------------------------------------------------------------//
+
+const le::BoundingBox& le::Mesh::GetBoundingBox()
+{
+	return BoundingBox;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Mesh::IsNoSkeleton()
+{
+	return NoSkeleton;
 }
 
 //-------------------------------------------------------------------------//

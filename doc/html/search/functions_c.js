@@ -7,7 +7,7 @@ var searchData=
   ['setinclinationcamera',['SetInclinationCamera',['../classle_1_1_camera.html#aee9da30be7e903345a3377ddc364133e',1,'le::Camera']]],
   ['setlogfile',['SetLogFile',['../classle_1_1_logger.html#ac9224ee4c980011eab71cf30c48942b3',1,'le::Logger']]],
   ['setposition',['SetPosition',['../classle_1_1_camera.html#a6f592f0a4ad1515c8607d1227e2fe6ef',1,'le::Camera']]],
-  ['setscene',['SetScene',['../classle_1_1_model.html#af5e1831b306e60f2bb55d6465c3799d7',1,'le::Model']]],
+  ['setscene',['SetScene',['../classle_1_1_level.html#aae20f842d3b3aeefd8bbb035bb958f33',1,'le::Level::SetScene()'],['../classle_1_1_model.html#af5e1831b306e60f2bb55d6465c3799d7',1,'le::Model::SetScene()']]],
   ['setsensitivitymouse',['SetSensitivityMouse',['../classle_1_1_camera.html#adac8e6a63b6d1a2b0243a0484ca568fb',1,'le::Camera']]],
   ['setskeleton',['SetSkeleton',['../classle_1_1_animation.html#a1e715a72b73da252c76e73a2665f5bc6',1,'le::Animation::SetSkeleton()'],['../classle_1_1_animation_manager.html#a22da6df5d251e92781076decda4dc50a',1,'le::AnimationManager::SetSkeleton()']]],
   ['setvertexattribpointer',['SetVertexAttribPointer',['../classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3',1,'le::VAO']]],

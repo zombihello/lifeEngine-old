@@ -42,6 +42,7 @@ using namespace sf;
 // LIFEENGINE
 //////////////////
 #include <Graphics\AnimationManager.h>
+#include <Graphics\BoundingBox.h>
 #include <Graphics\Skeleton.h>
 #include <Graphics\MeshVertex.h>
 #include <System\Logger.h>
@@ -112,10 +113,26 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		const AnimationManager& GetAnimations();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить ограничивающее тело меша
+		///
+		/// \return const BoundingBox&
+		//////////////////////////////////////////////////////////////////////
+		const BoundingBox& GetBoundingBox();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Нет ли скелета
+		///
+		/// \return bool
+		//////////////////////////////////////////////////////////////////////
+		bool IsNoSkeleton();
+
 	private:
 
+		bool									NoSkeleton; ///< Нет ли скелета
 		Skeleton								Skeleton; ///< Скелет модели
 		AnimationManager						AnimationManager; ///< Менеджер анимаций
+		BoundingBox								BoundingBox; ///< Ограничивающее тело меша
 		vector<MeshVertex>						VBO_Vertexs; ///< Массив вершин для VBO	
 		vector<GLuint>							Textures; ///< Массив текстур
 		map<GLuint, vector<unsigned int>>		IdVertexs; ///< ID Вершин, порядок соединения
