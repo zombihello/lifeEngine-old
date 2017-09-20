@@ -6,43 +6,44 @@
 
 void le::Frustum::UpdateFrustum( const glm::mat4& Projection, const glm::mat4& View )
 {
-	glm::mat4 ClippingPlane = glm::transpose( Projection * View );
+	glm::mat4 ClippingPlane = Projection * View;
+	glm::vec4 TempVector;
 
-	PyramidFrustum[ Right ][ A ] = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].x;
-	PyramidFrustum[ Right ][ B ] = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].x;
-	PyramidFrustum[ Right ][ C ] = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].x;
-	PyramidFrustum[ Right ][ D ] = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].x;
-	NormalizePlane( Right );
+	TempVector.x = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].x;
+	TempVector.y = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].x;
+	TempVector.z = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].x;
+	TempVector.w = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].x;
+	PyramidFrustum[ Right ] = glm::normalize( TempVector );
 
-	PyramidFrustum[ Left ][ A ] = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].x;
-	PyramidFrustum[ Left ][ B ] = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].x;
-	PyramidFrustum[ Left ][ C ] = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].x;
-	PyramidFrustum[ Left ][ D ] = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].x;
-	NormalizePlane( Left );
+	TempVector.x = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].x;
+	TempVector.y = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].x;
+	TempVector.z = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].x;
+	TempVector.w = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].x;
+	PyramidFrustum[ Left ] = glm::normalize( TempVector );
 
-	PyramidFrustum[ Bottom ][ A ] = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].y;
-	PyramidFrustum[ Bottom ][ B ] = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].y;
-	PyramidFrustum[ Bottom ][ C ] = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].y;
-	PyramidFrustum[ Bottom ][ D ] = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].y;
-	NormalizePlane( Bottom );
+	TempVector.x = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].y;
+	TempVector.y = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].y;
+	TempVector.z = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].y;
+	TempVector.w = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].y;
+	PyramidFrustum[ Bottom ] = glm::normalize( TempVector );
 
-	PyramidFrustum[ Top ][ A ] = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].y;
-	PyramidFrustum[ Top ][ B ] = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].y;
-	PyramidFrustum[ Top ][ C ] = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].y;
-	PyramidFrustum[ Top ][ D ] = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].y;
-	NormalizePlane( Top );
+	TempVector.x = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].y;
+	TempVector.y = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].y;
+	TempVector.z = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].y;
+	TempVector.w = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].y;
+	PyramidFrustum[ Top ] = glm::normalize( TempVector );
 
-	PyramidFrustum[ Back ][ A ] = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].z;
-	PyramidFrustum[ Back ][ B ] = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].z;
-	PyramidFrustum[ Back ][ C ] = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].z;
-	PyramidFrustum[ Back ][ D ] = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].z;
-	NormalizePlane( Back );
+	TempVector.x = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].z;
+	TempVector.y = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].z;
+	TempVector.z = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].z;
+	TempVector.w = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].z;
+	PyramidFrustum[ Back ] = glm::normalize( TempVector );
 
-	PyramidFrustum[ Front ][ A ] = ClippingPlane[ 0 ].w + ClippingPlane[ 0 ].z;
-	PyramidFrustum[ Front ][ B ] = ClippingPlane[ 1 ].w + ClippingPlane[ 1 ].z;
-	PyramidFrustum[ Front ][ C ] = ClippingPlane[ 2 ].w + ClippingPlane[ 2 ].z;
-	PyramidFrustum[ Front ][ D ] = ClippingPlane[ 3 ].w + ClippingPlane[ 3 ].z;
-	NormalizePlane( Front );
+	TempVector.x = ClippingPlane[ 0 ].w - ClippingPlane[ 0 ].z;
+	TempVector.y = ClippingPlane[ 1 ].w - ClippingPlane[ 1 ].z;
+	TempVector.z = ClippingPlane[ 2 ].w - ClippingPlane[ 2 ].z;
+	TempVector.w = ClippingPlane[ 3 ].w - ClippingPlane[ 3 ].z;
+	PyramidFrustum[ Front ] = glm::normalize( TempVector );
 }
 
 //-------------------------------------------------------------------------//
@@ -57,8 +58,8 @@ bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 
 		for ( IdVertex = 0; IdVertex < 8; IdVertex++ )
 		{
-			if ( PyramidFrustum[ Side ][ A ] * Vertexs[ IdVertex ].x + PyramidFrustum[ Side ][ B ] * Vertexs[ IdVertex ].y +
-				 PyramidFrustum[ Side ][ C ] * Vertexs[ IdVertex ].z + PyramidFrustum[ Side ][ D ] > 0 )
+			if ( PyramidFrustum[ Side ].x * Vertexs[ IdVertex ].x + PyramidFrustum[ Side ].y * Vertexs[ IdVertex ].y +
+				 PyramidFrustum[ Side ].z * Vertexs[ IdVertex ].z + PyramidFrustum[ Side ].w > 0 )
 				break;
 		}
 
@@ -67,20 +68,6 @@ bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 	}
 
 	return true;
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Frustum::NormalizePlane( FrustumSide FrustumSide )
-{
-	float Magnitude = NUMBER_TO_FLOAT( sqrt( PyramidFrustum[ FrustumSide ][ A ] * PyramidFrustum[ FrustumSide ][ A ] +
-											 PyramidFrustum[ FrustumSide ][ B ] * PyramidFrustum[ FrustumSide ][ B ] +
-											 PyramidFrustum[ FrustumSide ][ C ] * PyramidFrustum[ FrustumSide ][ C ] ) );
-
-	PyramidFrustum[ FrustumSide ][ A ] /= Magnitude;
-	PyramidFrustum[ FrustumSide ][ B ] /= Magnitude;
-	PyramidFrustum[ FrustumSide ][ C ] /= Magnitude;
-	PyramidFrustum[ FrustumSide ][ D ] /= Magnitude;
 }
 
 //-------------------------------------------------------------------------//

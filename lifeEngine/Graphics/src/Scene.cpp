@@ -181,7 +181,7 @@ void le::Scene::RenderScene()
 				InfoMesh = ( *RenderBuffer )[ i ];
 
 				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-					break;
+					continue;
 
 				AnimationModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
 				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
@@ -212,7 +212,7 @@ void le::Scene::RenderScene()
 				InfoMesh = ( *RenderBuffer )[ i ];
 
 				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-					break;
+					continue;
 
 				StaticModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
 				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
@@ -242,7 +242,7 @@ void le::Scene::RenderScene()
 				InfoMesh = ( *RenderBuffer )[ i ];
 
 				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-					break;
+					continue;
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
