@@ -93,7 +93,7 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 	{
 		Logger::Log( Logger::Error, "System Not Supported Shaders" );
 		exit( -1 );
-	}
+	}	
 }
 
 //-------------------------------------------------------------------------//
@@ -102,7 +102,6 @@ void le::System::MainLoop( BasicApplication& Application )
 {
 	while ( RenderWindow.isOpen() )
 	{
-		glLoadIdentity();
 		Configuration.Time = Clock.restart().asSeconds() * 60; // 60 - 1 тик
 
 		while ( RenderWindow.pollEvent( Event ) )
@@ -130,6 +129,22 @@ void le::System::MainLoop( BasicApplication& Application )
 			Application.Update();
 			RenderWindow.display();
 		}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::System::SetWireframeRender( bool Enable )
+{
+	if ( Enable )
+	{
+		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+		Configuration::IsWireframeRender = true;
+	}
+	else
+	{
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+		Configuration::IsWireframeRender = false;
 	}
 }
 

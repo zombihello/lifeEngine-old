@@ -44,6 +44,8 @@ namespace le
 		int					FOV; ///< Угол обзора
 		float				Time; ///< Прошедшие время
 
+		static bool			IsWireframeRender; ///< Включен ли каркасный рендер
+
 		glm::vec2			WindowSize; ///< Размеры окна
 		glm::mat4			ProjectionMatrix; ///< Матрица проекции
 	};

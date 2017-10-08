@@ -104,9 +104,9 @@ $(function() {
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_brush.html#ada5561103beb721af9fb92606566fb31">~Brush</a> ()</td></tr>
 <tr class="memdesc:ada5561103beb721af9fb92606566fb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Деструктор <br /></td></tr>
 <tr class="separator:ada5561103beb721af9fb92606566fb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad3c0e5ad4c6f807864b895908987854"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_brush.html#aad3c0e5ad4c6f807864b895908987854">CreateBrush</a> (const PrimitivesType &amp;TypeBrush, const GLuint &amp;Texture, const vector&lt; glm::vec3 &gt; &amp;Vertex, const vector&lt; glm::vec3 &gt; &amp;Normals, const vector&lt; glm::vec2 &gt; &amp;TextureCoords)</td></tr>
-<tr class="memdesc:aad3c0e5ad4c6f807864b895908987854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать браш  <a href="#aad3c0e5ad4c6f807864b895908987854">Подробнее...</a><br /></td></tr>
-<tr class="separator:aad3c0e5ad4c6f807864b895908987854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a1c858082575f498dfb0d841e9acfa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_brush.html#a8a1c858082575f498dfb0d841e9acfa7">CreateBrush</a> (const PrimitivesType &amp;TypeBrush, const glm::vec3 &amp;Position, const GLuint &amp;Texture, const vector&lt; glm::vec3 &gt; &amp;Vertex, const vector&lt; glm::vec3 &gt; &amp;Normals, const vector&lt; glm::vec2 &gt; &amp;TextureCoords)</td></tr>
+<tr class="memdesc:a8a1c858082575f498dfb0d841e9acfa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создать браш  <a href="#a8a1c858082575f498dfb0d841e9acfa7">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8a1c858082575f498dfb0d841e9acfa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e54e4a92e82752c55e6ef92d837e67d"><td class="memItemLeft" align="right" valign="top">map&lt; GLuint, <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">Scene::InfoMesh</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_brush.html#a9e54e4a92e82752c55e6ef92d837e67d">GetRenderMesh</a> ()</td></tr>
 <tr class="memdesc:a9e54e4a92e82752c55e6ef92d837e67d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить информацию меша для рендера  <a href="#a9e54e4a92e82752c55e6ef92d837e67d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a9e54e4a92e82752c55e6ef92d837e67d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,8 +114,8 @@ $(function() {
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс для работы с брашем уровня </p>
 </div><h2 class="groupheader">Методы</h2>
-<a id="aad3c0e5ad4c6f807864b895908987854"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad3c0e5ad4c6f807864b895908987854">&#9670;&nbsp;</a></span>CreateBrush()</h2>
+<a id="a8a1c858082575f498dfb0d841e9acfa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a1c858082575f498dfb0d841e9acfa7">&#9670;&nbsp;</a></span>CreateBrush()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,6 +125,12 @@ $(function() {
           <td>(</td>
           <td class="paramtype">const PrimitivesType &amp;&#160;</td>
           <td class="paramname"><em>TypeBrush</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>Position</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -162,6 +168,7 @@ $(function() {
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">TypeBrush</td><td>Тип браша </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Position</td><td>Позиция браша в мире </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Texture</td><td>Текстура </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Vertex</td><td>Вершины </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">Normals</td><td>Нормали </td></tr>

@@ -38,7 +38,13 @@ Max Floats in Vertex Shader: 16384
 [Info] Texture With Name [sf2_brick1.jpg] Loaded
 [Info] Loading Texture [..\textures\wood2.jpg] With Name [wood2.jpg]
 [Info] Texture With Name [wood2.jpg] Loaded
-[Info] Loading Texture [..\textures\portal.png] With Name [portal.png]
-[Info] Texture With Name [portal.png] Loaded
+[Info] Loading Texture [..\textures\wood1.jpg] With Name [wood1.jpg]
+[Info] Texture With Name [wood1.jpg] Loaded
+[Info] Loading Texture [..\textures\metal1.jpg] With Name [metal1.jpg]
+[Info] Texture With Name [metal1.jpg] Loaded
+[Info] Loading Texture [..\textures\brick4.jpg] With Name [brick4.jpg]
+[Info] Texture With Name [brick4.jpg] Loaded
+[Info] Loading Texture [..\textures\skybox.jpg] With Name [skybox.jpg]
+[Info] Texture With Name [skybox.jpg] Loaded
 [Info] Level [../maps/test.lmap] Loaded
 *** lifeEngine End ***

@@ -10,5 +10,6 @@ var searchData=
   ['deletemesh',['DeleteMesh',['../classle_1_1_resources_manager.html#a38de07eb6d79bbcd01d7a409e5256448',1,'le::ResourcesManager']]],
   ['deletevao',['DeleteVAO',['../classle_1_1_v_a_o.html#a22a77f57c18fcc63d5710c6b1c31dc00',1,'le::VAO']]],
   ['directoryexists',['DirectoryExists',['../classle_1_1_system.html#aa49df86ebf08d7f01673d498954c9ba6',1,'le::System']]],
-  ['disablevertexpointer',['DisableVertexPointer',['../classle_1_1_v_a_o.html#a52a2db591abaf4ff0e9207f30e1ab41f',1,'le::VAO']]]
+  ['disablevertexpointer',['DisableVertexPointer',['../classle_1_1_v_a_o.html#a52a2db591abaf4ff0e9207f30e1ab41f',1,'le::VAO']]],
+  ['distancetocamera',['DistanceToCamera',['../structle_1_1_scene_1_1_info_mesh.html#a90633e99108bad30bf91f9aa260b164b',1,'le::Scene::InfoMesh']]]
 ];

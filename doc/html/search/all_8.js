@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['level',['Level',['../classle_1_1_level.html',1,'le::Level'],['../classle_1_1_level.html#a8f7e457abbdcbe269ee3d62fb007de55',1,'le::Level::Level()']]],
+  ['level',['Level',['../classle_1_1_level.html',1,'le::Level'],['../structle_1_1_scene_1_1_render_buffer.html#a21e215010cfd8894257f4e2dbf6fa1a8',1,'le::Scene::RenderBuffer::Level()'],['../classle_1_1_level.html#a8f7e457abbdcbe269ee3d62fb007de55',1,'le::Level::Level()']]],
   ['loadanimation',['LoadAnimation',['../classle_1_1_animation.html#a2759db23217d31e5c179f2925a203686',1,'le::Animation']]],
   ['loadanimations',['LoadAnimations',['../classle_1_1_animation_manager.html#a524d3a64c94a4179cffe55a406f6cd9a',1,'le::AnimationManager']]],
   ['loadfromfile',['LoadFromFile',['../classle_1_1_config_file.html#ae34f5224c56d4511cb8022aef3093fbf',1,'le::ConfigFile']]],

@@ -111,6 +111,7 @@ namespace le
 		BoundingBox						BoundingBox; ///< Ограничивающее тело модели
 
 		GLuint							VertexBuffer; ///< Вершиный буффер
+		glm::vec3						Position; ///< Позиция модели в пространстве
 		glm::mat4x4						MatrixPosition; ///< Матрица позиции
 		glm::mat4x4						MatrixRotation; ///< Матрица вращения
 		glm::mat4x4						MatrixScale; ///< Матрица масштабирования

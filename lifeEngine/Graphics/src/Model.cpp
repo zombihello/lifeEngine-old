@@ -56,15 +56,16 @@ void le::Model::LoadModel( Mesh& Mesh )
 	for ( auto it = IdVertexs.begin(); it != IdVertexs.end(); it++, IdTexture++ )
 	{
 		GLuint VertexArray = VAO::CreateVAO();
-		VAO::BindVAO( VertexBuffer );
+		VAO::BindVAO( VertexArray );
 
 		VAO::AtachBuffer( VAO::Vertex_Buffer, VertexBuffer );
 		GLuint IndexArray = VAO::CreateBuffer( VAO::Index_Buffer, it->second, VAO::Static_Draw );
 
 		InfoMesh.CountIndexs = NUMBER_TO_INT( it->second.size() );
 		InfoMesh.MatrixTransformation = &MatrixTransformation;
-		InfoMesh.BoundingBox = &BoundingBox;
+		InfoMesh.BoundingBox = &BoundingBox; 
 		InfoMesh.VertexArray = VertexArray;
+		InfoMesh.Position = &Position;
 		
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Position ) ) );
 		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Normal ) ) );

@@ -74,11 +74,27 @@ namespace le
 			InfoMesh();
 
 			int					CountIndexs; ///< Количество индексов вершин
+			float				DistanceToCamera; ///< Растояние между объектом и камерой
+			bool				IsRender; ///< Рендерить ли этот меш
 
 			GLuint				VertexArray; ///< VAO
 			Skeleton*			Skeleton; ///< Скелет меша
 			BoundingBox*		BoundingBox; ///< Ограничивающее тело меша
+
+			glm::vec3*			Position; ///< Позиция меша на сцене
 			glm::mat4*			MatrixTransformation; ///< Матрица трансформации меша
+		};
+
+		//-------------------------------------------------------------------------//
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Буффер рендера всей геометрии сцены 
+		//////////////////////////////////////////////////////////////////////
+		struct DLL_API RenderBuffer
+		{
+			vector<InfoMesh*>		AnimationModels; ///< Буффер рендера анимируемых моделей
+			vector<InfoMesh*>		StaticModels; ///< Буффер рендера статичных моделей
+			vector<InfoMesh*>		Level; ///< Буффер рендера уровня
 		};
 
 		//-------------------------------------------------------------------------//
@@ -148,16 +164,20 @@ namespace le
 		Shader								AnimationModelsRender; ///< Шейдер рендера анимируемых моделей
 		Shader								StaticModelsRender; ///< Шейдер рендера статичных моделей
 		Shader								LevelRender; ///< Шейдер рендера уровня
+		Shader								QueryTestRender; ///< Шейдер тестового рендера на перекрытия
+
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
+		glm::mat4							PVMatrix; ///< Матрица Projection * View
+
 		Frustum*							Frustum; ///< Пирамида усечения
-
+		Camera*								Camera; ///< Камера
 		Level*								LevelInScene; ///< Уровень который нах. на сцене
-		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
 
-		map<GLuint, vector<InfoMesh*>>		RenderBuffer_AnimationModels; ///< Буффер рендера анимируемых моделей
-		map<GLuint, vector<InfoMesh*>>		RenderBuffer_StaticModels; ///< Буффер рендера статичных моделей
-		map<GLuint, vector<InfoMesh*>>		RenderBuffer_Level; ///< Буффер рендера уровня
+		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
+		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
+		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей (отсортированый по удалению от камеры)
+		map<GLuint, RenderBuffer>			RenderBuffer; ///< Буффер рендера всей геометрии сцены 
 	};
 
 	//-------------------------------------------------------------------------//

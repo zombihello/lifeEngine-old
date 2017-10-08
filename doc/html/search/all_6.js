@@ -6,6 +6,7 @@ var searchData=
   ['getanimations',['GetAnimations',['../classle_1_1_mesh.html#acf723564af1205298bc0accf93cdfcf5',1,'le::Mesh']]],
   ['getboundingbox',['GetBoundingBox',['../classle_1_1_mesh.html#a9b18bf042bf8803164217763705da4ac',1,'le::Mesh']]],
   ['getconfiguration',['GetConfiguration',['../classle_1_1_system.html#abdf5b9960d1c2799cb389d818014de4e',1,'le::System']]],
+  ['getdistancetoobject',['GetDistanceToObject',['../classle_1_1_camera.html#ac3479c723caaf10112b2691bbddbf25e',1,'le::Camera']]],
   ['getfrustum',['GetFrustum',['../classle_1_1_camera.html#a23f35609fca94297facaa16790d40065',1,'le::Camera']]],
   ['getgltexture',['GetGlTexture',['../classle_1_1_resources_manager.html#a6e1e7a75d545c4ec9d485299f869fc45',1,'le::ResourcesManager']]],
   ['getidvertexs',['GetIdVertexs',['../classle_1_1_mesh.html#a32d8ad6c622a293a55c254c01bdbc99d',1,'le::Mesh']]],

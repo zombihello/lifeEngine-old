@@ -86,12 +86,13 @@ namespace le
 			/// \brief Создать браш
 			///		
 			/// \param[in] TypeBrush Тип браша
+			/// \param[in] Position Позиция браша в мире
 			/// \param[in] Texture Текстура
 			/// \param[in] Vertex Вершины
 			/// \param[in] Normals Нормали
 			/// \param[in] TextureCoords Текстурные координаты
 			//////////////////////////////////////////////////////////////////////
-			void CreateBrush( const PrimitivesType& TypeBrush, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords );
+			void CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords );
 
 			//////////////////////////////////////////////////////////////////////
 			/// \brief Получить информацию меша для рендера
@@ -106,6 +107,7 @@ namespace le
 			GLuint							IndexBuffer; ///< Индексный буффер
 			GLuint							ArrayBuffer; ///< VAO буффер
 			BoundingBox						BoundingBox; ///< Ограничивающее тело браша
+			glm::vec3						Position; ///< Позиция браша в мире
 			map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Меш для рендера
 		};
 

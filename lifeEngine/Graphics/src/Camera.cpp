@@ -140,6 +140,13 @@ float le::Camera::GetInclinationCamera()
 
 //-------------------------------------------------------------------------//
 
+inline float le::Camera::GetDistanceToObject( const glm::vec3& PositionObject )
+{	
+	return glm::distance( Position, PositionObject );
+}
+
+//-------------------------------------------------------------------------//
+
 glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 {
 	// 1.5707 радиан = 90 градусов

@@ -103,6 +103,7 @@ bool le::Level::LoadLevel( const string& Route )
 	{
 		TiXmlElement* Brush;
 		string str_TypeBrush, str_TextureName;
+		glm::vec3 Position;
 		glm::vec3 TempVector3;
 		glm::vec2 TempVector2;
 		vector<glm::vec3> Vertexs, Normals;
@@ -112,13 +113,18 @@ bool le::Level::LoadLevel( const string& Route )
 
 		while ( Brush )
 		{
-			TiXmlElement *Type, *TextureName;
+			TiXmlElement *Type, *TextureName, *PositionBrush;
 
 			Type = Brush->FirstChildElement( "Type" );
 			TextureName = Brush->FirstChildElement( "TextureName" );
+			PositionBrush = Brush->FirstChildElement( "Position" );
 
 			str_TypeBrush = Type->Attribute( "Value" );
 			str_TextureName = TextureName->Attribute( "Value" );
+
+			Position.x = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "X" ) ) );
+			Position.y = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "Y" ) ) );
+			Position.z = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "Z" ) ) );
 
 			// ****************************
 			// Загружаем позиции вершин
@@ -174,7 +180,7 @@ bool le::Level::LoadLevel( const string& Route )
 			}
 
 			Level::Brush* LevelBrush = new Level::Brush();
-			LevelBrush->CreateBrush( Brush::Cube, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords );
+			LevelBrush->CreateBrush( Brush::Cube, Position, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords );
 
 			this->Brushes.push_back( LevelBrush );
 
@@ -259,12 +265,13 @@ le::Level::Brush::~Brush()
 
 //-------------------------------------------------------------------------//
 
-void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords )
+void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords )
 {
 	vector<BrushVertex> BrushVertex;
 	vector<unsigned int> IdVertex, TmpIdVertex;
 
 	BoundingBox.InitBox( Vertex );
+	this->Position = Position;
 
 	switch ( TypeBrush )
 	{
@@ -329,6 +336,7 @@ void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const GLuin
 	InfoMesh.CountIndexs = NUMBER_TO_INT( IdVertex.size() );
 	InfoMesh.VertexArray = ArrayBuffer;
 	InfoMesh.BoundingBox = &BoundingBox;
+	InfoMesh.Position = &this->Position;
 
 	RenderMesh[ Texture ] = InfoMesh;
 }

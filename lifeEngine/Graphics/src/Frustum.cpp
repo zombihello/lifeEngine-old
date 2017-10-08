@@ -51,7 +51,7 @@ void le::Frustum::UpdateFrustum( const glm::mat4& Projection, const glm::mat4& V
 bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 {
 	glm::vec3* Vertexs = BoundingBox.GetVertexs();
-
+	
 	for ( int Side = 0; Side < 6; Side++ )
 	{
 		int IdVertex;

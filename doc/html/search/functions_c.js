@@ -1,16 +1,9 @@
 var searchData=
 [
-  ['saveinfile',['SaveInFile',['../classle_1_1_config_file.html#a4acf355992015a169b8077b62a66af1c',1,'le::ConfigFile']]],
-  ['scene',['Scene',['../classle_1_1_scene.html#aac68299027a53d7531b5c17eb5ca158b',1,'le::Scene']]],
-  ['setcamera',['SetCamera',['../classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea',1,'le::Scene']]],
-  ['setfps',['SetFPS',['../classle_1_1_animation.html#a471a7bea24354c2dabb976ee34a3c6d4',1,'le::Animation']]],
-  ['setinclinationcamera',['SetInclinationCamera',['../classle_1_1_camera.html#aee9da30be7e903345a3377ddc364133e',1,'le::Camera']]],
-  ['setlogfile',['SetLogFile',['../classle_1_1_logger.html#ac9224ee4c980011eab71cf30c48942b3',1,'le::Logger']]],
-  ['setposition',['SetPosition',['../classle_1_1_camera.html#a6f592f0a4ad1515c8607d1227e2fe6ef',1,'le::Camera']]],
-  ['setscene',['SetScene',['../classle_1_1_level.html#aae20f842d3b3aeefd8bbb035bb958f33',1,'le::Level::SetScene()'],['../classle_1_1_model.html#af5e1831b306e60f2bb55d6465c3799d7',1,'le::Model::SetScene()']]],
-  ['setsensitivitymouse',['SetSensitivityMouse',['../classle_1_1_camera.html#adac8e6a63b6d1a2b0243a0484ca568fb',1,'le::Camera']]],
-  ['setskeleton',['SetSkeleton',['../classle_1_1_animation.html#a1e715a72b73da252c76e73a2665f5bc6',1,'le::Animation::SetSkeleton()'],['../classle_1_1_animation_manager.html#a22da6df5d251e92781076decda4dc50a',1,'le::AnimationManager::SetSkeleton()']]],
-  ['setvertexattribpointer',['SetVertexAttribPointer',['../classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3',1,'le::VAO']]],
-  ['stop',['Stop',['../classle_1_1_animation.html#a780a350d7831ce9fa61e22cb4ebb09c0',1,'le::Animation::Stop()'],['../classle_1_1_animation_manager.html#a7640b5572b6d88125c863b52d0db76b9',1,'le::AnimationManager::Stop()']]],
-  ['system',['System',['../classle_1_1_system.html#ad9a55598570edb07fe406b5559a3b882',1,'le::System']]]
+  ['removecamera',['RemoveCamera',['../classle_1_1_scene.html#ab19d69a97e293d20e5471f65ef212fbb',1,'le::Scene']]],
+  ['removefromscene',['RemoveFromScene',['../classle_1_1_level.html#a652fe0732586f9460950a338cce17416',1,'le::Level::RemoveFromScene()'],['../classle_1_1_model.html#a8d0977a0bbab0cf127bdc85cccc7e9c8',1,'le::Model::RemoveFromScene()']]],
+  ['removelevelfromscene',['RemoveLevelFromScene',['../classle_1_1_scene.html#a6844d9ecd0e8b143645b27d7d5cda003',1,'le::Scene']]],
+  ['removemodelfromscene',['RemoveModelFromScene',['../classle_1_1_scene.html#aaedcf867db03ecad4df4bb93f5591644',1,'le::Scene']]],
+  ['renderbox',['RenderBox',['../classle_1_1_bounding_box.html#a484fa3a0fa46ab3f15dfbbea012fe4d1',1,'le::BoundingBox']]],
+  ['renderscene',['RenderScene',['../classle_1_1_scene.html#ac89fee499aac01c8ddc54262c4cb9710',1,'le::Scene']]]
 ];

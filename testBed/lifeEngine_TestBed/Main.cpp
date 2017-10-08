@@ -11,13 +11,13 @@ class Game : public le::BasicApplication
 {
 public:
 	Game( le::System& System ) : le::BasicApplication( System )
-	{	
+	{
 		model.LoadModel( "Leanna", "../models/leanna.lmd" );
 		model.GetAnimationManager()->Play( "leanna_anim", true );
 
 		Scene = new le::Scene( System );
 		Scene->AddModelToScene( &model );
-		
+
 		Camera = new le::Camera( System );
 		Scene->SetCamera( *Camera );
 
@@ -38,7 +38,12 @@ public:
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
 			Camera->Move( le::Camera::Right, 1 * Configuration->Time );
-		
+
+		if ( Keyboard::isKeyPressed( Keyboard::Q ) )
+			le::System::SetWireframeRender( true );
+		else
+			le::System::SetWireframeRender( false );
+
 		model.GetAnimationManager()->Update();
 		Camera->UpdateCamera();
 		Scene->RenderScene();

@@ -21,6 +21,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
+<Position X="-144" Y="0" Z="-96"/>
 <PositionVertex>
 <Vertex X="-144" Y="0" Z="-96"/>
 <Vertex X="272" Y="0" Z="-96"/>
@@ -111,6 +112,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
+<Position X="256" Y="0" Z="-96"/>
 <PositionVertex>
 <Vertex X="256" Y="0" Z="-96"/>
 <Vertex X="272" Y="0" Z="-96"/>
@@ -201,6 +203,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
+<Position X="-128" Y="0" Z="-96"/>
 <PositionVertex>
 <Vertex X="-128" Y="0" Z="-96"/>
 <Vertex X="256" Y="0" Z="-96"/>
@@ -291,6 +294,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
+<Position X="-144" Y="0" Z="-96"/>
 <PositionVertex>
 <Vertex X="-144" Y="0" Z="-96"/>
 <Vertex X="-128" Y="0" Z="-96"/>
@@ -381,6 +385,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
+<Position X="-128" Y="0" Z="160"/>
 <PositionVertex>
 <Vertex X="-128" Y="0" Z="160"/>
 <Vertex X="256" Y="0" Z="160"/>
@@ -471,6 +476,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="-16" Y="0" Z="96"/>
 <PositionVertex>
 <Vertex X="-16" Y="0" Z="96"/>
 <Vertex X="0" Y="0" Z="96"/>
@@ -561,6 +567,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="-128" Y="0" Z="48"/>
 <PositionVertex>
 <Vertex X="-128" Y="0" Z="48"/>
 <Vertex X="-48" Y="0" Z="48"/>
@@ -651,6 +658,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="-128" Y="96" Z="48"/>
 <PositionVertex>
 <Vertex X="-128" Y="96" Z="48"/>
 <Vertex X="0" Y="96" Z="48"/>
@@ -741,6 +749,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="144" Y="0" Z="0"/>
 <PositionVertex>
 <Vertex X="144" Y="0" Z="0"/>
 <Vertex X="256" Y="0" Z="0"/>
@@ -831,6 +840,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="144" Y="0" Z="-80"/>
 <PositionVertex>
 <Vertex X="144" Y="0" Z="-80"/>
 <Vertex X="160" Y="0" Z="-80"/>
@@ -921,6 +931,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="144" Y="96" Z="-80"/>
 <PositionVertex>
 <Vertex X="144" Y="96" Z="-80"/>
 <Vertex X="256" Y="96" Z="-80"/>
@@ -1011,6 +1022,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="0" Y="96" Z="80"/>
 <PositionVertex>
 <Vertex X="0" Y="96" Z="80"/>
 <Vertex X="176" Y="96" Z="80"/>
@@ -1101,6 +1113,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="176" Y="96" Z="16"/>
 <PositionVertex>
 <Vertex X="176" Y="96" Z="16"/>
 <Vertex X="240" Y="96" Z="16"/>
@@ -1191,6 +1204,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="-96" Y="96" Z="-32"/>
 <PositionVertex>
 <Vertex X="-96" Y="96" Z="-32"/>
 <Vertex X="-32" Y="96" Z="-32"/>
@@ -1281,6 +1295,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick2.jpg"/>
+<Position X="-96" Y="96" Z="-64"/>
 <PositionVertex>
 <Vertex X="-96" Y="96" Z="-64"/>
 <Vertex X="144" Y="96" Z="-64"/>
@@ -1371,6 +1386,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick3.jpg"/>
+<Position X="48" Y="0" Z="32"/>
 <PositionVertex>
 <Vertex X="48" Y="0" Z="32"/>
 <Vertex X="64" Y="0" Z="32"/>
@@ -1461,6 +1477,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick3.jpg"/>
+<Position X="64" Y="0" Z="-32"/>
 <PositionVertex>
 <Vertex X="79.61034" Y="0" Z="-32.12639"/>
 <Vertex X="92.5641" Y="0" Z="-22.73491"/>
@@ -1551,6 +1568,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="-96" Y="16" Z="-64"/>
 <PositionVertex>
 <Vertex X="-96" Y="16" Z="-64"/>
 <Vertex X="-80" Y="16" Z="-64"/>
@@ -1641,6 +1659,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="16" Y="16" Z="-64"/>
 <PositionVertex>
 <Vertex X="16" Y="16" Z="-64"/>
 <Vertex X="32" Y="16" Z="-64"/>
@@ -1731,6 +1750,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="224" Y="16" Z="112"/>
 <PositionVertex>
 <Vertex X="224" Y="16" Z="112"/>
 <Vertex X="240" Y="16" Z="112"/>
@@ -1821,6 +1841,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="80" Y="16" Z="112"/>
 <PositionVertex>
 <Vertex X="80" Y="16" Z="112"/>
 <Vertex X="96" Y="16" Z="112"/>
@@ -1911,6 +1932,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick.jpg"/>
+<Position X="144" Y="112" Z="0"/>
 <PositionVertex>
 <Vertex X="144" Y="112" Z="0"/>
 <Vertex X="160" Y="112" Z="0"/>
@@ -2001,6 +2023,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="144" Y="136" Z="0"/>
 <PositionVertex>
 <Vertex X="144" Y="136" Z="0"/>
 <Vertex X="160" Y="136" Z="0"/>
@@ -2091,6 +2114,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="160" Y="176" Z="0"/>
 <PositionVertex>
 <Vertex X="160" Y="176" Z="0"/>
 <Vertex X="256" Y="176" Z="0"/>
@@ -2181,6 +2205,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="240" Y="144" Z="0"/>
 <PositionVertex>
 <Vertex X="240" Y="144" Z="0"/>
 <Vertex X="256" Y="144" Z="0"/>
@@ -2271,6 +2296,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick.jpg"/>
+<Position X="240" Y="112" Z="0"/>
 <PositionVertex>
 <Vertex X="240" Y="112" Z="0"/>
 <Vertex X="256" Y="112" Z="0"/>
@@ -2361,6 +2387,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="144" Y="144" Z="-80"/>
 <PositionVertex>
 <Vertex X="144" Y="144" Z="-80"/>
 <Vertex X="160" Y="144" Z="-80"/>
@@ -2451,6 +2478,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick.jpg"/>
+<Position X="144" Y="112" Z="-80"/>
 <PositionVertex>
 <Vertex X="144" Y="112" Z="-80"/>
 <Vertex X="160" Y="112" Z="-80"/>
@@ -2541,6 +2569,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="144" Y="176" Z="-64"/>
 <PositionVertex>
 <Vertex X="144" Y="176" Z="-64"/>
 <Vertex X="160" Y="176" Z="-64"/>
@@ -2631,6 +2660,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="160" Y="160" Z="0"/>
 <PositionVertex>
 <Vertex X="160" Y="160" Z="0"/>
 <Vertex X="176" Y="160" Z="0"/>
@@ -2721,6 +2751,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="224" Y="160" Z="0"/>
 <PositionVertex>
 <Vertex X="224" Y="160" Z="0"/>
 <Vertex X="240" Y="160" Z="0"/>
@@ -2811,6 +2842,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="144" Y="160" Z="-16"/>
 <PositionVertex>
 <Vertex X="144" Y="160" Z="-16"/>
 <Vertex X="160" Y="160" Z="-16"/>
@@ -2901,6 +2933,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="144" Y="160" Z="-64"/>
 <PositionVertex>
 <Vertex X="144" Y="160" Z="-64"/>
 <Vertex X="160" Y="160" Z="-64"/>
@@ -2991,6 +3024,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="144" Y="192" Z="12"/>
 <PositionVertex>
 <Vertex X="144" Y="192" Z="12"/>
 <Vertex X="256" Y="192" Z="12"/>
@@ -3081,6 +3115,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="144" Y="192" Z="-80"/>
 <PositionVertex>
 <Vertex X="144" Y="192" Z="-80"/>
 <Vertex X="148" Y="192" Z="-80"/>
@@ -3171,6 +3206,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="wood2.jpg"/>
+<Position X="160" Y="184" Z="-16"/>
 <PositionVertex>
 <Vertex X="160" Y="184" Z="-16"/>
 <Vertex X="256" Y="184" Z="-16"/>
@@ -3261,6 +3297,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="wood2.jpg"/>
+<Position X="160" Y="184" Z="-40"/>
 <PositionVertex>
 <Vertex X="160" Y="184" Z="-40"/>
 <Vertex X="256" Y="184" Z="-40"/>
@@ -3351,6 +3388,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="wood2.jpg"/>
+<Position X="160" Y="184" Z="-64"/>
 <PositionVertex>
 <Vertex X="160" Y="184" Z="-64"/>
 <Vertex X="256" Y="184" Z="-64"/>
@@ -3441,6 +3479,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-16" Y="112" Z="48"/>
 <PositionVertex>
 <Vertex X="-16" Y="112" Z="48"/>
 <Vertex X="0" Y="112" Z="48"/>
@@ -3531,6 +3570,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-128" Y="184" Z="48"/>
 <PositionVertex>
 <Vertex X="-128" Y="184" Z="48"/>
 <Vertex X="-16" Y="184" Z="48"/>
@@ -3621,6 +3661,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-8" Y="184" Z="64"/>
 <PositionVertex>
 <Vertex X="-8" Y="184" Z="64"/>
 <Vertex X="0" Y="184" Z="64"/>
@@ -3711,6 +3752,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-128" Y="112" Z="48"/>
 <PositionVertex>
 <Vertex X="-128" Y="112" Z="48"/>
 <Vertex X="-112" Y="112" Z="48"/>
@@ -3801,6 +3843,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-16" Y="112" Z="144"/>
 <PositionVertex>
 <Vertex X="-16" Y="112" Z="144"/>
 <Vertex X="0" Y="112" Z="144"/>
@@ -3891,6 +3934,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-112" Y="160" Z="48"/>
 <PositionVertex>
 <Vertex X="-112" Y="160" Z="48"/>
 <Vertex X="-16" Y="160" Z="48"/>
@@ -3981,6 +4025,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-48" Y="168" Z="48"/>
 <PositionVertex>
 <Vertex X="-48" Y="168" Z="48"/>
 <Vertex X="-32" Y="168" Z="48"/>
@@ -4071,6 +4116,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-80" Y="168" Z="48"/>
 <PositionVertex>
 <Vertex X="-80" Y="168" Z="48"/>
 <Vertex X="-64" Y="168" Z="48"/>
@@ -4161,6 +4207,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-104" Y="168" Z="48"/>
 <PositionVertex>
 <Vertex X="-104" Y="168" Z="48"/>
 <Vertex X="-88" Y="168" Z="48"/>
@@ -4251,6 +4298,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-8" Y="160" Z="64"/>
 <PositionVertex>
 <Vertex X="-8" Y="160" Z="64"/>
 <Vertex X="0" Y="160" Z="64"/>
@@ -4341,6 +4389,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-8" Y="168" Z="120"/>
 <PositionVertex>
 <Vertex X="-8" Y="168" Z="120"/>
 <Vertex X="0" Y="168" Z="120"/>
@@ -4431,6 +4480,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="sf2_brick1.jpg"/>
+<Position X="-8" Y="168" Z="80"/>
 <PositionVertex>
 <Vertex X="-8" Y="168" Z="80"/>
 <Vertex X="0" Y="168" Z="80"/>
@@ -4521,6 +4571,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="-128" Y="224" Z="24"/>
 <PositionVertex>
 <Vertex X="-128" Y="224" Z="24"/>
 <Vertex X="256" Y="224" Z="24"/>
@@ -4611,6 +4662,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="48" Y="224" Z="56"/>
 <PositionVertex>
 <Vertex X="48" Y="224" Z="56"/>
 <Vertex X="88" Y="224" Z="56"/>
@@ -4701,6 +4753,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="48" Y="224" Z="-80"/>
 <PositionVertex>
 <Vertex X="48" Y="224" Z="-80"/>
 <Vertex X="88" Y="224" Z="-80"/>
@@ -4791,6 +4844,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="96" Y="72" Z="112"/>
 <PositionVertex>
 <Vertex X="96" Y="72" Z="112"/>
 <Vertex X="224" Y="72" Z="112"/>
@@ -4881,6 +4935,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="0" Y="72" Z="112"/>
 <PositionVertex>
 <Vertex X="0" Y="72" Z="112"/>
 <Vertex X="80" Y="72" Z="112"/>
@@ -4971,6 +5026,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="224" Y="72" Z="16"/>
 <PositionVertex>
 <Vertex X="224" Y="72" Z="16"/>
 <Vertex X="240" Y="72" Z="16"/>
@@ -5061,6 +5117,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="32" Y="72" Z="-64"/>
 <PositionVertex>
 <Vertex X="32" Y="72" Z="-64"/>
 <Vertex X="144" Y="72" Z="-64"/>
@@ -5151,6 +5208,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="-80" Y="72" Z="-64"/>
 <PositionVertex>
 <Vertex X="-80" Y="72" Z="-64"/>
 <Vertex X="16" Y="72" Z="-64"/>
@@ -5241,6 +5299,7 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="metal5.jpg"/>
+<Position X="-96" Y="72" Z="-48"/>
 <PositionVertex>
 <Vertex X="-96" Y="72" Z="-48"/>
 <Vertex X="-80" Y="72" Z="-48"/>
@@ -5378,20 +5437,6 @@
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
-</Entity>
-<Entity Name="StaticProp">
-<Position X="-16" Y="32" Z="0"/>
-<Value Name="Name" Value=""/>
-<Value Name="Rotation" Value=""/>
-<Value Name="ModelName" Value="leanna"/>
-<Value Name="AnimationName" Value="leanna_anim"/>
-</Entity>
-<Entity Name="StaticProp">
-<Position X="96" Y="32" Z="16"/>
-<Value Name="Name" Value=""/>
-<Value Name="Rotation" Value=""/>
-<Value Name="ModelName" Value="vort"/>
-<Value Name="AnimationName" Value=""/>
 </Entity>
 </Entitys>
 </Map>

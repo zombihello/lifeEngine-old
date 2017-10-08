@@ -6,9 +6,17 @@
 
 //-------------------------------------------------------------------------//
 
+inline bool sortFUNCTION( le::Scene::InfoMesh* InfoMesh_1, le::Scene::InfoMesh* InfoMesh_2 )
+{
+	return InfoMesh_1->DistanceToCamera < InfoMesh_2->DistanceToCamera;
+}
+
+//-------------------------------------------------------------------------//
+
 le::Scene::Scene( System& System ) :
 	ViewMatrix( NULL ),
-	Frustum( NULL )
+	Frustum( NULL ),
+	Camera( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 
@@ -20,6 +28,9 @@ le::Scene::Scene( System& System ) :
 
 	if ( !LevelRender.loadFromFile( "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" ) )
 		Logger::Log( Logger::Error, LevelRender.getErrorMessage().str() );
+
+	if ( !QueryTestRender.loadFromFile( "../shaders/QueryTestRender.vs", "../shaders/QueryTestRender.fs" ) )
+		Logger::Log( Logger::Error, QueryTestRender.getErrorMessage().str() );
 }
 
 //-------------------------------------------------------------------------//
@@ -37,12 +48,12 @@ void le::Scene::AddModelToScene( Model* Model )
 	if ( Model->IsNoSkeleton() )
 	{
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer_StaticModels[ it->first ].push_back( &it->second );
+			RenderBuffer[ it->first ].StaticModels.push_back( &it->second );
 	}
 	else
 	{
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer_AnimationModels[ it->first ].push_back( &it->second );
+			RenderBuffer[ it->first ].AnimationModels.push_back( &it->second );
 	}
 
 	Model->SetScene( this );
@@ -53,26 +64,32 @@ void le::Scene::AddModelToScene( Model* Model )
 void le::Scene::RemoveModelFromScene( Model* Model )
 {
 	map<GLuint, InfoMesh>* RenderMesh = &Model->GetRenderMesh();
-	map<GLuint, vector<InfoMesh*>>* RenderBuffer_Models;
-
-	if ( Model->IsNoSkeleton() )
-		RenderBuffer_Models = &RenderBuffer_StaticModels;
-	else
-		RenderBuffer_Models = &RenderBuffer_AnimationModels;
-
 	vector<InfoMesh*>* InfoMeshes;
 
-	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-	{
-		InfoMeshes = &( *RenderBuffer_Models )[ it->first ];
+	if ( Model->IsNoSkeleton() ) // если модель без скелета
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+		{
+			InfoMeshes = &RenderBuffer[ it->first ].StaticModels;
 
-		for ( size_t i = 0; i < InfoMeshes->size(); i++ )
-			if ( ( *InfoMeshes )[ i ] == &it->second )
-			{
-				InfoMeshes->erase( InfoMeshes->begin() + i );
-				break;
-			}
-	}
+			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
+				if ( ( *InfoMeshes )[ i ] == &it->second )
+				{
+					InfoMeshes->erase( InfoMeshes->begin() + i );
+					break;
+				}
+		}
+	else
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+		{
+			InfoMeshes = &RenderBuffer[ it->first ].AnimationModels;
+
+			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
+				if ( ( *InfoMeshes )[ i ] == &it->second )
+				{
+					InfoMeshes->erase( InfoMeshes->begin() + i );
+					break;
+				}
+		}
 
 	for ( size_t i = 0; i < ModelsInScene.size(); i++ )
 		if ( ModelsInScene[ i ] == Model )
@@ -98,7 +115,7 @@ void le::Scene::AddLevelToScene( Level* Level )
 		RenderMesh = &Brush->GetRenderMesh();
 
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer_Level[ it->first ].push_back( &it->second );
+			RenderBuffer[ it->first ].Level.push_back( &it->second );
 	}
 
 	Level->SetScene( this );
@@ -119,12 +136,12 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
 		{
-			InfoMeshes = &RenderBuffer_Level[ it->first ];
+			InfoMeshes = &RenderBuffer[ it->first ].Level;
 
-			for ( size_t j = 0; j < InfoMeshes->size(); j++ )
-				if ( ( *InfoMeshes )[ j ] == &it->second )
+			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
+				if ( ( *InfoMeshes )[ i ] == &it->second )
 				{
-					InfoMeshes->erase( InfoMeshes->begin() + j );
+					InfoMeshes->erase( InfoMeshes->begin() + i );
 					break;
 				}
 		}
@@ -140,112 +157,242 @@ void le::Scene::RemoveCamera()
 {
 	ViewMatrix = NULL;
 	Frustum = NULL;
+	Camera = NULL;
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Scene::RenderScene()
 {
-	glDepthMask( GL_TRUE );
+	if ( RenderBuffer.empty() ) // если буффер рендера пуст, то выйти из метода
+		return;
 
 	glEnable( GL_TEXTURE_2D );
 	glEnable( GL_CULL_FACE );
 	glEnable( GL_DEPTH_TEST );
 
-	vector<InfoMesh*>* RenderBuffer;
+	vector<InfoMesh*>* GeometryBuffer;
+	vector<le::Skeleton::Bone>* Bones;
 	InfoMesh* InfoMesh;
-
-	glm::mat4 PVMatrix;
 
 	if ( ViewMatrix )
 		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
 	else
 		PVMatrix = *ProjectionMatrix;
 
+	LevelRender.setUniform( "PVMatrix", PVMatrix );
+	QueryTestRender.setUniform( "PVMatrix", PVMatrix );
+
 	// ****************************
-	// Рендерим модели на сцене
+	// Проверка видимости геометрии
 	// ****************************
 
-	// Рендерим анимируемые модели (со скелетом)
-	if ( !RenderBuffer_AnimationModels.empty() ) // Если они есть (чтобы меньше переключаться между шейдерами)
+	if ( Frustum != NULL && Camera != NULL )	
 	{
-		Shader::bind( &AnimationModelsRender );
+		if ( Configuration::IsWireframeRender ) // отключаем каркасный рендер если он включен
+			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-		for ( auto it = RenderBuffer_AnimationModels.begin(); it != RenderBuffer_AnimationModels.end(); it++ )
+		Shader::bind( &QueryTestRender );
+		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+
+		size_t ModelsVisible = 0;
+		size_t BrushesVisible = 0;
+
+		for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
 		{
-			RenderBuffer = &it->second;
-			glBindTexture( GL_TEXTURE_2D, it->first );
+			// ***************************************** //
+			// Проверка брашей на отсечение по фрустуму
 
-			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+			GeometryBuffer = &RenderBuffer[ it->first ].Level;
+
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
-				InfoMesh = ( *RenderBuffer )[ i ];
+				InfoMesh = ( *GeometryBuffer )[ i ];
 
 				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					InfoMesh->IsRender = false;
+				else
+				{
+					InfoMesh->IsRender = true;
+					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+
+					if ( BrushesVisible >= GeometryBuffer_Level.size() )
+						GeometryBuffer_Level.push_back( InfoMesh );
+					else
+						GeometryBuffer_Level[ BrushesVisible ] = InfoMesh;
+
+					BrushesVisible++;
+				}
+			}
+
+			// ***************************************** //
+			// Проверка статичных моделей на отсечение по фрустуму
+
+			GeometryBuffer = &RenderBuffer[ it->first ].StaticModels;
+
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
+			{
+				InfoMesh = ( *GeometryBuffer )[ i ];
+
+				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					InfoMesh->IsRender = false;
+				else
+				{
+					InfoMesh->IsRender = true;
+					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+
+					if ( ModelsVisible >= GeometryBuffer_Models.size() )
+						GeometryBuffer_Models.push_back( InfoMesh );
+					else
+						GeometryBuffer_Models[ ModelsVisible ] = InfoMesh;
+
+					ModelsVisible++;
+				}
+			}
+
+			// ***************************************** //
+			// Проверка анимируемых моделей на отсечение по фрустуму
+
+			GeometryBuffer = &RenderBuffer[ it->first ].AnimationModels;
+
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
+			{
+				InfoMesh = ( *GeometryBuffer )[ i ];
+
+				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+					InfoMesh->IsRender = false;
+				else
+				{
+					InfoMesh->IsRender = true;
+					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+
+					if ( ModelsVisible >= GeometryBuffer_Models.size() )
+						GeometryBuffer_Models.push_back( InfoMesh );
+					else
+						GeometryBuffer_Models[ ModelsVisible ] = InfoMesh;
+
+					ModelsVisible++;
+				}
+			}
+		}
+
+		// ***************************************** //
+		// Сортируем геометри по удалению от камеры
+
+		sort( GeometryBuffer_Level.begin(), GeometryBuffer_Level.begin() + BrushesVisible, sortFUNCTION );
+		sort( GeometryBuffer_Models.begin(), GeometryBuffer_Models.begin() + ModelsVisible, sortFUNCTION );
+
+		// ***************************************** //
+		// Рендер ограничивающих тел брашей
+
+		for ( size_t i = 0; i < BrushesVisible; i++ )
+			GeometryBuffer_Level[ i ]->BoundingBox->QueryTest();
+
+		// ***************************************** //
+		// Рендер ограничивающих тел моделей
+
+		glDepthMask( GL_FALSE );
+
+		for ( size_t i = 0; i < ModelsVisible; i++ )
+			GeometryBuffer_Models[ i ]->BoundingBox->QueryTest();
+
+		glDepthMask( GL_TRUE );
+		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+		glClear( GL_DEPTH_BUFFER_BIT );
+
+		if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
+			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	}
+
+	// ****************************
+	// Рендер геометрии сцены
+	// ****************************
+
+	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
+	{
+		glBindTexture( GL_TEXTURE_2D, it->first );
+
+		// ***************************************** //
+		// Рендер брашей уровня
+
+		GeometryBuffer = &RenderBuffer[ it->first ].Level;
+
+		if ( !GeometryBuffer->empty() )
+		{
+			Shader::bind( &LevelRender );
+
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
+			{
+				InfoMesh = ( *GeometryBuffer )[ i ];
+
+				if ( !InfoMesh->IsRender )
 					continue;
 
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
+
+				VAO::BindVAO( InfoMesh->VertexArray );
+				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+
+				InfoMesh->BoundingBox->Query.EndConditionalRender();
+			}
+		}
+
+		// ***************************************** //
+		// Рендер анимируемых моделей
+
+		GeometryBuffer = &RenderBuffer[ it->first ].AnimationModels;
+
+		if ( !GeometryBuffer->empty() )
+		{
+			Shader::bind( &AnimationModelsRender );
+
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
+			{
+				InfoMesh = ( *GeometryBuffer )[ i ];
+
+				if ( !InfoMesh->IsRender )
+					continue;
+
+				Bones = InfoMesh->Skeleton->GetAllBones();
 				AnimationModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
-				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
-				vector<le::Skeleton::Bone>* Bones = InfoMesh->Skeleton->GetAllBones();
+				for ( size_t j = 0; j < Bones->size(); j++ )
+					AnimationModelsRender.setUniform( "Bones[" + to_string( j ) + "]", ( *Bones )[ j ].TransformMatrix );
 
-				for ( size_t i = 0; i < Bones->size(); i++ )
-					AnimationModelsRender.setUniform( "Bones[" + to_string( i ) + "]", ( *Bones )[ i ].TransformMatrix );
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+
+				InfoMesh->BoundingBox->Query.EndConditionalRender();
 			}
 		}
-	}
 
-	// Рендерим статические модели (без скелета)
-	if ( !RenderBuffer_StaticModels.empty() )
-	{
-		Shader::bind( &StaticModelsRender );
+		// ***************************************** //
+		// Рендер статичных моделей (те которые не анимируются)
 
-		for ( auto it = RenderBuffer_StaticModels.begin(); it != RenderBuffer_StaticModels.end(); it++ )
+		GeometryBuffer = &RenderBuffer[ it->first ].StaticModels;
+
+		if ( !GeometryBuffer->empty() )
 		{
-			RenderBuffer = &it->second;
-			glBindTexture( GL_TEXTURE_2D, it->first );
+			Shader::bind( &StaticModelsRender );
 
-			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
+			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
-				InfoMesh = ( *RenderBuffer )[ i ];
+				InfoMesh = ( *GeometryBuffer )[ i ];
 
-				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
+				if ( !InfoMesh->IsRender )
 					continue;
 
+				Bones = InfoMesh->Skeleton->GetAllBones();
 				StaticModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
-				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-			}
-		}
-	}
 
-	// ****************************
-	// Рендерим уровень
-	// ****************************
-
-	if ( !RenderBuffer_Level.empty() )
-	{
-		Shader::bind( &LevelRender );
-		LevelRender.setUniform( "PVMatrix", PVMatrix );
-
-		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
-		{
-			RenderBuffer = &it->second;
-			glBindTexture( GL_TEXTURE_2D, it->first );
-
-			for ( size_t i = 0; i < RenderBuffer->size(); i++ )
-			{
-				InfoMesh = ( *RenderBuffer )[ i ];
-
-				if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-					continue;
-
-				VAO::BindVAO( InfoMesh->VertexArray );
-				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				InfoMesh->BoundingBox->Query.EndConditionalRender();
 			}
 		}
 	}
@@ -265,17 +412,21 @@ void le::Scene::ClearScene()
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::SetCamera( Camera& Camera )
+void le::Scene::SetCamera( le::Camera& Camera )
 {
 	ViewMatrix = &Camera.GetViewMatrix();
 	Frustum = &Camera.GetFrustum();
+	this->Camera = &Camera;
 }
 
 //-------------------------------------------------------------------------//
 
 le::Scene::InfoMesh::InfoMesh() :
 	Skeleton( NULL ),
-	MatrixTransformation( NULL )
+	MatrixTransformation( NULL ),
+	Position( NULL ),
+	DistanceToCamera( 0 ),
+	IsRender( true )
 {}
 
 //-------------------------------------------------------------------------//

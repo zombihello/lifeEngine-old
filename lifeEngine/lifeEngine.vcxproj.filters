@@ -63,6 +63,9 @@
     <ClCompile Include="Graphics\src\Frustum.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="System\src\Query.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\Frustum.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Query.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

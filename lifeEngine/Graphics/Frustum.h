@@ -1,5 +1,18 @@
-﻿#ifndef FRUSTUM_H
+﻿//////////////////////////////////////////////////////////////////////////
+// 
+//			*** lifeEngine (Двигатель Жизни) ***
+//					Copyright (C) 2017
+//
+// Связь со мной:		https://vk.com/zombihello
+// Репозиторий движка:  https://github.com/zombihello/lifeEngine
+// 
+//////////////////////////////////////////////////////////////////////////
+
+#ifndef FRUSTUM_H
 #define FRUSTUM_H
+#pragma warning( push )
+
+#pragma warning( disable: 4251 ) 
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
@@ -64,5 +77,6 @@ namespace le
 	//-------------------------------------------------------------------------//
 }
 
+#pragma warning( pop )
 #endif // FRUSTUM_H
 
