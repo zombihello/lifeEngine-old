@@ -16,6 +16,7 @@ public:
 		model.GetAnimationManager()->Play( "leanna_anim", true );
 
 		Scene = new le::Scene( System );
+		GBuffer = &Scene->GetGBuffer();
 		Scene->AddModelToScene( &model );
 
 		Camera = new le::Camera( System );
@@ -47,12 +48,16 @@ public:
 		model.GetAnimationManager()->Update();
 		Camera->UpdateCamera();
 		Scene->RenderScene();
+
+		if ( Keyboard::isKeyPressed( Keyboard::E ) )
+			GBuffer->ShowDebug();
 	}
 
 	le::Model model;
 	le::Scene* Scene;
 	le::Camera* Camera;
 	le::Level Level;
+	le::GBuffer* GBuffer;
 };
 
 int main( int argc, char** argv )

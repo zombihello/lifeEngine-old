@@ -11,11 +11,13 @@ layout ( location = 4 ) in vec4 in_Weights;
 
 //------------------------------------------
 
+out vec3 Position;
+out vec3 Normal;
 out vec2 TexCoord;
 
 //------------------------------------------
 
-uniform mat4 PVTMatrix;
+uniform mat4 PVMatrix;
 uniform mat4 TransformMatrix;
 uniform mat4[MAX_BONES] Bones;
 
@@ -28,6 +30,9 @@ void main()
 	BoneTrans += Bones[int(in_IdBones.z)] * in_Weights.z;
 	BoneTrans += Bones[int(in_IdBones.w)] * in_Weights.w;
 	
-	gl_Position = PVTMatrix * (vec4( in_Position.x, in_Position.y, -in_Position.z, 1.0f ) * BoneTrans);		
+	Position = (TransformMatrix * (vec4( in_Position.x, in_Position.y, -in_Position.z, 1.0f ) * BoneTrans) ).xyz;
+	Normal = (TransformMatrix * vec4( in_Normal, 0.0f ) ).xyz;
 	TexCoord = in_TexCoord;
+	
+	gl_Position = PVMatrix * vec4( Position, 1.0f );	
 }

@@ -2,6 +2,7 @@
 #include <Graphics\Model.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Level.h>
+#include <Graphics\PointLight.h>
 #include "..\Scene.h"
 
 //-------------------------------------------------------------------------//
@@ -19,7 +20,7 @@ le::Scene::Scene( System& System ) :
 	Camera( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
-
+	
 	if ( !AnimationModelsRender.loadFromFile( "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" ) )
 		Logger::Log( Logger::Error, AnimationModelsRender.getErrorMessage().str() );
 
@@ -31,6 +32,11 @@ le::Scene::Scene( System& System ) :
 
 	if ( !QueryTestRender.loadFromFile( "../shaders/QueryTestRender.vs", "../shaders/QueryTestRender.fs" ) )
 		Logger::Log( Logger::Error, QueryTestRender.getErrorMessage().str() );
+
+	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
+
+	Light.SetPosition( glm::vec4( 10.f, 2.f, 3.f,1 ) );
+	Light.SetRadius( 45 );
 }
 
 //-------------------------------------------------------------------------//
@@ -187,7 +193,7 @@ void le::Scene::RenderScene()
 	// Проверка видимости геометрии
 	// ****************************
 
-	if ( Frustum != NULL && Camera != NULL )	
+	if ( Frustum != NULL && Camera != NULL )
 	{
 		if ( Configuration::IsWireframeRender ) // отключаем каркасный рендер если он включен
 			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
@@ -214,7 +220,7 @@ void le::Scene::RenderScene()
 				else
 				{
 					InfoMesh->IsRender = true;
-					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+					InfoMesh->DistanceToCamera = Camera->GetDistance( *InfoMesh->Position );
 
 					if ( BrushesVisible >= GeometryBuffer_Level.size() )
 						GeometryBuffer_Level.push_back( InfoMesh );
@@ -239,7 +245,7 @@ void le::Scene::RenderScene()
 				else
 				{
 					InfoMesh->IsRender = true;
-					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+					InfoMesh->DistanceToCamera = Camera->GetDistance( *InfoMesh->Position );
 
 					if ( ModelsVisible >= GeometryBuffer_Models.size() )
 						GeometryBuffer_Models.push_back( InfoMesh );
@@ -264,7 +270,7 @@ void le::Scene::RenderScene()
 				else
 				{
 					InfoMesh->IsRender = true;
-					InfoMesh->DistanceToCamera = Camera->GetDistanceToObject( *InfoMesh->Position );
+					InfoMesh->DistanceToCamera = Camera->GetDistance( *InfoMesh->Position );
 
 					if ( ModelsVisible >= GeometryBuffer_Models.size() )
 						GeometryBuffer_Models.push_back( InfoMesh );
@@ -298,7 +304,6 @@ void le::Scene::RenderScene()
 
 		glDepthMask( GL_TRUE );
 		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
-		glClear( GL_DEPTH_BUFFER_BIT );
 
 		if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
 			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
@@ -308,6 +313,9 @@ void le::Scene::RenderScene()
 	// Рендер геометрии сцены
 	// ****************************
 
+	GBuffer.ClearFrame();
+	GBuffer.Bind( GBuffer::RenderBuffers );
+	
 	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
 	{
 		glBindTexture( GL_TEXTURE_2D, it->first );
@@ -328,7 +336,7 @@ void le::Scene::RenderScene()
 				if ( !InfoMesh->IsRender )
 					continue;
 
-				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -354,12 +362,13 @@ void le::Scene::RenderScene()
 					continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
-				AnimationModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+				AnimationModelsRender.setUniform( "PVMatrix", PVMatrix );
+				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				for ( size_t j = 0; j < Bones->size(); j++ )
 					AnimationModelsRender.setUniform( "Bones[" + to_string( j ) + "]", ( *Bones )[ j ].TransformMatrix );
 
-				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -385,9 +394,10 @@ void le::Scene::RenderScene()
 					continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
-				StaticModelsRender.setUniform( "PVTMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+				StaticModelsRender.setUniform( "PVMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
+				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
-				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_BY_REGION_WAIT );
+				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -397,8 +407,17 @@ void le::Scene::RenderScene()
 		}
 	}
 
+	Light.LightSphere.RenderSphere(); //          } для теста
+	GBuffer.RenderFrame( GBuffer::Textures ); //
+
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
+
+	// ****************************
+	// Просчитывание освещения
+	// ****************************
+
+	///TODO: Написать код
 
 	glDisable( GL_TEXTURE_2D );
 	glDisable( GL_CULL_FACE );
@@ -417,6 +436,13 @@ void le::Scene::SetCamera( le::Camera& Camera )
 	ViewMatrix = &Camera.GetViewMatrix();
 	Frustum = &Camera.GetFrustum();
 	this->Camera = &Camera;
+}
+
+//-------------------------------------------------------------------------//
+
+le::GBuffer& le::Scene::GetGBuffer()
+{
+	return GBuffer;
 }
 
 //-------------------------------------------------------------------------//

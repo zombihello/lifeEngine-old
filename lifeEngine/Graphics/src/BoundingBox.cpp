@@ -1,5 +1,5 @@
-﻿#include "..\BoundingBox.h"
-#include <System\VAO.h>
+﻿#include <System\VAO.h>
+#include "..\BoundingBox.h"
 
 //-------------------------------------------------------------------------//
 
@@ -61,6 +61,8 @@ le::BoundingBox::~BoundingBox()
 
 void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxVertex )
 {
+	if ( ArrayBuffer != 0 ) return;
+
 	Vertexs[ 0 ] = glm::vec3( MinVertex.x, MinVertex.z, 0 );
 	Vertexs[ 1 ] = glm::vec3( MaxVertex.x, MinVertex.z, 0 );
 	Vertexs[ 2 ] = glm::vec3( MinVertex.x, MaxVertex.z, 0 );
@@ -69,8 +71,6 @@ void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxV
 	Vertexs[ 5 ] = glm::vec3( MaxVertex.x, MinVertex.z, MaxVertex.y );
 	Vertexs[ 6 ] = glm::vec3( MinVertex.x, MaxVertex.z, MaxVertex.y );
 	Vertexs[ 7 ] = glm::vec3( MaxVertex.x, MaxVertex.z, MaxVertex.y );
-
-	if ( ArrayBuffer != 0 ) return;
 
 	ArrayBuffer = VAO::CreateVAO();
 	VAO::BindVAO( ArrayBuffer );

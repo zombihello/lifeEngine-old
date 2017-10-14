@@ -38,6 +38,8 @@ using namespace sf;
 // LIFEENGINE
 ///////////////
 #include <System\System.h>
+#include <System\GBuffer.h>
+#include <Graphics\PointLight.h>
 
 namespace le
 {
@@ -159,6 +161,13 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		void SetCamera( Camera& Camera );
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить G-Буффер сцены
+		///		
+		/// \return GBuffer&
+		//////////////////////////////////////////////////////////////////////
+		GBuffer& GetGBuffer();
+
 	private:
 
 		Shader								AnimationModelsRender; ///< Шейдер рендера анимируемых моделей
@@ -173,6 +182,8 @@ namespace le
 		Frustum*							Frustum; ///< Пирамида усечения
 		Camera*								Camera; ///< Камера
 		Level*								LevelInScene; ///< Уровень который нах. на сцене
+		GBuffer								GBuffer; ///< G-Буффер
+		PointLight							Light;
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
 		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)

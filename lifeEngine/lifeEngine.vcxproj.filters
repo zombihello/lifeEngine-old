@@ -66,6 +66,18 @@
     <ClCompile Include="System\src\Query.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\src\GBuffer.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\BoundingSphere.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\PointLight.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\BaseLight.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -125,6 +137,18 @@
     </ClInclude>
     <ClInclude Include="System\Query.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\GBuffer.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BoundingSphere.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\PointLight.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BaseLight.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

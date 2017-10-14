@@ -2,7 +2,7 @@ lifeEngine v3.0.0
 *** lifeEngine Start ***
 [Info] Loading File Configurations [../lifeEngine.log]
 [Info] Loaded File Configurations [../lifeEngine.log]
-[Info] Window Created (800x600)
+[Info] Window Created (1280x720)
 *** OpenGL Info ***
 OpenGL Version: 4.5.13399 Compatibility Profile Context 15.200.1062.1004
 OpenGL Vendor: ATI Technologies Inc.
@@ -19,6 +19,10 @@ Max Floats in Vertex Shader: 16384
 [Info] Loading Animations Mesh
 [Info] Loaded Animations Mesh
 [Info] Mesh [../models/leanna.lmd] Loaded
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init GBuffer (1280x720)
+[Info] GBuffer Initialized
 [Info] Loading Level [../maps/test.lmap]
 [Info] Loading Texture [..\textures\brick1.jpg] With Name [brick1.jpg]
 [Info] Texture With Name [brick1.jpg] Loaded

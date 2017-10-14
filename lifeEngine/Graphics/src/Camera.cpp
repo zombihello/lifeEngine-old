@@ -1,4 +1,5 @@
-﻿#include "..\Camera.h"
+﻿#include <Graphics\BoundingBox.h>
+#include "..\Camera.h"
 
 #define PI 3.141592653f
 
@@ -140,8 +141,8 @@ float le::Camera::GetInclinationCamera()
 
 //-------------------------------------------------------------------------//
 
-inline float le::Camera::GetDistanceToObject( const glm::vec3& PositionObject )
-{	
+inline float le::Camera::GetDistance( const glm::vec3& PositionObject )
+{
 	return glm::distance( Position, PositionObject );
 }
 
