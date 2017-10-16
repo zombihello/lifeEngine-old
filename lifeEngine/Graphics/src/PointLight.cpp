@@ -1,4 +1,5 @@
 #include <System\System.h>
+#include <Graphics\Scene.h>
 #include "..\PointLight.h"
 
 //-------------------------------------------------------------------------//
@@ -28,7 +29,9 @@ le::PointLight::PointLight() :
 
 le::PointLight::PointLight( const PointLight& Copy )
 {
-	Radius = Copy.Radius;
+	CopyBaseLight( Copy );
+
+	Radius = Copy.Radius; 
 	LightSphere = Copy.LightSphere;
 }
 
@@ -67,6 +70,21 @@ le::PointLight::~PointLight()
 
 //-------------------------------------------------------------------------//
 
+void le::PointLight::AddToScene( le::Scene& Scene )
+{
+	Scene.AddPointLightToScene( this );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::PointLight::RemoveFromScene()
+{
+	if ( Scene != NULL )
+		Scene->RemovePointLightFromScene( this );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::PointLight::SetRadius( float Radius )
 {
 	this->Radius = Radius;
@@ -96,6 +114,18 @@ void le::PointLight::SetPosition( const glm::vec4& Position )
 	ShadowTransforms[ 3 ] = ShadowProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) );
 	ShadowTransforms[ 4 ] = ShadowProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, 1 ), glm::vec3( 0, -1, 0 ) );
 	ShadowTransforms[ 5 ] = ShadowProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, -1 ), glm::vec3( 0, -1, 0 ) );
+}
+
+//-------------------------------------------------------------------------//
+
+le::PointLight& le::PointLight::operator=( const PointLight& Copy )
+{
+	CopyBaseLight( Copy );
+
+	Radius = Copy.Radius;
+	LightSphere = Copy.LightSphere;
+	
+	return *this;
 }
 
 //-------------------------------------------------------------------------//

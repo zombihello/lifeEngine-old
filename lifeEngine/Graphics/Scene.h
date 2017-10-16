@@ -40,7 +40,6 @@ using namespace sf;
 #include <System\System.h>
 #include <System\GBuffer.h>
 #include <Graphics\PointLight.h>
-
 namespace le
 {
 	//-------------------------------------------------------------------------//
@@ -51,6 +50,8 @@ namespace le
 	class Camera;
 	class Frustum;
 	class Skeleton;
+	class PointLight;
+	class LightManager;
 
 	//-------------------------------------------------------------------------//
 
@@ -140,6 +141,41 @@ namespace le
 		void RemoveLevelFromScene( Level* Level );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Добавить менеджер света на сцену
+		///		
+		/// \param[in] LightManager Указатель на менеджер света
+		//////////////////////////////////////////////////////////////////////
+		void AddLightManagerToScene( LightManager* LightManager );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Добавить точечный свет на сцену
+		///		
+		/// \param[in] PointLight Указатель на точечный свет
+		//////////////////////////////////////////////////////////////////////
+		void AddPointLightToScene( PointLight* PointLight );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить точечный источник света со сцены
+		///		
+		/// \param[in] PointLight Указатель на источник света
+		//////////////////////////////////////////////////////////////////////
+		void RemovePointLightFromScene( PointLight* PointLight );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить точечный источник света со сцены
+		///		
+		/// \param[in] NameLight Название источника света
+		//////////////////////////////////////////////////////////////////////
+		void RemovePointLightFromScene( const string& NameLight );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить менеджер света со сцены
+		///		
+		/// \param[in] LightManager Указатель на менеджер света
+		//////////////////////////////////////////////////////////////////////
+		void RemoveLightManagerFromScene( LightManager* LightManager );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Убрать камеру со сцены
 		//////////////////////////////////////////////////////////////////////
 		void RemoveCamera();
@@ -174,6 +210,8 @@ namespace le
 		Shader								StaticModelsRender; ///< Шейдер рендера статичных моделей
 		Shader								LevelRender; ///< Шейдер рендера уровня
 		Shader								QueryTestRender; ///< Шейдер тестового рендера на перекрытия
+		Shader								PointLightRender; ///< Шейдер точечного света
+		Shader								StencilTestRender; ///< Шейдер рендера в буффер трафарета
 
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
@@ -182,12 +220,14 @@ namespace le
 		Frustum*							Frustum; ///< Пирамида усечения
 		Camera*								Camera; ///< Камера
 		Level*								LevelInScene; ///< Уровень который нах. на сцене
+		LightManager*						LightManager; ///< Менеджер света который прикреплен к сцене
 		GBuffer								GBuffer; ///< G-Буффер
-		PointLight							Light;
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
+		vector<PointLight*>					PointLights; ///< Массив точечный источников которые нах. на сцене
 		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
-		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей (отсортированый по удалению от камеры)
+		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
+		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру 
 		map<GLuint, RenderBuffer>			RenderBuffer; ///< Буффер рендера всей геометрии сцены 
 	};
 

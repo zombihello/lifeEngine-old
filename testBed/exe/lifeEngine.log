@@ -19,8 +19,6 @@ Max Floats in Vertex Shader: 16384
 [Info] Loading Animations Mesh
 [Info] Loaded Animations Mesh
 [Info] Mesh [../models/leanna.lmd] Loaded
-[Info] Init Shadow Map (1024x1024)
-[Info] Shadow Map Initialized
 [Info] Init GBuffer (1280x720)
 [Info] GBuffer Initialized
 [Info] Loading Level [../maps/test.lmap]
@@ -51,4 +49,94 @@ Max Floats in Vertex Shader: 16384
 [Info] Loading Texture [..\textures\skybox.jpg] With Name [skybox.jpg]
 [Info] Texture With Name [skybox.jpg] Loaded
 [Info] Level [../maps/test.lmap] Loaded
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
+[Info] Init Shadow Map (1024x1024)
+[Info] Shadow Map Initialized
 *** lifeEngine End ***

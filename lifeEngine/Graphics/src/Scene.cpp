@@ -2,7 +2,7 @@
 #include <Graphics\Model.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Level.h>
-#include <Graphics\PointLight.h>
+#include <Graphics\LightManager.h>
 #include "..\Scene.h"
 
 //-------------------------------------------------------------------------//
@@ -17,10 +17,11 @@ inline bool sortFUNCTION( le::Scene::InfoMesh* InfoMesh_1, le::Scene::InfoMesh* 
 le::Scene::Scene( System& System ) :
 	ViewMatrix( NULL ),
 	Frustum( NULL ),
-	Camera( NULL )
+	Camera( NULL ),
+	LightManager( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
-	
+
 	if ( !AnimationModelsRender.loadFromFile( "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" ) )
 		Logger::Log( Logger::Error, AnimationModelsRender.getErrorMessage().str() );
 
@@ -33,10 +34,18 @@ le::Scene::Scene( System& System ) :
 	if ( !QueryTestRender.loadFromFile( "../shaders/QueryTestRender.vs", "../shaders/QueryTestRender.fs" ) )
 		Logger::Log( Logger::Error, QueryTestRender.getErrorMessage().str() );
 
-	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
+	if ( !PointLightRender.loadFromFile( "../shaders/PointLight.vs", "../shaders/PointLight.fs" ) )
+		Logger::Log( Logger::Error, PointLightRender.getErrorMessage().str() );
 
-	Light.SetPosition( glm::vec4( 10.f, 2.f, 3.f,1 ) );
-	Light.SetRadius( 45 );
+	if ( !StencilTestRender.loadFromFile( "../shaders/StencilTestRender.vs", "../shaders/StencilTestRender.fs" ) )
+		Logger::Log( Logger::Error, StencilTestRender.getErrorMessage().str() );
+
+	PointLightRender.setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	PointLightRender.setUniform( "ColorMap", GBuffer::Textures );
+	PointLightRender.setUniform( "PositionMap", GBuffer::Position );
+	PointLightRender.setUniform( "NormalMap", GBuffer::Normal );
+
+	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
 }
 
 //-------------------------------------------------------------------------//
@@ -159,6 +168,75 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 //-------------------------------------------------------------------------//
 
+void le::Scene::AddLightManagerToScene( le::LightManager* LightManager )
+{
+	vector<PointLight>* Lights = LightManager->GetAllPointLights();
+
+	for ( auto it = Lights->begin(); it != Lights->end(); it++ )
+	{
+		PointLights.push_back( &( *it ) );
+		it->SetScene( this );
+	}
+
+	LightManager->SetScene( this );
+	this->LightManager = LightManager;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::AddPointLightToScene( le::PointLight* PointLight )
+{
+	PointLights.push_back( PointLight );
+	PointLight->SetScene( this );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemovePointLightFromScene( PointLight* PointLight )
+{
+	for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
+		if ( *it == PointLight )
+		{
+			( *it )->SetScene( NULL );
+			PointLights.erase( it );
+			break;
+		}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemovePointLightFromScene( const string& NameLight )
+{
+	for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
+		if ( ( *it )->NameLight == NameLight )
+		{
+			( *it )->SetScene( NULL );
+			PointLights.erase( it );
+			break;
+		}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemoveLightManagerFromScene( le::LightManager* LightManager )
+{
+	vector<PointLight>* Lights = LightManager->GetAllPointLights();
+
+	for ( auto it = Lights->begin(); it != Lights->end(); it++ )
+		for ( auto it_Lights = PointLights.begin(); it_Lights != PointLights.end(); it_Lights++ )
+			if ( &( *it ) == *it_Lights )
+			{
+				( *it_Lights )->SetScene( NULL );
+				PointLights.erase( it_Lights );
+				break;
+			}
+
+	LightManager->SetScene( NULL );
+	this->LightManager = NULL;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Scene::RemoveCamera()
 {
 	ViewMatrix = NULL;
@@ -187,11 +265,13 @@ void le::Scene::RenderScene()
 		PVMatrix = *ProjectionMatrix;
 
 	LevelRender.setUniform( "PVMatrix", PVMatrix );
-	QueryTestRender.setUniform( "PVMatrix", PVMatrix );
+	QueryTestRender.setUniform( "PVTMatrix", PVMatrix );
 
 	// ****************************
 	// Проверка видимости геометрии
 	// ****************************
+	
+	size_t PointLightVisible = 0;
 
 	if ( Frustum != NULL && Camera != NULL )
 	{
@@ -202,7 +282,7 @@ void le::Scene::RenderScene()
 		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
 		size_t ModelsVisible = 0;
-		size_t BrushesVisible = 0;
+		size_t BrushesVisible = 0;		
 
 		for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
 		{
@@ -283,10 +363,24 @@ void le::Scene::RenderScene()
 		}
 
 		// ***************************************** //
-		// Сортируем геометри по удалению от камеры
+		// Проверка точечного освещения на отсечение по фрустуму
+
+		for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
+			if ( Frustum->IsVisible( ( *it )->LightSphere ) )
+			{
+				if ( PointLightVisible >= LightBuffer_PointLight.size() )
+					LightBuffer_PointLight.push_back( ( *it ) );
+				else
+					LightBuffer_PointLight[ PointLightVisible ] = ( *it );
+
+				PointLightVisible++;
+			}
+
+
+		// ***************************************** //
+		// Сортируем геометрию уровня по удалению от камеры
 
 		sort( GeometryBuffer_Level.begin(), GeometryBuffer_Level.begin() + BrushesVisible, sortFUNCTION );
-		sort( GeometryBuffer_Models.begin(), GeometryBuffer_Models.begin() + ModelsVisible, sortFUNCTION );
 
 		// ***************************************** //
 		// Рендер ограничивающих тел брашей
@@ -302,7 +396,16 @@ void le::Scene::RenderScene()
 		for ( size_t i = 0; i < ModelsVisible; i++ )
 			GeometryBuffer_Models[ i ]->BoundingBox->QueryTest();
 
-		glDepthMask( GL_TRUE );
+		// ***************************************** //
+		// Рендер ограничивающих тел точечного освещения
+
+		for ( size_t i = 0; i < PointLightVisible; i++ )
+		{
+			QueryTestRender.setUniform( "PVTMatrix", PVMatrix * LightBuffer_PointLight[ i ]->LightSphere.GetTransformation() );
+			LightBuffer_PointLight[ i ]->LightSphere.QueryTest();
+		}
+
+		glDepthMask( GL_TRUE ); 
 		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
 		if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
@@ -315,7 +418,7 @@ void le::Scene::RenderScene()
 
 	GBuffer.ClearFrame();
 	GBuffer.Bind( GBuffer::RenderBuffers );
-	
+
 	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
 	{
 		glBindTexture( GL_TEXTURE_2D, it->first );
@@ -407,17 +510,71 @@ void le::Scene::RenderScene()
 		}
 	}
 
-	Light.LightSphere.RenderSphere(); //          } для теста
-	GBuffer.RenderFrame( GBuffer::Textures ); //
-
-	Shader::bind( NULL );
-	VAO::UnbindVAO();
-
 	// ****************************
 	// Просчитывание освещения
 	// ****************************
 
-	///TODO: Написать код
+	glDepthMask( GL_FALSE );
+	glEnable( GL_STENCIL_TEST );
+	
+	// ***************************************** //
+	// Просчитываем точечные источники света
+
+	for ( size_t i = 0; i < PointLightVisible; i++ )
+	{
+		PointLight* PointLight = LightBuffer_PointLight[ i ];
+
+		// ***************************************** //
+		// Рендер в буффер трафарета для отсечения лишних объемов
+
+		Shader::bind( &StencilTestRender );
+		GBuffer.Bind( GBuffer::StencilTest );
+		
+		glEnable( GL_DEPTH_TEST );
+		glClear( GL_STENCIL_BUFFER_BIT );
+		glDisable( GL_CULL_FACE );
+
+		glStencilFunc( GL_ALWAYS, 0, 0 );
+		glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
+		glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
+
+		StencilTestRender.setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+		PointLight->LightSphere.RenderSphere();	
+
+		// ***************************************** //
+		// Рендер источника света
+
+		Shader::bind( &PointLightRender );
+		GBuffer.Bind( GBuffer::RenderLight );
+		
+		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+		glDisable( GL_DEPTH_TEST );
+
+		glEnable( GL_BLEND );
+		glBlendEquation( GL_FUNC_ADD );
+		glBlendFunc( GL_ONE, GL_ONE );
+
+		glEnable( GL_CULL_FACE );
+		glCullFace( GL_FRONT );
+
+		PointLightRender.setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+		PointLightRender.setUniform( "light.Position", PointLight->Position );
+		PointLightRender.setUniform( "light.Color", PointLight->Color );
+		PointLightRender.setUniform( "light.Intensivity", PointLight->Intensivity );
+		PointLightRender.setUniform( "light.Radius", PointLight->Radius );
+		PointLight->LightSphere.RenderSphere();
+
+		glCullFace( GL_BACK );
+		glDisable( GL_BLEND );	
+	}
+
+	glDisable( GL_STENCIL_TEST );
+	glDepthMask( GL_TRUE );
+
+	GBuffer.RenderFrame();
+
+	Shader::bind( NULL );
+	VAO::UnbindVAO();
 
 	glDisable( GL_TEXTURE_2D );
 	glDisable( GL_CULL_FACE );

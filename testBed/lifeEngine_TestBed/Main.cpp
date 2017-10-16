@@ -5,6 +5,7 @@
 #include <Graphics\Scene.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Level.h>
+#include <Graphics\LightManager.h>
 #include <System\Logger.h>
 
 class Game : public le::BasicApplication
@@ -24,6 +25,26 @@ public:
 
 		Level.LoadLevel( "../maps/test.lmap" );
 		Level.AddToScene( *Scene );
+		
+		glm::vec3 LightPosition;
+		string NameLight;
+		vector<int> LightColor;
+		vector<le::Level::Entity>* LevelEntitys = &Level.GetAllEntitys();
+
+		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
+		{
+			if ( it->GetNameEntity() == "light" )
+			{
+				LightColor = it->GetVelueVectorInt( "Color" );
+				float Radius = it->GetValueFloat( "Radius" );
+				NameLight = it->GetValueString( "Name" );
+				LightPosition = it->GetPosition();
+
+				LightManager.AddPointLight( NameLight, Radius, 1, LightPosition, glm::vec4( LightColor[0], LightColor[1], LightColor[2], 255 ) );
+			}
+		}
+
+		LightManager.AddLightsToScene( *Scene );
 	}
 
 	void Update()
@@ -58,6 +79,7 @@ public:
 	le::Camera* Camera;
 	le::Level Level;
 	le::GBuffer* GBuffer;
+	le::LightManager LightManager;
 };
 
 int main( int argc, char** argv )

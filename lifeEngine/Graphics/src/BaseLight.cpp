@@ -1,3 +1,4 @@
+#include <Graphics\Scene.h>
 #include "..\BaseLight.h"
 
 //-------------------------------------------------------------------------//
@@ -7,27 +8,9 @@ le::BaseLight::BaseLight() :
 	IsStaticLight( true ),
 	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
-	Specular( 0, 0, 0, 1 )
+	Specular( 0, 0, 0, 1 ),
+	Scene( NULL )
 {}
-
-//-------------------------------------------------------------------------//
-
-le::BaseLight::BaseLight( const BaseLight& Copy )
-{
-	IsStaticLight = Copy.IsStaticLight;
-	Intensivity = Copy.Intensivity;
-	IsInitShadowMap = Copy.IsInitShadowMap;
-	NameLight = Copy.NameLight;
-	Position = Copy.Position;
-	Specular = Copy.Specular;
-	Color = Copy.Color;
-
-	ShadowProjection = Copy.ShadowProjection;
-	ShadowTransforms = Copy.ShadowTransforms;
-
-	if ( IsInitShadowMap )
-		InitShadowMap( true );
-}
 
 //-------------------------------------------------------------------------//
 
@@ -145,6 +128,32 @@ void le::BaseLight::SetColor( const glm::vec4& Color )
 void le::BaseLight::SetDinamicLight( bool IsDinamic )
 {
 	IsStaticLight = !IsDinamic;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BaseLight::SetScene( le::Scene* Scene )
+{
+	this->Scene = Scene;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BaseLight::CopyBaseLight( const BaseLight& Copy )
+{
+	IsStaticLight = Copy.IsStaticLight;
+	Intensivity = Copy.Intensivity;
+	IsInitShadowMap = Copy.IsInitShadowMap;
+	NameLight = Copy.NameLight;
+	Position = Copy.Position;
+	Specular = Copy.Specular;
+	Color = Copy.Color;
+
+	ShadowProjection = Copy.ShadowProjection;
+	ShadowTransforms = Copy.ShadowTransforms;
+
+	if ( IsInitShadowMap )
+		InitShadowMap( true );
 }
 
 //-------------------------------------------------------------------------//

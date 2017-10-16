@@ -106,6 +106,13 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		glm::mat4& GetTransformation();
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить позицию
+		///		
+		/// \return  glm::vec3&
+		//////////////////////////////////////////////////////////////////////
+		glm::vec3& GetPosition();
+
 		BoundingSphere& operator=( const BoundingSphere& Copy );
 
 		Query				Query; ///< Объект для проверки перекрытия
@@ -117,13 +124,15 @@ namespace le
 		/// \param[in] Radius Радиус сферы
 		/// \return  vector<glm::vec3>&
 		//////////////////////////////////////////////////////////////////////
-		vector<glm::vec3>&	CreateSphere( const float& Radius );
+		vector<glm::vec3>	CreateSphere( const float& Radius );
 
 		float				Radius; ///< Радиус сферы
 
 		GLuint				ArrayBuffer; ///< VAO буффер
 		GLuint				VertexBuffer; ///< Вершиный буффер
 		GLuint				IndexBuffer; ///< Индексный буффер
+
+		glm::vec3			Position; ///< Позиция сферы
 		glm::mat4			Transformation; ///< Матрица трансформации
 	};
 

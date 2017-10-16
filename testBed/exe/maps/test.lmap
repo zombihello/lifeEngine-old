@@ -8991,5 +8991,23 @@
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
 </Entity>
+<Entity Name="light">
+<Position X="336" Y="32" Z="-16"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Radius" Value="180"/>
+</Entity>
+<Entity Name="light">
+<Position X="656" Y="64" Z="-16"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Radius" Value="180"/>
+</Entity>
+<Entity Name="light">
+<Position X="480" Y="0" Z="-16"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="0 162 232"/>
+<Value Name="Radius" Value="45"/>
+</Entity>
 </Entitys>
 </Map>

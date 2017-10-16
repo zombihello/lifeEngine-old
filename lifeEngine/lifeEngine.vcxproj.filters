@@ -78,6 +78,9 @@
     <ClCompile Include="Graphics\src\BaseLight.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\LightManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -126,9 +129,6 @@
     <ClInclude Include="Graphics\MeshVertex.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Level.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\BoundingBox.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -148,6 +148,12 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\BaseLight.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LightManager.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

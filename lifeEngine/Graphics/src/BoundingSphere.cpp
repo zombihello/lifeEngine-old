@@ -15,6 +15,8 @@ le::BoundingSphere::BoundingSphere( BoundingSphere& Copy )
 {
 	Query = Copy.Query;
 	Radius = Copy.Radius;
+	Transformation = Copy.Transformation;
+	Position = Copy.Position;
 
 	if ( Copy.ArrayBuffer != 0 )
 		InitSphere( Radius );
@@ -523,7 +525,7 @@ void le::BoundingSphere::InitSphere( const float& Radius )
 		37, 257, 39,
 		257, 245, 39,
 		2, 1, 37,
-		1, 257, 37
+		1, 257, 37,
 	};
 
 	ArrayBuffer = VAO::CreateVAO();
@@ -537,6 +539,8 @@ void le::BoundingSphere::InitSphere( const float& Radius )
 	VAO::UnbindVAO();
 	VAO::UnbindBuffer( VAO::Vertex_Buffer );
 	VAO::UnbindBuffer( VAO::Index_Buffer );
+
+	this->Radius = Radius;
 }
 
 //-------------------------------------------------------------------------//
@@ -565,6 +569,7 @@ void le::BoundingSphere::RenderSphere()
 
 void le::BoundingSphere::SetPosition( const glm::vec3& Position )
 {
+	this->Position = Position;
 	Transformation = glm::translate( Position );
 }
 
@@ -590,18 +595,26 @@ float le::BoundingSphere::GetRadius()
 
 //-------------------------------------------------------------------------//
 
-glm::mat4 & le::BoundingSphere::GetTransformation()
+glm::mat4& le::BoundingSphere::GetTransformation()
 {
 	return Transformation;
 }
 
 //-------------------------------------------------------------------------//
 
-le::BoundingSphere& le::BoundingSphere::operator=( const BoundingSphere & Copy )
+glm::vec3& le::BoundingSphere::GetPosition()
+{
+	return Position;
+}
+
+//-------------------------------------------------------------------------//
+
+le::BoundingSphere& le::BoundingSphere::operator=( const BoundingSphere& Copy )
 {
 	Query = Copy.Query;
 	Radius = Copy.Radius;
 	Transformation = Copy.Transformation;
+	Position = Copy.Position;
 
 	if ( Copy.ArrayBuffer != 0 )
 		InitSphere( Radius );
@@ -613,7 +626,7 @@ le::BoundingSphere& le::BoundingSphere::operator=( const BoundingSphere & Copy )
 
 //-------------------------------------------------------------------------//
 
-vector<glm::vec3>& le::BoundingSphere::CreateSphere( const float& Radius )
+vector<glm::vec3> le::BoundingSphere::CreateSphere( const float& Radius )
 {
 	vector<glm::vec3> Vertexs =
 	{
@@ -874,7 +887,7 @@ vector<glm::vec3>& le::BoundingSphere::CreateSphere( const float& Radius )
 		{ 0.653281f * Radius, -0.707107f * Radius, 0.270598f * Radius },
 		{ 0.513280f * Radius, -0.831470f * Radius, 0.212607f * Radius },
 		{ 0.353553f * Radius, -0.923880f * Radius, 0.146446f * Radius },
-		{ 0.353553f * Radius, 0.923880f * Radius, 0.146447f * Radius }
+		{ 0.353553f * Radius, 0.923880f * Radius, 0.146447f * Radius },
 	};
 
 	return Vertexs;
