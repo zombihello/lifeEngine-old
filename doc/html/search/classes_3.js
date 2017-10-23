@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['frustum',['Frustum',['../classle_1_1_frustum.html',1,'le']]]
+  ['directionallight',['DirectionalLight',['../classle_1_1_directional_light.html',1,'le']]]
 ];

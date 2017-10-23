@@ -8,7 +8,6 @@ struct PointLight
 	vec4 Color;
 	
 	float Radius;
-	float Intensivity;
 };
 
 //-------------------------------------------
@@ -37,18 +36,13 @@ vec2 CalcTexCoord()
 void main()
 {
 	vec2 texCoord = CalcTexCoord();
-	vec4 position = texture( PositionMap, texCoord );
-	vec3 color = texture( ColorMap, texCoord ).rgb;
-	vec3 Normal = texture( NormalMap, texCoord ).xyz;
-	vec3 lightDirection = ( light.Position - position ).xyz;
+	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );
+	vec3 lightDirection = ( light.Position - texture( PositionMap, texCoord ) ).xyz;
 	float Distance = length( lightDirection );
 	lightDirection = normalize( lightDirection );
-	Normal = normalize( Normal );
-						
+		
 	float DiffuseFactor = max( dot( lightDirection, Normal ), 0.0f );
-	float Attenuation = 1 - Distance / light.Radius;
+	float Attenuation =  1 - pow( Distance / light.Radius, 2 );
 		
-	vec4 DiffuseColor = ( light.Color * light.Intensivity * DiffuseFactor ) * Attenuation;
-		
-	Color = DiffuseColor * vec4( color, 1.0f );
+	Color = ( light.Color * DiffuseFactor ) * Attenuation * texture( ColorMap, texCoord );
 }

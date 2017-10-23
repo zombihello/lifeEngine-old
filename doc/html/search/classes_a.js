@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vao',['VAO',['../classle_1_1_v_a_o.html',1,'le']]]
+  ['pointlight',['PointLight',['../classle_1_1_point_light.html',1,'le']]]
 ];

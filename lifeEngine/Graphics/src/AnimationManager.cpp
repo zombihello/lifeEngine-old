@@ -68,8 +68,16 @@ void le::AnimationManager::Stop()
 
 void le::AnimationManager::Update()
 {
-	if ( Skeleton != NULL && CurrentAnimation != NULL )
+	if ( Skeleton != NULL && CurrentAnimation != NULL && RenderMesh != NULL )
+	{
+		// *** Если данная модель не видна, то не обновляем анимацию ***
+
+		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+			if ( !it->second.IsRender )
+				return;
+
 		CurrentAnimation->Update();
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -101,6 +109,13 @@ void le::AnimationManager::SetSkeleton( le::Skeleton& Skeleton )
 
 	for ( auto it = Animations.begin(); it != Animations.end(); it++ )
 		it->second.SetSkeleton( *this->Skeleton );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::AnimationManager::SetRenderMesh( map<GLuint, Scene::InfoMesh>& RenderMesh )
+{
+	this->RenderMesh = &RenderMesh;
 }
 
 //-------------------------------------------------------------------------//

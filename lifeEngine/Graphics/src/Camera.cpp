@@ -127,7 +127,7 @@ void le::Camera::SetInclinationCamera( float InclinationCamera )
 
 //-------------------------------------------------------------------------//
 
-const glm::vec3& le::Camera::GetPosition()
+glm::vec3& le::Camera::GetPosition()
 {
 	return Position;
 }

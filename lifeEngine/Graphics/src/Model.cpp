@@ -89,6 +89,7 @@ void le::Model::LoadModel( Mesh& Mesh )
 	}
 
 	AnimationManager.SetSkeleton( Skeleton );
+	AnimationManager.SetRenderMesh( RenderMesh );
 }
 
 //-------------------------------------------------------------------------//

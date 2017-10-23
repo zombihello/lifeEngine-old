@@ -108,7 +108,7 @@ namespace le
 			GLuint							ArrayBuffer; ///< VAO буффер
 			BoundingBox						BoundingBox; ///< Ограничивающее тело браша
 			glm::vec3						Position; ///< Позиция браша в мире
-			map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Меш для рендера
+			map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Информация о меше
 		};
 
 		//-------------------------------------------------------------------------//

@@ -118,7 +118,7 @@ namespace le
 		glm::mat4x4						MatrixTransformation; ///< Матрица трансформации (Pos+Scal+Rot)
 		vector<GLuint>					IndexBuffers; ///< Массив индексных буфферов
 		vector<GLuint>					ArrayBuffers; ///< Массив VAO буфферов
-		map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Меш для рендера
+		map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Информация о меше
 	};
 
 	//-------------------------------------------------------------------------//

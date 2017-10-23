@@ -160,6 +160,7 @@
     <ClInclude Include="Graphics\BoundingBox.h" />
     <ClInclude Include="Graphics\BoundingSphere.h" />
     <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="Graphics\DirectionalLight.h" />
     <ClInclude Include="Graphics\Frustum.h" />
     <ClInclude Include="Graphics\Level.h" />
     <ClInclude Include="Graphics\LightManager.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Graphics\MeshVertex.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\PointLight.h" />
+    <ClInclude Include="Graphics\Quad.h" />
     <ClInclude Include="Graphics\Scene.h" />
     <ClInclude Include="Graphics\Skeleton.h" />
     <ClInclude Include="System\BasicApplication.h" />
@@ -186,6 +188,7 @@
     <ClCompile Include="Graphics\src\BoundingBox.cpp" />
     <ClCompile Include="Graphics\src\BoundingSphere.cpp" />
     <ClCompile Include="Graphics\src\Camera.cpp" />
+    <ClCompile Include="Graphics\src\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\src\Frustum.cpp" />
     <ClCompile Include="Graphics\src\Level.cpp" />
     <ClCompile Include="Graphics\src\LightManager.cpp" />
@@ -193,6 +196,7 @@
     <ClCompile Include="Graphics\src\MeshVertex.cpp" />
     <ClCompile Include="Graphics\src\Model.cpp" />
     <ClCompile Include="Graphics\src\PointLight.cpp" />
+    <ClCompile Include="Graphics\src\Quad.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />
     <ClCompile Include="Graphics\src\Skeleton.cpp" />
     <ClCompile Include="System\src\BasicApplication.cpp" />

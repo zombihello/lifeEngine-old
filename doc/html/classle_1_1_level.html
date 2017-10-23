@@ -84,6 +84,9 @@ $(function() {
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_brush.html">Brush</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для работы с брашем уровня  <a href="classle_1_1_level_1_1_brush.html#details">Подробнее...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level_1_1_entity.html">Entity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Класс для хранения энтити-объектов карты  <a href="classle_1_1_level_1_1_entity.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
@@ -112,9 +115,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level.html#a1167b1820b5c790ea815464378bf3848">ClearLevel</a> ()</td></tr>
 <tr class="memdesc:a1167b1820b5c790ea815464378bf3848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистить уровень <br /></td></tr>
 <tr class="separator:a1167b1820b5c790ea815464378bf3848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20cf23d1cc4dc6ad5f379026a4e91af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classle_1_1_level_1_1_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level.html#ad20cf23d1cc4dc6ad5f379026a4e91af">GetEntity</a> (const string &amp;NameEntity)</td></tr>
+<tr class="memdesc:ad20cf23d1cc4dc6ad5f379026a4e91af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить энтити по названию  <a href="#ad20cf23d1cc4dc6ad5f379026a4e91af">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad20cf23d1cc4dc6ad5f379026a4e91af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe75946dd12d4eb94aeb1f7639ab8b9e"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="classle_1_1_level_1_1_brush.html">Brush</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level.html#abe75946dd12d4eb94aeb1f7639ab8b9e">GetAllBrushes</a> ()</td></tr>
 <tr class="memdesc:abe75946dd12d4eb94aeb1f7639ab8b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить все браши на уровне  <a href="#abe75946dd12d4eb94aeb1f7639ab8b9e">Подробнее...</a><br /></td></tr>
 <tr class="separator:abe75946dd12d4eb94aeb1f7639ab8b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319922f14d87f0bf67116ea080083f9e"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="classle_1_1_level_1_1_entity.html">Entity</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_level.html#a319922f14d87f0bf67116ea080083f9e">GetAllEntitys</a> ()</td></tr>
+<tr class="memdesc:a319922f14d87f0bf67116ea080083f9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить все энтити на уровне  <a href="#a319922f14d87f0bf67116ea080083f9e">Подробнее...</a><br /></td></tr>
+<tr class="separator:a319922f14d87f0bf67116ea080083f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс для работы с уровнем </p>
@@ -162,6 +171,53 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Получить все браши на уровне </p>
 <dl class="section return"><dt>Возвращает</dt><dd>vector&lt;Brush*&gt;&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a319922f14d87f0bf67116ea080083f9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a319922f14d87f0bf67116ea080083f9e">&#9670;&nbsp;</a></span>GetAllEntitys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="classle_1_1_level_1_1_entity.html">le::Level::Entity</a> &gt; &amp; le::Level::GetAllEntitys </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить все энтити на уровне </p>
+<dl class="section return"><dt>Возвращает</dt><dd>vector&lt;Entity*&gt;&amp; </dd></dl>
+
+</div>
+</div>
+<a id="ad20cf23d1cc4dc6ad5f379026a4e91af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad20cf23d1cc4dc6ad5f379026a4e91af">&#9670;&nbsp;</a></span>GetEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classle_1_1_level_1_1_entity.html">le::Level::Entity</a> * le::Level::GetEntity </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>NameEntity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получить энтити по названию </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NameEntity</td><td>Название энтити </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Entity*. Если не нашли энтити,то вернет NULL </dd></dl>
 
 </div>
 </div>

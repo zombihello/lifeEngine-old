@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Исходный файл E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/Graphics/PointLight.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_9e17f58e0750a0bc3c41a22727112217.html">lifeEngine</a></li><li class="navelem"><a class="el" href="dir_e09c625450b9a262e133012df5176766.html">Graphics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">PointLight.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          *** lifeEngine (Двигатель Жизни) ***</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                  Copyright (C) 2017</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Связь со мной:       https://vk.com/zombihello</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// Репозиторий движка:  https://github.com/zombihello/lifeEngine</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef POINT_LIGHT_H</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define POINT_LIGHT_H</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define COMPILING_LIBRARY</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;DllGlobal.h&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// OPENGL</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;glew\glew.h&gt;</span></div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;glm\glm.hpp&gt;</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// LIFEENGINE</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;Graphics\BaseLight.h&gt;</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;Graphics\BoundingSphere.h&gt;</span></div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacele.html">le</a></div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">class </span>Scene;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div><div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classle_1_1_point_light.html">   42</a></span>&#160;    <span class="keyword">class </span>DLL_API <a class="code" href="classle_1_1_point_light.html">PointLight</a> : <span class="keyword">public</span> <a class="code" href="classle_1_1_base_light.html">BaseLight</a></div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classle_1_1_point_light.html">PointLight</a>();</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        </div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classle_1_1_point_light.html">PointLight</a>( <span class="keyword">const</span> <a class="code" href="classle_1_1_point_light.html">PointLight</a>&amp; Copy );</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        </div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="classle_1_1_point_light.html">PointLight</a>( <span class="keywordtype">float</span> Radius, <span class="keyword">const</span> glm::vec3&amp; Position, <span class="keyword">const</span> glm::vec4&amp; Color, <span class="keyword">const</span> glm::vec4&amp; Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        </div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ~<a class="code" href="classle_1_1_point_light.html">PointLight</a>();</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">void</span> AddToScene( <a class="code" href="classle_1_1_scene.html">le::Scene</a>&amp; <a class="code" href="classle_1_1_scene.html">Scene</a> );</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">void</span> RemoveFromScene();</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span> SetRadius( <span class="keywordtype">float</span> Radius );</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">void</span> SetPosition( <span class="keyword">const</span> glm::vec3&amp; Position );</div><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="classle_1_1_point_light.html">le::PointLight</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classle_1_1_point_light.html">PointLight</a>&amp; Copy );</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div><div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classle_1_1_point_light.html#acebdfd223323fd47eb9b84405b407266">   98</a></span>&#160;        <span class="keywordtype">float</span>                   <a class="code" href="classle_1_1_point_light.html#acebdfd223323fd47eb9b84405b407266">Radius</a>; </div><div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classle_1_1_point_light.html#ae93f15cf283429495883e5835a1e02db">   99</a></span>&#160;        <a class="code" href="classle_1_1_bounding_sphere.html">BoundingSphere</a>          <a class="code" href="classle_1_1_point_light.html#ae93f15cf283429495883e5835a1e02db">LightSphere</a>; </div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    };</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif // POINT_LIGHT_H</span></div><div class="ttc" id="classle_1_1_point_light_html_ae93f15cf283429495883e5835a1e02db"><div class="ttname"><a href="classle_1_1_point_light.html#ae93f15cf283429495883e5835a1e02db">le::PointLight::LightSphere</a></div><div class="ttdeci">BoundingSphere LightSphere</div><div class="ttdoc">Сфера света </div><div class="ttdef"><b>Definition:</b> PointLight.h:99</div></div>
+<div class="ttc" id="classle_1_1_bounding_sphere_html"><div class="ttname"><a href="classle_1_1_bounding_sphere.html">le::BoundingSphere</a></div><div class="ttdoc">Класс ограничивающего тела (сфера) </div><div class="ttdef"><b>Definition:</b> BoundingSphere.h:46</div></div>
+<div class="ttc" id="classle_1_1_base_light_html"><div class="ttname"><a href="classle_1_1_base_light.html">le::BaseLight</a></div><div class="ttdoc">Базовый класс света </div><div class="ttdef"><b>Definition:</b> BaseLight.h:51</div></div>
+<div class="ttc" id="classle_1_1_point_light_html"><div class="ttname"><a href="classle_1_1_point_light.html">le::PointLight</a></div><div class="ttdoc">Класс точечного света </div><div class="ttdef"><b>Definition:</b> PointLight.h:42</div></div>
+<div class="ttc" id="classle_1_1_point_light_html_acebdfd223323fd47eb9b84405b407266"><div class="ttname"><a href="classle_1_1_point_light.html#acebdfd223323fd47eb9b84405b407266">le::PointLight::Radius</a></div><div class="ttdeci">float Radius</div><div class="ttdoc">Радиус света </div><div class="ttdef"><b>Definition:</b> PointLight.h:98</div></div>
+<div class="ttc" id="classle_1_1_scene_html"><div class="ttname"><a href="classle_1_1_scene.html">le::Scene</a></div><div class="ttdoc">Класс для работы со сценой </div><div class="ttdef"><b>Definition:</b> Scene.h:64</div></div>
+<div class="ttc" id="namespacele_html"><div class="ttname"><a href="namespacele.html">le</a></div><div class="ttdef"><b>Definition:</b> BasicApplication.h:22</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

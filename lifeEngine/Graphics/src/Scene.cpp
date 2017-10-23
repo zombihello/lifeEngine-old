@@ -21,6 +21,7 @@ le::Scene::Scene( System& System ) :
 	LightManager( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
+	PVMatrix = *ProjectionMatrix;
 
 	if ( !AnimationModelsRender.loadFromFile( "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" ) )
 		Logger::Log( Logger::Error, AnimationModelsRender.getErrorMessage().str() );
@@ -40,10 +41,17 @@ le::Scene::Scene( System& System ) :
 	if ( !StencilTestRender.loadFromFile( "../shaders/StencilTestRender.vs", "../shaders/StencilTestRender.fs" ) )
 		Logger::Log( Logger::Error, StencilTestRender.getErrorMessage().str() );
 
+	if ( !DirectionalLightRender.loadFromFile( "../shaders/DirectionalLightRender.vs", "../shaders/DirectionalLightRender.fs" ) )
+		Logger::Log( Logger::Error, DirectionalLightRender.getErrorMessage().str() );
+
 	PointLightRender.setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
 	PointLightRender.setUniform( "ColorMap", GBuffer::Textures );
 	PointLightRender.setUniform( "PositionMap", GBuffer::Position );
 	PointLightRender.setUniform( "NormalMap", GBuffer::Normal );
+
+	DirectionalLightRender.setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	DirectionalLightRender.setUniform( "ColorMap", GBuffer::Textures );
+	DirectionalLightRender.setUniform( "NormalMap", GBuffer::Normal );
 
 	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
 }
@@ -63,12 +71,12 @@ void le::Scene::AddModelToScene( Model* Model )
 	if ( Model->IsNoSkeleton() )
 	{
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer[ it->first ].StaticModels.push_back( &it->second );
+			RenderBuffer_StaticModel[ it->first ].push_back( &it->second );
 	}
 	else
 	{
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer[ it->first ].AnimationModels.push_back( &it->second );
+			RenderBuffer_AnimationModel[ it->first ].push_back( &it->second );
 	}
 
 	Model->SetScene( this );
@@ -79,32 +87,26 @@ void le::Scene::AddModelToScene( Model* Model )
 void le::Scene::RemoveModelFromScene( Model* Model )
 {
 	map<GLuint, InfoMesh>* RenderMesh = &Model->GetRenderMesh();
+	map<GLuint, vector<InfoMesh*>>* RenderBuffer_Models;
+
+	if ( Model->IsNoSkeleton() )
+		RenderBuffer_Models = &RenderBuffer_StaticModel;
+	else
+		RenderBuffer_Models = &RenderBuffer_AnimationModel;
+
 	vector<InfoMesh*>* InfoMeshes;
 
-	if ( Model->IsNoSkeleton() ) // если модель без скелета
-		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-		{
-			InfoMeshes = &RenderBuffer[ it->first ].StaticModels;
+	for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
+	{
+		InfoMeshes = &( *RenderBuffer_Models )[ it->first ];
 
-			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
-				if ( ( *InfoMeshes )[ i ] == &it->second )
-				{
-					InfoMeshes->erase( InfoMeshes->begin() + i );
-					break;
-				}
-		}
-	else
-		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-		{
-			InfoMeshes = &RenderBuffer[ it->first ].AnimationModels;
-
-			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
-				if ( ( *InfoMeshes )[ i ] == &it->second )
-				{
-					InfoMeshes->erase( InfoMeshes->begin() + i );
-					break;
-				}
-		}
+		for ( size_t i = 0; i < InfoMeshes->size(); i++ )
+			if ( ( *InfoMeshes )[ i ] == &it->second )
+			{
+				InfoMeshes->erase( InfoMeshes->begin() + i );
+				break;
+			}
+	}
 
 	for ( size_t i = 0; i < ModelsInScene.size(); i++ )
 		if ( ModelsInScene[ i ] == Model )
@@ -130,7 +132,7 @@ void le::Scene::AddLevelToScene( Level* Level )
 		RenderMesh = &Brush->GetRenderMesh();
 
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer[ it->first ].Level.push_back( &it->second );
+			RenderBuffer_Level[ it->first ].push_back( &it->second );
 	}
 
 	Level->SetScene( this );
@@ -151,12 +153,12 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
 		{
-			InfoMeshes = &RenderBuffer[ it->first ].Level;
+			InfoMeshes = &RenderBuffer_Level[ it->first ];
 
-			for ( size_t i = 0; i < InfoMeshes->size(); i++ )
-				if ( ( *InfoMeshes )[ i ] == &it->second )
+			for ( size_t j = 0; j < InfoMeshes->size(); j++ )
+				if ( ( *InfoMeshes )[ j ] == &it->second )
 				{
-					InfoMeshes->erase( InfoMeshes->begin() + i );
+					InfoMeshes->erase( InfoMeshes->begin() + j );
 					break;
 				}
 		}
@@ -170,11 +172,18 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 void le::Scene::AddLightManagerToScene( le::LightManager* LightManager )
 {
-	vector<PointLight>* Lights = LightManager->GetAllPointLights();
+	vector<PointLight>* PointLights = LightManager->GetAllPointLights();
+	vector<DirectionalLight>* DirectionalLights = LightManager->GetAllDirectionalLights();
 
-	for ( auto it = Lights->begin(); it != Lights->end(); it++ )
+	for ( auto it = PointLights->begin(); it != PointLights->end(); it++ )
 	{
-		PointLights.push_back( &( *it ) );
+		this->PointLights.push_back( &( *it ) );
+		it->SetScene( this );
+	}
+
+	for ( auto it = DirectionalLights->begin(); it != DirectionalLights->end(); it++ )
+	{
+		this->DirectionalLights.push_back( &( *it ) );
 		it->SetScene( this );
 	}
 
@@ -188,6 +197,14 @@ void le::Scene::AddPointLightToScene( le::PointLight* PointLight )
 {
 	PointLights.push_back( PointLight );
 	PointLight->SetScene( this );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::AddDirectionalLightToScene( le::DirectionalLight* DirectionalLight )
+{
+	DirectionalLights.push_back( DirectionalLight );
+	DirectionalLight->SetScene( this );
 }
 
 //-------------------------------------------------------------------------//
@@ -212,6 +229,32 @@ void le::Scene::RemovePointLightFromScene( const string& NameLight )
 		{
 			( *it )->SetScene( NULL );
 			PointLights.erase( it );
+			break;
+		}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemoveDirectionalLightToScene( le::DirectionalLight* DirectionalLight )
+{
+	for ( auto it = DirectionalLights.begin(); it != DirectionalLights.end(); it++ )
+		if ( *it == DirectionalLight )
+		{
+			( *it )->SetScene( NULL );
+			DirectionalLights.erase( it );
+			break;
+		}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::RemoveDirectionalLightToScene( const string& NameLight )
+{
+	for ( auto it = DirectionalLights.begin(); it != DirectionalLights.end(); it++ )
+		if ( ( *it )->NameLight == NameLight )
+		{
+			( *it )->SetScene( NULL );
+			DirectionalLights.erase( it );
 			break;
 		}
 }
@@ -248,9 +291,6 @@ void le::Scene::RemoveCamera()
 
 void le::Scene::RenderScene()
 {
-	if ( RenderBuffer.empty() ) // если буффер рендера пуст, то выйти из метода
-		return;
-
 	glEnable( GL_TEXTURE_2D );
 	glEnable( GL_CULL_FACE );
 	glEnable( GL_DEPTH_TEST );
@@ -259,18 +299,18 @@ void le::Scene::RenderScene()
 	vector<le::Skeleton::Bone>* Bones;
 	InfoMesh* InfoMesh;
 
-	if ( ViewMatrix )
+	if ( Camera )
 		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
-	else
-		PVMatrix = *ProjectionMatrix;
 
 	LevelRender.setUniform( "PVMatrix", PVMatrix );
 	QueryTestRender.setUniform( "PVTMatrix", PVMatrix );
+	AnimationModelsRender.setUniform( "PVMatrix", PVMatrix );
+	StaticModelsRender.setUniform( "PVMatrix", PVMatrix );
 
 	// ****************************
 	// Проверка видимости геометрии
 	// ****************************
-	
+
 	size_t PointLightVisible = 0;
 
 	if ( Frustum != NULL && Camera != NULL )
@@ -282,14 +322,14 @@ void le::Scene::RenderScene()
 		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
 		size_t ModelsVisible = 0;
-		size_t BrushesVisible = 0;		
+		size_t BrushesVisible = 0;
 
-		for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
+		// ***************************************** //
+		// Проверка брашей на отсечение по фрустуму
+
+		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
-			// ***************************************** //
-			// Проверка брашей на отсечение по фрустуму
-
-			GeometryBuffer = &RenderBuffer[ it->first ].Level;
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -310,11 +350,14 @@ void le::Scene::RenderScene()
 					BrushesVisible++;
 				}
 			}
+		}
 
-			// ***************************************** //
-			// Проверка статичных моделей на отсечение по фрустуму
+		// ***************************************** //
+		// Проверка статичных моделей на отсечение по фрустуму
 
-			GeometryBuffer = &RenderBuffer[ it->first ].StaticModels;
+		for ( auto it = RenderBuffer_StaticModel.begin(); it != RenderBuffer_StaticModel.end(); it++ )
+		{
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -335,11 +378,14 @@ void le::Scene::RenderScene()
 					ModelsVisible++;
 				}
 			}
+		}
 
-			// ***************************************** //
-			// Проверка анимируемых моделей на отсечение по фрустуму
+		// ***************************************** //
+		// Проверка анимируемых моделей на отсечение по фрустуму
 
-			GeometryBuffer = &RenderBuffer[ it->first ].AnimationModels;
+		for ( auto it = RenderBuffer_AnimationModel.begin(); it != RenderBuffer_AnimationModel.end(); it++ )
+		{
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -396,16 +442,7 @@ void le::Scene::RenderScene()
 		for ( size_t i = 0; i < ModelsVisible; i++ )
 			GeometryBuffer_Models[ i ]->BoundingBox->QueryTest();
 
-		// ***************************************** //
-		// Рендер ограничивающих тел точечного освещения
-
-		for ( size_t i = 0; i < PointLightVisible; i++ )
-		{
-			QueryTestRender.setUniform( "PVTMatrix", PVMatrix * LightBuffer_PointLight[ i ]->LightSphere.GetTransformation() );
-			LightBuffer_PointLight[ i ]->LightSphere.QueryTest();
-		}
-
-		glDepthMask( GL_TRUE ); 
+		glDepthMask( GL_TRUE );
 		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
 		if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
@@ -419,18 +456,17 @@ void le::Scene::RenderScene()
 	GBuffer.ClearFrame();
 	GBuffer.Bind( GBuffer::RenderBuffers );
 
-	for ( auto it = RenderBuffer.begin(); it != RenderBuffer.end(); it++ )
+	// ***************************************** //
+	// Рендер брашей уровня
+
+	if ( !RenderBuffer_Level.empty() )
 	{
-		glBindTexture( GL_TEXTURE_2D, it->first );
+		Shader::bind( &LevelRender );
 
-		// ***************************************** //
-		// Рендер брашей уровня
-
-		GeometryBuffer = &RenderBuffer[ it->first ].Level;
-
-		if ( !GeometryBuffer->empty() )
+		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
-			Shader::bind( &LevelRender );
+			glBindTexture( GL_TEXTURE_2D, it->first );
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -447,15 +483,19 @@ void le::Scene::RenderScene()
 				InfoMesh->BoundingBox->Query.EndConditionalRender();
 			}
 		}
+	}
 
-		// ***************************************** //
-		// Рендер анимируемых моделей
+	// ***************************************** //
+	// Рендер анимируемых моделей
 
-		GeometryBuffer = &RenderBuffer[ it->first ].AnimationModels;
+	if ( !RenderBuffer_AnimationModel.empty() )
+	{
+		Shader::bind( &AnimationModelsRender );
 
-		if ( !GeometryBuffer->empty() )
+		for ( auto it = RenderBuffer_AnimationModel.begin(); it != RenderBuffer_AnimationModel.end(); it++ )
 		{
-			Shader::bind( &AnimationModelsRender );
+			glBindTexture( GL_TEXTURE_2D, it->first );
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -465,7 +505,6 @@ void le::Scene::RenderScene()
 					continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
-				AnimationModelsRender.setUniform( "PVMatrix", PVMatrix );
 				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				for ( size_t j = 0; j < Bones->size(); j++ )
@@ -479,15 +518,19 @@ void le::Scene::RenderScene()
 				InfoMesh->BoundingBox->Query.EndConditionalRender();
 			}
 		}
+	}
 
-		// ***************************************** //
-		// Рендер статичных моделей (те которые не анимируются)
+	// ***************************************** //
+	// Рендер статичных моделей (те которые не анимируются)
 
-		GeometryBuffer = &RenderBuffer[ it->first ].StaticModels;
+	if ( !RenderBuffer_StaticModel.empty() )
+	{
+		Shader::bind( &StaticModelsRender );
 
-		if ( !GeometryBuffer->empty() )
+		for ( auto it = RenderBuffer_StaticModel.begin(); it != RenderBuffer_StaticModel.end(); it++ )
 		{
-			Shader::bind( &StaticModelsRender );
+			glBindTexture( GL_TEXTURE_2D, it->first );
+			GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < GeometryBuffer->size(); i++ )
 			{
@@ -496,8 +539,6 @@ void le::Scene::RenderScene()
 				if ( !InfoMesh->IsRender )
 					continue;
 
-				Bones = InfoMesh->Skeleton->GetAllBones();
-				StaticModelsRender.setUniform( "PVMatrix", PVMatrix * ( *InfoMesh->MatrixTransformation ) );
 				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
@@ -514,64 +555,96 @@ void le::Scene::RenderScene()
 	// Просчитывание освещения
 	// ****************************
 
-	glDepthMask( GL_FALSE );
-	glEnable( GL_STENCIL_TEST );
-	
-	// ***************************************** //
-	// Просчитываем точечные источники света
-
-	for ( size_t i = 0; i < PointLightVisible; i++ )
+	if ( !PointLights.empty() || !DirectionalLights.empty() )
 	{
-		PointLight* PointLight = LightBuffer_PointLight[ i ];
+		glDepthMask( GL_FALSE );
+		glEnable( GL_STENCIL_TEST );
 
-		// ***************************************** //
-		// Рендер в буффер трафарета для отсечения лишних объемов
-
-		Shader::bind( &StencilTestRender );
-		GBuffer.Bind( GBuffer::StencilTest );
+		glBlendEquation( GL_FUNC_ADD );
+		glBlendFunc( GL_ONE, GL_ONE );
 		
-		glEnable( GL_DEPTH_TEST );
-		glClear( GL_STENCIL_BUFFER_BIT );
-		glDisable( GL_CULL_FACE );
-
-		glStencilFunc( GL_ALWAYS, 0, 0 );
 		glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
 		glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
-		StencilTestRender.setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
-		PointLight->LightSphere.RenderSphere();	
+		GBuffer.Bind( GBuffer::RenderLight );
 
 		// ***************************************** //
-		// Рендер источника света
+		// Просчитываем точечные источники света
 
-		Shader::bind( &PointLightRender );
-		GBuffer.Bind( GBuffer::RenderLight );
-		
-		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+		for ( size_t i = 0; i < PointLightVisible; i++ )
+		{
+			PointLight* PointLight = LightBuffer_PointLight[ i ];
+			PVTMatrix = PVMatrix * PointLight->LightSphere.GetTransformation();
+
+			// ***************************************** //
+			// Рендер в буффер трафарета для отсечения лишних объемов
+
+			glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+
+			Shader::bind( &StencilTestRender );
+
+			glEnable( GL_DEPTH_TEST );
+			glClear( GL_STENCIL_BUFFER_BIT );
+			glDisable( GL_CULL_FACE );
+
+			glStencilFunc( GL_ALWAYS, 0, 0 );
+
+			StencilTestRender.setUniform( "PVTMatrix", PVTMatrix );
+			PointLight->LightSphere.RenderSphere();
+
+			glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
+			// ***************************************** //
+			// Рендер источника света
+
+			Shader::bind( &PointLightRender );
+
+			glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+			glDisable( GL_DEPTH_TEST );
+
+			glEnable( GL_BLEND );
+			glEnable( GL_CULL_FACE );
+			glCullFace( GL_FRONT );
+
+			PointLightRender.setUniform( "PVTMatrix", PVTMatrix );
+			PointLightRender.setUniform( "light.Position", PointLight->Position );
+			PointLightRender.setUniform( "light.Color", PointLight->Color );
+			PointLightRender.setUniform( "light.Radius", PointLight->Radius );
+			PointLight->LightSphere.RenderSphere();
+
+			glCullFace( GL_BACK );
+			glDisable( GL_BLEND );
+		}
+
+		glDisable( GL_STENCIL_TEST );
+
+		// ***************************************** //
+		// Просчитываем направленные источники света
+
 		glDisable( GL_DEPTH_TEST );
-
 		glEnable( GL_BLEND );
-		glBlendEquation( GL_FUNC_ADD );
-		glBlendFunc( GL_ONE, GL_ONE );
 
-		glEnable( GL_CULL_FACE );
-		glCullFace( GL_FRONT );
+		if ( !DirectionalLights.empty() )
+		{
+			Shader::bind( &DirectionalLightRender );
 
-		PointLightRender.setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
-		PointLightRender.setUniform( "light.Position", PointLight->Position );
-		PointLightRender.setUniform( "light.Color", PointLight->Color );
-		PointLightRender.setUniform( "light.Intensivity", PointLight->Intensivity );
-		PointLightRender.setUniform( "light.Radius", PointLight->Radius );
-		PointLight->LightSphere.RenderSphere();
+			for ( size_t i = 0; i < DirectionalLights.size(); i++ )
+			{
+				DirectionalLight* DirectionalLight = DirectionalLights[ i ];
 
-		glCullFace( GL_BACK );
-		glDisable( GL_BLEND );	
+				DirectionalLightRender.setUniform( "light.Position", DirectionalLight->Position );
+				DirectionalLightRender.setUniform( "light.Color", DirectionalLight->Color );
+				DirectionalLights[ i ]->LightQuad.RenderQuad();
+			}
+		}
+
+		glDisable( GL_BLEND );
+		glDepthMask( GL_TRUE );
+
+		GBuffer.RenderFrame();
 	}
-
-	glDisable( GL_STENCIL_TEST );
-	glDepthMask( GL_TRUE );
-
-	GBuffer.RenderFrame();
+	else
+		GBuffer.RenderFrame( GBuffer::Textures );
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();

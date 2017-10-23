@@ -101,13 +101,16 @@ $(function() {
 <tr class="memitem:a3f964532a8ac6a3f0498dd803d0e6f79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_frustum.html#a3f964532a8ac6a3f0498dd803d0e6f79">IsVisible</a> (<a class="el" href="classle_1_1_bounding_box.html">BoundingBox</a> &amp;<a class="el" href="classle_1_1_bounding_box.html">BoundingBox</a>)</td></tr>
 <tr class="memdesc:a3f964532a8ac6a3f0498dd803d0e6f79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видно ли ограничивающее тело  <a href="#a3f964532a8ac6a3f0498dd803d0e6f79">Подробнее...</a><br /></td></tr>
 <tr class="separator:a3f964532a8ac6a3f0498dd803d0e6f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5960e535ed0d3ef9288a679cb5bd4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_frustum.html#a1d5960e535ed0d3ef9288a679cb5bd4c">IsVisible</a> (<a class="el" href="classle_1_1_bounding_sphere.html">BoundingSphere</a> &amp;<a class="el" href="classle_1_1_bounding_sphere.html">BoundingSphere</a>)</td></tr>
+<tr class="memdesc:a1d5960e535ed0d3ef9288a679cb5bd4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видно ли ограничивающее тело  <a href="#a1d5960e535ed0d3ef9288a679cb5bd4c">Подробнее...</a><br /></td></tr>
+<tr class="separator:a1d5960e535ed0d3ef9288a679cb5bd4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс для работы с пирамидой усечения </p>
 <p>Данный класс используеться для определения видимости геометрии </p>
 </div><h2 class="groupheader">Методы</h2>
 <a id="a3f964532a8ac6a3f0498dd803d0e6f79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f964532a8ac6a3f0498dd803d0e6f79">&#9670;&nbsp;</a></span>IsVisible()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f964532a8ac6a3f0498dd803d0e6f79">&#9670;&nbsp;</a></span>IsVisible() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -126,6 +129,33 @@ $(function() {
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_bounding_box.html" title="Класс ограничивающего тела (прямоугольный параллелепипед) ">BoundingBox</a></td><td>ограничивающее тело </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если видно, иначе false </dd></dl>
+
+</div>
+</div>
+<a id="a1d5960e535ed0d3ef9288a679cb5bd4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d5960e535ed0d3ef9288a679cb5bd4c">&#9670;&nbsp;</a></span>IsVisible() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool le::Frustum::IsVisible </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classle_1_1_bounding_sphere.html">BoundingSphere</a> &amp;&#160;</td>
+          <td class="paramname"><em>BoundingSphere</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Видно ли ограничивающее тело </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_bounding_sphere.html" title="Класс ограничивающего тела (сфера) ">BoundingSphere</a></td><td>ограничивающее тело </td></tr>
   </table>
   </dd>
 </dl>

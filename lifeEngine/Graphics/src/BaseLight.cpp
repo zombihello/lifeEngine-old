@@ -1,4 +1,4 @@
-#include <Graphics\Scene.h>
+ï»¿#include <Graphics\Scene.h>
 #include "..\BaseLight.h"
 
 //-------------------------------------------------------------------------//
@@ -6,7 +6,6 @@
 le::BaseLight::BaseLight() :
 	IsInitShadowMap( false ),
 	IsStaticLight( true ),
-	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
 	Specular( 0, 0, 0, 1 ),
 	Scene( NULL )
@@ -27,16 +26,14 @@ le::BaseLight::~BaseLight()
 
 void le::BaseLight::InitShadowMap( bool IsCupeMap )
 {
-	Logger::Log( Logger::Info, "Init Shadow Map (" + to_string( SHADOW_WIDTH ) + "x" + to_string( SHADOW_HEIGHT ) + ")" );
-
 	// ***************************************** //
-	// Ãåíåðèðóåì áóôôåðû
+	// Ð“ÐµÐ½ÐµÑ€Ð¸Ñ€ÑƒÐµÐ¼ Ð±ÑƒÑ„Ñ„ÐµÑ€Ñ‹
 
 	glGenFramebuffers( 1, &FBO_ShadowMap );
 	glGenTextures( 1, &ShadowMap );
 
 	// ***************************************** //
-	// Èíèöèàëèçèðóåì êàðòó òåíåé
+	// Ð˜Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ ÐºÐ°Ñ€Ñ‚Ñƒ Ñ‚ÐµÐ½ÐµÐ¹
 
 	if ( !IsCupeMap )
 	{
@@ -73,7 +70,7 @@ void le::BaseLight::InitShadowMap( bool IsCupeMap )
 		glBindTexture( GL_TEXTURE_CUBE_MAP, 0 );
 
 	// ***************************************** //
-	// Ïðîâåðÿåì ñòàòóñ FBO, ñîçäàí ëè îí
+	// ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ ÑÑ‚Ð°Ñ‚ÑƒÑ FBO, ÑÐ¾Ð·Ð´Ð°Ð½ Ð»Ð¸ Ð¾Ð½
 
 	GLenum Status = glCheckFramebufferStatus( GL_FRAMEBUFFER );
 
@@ -91,15 +88,6 @@ void le::BaseLight::InitShadowMap( bool IsCupeMap )
 		IsInitShadowMap = true;
 
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
-
-	Logger::Log( Logger::Info, "Shadow Map Initialized" );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::BaseLight::SetIntensivity( float Intensivity )
-{
-	this->Intensivity = Intensivity;
 }
 
 //-------------------------------------------------------------------------//
@@ -142,7 +130,6 @@ void le::BaseLight::SetScene( le::Scene* Scene )
 void le::BaseLight::CopyBaseLight( const BaseLight& Copy )
 {
 	IsStaticLight = Copy.IsStaticLight;
-	Intensivity = Copy.Intensivity;
 	IsInitShadowMap = Copy.IsInitShadowMap;
 	NameLight = Copy.NameLight;
 	Position = Copy.Position;

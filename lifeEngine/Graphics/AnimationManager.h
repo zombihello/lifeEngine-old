@@ -30,6 +30,7 @@ using namespace std;
 //////////////////
 #include <System\Logger.h>
 #include <System\System.h>
+#include <Graphics\Scene.h>
 #include <Graphics\Animation.h>
 
 namespace le
@@ -98,6 +99,13 @@ namespace le
 		void SetSkeleton( Skeleton& Skeleton );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Установить информацию о меше
+		///
+		/// \param[in] RenderMesh Меш для рендера
+		//////////////////////////////////////////////////////////////////////
+		void SetRenderMesh( map<GLuint, Scene::InfoMesh>& RenderMesh );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Проигрывается ли анимация
 		///
 		/// \return true если да, а иначе false
@@ -106,9 +114,10 @@ namespace le
 
 	private:
 
-		Animation*					CurrentAnimation; ///Текущая анимация
-		Skeleton*					Skeleton; ///< Скелет модели
-		map<string, Animation>		Animations; ///< Массив анимаций
+		Animation*							CurrentAnimation; ///Текущая анимация
+		Skeleton*							Skeleton; ///< Скелет модели
+		map<string, Animation>				Animations; ///< Массив анимаций
+		map<GLuint, Scene::InfoMesh>*		RenderMesh; ///< Информация о меше
 	};
 
 	//-------------------------------------------------------------------------//

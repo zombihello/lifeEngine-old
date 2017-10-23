@@ -19,6 +19,8 @@
 <Texture Name="metal1.jpg" Route="..\textures\metal1.jpg"/>
 <Texture Name="brick4.jpg" Route="..\textures\brick4.jpg"/>
 <Texture Name="skybox.jpg" Route="..\textures\skybox.jpg"/>
+<Texture Name="dirt_m03i.jpg" Route="..\textures\dirt_m03i.jpg"/>
+<Texture Name="metal2.jpg" Route="..\textures\metal2.jpg"/>
 </Textures>
 <Brushes>
 <Solid>
@@ -3483,16 +3485,16 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
-<Position X="64" Y="120" Z="-88"/>
+<Position X="224" Y="120" Z="-88"/>
 <PositionVertex>
-<Vertex X="-128" Y="0" Z="-96"/>
-<Vertex X="256" Y="0" Z="-96"/>
-<Vertex X="256" Y="240" Z="-96"/>
-<Vertex X="-128" Y="240" Z="-96"/>
-<Vertex X="-128" Y="0" Z="-80"/>
-<Vertex X="256" Y="0" Z="-80"/>
-<Vertex X="256" Y="240" Z="-80"/>
-<Vertex X="-128" Y="240" Z="-80"/>
+<Vertex X="176" Y="0" Z="-96"/>
+<Vertex X="272" Y="0" Z="-96"/>
+<Vertex X="272" Y="240" Z="-96"/>
+<Vertex X="176" Y="240" Z="-96"/>
+<Vertex X="176" Y="0" Z="-80"/>
+<Vertex X="272" Y="0" Z="-80"/>
+<Vertex X="272" Y="240" Z="-80"/>
+<Vertex X="176" Y="240" Z="-80"/>
 </PositionVertex>
 <Normals>
 <Point X="-1" Y="0" Z="0"/>
@@ -3546,29 +3548,29 @@
 <Point X="-0.8" Y="8E-06"/>
 <Point X="0" Y="0"/>
 <Point X="0" Y="0.8"/>
-<Point X="-19.2" Y="0.8"/>
+<Point X="-4.8" Y="0.8"/>
 <Point X="0" Y="0"/>
-<Point X="-19.2" Y="0.8"/>
-<Point X="-19.2" Y="0"/>
+<Point X="-4.8" Y="0.8"/>
+<Point X="-4.8" Y="0"/>
 <Point X="0" Y="0"/>
 <Point X="0" Y="0"/>
-<Point X="19.2" Y="0"/>
+<Point X="4.8" Y="0"/>
 <Point X="0" Y="0.8"/>
-<Point X="19.2" Y="0"/>
-<Point X="19.2" Y="0.8"/>
+<Point X="4.8" Y="0"/>
+<Point X="4.8" Y="0.8"/>
 <Point X="0" Y="0.8"/>
-<Point X="19.2" Y="12"/>
+<Point X="4.8" Y="12"/>
 <Point X="0" Y="0"/>
-<Point X="19.2" Y="0"/>
-<Point X="19.2" Y="12"/>
+<Point X="4.8" Y="0"/>
+<Point X="4.8" Y="12"/>
 <Point X="0" Y="12"/>
 <Point X="0" Y="0"/>
 <Point X="0" Y="0"/>
-<Point X="-19.2" Y="12"/>
-<Point X="-19.2" Y="0"/>
+<Point X="-4.8" Y="12"/>
+<Point X="-4.8" Y="0"/>
 <Point X="0" Y="0"/>
 <Point X="0" Y="12"/>
-<Point X="-19.2" Y="12"/>
+<Point X="-4.8" Y="12"/>
 </TextureCoords>
 </Brush>
 <Brush>
@@ -8852,16 +8854,16 @@
 <Brush>
 <Type Value="Cube"/>
 <TextureName Value="wood1.jpg"/>
-<Position X="276" Y="10" Z="-44"/>
+<Position X="292" Y="10" Z="-44"/>
 <PositionVertex>
-<Vertex X="272" Y="8" Z="-56"/>
-<Vertex X="280" Y="8" Z="-56"/>
-<Vertex X="280" Y="12" Z="-56"/>
-<Vertex X="272" Y="12" Z="-56"/>
-<Vertex X="272" Y="8" Z="-32"/>
-<Vertex X="280" Y="8" Z="-32"/>
-<Vertex X="280" Y="12" Z="-32"/>
-<Vertex X="272" Y="12" Z="-32"/>
+<Vertex X="288" Y="8" Z="-56"/>
+<Vertex X="296" Y="8" Z="-56"/>
+<Vertex X="296" Y="12" Z="-56"/>
+<Vertex X="288" Y="12" Z="-56"/>
+<Vertex X="288" Y="8" Z="-32"/>
+<Vertex X="296" Y="8" Z="-32"/>
+<Vertex X="296" Y="12" Z="-32"/>
+<Vertex X="288" Y="12" Z="-32"/>
 </PositionVertex>
 <Normals>
 <Point X="-1" Y="0" Z="0"/>
@@ -8940,6 +8942,2827 @@
 <Point X="-0.4" Y="0.2"/>
 </TextureCoords>
 </Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="dirt_m03i.jpg"/>
+<Position X="48" Y="8" Z="-304"/>
+<PositionVertex>
+<Vertex X="-80" Y="0" Z="-512"/>
+<Vertex X="176" Y="0" Z="-512"/>
+<Vertex X="176" Y="16" Z="-512"/>
+<Vertex X="-80" Y="16" Z="-512"/>
+<Vertex X="-80" Y="0" Z="-96"/>
+<Vertex X="176" Y="0" Z="-96"/>
+<Vertex X="176" Y="16" Z="-96"/>
+<Vertex X="-80" Y="16" Z="-96"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="20.79999" Y="0.800208"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-20.79999" Y="0.800208"/>
+<Point X="0" Y="0"/>
+<Point X="-20.79999" Y="0.800208"/>
+<Point X="-20.8" Y="0.000208"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="-12.8" Y="20.8"/>
+<Point X="0" Y="0"/>
+<Point X="-12.8" Y="20.8"/>
+<Point X="-12.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="12.8" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="12.8" Y="0"/>
+<Point X="12.8" Y="20.8"/>
+<Point X="0" Y="20.8"/>
+<Point X="12.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="12.8" Y="0"/>
+<Point X="12.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-12.8" Y="0.8"/>
+<Point X="-12.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-12.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="168" Y="24" Z="-232"/>
+<PositionVertex>
+<Vertex X="160" Y="16" Z="-368"/>
+<Vertex X="176" Y="16" Z="-368"/>
+<Vertex X="176" Y="32" Z="-368"/>
+<Vertex X="160" Y="32" Z="-368"/>
+<Vertex X="160" Y="16" Z="-96"/>
+<Vertex X="176" Y="16" Z="-96"/>
+<Vertex X="176" Y="32" Z="-96"/>
+<Vertex X="160" Y="32" Z="-96"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="13.59999" Y="0.800136"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="13.6" Y="0.000136"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="13.6" Y="0.000136"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-13.59999" Y="0.800136"/>
+<Point X="0" Y="0"/>
+<Point X="-13.59999" Y="0.800136"/>
+<Point X="-13.6" Y="0.000136"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="13.6"/>
+<Point X="-0.8" Y="13.6"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="13.6"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="13.6"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="13.6"/>
+<Point X="0" Y="13.6"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="-72" Y="24" Z="-304"/>
+<PositionVertex>
+<Vertex X="-80" Y="16" Z="-512"/>
+<Vertex X="-64" Y="16" Z="-512"/>
+<Vertex X="-64" Y="32" Z="-512"/>
+<Vertex X="-80" Y="32" Z="-512"/>
+<Vertex X="-80" Y="16" Z="-96"/>
+<Vertex X="-64" Y="16" Z="-96"/>
+<Vertex X="-64" Y="32" Z="-96"/>
+<Vertex X="-80" Y="32" Z="-96"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="20.79999" Y="0.800208"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-20.79999" Y="0.800208"/>
+<Point X="0" Y="0"/>
+<Point X="-20.79999" Y="0.800208"/>
+<Point X="-20.8" Y="0.000208"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="-0.8" Y="20.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="20.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="20.8"/>
+<Point X="0" Y="20.8"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="168" Y="72" Z="-232"/>
+<PositionVertex>
+<Vertex X="160" Y="32" Z="-368"/>
+<Vertex X="176" Y="32" Z="-368"/>
+<Vertex X="176" Y="112" Z="-368"/>
+<Vertex X="160" Y="112" Z="-368"/>
+<Vertex X="160" Y="32" Z="-96"/>
+<Vertex X="176" Y="32" Z="-96"/>
+<Vertex X="176" Y="112" Z="-96"/>
+<Vertex X="160" Y="112" Z="-96"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="13.59996" Y="4.000136"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="13.6" Y="0.000136"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="13.6" Y="0.000136"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-13.59996" Y="4.000136"/>
+<Point X="0" Y="0"/>
+<Point X="-13.59996" Y="4.000136"/>
+<Point X="-13.6" Y="0.000136"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="13.6"/>
+<Point X="-0.8" Y="13.6"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="13.6"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="13.6"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="13.6"/>
+<Point X="0" Y="13.6"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.8" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="-72" Y="72" Z="-304"/>
+<PositionVertex>
+<Vertex X="-80" Y="32" Z="-512"/>
+<Vertex X="-64" Y="32" Z="-512"/>
+<Vertex X="-64" Y="112" Z="-512"/>
+<Vertex X="-80" Y="112" Z="-512"/>
+<Vertex X="-80" Y="32" Z="-96"/>
+<Vertex X="-64" Y="32" Z="-96"/>
+<Vertex X="-64" Y="112" Z="-96"/>
+<Vertex X="-80" Y="112" Z="-96"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="20.79996" Y="4.000208"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="20.8" Y="0.000208"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-20.79996" Y="4.000208"/>
+<Point X="0" Y="0"/>
+<Point X="-20.79996" Y="4.000208"/>
+<Point X="-20.8" Y="0.000208"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="-0.8" Y="20.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="20.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="20.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="20.8"/>
+<Point X="0" Y="20.8"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.8" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="dirt_m03i.jpg"/>
+<Position X="424" Y="8" Z="-440"/>
+<PositionVertex>
+<Vertex X="176" Y="0" Z="-512"/>
+<Vertex X="672" Y="0" Z="-512"/>
+<Vertex X="672" Y="16" Z="-512"/>
+<Vertex X="176" Y="16" Z="-512"/>
+<Vertex X="176" Y="0" Z="-368"/>
+<Vertex X="672" Y="0" Z="-368"/>
+<Vertex X="672" Y="16" Z="-368"/>
+<Vertex X="176" Y="16" Z="-368"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="7.199992" Y="0.800072"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="7.2" Y="7.2E-05"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="7.2" Y="7.2E-05"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-7.199992" Y="0.800072"/>
+<Point X="0" Y="0"/>
+<Point X="-7.199992" Y="0.800072"/>
+<Point X="-7.2" Y="7.2E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="7.2"/>
+<Point X="-24.8" Y="7.2"/>
+<Point X="0" Y="0"/>
+<Point X="-24.8" Y="7.2"/>
+<Point X="-24.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="24.8" Y="0"/>
+<Point X="0" Y="7.2"/>
+<Point X="24.8" Y="0"/>
+<Point X="24.8" Y="7.2"/>
+<Point X="0" Y="7.2"/>
+<Point X="24.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="24.8" Y="0"/>
+<Point X="24.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-24.8" Y="0.8"/>
+<Point X="-24.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-24.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="416" Y="24" Z="-376"/>
+<PositionVertex>
+<Vertex X="160" Y="16" Z="-384"/>
+<Vertex X="672" Y="16" Z="-384"/>
+<Vertex X="672" Y="32" Z="-384"/>
+<Vertex X="160" Y="32" Z="-384"/>
+<Vertex X="160" Y="16" Z="-368"/>
+<Vertex X="672" Y="16" Z="-368"/>
+<Vertex X="672" Y="32" Z="-368"/>
+<Vertex X="160" Y="32" Z="-368"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799992" Y="0.800008"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-25.6" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-25.6" Y="0.8"/>
+<Point X="-25.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="25.6" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="25.6" Y="0"/>
+<Point X="25.6" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="25.6" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="25.6" Y="0"/>
+<Point X="25.6" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-25.6" Y="0.8"/>
+<Point X="-25.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-25.6" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="304" Y="24" Z="-504"/>
+<PositionVertex>
+<Vertex X="-64" Y="16" Z="-512"/>
+<Vertex X="672" Y="16" Z="-512"/>
+<Vertex X="672" Y="32" Z="-512"/>
+<Vertex X="-64" Y="32" Z="-512"/>
+<Vertex X="-64" Y="16" Z="-496"/>
+<Vertex X="672" Y="16" Z="-496"/>
+<Vertex X="672" Y="32" Z="-496"/>
+<Vertex X="-64" Y="32" Z="-496"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799992" Y="0.800008"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-36.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-36.8" Y="0.8"/>
+<Point X="-36.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="36.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="36.8" Y="0"/>
+<Point X="36.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="36.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="36.8" Y="0"/>
+<Point X="36.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-36.8" Y="0.8"/>
+<Point X="-36.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-36.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="416" Y="72" Z="-376"/>
+<PositionVertex>
+<Vertex X="160" Y="32" Z="-384"/>
+<Vertex X="672" Y="32" Z="-384"/>
+<Vertex X="672" Y="112" Z="-384"/>
+<Vertex X="160" Y="112" Z="-384"/>
+<Vertex X="160" Y="32" Z="-368"/>
+<Vertex X="672" Y="32" Z="-368"/>
+<Vertex X="672" Y="112" Z="-368"/>
+<Vertex X="160" Y="112" Z="-368"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.79996" Y="4.000008"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-25.6" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-25.6" Y="0.8"/>
+<Point X="-25.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="25.6" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="25.6" Y="0"/>
+<Point X="25.6" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="25.6" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="25.6" Y="0"/>
+<Point X="25.6" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-25.6" Y="4"/>
+<Point X="-25.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-25.6" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="304" Y="72" Z="-504"/>
+<PositionVertex>
+<Vertex X="-64" Y="32" Z="-512"/>
+<Vertex X="672" Y="32" Z="-512"/>
+<Vertex X="672" Y="112" Z="-512"/>
+<Vertex X="-64" Y="112" Z="-512"/>
+<Vertex X="-64" Y="32" Z="-496"/>
+<Vertex X="672" Y="32" Z="-496"/>
+<Vertex X="672" Y="112" Z="-496"/>
+<Vertex X="-64" Y="112" Z="-496"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.79996" Y="4.000008"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-36.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-36.8" Y="0.8"/>
+<Point X="-36.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="36.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="36.8" Y="0"/>
+<Point X="36.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="36.8" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="36.8" Y="0"/>
+<Point X="36.8" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-36.8" Y="4"/>
+<Point X="-36.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-36.8" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="brick1.jpg"/>
+<Position X="-104" Y="120" Z="-88"/>
+<PositionVertex>
+<Vertex X="-128" Y="0" Z="-96"/>
+<Vertex X="-80" Y="0" Z="-96"/>
+<Vertex X="-80" Y="240" Z="-96"/>
+<Vertex X="-128" Y="240" Z="-96"/>
+<Vertex X="-128" Y="0" Z="-80"/>
+<Vertex X="-80" Y="0" Z="-80"/>
+<Vertex X="-80" Y="240" Z="-80"/>
+<Vertex X="-128" Y="240" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.79988" Y="12.00001"/>
+<Point X="-0.00012" Y="12"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-0.00012" Y="12"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="0.00012" Y="12"/>
+<Point X="-0.79988" Y="12.00001"/>
+<Point X="0" Y="0"/>
+<Point X="-0.79988" Y="12.00001"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-2.4" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-2.4" Y="0.8"/>
+<Point X="-2.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="2.4" Y="0"/>
+<Point X="2.4" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="2.4" Y="12"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="0"/>
+<Point X="2.4" Y="12"/>
+<Point X="0" Y="12"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-2.4" Y="12"/>
+<Point X="-2.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="12"/>
+<Point X="-2.4" Y="12"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="-72" Y="24" Z="-88"/>
+<PositionVertex>
+<Vertex X="-80" Y="16" Z="-96"/>
+<Vertex X="-64" Y="16" Z="-96"/>
+<Vertex X="-64" Y="32" Z="-96"/>
+<Vertex X="-80" Y="32" Z="-96"/>
+<Vertex X="-80" Y="16" Z="-80"/>
+<Vertex X="-64" Y="16" Z="-80"/>
+<Vertex X="-64" Y="32" Z="-80"/>
+<Vertex X="-80" Y="32" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799992" Y="0.800008"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick.jpg"/>
+<Position X="152" Y="24" Z="-88"/>
+<PositionVertex>
+<Vertex X="160" Y="16" Z="-96"/>
+<Vertex X="144" Y="16" Z="-96"/>
+<Vertex X="144" Y="32" Z="-96"/>
+<Vertex X="160" Y="32" Z="-96"/>
+<Vertex X="160" Y="16" Z="-80"/>
+<Vertex X="144" Y="16" Z="-80"/>
+<Vertex X="144" Y="32" Z="-80"/>
+<Vertex X="160" Y="32" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799992" Y="0.800008"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799992" Y="0.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="152" Y="72" Z="-88"/>
+<PositionVertex>
+<Vertex X="160" Y="32" Z="-96"/>
+<Vertex X="144" Y="32" Z="-96"/>
+<Vertex X="144" Y="112" Z="-96"/>
+<Vertex X="160" Y="112" Z="-96"/>
+<Vertex X="160" Y="32" Z="-80"/>
+<Vertex X="144" Y="32" Z="-80"/>
+<Vertex X="144" Y="112" Z="-80"/>
+<Vertex X="160" Y="112" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.79996" Y="4.000008"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.8" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="fs_madbrick_plain.jpg"/>
+<Position X="-72" Y="72" Z="-88"/>
+<PositionVertex>
+<Vertex X="-80" Y="32" Z="-96"/>
+<Vertex X="-64" Y="32" Z="-96"/>
+<Vertex X="-64" Y="112" Z="-96"/>
+<Vertex X="-80" Y="112" Z="-96"/>
+<Vertex X="-80" Y="32" Z="-80"/>
+<Vertex X="-64" Y="32" Z="-80"/>
+<Vertex X="-64" Y="112" Z="-80"/>
+<Vertex X="-80" Y="112" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.79996" Y="4.000008"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.79996" Y="4.000008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="0.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.8" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="brick1.jpg"/>
+<Position X="48" Y="176" Z="-88"/>
+<PositionVertex>
+<Vertex X="-80" Y="112" Z="-96"/>
+<Vertex X="176" Y="112" Z="-96"/>
+<Vertex X="176" Y="240" Z="-96"/>
+<Vertex X="-80" Y="240" Z="-96"/>
+<Vertex X="-80" Y="112" Z="-80"/>
+<Vertex X="176" Y="112" Z="-80"/>
+<Vertex X="176" Y="240" Z="-80"/>
+<Vertex X="-80" Y="240" Z="-80"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799936" Y="6.400008"/>
+<Point X="-6.4E-05" Y="6.4"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-6.4E-05" Y="6.4"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="6.4E-05" Y="6.4"/>
+<Point X="-0.799936" Y="6.400008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799936" Y="6.400008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-12.8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-12.8" Y="0.8"/>
+<Point X="-12.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="12.8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="12.8" Y="0"/>
+<Point X="12.8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="12.8" Y="6.4"/>
+<Point X="0" Y="0"/>
+<Point X="12.8" Y="0"/>
+<Point X="12.8" Y="6.4"/>
+<Point X="0" Y="6.4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-12.8" Y="6.4"/>
+<Point X="-12.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="6.4"/>
+<Point X="-12.8" Y="6.4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="274" Y="56" Z="-494"/>
+<PositionVertex>
+<Vertex X="272" Y="16" Z="-496"/>
+<Vertex X="276" Y="16" Z="-496"/>
+<Vertex X="276" Y="96" Z="-496"/>
+<Vertex X="272" Y="96" Z="-496"/>
+<Vertex X="272" Y="16" Z="-492"/>
+<Vertex X="276" Y="16" Z="-492"/>
+<Vertex X="276" Y="96" Z="-492"/>
+<Vertex X="272" Y="96" Z="-492"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.19996" Y="4.000002"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.2" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="274" Y="98" Z="-472"/>
+<PositionVertex>
+<Vertex X="272" Y="96" Z="-496"/>
+<Vertex X="276" Y="96" Z="-496"/>
+<Vertex X="276" Y="100" Z="-496"/>
+<Vertex X="272" Y="100" Z="-496"/>
+<Vertex X="272" Y="96" Z="-448"/>
+<Vertex X="276" Y="96" Z="-448"/>
+<Vertex X="276" Y="100" Z="-448"/>
+<Vertex X="272" Y="100" Z="-448"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="2.399998" Y="0.200024"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="0" Y="0"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="-2.4" Y="2.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="274" Y="98" Z="-434"/>
+<PositionVertex>
+<Vertex X="268" Y="96" Z="-448"/>
+<Vertex X="280" Y="96" Z="-448"/>
+<Vertex X="280" Y="100" Z="-448"/>
+<Vertex X="268" Y="100" Z="-448"/>
+<Vertex X="268" Y="96" Z="-420"/>
+<Vertex X="280" Y="96" Z="-420"/>
+<Vertex X="280" Y="100" Z="-420"/>
+<Vertex X="268" Y="100" Z="-420"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="1.399998" Y="0.200014"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="0" Y="0"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="-1.4" Y="1.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="1.4"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="0.2"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.6" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="562" Y="56" Z="-494"/>
+<PositionVertex>
+<Vertex X="560" Y="16" Z="-496"/>
+<Vertex X="564" Y="16" Z="-496"/>
+<Vertex X="564" Y="96" Z="-496"/>
+<Vertex X="560" Y="96" Z="-496"/>
+<Vertex X="560" Y="16" Z="-492"/>
+<Vertex X="564" Y="16" Z="-492"/>
+<Vertex X="564" Y="96" Z="-492"/>
+<Vertex X="560" Y="96" Z="-492"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.19996" Y="4.000002"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.2" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="562" Y="98" Z="-472"/>
+<PositionVertex>
+<Vertex X="560" Y="96" Z="-496"/>
+<Vertex X="564" Y="96" Z="-496"/>
+<Vertex X="564" Y="100" Z="-496"/>
+<Vertex X="560" Y="100" Z="-496"/>
+<Vertex X="560" Y="96" Z="-448"/>
+<Vertex X="564" Y="96" Z="-448"/>
+<Vertex X="564" Y="100" Z="-448"/>
+<Vertex X="560" Y="100" Z="-448"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="2.399998" Y="0.200024"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="0" Y="0"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="-2.4" Y="2.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="562" Y="98" Z="-434"/>
+<PositionVertex>
+<Vertex X="556" Y="96" Z="-448"/>
+<Vertex X="568" Y="96" Z="-448"/>
+<Vertex X="568" Y="100" Z="-448"/>
+<Vertex X="556" Y="100" Z="-448"/>
+<Vertex X="556" Y="96" Z="-420"/>
+<Vertex X="568" Y="96" Z="-420"/>
+<Vertex X="568" Y="100" Z="-420"/>
+<Vertex X="556" Y="100" Z="-420"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="1.399998" Y="0.200014"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="0" Y="0"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="-1.4" Y="1.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="1.4"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="0.2"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.6" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="-6" Y="56" Z="-494"/>
+<PositionVertex>
+<Vertex X="-8" Y="16" Z="-496"/>
+<Vertex X="-4" Y="16" Z="-496"/>
+<Vertex X="-4" Y="96" Z="-496"/>
+<Vertex X="-8" Y="96" Z="-496"/>
+<Vertex X="-8" Y="16" Z="-492"/>
+<Vertex X="-4" Y="16" Z="-492"/>
+<Vertex X="-4" Y="96" Z="-492"/>
+<Vertex X="-8" Y="96" Z="-492"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.19996" Y="4.000002"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.2" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="-6" Y="98" Z="-472"/>
+<PositionVertex>
+<Vertex X="-8" Y="96" Z="-496"/>
+<Vertex X="-4" Y="96" Z="-496"/>
+<Vertex X="-4" Y="100" Z="-496"/>
+<Vertex X="-8" Y="100" Z="-496"/>
+<Vertex X="-8" Y="96" Z="-448"/>
+<Vertex X="-4" Y="96" Z="-448"/>
+<Vertex X="-4" Y="100" Z="-448"/>
+<Vertex X="-8" Y="100" Z="-448"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="2.399998" Y="0.200024"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="0" Y="0"/>
+<Point X="-2.399998" Y="0.200024"/>
+<Point X="-2.4" Y="2.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="2.4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="-6" Y="98" Z="-434"/>
+<PositionVertex>
+<Vertex X="-12" Y="96" Z="-448"/>
+<Vertex X="0" Y="96" Z="-448"/>
+<Vertex X="0" Y="100" Z="-448"/>
+<Vertex X="-12" Y="100" Z="-448"/>
+<Vertex X="-12" Y="96" Z="-420"/>
+<Vertex X="0" Y="96" Z="-420"/>
+<Vertex X="0" Y="100" Z="-420"/>
+<Vertex X="-12" Y="100" Z="-420"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="1.399998" Y="0.200014"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="1.4" Y="1.4E-05"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="0" Y="0"/>
+<Point X="-1.399998" Y="0.200014"/>
+<Point X="-1.4" Y="1.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="1.4"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="1.4"/>
+<Point X="0" Y="1.4"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="0"/>
+<Point X="0.6" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.6" Y="0.2"/>
+<Point X="-0.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.6" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="-62" Y="56" Z="-258"/>
+<PositionVertex>
+<Vertex X="-64" Y="16" Z="-260"/>
+<Vertex X="-60" Y="16" Z="-260"/>
+<Vertex X="-60" Y="96" Z="-260"/>
+<Vertex X="-64" Y="96" Z="-260"/>
+<Vertex X="-64" Y="16" Z="-256"/>
+<Vertex X="-60" Y="16" Z="-256"/>
+<Vertex X="-60" Y="96" Z="-256"/>
+<Vertex X="-64" Y="96" Z="-256"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.19996" Y="4.000002"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.2" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="-34" Y="98" Z="-258"/>
+<PositionVertex>
+<Vertex X="-64" Y="96" Z="-260"/>
+<Vertex X="-4" Y="96" Z="-260"/>
+<Vertex X="-4" Y="100" Z="-260"/>
+<Vertex X="-64" Y="100" Z="-260"/>
+<Vertex X="-64" Y="96" Z="-256"/>
+<Vertex X="-4" Y="96" Z="-256"/>
+<Vertex X="-4" Y="100" Z="-256"/>
+<Vertex X="-64" Y="100" Z="-256"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.199998" Y="0.200002"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-0.199998" Y="0.200002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.199998" Y="0.200002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-3" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-3" Y="0.2"/>
+<Point X="-3" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="3" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="3" Y="0"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="3" Y="0"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-3" Y="0.2"/>
+<Point X="-3" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-3" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="10" Y="98" Z="-258"/>
+<PositionVertex>
+<Vertex X="-4" Y="96" Z="-264"/>
+<Vertex X="24" Y="96" Z="-264"/>
+<Vertex X="24" Y="100" Z="-264"/>
+<Vertex X="-4" Y="100" Z="-264"/>
+<Vertex X="-4" Y="96" Z="-252"/>
+<Vertex X="24" Y="96" Z="-252"/>
+<Vertex X="24" Y="100" Z="-252"/>
+<Vertex X="-4" Y="100" Z="-252"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.599998" Y="0.200006"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0.6" Y="6E-06"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="6E-06"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-0.599998" Y="0.200006"/>
+<Point X="0" Y="0"/>
+<Point X="-0.599998" Y="0.200006"/>
+<Point X="-0.6" Y="6E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.6"/>
+<Point X="-1.4" Y="0.6"/>
+<Point X="0" Y="0"/>
+<Point X="-1.4" Y="0.6"/>
+<Point X="-1.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1.4" Y="0"/>
+<Point X="0" Y="0.6"/>
+<Point X="1.4" Y="0"/>
+<Point X="1.4" Y="0.6"/>
+<Point X="0" Y="0.6"/>
+<Point X="1.4" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="1.4" Y="0"/>
+<Point X="1.4" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-1.4" Y="0.2"/>
+<Point X="-1.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-1.4" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="158" Y="56" Z="-258"/>
+<PositionVertex>
+<Vertex X="156" Y="16" Z="-260"/>
+<Vertex X="160" Y="16" Z="-260"/>
+<Vertex X="160" Y="96" Z="-260"/>
+<Vertex X="156" Y="96" Z="-260"/>
+<Vertex X="156" Y="16" Z="-256"/>
+<Vertex X="160" Y="16" Z="-256"/>
+<Vertex X="160" Y="96" Z="-256"/>
+<Vertex X="156" Y="96" Z="-256"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.19996" Y="4.000002"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-4E-05" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="4E-05" Y="4"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.19996" Y="4.000002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="0.2"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="0"/>
+<Point X="0.2" Y="4"/>
+<Point X="0" Y="4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.2" Y="4"/>
+<Point X="-0.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4"/>
+<Point X="-0.2" Y="4"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal2.jpg"/>
+<Position X="130" Y="98" Z="-258"/>
+<PositionVertex>
+<Vertex X="100" Y="96" Z="-260"/>
+<Vertex X="160" Y="96" Z="-260"/>
+<Vertex X="160" Y="100" Z="-260"/>
+<Vertex X="100" Y="100" Z="-260"/>
+<Vertex X="100" Y="96" Z="-256"/>
+<Vertex X="160" Y="96" Z="-256"/>
+<Vertex X="160" Y="100" Z="-256"/>
+<Vertex X="100" Y="100" Z="-256"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.199998" Y="0.200002"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.2" Y="2E-06"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-0.199998" Y="0.200002"/>
+<Point X="0" Y="0"/>
+<Point X="-0.199998" Y="0.200002"/>
+<Point X="-0.2" Y="2E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-3" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="-3" Y="0.2"/>
+<Point X="-3" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="3" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="3" Y="0"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="3" Y="0"/>
+<Point X="3" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-3" Y="0.2"/>
+<Point X="-3" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-3" Y="0.2"/>
+</TextureCoords>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="88" Y="98" Z="-258"/>
+<PositionVertex>
+<Vertex X="76" Y="96" Z="-264"/>
+<Vertex X="100" Y="96" Z="-264"/>
+<Vertex X="100" Y="100" Z="-264"/>
+<Vertex X="76" Y="100" Z="-264"/>
+<Vertex X="76" Y="96" Z="-252"/>
+<Vertex X="100" Y="96" Z="-252"/>
+<Vertex X="100" Y="100" Z="-252"/>
+<Vertex X="76" Y="100" Z="-252"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.599998" Y="0.200006"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0.6" Y="6E-06"/>
+<Point X="-2E-06" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0.6" Y="6E-06"/>
+<Point X="2E-06" Y="0.2"/>
+<Point X="-0.599998" Y="0.200006"/>
+<Point X="0" Y="0"/>
+<Point X="-0.599998" Y="0.200006"/>
+<Point X="-0.6" Y="6E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.6"/>
+<Point X="-1.2" Y="0.6"/>
+<Point X="0" Y="0"/>
+<Point X="-1.2" Y="0.6"/>
+<Point X="-1.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1.2" Y="0"/>
+<Point X="0" Y="0.6"/>
+<Point X="1.2" Y="0"/>
+<Point X="1.2" Y="0.6"/>
+<Point X="0" Y="0.6"/>
+<Point X="1.2" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="1.2" Y="0"/>
+<Point X="1.2" Y="0.2"/>
+<Point X="0" Y="0.2"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-1.2" Y="0.2"/>
+<Point X="-1.2" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.2"/>
+<Point X="-1.2" Y="0.2"/>
+</TextureCoords>
+</Brush>
 </Solid>
 </Brushes>
 <Entitys>
@@ -8992,22 +11815,57 @@
 <Value Name="Radius" Value="100"/>
 </Entity>
 <Entity Name="light">
-<Position X="336" Y="32" Z="-16"/>
+<Position X="4" Y="68" Z="-264"/>
 <Value Name="Name" Value=""/>
-<Value Name="Color" Value="255 255 255"/>
-<Value Name="Radius" Value="180"/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
 </Entity>
 <Entity Name="light">
-<Position X="656" Y="64" Z="-16"/>
+<Position X="268" Y="68" Z="-444"/>
 <Value Name="Name" Value=""/>
-<Value Name="Color" Value="255 255 255"/>
-<Value Name="Radius" Value="180"/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
 </Entity>
 <Entity Name="light">
-<Position X="480" Y="0" Z="-16"/>
+<Position X="552" Y="68" Z="-444"/>
 <Value Name="Name" Value=""/>
-<Value Name="Color" Value="0 162 232"/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+</Entity>
+<Entity Name="light">
+<Position X="352" Y="48" Z="0"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Radius" Value="100"/>
+</Entity>
+<Entity Name="light">
+<Position X="656" Y="64" Z="0"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Radius" Value="100"/>
+</Entity>
+<Entity Name="light">
+<Position X="488" Y="52" Z="-8"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="153 217 234"/>
 <Value Name="Radius" Value="45"/>
+</Entity>
+<Entity Name="light">
+<Position X="-12" Y="68" Z="-444"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+</Entity>
+<Entity Name="light">
+<Position X="80" Y="68" Z="-264"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+</Entity>
+<Entity Name="lightDirectional">
+<Position X="480" Y="288" Z="-256"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
 </Entity>
 </Entitys>
 </Map>

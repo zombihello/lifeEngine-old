@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['renderbuffer',['RenderBuffer',['../structle_1_1_scene_1_1_render_buffer.html',1,'le::Scene']]],
-  ['resourcesmanager',['ResourcesManager',['../classle_1_1_resources_manager.html',1,'le']]]
+  ['level',['Level',['../classle_1_1_level.html',1,'le']]],
+  ['lightmanager',['LightManager',['../classle_1_1_light_manager.html',1,'le']]],
+  ['logger',['Logger',['../classle_1_1_logger.html',1,'le']]]
 ];

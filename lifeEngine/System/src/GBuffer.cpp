@@ -1,4 +1,4 @@
-#include <System\System.h>
+п»ї#include <System\System.h>
 #include "..\GBuffer.h"
 
 //-------------------------------------------------------------------------//
@@ -27,7 +27,7 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	Logger::Log( Logger::Info, "Init GBuffer (" + to_string( NUMBER_TO_INT( WindowWidth ) ) + "x" + to_string( NUMBER_TO_INT( WindowHeight ) ) + ")" );
 
 	// ***************************************** //
-	// Генерируем буфферы
+	// Р“РµРЅРµСЂРёСЂСѓРµРј Р±СѓС„С„РµСЂС‹
 
 	glGenFramebuffers( 1, &FrameBuffer );
 	glGenRenderbuffers( 1, &DepthBuffer );
@@ -37,7 +37,7 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	glGenTextures( 1, &FinalFrame );
 
 	// ***************************************** //
-	// Присоединяем буфферы нормалей, позиций и т.д к FBO
+	// РџСЂРёСЃРѕРµРґРёРЅСЏРµРј Р±СѓС„С„РµСЂС‹ РЅРѕСЂРјР°Р»РµР№, РїРѕР·РёС†РёР№ Рё С‚.Рґ Рє FBO
 
 	for ( int i = 0; i < GBUFFER_NUM_TEXTURES; i++ )
 	{
@@ -52,14 +52,14 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	}
 
 	// ***************************************** //
-	// Инициализируем текстуру для финального кадра
+	// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј С‚РµРєСЃС‚СѓСЂСѓ РґР»СЏ С„РёРЅР°Р»СЊРЅРѕРіРѕ РєР°РґСЂР°
 
 	glBindTexture( GL_TEXTURE_2D, FinalFrame );
 	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGB, GL_FLOAT, NULL );
 	glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, FinalFrame, 0 );
 
 	// ***************************************** //
-	// Инициализируем буффер глубины
+	// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј Р±СѓС„С„РµСЂ РіР»СѓР±РёРЅС‹
 
 	glBindRenderbuffer( GL_RENDERBUFFER, DepthBuffer );
 	glRenderbufferStorage( GL_RENDERBUFFER, GL_DEPTH32F_STENCIL8, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ) );
@@ -67,12 +67,12 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	glBindRenderbuffer( GL_RENDERBUFFER, 0 );
 
 	// ***************************************** //
-	// Разрешаем рендер в буфферы нормалей, позиций и т.д
+	// Р Р°Р·СЂРµС€Р°РµРј СЂРµРЅРґРµСЂ РІ Р±СѓС„С„РµСЂС‹ РЅРѕСЂРјР°Р»РµР№, РїРѕР·РёС†РёР№ Рё С‚.Рґ
 
 	glDrawBuffers( GBUFFER_NUM_TEXTURES, DrawBuffers );
 
 	// ***************************************** //
-	// Проверяем статус FBO, создан ли он
+	// РџСЂРѕРІРµСЂСЏРµРј СЃС‚Р°С‚СѓСЃ FBO, СЃРѕР·РґР°РЅ Р»Рё РѕРЅ
 
 	GLenum Status = glCheckFramebufferStatus( GL_FRAMEBUFFER );
 
@@ -167,10 +167,6 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 			glActiveTexture( GL_TEXTURE0 + i );
 			glBindTexture( GL_TEXTURE_2D, Buffers[ i ] );
 		}
-		break;
-
-	case TypeBind::StencilTest:
-		glDrawBuffer( GL_NONE );
 		break;
 	}
 }

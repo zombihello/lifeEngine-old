@@ -40,7 +40,16 @@ public:
 				NameLight = it->GetValueString( "Name" );
 				LightPosition = it->GetPosition();
 
-				LightManager.AddPointLight( NameLight, Radius, 1, LightPosition, glm::vec4( LightColor[0], LightColor[1], LightColor[2], 255 ) );
+				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[0], LightColor[1], LightColor[2], 255 ) );
+			}
+
+			if ( it->GetNameEntity() == "lightDirectional" )
+			{
+				LightColor = it->GetVelueVectorInt( "Color" );
+				NameLight = it->GetValueString( "Name" );
+				LightPosition = it->GetPosition();
+
+				LightManager.AddDirectionalLight( NameLight, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
 			}
 		}
 

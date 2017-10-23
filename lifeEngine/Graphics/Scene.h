@@ -39,7 +39,7 @@ using namespace sf;
 ///////////////
 #include <System\System.h>
 #include <System\GBuffer.h>
-#include <Graphics\PointLight.h>
+
 namespace le
 {
 	//-------------------------------------------------------------------------//
@@ -51,6 +51,7 @@ namespace le
 	class Frustum;
 	class Skeleton;
 	class PointLight;
+	class DirectionalLight;
 	class LightManager;
 
 	//-------------------------------------------------------------------------//
@@ -86,18 +87,6 @@ namespace le
 
 			glm::vec3*			Position; ///< Позиция меша на сцене
 			glm::mat4*			MatrixTransformation; ///< Матрица трансформации меша
-		};
-
-		//-------------------------------------------------------------------------//
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Буффер рендера всей геометрии сцены 
-		//////////////////////////////////////////////////////////////////////
-		struct DLL_API RenderBuffer
-		{
-			vector<InfoMesh*>		AnimationModels; ///< Буффер рендера анимируемых моделей
-			vector<InfoMesh*>		StaticModels; ///< Буффер рендера статичных моделей
-			vector<InfoMesh*>		Level; ///< Буффер рендера уровня
 		};
 
 		//-------------------------------------------------------------------------//
@@ -155,6 +144,13 @@ namespace le
 		void AddPointLightToScene( PointLight* PointLight );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Добавить направленый свет на сцену
+		///		
+		/// \param[in] DirectionalLight Указатель на направленый свет
+		//////////////////////////////////////////////////////////////////////
+		void AddDirectionalLightToScene( DirectionalLight* DirectionalLight );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить точечный источник света со сцены
 		///		
 		/// \param[in] PointLight Указатель на источник света
@@ -167,6 +163,20 @@ namespace le
 		/// \param[in] NameLight Название источника света
 		//////////////////////////////////////////////////////////////////////
 		void RemovePointLightFromScene( const string& NameLight );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить направленый источник света со сцены
+		///		
+		/// \param[in] DirectionalLight Указатель на направленый свет
+		//////////////////////////////////////////////////////////////////////
+		void RemoveDirectionalLightToScene( DirectionalLight* DirectionalLight );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить направленый источник света со сцены
+		///		
+		/// \param[in] NameLight Название источника света
+		//////////////////////////////////////////////////////////////////////
+		void RemoveDirectionalLightToScene( const string& NameLight );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить менеджер света со сцены
@@ -211,11 +221,13 @@ namespace le
 		Shader								LevelRender; ///< Шейдер рендера уровня
 		Shader								QueryTestRender; ///< Шейдер тестового рендера на перекрытия
 		Shader								PointLightRender; ///< Шейдер точечного света
+		Shader								DirectionalLightRender; ///< Шейдер направленого света
 		Shader								StencilTestRender; ///< Шейдер рендера в буффер трафарета
 
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
 		glm::mat4							PVMatrix; ///< Матрица Projection * View
+		glm::mat4							PVTMatrix; ///< Матрица Projection * View * Transformation
 
 		Frustum*							Frustum; ///< Пирамида усечения
 		Camera*								Camera; ///< Камера
@@ -225,10 +237,13 @@ namespace le
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
 		vector<PointLight*>					PointLights; ///< Массив точечный источников которые нах. на сцене
+		vector<DirectionalLight*>			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
 		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
-		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру 
-		map<GLuint, RenderBuffer>			RenderBuffer; ///< Буффер рендера всей геометрии сцены 
+		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
+		map<GLuint, vector<InfoMesh*> >		RenderBuffer_Level; ///< Буффер рендера карты
+		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel; ///< Буффер рендера анимируемых моделей
+		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)
 	};
 
 	//-------------------------------------------------------------------------//
