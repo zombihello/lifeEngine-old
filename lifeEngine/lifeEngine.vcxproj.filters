@@ -7,6 +7,18 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{79dd348b-e023-4fe6-9734-c1212bd21fdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Light">
+      <UniqueIdentifier>{165f687e-0927-409c-a8ad-26cc4abf98c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Bounding Volume">
+      <UniqueIdentifier>{e63ce104-1ab4-42c1-8cc7-9e2caef8382b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Models">
+      <UniqueIdentifier>{8e3a00a5-1697-4309-8d32-00dfe0003f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\OpenGL">
+      <UniqueIdentifier>{423e96e0-e1bc-4894-a0fc-e03c0eac5359}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\System.cpp">
@@ -24,16 +36,7 @@
     <ClCompile Include="System\src\Logger.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Mesh.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="System\src\ResourcesManager.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Model.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="System\src\VAO.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Scene.cpp">
@@ -42,50 +45,65 @@
     <ClCompile Include="Graphics\src\Camera.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Skeleton.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\AnimationManager.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Animation.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\MeshVertex.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\src\Level.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\BoundingBox.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Frustum.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="System\src\Query.cpp">
-      <Filter>System</Filter>
+    <ClCompile Include="Graphics\src\BoundingBox.cpp">
+      <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
-    <ClCompile Include="System\src\GBuffer.cpp">
-      <Filter>System</Filter>
+    <ClCompile Include="Graphics\src\BoundingCone.cpp">
+      <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\BoundingSphere.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\PointLight.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\BaseLight.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\LightManager.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Light</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\DirectionalLight.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\LightManager.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\PointLight.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\SpotLight.cpp">
+      <Filter>Graphics\Light</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Quad.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Animation.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\AnimationManager.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Model.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\MeshVertex.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Mesh.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Skeleton.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\GBuffer.cpp">
+      <Filter>System\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\Query.cpp">
+      <Filter>System\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\VAO.cpp">
+      <Filter>System\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,16 +123,7 @@
     <ClInclude Include="System\Logger.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Mesh.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="System\ResourcesManager.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Model.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="System\VAO.h">
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Scene.h">
@@ -123,50 +132,65 @@
     <ClInclude Include="Graphics\Camera.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Skeleton.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\AnimationManager.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Animation.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\MeshVertex.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BoundingBox.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Frustum.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Query.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System\GBuffer.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BoundingSphere.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\PointLight.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BaseLight.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\LightManager.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Level.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\BoundingBox.h">
+      <Filter>Graphics\Bounding Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BoundingCone.h">
+      <Filter>Graphics\Bounding Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BoundingSphere.h">
+      <Filter>Graphics\Bounding Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BaseLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics\DirectionalLight.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LightManager.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\PointLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\SpotLight.h">
+      <Filter>Graphics\Light</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Quad.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Animation.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\AnimationManager.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Model.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MeshVertex.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Mesh.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Skeleton.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="System\GBuffer.h">
+      <Filter>System\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Query.h">
+      <Filter>System\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="System\VAO.h">
+      <Filter>System\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

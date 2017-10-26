@@ -179,14 +179,14 @@ namespace le
 		///
 		/// \return vector<PointLight>*
 		//////////////////////////////////////////////////////////////////////
-		vector<PointLight>* GetAllPointLights();
+		vector<PointLight>& GetAllPointLights();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить весь массив направленных источников света
 		///
 		/// \return vector<DirectionalLight>*
 		//////////////////////////////////////////////////////////////////////
-		vector<DirectionalLight>* GetAllDirectionalLights();
+		vector<DirectionalLight>& GetAllDirectionalLights();
 
 	private:
 

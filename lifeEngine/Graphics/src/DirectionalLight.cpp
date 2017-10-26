@@ -52,16 +52,6 @@ le::DirectionalLight::~DirectionalLight()
 
 //-------------------------------------------------------------------------//
 
-void le::DirectionalLight::AddToScene( le::Scene& Scene )
-{}
-
-//-------------------------------------------------------------------------//
-
-void le::DirectionalLight::RemoveFromScene()
-{}
-
-//-------------------------------------------------------------------------//
-
 void le::DirectionalLight::SetPosition( const glm::vec3& Position )
 {
 	this->Position = glm::vec4( Position, 0.0f );

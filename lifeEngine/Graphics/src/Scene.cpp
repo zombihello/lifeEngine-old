@@ -18,40 +18,35 @@ le::Scene::Scene( System& System ) :
 	ViewMatrix( NULL ),
 	Frustum( NULL ),
 	Camera( NULL ),
-	LightManager( NULL )
+	LightManager( NULL ),
+	PointLights( NULL ),
+	DirectionalLights( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
 
-	if ( !AnimationModelsRender.loadFromFile( "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" ) )
-		Logger::Log( Logger::Error, AnimationModelsRender.getErrorMessage().str() );
+	ResourcesManager::LoadShader( "AnimationModels", "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" );
+	ResourcesManager::LoadShader( "StaticModels", "../shaders/StaticModelsRender.vs", "../shaders/StaticModelsRender.fs" );
+	ResourcesManager::LoadShader( "Brushes", "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" );
+	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
+	ResourcesManager::LoadShader( "PointLight", "../shaders/PointLight.vs", "../shaders/PointLight.fs" );
+	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/DirectionalLightRender.vs", "../shaders/DirectionalLightRender.fs" );
 
-	if ( !StaticModelsRender.loadFromFile( "../shaders/StaticModelsRender.vs", "../shaders/StaticModelsRender.fs" ) )
-		Logger::Log( Logger::Error, StaticModelsRender.getErrorMessage().str() );
+	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
+	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
+	LevelRender = ResourcesManager::GetShader( "Brushes" );
+	TestRender = ResourcesManager::GetShader( "TestRender" );
+	PointLightRender = ResourcesManager::GetShader( "PointLight" );
+	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 
-	if ( !LevelRender.loadFromFile( "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" ) )
-		Logger::Log( Logger::Error, LevelRender.getErrorMessage().str() );
+	PointLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
+	PointLightRender->setUniform( "PositionMap", GBuffer::Position );
+	PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
-	if ( !QueryTestRender.loadFromFile( "../shaders/QueryTestRender.vs", "../shaders/QueryTestRender.fs" ) )
-		Logger::Log( Logger::Error, QueryTestRender.getErrorMessage().str() );
-
-	if ( !PointLightRender.loadFromFile( "../shaders/PointLight.vs", "../shaders/PointLight.fs" ) )
-		Logger::Log( Logger::Error, PointLightRender.getErrorMessage().str() );
-
-	if ( !StencilTestRender.loadFromFile( "../shaders/StencilTestRender.vs", "../shaders/StencilTestRender.fs" ) )
-		Logger::Log( Logger::Error, StencilTestRender.getErrorMessage().str() );
-
-	if ( !DirectionalLightRender.loadFromFile( "../shaders/DirectionalLightRender.vs", "../shaders/DirectionalLightRender.fs" ) )
-		Logger::Log( Logger::Error, DirectionalLightRender.getErrorMessage().str() );
-
-	PointLightRender.setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
-	PointLightRender.setUniform( "ColorMap", GBuffer::Textures );
-	PointLightRender.setUniform( "PositionMap", GBuffer::Position );
-	PointLightRender.setUniform( "NormalMap", GBuffer::Normal );
-
-	DirectionalLightRender.setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
-	DirectionalLightRender.setUniform( "ColorMap", GBuffer::Textures );
-	DirectionalLightRender.setUniform( "NormalMap", GBuffer::Normal );
+	DirectionalLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
+	DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
 	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
 }
@@ -172,20 +167,8 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 void le::Scene::AddLightManagerToScene( le::LightManager* LightManager )
 {
-	vector<PointLight>* PointLights = LightManager->GetAllPointLights();
-	vector<DirectionalLight>* DirectionalLights = LightManager->GetAllDirectionalLights();
-
-	for ( auto it = PointLights->begin(); it != PointLights->end(); it++ )
-	{
-		this->PointLights.push_back( &( *it ) );
-		it->SetScene( this );
-	}
-
-	for ( auto it = DirectionalLights->begin(); it != DirectionalLights->end(); it++ )
-	{
-		this->DirectionalLights.push_back( &( *it ) );
-		it->SetScene( this );
-	}
+	PointLights = &LightManager->GetAllPointLights();
+	DirectionalLights = &LightManager->GetAllDirectionalLights();
 
 	LightManager->SetScene( this );
 	this->LightManager = LightManager;
@@ -193,86 +176,10 @@ void le::Scene::AddLightManagerToScene( le::LightManager* LightManager )
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::AddPointLightToScene( le::PointLight* PointLight )
-{
-	PointLights.push_back( PointLight );
-	PointLight->SetScene( this );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene::AddDirectionalLightToScene( le::DirectionalLight* DirectionalLight )
-{
-	DirectionalLights.push_back( DirectionalLight );
-	DirectionalLight->SetScene( this );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene::RemovePointLightFromScene( PointLight* PointLight )
-{
-	for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
-		if ( *it == PointLight )
-		{
-			( *it )->SetScene( NULL );
-			PointLights.erase( it );
-			break;
-		}
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene::RemovePointLightFromScene( const string& NameLight )
-{
-	for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
-		if ( ( *it )->NameLight == NameLight )
-		{
-			( *it )->SetScene( NULL );
-			PointLights.erase( it );
-			break;
-		}
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene::RemoveDirectionalLightToScene( le::DirectionalLight* DirectionalLight )
-{
-	for ( auto it = DirectionalLights.begin(); it != DirectionalLights.end(); it++ )
-		if ( *it == DirectionalLight )
-		{
-			( *it )->SetScene( NULL );
-			DirectionalLights.erase( it );
-			break;
-		}
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Scene::RemoveDirectionalLightToScene( const string& NameLight )
-{
-	for ( auto it = DirectionalLights.begin(); it != DirectionalLights.end(); it++ )
-		if ( ( *it )->NameLight == NameLight )
-		{
-			( *it )->SetScene( NULL );
-			DirectionalLights.erase( it );
-			break;
-		}
-}
-
-//-------------------------------------------------------------------------//
-
 void le::Scene::RemoveLightManagerFromScene( le::LightManager* LightManager )
 {
-	vector<PointLight>* Lights = LightManager->GetAllPointLights();
-
-	for ( auto it = Lights->begin(); it != Lights->end(); it++ )
-		for ( auto it_Lights = PointLights.begin(); it_Lights != PointLights.end(); it_Lights++ )
-			if ( &( *it ) == *it_Lights )
-			{
-				( *it_Lights )->SetScene( NULL );
-				PointLights.erase( it_Lights );
-				break;
-			}
+	PointLights = NULL;
+	DirectionalLights = NULL;
 
 	LightManager->SetScene( NULL );
 	this->LightManager = NULL;
@@ -295,17 +202,16 @@ void le::Scene::RenderScene()
 	glEnable( GL_CULL_FACE );
 	glEnable( GL_DEPTH_TEST );
 
-	vector<InfoMesh*>* GeometryBuffer;
-	vector<le::Skeleton::Bone>* Bones;
+	vector<InfoMesh*>* GeometryBuffer;	
 	InfoMesh* InfoMesh;
 
 	if ( Camera )
 		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
 
-	LevelRender.setUniform( "PVMatrix", PVMatrix );
-	QueryTestRender.setUniform( "PVTMatrix", PVMatrix );
-	AnimationModelsRender.setUniform( "PVMatrix", PVMatrix );
-	StaticModelsRender.setUniform( "PVMatrix", PVMatrix );
+	LevelRender->setUniform( "PVMatrix", PVMatrix );
+	TestRender->setUniform( "PVTMatrix", PVMatrix );
+	AnimationModelsRender->setUniform( "PVMatrix", PVMatrix );
+	StaticModelsRender->setUniform( "PVMatrix", PVMatrix );
 
 	// ****************************
 	// Проверка видимости геометрии
@@ -318,7 +224,7 @@ void le::Scene::RenderScene()
 		if ( Configuration::IsWireframeRender ) // отключаем каркасный рендер если он включен
 			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-		Shader::bind( &QueryTestRender );
+		Shader::bind( TestRender );
 		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
 		size_t ModelsVisible = 0;
@@ -411,13 +317,13 @@ void le::Scene::RenderScene()
 		// ***************************************** //
 		// Проверка точечного освещения на отсечение по фрустуму
 
-		for ( auto it = PointLights.begin(); it != PointLights.end(); it++ )
-			if ( Frustum->IsVisible( ( *it )->LightSphere ) )
+		for ( auto it = PointLights->begin(); it != PointLights->end(); it++ )
+			if ( Frustum->IsVisible( it->LightSphere ) )
 			{
 				if ( PointLightVisible >= LightBuffer_PointLight.size() )
-					LightBuffer_PointLight.push_back( ( *it ) );
+					LightBuffer_PointLight.push_back( &( *it ) );
 				else
-					LightBuffer_PointLight[ PointLightVisible ] = ( *it );
+					LightBuffer_PointLight[ PointLightVisible ] = &( *it );
 
 				PointLightVisible++;
 			}
@@ -461,7 +367,7 @@ void le::Scene::RenderScene()
 
 	if ( !RenderBuffer_Level.empty() )
 	{
-		Shader::bind( &LevelRender );
+		Shader::bind( LevelRender );
 
 		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
@@ -490,7 +396,8 @@ void le::Scene::RenderScene()
 
 	if ( !RenderBuffer_AnimationModel.empty() )
 	{
-		Shader::bind( &AnimationModelsRender );
+		vector<le::Skeleton::Bone>* Bones;
+		Shader::bind( AnimationModelsRender );
 
 		for ( auto it = RenderBuffer_AnimationModel.begin(); it != RenderBuffer_AnimationModel.end(); it++ )
 		{
@@ -505,10 +412,10 @@ void le::Scene::RenderScene()
 					continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
-				AnimationModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+				AnimationModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				for ( size_t j = 0; j < Bones->size(); j++ )
-					AnimationModelsRender.setUniform( "Bones[" + to_string( j ) + "]", ( *Bones )[ j ].TransformMatrix );
+					AnimationModelsRender->setUniform( "Bones[" + to_string( j ) + "]", ( *Bones )[ j ].TransformMatrix );
 
 				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
 
@@ -525,7 +432,7 @@ void le::Scene::RenderScene()
 
 	if ( !RenderBuffer_StaticModel.empty() )
 	{
-		Shader::bind( &StaticModelsRender );
+		Shader::bind( StaticModelsRender );
 
 		for ( auto it = RenderBuffer_StaticModel.begin(); it != RenderBuffer_StaticModel.end(); it++ )
 		{
@@ -539,7 +446,7 @@ void le::Scene::RenderScene()
 				if ( !InfoMesh->IsRender )
 					continue;
 
-				StaticModelsRender.setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+				StaticModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				InfoMesh->BoundingBox->Query.StartConditionalRender( GL_QUERY_WAIT );
 
@@ -555,14 +462,14 @@ void le::Scene::RenderScene()
 	// Просчитывание освещения
 	// ****************************
 
-	if ( !PointLights.empty() || !DirectionalLights.empty() )
+	if ( LightManager != NULL )
 	{
 		glDepthMask( GL_FALSE );
 		glEnable( GL_STENCIL_TEST );
 
 		glBlendEquation( GL_FUNC_ADD );
 		glBlendFunc( GL_ONE, GL_ONE );
-		
+
 		glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
 		glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
@@ -581,7 +488,7 @@ void le::Scene::RenderScene()
 
 			glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
-			Shader::bind( &StencilTestRender );
+			Shader::bind( TestRender );
 
 			glEnable( GL_DEPTH_TEST );
 			glClear( GL_STENCIL_BUFFER_BIT );
@@ -589,7 +496,7 @@ void le::Scene::RenderScene()
 
 			glStencilFunc( GL_ALWAYS, 0, 0 );
 
-			StencilTestRender.setUniform( "PVTMatrix", PVTMatrix );
+			TestRender->setUniform( "PVTMatrix", PVTMatrix );
 			PointLight->LightSphere.RenderSphere();
 
 			glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
@@ -597,7 +504,7 @@ void le::Scene::RenderScene()
 			// ***************************************** //
 			// Рендер источника света
 
-			Shader::bind( &PointLightRender );
+			Shader::bind( PointLightRender );
 
 			glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 			glDisable( GL_DEPTH_TEST );
@@ -606,10 +513,10 @@ void le::Scene::RenderScene()
 			glEnable( GL_CULL_FACE );
 			glCullFace( GL_FRONT );
 
-			PointLightRender.setUniform( "PVTMatrix", PVTMatrix );
-			PointLightRender.setUniform( "light.Position", PointLight->Position );
-			PointLightRender.setUniform( "light.Color", PointLight->Color );
-			PointLightRender.setUniform( "light.Radius", PointLight->Radius );
+			PointLightRender->setUniform( "PVTMatrix", PVTMatrix );
+			PointLightRender->setUniform( "light.Position", PointLight->Position );
+			PointLightRender->setUniform( "light.Color", PointLight->Color );
+			PointLightRender->setUniform( "light.Radius", PointLight->Radius );
 			PointLight->LightSphere.RenderSphere();
 
 			glCullFace( GL_BACK );
@@ -624,17 +531,17 @@ void le::Scene::RenderScene()
 		glDisable( GL_DEPTH_TEST );
 		glEnable( GL_BLEND );
 
-		if ( !DirectionalLights.empty() )
+		if ( DirectionalLights != NULL )
 		{
-			Shader::bind( &DirectionalLightRender );
+			Shader::bind( DirectionalLightRender );
 
-			for ( size_t i = 0; i < DirectionalLights.size(); i++ )
+			for ( size_t i = 0; i < DirectionalLights->size(); i++ )
 			{
-				DirectionalLight* DirectionalLight = DirectionalLights[ i ];
+				DirectionalLight* DirectionalLight = &(*DirectionalLights)[ i ];
 
-				DirectionalLightRender.setUniform( "light.Position", DirectionalLight->Position );
-				DirectionalLightRender.setUniform( "light.Color", DirectionalLight->Color );
-				DirectionalLights[ i ]->LightQuad.RenderQuad();
+				DirectionalLightRender->setUniform( "light.Position", DirectionalLight->Position );
+				DirectionalLightRender->setUniform( "light.Color", DirectionalLight->Color );
+				DirectionalLight->LightQuad.RenderQuad();
 			}
 		}
 

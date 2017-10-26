@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>lifeEngine: Исходный файл E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/Graphics/SpotLight.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logoDoc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">lifeEngine
+   &#160;<span id="projectnumber">3.0.0</span>
+   </div>
+   <div id="projectbrief">Двигатель жизни</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_9e17f58e0750a0bc3c41a22727112217.html">lifeEngine</a></li><li class="navelem"><a class="el" href="dir_e09c625450b9a262e133012df5176766.html">Graphics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">SpotLight.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//          *** lifeEngine (Двигатель Жизни) ***</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                  Copyright (C) 2017</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Связь со мной:       https://vk.com/zombihello</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// Репозиторий движка:  https://github.com/zombihello/lifeEngine</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// </span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef SPOT_LIGHT_H</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define SPOT_LIGHT_H</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define COMPILING_LIBRARY</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;DllGlobal.h&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// OPENGL</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;glew\glew.h&gt;</span></div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;glm\glm.hpp&gt;</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// LIFEENGINE</span></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"></span><span class="preprocessor">#include &lt;Graphics\BaseLight.h&gt;</span></div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;Graphics\BoundingCone.h&gt;</span></div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacele.html">le</a></div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classle_1_1_spot_light.html">   38</a></span>&#160;    <span class="keyword">class </span>DLL_API <a class="code" href="classle_1_1_spot_light.html">SpotLight</a> : <span class="keyword">public</span> <a class="code" href="classle_1_1_base_light.html">BaseLight</a></div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classle_1_1_spot_light.html">SpotLight</a>();</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classle_1_1_spot_light.html">SpotLight</a>( <span class="keyword">const</span> <a class="code" href="classle_1_1_spot_light.html">SpotLight</a>&amp; Copy );</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classle_1_1_spot_light.html">SpotLight</a>( <span class="keywordtype">float</span> Radius, <span class="keyword">const</span> glm::vec3&amp; Position, <span class="keyword">const</span> glm::vec4&amp; Color, <span class="keyword">const</span> glm::vec4&amp; Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        ~<a class="code" href="classle_1_1_spot_light.html">SpotLight</a>();</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> SetRadius( <span class="keywordtype">float</span> Radius );</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> SetPosition( <span class="keyword">const</span> glm::vec3&amp; Position );</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="classle_1_1_spot_light.html">le::SpotLight</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classle_1_1_spot_light.html">SpotLight</a>&amp; Copy );</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div><div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classle_1_1_spot_light.html#aaefe9d87878b094872b9ddad2d3f5556">   82</a></span>&#160;        <span class="keywordtype">float</span>               <a class="code" href="classle_1_1_spot_light.html#aaefe9d87878b094872b9ddad2d3f5556">Hegiht</a>; </div><div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classle_1_1_spot_light.html#af7fb1474497a386ba0e5224f5a369fe3">   83</a></span>&#160;        <span class="keywordtype">float</span>               <a class="code" href="classle_1_1_spot_light.html#af7fb1474497a386ba0e5224f5a369fe3">Radius</a>; </div><div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classle_1_1_spot_light.html#aaf3fd49d419eaadb4c074cb40f39bd2b">   84</a></span>&#160;        <a class="code" href="classle_1_1_bounding_cone.html">BoundingCone</a>        <a class="code" href="classle_1_1_spot_light.html#aaf3fd49d419eaadb4c074cb40f39bd2b">LightCone</a>; </div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    };</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">//-------------------------------------------------------------------------//</span></div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif // SPOT_LIGHT_H</span></div><div class="ttc" id="classle_1_1_bounding_cone_html"><div class="ttname"><a href="classle_1_1_bounding_cone.html">le::BoundingCone</a></div><div class="ttdoc">Класс ограничивающего тела (конус) </div><div class="ttdef"><b>Definition:</b> BoundingCone.h:42</div></div>
+<div class="ttc" id="classle_1_1_spot_light_html_aaefe9d87878b094872b9ddad2d3f5556"><div class="ttname"><a href="classle_1_1_spot_light.html#aaefe9d87878b094872b9ddad2d3f5556">le::SpotLight::Hegiht</a></div><div class="ttdeci">float Hegiht</div><div class="ttdoc">Высота конуса света </div><div class="ttdef"><b>Definition:</b> SpotLight.h:82</div></div>
+<div class="ttc" id="classle_1_1_base_light_html"><div class="ttname"><a href="classle_1_1_base_light.html">le::BaseLight</a></div><div class="ttdoc">Базовый класс света </div><div class="ttdef"><b>Definition:</b> BaseLight.h:50</div></div>
+<div class="ttc" id="classle_1_1_spot_light_html_aaf3fd49d419eaadb4c074cb40f39bd2b"><div class="ttname"><a href="classle_1_1_spot_light.html#aaf3fd49d419eaadb4c074cb40f39bd2b">le::SpotLight::LightCone</a></div><div class="ttdeci">BoundingCone LightCone</div><div class="ttdoc">Конус света </div><div class="ttdef"><b>Definition:</b> SpotLight.h:84</div></div>
+<div class="ttc" id="classle_1_1_spot_light_html_af7fb1474497a386ba0e5224f5a369fe3"><div class="ttname"><a href="classle_1_1_spot_light.html#af7fb1474497a386ba0e5224f5a369fe3">le::SpotLight::Radius</a></div><div class="ttdeci">float Radius</div><div class="ttdoc">Радиус конуса света </div><div class="ttdef"><b>Definition:</b> SpotLight.h:83</div></div>
+<div class="ttc" id="classle_1_1_spot_light_html"><div class="ttname"><a href="classle_1_1_spot_light.html">le::SpotLight</a></div><div class="ttdoc">Класс прожекторного света </div><div class="ttdef"><b>Definition:</b> SpotLight.h:38</div></div>
+<div class="ttc" id="namespacele_html"><div class="ttname"><a href="namespacele.html">le</a></div><div class="ttdef"><b>Definition:</b> BasicApplication.h:22</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

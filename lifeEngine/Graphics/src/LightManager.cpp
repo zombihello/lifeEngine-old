@@ -154,16 +154,16 @@ vector<le::DirectionalLight*> le::LightManager::GetDirectionalLights( const stri
 
 //-------------------------------------------------------------------------//
 
-vector<le::PointLight>* le::LightManager::GetAllPointLights()
+vector<le::PointLight>& le::LightManager::GetAllPointLights()
 {
-	return &PointLights;
+	return PointLights;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<le::DirectionalLight>* le::LightManager::GetAllDirectionalLights()
+vector<le::DirectionalLight>& le::LightManager::GetAllDirectionalLights()
 {
-	return &DirectionalLights;
+	return DirectionalLights;
 }
 
 //-------------------------------------------------------------------------//

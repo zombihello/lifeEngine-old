@@ -30,7 +30,6 @@ using namespace std;
 ////////////////
 // LIFEENGINE
 ///////////////
-#include <Graphics\Frustum.h>
 #include <System\Query.h>
 
 namespace le

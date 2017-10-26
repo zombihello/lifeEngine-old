@@ -69,7 +69,6 @@ $(function() {
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-attribs">Открытые атрибуты</a> &#124;
 <a href="#pro-methods">Защищенные члены</a> &#124;
-<a href="#pro-attribs">Защищенные данные</a> &#124;
 <a href="classle_1_1_base_light-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Класс le::BaseLight<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -88,6 +87,7 @@ $(function() {
   <map id="le::BaseLight_map" name="le::BaseLight_map">
 <area href="classle_1_1_directional_light.html" title="Класс направленного света " alt="le::DirectionalLight" shape="rect" coords="0,56,116,80"/>
 <area href="classle_1_1_point_light.html" title="Класс точечного света " alt="le::PointLight" shape="rect" coords="126,56,242,80"/>
+<area href="classle_1_1_spot_light.html" title="Класс прожекторного света " alt="le::SpotLight" shape="rect" coords="252,56,368,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -104,13 +104,6 @@ $(function() {
 <tr class="memitem:abcabda50f23e24cd96370e4697e66464"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#abcabda50f23e24cd96370e4697e66464">InitShadowMap</a> (bool IsCupeMap=false)</td></tr>
 <tr class="memdesc:abcabda50f23e24cd96370e4697e66464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализировать карту теней  <a href="#abcabda50f23e24cd96370e4697e66464">Подробнее...</a><br /></td></tr>
 <tr class="separator:abcabda50f23e24cd96370e4697e66464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d4e87993cb710631f3857a2788c9311"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a7d4e87993cb710631f3857a2788c9311">AddToScene</a> (<a class="el" href="classle_1_1_scene.html">Scene</a> &amp;<a class="el" href="classle_1_1_scene.html">Scene</a>)=0</td></tr>
-<tr class="memdesc:a7d4e87993cb710631f3857a2788c9311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить на сцену  <a href="#a7d4e87993cb710631f3857a2788c9311">Подробнее...</a><br /></td></tr>
-<tr class="separator:a7d4e87993cb710631f3857a2788c9311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c0553cb886c74ca9925bc86ebccf27"><td class="memItemLeft" align="right" valign="top"><a id="a82c0553cb886c74ca9925bc86ebccf27"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a82c0553cb886c74ca9925bc86ebccf27">RemoveFromScene</a> ()=0</td></tr>
-<tr class="memdesc:a82c0553cb886c74ca9925bc86ebccf27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удалить с сцены <br /></td></tr>
-<tr class="separator:a82c0553cb886c74ca9925bc86ebccf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5b944e5875042ba6d0d4b248ec70a5c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#ae5b944e5875042ba6d0d4b248ec70a5c">SetPosition</a> (const glm::vec3 &amp;<a class="el" href="classle_1_1_base_light.html#af1492e51cb0ac24e64aca45650a6a2dd">Position</a>)=0</td></tr>
 <tr class="memdesc:ae5b944e5875042ba6d0d4b248ec70a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задать позицию света  <a href="#ae5b944e5875042ba6d0d4b248ec70a5c">Подробнее...</a><br /></td></tr>
 <tr class="separator:ae5b944e5875042ba6d0d4b248ec70a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +119,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:ab354821d1881c20cda542438d02a13dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#ab354821d1881c20cda542438d02a13dc">SetDinamicLight</a> (bool IsDinamic=true)</td></tr>
 <tr class="memdesc:ab354821d1881c20cda542438d02a13dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сделать свет динамическим  <a href="#ab354821d1881c20cda542438d02a13dc">Подробнее...</a><br /></td></tr>
 <tr class="separator:ab354821d1881c20cda542438d02a13dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57553908be14377a3b9f142a61226e25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a57553908be14377a3b9f142a61226e25">SetScene</a> (<a class="el" href="classle_1_1_scene.html">Scene</a> *<a class="el" href="classle_1_1_scene.html">Scene</a>)</td></tr>
-<tr class="memdesc:a57553908be14377a3b9f142a61226e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указать сцену (необходима для уничтожения со сцены)  <a href="#a57553908be14377a3b9f142a61226e25">Подробнее...</a><br /></td></tr>
-<tr class="separator:a57553908be14377a3b9f142a61226e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Открытые атрибуты</h2></td></tr>
@@ -179,54 +169,11 @@ vector&lt; glm::mat4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a 
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#ac5eea2e965686a8af3ae6f4f817d7f5f">CopyBaseLight</a> (const <a class="el" href="classle_1_1_base_light.html">BaseLight</a> &amp;Copy)</td></tr>
 <tr class="memdesc:ac5eea2e965686a8af3ae6f4f817d7f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Скопировать базовые параметры света <br /></td></tr>
 <tr class="separator:ac5eea2e965686a8af3ae6f4f817d7f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Защищенные данные</h2></td></tr>
-<tr class="memitem:acc9916a86b9d64bff33d5b060688f834"><td class="memItemLeft" align="right" valign="top"><a id="acc9916a86b9d64bff33d5b060688f834"></a>
-<a class="el" href="classle_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#acc9916a86b9d64bff33d5b060688f834">Scene</a></td></tr>
-<tr class="memdesc:acc9916a86b9d64bff33d5b060688f834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сцена на котором нах. источник света <br /></td></tr>
-<tr class="separator:acc9916a86b9d64bff33d5b060688f834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Базовый класс света </p>
 <p>Данный класс является базой для любого типа света </p>
 </div><h2 class="groupheader">Методы</h2>
-<a id="a7d4e87993cb710631f3857a2788c9311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d4e87993cb710631f3857a2788c9311">&#9670;&nbsp;</a></span>AddToScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void le::BaseLight::AddToScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classle_1_1_scene.html">Scene</a> &amp;&#160;</td>
-          <td class="paramname"><em>Scene</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Добавить на сцену </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_scene.html" title="Класс для работы со сценой ">Scene</a></td><td>Сцена </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Замещается в <a class="el" href="classle_1_1_point_light.html#a8d5d40fe2c5a89004d2c1da50bfef34b">le::PointLight</a> и <a class="el" href="classle_1_1_directional_light.html#a654720aba1c3d3694a8fe7f7c2aadfb1">le::DirectionalLight</a>.</p>
-
-</div>
-</div>
 <a id="abcabda50f23e24cd96370e4697e66464"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abcabda50f23e24cd96370e4697e66464">&#9670;&nbsp;</a></span>InitShadowMap()</h2>
 
@@ -363,33 +310,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
-<p>Замещается в <a class="el" href="classle_1_1_point_light.html#a77b670fe7cfa01cca7450beef6ce5d13">le::PointLight</a> и <a class="el" href="classle_1_1_directional_light.html#af2d812798cc48baf993bc2d5faa841d2">le::DirectionalLight</a>.</p>
-
-</div>
-</div>
-<a id="a57553908be14377a3b9f142a61226e25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57553908be14377a3b9f142a61226e25">&#9670;&nbsp;</a></span>SetScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void le::BaseLight::SetScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classle_1_1_scene.html">le::Scene</a> *&#160;</td>
-          <td class="paramname"><em>Scene</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Указать сцену (необходима для уничтожения со сцены) </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_scene.html" title="Класс для работы со сценой ">Scene</a></td><td>Сцена </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Замещается в <a class="el" href="classle_1_1_point_light.html#a77b670fe7cfa01cca7450beef6ce5d13">le::PointLight</a>, <a class="el" href="classle_1_1_spot_light.html#af35c8f1c1481f43aeefceb6dcbd4f168">le::SpotLight</a> и <a class="el" href="classle_1_1_directional_light.html#af2d812798cc48baf993bc2d5faa841d2">le::DirectionalLight</a>.</p>
 
 </div>
 </div>

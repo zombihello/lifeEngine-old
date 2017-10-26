@@ -6,7 +6,8 @@
 le::BoundingSphere::BoundingSphere() :
 	ArrayBuffer( 0 ),
 	VertexBuffer( 0 ),
-	IndexBuffer( 0 )
+	IndexBuffer( 0 ),
+	Radius( 0 )
 {}
 
 //-------------------------------------------------------------------------//

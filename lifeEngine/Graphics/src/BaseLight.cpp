@@ -7,8 +7,7 @@ le::BaseLight::BaseLight() :
 	IsInitShadowMap( false ),
 	IsStaticLight( true ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
-	Specular( 0, 0, 0, 1 ),
-	Scene( NULL )
+	Specular( 0, 0, 0, 1 )
 {}
 
 //-------------------------------------------------------------------------//
@@ -116,13 +115,6 @@ void le::BaseLight::SetColor( const glm::vec4& Color )
 void le::BaseLight::SetDinamicLight( bool IsDinamic )
 {
 	IsStaticLight = !IsDinamic;
-}
-
-//-------------------------------------------------------------------------//
-
-void le::BaseLight::SetScene( le::Scene* Scene )
-{
-	this->Scene = Scene;
 }
 
 //-------------------------------------------------------------------------//

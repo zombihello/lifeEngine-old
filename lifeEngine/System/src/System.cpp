@@ -1,4 +1,5 @@
-﻿#include "..\System.h"
+﻿#include <System\ResourcesManager.h>
+#include "..\System.h"
 
 //-------------------------------------------------------------------------//
 
@@ -41,6 +42,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 
 le::System::~System()
 {
+	ResourcesManager::DeleteAllResources();
 	Logger::Log( Logger::None, "*** " ENGINE " End ***" );
 }
 

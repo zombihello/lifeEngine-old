@@ -137,48 +137,6 @@ namespace le
 		void AddLightManagerToScene( LightManager* LightManager );
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Добавить точечный свет на сцену
-		///		
-		/// \param[in] PointLight Указатель на точечный свет
-		//////////////////////////////////////////////////////////////////////
-		void AddPointLightToScene( PointLight* PointLight );
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Добавить направленый свет на сцену
-		///		
-		/// \param[in] DirectionalLight Указатель на направленый свет
-		//////////////////////////////////////////////////////////////////////
-		void AddDirectionalLightToScene( DirectionalLight* DirectionalLight );
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Удалить точечный источник света со сцены
-		///		
-		/// \param[in] PointLight Указатель на источник света
-		//////////////////////////////////////////////////////////////////////
-		void RemovePointLightFromScene( PointLight* PointLight );
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Удалить точечный источник света со сцены
-		///		
-		/// \param[in] NameLight Название источника света
-		//////////////////////////////////////////////////////////////////////
-		void RemovePointLightFromScene( const string& NameLight );
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Удалить направленый источник света со сцены
-		///		
-		/// \param[in] DirectionalLight Указатель на направленый свет
-		//////////////////////////////////////////////////////////////////////
-		void RemoveDirectionalLightToScene( DirectionalLight* DirectionalLight );
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Удалить направленый источник света со сцены
-		///		
-		/// \param[in] NameLight Название источника света
-		//////////////////////////////////////////////////////////////////////
-		void RemoveDirectionalLightToScene( const string& NameLight );
-
-		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить менеджер света со сцены
 		///		
 		/// \param[in] LightManager Указатель на менеджер света
@@ -216,14 +174,13 @@ namespace le
 
 	private:
 
-		Shader								AnimationModelsRender; ///< Шейдер рендера анимируемых моделей
-		Shader								StaticModelsRender; ///< Шейдер рендера статичных моделей
-		Shader								LevelRender; ///< Шейдер рендера уровня
-		Shader								QueryTestRender; ///< Шейдер тестового рендера на перекрытия
-		Shader								PointLightRender; ///< Шейдер точечного света
-		Shader								DirectionalLightRender; ///< Шейдер направленого света
-		Shader								StencilTestRender; ///< Шейдер рендера в буффер трафарета
-
+		Shader*								AnimationModelsRender; ///< Шейдер рендера анимируемых моделей
+		Shader*								StaticModelsRender; ///< Шейдер рендера статичных моделей
+		Shader*								LevelRender; ///< Шейдер рендера уровня
+		Shader*								TestRender; ///< Шейдер тестового рендера на перекрытия
+		Shader*								PointLightRender; ///< Шейдер точечного света
+		Shader*								DirectionalLightRender; ///< Шейдер направленого света
+		
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
 		glm::mat4							PVMatrix; ///< Матрица Projection * View
@@ -236,8 +193,8 @@ namespace le
 		GBuffer								GBuffer; ///< G-Буффер
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
-		vector<PointLight*>					PointLights; ///< Массив точечный источников которые нах. на сцене
-		vector<DirectionalLight*>			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
+		vector<PointLight>*					PointLights; ///< Массив точечный источников которые нах. на сцене
+		vector<DirectionalLight>*			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
 		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
 		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру

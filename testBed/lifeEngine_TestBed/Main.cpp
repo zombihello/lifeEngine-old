@@ -13,6 +13,8 @@ class Game : public le::BasicApplication
 public:
 	Game( le::System& System ) : le::BasicApplication( System )
 	{
+		le::ResourcesManager::SetErrorTexture( "../textures/Error.png" );
+
 		model.LoadModel( "Leanna", "../models/leanna.lmd" );
 		model.GetAnimationManager()->Play( "leanna_anim", true );
 
@@ -53,11 +55,22 @@ public:
 			}
 		}
 
+		IsLeftButtonPressed = false;
+		Timer = 0.f;
 		LightManager.AddLightsToScene( *Scene );
 	}
 
 	void Update()
 	{
+		srand( time( NULL ) );
+
+		if ( IsLeftButtonPressed && !Mouse::isButtonPressed( Mouse::Left ) )
+		{
+			Timer += Configuration->Time;
+
+			if ( Timer > 250 ) IsLeftButtonPressed = false;
+		}
+
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
 			Camera->Move( le::Camera::Forward, 1 * Configuration->Time );
 
@@ -75,6 +88,16 @@ public:
 		else
 			le::System::SetWireframeRender( false );
 
+		if ( Mouse::isButtonPressed( Mouse::Left ) && !IsLeftButtonPressed )
+		{
+			IsLeftButtonPressed = true;
+
+			glm::vec4 LightColor( NUMBER_TO_FLOAT( rand() % 255 ), NUMBER_TO_FLOAT( rand() % 255 ), NUMBER_TO_FLOAT( rand() % 255 ), 255.f );
+			float Radius = 45 + rand() % 200;
+
+			LightManager.AddPointLight( "", Radius, Camera->GetPosition(), glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+		}
+
 		model.GetAnimationManager()->Update();
 		Camera->UpdateCamera();
 		Scene->RenderScene();
@@ -82,6 +105,9 @@ public:
 		if ( Keyboard::isKeyPressed( Keyboard::E ) )
 			GBuffer->ShowDebug();
 	}
+
+	float Timer;
+	bool IsLeftButtonPressed;
 
 	le::Model model;
 	le::Scene* Scene;

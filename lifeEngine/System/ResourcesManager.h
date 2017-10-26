@@ -73,6 +73,27 @@ namespace le
 		static bool LoadMesh( const string& NameMesh, const string& RouteToFile );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Загрузить шейдер
+		///
+		/// \param[in] NameShader Идентификатор шейдера
+		/// \param[in] VertexShader Вершиный шейдер
+		/// \param[in] GeometryShader Геометрический шейдер
+		/// \param[in] FragmentShader Фрагментный шейдер
+		/// \return true если все прошло успешно, иначе false
+		//////////////////////////////////////////////////////////////////////
+		static bool LoadShader( const string& NameShader, const string& VertexShader, const string& GeometryShader, const string& FragmentShader );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Загрузить шейдер
+		///	
+		/// \param[in] NameShader Идентификатор шейдера
+		/// \param[in] VertexShader Вершиный шейдер
+		/// \param[in] FragmentShader Фрагментный шейдер
+		/// \return true если все прошло успешно, иначе false
+		//////////////////////////////////////////////////////////////////////
+		static bool LoadShader( const string& NameShader, const string& VertexShader, const string& FragmentShader );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить OpenGL текстуру
 		///		
 		/// \param[in] NameTexture Идентификатор текстуры
@@ -87,6 +108,13 @@ namespace le
 		static void DeleteMesh( const string& NameMesh );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить шейдер
+		///		
+		/// \param[in] NameShader Идентификатор шейдера
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteShader( const string& NameShader );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить все OpenGL текстуры
 		//////////////////////////////////////////////////////////////////////
 		static void DeleteAllGlTexture();
@@ -97,16 +125,28 @@ namespace le
 		static void DeleteAllMeshes();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить все шейдеры
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteAllShaders();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить все ресурсы
 		//////////////////////////////////////////////////////////////////////
 		static void DeleteAllResources();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать текстуру ошибки
+		///		
+		/// \param[in] ErrorTexture Текстура Ошибки
+		//////////////////////////////////////////////////////////////////////
+		static void SetErrorTexture( const string& ErrorTexture );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить OpenGL текстуру
 		///		
 		/// \param[in] NameTexture Идентификатор текстуры
 		/// \return const GLuint. Если текстура с данным названием 
-		/// отсутствует, то вернет 0
+		/// отсутствует, то вернет текстуру ошибки или 0
 		//////////////////////////////////////////////////////////////////////
 		static const GLuint GetGlTexture( const string& NameTexture );
 
@@ -114,14 +154,26 @@ namespace le
 		/// \brief Получить меш
 		///		
 		/// \param[in] NameMesh Идентификатор меша
-		/// \return const Mesh*. Если меша с данным названием
+		/// \return Mesh*. Если меша с данным названием
 		/// нету, то вернет NULL (0)
 		//////////////////////////////////////////////////////////////////////
 		static Mesh* GetMesh( const string& NameMesh );
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить шейдер
+		///		
+		/// \param[in] NameShader Идентификатор шейдера
+		/// \return Shader*. Если шейдера с данным названием
+		/// нету, то вернет NULL (0)
+		//////////////////////////////////////////////////////////////////////
+		static Shader* GetShader( const string& NameShader );
+
 	private:
 
+		static GLuint						ErrorTexture; ///< Текстура ошибки
+
 		static map<string, GLuint>			GlTextures; ///< Массив OpenGL текстур
+		static map<string, Shader>			Shaders; ///< Массив шейдеров
 		static map<string, Mesh>			Meshes; ///< Массив мешей
 	};
 

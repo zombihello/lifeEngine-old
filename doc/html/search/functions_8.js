@@ -9,6 +9,7 @@ var searchData=
   ['loadlevel',['LoadLevel',['../classle_1_1_level.html#a2681e01f64ae4c60bc53400846c11af4',1,'le::Level']]],
   ['loadmesh',['LoadMesh',['../classle_1_1_resources_manager.html#a4c4406ea0088dffc036902b5390d4c8d',1,'le::ResourcesManager::LoadMesh()'],['../classle_1_1_mesh.html#ab9d84bb4efb85dc42a31dd8d927f0382',1,'le::Mesh::LoadMesh()']]],
   ['loadmodel',['LoadModel',['../classle_1_1_model.html#a499446af768ed6bd05ebf0d9283a9192',1,'le::Model::LoadModel(const string &amp;NameModel, const string &amp;RouteToFile)'],['../classle_1_1_model.html#a74e152493418a78027ca40325813c8ba',1,'le::Model::LoadModel(Mesh &amp;Mesh)']]],
+  ['loadshader',['LoadShader',['../classle_1_1_resources_manager.html#a1f1a7a36f71c2900e51c752fff7f1a13',1,'le::ResourcesManager::LoadShader(const string &amp;NameShader, const string &amp;VertexShader, const string &amp;GeometryShader, const string &amp;FragmentShader)'],['../classle_1_1_resources_manager.html#a9b86f27e907d6fa04ab77e6a1ea62276',1,'le::ResourcesManager::LoadShader(const string &amp;NameShader, const string &amp;VertexShader, const string &amp;FragmentShader)']]],
   ['loadskeleton',['LoadSkeleton',['../classle_1_1_skeleton.html#a6292c8dfa16e38609987bdca00496aa3',1,'le::Skeleton']]],
   ['log',['Log',['../classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d',1,'le::Logger']]]
 ];

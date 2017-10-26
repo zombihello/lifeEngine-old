@@ -86,21 +86,6 @@ le::PointLight::~PointLight()
 
 //-------------------------------------------------------------------------//
 
-void le::PointLight::AddToScene( le::Scene& Scene )
-{
-	Scene.AddPointLightToScene( this );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::PointLight::RemoveFromScene()
-{
-	if ( Scene != NULL )
-		Scene->RemovePointLightFromScene( this );
-}
-
-//-------------------------------------------------------------------------//
-
 void le::PointLight::SetRadius( float Radius )
 {
 	this->Radius = Radius;
