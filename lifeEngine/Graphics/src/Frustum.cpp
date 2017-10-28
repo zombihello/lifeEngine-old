@@ -1,6 +1,7 @@
 ﻿#include <System\System.h>
 #include <Graphics\BoundingBox.h>
 #include <Graphics\BoundingSphere.h>
+#include <Graphics\BoundingCone.h>
 #include "..\Frustum.h"
 
 //-------------------------------------------------------------------------//
@@ -47,7 +48,7 @@ void le::Frustum::UpdateFrustum( const glm::mat4& Projection, const glm::mat4& V
 bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 {
 	glm::vec3* Vertexs = BoundingBox.GetVertexs();
-	
+
 	for ( int Side = 0; Side < 6; Side++ )
 	{
 		int IdVertex;
@@ -83,13 +84,29 @@ bool le::Frustum::IsVisible( BoundingSphere& BoundingSphere )
 
 //-------------------------------------------------------------------------//
 
+bool le::Frustum::IsVisible( BoundingCone& BoundingCone )
+{
+	glm::vec3 Position = BoundingCone.GetPosition();
+	Position.y += BoundingCone.GetHeight() / 2;
+	float Radius = BoundingCone.GetRadius();
+
+	for ( int Side = 0; Side < 6; Side++ )
+		if ( PyramidFrustum[ Side ].x * Position.x + PyramidFrustum[ Side ].y * Position.y +
+			 PyramidFrustum[ Side ].z * Position.z + PyramidFrustum[ Side ].w <= -Radius )
+			return false;
+
+	return true;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Frustum::NormalizePlanes()
 {
 	for ( int Side = 0; Side < 6; Side++ )
 	{
-		float Magnitude = NUMBER_TO_FLOAT( sqrt( PyramidFrustum[ Side ].x * PyramidFrustum[ Side ].x +
-										  PyramidFrustum[ Side ].y * PyramidFrustum[ Side ].y +
-										  PyramidFrustum[ Side ].z * PyramidFrustum[ Side ].z ) );
+		float Magnitude = sqrt( PyramidFrustum[ Side ].x * PyramidFrustum[ Side ].x +
+								PyramidFrustum[ Side ].y * PyramidFrustum[ Side ].y +
+								PyramidFrustum[ Side ].z * PyramidFrustum[ Side ].z );
 
 		PyramidFrustum[ Side ].x /= Magnitude;
 		PyramidFrustum[ Side ].y /= Magnitude;

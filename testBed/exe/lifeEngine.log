@@ -31,6 +31,8 @@ lifeEngine v3.0.0
 [Info] Shader With Name [PointLight] Loaded
 [Info] Loading Shader With Name [DirectionalLight]
 [Info] Shader With Name [DirectionalLight] Loaded
+[Info] Loading Shader With Name [SpotLight]
+[Info] Shader With Name [SpotLight] Loaded
 [Info] Init GBuffer (1280x720)
 [Info] GBuffer Initialized
 [Info] Loading Level [../maps/test.lmap]
@@ -122,20 +124,6 @@ lifeEngine v3.0.0
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
 [Info] Creating Point Light
-  Radius: 240.000000
-  StaticLight: 1
-  Position: 268.000000 68.000000 -444.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
-[Info] Creating Point Light
-  Radius: 240.000000
-  StaticLight: 1
-  Position: 552.000000 68.000000 -444.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
-[Info] Creating Point Light
   Radius: 100.000000
   StaticLight: 1
   Position: 352.000000 48.000000 0.000000
@@ -172,15 +160,207 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Directional Light
   StaticLight: 1
-  Position: 480.000000 288.000000 -256.000000
+  Position: -128.000000 288.000000 -544.000000
   Color: 255.000000 255.000000 255.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Directional Light
-[Info] Creating Point Light
-  Radius: 164.000000
+[Info] Creating Spotlight
+  Cone Radius: 100.000000
+  Cone Height: 100.000000
+  Spot Exponent: 10.000000
+  Spot Cutoff: 0.862319
   StaticLight: 1
-  Position: 58.751812 82.156982 -117.886955
-  Color: 13.000000 148.000000 245.000000 255.000000
+  Position: 272.000000 16.000000 -432.000000
+  Spot Direction: 272.000000 17.995201 -433.000000
+  Rotation: 0.000000 -90.000000 0.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Spotlight
+[Info] Creating Spotlight
+  Cone Radius: 45.000000
+  Cone Height: 100.000000
+  Spot Exponent: 10.000000
+  Spot Cutoff: 0.525322
+  StaticLight: 1
+  Position: 560.000000 16.000000 -432.000000
+  Spot Direction: 560.000000 16.000000 -433.000000
+  Rotation: 0.000000 0.000000 0.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Spotlight
+[Info] Creating Point Light
+  Radius: 190.000000
+  StaticLight: 1
+  Position: 113.428337 45.458382 -55.113480
+  Color: 30.000000 91.000000 25.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 203.000000
+  StaticLight: 1
+  Position: 118.083542 52.219231 -295.836609
+  Color: 46.000000 27.000000 221.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 98.000000
+  StaticLight: 1
+  Position: 97.209488 46.034874 -389.069153
+  Color: 49.000000 66.000000 236.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 193.000000
+  StaticLight: 1
+  Position: 101.631981 48.122108 -416.765411
+  Color: 53.000000 231.000000 122.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 89.000000
+  StaticLight: 1
+  Position: 161.193634 48.883469 -429.255035
+  Color: 56.000000 15.000000 8.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 89.000000
+  StaticLight: 1
+  Position: 202.512772 47.692356 -429.771820
+  Color: 56.000000 15.000000 8.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 152.000000
+  StaticLight: 1
+  Position: 236.737686 46.294552 -426.044678
+  Color: 59.000000 53.000000 22.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 152.000000
+  StaticLight: 1
+  Position: 280.110107 43.907116 -420.168243
+  Color: 59.000000 53.000000 22.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 47.000000
+  StaticLight: 1
+  Position: 319.780212 42.640751 -431.743988
+  Color: 62.000000 218.000000 163.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 47.000000
+  StaticLight: 1
+  Position: 358.630859 44.304420 -454.395844
+  Color: 62.000000 218.000000 163.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 142.000000
+  StaticLight: 1
+  Position: 361.007202 45.480705 -478.878052
+  Color: 66.000000 2.000000 177.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 142.000000
+  StaticLight: 1
+  Position: 339.417877 45.480705 -466.803009
+  Color: 66.000000 2.000000 177.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 238.000000
+  StaticLight: 1
+  Position: 314.677155 45.480705 -457.923828
+  Color: 69.000000 40.000000 64.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 238.000000
+  StaticLight: 1
+  Position: 281.386749 45.480705 -451.196930
+  Color: 69.000000 40.000000 64.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 101.000000
+  StaticLight: 1
+  Position: 255.955276 45.480705 -448.039642
+  Color: 72.000000 206.000000 78.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 92.000000
+  StaticLight: 1
+  Position: 345.055695 68.095520 -435.340851
+  Color: 79.000000 27.000000 233.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 187.000000
+  StaticLight: 1
+  Position: 326.450348 53.639877 -454.178467
+  Color: 82.000000 193.000000 119.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 187.000000
+  StaticLight: 1
+  Position: 307.376373 53.639877 -453.835297
+  Color: 82.000000 193.000000 119.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 50.000000
+  StaticLight: 1
+  Position: 275.683685 53.639877 -455.524017
+  Color: 85.000000 231.000000 134.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 50.000000
+  StaticLight: 1
+  Position: 267.111603 53.639877 -430.440399
+  Color: 85.000000 231.000000 134.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 146.000000
+  StaticLight: 1
+  Position: 269.750610 53.639877 -398.244171
+  Color: 88.000000 15.000000 20.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 146.000000
+  StaticLight: 1
+  Position: 285.387878 53.639877 -388.541687
+  Color: 88.000000 15.000000 20.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 241.000000
+  StaticLight: 1
+  Position: 310.972992 53.639877 -391.020508
+  Color: 92.000000 180.000000 161.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 241.000000
+  StaticLight: 1
+  Position: 332.217529 53.639877 -404.038818
+  Color: 92.000000 180.000000 161.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 136.000000
+  StaticLight: 1
+  Position: 345.480560 53.639877 -427.097046
+  Color: 95.000000 218.000000 175.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
 [Info] Texture With Name [brick1.jpg] Deleted
@@ -204,6 +384,7 @@ lifeEngine v3.0.0
 [Info] Shader With Name [Brushes] Deleted
 [Info] Shader With Name [DirectionalLight] Deleted
 [Info] Shader With Name [PointLight] Deleted
+[Info] Shader With Name [SpotLight] Deleted
 [Info] Shader With Name [StaticModels] Deleted
 [Info] Shader With Name [TestRender] Deleted
 *** lifeEngine End ***

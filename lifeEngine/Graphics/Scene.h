@@ -52,6 +52,7 @@ namespace le
 	class Skeleton;
 	class PointLight;
 	class DirectionalLight;
+	class SpotLight;
 	class LightManager;
 
 	//-------------------------------------------------------------------------//
@@ -180,6 +181,7 @@ namespace le
 		Shader*								TestRender; ///< Шейдер тестового рендера на перекрытия
 		Shader*								PointLightRender; ///< Шейдер точечного света
 		Shader*								DirectionalLightRender; ///< Шейдер направленого света
+		Shader*								SpotLightRender; ///< Шейдер прожекторного света
 		
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
@@ -194,10 +196,12 @@ namespace le
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
 		vector<PointLight>*					PointLights; ///< Массив точечный источников которые нах. на сцене
+		vector<SpotLight>*					SpotLights; ///< Массив прожекторных источников которые нах. на сцене
 		vector<DirectionalLight>*			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
 		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
 		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
+		vector<SpotLight*>					LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_Level; ///< Буффер рендера карты
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel; ///< Буффер рендера анимируемых моделей
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)

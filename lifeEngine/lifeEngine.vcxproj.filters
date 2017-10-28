@@ -75,9 +75,6 @@
     <ClCompile Include="Graphics\src\SpotLight.cpp">
       <Filter>Graphics\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Quad.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\src\Animation.cpp">
       <Filter>Graphics\Models</Filter>
     </ClCompile>
@@ -160,9 +157,6 @@
       <Filter>Graphics\Light</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\SpotLight.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Quad.h">
       <Filter>Graphics\Light</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Animation.h">

@@ -583,10 +583,64 @@ void le::BoundingCone::RenderCone()
 
 //-------------------------------------------------------------------------//
 
+void le::BoundingCone::SetRadius( float Radius )
+{
+	this->Radius = Radius;
+
+	vector<glm::vec3> Vertexs = CreateCone( Height, Radius );
+
+	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	glBufferData( GL_ARRAY_BUFFER, Vertexs.size() * sizeof( glm::vec3 ), Vertexs.data(), GL_STATIC_DRAW );
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BoundingCone::SetHeight( float Height )
+{
+	this->Height = Height;
+
+	vector<glm::vec3> Vertexs = CreateCone( Height, Radius );
+
+	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
+	glBufferData( GL_ARRAY_BUFFER, Vertexs.size() * sizeof( glm::vec3 ), Vertexs.data(), GL_STATIC_DRAW );
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::BoundingCone::SetPosition( const glm::vec3& Position )
 {
 	this->Position = Position;
-	Transformation = glm::translate( Position );
+	MatrixPosition = glm::translate( Position );
+	Transformation = MatrixPosition * MatrixRotation;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BoundingCone::SetRotation( const glm::vec3& Rotation )
+{
+	glm::vec3 Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
+	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	this->Rotation = RotateX * RotateY * RotateZ;
+	MatrixRotation = glm::mat4_cast( this->Rotation );
+
+	Transformation = MatrixPosition * MatrixRotation;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BoundingCone::SetRotation( const glm::quat& Rotation )
+{
+	this->Rotation = Rotation;
+	MatrixRotation = glm::mat4_cast( Rotation );
+
+	Transformation = MatrixPosition * MatrixRotation;
 }
 
 //-------------------------------------------------------------------------//
@@ -601,6 +655,27 @@ glm::mat4& le::BoundingCone::GetTransformation()
 glm::vec3 & le::BoundingCone::GetPosition()
 {
 	return Position;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::quat& le::BoundingCone::GetRotation()
+{
+	return Rotation;
+}
+
+//-------------------------------------------------------------------------//
+
+float le::BoundingCone::GetRadius()
+{
+	return Radius;
+}
+
+//-------------------------------------------------------------------------//
+
+float le::BoundingCone::GetHeight()
+{
+	return Height;
 }
 
 //-------------------------------------------------------------------------//

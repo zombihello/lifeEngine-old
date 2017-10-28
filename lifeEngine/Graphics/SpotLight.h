@@ -51,12 +51,15 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Конструктор
 		///
-		/// \param[in] Radius Радиус света
+		/// \param[in] Radius Радиус конуса у света
+		/// \param[in] Height Высота конуса у света
+		/// \param[in] SpotExponent Коэффициент влияния
+		/// \param[in] Rotation Угол поворота света
 		/// \param[in] Position Позиция света
 		/// \param[in] Color Цвет света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		SpotLight( float Radius, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		SpotLight( float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Деструктор
@@ -64,11 +67,32 @@ namespace le
 		~SpotLight();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Задать радиус света
+		/// \brief Задать радиус конуса у света
 		///		
-		/// \param[in] Radius Радиус света
+		/// \param[in] Radius Радиус конуса
 		//////////////////////////////////////////////////////////////////////
 		void SetRadius( float Radius );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать высоту конуса у света
+		///		
+		/// \param[in] Height Высота конуса
+		//////////////////////////////////////////////////////////////////////
+		void SetHeight( float Height );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать угол поворота света
+		///		
+		/// \param[in] Rotation Угол поворота
+		//////////////////////////////////////////////////////////////////////
+		void SetRotation( const glm::vec3& Rotation );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать угол поворота света
+		///		
+		/// \param[in] Rotation Угол поворота
+		//////////////////////////////////////////////////////////////////////
+		void SetRotation( const glm::quat& Rotation );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Задать позицию света
@@ -79,8 +103,9 @@ namespace le
 
 		le::SpotLight& operator=( const SpotLight& Copy );
 
-		float				Hegiht; ///< Высота конуса света
-		float				Radius; ///< Радиус конуса света
+		float				SpotCutoff; ///< Угол влияния
+		float				SpotExponent; ///< Коэффициент влияния
+		glm::vec3			SpotDirection; ///< Направление света
 		BoundingCone		LightCone; ///< Конус света
 	};
 

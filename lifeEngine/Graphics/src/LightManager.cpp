@@ -10,7 +10,10 @@ le::LightManager::LightManager() :
 //-------------------------------------------------------------------------//
 
 le::LightManager::~LightManager()
-{}
+{
+	if ( Scene != NULL )
+		Scene->RemoveLightManagerFromScene( this );
+}
 
 //-------------------------------------------------------------------------//
 
@@ -53,6 +56,22 @@ void le::LightManager::AddDirectionalLight( const string& NameLight, const le::D
 
 //-------------------------------------------------------------------------//
 
+void le::LightManager::AddSpotLight( const string& NameLight, float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular )
+{
+	SpotLights.push_back( SpotLight( Radius, Height, SpotExponent, Rotation, Position, Color, Specular ) );
+	SpotLights[ SpotLights.size() - 1 ].NameLight = NameLight;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::LightManager::AddSpotLight( const string& NameLight, const SpotLight& SpotLight )
+{
+	SpotLights.push_back( SpotLight );
+	SpotLights[ SpotLights.size() - 1 ].NameLight = NameLight;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::LightManager::DestroyPointLight( const string& NameLight )
 {
 	for ( size_t i = 0; i < PointLights.size(); i++ )
@@ -77,10 +96,23 @@ void le::LightManager::DestroyDirectionalLight( const string& NameLight )
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::DestroyAllPointLights()
+void le::LightManager::DestroySpotLight( const string& NameLight )
+{
+	for ( size_t i = 0; i < SpotLights.size(); i++ )
+		if ( SpotLights[ i ].NameLight == NameLight )
+		{
+			SpotLights.erase( i + SpotLights.begin() );
+			break;
+		}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::LightManager::DestroyAllPointLight()
 {
 	PointLights.clear();
 	DirectionalLights.clear();
+	SpotLights.clear();
 }
 
 //-------------------------------------------------------------------------//
@@ -92,7 +124,14 @@ void le::LightManager::DestroyAllDirectionalLight()
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::DestroyAllLights()
+void le::LightManager::DestroyAllSpotLight()
+{
+	SpotLights.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::LightManager::DestroyAllLight()
 {
 	PointLights.clear();
 }
@@ -128,6 +167,17 @@ le::DirectionalLight* le::LightManager::GetDirectionalLight( const string& NameL
 
 //-------------------------------------------------------------------------//
 
+le::SpotLight* le::LightManager::GetSpotLight( const string& NameLight )
+{
+	for ( size_t i = 0; i < SpotLights.size(); i++ )
+		if ( SpotLights[ i ].NameLight == NameLight )
+			return &SpotLights[ i ];
+
+	return NULL;
+}
+
+//-------------------------------------------------------------------------//
+
 vector<le::PointLight*> le::LightManager::GetPointLights( const string& NameLight )
 {
 	vector<PointLight*> FindLights;
@@ -154,14 +204,34 @@ vector<le::DirectionalLight*> le::LightManager::GetDirectionalLights( const stri
 
 //-------------------------------------------------------------------------//
 
-vector<le::PointLight>& le::LightManager::GetAllPointLights()
+vector<le::SpotLight*> le::LightManager::GetSpotLights( const string & NameLight )
+{
+	vector<SpotLight*> FindLights;
+
+	for ( size_t i = 0; i < SpotLights.size(); i++ )
+		if ( SpotLights[ i ].NameLight == NameLight )
+			FindLights.push_back( &SpotLights[ i ] );
+
+	return FindLights;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::SpotLight>& le::LightManager::GetAllSpotLight()
+{
+	return SpotLights;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::PointLight>& le::LightManager::GetAllPointLight()
 {
 	return PointLights;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<le::DirectionalLight>& le::LightManager::GetAllDirectionalLights()
+vector<le::DirectionalLight>& le::LightManager::GetAllDirectionalLight()
 {
 	return DirectionalLights;
 }

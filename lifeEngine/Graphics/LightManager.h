@@ -25,6 +25,7 @@ using namespace std;
 ///////////////
 #include <Graphics\PointLight.h>
 #include <Graphics\DirectionalLight.h>
+#include <Graphics\SpotLight.h>
 
 namespace le
 {
@@ -107,6 +108,35 @@ namespace le
 		void AddDirectionalLight( const string& NameLight, const DirectionalLight& DirectionalLight );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Добавить прожекторный источник света 
+		/// \details Этот метод создает прожекторный источник по переданным
+		/// характеристикам. По умолчанию источник статичный, чтобы
+		/// сделать его динамичным надо получить его объект у менеджера
+		/// и вызвать метод SetDinamicLight (у статичного света не обновляются
+		/// карты теней)
+		///
+		/// \param[in] NameLight Название света
+		/// \param[in] Radius Радиус конуса у света
+		/// \param[in] Height Высота конуса у света
+		/// \param[in] SpotExponent Коэффициент влияния
+		/// \param[in] Rotation Угол поворота света
+		/// \param[in] Position Позиция света
+		/// \param[in] Color Цвет света
+		/// \param[in] Specular Отражение света
+		//////////////////////////////////////////////////////////////////////
+		void AddSpotLight( const string& NameLight, float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Добавить прожекторный источник света 
+		/// \details Этот метод создает копию направленого света и добовляет
+		/// ее в менеджер
+		///
+		/// \param[in] NameLight Название света
+		/// \param[in] SpotLight Прожекторный свет
+		//////////////////////////////////////////////////////////////////////
+		void AddSpotLight( const string& NameLight, const SpotLight& SpotLight );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Уничтожить точеный источник света
 		///
 		/// \param[in] NameLight Название света
@@ -121,9 +151,16 @@ namespace le
 		void DestroyDirectionalLight( const string& NameLight );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Уничтожить прожекторный источник света
+		///
+		/// \param[in] NameLight Название света
+		//////////////////////////////////////////////////////////////////////
+		void DestroySpotLight( const string& NameLight );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Уничтожить все точеные источники света
 		//////////////////////////////////////////////////////////////////////
-		void DestroyAllPointLights();
+		void DestroyAllPointLight();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Уничтожить все направленные источники света
@@ -131,9 +168,16 @@ namespace le
 		void DestroyAllDirectionalLight();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Уничтожить все прожекторные источники света
+		///
+		/// \param[in] NameLight Название света
+		//////////////////////////////////////////////////////////////////////
+		void DestroyAllSpotLight();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Уничтожить все источники света
 		//////////////////////////////////////////////////////////////////////
-		void DestroyAllLights();
+		void DestroyAllLight();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Указать сцену (необходима для уничтожения со сцены)
@@ -159,6 +203,14 @@ namespace le
 		DirectionalLight* GetDirectionalLight( const string& NameLight );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить прожекторный источник света с данным именем
+		///
+		/// \param[in] NameLight Название света
+		/// \return SpotLight*, если такого света нету то NULL
+		//////////////////////////////////////////////////////////////////////
+		SpotLight* GetSpotLight( const string& NameLight );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить массив точеных источников света с данным именем
 		///
 		/// \param[in] NameLight Название света
@@ -175,24 +227,40 @@ namespace le
 		vector<DirectionalLight*> GetDirectionalLights( const string& NameLight );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить массив прожекторных источников света с данным именем
+		///
+		/// \param[in] NameLight Название света
+		/// \return vector<SpotLight*>
+		//////////////////////////////////////////////////////////////////////
+		vector<SpotLight*> GetSpotLights( const string& NameLight );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить весь массив точеных источников света
 		///
-		/// \return vector<PointLight>*
+		/// \return vector<PointLight>&
 		//////////////////////////////////////////////////////////////////////
-		vector<PointLight>& GetAllPointLights();
+		vector<PointLight>& GetAllPointLight();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить весь массив направленных источников света
 		///
-		/// \return vector<DirectionalLight>*
+		/// \return vector<DirectionalLight>&
 		//////////////////////////////////////////////////////////////////////
-		vector<DirectionalLight>& GetAllDirectionalLights();
+		vector<DirectionalLight>& GetAllDirectionalLight();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить весь массив прожекторных источников света
+		///
+		/// \return vector<SpotLight>&
+		//////////////////////////////////////////////////////////////////////
+		vector<SpotLight>& GetAllSpotLight();
 
 	private:
 
 		Scene*								Scene; ///< Сцена на котором находятся источники света
 
 		vector<PointLight>					PointLights; ///< Массив точечных источников света
+		vector<SpotLight>					SpotLights; ///< Массив прожекторных источников света
 		vector<DirectionalLight>			DirectionalLights; ///< Массив направленых источников света 
 	};
 

@@ -20,7 +20,8 @@ le::Scene::Scene( System& System ) :
 	Camera( NULL ),
 	LightManager( NULL ),
 	PointLights( NULL ),
-	DirectionalLights( NULL )
+	DirectionalLights( NULL ),
+	SpotLights( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
@@ -31,6 +32,7 @@ le::Scene::Scene( System& System ) :
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
 	ResourcesManager::LoadShader( "PointLight", "../shaders/PointLight.vs", "../shaders/PointLight.fs" );
 	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/DirectionalLightRender.vs", "../shaders/DirectionalLightRender.fs" );
+	ResourcesManager::LoadShader( "SpotLight", "../shaders/SpotLightRender.vs", "../shaders/SpotLightRender.fs" );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
@@ -38,11 +40,17 @@ le::Scene::Scene( System& System ) :
 	TestRender = ResourcesManager::GetShader( "TestRender" );
 	PointLightRender = ResourcesManager::GetShader( "PointLight" );
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
+	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
 	PointLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
 	PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	PointLightRender->setUniform( "PositionMap", GBuffer::Position );
 	PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
+
+	SpotLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
+	SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
+	SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
 	DirectionalLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
 	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
@@ -167,8 +175,9 @@ void le::Scene::RemoveLevelFromScene( Level* Level )
 
 void le::Scene::AddLightManagerToScene( le::LightManager* LightManager )
 {
-	PointLights = &LightManager->GetAllPointLights();
-	DirectionalLights = &LightManager->GetAllDirectionalLights();
+	PointLights = &LightManager->GetAllPointLight();
+	DirectionalLights = &LightManager->GetAllDirectionalLight();
+	SpotLights = &LightManager->GetAllSpotLight();
 
 	LightManager->SetScene( this );
 	this->LightManager = LightManager;
@@ -180,6 +189,7 @@ void le::Scene::RemoveLightManagerFromScene( le::LightManager* LightManager )
 {
 	PointLights = NULL;
 	DirectionalLights = NULL;
+	SpotLights = NULL;
 
 	LightManager->SetScene( NULL );
 	this->LightManager = NULL;
@@ -218,6 +228,7 @@ void le::Scene::RenderScene()
 	// ****************************
 
 	size_t PointLightVisible = 0;
+	size_t SpotLightVisible = 0;
 
 	if ( Frustum != NULL && Camera != NULL )
 	{
@@ -328,6 +339,19 @@ void le::Scene::RenderScene()
 				PointLightVisible++;
 			}
 
+		// ***************************************** //
+		// Проверка прожекторного освещения на отсечение по фрустуму
+
+		for ( auto it = SpotLights->begin(); it != SpotLights->end(); it++ )
+			if ( Frustum->IsVisible( it->LightCone ) )
+			{
+				if ( SpotLightVisible >= LightBuffer_SpotLight.size() )
+					LightBuffer_SpotLight.push_back( &( *it ) );
+				else
+					LightBuffer_SpotLight[ SpotLightVisible ] = &( *it );
+
+				SpotLightVisible++;
+			}
 
 		// ***************************************** //
 		// Сортируем геометрию уровня по удалению от камеры
@@ -485,7 +509,7 @@ void le::Scene::RenderScene()
 
 			// ***************************************** //
 			// Рендер в буффер трафарета для отсечения лишних объемов
-
+			
 			glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
 			Shader::bind( TestRender );
@@ -523,6 +547,57 @@ void le::Scene::RenderScene()
 			glDisable( GL_BLEND );
 		}
 
+		// ***************************************** //
+		// Просчитываем прожекторные источники света
+
+		for ( size_t i = 0; i < SpotLightVisible; i++ )
+		{
+			SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
+			PVTMatrix = PVMatrix * SpotLight->LightCone.GetTransformation();
+
+			// ***************************************** //
+			// Рендер в буффер трафарета для отсечения лишних объемов
+
+			glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+
+			Shader::bind( TestRender );
+
+			glEnable( GL_DEPTH_TEST );
+			glClear( GL_STENCIL_BUFFER_BIT );
+			glDisable( GL_CULL_FACE );
+
+			glStencilFunc( GL_ALWAYS, 0, 0 );
+
+			TestRender->setUniform( "PVTMatrix", PVTMatrix );
+			SpotLight->LightCone.RenderCone();
+
+			glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
+			// ***************************************** //
+			// Рендер источника света
+
+			Shader::bind( SpotLightRender );
+
+			glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+			glDisable( GL_DEPTH_TEST );
+
+			glEnable( GL_BLEND );
+			glEnable( GL_CULL_FACE );
+			glCullFace( GL_FRONT );
+
+			SpotLightRender->setUniform( "PVTMatrix", PVTMatrix );
+			SpotLightRender->setUniform( "light.Position", SpotLight->Position );
+			SpotLightRender->setUniform( "light.Color", SpotLight->Color );
+			SpotLightRender->setUniform( "light.SpotDirection", SpotLight->SpotDirection );
+			SpotLightRender->setUniform( "light.Radius", SpotLight->LightCone.GetRadius() );
+			SpotLightRender->setUniform( "light.SpotCutoff", SpotLight->SpotCutoff );
+			SpotLightRender->setUniform( "light.SpotExponent", SpotLight->SpotExponent );
+			SpotLight->LightCone.RenderCone();
+
+			glCullFace( GL_BACK );
+			glDisable( GL_BLEND );
+		}
+
 		glDisable( GL_STENCIL_TEST );
 
 		// ***************************************** //
@@ -541,7 +616,7 @@ void le::Scene::RenderScene()
 
 				DirectionalLightRender->setUniform( "light.Position", DirectionalLight->Position );
 				DirectionalLightRender->setUniform( "light.Color", DirectionalLight->Color );
-				DirectionalLight->LightQuad.RenderQuad();
+				DirectionalLight->Quad.RenderQuad();
 			}
 		}
 

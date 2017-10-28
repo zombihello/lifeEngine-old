@@ -67771,32 +67771,6 @@
     {
       "EntityName": "light",
       "Position": {
-        "X": 268.0,
-        "Y": 68.0,
-        "Z": -444.0
-      },
-      "Values": {
-        "Name": "",
-        "Color": "228 211 112",
-        "Radius": "240"
-      }
-    },
-    {
-      "EntityName": "light",
-      "Position": {
-        "X": 552.0,
-        "Y": 68.0,
-        "Z": -444.0
-      },
-      "Values": {
-        "Name": "",
-        "Color": "228 211 112",
-        "Radius": "240"
-      }
-    },
-    {
-      "EntityName": "light",
-      "Position": {
         "X": 352.0,
         "Y": 48.0,
         "Z": 0.0
@@ -67869,6 +67843,38 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255"
+      }
+    },
+    {
+      "EntityName": "SpotLight",
+      "Position": {
+        "X": 272.0,
+        "Y": 16.0,
+        "Z": -432.0
+      },
+      "Values": {
+        "Name": "",
+        "Rotation": "0 -90 0",
+        "Radius": "100",
+        "Height": "100",
+        "SpotExponent": "10",
+        "Color": "228 211 112"
+      }
+    },
+    {
+      "EntityName": "SpotLight",
+      "Position": {
+        "X": 560.0,
+        "Y": 16.0,
+        "Z": -432.0
+      },
+      "Values": {
+        "Name": "",
+        "Rotation": "0 0 0",
+        "Radius": "45",
+        "Height": "100",
+        "SpotExponent": "10",
+        "Color": "228 211 112"
       }
     }
   ]

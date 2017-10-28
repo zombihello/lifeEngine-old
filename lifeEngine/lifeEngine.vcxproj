@@ -169,7 +169,6 @@
     <ClInclude Include="Graphics\MeshVertex.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\PointLight.h" />
-    <ClInclude Include="Graphics\Quad.h" />
     <ClInclude Include="Graphics\Scene.h" />
     <ClInclude Include="Graphics\Skeleton.h" />
     <ClInclude Include="Graphics\SpotLight.h" />
@@ -199,7 +198,6 @@
     <ClCompile Include="Graphics\src\MeshVertex.cpp" />
     <ClCompile Include="Graphics\src\Model.cpp" />
     <ClCompile Include="Graphics\src\PointLight.cpp" />
-    <ClCompile Include="Graphics\src\Quad.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />
     <ClCompile Include="Graphics\src\Skeleton.cpp" />
     <ClCompile Include="Graphics\src\SpotLight.cpp" />

@@ -27,10 +27,11 @@ public:
 
 		Level.LoadLevel( "../maps/test.lmap" );
 		Level.AddToScene( *Scene );
-		
-		glm::vec3 LightPosition;
+
+		glm::vec3 LightPosition, LightRotation;
 		string NameLight;
 		vector<int> LightColor;
+		vector<float> Rotation;
 		vector<le::Level::Entity>* LevelEntitys = &Level.GetAllEntitys();
 
 		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
@@ -42,7 +43,7 @@ public:
 				NameLight = it->GetValueString( "Name" );
 				LightPosition = it->GetPosition();
 
-				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[0], LightColor[1], LightColor[2], 255 ) );
+				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
 			}
 
 			if ( it->GetNameEntity() == "lightDirectional" )
@@ -52,6 +53,20 @@ public:
 				LightPosition = it->GetPosition();
 
 				LightManager.AddDirectionalLight( NameLight, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+			}
+
+			if ( it->GetNameEntity() == "SpotLight" )
+			{
+				LightColor = it->GetVelueVectorInt( "Color" );
+				Rotation = it->GetVelueVectorFloat( "Rotation" );
+				NameLight = it->GetValueString( "Name" );
+				float Radius = it->GetValueFloat( "Radius" );
+				float Height = it->GetValueFloat( "Height" );
+				float SpotExponent = it->GetValueFloat( "SpotExponent" );
+				LightPosition = it->GetPosition();
+				LightRotation = glm::vec3( Rotation[0], Rotation[1], Rotation[2] );
+
+				LightManager.AddSpotLight( NameLight, Radius, Height, SpotExponent, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
 			}
 		}
 
