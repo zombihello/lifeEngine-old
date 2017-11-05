@@ -58,9 +58,10 @@ namespace le
 		/// \param[in] Radius Радиус света
 		/// \param[in] Position Позиция света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		PointLight( float Radius, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		PointLight( float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 		
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Деструктор

@@ -6,6 +6,7 @@
 le::BaseLight::BaseLight() :
 	IsInitShadowMap( false ),
 	IsStaticLight( true ),
+	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
 	Specular( 0, 0, 0, 1 )
 {}
@@ -37,7 +38,7 @@ void le::BaseLight::InitShadowMap( bool IsCupeMap )
 	if ( !IsCupeMap )
 	{
 		glBindTexture( GL_TEXTURE_2D, ShadowMap );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
 
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -49,7 +50,7 @@ void le::BaseLight::InitShadowMap( bool IsCupeMap )
 		glBindTexture( GL_TEXTURE_CUBE_MAP, ShadowMap );
 
 		for ( int i = 0; i < 6; i++ )
-			glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+			glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
 
 		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -112,6 +113,13 @@ void le::BaseLight::SetColor( const glm::vec4& Color )
 
 //-------------------------------------------------------------------------//
 
+void le::BaseLight::SetIntensivity( float Intensivity )
+{
+	this->Intensivity = Intensivity;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::BaseLight::SetDinamicLight( bool IsDinamic )
 {
 	IsStaticLight = !IsDinamic;
@@ -127,6 +135,7 @@ void le::BaseLight::CopyBaseLight( const BaseLight& Copy )
 	Position = Copy.Position;
 	Specular = Copy.Specular;
 	Color = Copy.Color;
+	Intensivity = Copy.Intensivity;
 
 	ShadowProjection = Copy.ShadowProjection;
 	ShadowTransforms = Copy.ShadowTransforms;

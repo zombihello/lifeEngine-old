@@ -16,7 +16,7 @@
 
 #define COMPILING_LIBRARY
 #define SHADOW_WIDTH 1024
-#define SHADOW_HEIGHT 1024
+#define SHADOW_Height 1024
 #include <DllGlobal.h>
 
 ///////////////////////////
@@ -96,6 +96,13 @@ namespace le
 		void SetColor( const glm::vec4& Color );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать интенсивность света
+		///		
+		/// \param[in] Intensivity Интенсивность
+		//////////////////////////////////////////////////////////////////////
+		void SetIntensivity( float Intensivity );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Сделать свет динамическим
 		///		
 		/// \param[in] IsDinamic Динамический ли свет
@@ -104,6 +111,8 @@ namespace le
 
 		bool					IsInitShadowMap; ///< Инициализирована ли карта теней
 		bool					IsStaticLight; ///< Статичный ли свет
+
+		float					Intensivity; ///< Интенсивность света
 
 		GLuint					ShadowMap; ///< Карта теней
 		GLuint					FBO_ShadowMap; ///< FBO для карты теней

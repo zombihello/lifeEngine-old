@@ -11777,101 +11777,115 @@
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 0 0"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="-80" Y="32" Z="112"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="0 255 0"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="200" Y="128" Z="88"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="0 0 255"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="-72" Y="128" Z="-40"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="150 125 110"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="48" Y="64" Z="16"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="300"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="-72" Y="128" Z="96"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="200" Y="128" Z="-32"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="4" Y="68" Z="-264"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="352" Y="48" Z="0"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="656" Y="64" Z="0"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="488" Y="52" Z="-8"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="153 217 234"/>
 <Value Name="Radius" Value="45"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="-12" Y="68" Z="-444"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
 <Position X="80" Y="68" Z="-264"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="lightDirectional">
 <Position X="-128" Y="288" Z="-544"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="SpotLight">
-<Position X="272" Y="16" Z="-432"/>
+<Position X="272" Y="96" Z="-432"/>
 <Value Name="Name" Value=""/>
 <Value Name="Rotation" Value="0 -90 0"/>
-<Value Name="Radius" Value="100"/>
-<Value Name="Height" Value="100"/>
-<Value Name="SpotExponent" Value="10"/>
+<Value Name="Radius" Value="450"/>
+<Value Name="Height" Value="150"/>
 <Value Name="Color" Value="228 211 112"/>
+<Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="SpotLight">
 <Position X="560" Y="16" Z="-432"/>
 <Value Name="Name" Value=""/>
-<Value Name="Rotation" Value="0 0 0"/>
-<Value Name="Radius" Value="45"/>
-<Value Name="Height" Value="100"/>
-<Value Name="SpotExponent" Value="10"/>
+<Value Name="Rotation" Value="0 0 90"/>
+<Value Name="Radius" Value="250"/>
+<Value Name="Height" Value="150"/>
 <Value Name="Color" Value="228 211 112"/>
+<Value Name="Intensivity" Value="2"/>
 </Entity>
 </Entitys>
 </Map>

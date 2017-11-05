@@ -68,9 +68,10 @@ namespace le
 		/// \param[in] Radius Радиус света
 		/// \param[in] Position Позиция света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 		
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 
@@ -93,9 +94,10 @@ namespace le
 		/// \param[in] NameLight Название света
 		/// \param[in] Position Направление света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить направленый источник света 
@@ -118,13 +120,13 @@ namespace le
 		/// \param[in] NameLight Название света
 		/// \param[in] Radius Радиус конуса у света
 		/// \param[in] Height Высота конуса у света
-		/// \param[in] SpotExponent Коэффициент влияния
 		/// \param[in] Rotation Угол поворота света
 		/// \param[in] Position Позиция света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddSpotLight( const string& NameLight, float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddSpotLight( const string& NameLight, float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить прожекторный источник света 

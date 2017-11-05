@@ -8,9 +8,9 @@ struct SpotLight
 	vec4 Color;
 	vec3 SpotDirection;
 	
-	float Radius;
+	float Height;
 	float SpotCutoff;
-	float SpotExponent;
+	float Intensivity;
 };
 
 //-------------------------------------------
@@ -38,19 +38,23 @@ vec2 CalcTexCoord()
 
 void main()
 {
-	vec2 texCoord = CalcTexCoord();
-	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );
-	vec3 lightDirection = ( light.Position - texture( PositionMap, texCoord ) ).xyz;
-	float Distance = length( lightDirection );
-	lightDirection = normalize( lightDirection );
+	vec2 TexCoord = CalcTexCoord();
+	vec3 Normal = normalize( texture( NormalMap, TexCoord ).xyz );
+	Color = texture( ColorMap, TexCoord );
 	
-	float SpotEffect = dot( normalize( light.SpotDirection ), -lightDirection );
-	float Spot = float( SpotEffect > light.SpotCutoff );
+	vec3 LightDirection = ( light.Position - texture( PositionMap, TexCoord ) ).xyz;
+	float Distance = length( LightDirection );
+	LightDirection = normalize( LightDirection );
 	
-	SpotEffect = max( pow( SpotEffect, light.SpotExponent ), 0.0f );
+	float DiffuseFactor = max( dot( LightDirection, Normal ), 0.0f );
+	Color *= light.Color * DiffuseFactor * light.Intensivity;
 	
-	float DiffuseFactor = max( dot( lightDirection, Normal ), 0.0f );
-	float Attenuation =  Spot * SpotEffect;
+	float SpotFactor = dot( light.SpotDirection, -LightDirection );
+	SpotFactor = clamp( ( SpotFactor - light.SpotCutoff ) / ( 1.0f - light.SpotCutoff ), 0.0f, 1.0f );
+	Color *= SpotFactor;
+	
+	float Attenuation = 1.0f - pow( Distance / light.Height, 2 );
+	Color *= Attenuation;
 		
-	Color = ( light.Color * DiffuseFactor ) * Attenuation * texture( ColorMap, texCoord );
+	//Color *= 1.0f - ( 1.0f - SpotFactor ) * ( 1.0f / ( 1.0f - light.SpotCutoff ) );	
 }

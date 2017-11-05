@@ -8,6 +8,7 @@ struct PointLight
 	vec4 Color;
 	
 	float Radius;
+	float Intensivity;
 };
 
 //-------------------------------------------
@@ -42,7 +43,7 @@ void main()
 	lightDirection = normalize( lightDirection );
 		
 	float DiffuseFactor = max( dot( lightDirection, Normal ), 0.0f );
-	float Attenuation =  1 - pow( Distance / light.Radius, 2 );
+	float Attenuation =  1.0f - pow( Distance / light.Radius, 2 );
 		
-	Color = ( light.Color * DiffuseFactor ) * Attenuation * texture( ColorMap, texCoord );
+	Color = ( light.Color * DiffuseFactor * light.Intensivity ) * Attenuation * texture( ColorMap, texCoord );
 }

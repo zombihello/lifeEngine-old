@@ -67674,7 +67674,8 @@
       "Values": {
         "Name": "",
         "Color": "255 0 0",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67687,7 +67688,8 @@
       "Values": {
         "Name": "",
         "Color": "0 255 0",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67700,7 +67702,8 @@
       "Values": {
         "Name": "",
         "Color": "0 0 255",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67713,7 +67716,8 @@
       "Values": {
         "Name": "",
         "Color": "150 125 110",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67726,7 +67730,8 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "300"
+        "Radius": "300",
+		"Intensivity": "1"
       }
     },
     {
@@ -67739,7 +67744,8 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67752,7 +67758,8 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67765,7 +67772,8 @@
       "Values": {
         "Name": "",
         "Color": "228 211 112",
-        "Radius": "240"
+        "Radius": "240",
+		"Intensivity": "1"
       }
     },
     {
@@ -67778,7 +67786,8 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67791,7 +67800,8 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-        "Radius": "100"
+        "Radius": "100",
+		"Intensivity": "1"
       }
     },
     {
@@ -67804,7 +67814,8 @@
       "Values": {
         "Name": "",
         "Color": "153 217 234",
-        "Radius": "45"
+        "Radius": "45",
+		"Intensivity": "1"
       }
     },
     {
@@ -67817,7 +67828,8 @@
       "Values": {
         "Name": "",
         "Color": "228 211 112",
-        "Radius": "240"
+        "Radius": "240",
+		"Intensivity": "1"
       }
     },
     {
@@ -67830,7 +67842,8 @@
       "Values": {
         "Name": "",
         "Color": "228 211 112",
-        "Radius": "240"
+        "Radius": "240",
+		"Intensivity": "1"
       }
     },
     {
@@ -67842,7 +67855,8 @@
       },
       "Values": {
         "Name": "",
-        "Color": "255 255 255"
+        "Color": "255 255 255",
+		"Intensivity": "1"
       }
     },
     {
@@ -67857,8 +67871,8 @@
         "Rotation": "0 -90 0",
         "Radius": "100",
         "Height": "100",
-        "SpotExponent": "10",
-        "Color": "228 211 112"
+        "Color": "228 211 112",
+		"Intensivity": "1"
       }
     },
     {
@@ -67873,8 +67887,8 @@
         "Rotation": "0 0 0",
         "Radius": "45",
         "Height": "100",
-        "SpotExponent": "10",
-        "Color": "228 211 112"
+        "Color": "228 211 112",
+		"Intensivity": "1"
       }
     }
   ]

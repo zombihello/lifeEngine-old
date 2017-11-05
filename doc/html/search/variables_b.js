@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['query',['Query',['../classle_1_1_bounding_box.html#a53a1b5f121db3546b36842c155778f61',1,'le::BoundingBox::Query()'],['../classle_1_1_bounding_cone.html#a3efd504ca4aae22fc71143ada092631d',1,'le::BoundingCone::Query()'],['../classle_1_1_bounding_sphere.html#ae068b8be816eeca4aa3d9ab6fb43ac15',1,'le::BoundingSphere::Query()']]]
+  ['radius',['Radius',['../classle_1_1_point_light.html#acebdfd223323fd47eb9b84405b407266',1,'le::PointLight']]],
+  ['realese',['Realese',['../structle_1_1_skeleton_1_1_bone.html#a0ef476a6fb106419369774c5bd34ddb3',1,'le::Skeleton::Bone']]]
 ];

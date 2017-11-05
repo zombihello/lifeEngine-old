@@ -40,19 +40,21 @@ public:
 			{
 				LightColor = it->GetVelueVectorInt( "Color" );
 				float Radius = it->GetValueFloat( "Radius" );
+				float Intensivity = it->GetValueFloat( "Intensivity" );
 				NameLight = it->GetValueString( "Name" );
 				LightPosition = it->GetPosition();
 
-				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
 
 			if ( it->GetNameEntity() == "lightDirectional" )
 			{
 				LightColor = it->GetVelueVectorInt( "Color" );
 				NameLight = it->GetValueString( "Name" );
+				float Intensivity = it->GetValueFloat( "Intensivity" );
 				LightPosition = it->GetPosition();
 
-				LightManager.AddDirectionalLight( NameLight, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+				LightManager.AddDirectionalLight( NameLight, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
 
 			if ( it->GetNameEntity() == "SpotLight" )
@@ -62,13 +64,16 @@ public:
 				NameLight = it->GetValueString( "Name" );
 				float Radius = it->GetValueFloat( "Radius" );
 				float Height = it->GetValueFloat( "Height" );
-				float SpotExponent = it->GetValueFloat( "SpotExponent" );
+				float Intensivity = it->GetValueFloat( "Intensivity" );
 				LightPosition = it->GetPosition();
 				LightRotation = glm::vec3( Rotation[0], Rotation[1], Rotation[2] );
 
-				LightManager.AddSpotLight( NameLight, Radius, Height, SpotExponent, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+				LightManager.AddSpotLight( NameLight, Radius, Height, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
 		}
+
+		LightManager.AddSpotLight( "spot", 150, 150, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), 2 );
+		Spot = LightManager.GetSpotLight( "spot" );
 
 		IsLeftButtonPressed = false;
 		Timer = 0.f;
@@ -114,6 +119,11 @@ public:
 		}
 
 		model.GetAnimationManager()->Update();
+		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
+		{
+			Spot->SetPosition( Camera->GetPosition() );
+		//	Spot->SetRotation( glm::vec3( 90, 0, 90 ) );
+		}
 		Camera->UpdateCamera();
 		Scene->RenderScene();
 
@@ -130,6 +140,7 @@ public:
 	le::Level Level;
 	le::GBuffer* GBuffer;
 	le::LightManager LightManager;
+	le::SpotLight* Spot;
 };
 
 int main( int argc, char** argv )

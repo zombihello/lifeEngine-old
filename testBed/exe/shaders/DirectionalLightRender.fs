@@ -6,6 +6,8 @@ struct DirectionalLight
 {
 	vec4 Position;
 	vec4 Color;
+	
+	float Intensivity;
 };
 
 //-------------------------------------------
@@ -36,5 +38,5 @@ void main()
 	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );
 	
 	float DiffuseFactor = max( dot( normalize( light.Position.xyz ), Normal ), 0.0f );		
-	Color = light.Color * DiffuseFactor * texture( ColorMap, texCoord );
+	Color = light.Color * DiffuseFactor * light.Intensivity * texture( ColorMap, texCoord );
 }

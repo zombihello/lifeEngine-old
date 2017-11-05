@@ -3,15 +3,14 @@
 //-------------------------------------------------------------------------//
 
 le::SpotLight::SpotLight() :
-	SpotExponent( 0 ),
 	SpotCutoff( -1 ) // cos 180 градусов = -1
 {
 	Logger::Log( Logger::Info, "Creating Spotlight" );
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( 25 ) );
 	Logger::Log( Logger::None, "  Cone Height: " + to_string( 45 ) );
-	Logger::Log( Logger::None, "  Spot Exponent: " + to_string( SpotExponent ) );
 	Logger::Log( Logger::None, "  Spot Cutoff: " + to_string( SpotCutoff ) );
 	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
+	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Spot Direction: " + to_string( SpotDirection.x ) + " " + to_string( SpotDirection.y ) + " " + to_string( SpotDirection.z ) );
 	Logger::Log( Logger::None, "  Rotation: " + to_string( 0 ) + " " + to_string( 0 ) + " " + to_string( 0 ) );
@@ -31,7 +30,6 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 {
 	CopyBaseLight( Copy );
 
-	SpotExponent = Copy.SpotExponent;
 	SpotCutoff = Copy.SpotCutoff;
 	SpotDirection = Copy.SpotDirection;
 	LightCone = Copy.LightCone;
@@ -39,19 +37,19 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 
 //-------------------------------------------------------------------------//
 
-le::SpotLight::SpotLight( float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular )
+le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
 {
-	this->SpotExponent = SpotExponent;
-	SpotCutoff = cos( Radius );
-	SpotDirection = glm::vec3( Position.x - sin( Rotation.x ), Position.y + tan( Rotation.y ), Position.z - cos( Rotation.z ) );
-	//SpotDirection = glm::normalize(SpotDirection);
-
+	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
+	SpotCutoff = Height / C;
+	SpotDirection = Rotation;
+	SpotDirection = glm::normalize( SpotDirection );
+	
 	Logger::Log( Logger::Info, "Creating Spotlight" );
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( Radius ) );
 	Logger::Log( Logger::None, "  Cone Height: " + to_string( Height ) );
-	Logger::Log( Logger::None, "  Spot Exponent: " + to_string( SpotExponent ) );
 	Logger::Log( Logger::None, "  Spot Cutoff: " + to_string( SpotCutoff ) );
 	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
+	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Spot Direction: " + to_string( SpotDirection.x ) + " " + to_string( SpotDirection.y ) + " " + to_string( SpotDirection.z ) );
 	Logger::Log( Logger::None, "  Rotation: " + to_string( Rotation.x ) + " " + to_string( Rotation.y ) + " " + to_string( Rotation.z ) );
@@ -61,9 +59,10 @@ le::SpotLight::SpotLight( float Radius, float Height, float SpotExponent, const 
 	this->Position = glm::vec4( Position, 1.0f );
 	this->Color = Color / 255.f;
 	this->Specular = Specular / 255.f;
+	this->Intensivity = Intensivity;
 
 	LightCone.InitCone( Height, Radius );
-	LightCone.SetPosition( this->Position );
+	LightCone.SetPosition( Position );
 	LightCone.SetRotation( Rotation );
 	InitShadowMap();
 
@@ -93,7 +92,9 @@ void le::SpotLight::SetHeight( float Height )
 
 void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 {
-	SpotDirection = glm::vec3( Rotation.x, Rotation.y, Rotation.z );
+	SpotDirection = Rotation;
+	SpotDirection = glm::normalize( SpotDirection );
+
 	LightCone.SetRotation( Rotation );
 }
 
@@ -102,6 +103,8 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 void le::SpotLight::SetRotation( const glm::quat& Rotation )
 {
 	SpotDirection = glm::eulerAngles( Rotation );
+	SpotDirection = glm::normalize( SpotDirection );
+
 	LightCone.SetRotation( Rotation );
 }
 
@@ -119,7 +122,6 @@ le::SpotLight& le::SpotLight::operator=( const SpotLight& Copy )
 {
 	CopyBaseLight( Copy );
 
-	SpotExponent = Copy.SpotExponent;
 	SpotCutoff = Copy.SpotCutoff;
 	SpotDirection = Copy.SpotDirection;
 	LightCone = Copy.LightCone;

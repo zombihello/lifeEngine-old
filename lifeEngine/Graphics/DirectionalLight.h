@@ -105,9 +105,10 @@ namespace le
 		///
 		/// \param[in] Position Направление света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		DirectionalLight( const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		DirectionalLight( const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Конструктор копирования

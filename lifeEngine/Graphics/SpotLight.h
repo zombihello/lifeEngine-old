@@ -10,6 +10,9 @@
 
 #ifndef SPOT_LIGHT_H
 #define SPOT_LIGHT_H
+#pragma warning( push )
+
+#pragma warning( disable: 4251 ) 
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
@@ -53,13 +56,13 @@ namespace le
 		///
 		/// \param[in] Radius Радиус конуса у света
 		/// \param[in] Height Высота конуса у света
-		/// \param[in] SpotExponent Коэффициент влияния
 		/// \param[in] Rotation Угол поворота света
 		/// \param[in] Position Позиция света
 		/// \param[in] Color Цвет света
+		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		SpotLight( float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		SpotLight( float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Деструктор
@@ -104,7 +107,7 @@ namespace le
 		le::SpotLight& operator=( const SpotLight& Copy );
 
 		float				SpotCutoff; ///< Угол влияния
-		float				SpotExponent; ///< Коэффициент влияния
+
 		glm::vec3			SpotDirection; ///< Направление света
 		BoundingCone		LightCone; ///< Конус света
 	};
@@ -112,4 +115,5 @@ namespace le
 	//-------------------------------------------------------------------------//
 }
 
+#pragma warning( pop )
 #endif // SPOT_LIGHT_H

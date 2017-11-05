@@ -24,9 +24,9 @@ void le::LightManager::AddLightsToScene( le::Scene& Scene )
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular )
+void le::LightManager::AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
 {
-	PointLights.push_back( PointLight( Radius, Position, Color, Specular ) );
+	PointLights.push_back( PointLight( Radius, Position, Color, Intensivity, Specular ) );
 	PointLights[ PointLights.size() - 1 ].NameLight = NameLight;
 }
 
@@ -40,9 +40,9 @@ void le::LightManager::AddPointLight( const string& NameLight, const PointLight&
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular )
+void le::LightManager::AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
 {
-	DirectionalLights.push_back( DirectionalLight( Position, Color, Specular ) );
+	DirectionalLights.push_back( DirectionalLight( Position, Color, Intensivity, Specular ) );
 	DirectionalLights[ DirectionalLights.size() - 1 ].NameLight = NameLight;
 }
 
@@ -56,9 +56,9 @@ void le::LightManager::AddDirectionalLight( const string& NameLight, const le::D
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::AddSpotLight( const string& NameLight, float Radius, float Height, float SpotExponent, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, const glm::vec4& Specular )
+void le::LightManager::AddSpotLight( const string& NameLight, float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
 {
-	SpotLights.push_back( SpotLight( Radius, Height, SpotExponent, Rotation, Position, Color, Specular ) );
+	SpotLights.push_back( SpotLight( Radius, Height, Rotation, Position, Color, Intensivity, Specular ) );
 	SpotLights[ SpotLights.size() - 1 ].NameLight = NameLight;
 }
 

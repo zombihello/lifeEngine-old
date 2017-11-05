@@ -343,7 +343,7 @@ void le::Scene::RenderScene()
 		// Проверка прожекторного освещения на отсечение по фрустуму
 
 		for ( auto it = SpotLights->begin(); it != SpotLights->end(); it++ )
-			if ( Frustum->IsVisible( it->LightCone ) )
+			//if ( Frustum->IsVisible( it->LightCone ) )
 			{
 				if ( SpotLightVisible >= LightBuffer_SpotLight.size() )
 					LightBuffer_SpotLight.push_back( &( *it ) );
@@ -541,6 +541,7 @@ void le::Scene::RenderScene()
 			PointLightRender->setUniform( "light.Position", PointLight->Position );
 			PointLightRender->setUniform( "light.Color", PointLight->Color );
 			PointLightRender->setUniform( "light.Radius", PointLight->Radius );
+			PointLightRender->setUniform( "light.Intensivity", PointLight->Intensivity );
 			PointLight->LightSphere.RenderSphere();
 
 			glCullFace( GL_BACK );
@@ -587,11 +588,11 @@ void le::Scene::RenderScene()
 
 			SpotLightRender->setUniform( "PVTMatrix", PVTMatrix );
 			SpotLightRender->setUniform( "light.Position", SpotLight->Position );
+			SpotLightRender->setUniform( "light.Intensivity", SpotLight->Intensivity );
 			SpotLightRender->setUniform( "light.Color", SpotLight->Color );
 			SpotLightRender->setUniform( "light.SpotDirection", SpotLight->SpotDirection );
-			SpotLightRender->setUniform( "light.Radius", SpotLight->LightCone.GetRadius() );
+			SpotLightRender->setUniform( "light.Height", SpotLight->LightCone.GetHeight() );
 			SpotLightRender->setUniform( "light.SpotCutoff", SpotLight->SpotCutoff );
-			SpotLightRender->setUniform( "light.SpotExponent", SpotLight->SpotExponent );
 			SpotLight->LightCone.RenderCone();
 
 			glCullFace( GL_BACK );
@@ -616,6 +617,7 @@ void le::Scene::RenderScene()
 
 				DirectionalLightRender->setUniform( "light.Position", DirectionalLight->Position );
 				DirectionalLightRender->setUniform( "light.Color", DirectionalLight->Color );
+				DirectionalLightRender->setUniform( "light.Intensivity", DirectionalLight->Intensivity );
 				DirectionalLight->Quad.RenderQuad();
 			}
 		}
