@@ -53,7 +53,8 @@ namespace le
 		enum TypeBind
 		{
 			RenderBuffers,
-			RenderLight
+			RenderLight,
+			RenderSkybox
 		};
 
 		//-------------------------------------------------------------------------//

@@ -54,6 +54,7 @@ namespace le
 	class DirectionalLight;
 	class SpotLight;
 	class LightManager;
+	class Skybox;
 
 	//-------------------------------------------------------------------------//
 
@@ -192,6 +193,7 @@ namespace le
 		Camera*								Camera; ///< Камера
 		Level*								LevelInScene; ///< Уровень который нах. на сцене
 		LightManager*						LightManager; ///< Менеджер света который прикреплен к сцене
+		Skybox*								Skybox; ///< Скайбокс сцены
 		GBuffer								GBuffer; ///< G-Буффер
 
 		vector<Model*>						ModelsInScene; ///< Массив моделей которые нах. на сцене
@@ -202,9 +204,10 @@ namespace le
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
 		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 		vector<SpotLight*>					LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
+
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_Level; ///< Буффер рендера карты
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel; ///< Буффер рендера анимируемых моделей
-		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)
+		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)	
 	};
 
 	//-------------------------------------------------------------------------//

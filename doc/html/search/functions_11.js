@@ -15,6 +15,7 @@ var searchData=
   ['_7epointlight',['~PointLight',['../classle_1_1_point_light.html#a479237b07fe29e845937687ed6781ee7',1,'le::PointLight']]],
   ['_7equery',['~Query',['../classle_1_1_query.html#a6e76f09a45aea89dd3cad70ee5391a98',1,'le::Query']]],
   ['_7escene',['~Scene',['../classle_1_1_scene.html#a084115cc4c8abe50dfda9b5ed6bd85cb',1,'le::Scene']]],
+  ['_7eskybox',['~Skybox',['../classle_1_1_skybox.html#abc850f2c09f6f2d7cddff608456d2826',1,'le::Skybox']]],
   ['_7espotlight',['~SpotLight',['../classle_1_1_spot_light.html#a74680978b1c1416c6f95778d52dbf0f9',1,'le::SpotLight']]],
   ['_7esystem',['~System',['../classle_1_1_system.html#a9633bc3e0c684412e373bd49e1c4cbc2',1,'le::System']]]
 ];

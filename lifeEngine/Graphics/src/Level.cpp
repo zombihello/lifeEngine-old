@@ -3,9 +3,12 @@
 
 //-------------------------------------------------------------------------//
 
-le::Level::Level() :
+le::Level::Level( System& System ) :
 	Scene( NULL )
-{}
+{
+	Skybox = new le::Skybox( System );
+	Skybox->SetSizeSkybox( 500 );
+}
 
 //-------------------------------------------------------------------------//
 
@@ -14,6 +17,8 @@ le::Level::~Level()
 	if ( !Brushes.empty() )
 		for ( size_t i = 0; i < Brushes.size(); i++ )
 			delete Brushes[ i ];
+
+	delete Skybox;
 }
 
 //-------------------------------------------------------------------------//
@@ -54,6 +59,8 @@ bool le::Level::LoadLevel( const string& Route )
 		this->NameMap = NameMap->Attribute( "Value" );
 		this->DescriptionMap = DescriptionMap->Attribute( "Value" );
 		this->SkyBoxName = SkyBoxName->Attribute( "Value" );
+
+		Skybox->LoadSkybox( this->SkyBoxName );
 	}
 
 	//====== ЗАГРУЖАЕМ ТЕКСТУРЫ КОТОРЫЕ ИСП. НА КАРТЕ ======//
@@ -247,6 +254,13 @@ void le::Level::ClearLevel()
 	if ( !Brushes.empty() )
 		for ( size_t i = 0; i < Brushes.size(); i++ )
 			delete Brushes[ i ];
+}
+
+//-------------------------------------------------------------------------//
+
+le::Skybox& le::Level::GetSkybox()
+{
+	return *Skybox;
 }
 
 //-------------------------------------------------------------------------//

@@ -5,6 +5,7 @@
 GLuint le::ResourcesManager::ErrorTexture = 0;
 
 map<string, GLuint> le::ResourcesManager::GlTextures = map<string, GLuint>();
+map<string, GLuint> le::ResourcesManager::GlCubeTextures = map<string, GLuint>();
 map<string, Shader>	le::ResourcesManager::Shaders = map<string, Shader>();
 map<string, le::Mesh> le::ResourcesManager::Meshes = map<string, le::Mesh>();
 
@@ -44,6 +45,62 @@ bool le::ResourcesManager::LoadGlTexture( const string & NameTexture, const stri
 	}
 
 	Logger::Log( Logger::Info, "Texture With Name [" + NameTexture + "] Already Loaded" );
+	return true;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::ResourcesManager::LoadGlCubeTexture( const string& NameCubeTexture, const vector<string>& RouteToSides, bool IsFlipVertically )
+{
+	Logger::Log( Logger::Info, "Loading Cube Texture With Name [" + NameCubeTexture + "]" );
+
+	if ( GlCubeTextures.find( NameCubeTexture ) == GlCubeTextures.end() )
+	{
+		GLuint CubeTexture;
+		Image Image;
+
+		glGenTextures( 1, &CubeTexture );
+		glBindTexture( GL_TEXTURE_CUBE_MAP, CubeTexture );
+
+		if ( RouteToSides.size() < 6 )
+		{
+			Logger::Log( Logger::Error, "Array With Routes To Sides It Has Size Less 6" );
+			glBindTexture( GL_TEXTURE_CUBE_MAP, 0 );
+			glDeleteTextures( 1, &CubeTexture );
+			return false;
+		}
+
+		for ( size_t i = 0; i < 6; i++ )
+		{
+			if ( !Image.loadFromFile( RouteToSides[ i ] ) )
+			{
+				Logger::Log( Logger::Error, "Texture [" + RouteToSides[ i ] + "] Not Found" );
+				glBindTexture( GL_TEXTURE_CUBE_MAP, 0 );
+				glDeleteTextures( 1, &CubeTexture );
+				return false;
+			}
+
+			if ( IsFlipVertically )
+				Image.flipVertically();
+
+			glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA,
+						  Image.getSize().x, Image.getSize().y, 0, GL_RGBA, GL_UNSIGNED_BYTE, Image.getPixelsPtr() );
+		}
+
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE );
+
+		GlCubeTextures[ NameCubeTexture ] = CubeTexture;
+
+		Logger::Log( Logger::Info, "Cube Texture With Name [" + NameCubeTexture + "] Loaded" );
+		return true;
+	}
+
+	Logger::Log( Logger::Info, "Cube Texture With Name [" + NameCubeTexture + "] Already Loaded" );
 	return true;
 }
 
@@ -126,9 +183,21 @@ void le::ResourcesManager::DeleteGlTexture( const string& NameTexture )
 {
 	if ( GlTextures.find( NameTexture ) != GlTextures.end() )
 	{
-		glDeleteTextures( 1, &GlTextures[NameTexture] );
+		glDeleteTextures( 1, &GlTextures[ NameTexture ] );
 		Logger::Log( Logger::Info, "Texture With Name [" + NameTexture + "] Deleted" );
-		GlTextures.erase( NameTexture );	
+		GlTextures.erase( NameTexture );
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::ResourcesManager::DeleteGlCubeTexture( const string& NameCubeTexture )
+{
+	if ( GlCubeTextures.find( NameCubeTexture ) != GlCubeTextures.end() )
+	{
+		glDeleteTextures( 1, &GlCubeTextures[ NameCubeTexture ] );
+		Logger::Log( Logger::Info, "Cube Texture With Name [" + NameCubeTexture + "] Deleted" );
+		GlCubeTextures.erase( NameCubeTexture );
 	}
 }
 
@@ -139,7 +208,7 @@ void le::ResourcesManager::DeleteMesh( const string & NameMesh )
 	if ( Meshes.find( NameMesh ) != Meshes.end() )
 	{
 		Logger::Log( Logger::Info, "Mesh With Name [" + NameMesh + "] Deleted" );
-		Meshes.erase( NameMesh );		
+		Meshes.erase( NameMesh );
 	}
 }
 
@@ -150,7 +219,7 @@ void le::ResourcesManager::DeleteShader( const string& NameShader )
 	if ( Shaders.find( NameShader ) != Shaders.end() )
 	{
 		Logger::Log( Logger::Info, "Shader With Name [" + NameShader + "] Deleted" );
-		Shaders.erase( NameShader );		
+		Shaders.erase( NameShader );
 	}
 }
 
@@ -165,6 +234,19 @@ void le::ResourcesManager::DeleteAllGlTexture()
 	}
 
 	GlTextures.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::ResourcesManager::DeleteAllGlTCubeTexture()
+{
+	for ( auto it = GlCubeTextures.begin(); it != GlCubeTextures.end(); it++ )
+	{
+		glDeleteTextures( 1, &it->second );
+		Logger::Log( Logger::Info, "Cube Texture With Name [" + it->first + "] Deleted" );
+	}
+
+	GlCubeTextures.clear();
 }
 
 //-------------------------------------------------------------------------//
@@ -227,6 +309,16 @@ const GLuint le::ResourcesManager::GetGlTexture( const string& NameTexture )
 {
 	if ( GlTextures.find( NameTexture ) != GlTextures.end() )
 		return GlTextures[ NameTexture ];
+
+	return ErrorTexture;
+}
+
+//-------------------------------------------------------------------------//
+
+const GLuint le::ResourcesManager::GetGlCubeTexture( const string& NameCubeTexture )
+{
+	if ( GlCubeTextures.find( NameCubeTexture ) != GlCubeTextures.end() )
+		return GlCubeTextures[ NameCubeTexture ];
 
 	return ErrorTexture;
 }

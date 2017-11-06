@@ -171,6 +171,7 @@
     <ClInclude Include="Graphics\PointLight.h" />
     <ClInclude Include="Graphics\Scene.h" />
     <ClInclude Include="Graphics\Skeleton.h" />
+    <ClInclude Include="Graphics\Skybox.h" />
     <ClInclude Include="Graphics\SpotLight.h" />
     <ClInclude Include="System\BasicApplication.h" />
     <ClInclude Include="System\ConfigFile.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Graphics\src\PointLight.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />
     <ClCompile Include="Graphics\src\Skeleton.cpp" />
+    <ClCompile Include="Graphics\src\Skybox.cpp" />
     <ClCompile Include="Graphics\src\SpotLight.cpp" />
     <ClCompile Include="System\src\BasicApplication.cpp" />
     <ClCompile Include="System\src\ConfigFile.cpp" />

@@ -24,6 +24,7 @@
 //////////////////
 #include <Graphics\Scene.h>
 #include <Graphics\BoundingBox.h>
+#include <Graphics\Skybox.h>
 #include <System\Logger.h>
 #include <System\System.h>
 #include <System\ResourcesManager.h>
@@ -212,7 +213,7 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Конструктор
 		//////////////////////////////////////////////////////////////////////
-		Level();
+		Level( System& System );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Деструктор
@@ -252,6 +253,13 @@ namespace le
 		void ClearLevel();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить скайбокс уровня
+		///		
+		/// \return Skybox&.
+		//////////////////////////////////////////////////////////////////////
+		Skybox& GetSkybox();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить энтити по названию
 		///		
 		/// \param[in] NameEntity Название энтити
@@ -276,6 +284,7 @@ namespace le
 	private:
 
 		Scene*							Scene; ///< Сцена на котором находится уровень
+		Skybox*							Skybox; ///< Скайбокс уровня
 		string							NameMap; ///< Название карты
 		string							DescriptionMap; ///< Описание карты
 		string							SkyBoxName; ///< Название скайбокса

@@ -25,14 +25,15 @@ public:
 		Camera = new le::Camera( System );
 		Scene->SetCamera( *Camera );
 
-		Level.LoadLevel( "../maps/test.lmap" );
-		Level.AddToScene( *Scene );
+		Level = new le::Level( System );
+		Level->LoadLevel( "../maps/test.lmap" );
+		Level->AddToScene( *Scene );
 
 		glm::vec3 LightPosition, LightRotation;
 		string NameLight;
 		vector<int> LightColor;
 		vector<float> Rotation;
-		vector<le::Level::Entity>* LevelEntitys = &Level.GetAllEntitys();
+		vector<le::Level::Entity>* LevelEntitys = &Level->GetAllEntitys();
 
 		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
 		{
@@ -137,7 +138,7 @@ public:
 	le::Model model;
 	le::Scene* Scene;
 	le::Camera* Camera;
-	le::Level Level;
+	le::Level* Level;
 	le::GBuffer* GBuffer;
 	le::LightManager LightManager;
 	le::SpotLight* Spot;

@@ -4,7 +4,7 @@ lifeEngine v3.0.0
 [Info] Loaded File Configurations [../lifeEngine.log]
 [Info] Window Created (1280x720)
 *** OpenGL Info ***
-  OpenGL Version: 4.5.13399 Compatibility Profile Context 15.201.1151.1008
+  OpenGL Version: 4.5.13399 Compatibility Profile Context 15.200.1062.1004
   OpenGL Vendor: ATI Technologies Inc.
   OpenGL Renderer: AMD Radeon HD 6670
   OpenGL GLSL Version: 4.40
@@ -35,7 +35,11 @@ lifeEngine v3.0.0
 [Info] Shader With Name [SpotLight] Loaded
 [Info] Init GBuffer (1280x720)
 [Info] GBuffer Initialized
+[Info] Loading Shader With Name [Skybox]
+[Info] Shader With Name [Skybox] Loaded
 [Info] Loading Level [../maps/test.lmap]
+[Info] Loading Cube Texture With Name [Skybox]
+[Info] Cube Texture With Name [Skybox] Loaded
 [Info] Loading Texture [..\textures\brick1.jpg] With Name [brick1.jpg]
 [Info] Texture With Name [brick1.jpg] Loaded
 [Info] Loading Texture [..\textures\brick2.jpg] With Name [brick2.jpg]
@@ -235,6 +239,7 @@ lifeEngine v3.0.0
 [Info] Shader With Name [Brushes] Deleted
 [Info] Shader With Name [DirectionalLight] Deleted
 [Info] Shader With Name [PointLight] Deleted
+[Info] Shader With Name [Skybox] Deleted
 [Info] Shader With Name [SpotLight] Deleted
 [Info] Shader With Name [StaticModels] Deleted
 [Info] Shader With Name [TestRender] Deleted

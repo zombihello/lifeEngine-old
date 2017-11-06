@@ -102,6 +102,9 @@
     <ClCompile Include="System\src\VAO.cpp">
       <Filter>System\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\Skybox.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="System\VAO.h">
       <Filter>System\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Skybox.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

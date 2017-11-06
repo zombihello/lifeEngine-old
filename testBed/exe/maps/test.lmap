@@ -3,7 +3,7 @@
 <Settings>
 <NameMap Value=""/>
 <DescriptionMap Value=""/>
-<SkyBoxName Value=""/>
+<SkyBoxName Value="../textures/skybox.jpg"/>
 </Settings>
 <Textures>
 <Texture Name="brick1.jpg" Route="..\textures\brick1.jpg"/>

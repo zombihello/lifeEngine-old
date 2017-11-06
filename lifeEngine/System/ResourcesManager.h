@@ -64,6 +64,16 @@ namespace le
 		static bool LoadGlTexture( const string& NameTexture, const string& RouteToFile );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Загрузить OpenGL кубическую текстуру
+		///		
+		/// \param[in] NameCubeTexture Идентификатор текстуры
+		/// \param[in] RouteToSides Путь к сторонам текстуры куба (текстура для левой стороны, праой и т.д)
+		/// \param[in] IsFlipVertically Перевернуть по вертекали
+		/// \return true если все прошло успешно, иначе false
+		//////////////////////////////////////////////////////////////////////
+		static bool LoadGlCubeTexture( const string& NameCubeTexture, const vector<string>& RouteToSides, bool IsFlipVertically = false );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Загрузить меш
 		///		
 		/// \param[in] NameMesh Идентификатор меша
@@ -101,6 +111,13 @@ namespace le
 		static void DeleteGlTexture( const string& NameTexture );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить OpenGL кубическую текстуру
+		///		
+		/// \param[in] NameCubeTexture Идентификатор текстуры
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteGlCubeTexture( const string& NameCubeTexture );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить меш
 		///		
 		/// \param[in] NameMesh Идентификатор меша
@@ -118,6 +135,11 @@ namespace le
 		/// \brief Удалить все OpenGL текстуры
 		//////////////////////////////////////////////////////////////////////
 		static void DeleteAllGlTexture();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Удалить все OpenGL кубические текстуры
+		//////////////////////////////////////////////////////////////////////
+		static void DeleteAllGlTCubeTexture();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Удалить все меши
@@ -151,6 +173,15 @@ namespace le
 		static const GLuint GetGlTexture( const string& NameTexture );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить OpenGL кубическую текстуру
+		///		
+		/// \param[in] NameCubeTexture Идентификатор текстуры
+		/// \return const GLuint. Если текстура с данным названием 
+		/// отсутствует, то вернет текстуру ошибки или 0
+		//////////////////////////////////////////////////////////////////////
+		static const GLuint GetGlCubeTexture( const string& NameCubeTexture );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить меш
 		///		
 		/// \param[in] NameMesh Идентификатор меша
@@ -173,6 +204,7 @@ namespace le
 		static GLuint						ErrorTexture; ///< Текстура ошибки
 
 		static map<string, GLuint>			GlTextures; ///< Массив OpenGL текстур
+		static map<string, GLuint>			GlCubeTextures; ///< Массив OpenGL кубических текстур
 		static map<string, Shader>			Shaders; ///< Массив шейдеров
 		static map<string, Mesh>			Meshes; ///< Массив мешей
 	};
