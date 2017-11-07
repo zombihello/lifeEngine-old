@@ -3,7 +3,8 @@
 //-------------------------------------------------------------------------//
 
 le::SpotLight::SpotLight() :
-	SpotCutoff( -1 ) // cos 180 градусов = -1
+	SpotCutoff( -1 ), // cos 180 градусов = -1
+	SpotDirection( 0.f, -1.f, 0.f )
 {
 	Logger::Log( Logger::Info, "Creating Spotlight" );
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( 25 ) );
@@ -37,13 +38,25 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 
 //-------------------------------------------------------------------------//
 
-le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
+le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular ) :
+	SpotCutoff( -1 ), // cos 180 градусов = -1
+	SpotDirection( 0.f, -1.f, 0.f )
 {
 	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
 	SpotCutoff = Height / C;
-	SpotDirection = Rotation;
+
+	glm::vec3 Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
+	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	glm::quat QuatRotation = RotateX * RotateY * RotateZ;
+
+	SpotDirection = QuatRotation * SpotDirection;
 	SpotDirection = glm::normalize( SpotDirection );
-	
+
 	Logger::Log( Logger::Info, "Creating Spotlight" );
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( Radius ) );
 	Logger::Log( Logger::None, "  Cone Height: " + to_string( Height ) );
@@ -63,7 +76,7 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 
 	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );
-	LightCone.SetRotation( Rotation );
+	LightCone.SetRotation( QuatRotation );
 	InitShadowMap();
 
 	Logger::Log( Logger::Info, "Created Spotlight" );

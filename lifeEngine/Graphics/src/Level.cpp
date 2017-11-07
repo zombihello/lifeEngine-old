@@ -60,7 +60,10 @@ bool le::Level::LoadLevel( const string& Route )
 		this->DescriptionMap = DescriptionMap->Attribute( "Value" );
 		this->SkyBoxName = SkyBoxName->Attribute( "Value" );
 
-		Skybox->LoadSkybox( this->SkyBoxName );
+		if ( !this->SkyBoxName.empty() )
+			Skybox->LoadSkybox( this->SkyBoxName );
+		else
+			Logger::Log( Logger::Warning, "On The Level Missing Skybox" );
 	}
 
 	//====== ЗАГРУЖАЕМ ТЕКСТУРЫ КОТОРЫЕ ИСП. НА КАРТЕ ======//

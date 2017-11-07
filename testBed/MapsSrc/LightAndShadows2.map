@@ -1,7 +1,7 @@
 {
   "NameMap": "",
   "DescriptionMap": "",
-  "SkyBoxName": "",
+  "SkyBoxName": "../textures/skybox.jpg",
   "Textures": [
     {
       "Name": "brick1.jpg"
@@ -67675,7 +67675,7 @@
         "Name": "",
         "Color": "255 0 0",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67689,7 +67689,7 @@
         "Name": "",
         "Color": "0 255 0",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67703,7 +67703,7 @@
         "Name": "",
         "Color": "0 0 255",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67717,7 +67717,7 @@
         "Name": "",
         "Color": "150 125 110",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67731,7 +67731,7 @@
         "Name": "",
         "Color": "255 255 255",
         "Radius": "300",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67745,7 +67745,7 @@
         "Name": "",
         "Color": "255 255 255",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67759,7 +67759,7 @@
         "Name": "",
         "Color": "255 255 255",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67773,7 +67773,7 @@
         "Name": "",
         "Color": "228 211 112",
         "Radius": "240",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67787,7 +67787,7 @@
         "Name": "",
         "Color": "255 255 255",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67801,7 +67801,7 @@
         "Name": "",
         "Color": "255 255 255",
         "Radius": "100",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67815,7 +67815,7 @@
         "Name": "",
         "Color": "153 217 234",
         "Radius": "45",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67829,7 +67829,7 @@
         "Name": "",
         "Color": "228 211 112",
         "Radius": "240",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67843,7 +67843,7 @@
         "Name": "",
         "Color": "228 211 112",
         "Radius": "240",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
@@ -67856,39 +67856,55 @@
       "Values": {
         "Name": "",
         "Color": "255 255 255",
-		"Intensivity": "1"
+        "Intensivity": "1"
       }
     },
     {
       "EntityName": "SpotLight",
       "Position": {
         "X": 272.0,
-        "Y": 16.0,
+        "Y": 96.0,
         "Z": -432.0
       },
       "Values": {
         "Name": "",
-        "Rotation": "0 -90 0",
-        "Radius": "100",
+        "Rotation": "0 0 0",
+        "Radius": "150",
         "Height": "100",
         "Color": "228 211 112",
-		"Intensivity": "1"
+        "Intensivity": "4"
       }
     },
     {
       "EntityName": "SpotLight",
       "Position": {
         "X": 560.0,
-        "Y": 16.0,
+        "Y": 96.0,
         "Z": -432.0
       },
       "Values": {
         "Name": "",
         "Rotation": "0 0 0",
-        "Radius": "45",
+        "Radius": "150",
         "Height": "100",
         "Color": "228 211 112",
-		"Intensivity": "1"
+        "Intensivity": "4"
+      }
+    },
+    {
+      "EntityName": "SpotLight",
+      "Position": {
+        "X": 480.0,
+        "Y": 32.0,
+        "Z": -432.0
+      },
+      "Values": {
+        "Name": "",
+        "Rotation": "90 35 20",
+        "Radius": "100",
+        "Height": "100",
+        "Color": "255 255 255",
+        "Intensivity": "5"
       }
     }
   ]
