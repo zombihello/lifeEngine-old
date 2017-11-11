@@ -97,7 +97,7 @@ bool le::Mesh::LoadMesh( const string & Route )
 	while ( Point )
 	{
 		TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
-		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
+		TempVector3.z = NUMBER_TO_FLOAT( -atof( Point->Attribute( "y" ) ) );
 		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
 
 		VertexPosition.push_back( TempVector3 );
@@ -123,8 +123,8 @@ bool le::Mesh::LoadMesh( const string & Route )
 	while ( Point )
 	{
 		TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "x" ) ) );
-		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "y" ) ) );
-		TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
+		TempVector3.z = NUMBER_TO_FLOAT( -atof( Point->Attribute( "y" ) ) );
+		TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "z" ) ) );
 
 		VertexNormal.push_back( TempVector3 );
 		Point = Point->NextSiblingElement();

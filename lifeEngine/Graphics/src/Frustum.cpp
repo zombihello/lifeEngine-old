@@ -84,9 +84,10 @@ bool le::Frustum::IsVisible( BoundingSphere& BoundingSphere )
 
 //-------------------------------------------------------------------------//
 
-// zombiHello: Исправить, данный метод не корректно отсекает конус
 bool le::Frustum::IsVisible( BoundingCone& BoundingCone )
 {
+	// TODO: [zombiHello] Исправить, данный метод не корректно отсекает конус
+
 	glm::vec3 Position = BoundingCone.GetPosition();
 	Position.y += BoundingCone.GetHeight() / 2;
 	float Radius = BoundingCone.GetRadius();

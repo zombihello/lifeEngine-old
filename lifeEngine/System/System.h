@@ -16,6 +16,7 @@
 #define NUMBER_TO_FLOAT( X )		static_cast< float > ( X )
 #define NUMBER_TO_INT( X )			static_cast< int > ( X )
 #define NUMBER_TO_UINT( X )			static_cast< unsigned int > ( X )
+#define NUMBER_TO_BOOL( X )			static_cast< bool > ( X )
 #define NUMBER_TO_STRING( X )		to_string( X );
 #define ENGINE						"lifeEngine"
 #define ENGINE_VERSION				"v3.0.0"
