@@ -49,6 +49,8 @@ void main()
 	float Attenuation;
 	float SpotFactor;
 	
+	Color = vec4( 0.f );
+	
 	for ( int i = 0; i < CountLights; i++ )
 	{
 		LightDirection = ( light[i].Position - PositionFragment ).xyz;

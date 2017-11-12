@@ -46,6 +46,8 @@ void main()
 	float DiffuseFactor;
 	float Attenuation;
 	
+	Color = vec4( 0.f );
+	
 	for ( int i = 0; i < CountLights; i++ )
 	{
 		lightDirection = ( light[i].Position - PositionFragment ).xyz;

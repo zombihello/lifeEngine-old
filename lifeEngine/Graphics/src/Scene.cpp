@@ -656,7 +656,7 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 	glEnable( GL_DEPTH_TEST );
 	glClear( GL_STENCIL_BUFFER_BIT );
 	glStencilFunc( GL_ALWAYS, 0, 0 );
-
+	
 	for ( size_t i = StartIndex; i < Visible_PointLight && i < EndIndex; i++ )
 	{
 		PointLight* PointLight = LightBuffer_PointLight[ i ];
