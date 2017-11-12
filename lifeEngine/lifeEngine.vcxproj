@@ -165,6 +165,7 @@
     <ClInclude Include="Graphics\Frustum.h" />
     <ClInclude Include="Graphics\Level.h" />
     <ClInclude Include="Graphics\LightManager.h" />
+    <ClInclude Include="Graphics\LightQuad.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\MeshVertex.h" />
     <ClInclude Include="Graphics\Model.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Graphics\src\Frustum.cpp" />
     <ClCompile Include="Graphics\src\Level.cpp" />
     <ClCompile Include="Graphics\src\LightManager.cpp" />
+    <ClCompile Include="Graphics\src\LightQuad.cpp" />
     <ClCompile Include="Graphics\src\Mesh.cpp" />
     <ClCompile Include="Graphics\src\MeshVertex.cpp" />
     <ClCompile Include="Graphics\src\Model.cpp" />

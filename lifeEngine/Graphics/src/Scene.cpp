@@ -27,7 +27,8 @@ le::Scene::Scene( System& System ) :
 	PointLights( NULL ),
 	DirectionalLights( NULL ),
 	SpotLights( NULL ),
-	Skybox( NULL )
+	Skybox( NULL ),
+	PositionCamera( NULL )
 {
 	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
@@ -63,6 +64,7 @@ le::Scene::Scene( System& System ) :
 	DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
 	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
+	LightQuad.InitQuad( 1.f );
 }
 
 //-------------------------------------------------------------------------//
@@ -223,6 +225,7 @@ void le::Scene::RemoveCamera()
 	ViewMatrix = NULL;
 	Frustum = NULL;
 	Camera = NULL;
+	PositionCamera = NULL;
 
 	if ( Skybox != NULL )
 		Skybox->RemovePlayerCamera();
@@ -252,10 +255,10 @@ void le::Scene::RenderScene()
 	// ****************************
 	// Просчитывание освещения
 	// ****************************
-	LightRender();
-
-	if ( LightManager == NULL )
+	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
+	else
+		LightRender();
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
@@ -278,6 +281,7 @@ void le::Scene::SetCamera( le::Camera& Camera )
 {
 	ViewMatrix = &Camera.GetViewMatrix();
 	Frustum = &Camera.GetFrustum();
+	PositionCamera = &Camera.GetPosition();
 	this->Camera = &Camera;
 
 	if ( Skybox != NULL )
@@ -438,7 +442,34 @@ void le::Scene::FrustumCulling()
 	for ( size_t i = 0; i < Visible_Models; i++ )
 		GeometryBuffer_Models[ i ]->BoundingBox->QueryTest();
 
+	// ***************************************** //
+	// Рендер ограничивающих тел точечных источников света
+
+	glDisable( GL_CULL_FACE );
+
+	for ( size_t i = 0; i < Visible_PointLight; i++ )
+	{
+		PointLight* PointLight = LightBuffer_PointLight[ i ];
+
+		TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+		PointLight->LightSphere.QueryTest();
+	}
+
+	// ***************************************** //
+	// Рендер ограничивающих тел прожекторных источников света
+
+	//TODO: [zombiHello] Сделать отсечение прожекторного света
+
+	//for ( size_t i = 0; i < Visible_SpotLight; i++ )
+	//{
+	//	SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
+
+	//	TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+	//	SpotLight->LightCone.QueryTest();
+	//}
+
 	glDepthMask( GL_TRUE );
+	glEnable( GL_CULL_FACE );
 	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
 	if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
@@ -560,6 +591,7 @@ void le::Scene::LightRender()
 
 	glDepthMask( GL_FALSE );
 	glEnable( GL_STENCIL_TEST );
+	glDisable( GL_CULL_FACE );
 
 	glBlendEquation( GL_FUNC_ADD );
 	glBlendFunc( GL_ONE, GL_ONE );
@@ -568,20 +600,25 @@ void le::Scene::LightRender()
 	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
 	GBuffer.Bind( GBuffer::RenderLight );
+	size_t CountPass;
 
 	// ***************************************** //
 	// Просчитываем точечные источники света
 
+	CountPass = ( size_t ) ceil( Visible_PointLight / 10 ) + 1;
+
 	if ( PointLightRender != NULL && TestRender != NULL )
-		for ( size_t i = 0; i < Visible_PointLight; i++ )
-			RenderPointLight( i );	
+		for ( size_t Pass = 0, Index = 0; Pass < CountPass; Pass++, Index += 10 )
+			RenderPointLights( Index, Index + 10 );
 
 	// ***************************************** //
 	// Просчитываем прожекторные источники света
 
+	CountPass = ( size_t ) ceil( Visible_SpotLight / 10 ) + 1;
+
 	if ( SpotLightRender != NULL && TestRender != NULL )
-		for ( size_t i = 0; i < Visible_SpotLight; i++ )
-			RenderSpotLight( i );
+		for ( size_t Pass = 0, Index = 0; Pass < CountPass; Pass++, Index += 10 )
+			RenderSpotLights( Index, Index + 10 );
 
 	glDisable( GL_STENCIL_TEST );
 
@@ -600,6 +637,7 @@ void le::Scene::LightRender()
 	}
 
 	glDisable( GL_BLEND );
+	glEnable( GL_CULL_FACE );
 	glDepthMask( GL_TRUE );
 
 	GBuffer.RenderFrame();
@@ -607,99 +645,92 @@ void le::Scene::LightRender()
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::RenderPointLight( const size_t& Index )
+void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIndex )
 {
-	PointLight* PointLight = LightBuffer_PointLight[ Index ];
-	PVTMatrix = PVMatrix * PointLight->LightSphere.GetTransformation();
-
-	// ***************************************** //
-	// Рендер в буффер трафарета для отсечения лишних объемов
+	int CountLights = 0;
+	float Distance = 0;
 
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-
 	Shader::bind( TestRender );
 
 	glEnable( GL_DEPTH_TEST );
 	glClear( GL_STENCIL_BUFFER_BIT );
-	glDisable( GL_CULL_FACE );
-
 	glStencilFunc( GL_ALWAYS, 0, 0 );
 
-	TestRender->setUniform( "PVTMatrix", PVTMatrix );
-	PointLight->LightSphere.RenderSphere();
+	for ( size_t i = StartIndex; i < Visible_PointLight && i < EndIndex; i++ )
+	{
+		PointLight* PointLight = LightBuffer_PointLight[ i ];
+
+		if ( PositionCamera != NULL )
+			Distance = distance( *PositionCamera, PointLight->LightSphere.GetPosition() );
+
+		if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL &&
+			 Distance > -PointLight->Radius && Distance < PointLight->Radius )
+		{
+			TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", PointLight->Position );
+			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", PointLight->Color );
+			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Radius", PointLight->Radius );
+			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", PointLight->Intensivity );
+			PointLight->LightSphere.RenderSphere();
+
+			CountLights++;
+		}
+	}
 
 	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
-	// ***************************************** //
-	// Рендер источника света
+	if ( CountLights > 0 )
+	{
+		Shader::bind( PointLightRender );
+		PointLightRender->setUniform( "CountLights", CountLights );
 
-	Shader::bind( PointLightRender );
+		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+		glDisable( GL_DEPTH_TEST );
 
-	glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
-	glDisable( GL_DEPTH_TEST );
-
-	glEnable( GL_BLEND );
-	glEnable( GL_CULL_FACE );
-	glCullFace( GL_FRONT );
-
-	PointLightRender->setUniform( "PVTMatrix", PVTMatrix );
-	PointLightRender->setUniform( "light.Position", PointLight->Position );
-	PointLightRender->setUniform( "light.Color", PointLight->Color );
-	PointLightRender->setUniform( "light.Radius", PointLight->Radius );
-	PointLightRender->setUniform( "light.Intensivity", PointLight->Intensivity );
-	PointLight->LightSphere.RenderSphere();
-
-	glCullFace( GL_BACK );
-	glDisable( GL_BLEND );
+		glEnable( GL_BLEND );
+		LightQuad.RenderQuad();
+		glDisable( GL_BLEND );
+	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::RenderSpotLight( const size_t& Index )
+void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndIndex )
 {
-	SpotLight* SpotLight = LightBuffer_SpotLight[ Index ];
-	PVTMatrix = PVMatrix * SpotLight->LightCone.GetTransformation();
-
-	// ***************************************** //
-	// Рендер в буффер трафарета для отсечения лишних объемов
+	int CountLights = 0;
 
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-
 	Shader::bind( TestRender );
 
 	glEnable( GL_DEPTH_TEST );
 	glClear( GL_STENCIL_BUFFER_BIT );
-	glDisable( GL_CULL_FACE );
-
 	glStencilFunc( GL_ALWAYS, 0, 0 );
 
-	TestRender->setUniform( "PVTMatrix", PVTMatrix );
-	SpotLight->LightCone.RenderCone();
+	for ( size_t i = StartIndex; i < Visible_SpotLight && i < EndIndex; i++, CountLights++ )
+	{
+		SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
+
+		TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", SpotLight->Position );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", SpotLight->Intensivity );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", SpotLight->Color );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotDirection", SpotLight->SpotDirection );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Height", SpotLight->LightCone.GetHeight() );
+		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotCutoff", SpotLight->SpotCutoff );
+		SpotLight->LightCone.RenderCone();
+	}
 
 	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
-	// ***************************************** //
-	// Рендер источника света
-
 	Shader::bind( SpotLightRender );
+	SpotLightRender->setUniform( "CountLights", CountLights );
 
 	glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 	glDisable( GL_DEPTH_TEST );
 
 	glEnable( GL_BLEND );
-	glEnable( GL_CULL_FACE );
-	glCullFace( GL_FRONT );
-
-	SpotLightRender->setUniform( "PVTMatrix", PVTMatrix );
-	SpotLightRender->setUniform( "light.Position", SpotLight->Position );
-	SpotLightRender->setUniform( "light.Intensivity", SpotLight->Intensivity );
-	SpotLightRender->setUniform( "light.Color", SpotLight->Color );
-	SpotLightRender->setUniform( "light.SpotDirection", SpotLight->SpotDirection );
-	SpotLightRender->setUniform( "light.Height", SpotLight->LightCone.GetHeight() );
-	SpotLightRender->setUniform( "light.SpotCutoff", SpotLight->SpotCutoff );
-	SpotLight->LightCone.RenderCone();
-
-	glCullFace( GL_BACK );
+	LightQuad.RenderQuad();
 	glDisable( GL_BLEND );
 }
 

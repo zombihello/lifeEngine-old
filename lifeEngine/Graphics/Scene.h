@@ -39,6 +39,7 @@ using namespace sf;
 ///////////////
 #include <System\System.h>
 #include <System\GBuffer.h>
+#include <Graphics\LightQuad.h>
 
 namespace le
 {
@@ -191,18 +192,20 @@ namespace le
 		void LightRender();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Отрендерить точечный источник света
+		/// \brief Отрендерить точечные источники света
 		///
-		/// \param[in] Index Индекс элемента в массиве
+		/// \param[in] StartIndex Индекс начального элемента в массиве
+		/// \param[in] EndIndex Индекс конечного элемента в массиве
 		//////////////////////////////////////////////////////////////////////
-		void RenderPointLight( const size_t& Index );
+		void RenderPointLights( const size_t& StartIndex, const size_t& EndIndex );
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Отрендерить прожекторный источник света
+		/// \brief Отрендерить прожекторные источники света
 		///
-		/// \param[in] Index Индекс элемента в массиве
+		/// \param[in] StartIndex Индекс начального элемента в массиве
+		/// \param[in] EndIndex Индекс конечного элемента в массиве
 		//////////////////////////////////////////////////////////////////////
-		void RenderSpotLight( const size_t& Index );
+		void RenderSpotLights( const size_t& StartIndex, const size_t& EndIndex );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Отрендерить направленый источник света
@@ -224,6 +227,7 @@ namespace le
 		size_t								Visible_Models; ///< Кол-во видимых моделей
 		size_t								Visible_Brushes; ///< Кол-во видимых брашей
 
+		glm::vec3*							PositionCamera; ///< Позиция камеры
 		glm::mat4*							ViewMatrix; ///< Матрица вида
 		glm::mat4*							ProjectionMatrix; ///< Матрица проекции
 		glm::mat4							PVMatrix; ///< Матрица Projection * View
@@ -235,6 +239,7 @@ namespace le
 		LightManager*						LightManager; ///< Менеджер света который прикреплен к сцене
 		Skybox*								Skybox; ///< Скайбокс сцены
 		GBuffer								GBuffer; ///< G-Буффер
+		LightQuad							LightQuad; ///< Квадрат для рендера направленого и прожекторного света
 		InfoMesh*							Ptr_InfoMesh; ///< Вспомогательный указатель на класс InfoMesh
 		vector<InfoMesh*>*					Ptr_GeometryBuffer; ///< Вспомогательный указатель на массив InfoMesh'ей
 

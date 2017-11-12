@@ -29,6 +29,7 @@ var searchData=
   ['getposition',['GetPosition',['../classle_1_1_bounding_cone.html#af16bac16b54ae502129aa5bc7276e4fe',1,'le::BoundingCone::GetPosition()'],['../classle_1_1_bounding_sphere.html#afaeca56bd6363550ddbb3f2fb94707d1',1,'le::BoundingSphere::GetPosition()'],['../classle_1_1_camera.html#ab5c51b64a1bcd1b377ba1aa304b867a5',1,'le::Camera::GetPosition()'],['../classle_1_1_level_1_1_entity.html#af625a43c25841d71236e8e74da6ab28d',1,'le::Level::Entity::GetPosition()']]],
   ['getradius',['GetRadius',['../classle_1_1_bounding_cone.html#af8207937c106ad2718e657e7b454c868',1,'le::BoundingCone::GetRadius()'],['../classle_1_1_bounding_sphere.html#a3204c2a5b2ce164da63eb66c7334ca22',1,'le::BoundingSphere::GetRadius()']]],
   ['getrendermesh',['GetRenderMesh',['../classle_1_1_level_1_1_brush.html#a9e54e4a92e82752c55e6ef92d837e67d',1,'le::Level::Brush::GetRenderMesh()'],['../classle_1_1_model.html#adc3b9a6a3dd30d2622eccce0f141f462',1,'le::Model::GetRenderMesh()']]],
+  ['getresult',['GetResult',['../classle_1_1_query.html#abb35f26218b01e7adf923d6429571dbf',1,'le::Query']]],
   ['getrotation',['GetRotation',['../classle_1_1_bounding_cone.html#a1c9f820fec73e3e733f35d17ece44320',1,'le::BoundingCone']]],
   ['getshader',['GetShader',['../classle_1_1_resources_manager.html#abba6cbe992b23c6b68f4dd8ec3b4d99e',1,'le::ResourcesManager']]],
   ['getskeleton',['GetSkeleton',['../classle_1_1_mesh.html#a5bfaa054f30efd736acb531e5b644f89',1,'le::Mesh']]],

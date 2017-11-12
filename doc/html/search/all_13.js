@@ -10,7 +10,7 @@ var searchData=
   ['_7egbuffer',['~GBuffer',['../classle_1_1_g_buffer.html#ab765098784cbe128897c9f979115a9a2',1,'le::GBuffer']]],
   ['_7elevel',['~Level',['../classle_1_1_level.html#a14cebfdbf99cb6d226f425eb7b493c89',1,'le::Level']]],
   ['_7elightmanager',['~LightManager',['../classle_1_1_light_manager.html#aa851cb28191f846bba460d49389a4808',1,'le::LightManager']]],
-  ['_7elightquad',['~LightQuad',['../classle_1_1_directional_light_1_1_light_quad.html#a342e94c4be65d5447d2a3754eaea45af',1,'le::DirectionalLight::LightQuad']]],
+  ['_7elightquad',['~LightQuad',['../classle_1_1_light_quad.html#a882eb40f174d57812f66aacf5df675b0',1,'le::LightQuad']]],
   ['_7emodel',['~Model',['../classle_1_1_model.html#a493d9095e12257d221fca3056f57c01a',1,'le::Model']]],
   ['_7epointlight',['~PointLight',['../classle_1_1_point_light.html#a479237b07fe29e845937687ed6781ee7',1,'le::PointLight']]],
   ['_7equery',['~Query',['../classle_1_1_query.html#a6e76f09a45aea89dd3cad70ee5391a98',1,'le::Query']]],

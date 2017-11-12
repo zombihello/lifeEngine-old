@@ -17,8 +17,9 @@ out vec4 Color;
 
 //-------------------------------------------
 
+uniform int CountLights;
 uniform vec2 ScreenSize;
-uniform PointLight light;
+uniform PointLight light[10];
 
 // Textures
 uniform sampler2D ColorMap;
@@ -37,13 +38,25 @@ vec2 CalcTexCoord()
 void main()
 {
 	vec2 texCoord = CalcTexCoord();
-	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );
-	vec3 lightDirection = ( light.Position - texture( PositionMap, texCoord ) ).xyz;
-	float Distance = length( lightDirection );
-	lightDirection = normalize( lightDirection );
+	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );	
+	vec4 PositionFragment = texture( PositionMap, texCoord );
+	
+	vec3 lightDirection;
+	float Distance;
+	float DiffuseFactor;
+	float Attenuation;
+	
+	for ( int i = 0; i < CountLights; i++ )
+	{
+		lightDirection = ( light[i].Position - PositionFragment ).xyz;
+		Distance = length( lightDirection );
+		lightDirection = normalize( lightDirection );
 		
-	float DiffuseFactor = max( dot( lightDirection, Normal ), 0.0f );
-	float Attenuation =  1.0f - pow( Distance / light.Radius, 2 );
-		
-	Color = ( light.Color * DiffuseFactor * light.Intensivity ) * Attenuation * texture( ColorMap, texCoord );
+		DiffuseFactor = max( dot( lightDirection, Normal ), 0.0f );
+		Attenuation =  max( 1.0f - pow( Distance / light[i].Radius, 2 ), 0.f );
+
+		Color += ( light[i].Color * DiffuseFactor * light[i].Intensivity ) * Attenuation; 
+	}
+	
+	Color *= texture( ColorMap, texCoord );
 }

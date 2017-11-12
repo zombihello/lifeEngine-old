@@ -16,7 +16,7 @@
 
 #define COMPILING_LIBRARY
 #define SHADOW_WIDTH 1024
-#define SHADOW_Height 1024
+#define SHADOW_HEIGHT 1024
 #include <DllGlobal.h>
 
 ///////////////////////////

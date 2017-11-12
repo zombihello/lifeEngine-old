@@ -214,14 +214,6 @@ lifeEngine v3.0.0
   Color: 228.000000 211.000000 112.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
-[Info] Creating Point Light
-  Radius: 241.000000
-  StaticLight: 1
-  Intensivity: 1.000000
-  Position: 86.623116 124.849968 -38.514889
-  Color: 223.000000 157.000000 89.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
 [Info] Texture With Name [brick1.jpg] Deleted
 [Info] Texture With Name [brick2.jpg] Deleted
 [Info] Texture With Name [brick3.jpg] Deleted

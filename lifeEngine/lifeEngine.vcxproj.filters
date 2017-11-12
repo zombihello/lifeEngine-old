@@ -105,6 +105,9 @@
     <ClCompile Include="Graphics\src\Skybox.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\LightQuad.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\Skybox.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LightQuad.h">
+      <Filter>Graphics\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
