@@ -3120,188 +3120,6 @@
 </Brush>
 <Brush>
 <Type Value="Cube"/>
-<TextureName Value="skybox.jpg"/>
-<Position X="490" Y="68" Z="34"/>
-<PositionVertex>
-<Vertex X="424" Y="56" Z="32"/>
-<Vertex X="556" Y="56" Z="32"/>
-<Vertex X="556" Y="80" Z="32"/>
-<Vertex X="424" Y="80" Z="32"/>
-<Vertex X="424" Y="56" Z="36"/>
-<Vertex X="556" Y="56" Z="36"/>
-<Vertex X="556" Y="80" Z="36"/>
-<Vertex X="424" Y="80" Z="36"/>
-</PositionVertex>
-<Normals>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-</Normals>
-<TextureCoords>
-<Point X="0.199988" Y="1.200002"/>
-<Point X="-1.2E-05" Y="1.2"/>
-<Point X="0.2" Y="2E-06"/>
-<Point X="-1.2E-05" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="0.2" Y="2E-06"/>
-<Point X="1.2E-05" Y="1.2"/>
-<Point X="-0.199988" Y="1.200002"/>
-<Point X="0" Y="0"/>
-<Point X="-0.199988" Y="1.200002"/>
-<Point X="-0.2" Y="2E-06"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0.2"/>
-<Point X="-6.6" Y="0.2"/>
-<Point X="0" Y="0"/>
-<Point X="-6.6" Y="0.2"/>
-<Point X="-6.6" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="6.6" Y="0"/>
-<Point X="0" Y="0.2"/>
-<Point X="6.6" Y="0"/>
-<Point X="6.6" Y="0.2"/>
-<Point X="0" Y="0.2"/>
-<Point X="6.6" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="6.6" Y="0"/>
-<Point X="6.6" Y="1.2"/>
-<Point X="0" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="-6.6" Y="1.2"/>
-<Point X="-6.6" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="1.2"/>
-<Point X="-6.6" Y="1.2"/>
-</TextureCoords>
-</Brush>
-<Brush>
-<Type Value="Cube"/>
-<TextureName Value="skybox.jpg"/>
-<Position X="490" Y="68" Z="-34"/>
-<PositionVertex>
-<Vertex X="424" Y="56" Z="-36"/>
-<Vertex X="556" Y="56" Z="-36"/>
-<Vertex X="556" Y="80" Z="-36"/>
-<Vertex X="424" Y="80" Z="-36"/>
-<Vertex X="424" Y="56" Z="-32"/>
-<Vertex X="556" Y="56" Z="-32"/>
-<Vertex X="556" Y="80" Z="-32"/>
-<Vertex X="424" Y="80" Z="-32"/>
-</PositionVertex>
-<Normals>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="-1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="1" Y="0" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="-1" Z="0"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-<Point X="0" Y="0" Z="-1"/>
-</Normals>
-<TextureCoords>
-<Point X="0.199988" Y="1.200002"/>
-<Point X="-1.2E-05" Y="1.2"/>
-<Point X="0.2" Y="2E-06"/>
-<Point X="-1.2E-05" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="0.2" Y="2E-06"/>
-<Point X="1.2E-05" Y="1.2"/>
-<Point X="-0.199988" Y="1.200002"/>
-<Point X="0" Y="0"/>
-<Point X="-0.199988" Y="1.200002"/>
-<Point X="-0.2" Y="2E-06"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0.2"/>
-<Point X="-6.6" Y="0.2"/>
-<Point X="0" Y="0"/>
-<Point X="-6.6" Y="0.2"/>
-<Point X="-6.6" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="6.6" Y="0"/>
-<Point X="0" Y="0.2"/>
-<Point X="6.6" Y="0"/>
-<Point X="6.6" Y="0.2"/>
-<Point X="0" Y="0.2"/>
-<Point X="6.6" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="6.6" Y="0"/>
-<Point X="6.6" Y="1.2"/>
-<Point X="0" Y="1.2"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="-6.6" Y="1.2"/>
-<Point X="-6.6" Y="0"/>
-<Point X="0" Y="0"/>
-<Point X="0" Y="1.2"/>
-<Point X="-6.6" Y="1.2"/>
-</TextureCoords>
-</Brush>
-<Brush>
-<Type Value="Cube"/>
 <TextureName Value="brick1.jpg"/>
 <Position X="64" Y="8" Z="40"/>
 <PositionVertex>
@@ -11822,6 +11640,13 @@
 <Value Name="Intensivity" Value="1"/>
 </Entity>
 <Entity Name="light">
+<Position X="4" Y="68" Z="-264"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
+</Entity>
+<Entity Name="light">
 <Position X="352" Y="48" Z="0"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
@@ -11842,11 +11667,43 @@
 <Value Name="Radius" Value="45"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
+<Entity Name="light">
+<Position X="-12" Y="68" Z="-444"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
+</Entity>
+<Entity Name="light">
+<Position X="80" Y="68" Z="-264"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Radius" Value="240"/>
+<Value Name="Intensivity" Value="1"/>
+</Entity>
 <Entity Name="lightDirectional">
 <Position X="-128" Y="288" Z="-544"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
-<Value Name="Intensivity" Value="0.5"/>
+<Value Name="Intensivity" Value="1"/>
+</Entity>
+<Entity Name="SpotLight">
+<Position X="272" Y="96" Z="-432"/>
+<Value Name="Name" Value=""/>
+<Value Name="Rotation" Value="0 0 0"/>
+<Value Name="Radius" Value="150"/>
+<Value Name="Height" Value="100"/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Intensivity" Value="4"/>
+</Entity>
+<Entity Name="SpotLight">
+<Position X="560" Y="96" Z="-432"/>
+<Value Name="Name" Value=""/>
+<Value Name="Rotation" Value="0 0 0"/>
+<Value Name="Radius" Value="150"/>
+<Value Name="Height" Value="100"/>
+<Value Name="Color" Value="228 211 112"/>
+<Value Name="Intensivity" Value="4"/>
 </Entity>
 <Entity Name="SpotLight">
 <Position X="480" Y="32" Z="-432"/>
@@ -11856,34 +11713,6 @@
 <Value Name="Height" Value="100"/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Intensivity" Value="5"/>
-</Entity>
-<Entity Name="light">
-<Position X="552" Y="48" Z="-440"/>
-<Value Name="Name" Value=""/>
-<Value Name="Color" Value="228 211 112"/>
-<Value Name="Radius" Value="100"/>
-<Value Name="Intensivity" Value="2"/>
-</Entity>
-<Entity Name="light">
-<Position X="264" Y="48" Z="-440"/>
-<Value Name="Name" Value=""/>
-<Value Name="Color" Value="228 211 112"/>
-<Value Name="Radius" Value="100"/>
-<Value Name="Intensivity" Value="2"/>
-</Entity>
-<Entity Name="light">
-<Position X="-16" Y="56" Z="-440"/>
-<Value Name="Name" Value=""/>
-<Value Name="Color" Value="228 211 112"/>
-<Value Name="Radius" Value="100"/>
-<Value Name="Intensivity" Value="2"/>
-</Entity>
-<Entity Name="light">
-<Position X="40" Y="56" Z="-264"/>
-<Value Name="Name" Value=""/>
-<Value Name="Color" Value="228 211 112"/>
-<Value Name="Radius" Value="200"/>
-<Value Name="Intensivity" Value="2"/>
 </Entity>
 </Entitys>
 </Map>

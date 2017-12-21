@@ -1,7 +1,6 @@
 ﻿#include <System\System.h>
 #include <Graphics\BoundingBox.h>
 #include <Graphics\BoundingSphere.h>
-#include <Graphics\BoundingCone.h>
 #include "..\Frustum.h"
 
 //-------------------------------------------------------------------------//
@@ -48,6 +47,7 @@ void le::Frustum::UpdateFrustum( const glm::mat4& Projection, const glm::mat4& V
 bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 {
 	glm::vec3* Vertexs = BoundingBox.GetVertexs();
+	glm::vec3* Position = &BoundingBox.GetPosition();
 
 	for ( int Side = 0; Side < 6; Side++ )
 	{
@@ -55,8 +55,8 @@ bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 
 		for ( IdVertex = 0; IdVertex < 8; IdVertex++ )
 		{
-			if ( PyramidFrustum[ Side ].x * Vertexs[ IdVertex ].x + PyramidFrustum[ Side ].y * Vertexs[ IdVertex ].y +
-				 PyramidFrustum[ Side ].z * Vertexs[ IdVertex ].z + PyramidFrustum[ Side ].w > 0 )
+			if ( PyramidFrustum[ Side ].x * ( Position->x + Vertexs[ IdVertex ].x ) + PyramidFrustum[ Side ].y * ( Position->y + Vertexs[ IdVertex ].y ) +
+				 PyramidFrustum[ Side ].z * ( Position->z + Vertexs[ IdVertex ].z ) + PyramidFrustum[ Side ].w > 0 )
 				break;
 		}
 
@@ -77,24 +77,6 @@ bool le::Frustum::IsVisible( BoundingSphere& BoundingSphere )
 	for ( int Side = 0; Side < 6; Side++ )
 		if ( PyramidFrustum[ Side ].x * Position->x + PyramidFrustum[ Side ].y * Position->y +
 			 PyramidFrustum[ Side ].z * Position->z + PyramidFrustum[ Side ].w <= -Radius )
-			return false;
-
-	return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool le::Frustum::IsVisible( BoundingCone& BoundingCone )
-{
-	// TODO: [zombiHello] Исправить, данный метод не корректно отсекает конус
-
-	glm::vec3 Position = BoundingCone.GetPosition();
-	Position.y += BoundingCone.GetHeight() / 2;
-	float Radius = BoundingCone.GetRadius();
-
-	for ( int Side = 0; Side < 6; Side++ )
-		if ( PyramidFrustum[ Side ].x * Position.x + PyramidFrustum[ Side ].y * Position.y +
-			 PyramidFrustum[ Side ].z * Position.z + PyramidFrustum[ Side ].w <= -Radius )
 			return false;
 
 	return true;

@@ -413,15 +413,15 @@ void le::Scene::FrustumCulling()
 	// Проверка прожекторного освещения на отсечение по фрустуму
 
 	for ( auto it = SpotLights->begin(); it != SpotLights->end(); it++ )
-		//if ( Frustum->IsVisible( it->LightCone ) )
-	{
-		if ( Visible_SpotLight >= LightBuffer_SpotLight.size() )
-			LightBuffer_SpotLight.push_back( &( *it ) );
-		else
-			LightBuffer_SpotLight[ Visible_SpotLight ] = &( *it );
+		if ( Frustum->IsVisible( it->LightCone.BoundingBox ) )
+		{
+			if ( Visible_SpotLight >= LightBuffer_SpotLight.size() )
+				LightBuffer_SpotLight.push_back( &( *it ) );
+			else
+				LightBuffer_SpotLight[ Visible_SpotLight ] = &( *it );
 
-		Visible_SpotLight++;
-	}
+			Visible_SpotLight++;
+		}
 
 	// ***************************************** //
 	// Сортируем геометрию уровня по удалению от камеры
@@ -458,15 +458,13 @@ void le::Scene::FrustumCulling()
 	// ***************************************** //
 	// Рендер ограничивающих тел прожекторных источников света
 
-	//TODO: [zombiHello] Сделать отсечение прожекторного света
+	for ( size_t i = 0; i < Visible_SpotLight; i++ )
+	{
+		SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
 
-	//for ( size_t i = 0; i < Visible_SpotLight; i++ )
-	//{
-	//	SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
-
-	//	TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
-	//	SpotLight->LightCone.QueryTest();
-	//}
+		TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+		SpotLight->LightCone.QueryTest();
+	}
 
 	glDepthMask( GL_TRUE );
 	glEnable( GL_CULL_FACE );
@@ -656,7 +654,7 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 	glEnable( GL_DEPTH_TEST );
 	glClear( GL_STENCIL_BUFFER_BIT );
 	glStencilFunc( GL_ALWAYS, 0, 0 );
-	
+
 	for ( size_t i = StartIndex; i < Visible_PointLight && i < EndIndex; i++ )
 	{
 		PointLight* PointLight = LightBuffer_PointLight[ i ];
@@ -699,6 +697,7 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndIndex )
 {
 	int CountLights = 0;
+	float Distance = 0;
 
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 	Shader::bind( TestRender );
@@ -711,27 +710,37 @@ void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndInd
 	{
 		SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
 
-		TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", SpotLight->Position );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", SpotLight->Intensivity );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", SpotLight->Color );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotDirection", SpotLight->SpotDirection );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Height", SpotLight->LightCone.GetHeight() );
-		SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotCutoff", SpotLight->SpotCutoff );
-		SpotLight->LightCone.RenderCone();
+		if ( PositionCamera != NULL )
+			Distance = distance( *PositionCamera, SpotLight->LightCone.GetPosition() );
+
+		if ( SpotLight->LightCone.Query.GetResult() > 0 || PositionCamera != NULL &&
+			 Distance > -SpotLight->Radius && Distance < SpotLight->Radius ) // TODO: [zombiHello] Сделать корректную проверку нах. точки в конусе
+		{
+			TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", SpotLight->Position );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", SpotLight->Intensivity );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", SpotLight->Color );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotDirection", SpotLight->SpotDirection );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Height", SpotLight->LightCone.GetHeight() );
+			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotCutoff", SpotLight->SpotCutoff );
+			SpotLight->LightCone.RenderCone();
+		}
 	}
 
 	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
 
-	Shader::bind( SpotLightRender );
-	SpotLightRender->setUniform( "CountLights", CountLights );
+	if ( CountLights > 0 )
+	{
+		Shader::bind( SpotLightRender );
+		SpotLightRender->setUniform( "CountLights", CountLights );
 
-	glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
-	glDisable( GL_DEPTH_TEST );
+		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
+		glDisable( GL_DEPTH_TEST );
 
-	glEnable( GL_BLEND );
-	LightQuad.RenderQuad();
-	glDisable( GL_BLEND );
+		glEnable( GL_BLEND );
+		LightQuad.RenderQuad();
+		glDisable( GL_BLEND );
+	}
 }
 
 //-------------------------------------------------------------------------//

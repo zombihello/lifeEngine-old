@@ -158,12 +158,12 @@
     <ClInclude Include="Graphics\AnimationManager.h" />
     <ClInclude Include="Graphics\BaseLight.h" />
     <ClInclude Include="Graphics\BoundingBox.h" />
-    <ClInclude Include="Graphics\BoundingCone.h" />
     <ClInclude Include="Graphics\BoundingSphere.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\DirectionalLight.h" />
     <ClInclude Include="Graphics\Frustum.h" />
     <ClInclude Include="Graphics\Level.h" />
+    <ClInclude Include="Graphics\LightCone.h" />
     <ClInclude Include="Graphics\LightManager.h" />
     <ClInclude Include="Graphics\LightQuad.h" />
     <ClInclude Include="Graphics\Mesh.h" />
@@ -189,12 +189,12 @@
     <ClCompile Include="Graphics\src\AnimationManager.cpp" />
     <ClCompile Include="Graphics\src\BaseLight.cpp" />
     <ClCompile Include="Graphics\src\BoundingBox.cpp" />
-    <ClCompile Include="Graphics\src\BoundingCone.cpp" />
     <ClCompile Include="Graphics\src\BoundingSphere.cpp" />
     <ClCompile Include="Graphics\src\Camera.cpp" />
     <ClCompile Include="Graphics\src\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\src\Frustum.cpp" />
     <ClCompile Include="Graphics\src\Level.cpp" />
+    <ClCompile Include="Graphics\src\LightCone.cpp" />
     <ClCompile Include="Graphics\src\LightManager.cpp" />
     <ClCompile Include="Graphics\src\LightQuad.cpp" />
     <ClCompile Include="Graphics\src\Mesh.cpp" />

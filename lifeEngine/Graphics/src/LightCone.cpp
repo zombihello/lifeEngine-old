@@ -1,9 +1,9 @@
-﻿#include <System\VAO.h>
-#include "..\BoundingCone.h"
+#include <System\VAO.h>
+#include "..\LightCone.h"
 
 //-------------------------------------------------------------------------//
 
-le::BoundingCone::BoundingCone() :
+le::LightCone::LightCone() :
 	ArrayBuffer( 0 ),
 	VertexBuffer( 0 ),
 	IndexBuffer( 0 ),
@@ -13,23 +13,25 @@ le::BoundingCone::BoundingCone() :
 
 //-------------------------------------------------------------------------//
 
-le::BoundingCone::BoundingCone( BoundingCone& Copy )
+le::LightCone::LightCone( LightCone& Copy )
 {
 	Query = Copy.Query;
 	Radius = Copy.Radius;
 	Height = Copy.Height;
 	Transformation = Copy.Transformation;
 	Position = Copy.Position;
+	SpotDirection = Copy.SpotDirection;
+	BoundingBox = Copy.BoundingBox;
 
 	if ( Copy.ArrayBuffer != 0 )
-		InitCone( Height, Radius );
+		InitCone( Height, Radius, SpotDirection );
 	else
 		ArrayBuffer = IndexBuffer = VertexBuffer = 0;
 }
 
 //-------------------------------------------------------------------------//
 
-le::BoundingCone::~BoundingCone()
+le::LightCone::~LightCone()
 {
 	if ( ArrayBuffer != 0 )
 	{
@@ -41,7 +43,7 @@ le::BoundingCone::~BoundingCone()
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::InitCone( const float& Height, const float& Radius )
+void le::LightCone::InitCone( const float& Height, const float& Radius, const glm::vec3& SpotDirection )
 {
 	if ( ArrayBuffer != 0 ) return;
 
@@ -555,13 +557,18 @@ void le::BoundingCone::InitCone( const float& Height, const float& Radius )
 	VAO::UnbindBuffer( VAO::Vertex_Buffer );
 	VAO::UnbindBuffer( VAO::Index_Buffer );
 
+	this->SpotDirection = SpotDirection;
 	this->Radius = Radius;
 	this->Height = Height;
+
+	float ScalarCompWidth = SpotDirection.x * Radius + SpotDirection.y * Radius + SpotDirection.z * Radius;
+
+	BoundingBox.InitBox( glm::vec3( ScalarCompWidth, Height, ScalarCompWidth ) );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::QueryTest()
+void le::LightCone::QueryTest()
 {
 	Query.Start();
 
@@ -574,7 +581,7 @@ void le::BoundingCone::QueryTest()
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::RenderCone()
+void le::LightCone::RenderCone()
 {
 	VAO::BindVAO( ArrayBuffer );
 	glDrawElements( GL_TRIANGLES, 4920, GL_UNSIGNED_INT, 0 );
@@ -583,11 +590,37 @@ void le::BoundingCone::RenderCone()
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::SetRadius( float Radius )
+void le::LightCone::SetRadius( float Radius )
 {
+	vector<glm::vec3> Vertexs = CreateCone( Height, Radius );
+
+	glm::vec3* BoxVertexs = BoundingBox.GetVertexs();
+	float HalfWidth = Radius / 2;
 	this->Radius = Radius;
 
-	vector<glm::vec3> Vertexs = CreateCone( Height, Radius );
+	BoxVertexs[ 0 ].x = -HalfWidth;
+	BoxVertexs[ 0 ].z = HalfWidth;
+
+	BoxVertexs[ 1 ].x = HalfWidth;
+	BoxVertexs[ 1 ].z = HalfWidth;
+
+	BoxVertexs[ 2 ].x = -HalfWidth;
+	BoxVertexs[ 2 ].z = HalfWidth;
+
+	BoxVertexs[ 3 ].x = HalfWidth;
+	BoxVertexs[ 3 ].z = HalfWidth;
+
+	BoxVertexs[ 4 ].x = -HalfWidth;
+	BoxVertexs[ 4 ].z = -HalfWidth;
+
+	BoxVertexs[ 5 ].x = HalfWidth;
+	BoxVertexs[ 5 ].z = -HalfWidth;
+
+	BoxVertexs[ 6 ].x = -HalfWidth;
+	BoxVertexs[ 6 ].z = -HalfWidth;
+
+	BoxVertexs[ 7 ].x = HalfWidth;
+	BoxVertexs[ 7 ].z = -HalfWidth;
 
 	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
 	glBufferData( GL_ARRAY_BUFFER, Vertexs.size() * sizeof( glm::vec3 ), Vertexs.data(), GL_STATIC_DRAW );
@@ -596,12 +629,24 @@ void le::BoundingCone::SetRadius( float Radius )
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::SetHeight( float Height )
+void le::LightCone::SetHeight( float Height )
 {
 	this->Height = Height;
 
 	vector<glm::vec3> Vertexs = CreateCone( Height, Radius );
 
+	glm::vec3* BoxVertexs = BoundingBox.GetVertexs();
+	float HalfHeight = Height / 2;
+
+	BoxVertexs[ 0 ].y = -HalfHeight;
+	BoxVertexs[ 1 ].y = -HalfHeight;
+	BoxVertexs[ 2 ].y = HalfHeight;
+	BoxVertexs[ 3 ].y = HalfHeight;
+	BoxVertexs[ 4 ].y = -HalfHeight;
+	BoxVertexs[ 5 ].y = -HalfHeight;
+	BoxVertexs[ 6 ].y = HalfHeight;
+	BoxVertexs[ 7 ].y = HalfHeight;
+
 	glBindBuffer( GL_ARRAY_BUFFER, VertexBuffer );
 	glBufferData( GL_ARRAY_BUFFER, Vertexs.size() * sizeof( glm::vec3 ), Vertexs.data(), GL_STATIC_DRAW );
 	glBindBuffer( GL_ARRAY_BUFFER, 0 );
@@ -609,8 +654,10 @@ void le::BoundingCone::SetHeight( float Height )
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::SetPosition( const glm::vec3& Position )
+void le::LightCone::SetPosition( const glm::vec3& Position )
 {
+	BoundingBox.SetPosition( Position );
+
 	this->Position = Position;
 	MatrixPosition = glm::translate( Position );
 	Transformation = MatrixPosition * MatrixRotation;
@@ -618,8 +665,10 @@ void le::BoundingCone::SetPosition( const glm::vec3& Position )
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::SetRotation( const glm::vec3& Rotation )
+void le::LightCone::SetRotation( const glm::vec3& Rotation )
 {
+	BoundingBox.SetRotation( Rotation );
+
 	glm::vec3 Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
 	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
 
@@ -635,8 +684,10 @@ void le::BoundingCone::SetRotation( const glm::vec3& Rotation )
 
 //-------------------------------------------------------------------------//
 
-void le::BoundingCone::SetRotation( const glm::quat& Rotation )
+void le::LightCone::SetRotation( const glm::quat& Rotation )
 {
+	BoundingBox.SetRotation( Rotation );
+
 	this->Rotation = Rotation;
 	MatrixRotation = glm::mat4_cast( Rotation );
 
@@ -645,51 +696,53 @@ void le::BoundingCone::SetRotation( const glm::quat& Rotation )
 
 //-------------------------------------------------------------------------//
 
-glm::mat4& le::BoundingCone::GetTransformation()
+glm::mat4& le::LightCone::GetTransformation()
 {
 	return Transformation;
 }
 
 //-------------------------------------------------------------------------//
 
-glm::vec3 & le::BoundingCone::GetPosition()
+glm::vec3& le::LightCone::GetPosition()
 {
 	return Position;
 }
 
 //-------------------------------------------------------------------------//
 
-glm::quat& le::BoundingCone::GetRotation()
+glm::quat& le::LightCone::GetRotation()
 {
 	return Rotation;
 }
 
 //-------------------------------------------------------------------------//
 
-float le::BoundingCone::GetRadius()
+float le::LightCone::GetRadius()
 {
 	return Radius;
 }
 
 //-------------------------------------------------------------------------//
 
-float le::BoundingCone::GetHeight()
+float le::LightCone::GetHeight()
 {
 	return Height;
 }
 
 //-------------------------------------------------------------------------//
 
-le::BoundingCone & le::BoundingCone::operator=( const BoundingCone & Copy )
+le::LightCone & le::LightCone::operator=( const LightCone & Copy )
 {
 	Query = Copy.Query;
 	Radius = Copy.Radius;
 	Height = Copy.Height;
 	Transformation = Copy.Transformation;
 	Position = Copy.Position;
+	BoundingBox = Copy.BoundingBox;
+	SpotDirection = Copy.SpotDirection;
 
 	if ( Copy.ArrayBuffer != 0 )
-		InitCone( Height, Radius );
+		InitCone( Height, Radius, SpotDirection );
 	else
 		ArrayBuffer = IndexBuffer = VertexBuffer = 0;
 
@@ -698,7 +751,7 @@ le::BoundingCone & le::BoundingCone::operator=( const BoundingCone & Copy )
 
 //-------------------------------------------------------------------------//
 
-vector<glm::vec3> le::BoundingCone::CreateCone( const float & Height, const float & Radius )
+vector<glm::vec3> le::LightCone::CreateCone( const float & Height, const float & Radius )
 {
 	vector<glm::vec3> Vertexes =
 	{

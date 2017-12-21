@@ -27,7 +27,7 @@
 // LIFEENGINE
 ///////////////
 #include <Graphics\BaseLight.h>
-#include <Graphics\BoundingCone.h>
+#include <Graphics\LightCone.h>
 
 namespace le
 {
@@ -106,10 +106,12 @@ namespace le
 
 		le::SpotLight& operator=( const SpotLight& Copy );
 
-		float				SpotCutoff; ///< Угол влияния
+		float				SpotCutoff; ///< Угол влиянияf
+		float				Radius; ///< Радиус конуса у света
+		float				Height; ///< Высота конуса у света
 
 		glm::vec3			SpotDirection; ///< Направление света
-		BoundingCone		LightCone; ///< Конус света
+		LightCone			LightCone; ///< Конус света
 	};
 
 	//-------------------------------------------------------------------------//

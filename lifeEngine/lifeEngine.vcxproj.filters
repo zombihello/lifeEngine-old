@@ -54,9 +54,6 @@
     <ClCompile Include="Graphics\src\BoundingBox.cpp">
       <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\BoundingCone.cpp">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\src\BoundingSphere.cpp">
       <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
@@ -108,6 +105,9 @@
     <ClCompile Include="Graphics\src\LightQuad.cpp">
       <Filter>Graphics\Light</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\LightCone.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -142,9 +142,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\BoundingBox.h">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BoundingCone.h">
       <Filter>Graphics\Bounding Volume</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\BoundingSphere.h">
@@ -196,6 +193,9 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\LightQuad.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LightCone.h">
       <Filter>Graphics\Light</Filter>
     </ClInclude>
   </ItemGroup>

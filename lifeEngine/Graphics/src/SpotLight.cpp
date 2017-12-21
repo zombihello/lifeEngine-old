@@ -4,7 +4,9 @@
 
 le::SpotLight::SpotLight() :
 	SpotCutoff( -1 ), // cos 180 градусов = -1
-	SpotDirection( 0.f, -1.f, 0.f )
+	SpotDirection( 0.f, -1.f, 0.f ),
+	Radius( 25 ),
+	Height( 45 )
 {
 	Logger::Log( Logger::Info, "Creating Spotlight" );
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( 25 ) );
@@ -18,7 +20,7 @@ le::SpotLight::SpotLight() :
 	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
 	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
 
-	LightCone.InitCone( 45, 25 );
+	LightCone.InitCone( 45, 25, SpotDirection );
 	LightCone.SetPosition( Position );
 	InitShadowMap();
 
@@ -34,13 +36,17 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 	SpotCutoff = Copy.SpotCutoff;
 	SpotDirection = Copy.SpotDirection;
 	LightCone = Copy.LightCone;
+	Radius = Copy.Radius;
+	Height = Copy.Height;
 }
 
 //-------------------------------------------------------------------------//
 
 le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular ) :
 	SpotCutoff( -1 ), // cos 180 градусов = -1
-	SpotDirection( 0.f, -1.f, 0.f )
+	SpotDirection( 0.f, -1.f, 0.f ),
+	Radius( Radius ),
+	Height( Height )
 {
 	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
 	SpotCutoff = Height / C;
@@ -74,7 +80,7 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	this->Specular = Specular / 255.f;
 	this->Intensivity = Intensivity;
 
-	LightCone.InitCone( Height, Radius );
+	LightCone.InitCone( Height, Radius, SpotDirection );
 	LightCone.SetPosition( Position );
 	LightCone.SetRotation( QuatRotation );
 	InitShadowMap();
@@ -92,6 +98,7 @@ le::SpotLight::~SpotLight()
 void le::SpotLight::SetRadius( float Radius )
 {
 	LightCone.SetRadius( Radius );
+	this->Radius = Radius;
 }
 
 //-------------------------------------------------------------------------//
@@ -99,6 +106,7 @@ void le::SpotLight::SetRadius( float Radius )
 void le::SpotLight::SetHeight( float Height )
 {
 	LightCone.SetHeight( Height );
+	this->Height = Height;
 }
 
 //-------------------------------------------------------------------------//
@@ -138,6 +146,8 @@ le::SpotLight& le::SpotLight::operator=( const SpotLight& Copy )
 	SpotCutoff = Copy.SpotCutoff;
 	SpotDirection = Copy.SpotDirection;
 	LightCone = Copy.LightCone;
+	Radius = Copy.Radius;
+	Height = Copy.Height;
 
 	return *this;
 }
