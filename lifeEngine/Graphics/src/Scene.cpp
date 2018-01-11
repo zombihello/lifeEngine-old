@@ -645,6 +645,8 @@ void le::Scene::LightRender()
 
 void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIndex )
 {
+	bool IsCameraInCircle = false;
+
 	int CountLights = 0;
 	float Distance = 0;
 
@@ -660,10 +662,13 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 		PointLight* PointLight = LightBuffer_PointLight[ i ];
 
 		if ( PositionCamera != NULL )
+		{
 			Distance = distance( *PositionCamera, PointLight->LightSphere.GetPosition() );
 
-		if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL &&
-			 Distance > -PointLight->Radius && Distance < PointLight->Radius )
+			IsCameraInCircle = Distance > -PointLight->Radius && Distance < PointLight->Radius;
+		}
+
+		if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL && IsCameraInCircle )
 		{
 			TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
 			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", PointLight->Position );
@@ -696,8 +701,12 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 
 void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndIndex )
 {
+	bool IsCameraInBox = false;
+	bool IsCameraInCircle = false;
+
 	int CountLights = 0;
 	float Distance = 0;
+	glm::vec3 *MinVertexBox, *MaxVertexBox;
 
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 	Shader::bind( TestRender );
@@ -706,15 +715,25 @@ void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndInd
 	glClear( GL_STENCIL_BUFFER_BIT );
 	glStencilFunc( GL_ALWAYS, 0, 0 );
 
-	for ( size_t i = StartIndex; i < Visible_SpotLight && i < EndIndex; i++, CountLights++ )
+	for ( size_t i = StartIndex; i < Visible_SpotLight && i < EndIndex; i++ )
 	{
 		SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
 
 		if ( PositionCamera != NULL )
-			Distance = distance( *PositionCamera, SpotLight->LightCone.GetPosition() );
+		{
+			MaxVertexBox = &SpotLight->LightCone.BoundingBox.GetMaxVertex();
+			MinVertexBox = &SpotLight->LightCone.BoundingBox.GetMinVertex();
+			Distance = PositionCamera->z - SpotLight->Position.z;
 
-		if ( SpotLight->LightCone.Query.GetResult() > 0 || PositionCamera != NULL &&
-			 Distance > -SpotLight->Radius && Distance < SpotLight->Radius ) // TODO: [zombiHello] Сделать корректную проверку нах. точки в конусе
+			if ( PositionCamera->x > MinVertexBox->x && PositionCamera->x < MaxVertexBox->x )
+				if ( PositionCamera->y > MinVertexBox->y && PositionCamera->y < MaxVertexBox->y )
+					if ( PositionCamera->z > MinVertexBox->z && PositionCamera->z < MaxVertexBox->z )
+						IsCameraInBox = true;
+
+			IsCameraInCircle = Distance > -SpotLight->Radius && Distance < SpotLight->Radius;
+		}
+
+		if ( SpotLight->LightCone.Query.GetResult() > 0 || IsCameraInBox && IsCameraInCircle )
 		{
 			TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
 			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", SpotLight->Position );
@@ -724,6 +743,8 @@ void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndInd
 			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Height", SpotLight->LightCone.GetHeight() );
 			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotCutoff", SpotLight->SpotCutoff );
 			SpotLight->LightCone.RenderCone();
+
+			CountLights++;
 		}
 	}
 

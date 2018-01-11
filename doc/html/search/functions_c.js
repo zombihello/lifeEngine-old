@@ -7,7 +7,7 @@ var searchData=
   ['removemodelfromscene',['RemoveModelFromScene',['../classle_1_1_scene.html#aaedcf867db03ecad4df4bb93f5591644',1,'le::Scene']]],
   ['removeplayercamera',['RemovePlayerCamera',['../classle_1_1_skybox.html#ad6855a020b879bb4dba7edf0cfab37ae',1,'le::Skybox']]],
   ['renderbox',['RenderBox',['../classle_1_1_bounding_box.html#a484fa3a0fa46ab3f15dfbbea012fe4d1',1,'le::BoundingBox']]],
-  ['rendercone',['RenderCone',['../classle_1_1_bounding_cone.html#a1c76e96a8ad0f74747c636cf861c9d1e',1,'le::BoundingCone']]],
+  ['rendercone',['RenderCone',['../classle_1_1_light_cone.html#aff3d091984db327f78c9bb04f2c3e807',1,'le::LightCone']]],
   ['renderframe',['RenderFrame',['../classle_1_1_g_buffer.html#ad401d3f46c394780aebb9fbf8630c4b1',1,'le::GBuffer::RenderFrame()'],['../classle_1_1_g_buffer.html#aebd86af91b9db8e8c42401ee3bd1051d',1,'le::GBuffer::RenderFrame(TypeTexture TypeBufferRender)'],['../classle_1_1_g_buffer.html#aeb7e6d250167feaa85f374e01b0f5c85',1,'le::GBuffer::RenderFrame(const glm::vec2 &amp;SizeWindow)']]],
   ['renderquad',['RenderQuad',['../classle_1_1_light_quad.html#abcbabcd7ef4aef4c0493e0537ea3322b',1,'le::LightQuad']]],
   ['renderscene',['RenderScene',['../classle_1_1_scene.html#ac89fee499aac01c8ddc54262c4cb9710',1,'le::Scene']]],

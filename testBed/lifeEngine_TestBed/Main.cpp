@@ -67,7 +67,7 @@ public:
 				float Height = it->GetValueFloat( "Height" );
 				float Intensivity = it->GetValueFloat( "Intensivity" );
 				LightPosition = it->GetPosition();
-				LightRotation = glm::vec3( Rotation[0], Rotation[1], Rotation[2] );
+				LightRotation = glm::vec3( Rotation[0], Rotation[1], Rotation[2] );			
 
 				LightManager.AddSpotLight( NameLight, Radius, Height, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
@@ -123,7 +123,7 @@ public:
 		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
 		{
 			Spot->SetPosition( Camera->GetPosition() );
-		//	Spot->SetRotation( glm::vec3( 90, 0, 90 ) );
+			//Spot->SetRotation( glm::vec3( 90, 0, 90 ) );
 		}
 		Camera->UpdateCamera();
 		Scene->RenderScene();

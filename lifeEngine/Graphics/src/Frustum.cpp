@@ -55,8 +55,8 @@ bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 
 		for ( IdVertex = 0; IdVertex < 8; IdVertex++ )
 		{
-			if ( PyramidFrustum[ Side ].x * ( Position->x + Vertexs[ IdVertex ].x ) + PyramidFrustum[ Side ].y * ( Position->y + Vertexs[ IdVertex ].y ) +
-				 PyramidFrustum[ Side ].z * ( Position->z + Vertexs[ IdVertex ].z ) + PyramidFrustum[ Side ].w > 0 )
+			if ( PyramidFrustum[ Side ].x * Vertexs[ IdVertex ].x + PyramidFrustum[ Side ].y * Vertexs[ IdVertex ].y +
+				 PyramidFrustum[ Side ].z * Vertexs[ IdVertex ].z + PyramidFrustum[ Side ].w > 0 )
 				break;
 		}
 

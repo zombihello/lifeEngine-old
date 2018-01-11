@@ -111,6 +111,7 @@ namespace le
 		float				Height; ///< Высота конуса у света
 
 		glm::vec3			SpotDirection; ///< Направление света
+		glm::vec3			Rotation; ///< Поворот света
 		LightCone			LightCone; ///< Конус света
 	};
 

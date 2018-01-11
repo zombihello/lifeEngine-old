@@ -1,8 +1,6 @@
 ﻿#include <Graphics\BoundingBox.h>
 #include "..\Camera.h"
 
-#define PI 3.141592653f
-
 //-------------------------------------------------------------------------//
 
 le::Camera::Camera( System& System ) :
@@ -29,8 +27,8 @@ void le::Camera::UpdateCamera()
 	CenterWindow.x = NUMBER_TO_FLOAT( SizeWindow.x / 2 );
 	CenterWindow.y = NUMBER_TO_FLOAT( SizeWindow.y / 2 );
 
-	Angle.x += ( ( CenterWindow.x - MousePosition.x ) / SensitivityMouse ) / 180 * PI;
-	Angle.y += ( ( CenterWindow.y - MousePosition.y ) / SensitivityMouse ) / 180 * PI;
+	Angle.x += ( ( CenterWindow.x - MousePosition.x ) / SensitivityMouse ) / 180 * MATH_PI;
+	Angle.y += ( ( CenterWindow.y - MousePosition.y ) / SensitivityMouse ) / 180 * MATH_PI;
 
 	if ( Angle.y < -1.55f )
 		Angle.y = -1.55f;

@@ -1,4 +1,4 @@
-#include <System\VAO.h>
+﻿#include <System\VAO.h>
 #include "..\LightCone.h"
 
 //-------------------------------------------------------------------------//
@@ -20,11 +20,10 @@ le::LightCone::LightCone( LightCone& Copy )
 	Height = Copy.Height;
 	Transformation = Copy.Transformation;
 	Position = Copy.Position;
-	SpotDirection = Copy.SpotDirection;
 	BoundingBox = Copy.BoundingBox;
 
 	if ( Copy.ArrayBuffer != 0 )
-		InitCone( Height, Radius, SpotDirection );
+		InitCone( Height, Radius );
 	else
 		ArrayBuffer = IndexBuffer = VertexBuffer = 0;
 }
@@ -43,7 +42,7 @@ le::LightCone::~LightCone()
 
 //-------------------------------------------------------------------------//
 
-void le::LightCone::InitCone( const float& Height, const float& Radius, const glm::vec3& SpotDirection )
+void le::LightCone::InitCone( const float& Height, const float& Radius )
 {
 	if ( ArrayBuffer != 0 ) return;
 
@@ -557,13 +556,10 @@ void le::LightCone::InitCone( const float& Height, const float& Radius, const gl
 	VAO::UnbindBuffer( VAO::Vertex_Buffer );
 	VAO::UnbindBuffer( VAO::Index_Buffer );
 
-	this->SpotDirection = SpotDirection;
 	this->Radius = Radius;
 	this->Height = Height;
 
-	float ScalarCompWidth = SpotDirection.x * Radius + SpotDirection.y * Radius + SpotDirection.z * Radius;
-
-	BoundingBox.InitBox( glm::vec3( ScalarCompWidth, Height, ScalarCompWidth ) );
+	BoundingBox.InitBox( glm::vec3( Radius * 2, Height * 2, Radius * 2 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -656,7 +652,7 @@ void le::LightCone::SetHeight( float Height )
 
 void le::LightCone::SetPosition( const glm::vec3& Position )
 {
-	BoundingBox.SetPosition( Position );
+	BoundingBox.SetPosition( glm::vec3( Position.x, Position.y - Height / 2, Position.z ) );
 
 	this->Position = Position;
 	MatrixPosition = glm::translate( Position );
@@ -693,7 +689,6 @@ void le::LightCone::SetRotation( const glm::quat& Rotation )
 
 	Transformation = MatrixPosition * MatrixRotation;
 }
-
 //-------------------------------------------------------------------------//
 
 glm::mat4& le::LightCone::GetTransformation()
@@ -739,10 +734,9 @@ le::LightCone & le::LightCone::operator=( const LightCone & Copy )
 	Transformation = Copy.Transformation;
 	Position = Copy.Position;
 	BoundingBox = Copy.BoundingBox;
-	SpotDirection = Copy.SpotDirection;
 
 	if ( Copy.ArrayBuffer != 0 )
-		InitCone( Height, Radius, SpotDirection );
+		InitCone( Height, Radius );
 	else
 		ArrayBuffer = IndexBuffer = VertexBuffer = 0;
 

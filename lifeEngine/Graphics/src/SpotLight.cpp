@@ -20,7 +20,7 @@ le::SpotLight::SpotLight() :
 	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
 	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
 
-	LightCone.InitCone( 45, 25, SpotDirection );
+	LightCone.InitCone( 45, 25 );
 	LightCone.SetPosition( Position );
 	InitShadowMap();
 
@@ -38,6 +38,7 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 	LightCone = Copy.LightCone;
 	Radius = Copy.Radius;
 	Height = Copy.Height;
+	Rotation = Copy.Rotation;
 }
 
 //-------------------------------------------------------------------------//
@@ -76,11 +77,12 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
 
 	this->Position = glm::vec4( Position, 1.0f );
+	this->Rotation = Rotation;
 	this->Color = Color / 255.f;
 	this->Specular = Specular / 255.f;
 	this->Intensivity = Intensivity;
 
-	LightCone.InitCone( Height, Radius, SpotDirection );
+	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );
 	LightCone.SetRotation( QuatRotation );
 	InitShadowMap();
@@ -148,6 +150,7 @@ le::SpotLight& le::SpotLight::operator=( const SpotLight& Copy )
 	LightCone = Copy.LightCone;
 	Radius = Copy.Radius;
 	Height = Copy.Height;
+	Rotation = Copy.Rotation;
 
 	return *this;
 }

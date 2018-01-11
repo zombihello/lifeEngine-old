@@ -20,6 +20,7 @@
 #define NUMBER_TO_STRING( X )		to_string( X );
 #define ENGINE						"lifeEngine"
 #define ENGINE_VERSION				"v3.0.0"
+#define MATH_PI						3.14159274f
 #include <DllGlobal.h>
 
 ///////////////////////////

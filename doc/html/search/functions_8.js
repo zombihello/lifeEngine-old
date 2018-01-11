@@ -1,6 +1,7 @@
 var searchData=
 [
   ['level',['Level',['../classle_1_1_level.html#a69cba8aa453131228315ae63d2fde087',1,'le::Level']]],
+  ['lightcone',['LightCone',['../classle_1_1_light_cone.html#a7b0cd6048fc243cdaf06f0b966c5fb9f',1,'le::LightCone::LightCone()'],['../classle_1_1_light_cone.html#a2aa248a75fbd3f73c822665e9f56913d',1,'le::LightCone::LightCone(LightCone &amp;Copy)']]],
   ['lightmanager',['LightManager',['../classle_1_1_light_manager.html#ace9217ebb6b74015909575ab971d92ed',1,'le::LightManager']]],
   ['lightquad',['LightQuad',['../classle_1_1_light_quad.html#a6060f83ac6f6ae7b77e5ac2b9b1cad85',1,'le::LightQuad::LightQuad()'],['../classle_1_1_light_quad.html#aec20ed2f9ae7ec9495024566b2e17584',1,'le::LightQuad::LightQuad(const LightQuad &amp;Copy)']]],
   ['loadanimation',['LoadAnimation',['../classle_1_1_animation.html#a2759db23217d31e5c179f2925a203686',1,'le::Animation']]],

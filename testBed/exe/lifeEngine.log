@@ -128,14 +128,6 @@ lifeEngine v3.0.0
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
 [Info] Creating Point Light
-  Radius: 240.000000
-  StaticLight: 1
-  Intensivity: 1.000000
-  Position: 4.000000 68.000000 -264.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
-[Info] Creating Point Light
   Radius: 100.000000
   StaticLight: 1
   Intensivity: 1.000000
@@ -159,53 +151,13 @@ lifeEngine v3.0.0
   Color: 153.000000 217.000000 234.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
-[Info] Creating Point Light
-  Radius: 240.000000
-  StaticLight: 1
-  Intensivity: 1.000000
-  Position: -12.000000 68.000000 -444.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
-[Info] Creating Point Light
-  Radius: 240.000000
-  StaticLight: 1
-  Intensivity: 1.000000
-  Position: 80.000000 68.000000 -264.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Point Light
 [Info] Creating Directional Light
   StaticLight: 1
-  Intensivity: 1.000000
+  Intensivity: 0.500000
   Position: -128.000000 288.000000 -544.000000
   Color: 255.000000 255.000000 255.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Directional Light
-[Info] Creating Spotlight
-  Cone Radius: 150.000000
-  Cone Height: 100.000000
-  Spot Cutoff: 0.554700
-  StaticLight: 1
-  Intensivity: 4.000000
-  Position: 272.000000 96.000000 -432.000000
-  Spot Direction: 0.000000 -1.000000 0.000000
-  Rotation: 0.000000 0.000000 0.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Spotlight
-[Info] Creating Spotlight
-  Cone Radius: 150.000000
-  Cone Height: 100.000000
-  Spot Cutoff: 0.554700
-  StaticLight: 1
-  Intensivity: 4.000000
-  Position: 560.000000 96.000000 -432.000000
-  Spot Direction: 0.000000 -1.000000 0.000000
-  Rotation: 0.000000 0.000000 0.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
-  Specular: 0.000000 0.000000 0.000000 1.000000
-[Info] Created Spotlight
 [Info] Creating Spotlight
   Cone Radius: 100.000000
   Cone Height: 100.000000
@@ -218,6 +170,38 @@ lifeEngine v3.0.0
   Color: 255.000000 255.000000 255.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
+[Info] Creating Point Light
+  Radius: 100.000000
+  StaticLight: 1
+  Intensivity: 2.000000
+  Position: 552.000000 48.000000 -440.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 100.000000
+  StaticLight: 1
+  Intensivity: 2.000000
+  Position: 264.000000 48.000000 -440.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 100.000000
+  StaticLight: 1
+  Intensivity: 2.000000
+  Position: -16.000000 56.000000 -440.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Creating Point Light
+  Radius: 200.000000
+  StaticLight: 1
+  Intensivity: 2.000000
+  Position: 40.000000 56.000000 -264.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
 [Info] Creating Spotlight
   Cone Radius: 150.000000
   Cone Height: 150.000000
@@ -227,7 +211,7 @@ lifeEngine v3.0.0
   Position: 0.000000 0.000000 0.000000
   Spot Direction: 0.000000 -1.000000 0.000000
   Rotation: 0.000000 -90.000000 0.000000
-  Color: 255.000000 255.000000 255.000000 255.000000
+  Color: 228.000000 211.000000 112.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
 [Info] Texture With Name [brick1.jpg] Deleted

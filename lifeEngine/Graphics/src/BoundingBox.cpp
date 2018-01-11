@@ -13,16 +13,20 @@ le::BoundingBox::BoundingBox() :
 
 le::BoundingBox::BoundingBox( BoundingBox& Copy )
 {
-	glm::vec3* Vertexs = Copy.GetVertexs();
 	Query = Copy.Query;
 	Position = Copy.Position;
 	Rotation = Copy.Rotation;
 	Transformation = Copy.Transformation;
 	MatrixPosition = Copy.MatrixPosition;
 	MatrixRotation = Copy.MatrixRotation;
+	MaxVertex = Copy.MaxVertex;
+	MinVertex = Copy.MinVertex;
 
 	for ( int i = 0; i < 8; i++ )
-		this->Vertexs[ i ] = Vertexs[ i ];
+	{
+		LocalVertexs[ i ] = Copy.LocalVertexs[ i ];
+		GlobalVertexs[ i ] = Copy.GlobalVertexs[ i ];
+	}
 
 	if ( Copy.ArrayBuffer != 0 )
 	{
@@ -37,7 +41,7 @@ le::BoundingBox::BoundingBox( BoundingBox& Copy )
 			6, 7, 4, 0, 2, 1, 0, 3, 2
 		};
 
-		VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, Vertexs, VAO::Static_Draw );
+		VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, LocalVertexs, VAO::Static_Draw );
 		IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, 36, IdVertexs, VAO::Static_Draw );
 
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
@@ -68,14 +72,35 @@ void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxV
 {
 	if ( ArrayBuffer != 0 ) return;
 
-	Vertexs[ 0 ] = glm::vec3( MinVertex.x, MinVertex.z, 0 );
-	Vertexs[ 1 ] = glm::vec3( MaxVertex.x, MinVertex.z, 0 );
-	Vertexs[ 2 ] = glm::vec3( MinVertex.x, MaxVertex.z, 0 );
-	Vertexs[ 3 ] = glm::vec3( MaxVertex.x, MaxVertex.z, 0 );
-	Vertexs[ 4 ] = glm::vec3( MinVertex.x, MinVertex.z, MaxVertex.y );
-	Vertexs[ 5 ] = glm::vec3( MaxVertex.x, MinVertex.z, MaxVertex.y );
-	Vertexs[ 6 ] = glm::vec3( MinVertex.x, MaxVertex.z, MaxVertex.y );
-	Vertexs[ 7 ] = glm::vec3( MaxVertex.x, MaxVertex.z, MaxVertex.y );
+	GlobalVertexs[ 0 ] = LocalVertexs[ 0 ] = glm::vec3( MinVertex.x, MinVertex.z, 0 );
+	GlobalVertexs[ 1 ] = LocalVertexs[ 1 ] = glm::vec3( MaxVertex.x, MinVertex.z, 0 );
+	GlobalVertexs[ 2 ] = LocalVertexs[ 2 ] = glm::vec3( MinVertex.x, MaxVertex.z, 0 );
+	GlobalVertexs[ 3 ] = LocalVertexs[ 3 ] = glm::vec3( MaxVertex.x, MaxVertex.z, 0 );
+	GlobalVertexs[ 4 ] = LocalVertexs[ 4 ] = glm::vec3( MinVertex.x, MinVertex.z, MaxVertex.y );
+	GlobalVertexs[ 5 ] = LocalVertexs[ 5 ] = glm::vec3( MaxVertex.x, MinVertex.z, MaxVertex.y );
+	GlobalVertexs[ 6 ] = LocalVertexs[ 6 ] = glm::vec3( MinVertex.x, MaxVertex.z, MaxVertex.y );
+	GlobalVertexs[ 7 ] = LocalVertexs[ 7 ] = glm::vec3( MaxVertex.x, MaxVertex.z, MaxVertex.y );
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		if ( this->MaxVertex.x < GlobalVertexs[ i ].x )
+			this->MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( this->MinVertex.x > GlobalVertexs[ i ].x )
+				this->MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( this->MaxVertex.y < GlobalVertexs[ i ].y )
+			this->MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( this->MinVertex.y > GlobalVertexs[ i ].y )
+				this->MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( this->MaxVertex.z < GlobalVertexs[ i ].z )
+			this->MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( this->MinVertex.z > GlobalVertexs[ i ].z )
+				this->MinVertex.z = GlobalVertexs[ i ].z;
+	}
 
 	ArrayBuffer = VAO::CreateVAO();
 	VAO::BindVAO( ArrayBuffer );
@@ -88,7 +113,7 @@ void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxV
 		6, 7, 4, 0, 2, 1, 0, 3, 2
 	};
 
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, Vertexs, VAO::Static_Draw );
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, LocalVertexs, VAO::Static_Draw );
 	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, 36, IdVertexs, VAO::Static_Draw );
 
 	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
@@ -103,7 +128,28 @@ void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxV
 void le::BoundingBox::InitBox( const vector<glm::vec3>& Vertexs )
 {
 	for ( int i = 0; i < 8; i++ )
-		this->Vertexs[ i ] = Vertexs[ i ];
+		GlobalVertexs[ i ] = LocalVertexs[ i ] = Vertexs[ i ];
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
 
 	if ( ArrayBuffer != 0 ) return;
 
@@ -118,7 +164,7 @@ void le::BoundingBox::InitBox( const vector<glm::vec3>& Vertexs )
 		6, 7, 4, 0, 2, 1, 0, 3, 2
 	};
 
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, this->Vertexs, VAO::Static_Draw );
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, LocalVertexs, VAO::Static_Draw );
 	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, 36, IdVertexs, VAO::Static_Draw );
 
 	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
@@ -132,7 +178,14 @@ void le::BoundingBox::InitBox( const vector<glm::vec3>& Vertexs )
 
 glm::vec3* le::BoundingBox::GetVertexs()
 {
-	return &Vertexs[ 0 ];
+	return &GlobalVertexs[ 0 ];
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3 & le::BoundingBox::GetMaxVertex()
+{
+	return MaxVertex;
 }
 
 //-------------------------------------------------------------------------//
@@ -145,14 +198,35 @@ void le::BoundingBox::InitBox( const glm::vec3& Size )
 	float HalfHeight = Size.y / 2;
 	float HalfDepth = Size.z / 2;
 
-	Vertexs[ 0 ] = glm::vec3( -HalfWidth, -HalfHeight, HalfDepth );
-	Vertexs[ 1 ] = glm::vec3( HalfWidth, -HalfHeight, HalfDepth );
-	Vertexs[ 2 ] = glm::vec3( -HalfWidth, HalfHeight, HalfDepth );
-	Vertexs[ 3 ] = glm::vec3( HalfWidth, HalfHeight, HalfDepth );
-	Vertexs[ 4 ] = glm::vec3( -HalfWidth, -HalfHeight, -HalfDepth );
-	Vertexs[ 5 ] = glm::vec3( HalfWidth, -HalfHeight, -HalfDepth );
-	Vertexs[ 6 ] = glm::vec3( -HalfWidth, HalfHeight, -HalfDepth );
-	Vertexs[ 7 ] = glm::vec3( HalfWidth, HalfHeight, -HalfDepth );
+	GlobalVertexs[ 0 ] = LocalVertexs[ 0 ] = glm::vec3( -HalfWidth, -HalfHeight, HalfDepth );
+	GlobalVertexs[ 1 ] = LocalVertexs[ 1 ] = glm::vec3( HalfWidth, -HalfHeight, HalfDepth );
+	GlobalVertexs[ 2 ] = LocalVertexs[ 2 ] = glm::vec3( -HalfWidth, HalfHeight, HalfDepth );
+	GlobalVertexs[ 3 ] = LocalVertexs[ 3 ] = glm::vec3( HalfWidth, HalfHeight, HalfDepth );
+	GlobalVertexs[ 4 ] = LocalVertexs[ 4 ] = glm::vec3( -HalfWidth, -HalfHeight, -HalfDepth );
+	GlobalVertexs[ 5 ] = LocalVertexs[ 5 ] = glm::vec3( HalfWidth, -HalfHeight, -HalfDepth );
+	GlobalVertexs[ 6 ] = LocalVertexs[ 6 ] = glm::vec3( -HalfWidth, HalfHeight, -HalfDepth );
+	GlobalVertexs[ 7 ] = LocalVertexs[ 7 ] = glm::vec3( HalfWidth, HalfHeight, -HalfDepth );
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
 
 	ArrayBuffer = VAO::CreateVAO();
 	VAO::BindVAO( ArrayBuffer );
@@ -165,7 +239,7 @@ void le::BoundingBox::InitBox( const glm::vec3& Size )
 		6, 7, 4, 0, 2, 1, 0, 3, 2
 	};
 
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, Vertexs, VAO::Static_Draw );
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, LocalVertexs, VAO::Static_Draw );
 	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, 36, IdVertexs, VAO::Static_Draw );
 
 	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
@@ -204,6 +278,29 @@ void le::BoundingBox::SetPosition( const glm::vec3& Position )
 	this->Position = Position;
 	MatrixPosition = glm::translate( Position );
 	Transformation = MatrixPosition * MatrixRotation;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
+
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -221,6 +318,29 @@ void le::BoundingBox::SetRotation( const glm::vec3& Rotation )
 	MatrixRotation = glm::mat4_cast( this->Rotation );
 
 	Transformation = MatrixPosition * MatrixRotation;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
+
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -231,6 +351,29 @@ void le::BoundingBox::SetRotation( const glm::quat& Rotation )
 	MatrixRotation = glm::mat4_cast( Rotation );
 
 	Transformation = MatrixPosition * MatrixRotation;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
+
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -256,6 +399,13 @@ glm::quat & le::BoundingBox::GetRotation()
 
 //-------------------------------------------------------------------------//
 
+glm::vec3 & le::BoundingBox::GetMinVertex()
+{
+	return MinVertex;
+}
+
+//-------------------------------------------------------------------------//
+
 le::BoundingBox & le::BoundingBox::operator=( const BoundingBox& Copy )
 {
 	Query = Copy.Query;
@@ -264,9 +414,14 @@ le::BoundingBox & le::BoundingBox::operator=( const BoundingBox& Copy )
 	Transformation = Copy.Transformation;
 	MatrixPosition = Copy.MatrixPosition;
 	MatrixRotation = Copy.MatrixRotation;
+	MaxVertex = Copy.MaxVertex;
+	MinVertex = Copy.MinVertex;
 
 	for ( int i = 0; i < 8; i++ )
-		Vertexs[ i ] = Copy.Vertexs[ i ];
+	{
+		LocalVertexs[ i ] = Copy.LocalVertexs[ i ];
+		GlobalVertexs[ i ] = Copy.GlobalVertexs[ i ];
+	}
 
 	if ( Copy.ArrayBuffer != 0 )
 	{
@@ -281,7 +436,7 @@ le::BoundingBox & le::BoundingBox::operator=( const BoundingBox& Copy )
 			6, 7, 4, 0, 2, 1, 0, 3, 2
 		};
 
-		VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, Vertexs, VAO::Static_Draw );
+		VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, 8, LocalVertexs, VAO::Static_Draw );
 		IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, 36, IdVertexs, VAO::Static_Draw );
 
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( glm::vec3 ), 0 );
