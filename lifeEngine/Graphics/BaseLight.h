@@ -15,8 +15,7 @@
 #pragma warning( disable: 4251 ) 
 
 #define COMPILING_LIBRARY
-#define SHADOW_WIDTH 1024
-#define SHADOW_HEIGHT 1024
+#define SHADOWMAP_SIZE 1024
 #include <DllGlobal.h>
 
 ///////////////////////////
@@ -63,9 +62,10 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Инициализировать карту теней
 		///
-		/// \param[in] IsCupeMap Создать ли кубическую карту теней
+		/// \param[in] IsCubeMap Создать ли кубическую карту теней
+		/// \return true - иниц. карта, false - нет
 		//////////////////////////////////////////////////////////////////////
-		void InitShadowMap( bool IsCupeMap = false );
+		bool InitShadowMap( bool IsCubeMap = false );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Задать позицию света
@@ -102,27 +102,19 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		void SetIntensivity( float Intensivity );
 
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Сделать свет динамическим
-		///		
-		/// \param[in] IsDinamic Динамический ли свет
-		//////////////////////////////////////////////////////////////////////
-		void SetDinamicLight( bool IsDinamic = true );
-
 		bool					IsInitShadowMap; ///< Инициализирована ли карта теней
-		bool					IsStaticLight; ///< Статичный ли свет
 
 		float					Intensivity; ///< Интенсивность света
 
-		GLuint					ShadowMap; ///< Карта теней
-		GLuint					FBO_ShadowMap; ///< FBO для карты теней
+		GLuint					ShadowMap; ///< карта теней
+		GLuint					ShadowMap_FBO; ///< FBO для карты теней
 		string					NameLight; ///< Название света
 
 		glm::vec4				Position; ///< Позиция света 
 		glm::vec4				Specular; ///< Отражение света
 		glm::vec4				Color; ///< Цвет света
-		glm::mat4				ShadowProjection; ///< Матрица проекции для карт теней
-		vector<glm::mat4>		ShadowTransforms; ///< Массив матриц трансформаций
+		glm::mat4				LightProjection; ///< Матрица проекции для карт теней
+		vector<glm::mat4>		LightTransforms; ///< Массив матриц трансформаций
 
 	protected:
 		//////////////////////////////////////////////////////////////////////

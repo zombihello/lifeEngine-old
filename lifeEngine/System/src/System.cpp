@@ -3,6 +3,10 @@
 
 //-------------------------------------------------------------------------//
 
+le::Configuration le::System::Configuration = le::Configuration();
+
+//-------------------------------------------------------------------------//
+
 le::System::System( int argc, char** argv, const string& ConfigFile, const string& LogFile ) :
 	IsLostFocus( false )
 {
@@ -20,6 +24,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.WindowSize = glm::vec2( Config.GetValueInt( "Width" ), Config.GetValueInt( "Height" ) );
 		Configuration.FrameLimit = Config.GetValueInt( "FrameLimit" );
 		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
+		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 	}
 	else
@@ -31,6 +36,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "Height", Configuration.WindowSize.y );
 		Config.WriteValue( "FrameLimit", Configuration.FrameLimit );
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
+		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );
 	}
@@ -73,10 +79,13 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 	GLInfo << "  OpenGL GLSL Version: " << glGetString( GL_SHADING_LANGUAGE_VERSION ) << endl;
 
 	glGetIntegerv( GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &MaxUniformComponents );
-	GLInfo << "  Max Floats in Fragment Shader: " << to_string( MaxUniformComponents ) << endl;
+	GLInfo << "  Max Floats in Fragment Shader: " << MaxUniformComponents << endl;
 
 	glGetIntegerv( GL_MAX_VERTEX_UNIFORM_COMPONENTS, &MaxUniformComponents );
-	GLInfo << "  Max Floats in Vertex Shader: " << to_string( MaxUniformComponents );
+	GLInfo << "  Max Floats in Vertex Shader: " << MaxUniformComponents << endl;
+
+	glGetIntegerv( GL_MAX_TEXTURE_IMAGE_UNITS, &MaxUniformComponents );
+	GLInfo << "  Max Texture Image Units: " << MaxUniformComponents;
 
 	Logger::Log( Logger::None, GLInfo.str() );
 	Logger::Log( Logger::None, "*** OpenGL Info End ***" );
@@ -181,13 +190,6 @@ bool le::System::DirectoryExists( const string& RouteToDirectory )
 	}
 
 	return false;
-}
-
-//-------------------------------------------------------------------------//
-
-le::Configuration& le::System::GetConfiguration()
-{
-	return Configuration;
 }
 
 //-------------------------------------------------------------------------//

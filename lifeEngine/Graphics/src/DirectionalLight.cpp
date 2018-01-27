@@ -7,7 +7,6 @@
 le::DirectionalLight::DirectionalLight()
 {
 	Logger::Log( Logger::Info, "Creating Directional Light" );
-	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
@@ -24,7 +23,6 @@ le::DirectionalLight::DirectionalLight()
 le::DirectionalLight::DirectionalLight( const glm::vec3& Position, const glm::vec4& Color, float Intensivity, const glm::vec4& Specular )
 {
 	Logger::Log( Logger::Info, "Creating Directional Light" );
-	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );

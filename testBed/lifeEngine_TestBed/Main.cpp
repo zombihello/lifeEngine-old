@@ -78,7 +78,9 @@ public:
 
 		IsLeftButtonPressed = false;
 		Timer = 0.f;
-		LightManager.AddLightsToScene( *Scene );
+
+		LightManager.AddLightsToScene( *Scene );	
+		LightManager.BuildShadowMaps();
 	}
 
 	void Update()

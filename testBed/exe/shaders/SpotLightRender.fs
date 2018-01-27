@@ -19,9 +19,9 @@ out vec4 Color;
 
 //-------------------------------------------
 
-uniform int CountLights;
 uniform vec2 ScreenSize;
-uniform SpotLight light[10];
+uniform vec4 AmbientLight;
+uniform SpotLight light;
 
 // Textures
 uniform sampler2D ColorMap;
@@ -43,27 +43,14 @@ void main()
 	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );	
 	vec4 PositionFragment = texture( PositionMap, texCoord );
 	
-	vec3  LightDirection;
-	float Distance;
-	float DiffuseFactor;
-	float Attenuation;
-	float SpotFactor;
+	vec3 LightDirection = ( light.Position - PositionFragment ).xyz;
+	float Distance = length( LightDirection );
+	LightDirection = normalize( LightDirection );
 	
-	Color = vec4( 0.f );
+	float DiffuseFactor = max( dot( LightDirection, Normal ), 0.0f );
+	float SpotFactor = dot( light.SpotDirection, -LightDirection );
+	SpotFactor = clamp( ( SpotFactor - light.SpotCutoff ) / ( 1.0f - light.SpotCutoff ), 0.0f, 1.0f );
+	float Attenuation = max( 1.0f - pow( Distance / light.Height, 2 ), 0.f );
 	
-	for ( int i = 0; i < CountLights; i++ )
-	{
-		LightDirection = ( light[i].Position - PositionFragment ).xyz;
-		Distance = length( LightDirection );
-		LightDirection = normalize( LightDirection );
-		
-		DiffuseFactor = max( dot( LightDirection, Normal ), 0.0f );
-		SpotFactor = dot( light[i].SpotDirection, -LightDirection );
-		SpotFactor = clamp( ( SpotFactor - light[i].SpotCutoff ) / ( 1.0f - light[i].SpotCutoff ), 0.0f, 1.0f );
-		Attenuation = max( 1.0f - pow( Distance / light[i].Height, 2 ), 0.f );
-		
-		Color += ( light[i].Color * DiffuseFactor * light[i].Intensivity ) * SpotFactor * Attenuation;
-	}
-	
-	Color *= texture( ColorMap, texCoord );
+	Color = light.Color * DiffuseFactor * light.Intensivity * SpotFactor * Attenuation * texture( ColorMap, texCoord );
 }

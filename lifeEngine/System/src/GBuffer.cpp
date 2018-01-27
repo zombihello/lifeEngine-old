@@ -180,6 +180,13 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 
 //-------------------------------------------------------------------------//
 
+void le::GBuffer::Unbind()
+{
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, 0 );
+}
+
+//-------------------------------------------------------------------------//
+
 void le::GBuffer::ShowDebug()
 {
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );

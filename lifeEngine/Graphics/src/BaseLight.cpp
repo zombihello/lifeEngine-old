@@ -5,7 +5,6 @@
 
 le::BaseLight::BaseLight() :
 	IsInitShadowMap( false ),
-	IsStaticLight( true ),
 	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
 	Specular( 0, 0, 0, 1 )
@@ -18,56 +17,48 @@ le::BaseLight::~BaseLight()
 	if ( IsInitShadowMap )
 	{
 		glDeleteTextures( 1, &ShadowMap );
-		glDeleteFramebuffers( 1, &FBO_ShadowMap );
+		glDeleteFramebuffers( 1, &ShadowMap_FBO );
 	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::BaseLight::InitShadowMap( bool IsCupeMap )
+bool le::BaseLight::InitShadowMap( bool IsCubeMap )
 {
+	if ( IsInitShadowMap )
+		return true;
+	
+	GLsizei SizeShadowMap_Width = SHADOWMAP_SIZE;
+	GLsizei SizeShadowMap_Height = SHADOWMAP_SIZE;
+
+	if ( IsCubeMap )
+	{
+		SizeShadowMap_Width = 3 * SHADOWMAP_SIZE;
+		SizeShadowMap_Height = 2 * SHADOWMAP_SIZE;
+	}
+
 	// ***************************************** //
 	// Генерируем буфферы
 
-	glGenFramebuffers( 1, &FBO_ShadowMap );
+	glGenFramebuffers( 1, &ShadowMap_FBO );
 	glGenTextures( 1, &ShadowMap );
 
 	// ***************************************** //
 	// Инициализируем карту теней
 
-	if ( !IsCupeMap )
-	{
-		glBindTexture( GL_TEXTURE_2D, ShadowMap );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+	glBindTexture( GL_TEXTURE_2D, ShadowMap );
+	glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SizeShadowMap_Width, SizeShadowMap_Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
 
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
-	}
-	else
-	{
-		glBindTexture( GL_TEXTURE_CUBE_MAP, ShadowMap );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
-		for ( int i = 0; i < 6; i++ )
-			glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+	glBindFramebuffer( GL_FRAMEBUFFER, ShadowMap_FBO );
+	glFramebufferTexture2D( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ShadowMap, 0 );
 
-		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
-		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE );
-	}
-
-	glBindFramebuffer( GL_FRAMEBUFFER, FBO_ShadowMap );
-	glFramebufferTexture( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, ShadowMap, 0 );
 	glDrawBuffer( GL_NONE );
 	glReadBuffer( GL_NONE );
-
-	if ( !IsCupeMap )
-		glBindTexture( GL_TEXTURE_2D, 0 );
-	else
-		glBindTexture( GL_TEXTURE_CUBE_MAP, 0 );
 
 	// ***************************************** //
 	// Проверяем статус FBO, создан ли он
@@ -79,15 +70,16 @@ void le::BaseLight::InitShadowMap( bool IsCupeMap )
 		Logger::Log( Logger::Error, "Shadow Map Not Initialized. Framebuffer Status [0x" + to_string( Status ) + "]" );
 
 		glDeleteTextures( 1, &ShadowMap );
-		glDeleteFramebuffers( 1, &FBO_ShadowMap );
+		glDeleteFramebuffers( 1, &ShadowMap_FBO );
 		IsInitShadowMap = false;
-		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
-		return;
 	}
 	else
 		IsInitShadowMap = true;
 
+	glBindTexture( GL_TEXTURE_2D, 0 );
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+
+	return IsInitShadowMap;
 }
 
 //-------------------------------------------------------------------------//
@@ -120,28 +112,18 @@ void le::BaseLight::SetIntensivity( float Intensivity )
 
 //-------------------------------------------------------------------------//
 
-void le::BaseLight::SetDinamicLight( bool IsDinamic )
-{
-	IsStaticLight = !IsDinamic;
-}
-
-//-------------------------------------------------------------------------//
-
 void le::BaseLight::CopyBaseLight( const BaseLight& Copy )
 {
-	IsStaticLight = Copy.IsStaticLight;
-	IsInitShadowMap = Copy.IsInitShadowMap;
 	NameLight = Copy.NameLight;
 	Position = Copy.Position;
 	Specular = Copy.Specular;
 	Color = Copy.Color;
 	Intensivity = Copy.Intensivity;
 
-	ShadowProjection = Copy.ShadowProjection;
-	ShadowTransforms = Copy.ShadowTransforms;
+	LightProjection = Copy.LightProjection;
+	LightTransforms = Copy.LightTransforms;
 
-	if ( IsInitShadowMap )
-		InitShadowMap( true );
+	//TODO: [zombiHello] Сделать копирование карты теней
 }
 
 //-------------------------------------------------------------------------//

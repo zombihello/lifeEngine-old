@@ -9,7 +9,7 @@ var searchData=
   ['initcone',['InitCone',['../classle_1_1_light_cone.html#a2c6e68b8fc37f18ef9782d48f240f980',1,'le::LightCone']]],
   ['initgbuffer',['InitGBuffer',['../classle_1_1_g_buffer.html#a53a16064a1582060f99a54228075af83',1,'le::GBuffer::InitGBuffer(const float &amp;WindowWidth, const float &amp;WindowHeight)'],['../classle_1_1_g_buffer.html#a8505c472bb39e1ee6775e5697ec3d8e2',1,'le::GBuffer::InitGBuffer(const glm::vec2 &amp;SizeWindow)']]],
   ['initquad',['InitQuad',['../classle_1_1_light_quad.html#a214164a902f30cf79edeb161e5d87044',1,'le::LightQuad']]],
-  ['initshadowmap',['InitShadowMap',['../classle_1_1_base_light.html#abcabda50f23e24cd96370e4697e66464',1,'le::BaseLight']]],
+  ['initshadowmap',['InitShadowMap',['../classle_1_1_base_light.html#a98902d277d5e0eca47cc9f4801de5c68',1,'le::BaseLight']]],
   ['initsphere',['InitSphere',['../classle_1_1_bounding_sphere.html#a03c774199de01964baff1fbfae73f0c6',1,'le::BoundingSphere']]],
   ['intensivity',['Intensivity',['../classle_1_1_base_light.html#abf47350ab79b23eafbf615c225b8d685',1,'le::BaseLight']]],
   ['interpolatedmatrix',['InterpolatedMatrix',['../structle_1_1_skeleton_1_1_bone.html#a0dea37e82ae70ca8c24ff0bbec26188b',1,'le::Skeleton::Bone']]],
@@ -21,7 +21,6 @@ var searchData=
   ['isplaying',['IsPlaying',['../classle_1_1_animation.html#a2a4a0f0dde5ac531a16567b9ab972930',1,'le::Animation::IsPlaying()'],['../classle_1_1_animation_manager.html#af1256abe5c1f8e43c246532f4a0fcc97',1,'le::AnimationManager::IsPlaying()']]],
   ['isrender',['IsRender',['../structle_1_1_scene_1_1_info_mesh.html#a6bcb5e5d84a5f73a389adbe051e8d0ed',1,'le::Scene::InfoMesh']]],
   ['isresultready',['IsResultReady',['../classle_1_1_query.html#ab100ee0d46e90b2840174392b3d28b06',1,'le::Query']]],
-  ['isstaticlight',['IsStaticLight',['../classle_1_1_base_light.html#adcfc365bdd2d88770bfc8e3dd28a0540',1,'le::BaseLight']]],
   ['isvisible',['IsVisible',['../classle_1_1_frustum.html#a3f964532a8ac6a3f0498dd803d0e6f79',1,'le::Frustum::IsVisible(BoundingBox &amp;BoundingBox)'],['../classle_1_1_frustum.html#a1d5960e535ed0d3ef9288a679cb5bd4c',1,'le::Frustum::IsVisible(BoundingSphere &amp;BoundingSphere)']]],
   ['iswireframerender',['IsWireframeRender',['../structle_1_1_configuration.html#a5db7528d19c0b5ce18dfcddef2834477',1,'le::Configuration']]]
 ];

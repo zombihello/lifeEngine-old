@@ -28,9 +28,10 @@ le::Scene::Scene( System& System ) :
 	DirectionalLights( NULL ),
 	SpotLights( NULL ),
 	Skybox( NULL ),
-	PositionCamera( NULL )
+	PositionCamera( NULL ),
+	PointLightRender( NULL )
 {
-	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
+	ProjectionMatrix = &System.Configuration.ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
 
 	ResourcesManager::LoadShader( "AnimationModels", "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" );
@@ -49,21 +50,22 @@ le::Scene::Scene( System& System ) :
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
-	PointLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	PointLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
 	PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	PointLightRender->setUniform( "PositionMap", GBuffer::Position );
 	PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
+	PointLightRender->setUniform( "ShadowMap", 3 );
 
-	SpotLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	SpotLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
 	SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
 	SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
-	DirectionalLightRender->setUniform( "ScreenSize", System.GetConfiguration().WindowSize );
+	DirectionalLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
 	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
-	GBuffer.InitGBuffer( System.GetConfiguration().WindowSize );
+	GBuffer.InitGBuffer( System.Configuration.WindowSize );
 	LightQuad.InitQuad( 1.f );
 }
 
@@ -247,14 +249,14 @@ void le::Scene::RenderScene()
 	// ****************************
 	FrustumCulling();
 
-	// ****************************
-	// Рендер геометрии сцены
-	// ****************************
+	//// ****************************
+	//// Рендер геометрии сцены
+	//// ****************************
 	GeometryRender();
 
-	// ****************************
-	// Просчитывание освещения
-	// ****************************
+	//// ****************************
+	//// Просчитывание освещения
+	//// ****************************
 	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
 	else
@@ -262,6 +264,7 @@ void le::Scene::RenderScene()
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
+	GBuffer.Unbind();
 
 	glDisable( GL_TEXTURE_2D );
 	glDisable( GL_CULL_FACE );
@@ -297,6 +300,27 @@ le::GBuffer& le::Scene::GetGBuffer()
 
 //-------------------------------------------------------------------------//
 
+map<GLuint, vector<le::Scene::InfoMesh*>>& le::Scene::GetRenderBuffer_Level()
+{
+	return RenderBuffer_Level;
+}
+
+//-------------------------------------------------------------------------//
+
+map<GLuint, vector<le::Scene::InfoMesh*>>& le::Scene::GetRenderBuffer_AnimationModel()
+{
+	return RenderBuffer_AnimationModel;
+}
+
+//-------------------------------------------------------------------------//
+
+map<GLuint, vector<le::Scene::InfoMesh*>>& le::Scene::GetRenderBuffer_StaticModel()
+{
+	return RenderBuffer_StaticModel;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Scene::FrustumCulling()
 {
 	if ( TestRender == NULL || Frustum == NULL || Camera == NULL )
@@ -325,9 +349,13 @@ void le::Scene::FrustumCulling()
 			if ( !Frustum->IsVisible( *Ptr_InfoMesh->BoundingBox ) )
 				Ptr_InfoMesh->IsRender = false;
 			else
-			{
-				Ptr_InfoMesh->IsRender = true;
+			{		
 				Ptr_InfoMesh->DistanceToCamera = Camera->GetDistance( *Ptr_InfoMesh->Position );
+				
+				if ( Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
+					continue;
+
+				Ptr_InfoMesh->IsRender = true;
 
 				if ( Visible_Brushes >= GeometryBuffer_Level.size() )
 					GeometryBuffer_Level.push_back( Ptr_InfoMesh );
@@ -354,8 +382,12 @@ void le::Scene::FrustumCulling()
 				Ptr_InfoMesh->IsRender = false;
 			else
 			{
-				Ptr_InfoMesh->IsRender = true;
 				Ptr_InfoMesh->DistanceToCamera = Camera->GetDistance( *Ptr_InfoMesh->Position );
+
+				if ( Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
+					continue;
+
+				Ptr_InfoMesh->IsRender = true;
 
 				if ( Visible_Models >= GeometryBuffer_Models.size() )
 					GeometryBuffer_Models.push_back( Ptr_InfoMesh );
@@ -382,8 +414,12 @@ void le::Scene::FrustumCulling()
 				Ptr_InfoMesh->IsRender = false;
 			else
 			{
-				Ptr_InfoMesh->IsRender = true;
 				Ptr_InfoMesh->DistanceToCamera = Camera->GetDistance( *Ptr_InfoMesh->Position );
+
+				if ( Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
+					continue;
+
+				Ptr_InfoMesh->IsRender = true;
 
 				if ( Visible_Models >= GeometryBuffer_Models.size() )
 					GeometryBuffer_Models.push_back( Ptr_InfoMesh );
@@ -598,25 +634,20 @@ void le::Scene::LightRender()
 	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
 	GBuffer.Bind( GBuffer::RenderLight );
-	size_t CountPass;
 
 	// ***************************************** //
 	// Просчитываем точечные источники света
 
-	CountPass = ( size_t ) ceil( Visible_PointLight / 10 ) + 1;
-
 	if ( PointLightRender != NULL && TestRender != NULL )
-		for ( size_t Pass = 0, Index = 0; Pass < CountPass; Pass++, Index += 10 )
-			RenderPointLights( Index, Index + 10 );
+		for ( size_t Index = 0; Index < Visible_PointLight; Index++ )
+			RenderPointLight( Index );
 
 	// ***************************************** //
 	// Просчитываем прожекторные источники света
 
-	CountPass = ( size_t ) ceil( Visible_SpotLight / 10 ) + 1;
-
 	if ( SpotLightRender != NULL && TestRender != NULL )
-		for ( size_t Pass = 0, Index = 0; Pass < CountPass; Pass++, Index += 10 )
-			RenderSpotLights( Index, Index + 10 );
+		for ( size_t Index = 0; Index < Visible_SpotLight; Index++ )
+			RenderSpotLight( Index );
 
 	glDisable( GL_STENCIL_TEST );
 
@@ -643,50 +674,41 @@ void le::Scene::LightRender()
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIndex )
+void le::Scene::RenderPointLight( const size_t& Index )
 {
-	bool IsCameraInCircle = false;
+	PointLight* PointLight = LightBuffer_PointLight[ Index ];
 
-	int CountLights = 0;
+	bool IsCameraInCircle = false;
 	float Distance = 0;
 
-	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-	Shader::bind( TestRender );
-
-	glEnable( GL_DEPTH_TEST );
-	glClear( GL_STENCIL_BUFFER_BIT );
-	glStencilFunc( GL_ALWAYS, 0, 0 );
-
-	for ( size_t i = StartIndex; i < Visible_PointLight && i < EndIndex; i++ )
+	if ( PositionCamera != NULL )
 	{
-		PointLight* PointLight = LightBuffer_PointLight[ i ];
-
-		if ( PositionCamera != NULL )
-		{
-			Distance = distance( *PositionCamera, PointLight->LightSphere.GetPosition() );
-
-			IsCameraInCircle = Distance > -PointLight->Radius && Distance < PointLight->Radius;
-		}
-
-		if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL && IsCameraInCircle )
-		{
-			TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
-			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", PointLight->Position );
-			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", PointLight->Color );
-			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Radius", PointLight->Radius );
-			PointLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", PointLight->Intensivity );
-			PointLight->LightSphere.RenderSphere();
-
-			CountLights++;
-		}
+		Distance = distance( *PositionCamera, PointLight->LightSphere.GetPosition() );
+		IsCameraInCircle = Distance > -PointLight->Radius && Distance < PointLight->Radius;
 	}
 
-	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
-
-	if ( CountLights > 0 )
+	if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL && IsCameraInCircle )
 	{
+		glActiveTexture( GL_TEXTURE3 );
+		glBindTexture( GL_TEXTURE_2D, PointLight->ShadowMap );
+
+		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+		Shader::bind( TestRender );
+
+		glEnable( GL_DEPTH_TEST );
+		glClear( GL_STENCIL_BUFFER_BIT );
+		glStencilFunc( GL_ALWAYS, 0, 0 );
+
+		TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+		PointLightRender->setUniform( "light.Position", PointLight->Position );
+		PointLightRender->setUniform( "light.Color", PointLight->Color );
+		PointLightRender->setUniform( "light.Radius", PointLight->Radius );
+		PointLightRender->setUniform( "light.Intensivity", PointLight->Intensivity );
+		PointLight->LightSphere.RenderSphere();
+
+		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
 		Shader::bind( PointLightRender );
-		PointLightRender->setUniform( "CountLights", CountLights );
 
 		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 		glDisable( GL_DEPTH_TEST );
@@ -699,61 +721,50 @@ void le::Scene::RenderPointLights( const size_t& StartIndex, const size_t& EndIn
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::RenderSpotLights( const size_t& StartIndex, const size_t& EndIndex )
+void le::Scene::RenderSpotLight( const size_t& Index )
 {
+	SpotLight* SpotLight = LightBuffer_SpotLight[ Index ];
+
 	bool IsCameraInBox = false;
 	bool IsCameraInCircle = false;
-
-	int CountLights = 0;
 	float Distance = 0;
 	glm::vec3 *MinVertexBox, *MaxVertexBox;
 
-	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-	Shader::bind( TestRender );
-
-	glEnable( GL_DEPTH_TEST );
-	glClear( GL_STENCIL_BUFFER_BIT );
-	glStencilFunc( GL_ALWAYS, 0, 0 );
-
-	for ( size_t i = StartIndex; i < Visible_SpotLight && i < EndIndex; i++ )
+	if ( PositionCamera != NULL )
 	{
-		SpotLight* SpotLight = LightBuffer_SpotLight[ i ];
+		MaxVertexBox = &SpotLight->LightCone.BoundingBox.GetMaxVertex();
+		MinVertexBox = &SpotLight->LightCone.BoundingBox.GetMinVertex();
+		Distance = PositionCamera->z - SpotLight->Position.z;
 
-		if ( PositionCamera != NULL )
-		{
-			MaxVertexBox = &SpotLight->LightCone.BoundingBox.GetMaxVertex();
-			MinVertexBox = &SpotLight->LightCone.BoundingBox.GetMinVertex();
-			Distance = PositionCamera->z - SpotLight->Position.z;
+		if ( PositionCamera->x > MinVertexBox->x && PositionCamera->x < MaxVertexBox->x )
+			if ( PositionCamera->y > MinVertexBox->y && PositionCamera->y < MaxVertexBox->y )
+				if ( PositionCamera->z > MinVertexBox->z && PositionCamera->z < MaxVertexBox->z )
+					IsCameraInBox = true;
 
-			if ( PositionCamera->x > MinVertexBox->x && PositionCamera->x < MaxVertexBox->x )
-				if ( PositionCamera->y > MinVertexBox->y && PositionCamera->y < MaxVertexBox->y )
-					if ( PositionCamera->z > MinVertexBox->z && PositionCamera->z < MaxVertexBox->z )
-						IsCameraInBox = true;
-
-			IsCameraInCircle = Distance > -SpotLight->Radius && Distance < SpotLight->Radius;
-		}
-
-		if ( SpotLight->LightCone.Query.GetResult() > 0 || IsCameraInBox && IsCameraInCircle )
-		{
-			TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Position", SpotLight->Position );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Intensivity", SpotLight->Intensivity );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Color", SpotLight->Color );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotDirection", SpotLight->SpotDirection );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].Height", SpotLight->LightCone.GetHeight() );
-			SpotLightRender->setUniform( "light[" + to_string( CountLights ) + "].SpotCutoff", SpotLight->SpotCutoff );
-			SpotLight->LightCone.RenderCone();
-
-			CountLights++;
-		}
+		IsCameraInCircle = Distance > -SpotLight->Radius && Distance < SpotLight->Radius;
 	}
 
-	glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
-
-	if ( CountLights > 0 )
+	if ( SpotLight->LightCone.Query.GetResult() > 0 || IsCameraInBox && IsCameraInCircle )
 	{
+		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+		Shader::bind( TestRender );
+
+		glEnable( GL_DEPTH_TEST );
+		glClear( GL_STENCIL_BUFFER_BIT );
+		glStencilFunc( GL_ALWAYS, 0, 0 );
+
+		TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+		SpotLightRender->setUniform( "light.Position", SpotLight->Position );
+		SpotLightRender->setUniform( "light.Intensivity", SpotLight->Intensivity );
+		SpotLightRender->setUniform( "light.Color", SpotLight->Color );
+		SpotLightRender->setUniform( "light.SpotDirection", SpotLight->SpotDirection );
+		SpotLightRender->setUniform( "light.Height", SpotLight->LightCone.GetHeight() );
+		SpotLightRender->setUniform( "light.SpotCutoff", SpotLight->SpotCutoff );
+		SpotLight->LightCone.RenderCone();
+
+		glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
 		Shader::bind( SpotLightRender );
-		SpotLightRender->setUniform( "CountLights", CountLights );
 
 		glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 		glDisable( GL_DEPTH_TEST );

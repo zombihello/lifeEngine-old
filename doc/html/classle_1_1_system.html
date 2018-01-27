@@ -68,6 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="#pub-static-attribs">Статические открытые данные</a> &#124;
 <a href="classle_1_1_system-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Класс le::System</div>  </div>
@@ -94,9 +95,6 @@ $(function() {
 <tr class="memitem:a652bcd765f9e75ca571c231daaa4554d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#a652bcd765f9e75ca571c231daaa4554d">MainLoop</a> (<a class="el" href="classle_1_1_basic_application.html">BasicApplication</a> &amp;Application)</td></tr>
 <tr class="memdesc:a652bcd765f9e75ca571c231daaa4554d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Главный цикл игры  <a href="#a652bcd765f9e75ca571c231daaa4554d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a652bcd765f9e75ca571c231daaa4554d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdf5b9960d1c2799cb389d818014de4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structle_1_1_configuration.html">Configuration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#abdf5b9960d1c2799cb389d818014de4e">GetConfiguration</a> ()</td></tr>
-<tr class="memdesc:abdf5b9960d1c2799cb389d818014de4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить конфигурации окна  <a href="#abdf5b9960d1c2799cb389d818014de4e">Подробнее...</a><br /></td></tr>
-<tr class="separator:abdf5b9960d1c2799cb389d818014de4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5b77bbb01775668b89028c01937c535"><td class="memItemLeft" align="right" valign="top">RenderWindow &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#aa5b77bbb01775668b89028c01937c535">GetWindow</a> ()</td></tr>
 <tr class="memdesc:aa5b77bbb01775668b89028c01937c535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить окно  <a href="#aa5b77bbb01775668b89028c01937c535">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa5b77bbb01775668b89028c01937c535"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +110,13 @@ $(function() {
 <tr class="memitem:aa49df86ebf08d7f01673d498954c9ba6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#aa49df86ebf08d7f01673d498954c9ba6">DirectoryExists</a> (const string &amp;RouteToDirectory)</td></tr>
 <tr class="memdesc:aa49df86ebf08d7f01673d498954c9ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка на существование директории  <a href="#aa49df86ebf08d7f01673d498954c9ba6">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa49df86ebf08d7f01673d498954c9ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Статические открытые данные</h2></td></tr>
+<tr class="memitem:af2603f2fa3e913f075771393a46385e0"><td class="memItemLeft" align="right" valign="top"><a id="af2603f2fa3e913f075771393a46385e0"></a>
+static <a class="el" href="structle_1_1_configuration.html">Configuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_system.html#af2603f2fa3e913f075771393a46385e0">Configuration</a> = <a class="el" href="structle_1_1_configuration.html">le::Configuration</a>()</td></tr>
+<tr class="memdesc:af2603f2fa3e913f075771393a46385e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конфигурации движка <br /></td></tr>
+<tr class="separator:af2603f2fa3e913f075771393a46385e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Класс необходимый для работы движка </p>
@@ -236,26 +241,6 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>Возвращает</dt><dd>true - если файл есть, иначе false </dd></dl>
-
-</div>
-</div>
-<a id="abdf5b9960d1c2799cb389d818014de4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdf5b9960d1c2799cb389d818014de4e">&#9670;&nbsp;</a></span>GetConfiguration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structle_1_1_configuration.html">le::Configuration</a> &amp; le::System::GetConfiguration </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Получить конфигурации окна </p>
-<dl class="section return"><dt>Возвращает</dt><dd>const <a class="el" href="structle_1_1_configuration.html" title="Структура хранящая конфигурации окна ">Configuration</a>&amp; </dd></dl>
 
 </div>
 </div>

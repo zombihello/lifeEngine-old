@@ -42,6 +42,7 @@ namespace le
 		int					FrameLimit; ///< Макс. FPS
 		int					AntialiasingLevel; ///< Уровень сглаживания
 		int					FOV; ///< Угол обзора
+		int					RenderDistance; ///< Дальность прорисовки
 		float				Time; ///< Прошедшие время
 
 		static bool			IsWireframeRender; ///< Включен ли каркасный рендер

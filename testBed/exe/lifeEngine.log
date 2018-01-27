@@ -10,7 +10,10 @@ lifeEngine v3.0.0
   OpenGL GLSL Version: 4.40
   Max Floats in Fragment Shader: 16384
   Max Floats in Vertex Shader: 16384
+  Max Texture Image Units: 18
 *** OpenGL Info End ***
+[Info] Loading Shader With Name [ShadowMap]
+[Info] Shader With Name [ShadowMap] Loaded
 [Info] Loading Mesh [../models/leanna.lmd]
 [Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
 [Info] Texture With Name [leanna.tga] Loaded
@@ -73,7 +76,6 @@ lifeEngine v3.0.0
 [Info] Level [../maps/test.lmap] Loaded
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 192.000000 32.000000 -48.000000
   Color: 255.000000 0.000000 0.000000 255.000000
@@ -81,7 +83,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: -80.000000 32.000000 112.000000
   Color: 0.000000 255.000000 0.000000 255.000000
@@ -89,7 +90,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 200.000000 128.000000 88.000000
   Color: 0.000000 0.000000 255.000000 255.000000
@@ -97,7 +97,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: -72.000000 128.000000 -40.000000
   Color: 150.000000 125.000000 110.000000 255.000000
@@ -105,7 +104,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 300.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 48.000000 64.000000 16.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -113,7 +111,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: -72.000000 128.000000 96.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -121,7 +118,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 200.000000 128.000000 -32.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -129,7 +125,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 352.000000 48.000000 0.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -137,7 +132,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 656.000000 64.000000 0.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -145,14 +139,12 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 45.000000
-  StaticLight: 1
   Intensivity: 1.000000
   Position: 488.000000 52.000000 -8.000000
   Color: 153.000000 217.000000 234.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
 [Info] Creating Directional Light
-  StaticLight: 1
   Intensivity: 0.500000
   Position: -128.000000 288.000000 -544.000000
   Color: 255.000000 255.000000 255.000000 255.000000
@@ -162,7 +154,6 @@ lifeEngine v3.0.0
   Cone Radius: 100.000000
   Cone Height: 100.000000
   Spot Cutoff: 0.707107
-  StaticLight: 1
   Intensivity: 5.000000
   Position: 480.000000 32.000000 -432.000000
   Spot Direction: -0.825022 -0.166619 -0.539979
@@ -172,7 +163,6 @@ lifeEngine v3.0.0
 [Info] Created Spotlight
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 2.000000
   Position: 552.000000 48.000000 -440.000000
   Color: 228.000000 211.000000 112.000000 255.000000
@@ -180,7 +170,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 2.000000
   Position: 264.000000 48.000000 -440.000000
   Color: 228.000000 211.000000 112.000000 255.000000
@@ -188,7 +177,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 100.000000
-  StaticLight: 1
   Intensivity: 2.000000
   Position: -16.000000 56.000000 -440.000000
   Color: 228.000000 211.000000 112.000000 255.000000
@@ -196,7 +184,6 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Creating Point Light
   Radius: 200.000000
-  StaticLight: 1
   Intensivity: 2.000000
   Position: 40.000000 56.000000 -264.000000
   Color: 228.000000 211.000000 112.000000 255.000000
@@ -206,7 +193,6 @@ lifeEngine v3.0.0
   Cone Radius: 150.000000
   Cone Height: 150.000000
   Spot Cutoff: 0.707107
-  StaticLight: 1
   Intensivity: 2.000000
   Position: 0.000000 0.000000 0.000000
   Spot Direction: 0.000000 -1.000000 0.000000
@@ -214,6 +200,14 @@ lifeEngine v3.0.0
   Color: 228.000000 211.000000 112.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
+[Info] Creating Point Light
+  Radius: 242.000000
+  Intensivity: 1.000000
+  Position: 429.377686 42.863617 -9.859653
+  Color: 64.000000 224.000000 161.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Point Light
+[Info] Shader With Name [ShadowMap] Deleted
 [Info] Texture With Name [brick1.jpg] Deleted
 [Info] Texture With Name [brick2.jpg] Deleted
 [Info] Texture With Name [brick3.jpg] Deleted

@@ -26,13 +26,10 @@ using namespace std;
 #include <Graphics\PointLight.h>
 #include <Graphics\DirectionalLight.h>
 #include <Graphics\SpotLight.h>
+#include <Graphics\Scene.h>
 
 namespace le
 {
-	//-------------------------------------------------------------------------//
-
-	class Scene;
-
 	//-------------------------------------------------------------------------//
 
 	//////////////////////////////////////////////////////////////////////
@@ -55,6 +52,20 @@ namespace le
 		/// \brief Добавить все источники света на сцену
 		//////////////////////////////////////////////////////////////////////
 		void AddLightsToScene( Scene& Scene );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Построить карты теней
+		//////////////////////////////////////////////////////////////////////
+		void BuildShadowMaps();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Построить карты теней
+		///
+		/// \param[in] GeometryLevel Массив геометрии уровня (браши)
+		/// \param[in] GeometryStaticModels Массив статичных моделей
+		/// \param[in] GeometryAnimationModels Массив динамических моделей
+		//////////////////////////////////////////////////////////////////////
+		void BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 
@@ -260,6 +271,7 @@ namespace le
 	private:
 
 		Scene*								Scene; ///< Сцена на котором находятся источники света
+		Shader*								ShadowMapRender; ///< Шейдер для построения карты теней
 
 		vector<PointLight>					PointLights; ///< Массив точечных источников света
 		vector<SpotLight>					SpotLights; ///< Массив прожекторных источников света

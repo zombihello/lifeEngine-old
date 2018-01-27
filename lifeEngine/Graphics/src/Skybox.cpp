@@ -15,7 +15,7 @@ le::Skybox::Skybox( System& System ) :
 {
 	ResourcesManager::LoadShader( "Skybox", "../shaders/SkyboxRender.vs", "../shaders/SkyboxRender.fs" );
 	SkyboxRender = ResourcesManager::GetShader( "Skybox" );
-	ProjectionMatrix = &System.GetConfiguration().ProjectionMatrix;
+	ProjectionMatrix = &System.Configuration.ProjectionMatrix;
 
 	glm::vec3 Vertexes[] =
 	{

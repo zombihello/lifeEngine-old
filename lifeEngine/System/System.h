@@ -123,23 +123,17 @@ namespace le
 		static bool DirectoryExists( const string& RouteToDirectory );
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить конфигурации окна
-		///
-		/// \return const Configuration&
-		//////////////////////////////////////////////////////////////////////
-		Configuration& GetConfiguration();
-
-		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить окно
 		///
 		/// \return RenderWindow&
 		//////////////////////////////////////////////////////////////////////
 		RenderWindow& GetWindow();
 
+		static Configuration			Configuration; ///< Конфигурации движка
+
 	private:
 
-		bool					IsLostFocus; ///< Окно потеряло ли фокус
-		Configuration			Configuration; ///< Конфигурации движка
+		bool					IsLostFocus; ///< Окно потеряло ли фокус		
 		RenderWindow			RenderWindow; ///< Окно игры
 		Event                   Event; ///< Cобытия окна
 		Clock					Clock; ///< Счетчик прошедшего времени

@@ -8,7 +8,7 @@
 
 le::BasicApplication::BasicApplication( le::System& System )
 {
-	Configuration = &System.GetConfiguration();
+	Configuration = &System.Configuration;
 	this->System = &System;
 }
 

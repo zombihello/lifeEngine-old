@@ -4,7 +4,6 @@ var searchData=
   ['scene',['Scene',['../classle_1_1_scene.html#aac68299027a53d7531b5c17eb5ca158b',1,'le::Scene']]],
   ['setcamera',['SetCamera',['../classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea',1,'le::Scene']]],
   ['setcolor',['SetColor',['../classle_1_1_base_light.html#a2627b7b5e44765702326955430195836',1,'le::BaseLight']]],
-  ['setdinamiclight',['SetDinamicLight',['../classle_1_1_base_light.html#ab354821d1881c20cda542438d02a13dc',1,'le::BaseLight']]],
   ['seterrortexture',['SetErrorTexture',['../classle_1_1_resources_manager.html#a46036e608d21ee9677b57ff4e76a83f0',1,'le::ResourcesManager']]],
   ['setfps',['SetFPS',['../classle_1_1_animation.html#a471a7bea24354c2dabb976ee34a3c6d4',1,'le::Animation']]],
   ['setheight',['SetHeight',['../classle_1_1_light_cone.html#a49d1252df199906d3ed238ead02c2576',1,'le::LightCone::SetHeight()'],['../classle_1_1_spot_light.html#a15ad3393d9a20a16b02a542108ed3d97',1,'le::SpotLight::SetHeight()']]],

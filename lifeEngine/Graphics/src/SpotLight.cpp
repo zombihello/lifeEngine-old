@@ -12,7 +12,6 @@ le::SpotLight::SpotLight() :
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( 25 ) );
 	Logger::Log( Logger::None, "  Cone Height: " + to_string( 45 ) );
 	Logger::Log( Logger::None, "  Spot Cutoff: " + to_string( SpotCutoff ) );
-	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Spot Direction: " + to_string( SpotDirection.x ) + " " + to_string( SpotDirection.y ) + " " + to_string( SpotDirection.z ) );
@@ -22,7 +21,6 @@ le::SpotLight::SpotLight() :
 
 	LightCone.InitCone( 45, 25 );
 	LightCone.SetPosition( Position );
-	InitShadowMap();
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -68,7 +66,6 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	Logger::Log( Logger::None, "  Cone Radius: " + to_string( Radius ) );
 	Logger::Log( Logger::None, "  Cone Height: " + to_string( Height ) );
 	Logger::Log( Logger::None, "  Spot Cutoff: " + to_string( SpotCutoff ) );
-	Logger::Log( Logger::None, "  StaticLight: " + to_string( IsStaticLight ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Spot Direction: " + to_string( SpotDirection.x ) + " " + to_string( SpotDirection.y ) + " " + to_string( SpotDirection.z ) );
@@ -85,7 +82,6 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );
 	LightCone.SetRotation( QuatRotation );
-	InitShadowMap();
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }

@@ -92,6 +92,13 @@ $(function() {
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd">AddLightsToScene</a> (<a class="el" href="classle_1_1_scene.html">Scene</a> &amp;<a class="el" href="classle_1_1_scene.html">Scene</a>)</td></tr>
 <tr class="memdesc:a272725e354dc3aa32a24865e7b15b0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить все источники света на сцену <br /></td></tr>
 <tr class="separator:a272725e354dc3aa32a24865e7b15b0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc073609eea75e2fc25c4290553c8e51"><td class="memItemLeft" align="right" valign="top"><a id="afc073609eea75e2fc25c4290553c8e51"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#afc073609eea75e2fc25c4290553c8e51">BuildShadowMaps</a> ()</td></tr>
+<tr class="memdesc:afc073609eea75e2fc25c4290553c8e51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней <br /></td></tr>
+<tr class="separator:afc073609eea75e2fc25c4290553c8e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13035c4713206af3687de60abef80d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a13035c4713206af3687de60abef80d71">BuildShadowMaps</a> (map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryLevel, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryStaticModels, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryAnimationModels)</td></tr>
+<tr class="memdesc:a13035c4713206af3687de60abef80d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#a13035c4713206af3687de60abef80d71">Подробнее...</a><br /></td></tr>
+<tr class="separator:a13035c4713206af3687de60abef80d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a40114d4cbe1a69bea8f9ee34ebaa1d7b">AddPointLight</a> (const string &amp;NameLight, float Radius, const glm::vec3 &amp;Position, const glm::vec4 &amp;Color, float Intensivity=1.f, const glm::vec4 &amp;Specular=glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))</td></tr>
 <tr class="memdesc:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить точечный источник света  <a href="#a40114d4cbe1a69bea8f9ee34ebaa1d7b">Подробнее...</a><br /></td></tr>
 <tr class="separator:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -481,6 +488,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">NameLight</td><td>Название света </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_spot_light.html" title="Класс прожекторного света ">SpotLight</a></td><td>Прожекторный свет </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a13035c4713206af3687de60abef80d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13035c4713206af3687de60abef80d71">&#9670;&nbsp;</a></span>BuildShadowMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::LightManager::BuildShadowMaps </td>
+          <td>(</td>
+          <td class="paramtype">map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GeometryLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GeometryStaticModels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>GeometryAnimationModels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Построить карты теней </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">GeometryLevel</td><td>Массив геометрии уровня (браши) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">GeometryStaticModels</td><td>Массив статичных моделей </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">GeometryAnimationModels</td><td>Массив динамических моделей </td></tr>
   </table>
   </dd>
 </dl>
