@@ -9,7 +9,7 @@ le::LightManager::LightManager() :
 	Scene( NULL ),
 	ShadowMapRender( NULL )
 {
-	ResourcesManager::LoadShader( "ShadowMap", "../shaders/ShadowMapRender.vs", "../shaders/ShadowMapRender.fs" );
+	ResourcesManager::LoadShader( "ShadowMap", "../shaders/light/ShadowMapRender.vs", "../shaders/light/ShadowMapRender.fs" );
 
 	ShadowMapRender = ResourcesManager::GetShader( "ShadowMap" );
 }
@@ -62,11 +62,11 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 		{
 			PointLight* PointLight = &PointLights[ i ];
 
-			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );
+			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );		
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			for ( int Face = 0; Face < 6; Face++ )
-			{
+			{				
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
@@ -97,10 +97,8 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 	
 			OffsetX = OffsetY = 0;
 		}
-
+	
 	//TODO: [zombiHello] Добавить тени от других видов света
-	//TODO: [zombiHello] Сделать построение тени для стат. моделей
-	//TODO: [zombiHello] Сделать построение тени для дин. моделей
 
 	Shader::bind( NULL );
 

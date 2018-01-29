@@ -8,7 +8,7 @@ le::Camera::Camera( System& System ) :
 	InclinationCamera( 0 )
 {
 	RenderWindow = &System.GetWindow();
-	ProjectionMatrix = &System.Configuration.ProjectionMatrix;
+	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
 }
 
 //-------------------------------------------------------------------------//

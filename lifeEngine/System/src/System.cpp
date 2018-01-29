@@ -25,6 +25,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.FrameLimit = Config.GetValueInt( "FrameLimit" );
 		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
+		Configuration.QualityLight = Config.GetValueInt( "QualityLight" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 	}
 	else
@@ -35,8 +36,11 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "Width", Configuration.WindowSize.x );
 		Config.WriteValue( "Height", Configuration.WindowSize.y );
 		Config.WriteValue( "FrameLimit", Configuration.FrameLimit );
+
+		Config.WriteGroup( "GRAPHICS" );
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
 		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
+		Config.WriteValue( "QualityLight", Configuration.QualityLight );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );
 	}

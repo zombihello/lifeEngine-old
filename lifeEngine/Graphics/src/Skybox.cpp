@@ -5,7 +5,7 @@
 
 //-------------------------------------------------------------------------//
 
-le::Skybox::Skybox( System& System ) :
+le::Skybox::Skybox() :
 	CubeTexture ( 0 ),
 	SizeSkybox( 1 ),
 	IsLoadSkybox( false ),
@@ -13,9 +13,9 @@ le::Skybox::Skybox( System& System ) :
 	PositionCamera( NULL ),
 	ViewMatrix( NULL )
 {
-	ResourcesManager::LoadShader( "Skybox", "../shaders/SkyboxRender.vs", "../shaders/SkyboxRender.fs" );
+	ResourcesManager::LoadShader( "Skybox", "../shaders/geometry/SkyboxRender.vs", "../shaders/geometry/SkyboxRender.fs" );
 	SkyboxRender = ResourcesManager::GetShader( "Skybox" );
-	ProjectionMatrix = &System.Configuration.ProjectionMatrix;
+	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
 
 	glm::vec3 Vertexes[] =
 	{

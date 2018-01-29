@@ -1,4 +1,5 @@
 ﻿#include "../Configuration.h"
+#include <Graphics\LightManager.h>
 
 //-------------------------------------------------------------------------//
 
@@ -10,10 +11,10 @@ le::Configuration::Configuration() :
 	WindowSize( 800, 600 ),
 	FrameLimit( 0 ),
 	AntialiasingLevel( 0 ),
-	RenderDistance( 90 ),
+	RenderDistance( 1500 ),
+	QualityLight( LightManager::Low ),
 	FOV( 75 ),
 	Time( 0 )
 {}
 
 //-------------------------------------------------------------------------//
-

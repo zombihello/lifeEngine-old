@@ -15,7 +15,7 @@ inline bool sortFUNCTION( le::Scene::InfoMesh* InfoMesh_1, le::Scene::InfoMesh* 
 
 //-------------------------------------------------------------------------//
 
-le::Scene::Scene( System& System ) :
+le::Scene::Scene() :
 	Visible_PointLight( 0 ),
 	Visible_SpotLight( 0 ),
 	Visible_Models( 0 ),
@@ -31,16 +31,34 @@ le::Scene::Scene( System& System ) :
 	PositionCamera( NULL ),
 	PointLightRender( NULL )
 {
-	ProjectionMatrix = &System.Configuration.ProjectionMatrix;
+	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
 
-	ResourcesManager::LoadShader( "AnimationModels", "../shaders/AnimationModelsRender.vs", "../shaders/AnimationModelsRender.fs" );
-	ResourcesManager::LoadShader( "StaticModels", "../shaders/StaticModelsRender.vs", "../shaders/StaticModelsRender.fs" );
-	ResourcesManager::LoadShader( "Brushes", "../shaders/LevelRender.vs", "../shaders/LevelRender.fs" );
+	string PointLight_FragmentShader;
+
+	switch ( System::Configuration.QualityLight )
+	{
+	case LightManager::Low:
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_Low.fs";
+		break;
+
+	case LightManager::Medium:
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_Medium.fs";
+		break;
+
+	default:
+	case LightManager::High:
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_High.fs";
+		break;
+	}
+
+	ResourcesManager::LoadShader( "AnimationModels", "../shaders/geometry/AnimationModelsRender.vs", "../shaders/geometry/AnimationModelsRender.fs" );
+	ResourcesManager::LoadShader( "StaticModels", "../shaders/geometry/StaticModelsRender.vs", "../shaders/geometry/StaticModelsRender.fs" );
+	ResourcesManager::LoadShader( "Brushes", "../shaders/geometry/LevelRender.vs", "../shaders/geometry/LevelRender.fs" );
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
-	ResourcesManager::LoadShader( "PointLight", "../shaders/PointLight.vs", "../shaders/PointLight.fs" );
-	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/DirectionalLightRender.vs", "../shaders/DirectionalLightRender.fs" );
-	ResourcesManager::LoadShader( "SpotLight", "../shaders/SpotLightRender.vs", "../shaders/SpotLightRender.fs" );
+	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
+	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", "../shaders/light/DirectionalLightRender.fs" );
+	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", "../shaders/light/SpotLightRender.fs" );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
@@ -50,22 +68,22 @@ le::Scene::Scene( System& System ) :
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
-	PointLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
+	PointLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
 	PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	PointLightRender->setUniform( "PositionMap", GBuffer::Position );
 	PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
 	PointLightRender->setUniform( "ShadowMap", 3 );
 
-	SpotLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
+	SpotLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
 	SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
 	SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
-	DirectionalLightRender->setUniform( "ScreenSize", System.Configuration.WindowSize );
+	DirectionalLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
 	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
 
-	GBuffer.InitGBuffer( System.Configuration.WindowSize );
+	GBuffer.InitGBuffer( System::Configuration.WindowSize );
 	LightQuad.InitQuad( 1.f );
 }
 
@@ -349,9 +367,9 @@ void le::Scene::FrustumCulling()
 			if ( !Frustum->IsVisible( *Ptr_InfoMesh->BoundingBox ) )
 				Ptr_InfoMesh->IsRender = false;
 			else
-			{		
+			{
 				Ptr_InfoMesh->DistanceToCamera = Camera->GetDistance( *Ptr_InfoMesh->Position );
-				
+
 				if ( Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
 					continue;
 

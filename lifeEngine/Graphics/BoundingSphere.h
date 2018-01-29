@@ -13,6 +13,9 @@
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
+#pragma warning( push )
+
+#pragma warning( disable: 4251 ) 
 
 ///////////////////////////
 // СИСТЕМНЫЕ БИБЛИОТЕКИ
@@ -138,5 +141,6 @@ namespace le
 	//-------------------------------------------------------------------------//
 }
 
+#pragma warning( pop )
 #endif // BOUNDING_SPHERE_H
 

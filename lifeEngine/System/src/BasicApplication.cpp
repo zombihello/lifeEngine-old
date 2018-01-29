@@ -8,8 +8,8 @@
 
 le::BasicApplication::BasicApplication( le::System& System )
 {
-	Configuration = &System.Configuration;
 	this->System = &System;
+	this->Configuration = &System::Configuration;
 }
 
 //-------------------------------------------------------------------------//

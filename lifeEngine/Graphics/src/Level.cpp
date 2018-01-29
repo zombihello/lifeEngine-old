@@ -6,7 +6,7 @@
 le::Level::Level( System& System ) :
 	Scene( NULL )
 {
-	Skybox = new le::Skybox( System );
+	Skybox = new le::Skybox();
 	Skybox->SetSizeSkybox( 500 );
 }
 

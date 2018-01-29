@@ -11,14 +11,14 @@
 class Game : public le::BasicApplication
 {
 public:
-	Game( le::System& System ) : le::BasicApplication( System )
+	Game( le::System& System, const string& NameMap ) : le::BasicApplication( System )
 	{
 		le::ResourcesManager::SetErrorTexture( "../textures/Error.png" );
 
 		model.LoadModel( "Leanna", "../models/leanna.lmd" );
 		model.GetAnimationManager()->Play( "leanna_anim", true );
 
-		Scene = new le::Scene( System );
+		Scene = new le::Scene();
 		GBuffer = &Scene->GetGBuffer();
 		Scene->AddModelToScene( &model );
 
@@ -26,7 +26,7 @@ public:
 		Scene->SetCamera( *Camera );
 
 		Level = new le::Level( System );
-		Level->LoadLevel( "../maps/test.lmap" );
+		Level->LoadLevel( "../maps/" + NameMap + ".lmap" );
 		Level->AddToScene( *Scene );
 
 		glm::vec3 LightPosition, LightRotation;
@@ -95,16 +95,16 @@ public:
 		}
 
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			Camera->Move( le::Camera::Forward, 1 * Configuration->Time );
+			Camera->Move( le::Camera::Forward, Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			Camera->Move( le::Camera::Back, 1 * Configuration->Time );
+			Camera->Move( le::Camera::Back, Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
-			Camera->Move( le::Camera::Left, 1 * Configuration->Time );
+			Camera->Move( le::Camera::Left, Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
-			Camera->Move( le::Camera::Right, 1 * Configuration->Time );
+			Camera->Move( le::Camera::Right, Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::Q ) )
 			le::System::SetWireframeRender( true );
@@ -148,10 +148,34 @@ public:
 
 int main( int argc, char** argv )
 {
+	int IndexMap;
+	string NameMap;
+
+	cout << "*******************\n";
+	cout << "*    Select Map   *\n";
+	cout << "* 1. base         *\n";
+	cout << "* 2. shadows      *\n";
+	cout << "*******************\n\n";
+
+	cout << "> Select: ";
+	cin >> IndexMap;
+	cout << endl;
+
+	switch ( IndexMap )
+	{
+	case 2:
+		NameMap = "shadows";
+		break;
+
+	default:
+		NameMap = "base";
+		break;
+	}
+
 	le::System System( argc, argv, "../config.cfg", "../" ENGINE ".log" );
 	System.WindowCreate( ENGINE " | " ENGINE_VERSION, Style::Default );
 
-	Game Game( System );
+	Game Game( System, NameMap );
 	System.MainLoop( Game );
 
 	return 0;
