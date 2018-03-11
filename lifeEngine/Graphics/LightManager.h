@@ -41,9 +41,10 @@ namespace le
 
 		//-------------------------------------------------------------------------//
 
-		enum QualityLight
+		enum QualityShadows
 		{
-			Low = 1,
+			None,
+			Low,
 			Medium,
 			High
 		};

@@ -43,7 +43,7 @@ namespace le
 		int					AntialiasingLevel; ///< Уровень сглаживания
 		int					FOV; ///< Угол обзора
 		int					RenderDistance; ///< Дальность прорисовки
-		int					QualityLight; ///< Качество теней
+		int					QualityShadows; ///< Качество теней
 		float				Time; ///< Прошедшие время
 
 		static bool			IsWireframeRender; ///< Включен ли каркасный рендер

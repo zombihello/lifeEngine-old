@@ -53,6 +53,7 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 	vector<le::Scene::InfoMesh*>*	Ptr_GeometryBuffer;
 
 	Shader::bind( ShadowMapRender );
+	ShadowMapRender->setUniform( "IsPointLight", true );
 
 	// ***************************************** //
 	// Строим карту теней для точечных источников
@@ -62,11 +63,11 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 		{
 			PointLight* PointLight = &PointLights[ i ];
 
-			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );		
-			glClear( GL_DEPTH_BUFFER_BIT );
+			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );	
+			glClear( GL_DEPTH_BUFFER_BIT );			
 
 			for ( int Face = 0; Face < 6; Face++ )
-			{				
+			{
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
@@ -98,6 +99,36 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 			OffsetX = OffsetY = 0;
 		}
 	
+	// ***************************************** //
+	// Строим карту теней для прожекторных источников
+
+	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
+	ShadowMapRender->setUniform( "IsPointLight", false );
+
+	for ( size_t i = 0; i < SpotLights.size(); i++ )
+		if ( SpotLights[ i ].InitShadowMap() )
+		{
+			SpotLight* SpotLight = &SpotLights[ i ];
+
+			glBindFramebuffer( GL_FRAMEBUFFER, SpotLight->ShadowMap_FBO );
+			glClear( GL_DEPTH_BUFFER_BIT );
+
+			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
+
+			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
+			{
+				Ptr_GeometryBuffer = &it->second;
+
+				for ( size_t j = 0; j < Ptr_GeometryBuffer->size(); j++ )
+				{
+					Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ j ];
+
+					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
+					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				}
+			}
+		}
+
 	//TODO: [zombiHello] Добавить тени от других видов света
 
 	Shader::bind( NULL );

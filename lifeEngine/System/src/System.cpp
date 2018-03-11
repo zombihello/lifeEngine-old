@@ -25,7 +25,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.FrameLimit = Config.GetValueInt( "FrameLimit" );
 		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
-		Configuration.QualityLight = Config.GetValueInt( "QualityLight" );
+		Configuration.QualityShadows = Config.GetValueInt( "QualityShadows" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 	}
 	else
@@ -40,12 +40,12 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteGroup( "GRAPHICS" );
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
 		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
-		Config.WriteValue( "QualityLight", Configuration.QualityLight );
+		Config.WriteValue( "QualityShadows", Configuration.QualityShadows );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );
 	}
 
-	Configuration.ProjectionMatrix = glm::perspective( glm::radians( NUMBER_TO_FLOAT( Configuration.FOV ) ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, 1500.0f );
+	Configuration.ProjectionMatrix = glm::perspective( glm::radians( NUMBER_TO_FLOAT( Configuration.FOV ) ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, NUMBER_TO_FLOAT( Configuration.RenderDistance ) );
 }
 
 //-------------------------------------------------------------------------//

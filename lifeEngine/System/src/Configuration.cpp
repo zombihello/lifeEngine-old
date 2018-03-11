@@ -12,7 +12,7 @@ le::Configuration::Configuration() :
 	FrameLimit( 0 ),
 	AntialiasingLevel( 0 ),
 	RenderDistance( 1500 ),
-	QualityLight( LightManager::Low ),
+	QualityShadows( LightManager::Low ),
 	FOV( 75 ),
 	Time( 0 )
 {}

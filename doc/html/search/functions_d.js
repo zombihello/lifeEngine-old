@@ -1,7 +1,7 @@
 var searchData=
 [
   ['saveinfile',['SaveInFile',['../classle_1_1_config_file.html#a4acf355992015a169b8077b62a66af1c',1,'le::ConfigFile']]],
-  ['scene',['Scene',['../classle_1_1_scene.html#aac68299027a53d7531b5c17eb5ca158b',1,'le::Scene']]],
+  ['scene',['Scene',['../classle_1_1_scene.html#ac4c732508a6406253391853b67112845',1,'le::Scene']]],
   ['setcamera',['SetCamera',['../classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea',1,'le::Scene']]],
   ['setcolor',['SetColor',['../classle_1_1_base_light.html#a2627b7b5e44765702326955430195836',1,'le::BaseLight']]],
   ['seterrortexture',['SetErrorTexture',['../classle_1_1_resources_manager.html#a46036e608d21ee9677b57ff4e76a83f0',1,'le::ResourcesManager']]],
@@ -25,7 +25,7 @@ var searchData=
   ['setvertexattribpointer',['SetVertexAttribPointer',['../classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3',1,'le::VAO']]],
   ['setwireframerender',['SetWireframeRender',['../classle_1_1_system.html#ac3e4025e90a73de08c8de8e2bafe228d',1,'le::System']]],
   ['showdebug',['ShowDebug',['../classle_1_1_g_buffer.html#afd9385f91ec3648c66238a63b8987689',1,'le::GBuffer::ShowDebug()'],['../classle_1_1_g_buffer.html#a253283cb007919c598a5a5bbf167b1a0',1,'le::GBuffer::ShowDebug(const glm::vec2 &amp;SizeWindow)']]],
-  ['skybox',['Skybox',['../classle_1_1_skybox.html#ab958412d29623eaa9bdcd696a15624a2',1,'le::Skybox::Skybox(System &amp;System)'],['../classle_1_1_skybox.html#aad0548a8cf95317b156d866d9394b9a1',1,'le::Skybox::Skybox(Skybox &amp;Copy)']]],
+  ['skybox',['Skybox',['../classle_1_1_skybox.html#a07ae5c4b86bae6c71f971754a3c60cd6',1,'le::Skybox::Skybox()'],['../classle_1_1_skybox.html#aad0548a8cf95317b156d866d9394b9a1',1,'le::Skybox::Skybox(Skybox &amp;Copy)']]],
   ['spotlight',['SpotLight',['../classle_1_1_spot_light.html#a4eaedf81e06063ba4ab9c9186a6da960',1,'le::SpotLight::SpotLight()'],['../classle_1_1_spot_light.html#ae00a0f33131057599b9d75c07218c0e7',1,'le::SpotLight::SpotLight(const SpotLight &amp;Copy)'],['../classle_1_1_spot_light.html#a8b9341abd7a17ad940a0aaa31da086c2',1,'le::SpotLight::SpotLight(float Radius, float Height, const glm::vec3 &amp;Rotation, const glm::vec3 &amp;Position, const glm::vec4 &amp;Color, float Intensivity=1.f, const glm::vec4 &amp;Specular=glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))']]],
   ['start',['Start',['../classle_1_1_query.html#a2d4f14e7a451263d3d305a8b3bd41e33',1,'le::Query']]],
   ['startconditionalrender',['StartConditionalRender',['../classle_1_1_query.html#a0a005c16272de73e744eed012e6f80d3',1,'le::Query']]],

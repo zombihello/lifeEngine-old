@@ -35,20 +35,29 @@ le::Scene::Scene() :
 	PVMatrix = *ProjectionMatrix;
 
 	string PointLight_FragmentShader;
+	string SpotLight_FragmentShader;
 
-	switch ( System::Configuration.QualityLight )
+	switch ( System::Configuration.QualityShadows )
 	{
+	case LightManager::None:
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowNone.fs";
+		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowNone.fs";
+		break;
+
 	case LightManager::Low:
-		PointLight_FragmentShader = "../shaders/light/PointLightRender_Low.fs";
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowLow.fs";
+		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowLow.fs";
 		break;
 
 	case LightManager::Medium:
-		PointLight_FragmentShader = "../shaders/light/PointLightRender_Medium.fs";
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowMedium.fs";
+		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowMedium.fs";
 		break;
 
 	default:
 	case LightManager::High:
-		PointLight_FragmentShader = "../shaders/light/PointLightRender_High.fs";
+		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowHigh.fs";
+		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowHigh.fs";
 		break;
 	}
 
@@ -58,7 +67,7 @@ le::Scene::Scene() :
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
 	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
 	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", "../shaders/light/DirectionalLightRender.fs" );
-	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", "../shaders/light/SpotLightRender.fs" );
+	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", SpotLight_FragmentShader );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
@@ -78,6 +87,7 @@ le::Scene::Scene() :
 	SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
 	SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
 	SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
+	SpotLightRender->setUniform( "ShadowMap", 3 );
 
 	DirectionalLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
 	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
@@ -764,6 +774,9 @@ void le::Scene::RenderSpotLight( const size_t& Index )
 
 	if ( SpotLight->LightCone.Query.GetResult() > 0 || IsCameraInBox && IsCameraInCircle )
 	{
+		glActiveTexture( GL_TEXTURE3 );
+		glBindTexture( GL_TEXTURE_2D, SpotLight->ShadowMap );
+
 		glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 		Shader::bind( TestRender );
 
@@ -772,11 +785,12 @@ void le::Scene::RenderSpotLight( const size_t& Index )
 		glStencilFunc( GL_ALWAYS, 0, 0 );
 
 		TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+		SpotLightRender->setUniform( "light.LightMatrix", SpotLight->LightTransforms[ 0 ] );
 		SpotLightRender->setUniform( "light.Position", SpotLight->Position );
 		SpotLightRender->setUniform( "light.Intensivity", SpotLight->Intensivity );
 		SpotLightRender->setUniform( "light.Color", SpotLight->Color );
 		SpotLightRender->setUniform( "light.SpotDirection", SpotLight->SpotDirection );
-		SpotLightRender->setUniform( "light.Height", SpotLight->LightCone.GetHeight() );
+		SpotLightRender->setUniform( "light.Height", SpotLight->Height );
 		SpotLightRender->setUniform( "light.SpotCutoff", SpotLight->SpotCutoff );
 		SpotLight->LightCone.RenderCone();
 

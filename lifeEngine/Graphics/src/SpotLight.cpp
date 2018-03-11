@@ -1,4 +1,5 @@
-﻿#include "..\SpotLight.h"
+﻿#include <System\System.h>
+#include "..\SpotLight.h"
 
 //-------------------------------------------------------------------------//
 
@@ -21,6 +22,10 @@ le::SpotLight::SpotLight() :
 
 	LightCone.InitCone( 45, 25 );
 	LightCone.SetPosition( Position );
+
+	glm::vec3 TempPosition = Position;
+	LightProjection = glm::perspective( SpotCutoff, NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
+	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) ) );
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -83,6 +88,20 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	LightCone.SetPosition( Position );
 	LightCone.SetRotation( QuatRotation );
 
+	glm::vec3 LightDirection, Right, Up;
+
+	LightDirection.x = cos( glm::radians( 0.f ) ) * cos( glm::radians( -90.f ) );
+	LightDirection.y = sin( glm::radians( -90.f ) );
+	LightDirection.z = sin( glm::radians( 0.f ) ) * cos( glm::radians( -90.f ) );
+	LightDirection = glm::normalize( LightDirection );
+
+	Right = glm::normalize( glm::cross( LightDirection, glm::vec3( 0, 1, 0 ) ) );
+	Up = glm::normalize( glm::cross( Right, LightDirection ) );
+
+	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
+	glm::mat4 f = LightProjection * glm::lookAt( Position, Position + LightDirection, Up ); //TODO: [zombiHello] Сделать корректный вектор направления
+	LightTransforms.push_back( f );
+
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
 
@@ -97,6 +116,10 @@ void le::SpotLight::SetRadius( float Radius )
 {
 	LightCone.SetRadius( Radius );
 	this->Radius = Radius;
+
+	glm::vec3 TempPosition = Position;
+	LightProjection = glm::perspective( glm::radians( SpotCutoff ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -105,6 +128,10 @@ void le::SpotLight::SetHeight( float Height )
 {
 	LightCone.SetHeight( Height );
 	this->Height = Height;
+
+	glm::vec3 TempPosition = Position;
+	LightProjection = glm::perspective( glm::radians( SpotCutoff ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -115,6 +142,9 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 	SpotDirection = glm::normalize( SpotDirection );
 
 	LightCone.SetRotation( Rotation );
+
+	glm::vec3 TempPosition = Position;
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -125,6 +155,9 @@ void le::SpotLight::SetRotation( const glm::quat& Rotation )
 	SpotDirection = glm::normalize( SpotDirection );
 
 	LightCone.SetRotation( Rotation );
+
+	glm::vec3 TempPosition = Position;
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -133,6 +166,8 @@ void le::SpotLight::SetPosition( const glm::vec3& Position )
 {
 	this->Position = glm::vec4( Position, 1.0f );
 	LightCone.SetPosition( Position );
+
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, Position + SpotDirection, glm::vec3( 0, 1, 0 ) );
 }
 
 //-------------------------------------------------------------------------//
