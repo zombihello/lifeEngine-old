@@ -18,7 +18,7 @@ le::PointLight::PointLight() :
 	LightSphere.SetPosition( Position );
 
 	glm::vec3 TempPosition = Position;
-	LightProjection = glm::perspective( glm::radians( 90.f ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Radius );
+	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
 	LightTransforms =
 	{
@@ -63,7 +63,7 @@ le::PointLight::PointLight( float Radius, const glm::vec3& Position, const glm::
 	LightSphere.InitSphere( Radius );
 	LightSphere.SetPosition( Position );
 
-	LightProjection = glm::perspective( glm::radians( 90.f ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Radius );
+	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
 	LightTransforms =
 	{
@@ -91,7 +91,7 @@ void le::PointLight::SetRadius( float Radius )
 	LightSphere.SetRadius( Radius );
 
 	glm::vec3 TempPosition = Position;
-	LightProjection = glm::perspective( glm::radians( 90.f ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Radius );
+	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
 	LightTransforms =
 	{

@@ -581,7 +581,7 @@
 <Position X="64" Y="128" Z="176"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
-<Value Name="Intensivity" Value="1"/>
+<Value Name="Intensivity" Value="0.5"/>
 </Entity>
 </Entitys>
 </Map>

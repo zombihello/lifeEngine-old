@@ -10,8 +10,8 @@ le::SpotLight::SpotLight() :
 	Height( 45 )
 {
 	Logger::Log( Logger::Info, "Creating Spotlight" );
-	Logger::Log( Logger::None, "  Cone Radius: " + to_string( 25 ) );
-	Logger::Log( Logger::None, "  Cone Height: " + to_string( 45 ) );
+	Logger::Log( Logger::None, "  Cone Radius: " + to_string( Radius ) );
+	Logger::Log( Logger::None, "  Cone Height: " + to_string( Height ) );
 	Logger::Log( Logger::None, "  Spot Cutoff: " + to_string( SpotCutoff ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
@@ -20,12 +20,18 @@ le::SpotLight::SpotLight() :
 	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
 	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
 
-	LightCone.InitCone( 45, 25 );
+	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );
 
 	glm::vec3 TempPosition = Position;
-	LightProjection = glm::perspective( SpotCutoff, NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
-	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) ) );
+	Center = TempPosition + SpotDirection;
+	NormalizeCenter = glm::normalize( Center );
+
+	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
+	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
+
+	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
+	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, Center, Up ) );
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -42,6 +48,10 @@ le::SpotLight::SpotLight( const SpotLight& Copy )
 	Radius = Copy.Radius;
 	Height = Copy.Height;
 	Rotation = Copy.Rotation;
+	Center = Copy.Center;
+	NormalizeCenter = Copy.NormalizeCenter;
+	Right = Copy.Right;
+	Up = Copy.Up;
 }
 
 //-------------------------------------------------------------------------//
@@ -88,19 +98,14 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	LightCone.SetPosition( Position );
 	LightCone.SetRotation( QuatRotation );
 
-	glm::vec3 LightDirection, Right, Up;
+	Center = Position + SpotDirection;
+	NormalizeCenter = glm::normalize( Center );
 
-	LightDirection.x = cos( glm::radians( 0.f ) ) * cos( glm::radians( -90.f ) );
-	LightDirection.y = sin( glm::radians( -90.f ) );
-	LightDirection.z = sin( glm::radians( 0.f ) ) * cos( glm::radians( -90.f ) );
-	LightDirection = glm::normalize( LightDirection );
+	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
+	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
-	Right = glm::normalize( glm::cross( LightDirection, glm::vec3( 0, 1, 0 ) ) );
-	Up = glm::normalize( glm::cross( Right, LightDirection ) );
-
-	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
-	glm::mat4 f = LightProjection * glm::lookAt( Position, Position + LightDirection, Up ); //TODO: [zombiHello] Сделать корректный вектор направления
-	LightTransforms.push_back( f );
+	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
+	LightTransforms.push_back( LightProjection * glm::lookAt( Position, Center, Up ) );
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -117,9 +122,12 @@ void le::SpotLight::SetRadius( float Radius )
 	LightCone.SetRadius( Radius );
 	this->Radius = Radius;
 
+	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
+	SpotCutoff = Height / C;
+
 	glm::vec3 TempPosition = Position;
-	LightProjection = glm::perspective( glm::radians( SpotCutoff ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
+	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
 
 //-------------------------------------------------------------------------//
@@ -129,9 +137,12 @@ void le::SpotLight::SetHeight( float Height )
 	LightCone.SetHeight( Height );
 	this->Height = Height;
 
+	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
+	SpotCutoff = Height / C;
+
 	glm::vec3 TempPosition = Position;
-	LightProjection = glm::perspective( glm::radians( SpotCutoff ), NUMBER_TO_FLOAT( SHADOWMAP_SIZE / SHADOWMAP_SIZE ), 1.f, Height );
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
+	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
 
 //-------------------------------------------------------------------------//
@@ -144,7 +155,13 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 	LightCone.SetRotation( Rotation );
 
 	glm::vec3 TempPosition = Position;
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
+	Center = TempPosition + SpotDirection;
+	NormalizeCenter = glm::normalize( Center );
+
+	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
+	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
+
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
 
 //-------------------------------------------------------------------------//
@@ -157,7 +174,13 @@ void le::SpotLight::SetRotation( const glm::quat& Rotation )
 	LightCone.SetRotation( Rotation );
 
 	glm::vec3 TempPosition = Position;
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, TempPosition + SpotDirection, glm::vec3( 0, 1, 0 ) );
+	Center = TempPosition + SpotDirection;
+	NormalizeCenter = glm::normalize( Center );
+
+	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
+	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
+
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
 
 //-------------------------------------------------------------------------//
@@ -167,7 +190,13 @@ void le::SpotLight::SetPosition( const glm::vec3& Position )
 	this->Position = glm::vec4( Position, 1.0f );
 	LightCone.SetPosition( Position );
 
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, Position + SpotDirection, glm::vec3( 0, 1, 0 ) );
+	Center = Position + SpotDirection;
+	NormalizeCenter = glm::normalize( Center );
+
+	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
+	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
+
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, Center, Up );
 }
 
 //-------------------------------------------------------------------------//
@@ -182,6 +211,10 @@ le::SpotLight& le::SpotLight::operator=( const SpotLight& Copy )
 	Radius = Copy.Radius;
 	Height = Copy.Height;
 	Rotation = Copy.Rotation;
+	Center = Copy.Center;
+	NormalizeCenter = Copy.NormalizeCenter;
+	Right = Copy.Right;
+	Up = Copy.Up;
 
 	return *this;
 }

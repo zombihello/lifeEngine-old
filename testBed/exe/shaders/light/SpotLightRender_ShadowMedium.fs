@@ -56,7 +56,7 @@ float ShadowCalculationPCF( vec4 PosFragInLightSpace, float NdotL )
 	
 	vec2 TexelSize = 1.0f / textureSize( ShadowMap, 0 );
 	
-	float Bias = max( 0.005f * ( 1.0f - NdotL ), 0.0005f );
+	float Bias = max( 0.0015f * ( 1.0f - NdotL ), 0.00005f );
 	float CurrentDepth = ProjCoords.z;
 	float PCF_Depth;
 	float Shadow = 0.0f;
