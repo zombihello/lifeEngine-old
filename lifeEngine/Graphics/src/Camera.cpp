@@ -4,11 +4,13 @@
 //-------------------------------------------------------------------------//
 
 le::Camera::Camera( System& System ) :
-	SensitivityMouse( 4 ),
 	InclinationCamera( 0 )
 {
 	RenderWindow = &System.GetWindow();
 	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
+	SensitivityMouse = System.Configuration.SensitivityMouse;
+
+	CenterWindow = Vector2i( NUMBER_TO_INT( System::Configuration.WindowSize.x ) / 2, NUMBER_TO_INT( System::Configuration.WindowSize.y ) / 2 );
 }
 
 //-------------------------------------------------------------------------//
@@ -23,26 +25,29 @@ void le::Camera::UpdateCamera()
 	// 1.55 радиан = 89 градусов
 
 	MousePosition = Mouse::getPosition( *RenderWindow );
-	SizeWindow = RenderWindow->getSize();
-	CenterWindow.x = NUMBER_TO_FLOAT( SizeWindow.x / 2 );
-	CenterWindow.y = NUMBER_TO_FLOAT( SizeWindow.y / 2 );
 
-	Angle.x += ( ( CenterWindow.x - MousePosition.x ) / SensitivityMouse ) / 180 * MATH_PI;
-	Angle.y += ( ( CenterWindow.y - MousePosition.y ) / SensitivityMouse ) / 180 * MATH_PI;
+	float OffsetX = ( MousePosition.x - CenterWindow.x ) * SensitivityMouse;
+	float OffsetY = ( CenterWindow.y - MousePosition.y ) * SensitivityMouse;
+
+	Angle.x += glm::radians( OffsetX );
+	Angle.y += glm::radians( OffsetY );
 
 	if ( Angle.y < -1.55f )
 		Angle.y = -1.55f;
 	else if ( Angle.y > 1.55f )
 		Angle.y = 1.55f;
 
-	Mouse::setPosition( Vector2i( NUMBER_TO_INT( CenterWindow.x ), NUMBER_TO_INT( CenterWindow.y ) ), *RenderWindow );
+	Direction.x = glm::cos( Angle.x ) * glm::cos( Angle.y );
+	Direction.y = glm::sin( Angle.y );
+	Direction.z = glm::sin( Angle.x ) * glm::cos( Angle.y );
+	Direction = glm::normalize( Direction );
 
-	ViewMatrix = InclinationCameraMatrix * glm::lookAt(
-		glm::vec3( Position.x, Position.y, Position.z ),
-		glm::vec3( Position.x - sin( Angle.x ), Position.y + tan( Angle.y ), Position.z - cos( Angle.x ) ),
-		glm::vec3( 0, 1, 0 ) );
+	CameraRight = glm::normalize( glm::cross( Direction, glm::vec3( 0, 1, 0 ) ) );
 
+	ViewMatrix = InclinationCameraMatrix * glm::lookAt( Position, Position + Direction, glm::vec3( 0, 1, 0 ) );
 	Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
+
+	Mouse::setPosition( CenterWindow, *RenderWindow );
 }
 
 //-------------------------------------------------------------------------//
@@ -63,25 +68,19 @@ void le::Camera::Move( TypeMove typeMove, float MoveSpeed )
 	switch ( typeMove )
 	{
 	case TypeMove::Forward:
-		Position.x -= ( float ) sin( Angle.x ) * MoveSpeed;
-		Position.y += ( float ) tan( Angle.y ) * MoveSpeed;
-		Position.z -= ( float ) cos( Angle.x ) * MoveSpeed;
+		Position += Direction * MoveSpeed;
 		break;
 
 	case TypeMove::Back:
-		Position.x += ( float ) sin( Angle.x ) * MoveSpeed;
-		Position.y -= ( float ) tan( Angle.y ) * MoveSpeed;
-		Position.z += ( float ) cos( Angle.x ) * MoveSpeed;
+		Position -= Direction * MoveSpeed;
 		break;
 
 	case TypeMove::Left:
-		Position.x += ( float ) sin( ( Angle.x - 1.5707 ) ) * MoveSpeed;
-		Position.z += ( float ) cos( ( Angle.x - 1.5707 ) ) * MoveSpeed;
+		Position -= CameraRight * MoveSpeed;
 		break;
 
 	case TypeMove::Right:
-		Position.x += ( float ) sin( ( Angle.x + 1.5707 ) ) * MoveSpeed;
-		Position.z += ( float ) cos( ( Angle.x + 1.5707 ) ) * MoveSpeed;
+		Position += CameraRight * MoveSpeed;
 		break;
 	}
 }
@@ -155,25 +154,19 @@ glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 	switch ( typeMove )
 	{
 	case TypeMove::Forward:
-		OffsetMove.x = -( float ) sin( Angle.x ) * MoveSpeed;
-		OffsetMove.y = ( float ) tan( Angle.y ) * MoveSpeed;
-		OffsetMove.z = -( float ) cos( Angle.x ) * MoveSpeed;
+		OffsetMove = Direction * MoveSpeed;
 		break;
 
 	case TypeMove::Back:
-		OffsetMove.x = ( float ) sin( Angle.x ) * MoveSpeed;
-		OffsetMove.y = -( float ) tan( Angle.y ) * MoveSpeed;
-		OffsetMove.z = ( float ) cos( Angle.x ) * MoveSpeed;
+		OffsetMove = -Direction * MoveSpeed;
 		break;
 
 	case TypeMove::Left:
-		OffsetMove.x = ( float ) sin( ( Angle.x - 1.5707 ) ) * MoveSpeed;
-		OffsetMove.z = ( float ) cos( ( Angle.x - 1.5707 ) ) * MoveSpeed;
+		OffsetMove = -CameraRight * MoveSpeed;
 		break;
 
 	case TypeMove::Right:
-		OffsetMove.x = ( float ) sin( ( Angle.x + 1.5707 ) ) * MoveSpeed;
-		OffsetMove.z = ( float ) cos( ( Angle.x + 1.5707 ) ) * MoveSpeed;
+		OffsetMove = CameraRight * MoveSpeed;
 		break;
 	}
 

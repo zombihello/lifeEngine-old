@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sensitivitymouse',['SensitivityMouse',['../structle_1_1_configuration.html#ade7d5624a5c37d4a5f3536bf86b7e827',1,'le::Configuration']]],
   ['shadowmap',['ShadowMap',['../classle_1_1_base_light.html#afd58d7a6f5d144b046728fbfa3aa3b6b',1,'le::BaseLight']]],
   ['shadowmap_5ffbo',['ShadowMap_FBO',['../classle_1_1_base_light.html#a65800a90406311d69e41bf544598189d',1,'le::BaseLight']]],
   ['skeleton',['Skeleton',['../structle_1_1_scene_1_1_info_mesh.html#af6b77e48ba79a85cecd7c8e355fe83f2',1,'le::Scene::InfoMesh']]],

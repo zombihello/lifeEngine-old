@@ -45,7 +45,7 @@ vec2 GetShadowTC( vec3 Dir)
 	float rx = Dir.x;
 	float ry = Dir.y;
 	float rz = Dir.z;
-	vec3 adir = abs(Dir);
+	vec3 adir = abs( Dir );
 	Ma = max( max( adir.x, adir.y ), adir.z );
 	if ( adir.x > adir.y && adir.x > adir.z )
 	{
@@ -82,26 +82,26 @@ vec2 GetShadowTC( vec3 Dir)
 
 //------------------------------------------
 
-float ShadowCalculation( vec2 TexCoords, float CurrentDepth, float Bias )
+float ShadowCalculation( vec2 TexCoords, float CurrentDepth )
 {
     float ClosestDepth = texture( ShadowMap, TexCoords ).r * light.Radius; 	
-    float Shadow = CurrentDepth - Bias > ClosestDepth ? 1.0f : 0.0f;        
+    float Shadow = CurrentDepth > ClosestDepth ? 1.0f : 0.0f;        
         
     return Shadow;
 }
 
 //------------------------------------------
 
-float ShadowCalculationLiner( vec2 TexCoords, vec2 TexelSize, float CurrentDepth, float Bias )
+float ShadowCalculationLiner( vec2 TexCoords, vec2 TexelSize, float CurrentDepth )
 {
 	vec2 PixelPos = TexCoords / TexelSize + 0.5f;
 	vec2 FractPart = fract( PixelPos );
 	vec2 StartTexel = ( PixelPos - FractPart ) * TexelSize;
 	
-	float blTexel = ShadowCalculation( StartTexel, CurrentDepth, Bias );
-	float brTexel = ShadowCalculation( StartTexel + vec2( TexelSize.x, 0.0f ), CurrentDepth, Bias );
-	float tlTexel = ShadowCalculation( StartTexel + vec2( 0.0f, TexelSize.y ), CurrentDepth, Bias );
-	float trTexel = ShadowCalculation( StartTexel + TexelSize, CurrentDepth, Bias );
+	float blTexel = ShadowCalculation( StartTexel, CurrentDepth );
+	float brTexel = ShadowCalculation( StartTexel + vec2( TexelSize.x, 0.0f ), CurrentDepth );
+	float tlTexel = ShadowCalculation( StartTexel + vec2( 0.0f, TexelSize.y ), CurrentDepth );
+	float trTexel = ShadowCalculation( StartTexel + TexelSize, CurrentDepth );
 	
 	float MixA = mix( blTexel, tlTexel, FractPart.y );
 	float MixB = mix( brTexel, trTexel, FractPart.y );
@@ -111,19 +111,18 @@ float ShadowCalculationLiner( vec2 TexCoords, vec2 TexelSize, float CurrentDepth
 
 //------------------------------------------
 
-float ShadowCalculationPCF( vec4 PositionFragment, float NdotL )
+float ShadowCalculationPCF( vec4 PositionFragment )
 {
     vec3 FragToLight = ( PositionFragment - light.Position ).xyz; 
 	vec2 TexelSize = 1.0f / textureSize(ShadowMap, 0);
 	vec2 TextureCoords = GetShadowTC( normalize( FragToLight ) );
 	
-	float Bias = max( 3.5f * ( 1.0f - NdotL ), 0.5f );
 	float CurrentDepth = length( FragToLight );
 	float Shadow = 0.0f;
 	
 	for ( int x = -1; x <= 1; ++x )
 		for ( int y = -1; y <= 1; ++y )
-			Shadow += ShadowCalculationLiner( TextureCoords + vec2( x, y ) * TexelSize, TexelSize, CurrentDepth, Bias );
+			Shadow += ShadowCalculationLiner( TextureCoords + vec2( x, y ) * TexelSize, TexelSize, CurrentDepth );
 	           
     return Shadow / 9.0f;
 }
@@ -143,7 +142,7 @@ void main()
 	float NdotL = dot( Normal, lightDirection );
 	float DiffuseFactor = max( NdotL, 0.0f );
 	float Attenuation =  max( 1.0f - pow( Distance / light.Radius, 2 ), 0.f );
-	float Shadow = ShadowCalculationPCF( PositionFragment, NdotL );
+	float Shadow = ShadowCalculationPCF( PositionFragment );
 		
 	Color = ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity ) * Attenuation * texture( ColorMap, texCoord ); 
 }

@@ -187,7 +187,7 @@ void le::Animation::Update()
 		}
 	}
 
-	NowFrame += DeltaFrame;
+	NowFrame += DeltaFrame * System::Configuration.Time;
 
 	if ( NowFrame >= NextFrame )
 		NextFrame++;

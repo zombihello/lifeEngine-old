@@ -152,7 +152,7 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 	SpotDirection = Rotation;
 	SpotDirection = glm::normalize( SpotDirection );
 
-	LightCone.SetRotation( Rotation );
+	LightCone.SetRotation( SpotDirection );
 
 	glm::vec3 TempPosition = Position;
 	Center = TempPosition + SpotDirection;

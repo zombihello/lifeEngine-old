@@ -171,16 +171,17 @@ namespace le
 		float			SensitivityMouse; ///< Чуствительность мыши
 		float			InclinationCamera; ///< Наклон камеры
 		glm::vec2		Angle; ///< Угол поворота камеры
-		glm::vec3		Position; ///< Позиция камеры		
+		glm::vec3		Position; ///< Позиция камеры
+		glm::vec3		Direction; ///< Направление камеры
+		glm::vec3		CameraRight; ///< Вектор вправо
 		glm::mat4		ViewMatrix; ///< Матрица вида
 		glm::mat4*		ProjectionMatrix; ///< Матрица проекции
 		glm::mat4		InclinationCameraMatrix; ///< Матрица наклона камеры
 		Frustum			Frustum; ///< Пирамида усечения (для отсечения невидимой геометрии)
 
 		RenderWindow*	RenderWindow; ///< Игровое окно
-		glm::vec2		CenterWindow; ///< Центр окна
+		Vector2i		CenterWindow; ///< Центр окна
 		Vector2i		MousePosition; ///< Позиция мыши
-		Vector2u		SizeWindow; ///< Размер окна
 	};
 
 	//-------------------------------------------------------------------------//

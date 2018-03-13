@@ -77,21 +77,30 @@ le::Scene::Scene() :
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
-	PointLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
-	PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
-	PointLightRender->setUniform( "PositionMap", GBuffer::Position );
-	PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
-	PointLightRender->setUniform( "ShadowMap", 3 );
+	if ( PointLightRender != NULL )
+	{
+		PointLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
+		PointLightRender->setUniform( "ColorMap", GBuffer::Textures );
+		PointLightRender->setUniform( "PositionMap", GBuffer::Position );
+		PointLightRender->setUniform( "NormalMap", GBuffer::Normal );
+		PointLightRender->setUniform( "ShadowMap", 3 );
+	}
 
-	SpotLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
-	SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
-	SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
-	SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
-	SpotLightRender->setUniform( "ShadowMap", 3 );
+	if ( SpotLightRender != NULL )
+	{
+		SpotLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
+		SpotLightRender->setUniform( "ColorMap", GBuffer::Textures );
+		SpotLightRender->setUniform( "PositionMap", GBuffer::Position );
+		SpotLightRender->setUniform( "NormalMap", GBuffer::Normal );
+		SpotLightRender->setUniform( "ShadowMap", 3 );
+	}
 
-	DirectionalLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
-	DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
-	DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
+	if ( DirectionalLightRender != NULL )
+	{
+		DirectionalLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
+		DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
+		DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
+	}
 
 	GBuffer.InitGBuffer( System::Configuration.WindowSize );
 	LightQuad.InitQuad( 1.f );
@@ -303,7 +312,12 @@ void le::Scene::RenderScene()
 
 void le::Scene::ClearScene()
 {
+	Logger::Log( Logger::Info, "Scene Is Clearing" );
+
 	// TODO: [zombiHello] Сделать очистку сцены
+	Logger::Log( Logger::Warning, "Method le::Scene::ClearScene() Is Empty" );
+
+	Logger::Log( Logger::Info, "Scene Is Cleared" );
 }
 
 //-------------------------------------------------------------------------//

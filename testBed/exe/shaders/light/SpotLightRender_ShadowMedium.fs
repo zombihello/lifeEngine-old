@@ -39,24 +39,12 @@ vec2 CalcTexCoord()
 
 //------------------------------------------
 
-float ShadowCalculation( vec2 TexCoords, float CurrentDepth, float Bias )
-{		
-    float ClosestDepth = texture( ShadowMap, TexCoords.xy ).r; 	
-    float Shadow = CurrentDepth - Bias > ClosestDepth ? 1.0f : 0.0f;        
-        
-    return Shadow;
-}
-
-//------------------------------------------
-
 float ShadowCalculationPCF( vec4 PosFragInLightSpace, float NdotL )
 {
     vec3 ProjCoords = PosFragInLightSpace.xyz / PosFragInLightSpace.w;
 	ProjCoords = ProjCoords * 0.5f + 0.5f;
-	
 	vec2 TexelSize = 1.0f / textureSize( ShadowMap, 0 );
 	
-	float Bias = max( 0.0015f * ( 1.0f - NdotL ), 0.00005f );
 	float CurrentDepth = ProjCoords.z;
 	float PCF_Depth;
 	float Shadow = 0.0f;
@@ -65,7 +53,7 @@ float ShadowCalculationPCF( vec4 PosFragInLightSpace, float NdotL )
 		for ( int y = -1; y <= 1; ++y )
 		{
 			PCF_Depth = texture( ShadowMap, ProjCoords.xy + vec2( x, y ) * TexelSize ).r;
-			Shadow += CurrentDepth - Bias > PCF_Depth ? 1.0f : 0.0f;
+			Shadow += CurrentDepth > PCF_Depth ? 1.0f : 0.0f;
 		}
 	           
     return Shadow / 9.0f;

@@ -43,8 +43,12 @@ void le::LightManager::BuildShadowMaps()
 
 void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels )
 {
+	if ( ShadowMapRender == NULL ) 
+		return;
+
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_CULL_FACE );
+	glCullFace( GL_FRONT );
 
 	int								OffsetX = 0;
 	int								OffsetY = 0;
@@ -104,7 +108,7 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 
 	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 	ShadowMapRender->setUniform( "IsPointLight", false );
-
+	
 	for ( size_t i = 0; i < SpotLights.size(); i++ )
 		if ( SpotLights[ i ].InitShadowMap() )
 		{
@@ -130,10 +134,11 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 		}
 
 	//TODO: [zombiHello] Добавить тени от других видов света
-
+	
 	Shader::bind( NULL );
-
+	
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+	glCullFace( GL_BACK );
 	glDisable( GL_DEPTH_TEST );
 	glDisable( GL_CULL_FACE );
 

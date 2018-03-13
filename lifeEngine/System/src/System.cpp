@@ -27,6 +27,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
 		Configuration.QualityShadows = Config.GetValueInt( "QualityShadows" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
+		Configuration.SensitivityMouse = Config.GetValueFloat( "SensitivityMouse" );
 	}
 	else
 	{
@@ -36,6 +37,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "Width", Configuration.WindowSize.x );
 		Config.WriteValue( "Height", Configuration.WindowSize.y );
 		Config.WriteValue( "FrameLimit", Configuration.FrameLimit );
+		Config.WriteValue( "SensitivityMouse", Configuration.SensitivityMouse );
 
 		Config.WriteGroup( "GRAPHICS" );
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );

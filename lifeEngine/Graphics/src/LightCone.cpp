@@ -664,9 +664,9 @@ void le::LightCone::SetPosition( const glm::vec3& Position )
 void le::LightCone::SetRotation( const glm::vec3& Rotation )
 {
 	BoundingBox.SetRotation( Rotation );
-
-	glm::vec3 Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
-	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+	
+	glm::vec3 Axis( sin( Rotation.x/ 2 ), sin( Rotation.y / 2 ), sin( Rotation.z/ 2 ) );
+	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z/ 2 ) );
 
 	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
 	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );

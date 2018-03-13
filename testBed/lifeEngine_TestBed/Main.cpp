@@ -76,66 +76,64 @@ public:
 		LightManager.AddSpotLight( "spot", 150, 150, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), 2 );
 		Spot = LightManager.GetSpotLight( "spot" );
 
-		IsLeftButtonPressed = false;
-		Timer = 0.f;
-
 		LightManager.AddLightsToScene( *Scene );	
 		LightManager.BuildShadowMaps();
 	}
 
+	~Game()
+	{
+		delete Scene;
+		delete Camera;
+		delete Level;
+	}
+
 	void Update()
 	{
-		srand( time( NULL ) );
-
-		if ( IsLeftButtonPressed && !Mouse::isButtonPressed( Mouse::Left ) )
-		{
-			Timer += Configuration->Time;
-
-			if ( Timer > 250 ) IsLeftButtonPressed = false;
-		}
-
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			Camera->Move( le::Camera::Forward, Configuration->Time );
+			Camera->Move( le::Camera::Forward, 1.25f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			Camera->Move( le::Camera::Back, Configuration->Time );
+			Camera->Move( le::Camera::Back, 1.25f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
-			Camera->Move( le::Camera::Left, Configuration->Time );
+		{
+			Camera->Move( le::Camera::Left, 1.25f * Configuration->Time );
+
+			if ( Camera->GetInclinationCamera() > -5 )
+				Camera->TiltCamera( -0.2f );
+		}
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
-			Camera->Move( le::Camera::Right, Configuration->Time );
+		{
+			Camera->Move( le::Camera::Right, 1.25f * Configuration->Time );
+
+			if ( Camera->GetInclinationCamera() < 5 )
+				Camera->TiltCamera( 0.2f );
+		}
 
 		if ( Keyboard::isKeyPressed( Keyboard::Q ) )
 			le::System::SetWireframeRender( true );
 		else
 			le::System::SetWireframeRender( false );
+		
+		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
+			Spot->SetPosition( Camera->GetPosition() );
 
-		if ( Mouse::isButtonPressed( Mouse::Left ) && !IsLeftButtonPressed )
+		if ( !Keyboard::isKeyPressed( Keyboard::A ) && !Keyboard::isKeyPressed( Keyboard::D ) )
 		{
-			IsLeftButtonPressed = true;
-
-			glm::vec4 LightColor( NUMBER_TO_FLOAT( rand() % 255 ), NUMBER_TO_FLOAT( rand() % 255 ), NUMBER_TO_FLOAT( rand() % 255 ), 255.f );
-			float Radius = 45 + rand() % 200;
-
-			LightManager.AddPointLight( "", Radius, Camera->GetPosition(), glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ) );
+			if ( Camera->GetInclinationCamera() + 0.5f < 0 )
+				Camera->TiltCamera( 0.5f );
+			else if ( Camera->GetInclinationCamera() - 0.5f > 0 )
+				Camera->TiltCamera( -0.5f );
 		}
 
 		model.GetAnimationManager()->Update();
-		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
-		{
-			Spot->SetPosition( Camera->GetPosition() );
-			//Spot->SetRotation( glm::vec3( 90, 0, 90 ) );
-		}
 		Camera->UpdateCamera();
 		Scene->RenderScene();
-
+		
 		if ( Keyboard::isKeyPressed( Keyboard::E ) )
 			GBuffer->ShowDebug();
 	}
-
-	float Timer;
-	bool IsLeftButtonPressed;
 
 	le::Model model;
 	le::Scene* Scene;

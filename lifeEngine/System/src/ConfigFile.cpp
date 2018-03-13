@@ -13,7 +13,7 @@ bool le::ConfigFile::LoadFromFile( const string& RouteToFile )
 	string LineConfig, TmpString, NameValue;
 	istringstream StrStream;
 
-	while ( getline( FileInput, LineConfig ) )
+	while ( getline( FileInput, LineConfig, '\0' ) )
 	{
 		StrStream.clear();
 		StrStream.str( LineConfig );
@@ -124,6 +124,9 @@ void le::ConfigFile::WriteComent( const string& Coment )
 
 void le::ConfigFile::WriteGroup( const string & NameGroup )
 {
+	if ( !SaveBuffer.str().empty() )
+		SaveBuffer << endl;
+
 	SaveBuffer << "[" << NameGroup << "]\n";
 }
 

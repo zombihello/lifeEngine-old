@@ -154,7 +154,7 @@ lifeEngine v3.0.0
   Cone Radius: 100.000000
   Cone Height: 100.000000
   Spot Cutoff: 0.707107
-  Intensivity: 5.000000
+  Intensivity: 4.000000
   Position: 480.000000 32.000000 -432.000000
   Spot Direction: -0.825022 -0.166619 -0.539979
   Rotation: 90.000000 35.000000 20.000000
@@ -190,6 +190,17 @@ lifeEngine v3.0.0
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
 [Info] Creating Spotlight
+  Cone Radius: 100.000000
+  Cone Height: 100.000000
+  Spot Cutoff: 0.707107
+  Intensivity: 4.000000
+  Position: 400.000000 32.000000 -480.000000
+  Spot Direction: 0.825022 -0.166619 0.539979
+  Rotation: -90.000000 35.000000 -20.000000
+  Color: 255.000000 255.000000 255.000000 255.000000
+  Specular: 0.000000 0.000000 0.000000 1.000000
+[Info] Created Spotlight
+[Info] Creating Spotlight
   Cone Radius: 150.000000
   Cone Height: 150.000000
   Spot Cutoff: 0.707107
@@ -197,9 +208,17 @@ lifeEngine v3.0.0
   Position: 0.000000 0.000000 0.000000
   Spot Direction: 0.000000 -1.000000 0.000000
   Rotation: 0.000000 -90.000000 0.000000
-  Color: 228.000000 211.000000 112.000000 255.000000
+  Color: 255.000000 255.000000 255.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
+[Info] Shader With Name [AnimationModels] Deleted
+[Info] Shader With Name [StaticModels] Deleted
+[Info] Shader With Name [Brushes] Deleted
+[Info] Shader With Name [TestRender] Deleted
+[Info] Shader With Name [PointLight] Deleted
+[Info] Shader With Name [DirectionalLight] Deleted
+[Info] Shader With Name [SpotLight] Deleted
+[Info] Cube Texture With Name [Skybox] Deleted
 [Info] Shader With Name [ShadowMap] Deleted
 [Info] Texture With Name [brick1.jpg] Deleted
 [Info] Texture With Name [brick2.jpg] Deleted
@@ -218,12 +237,5 @@ lifeEngine v3.0.0
 [Info] Texture With Name [wood1.jpg] Deleted
 [Info] Texture With Name [wood2.jpg] Deleted
 [Info] Mesh With Name [Leanna] Deleted
-[Info] Shader With Name [AnimationModels] Deleted
-[Info] Shader With Name [Brushes] Deleted
-[Info] Shader With Name [DirectionalLight] Deleted
-[Info] Shader With Name [PointLight] Deleted
 [Info] Shader With Name [Skybox] Deleted
-[Info] Shader With Name [SpotLight] Deleted
-[Info] Shader With Name [StaticModels] Deleted
-[Info] Shader With Name [TestRender] Deleted
 *** lifeEngine End ***

@@ -2,6 +2,7 @@ var searchData=
 [
   ['saveinfile',['SaveInFile',['../classle_1_1_config_file.html#a4acf355992015a169b8077b62a66af1c',1,'le::ConfigFile']]],
   ['scene',['Scene',['../classle_1_1_scene.html',1,'le::Scene'],['../classle_1_1_scene.html#ac4c732508a6406253391853b67112845',1,'le::Scene::Scene()']]],
+  ['sensitivitymouse',['SensitivityMouse',['../structle_1_1_configuration.html#ade7d5624a5c37d4a5f3536bf86b7e827',1,'le::Configuration']]],
   ['setcamera',['SetCamera',['../classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea',1,'le::Scene']]],
   ['setcolor',['SetColor',['../classle_1_1_base_light.html#a2627b7b5e44765702326955430195836',1,'le::BaseLight']]],
   ['seterrortexture',['SetErrorTexture',['../classle_1_1_resources_manager.html#a46036e608d21ee9677b57ff4e76a83f0',1,'le::ResourcesManager']]],

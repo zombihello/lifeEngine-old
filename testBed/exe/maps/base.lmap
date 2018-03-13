@@ -11765,17 +11765,17 @@
 </Brush>
 <Brush>
 <Type Value="Cube"/>
-<TextureName Value="brick2.jpg"/>
-<Position X="456" Y="24" Z="-456"/>
+<TextureName Value="metal5.jpg"/>
+<Position X="440" Y="24" Z="-456"/>
 <PositionVertex>
+<Vertex X="432" Y="0" Z="-464"/>
 <Vertex X="448" Y="0" Z="-464"/>
-<Vertex X="464" Y="0" Z="-464"/>
-<Vertex X="464" Y="48" Z="-464"/>
 <Vertex X="448" Y="48" Z="-464"/>
+<Vertex X="432" Y="48" Z="-464"/>
+<Vertex X="432" Y="0" Z="-448"/>
 <Vertex X="448" Y="0" Z="-448"/>
-<Vertex X="464" Y="0" Z="-448"/>
-<Vertex X="464" Y="48" Z="-448"/>
 <Vertex X="448" Y="48" Z="-448"/>
+<Vertex X="432" Y="48" Z="-448"/>
 </PositionVertex>
 <Normals>
 <Point X="-1" Y="0" Z="0"/>
@@ -11946,7 +11946,7 @@
 <Value Name="Radius" Value="100"/>
 <Value Name="Height" Value="100"/>
 <Value Name="Color" Value="255 255 255"/>
-<Value Name="Intensivity" Value="5"/>
+<Value Name="Intensivity" Value="4"/>
 </Entity>
 <Entity Name="light">
 <Position X="552" Y="48" Z="-440"/>
@@ -11975,6 +11975,15 @@
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="200"/>
 <Value Name="Intensivity" Value="2"/>
+</Entity>
+<Entity Name="SpotLight">
+<Position X="400" Y="32" Z="-480"/>
+<Value Name="Name" Value=""/>
+<Value Name="Rotation" Value="-90 35 -20"/>
+<Value Name="Radius" Value="100"/>
+<Value Name="Height" Value="100"/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Intensivity" Value="4"/>
 </Entity>
 </Entitys>
 </Map>
