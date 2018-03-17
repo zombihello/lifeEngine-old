@@ -44,7 +44,7 @@ void le::Camera::UpdateCamera()
 
 	CameraRight = glm::normalize( glm::cross( Direction, glm::vec3( 0, 1, 0 ) ) );
 
-	ViewMatrix = InclinationCameraMatrix * glm::lookAt( Position, Position + Direction, glm::vec3( 0, 1, 0 ) );
+	ViewMatrix =  InclinationCameraMatrix * glm::lookAt( Position, Position + Direction, glm::vec3( 0, 1, 0 ) );
 	Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
 
 	Mouse::setPosition( CenterWindow, *RenderWindow );

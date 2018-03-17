@@ -14,7 +14,7 @@ le::Configuration::Configuration() :
 	RenderDistance( 1000 ),
 	QualityShadows( LightManager::Low ),
 	FOV( 75 ),
-	SensitivityMouse( 0.15 ),
+	SensitivityMouse( 0.15f ),
 	Time( 0 )
 {}
 

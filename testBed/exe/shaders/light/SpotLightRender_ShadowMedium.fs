@@ -39,7 +39,7 @@ vec2 CalcTexCoord()
 
 //------------------------------------------
 
-float ShadowCalculationPCF( vec4 PosFragInLightSpace, float NdotL )
+float ShadowCalculationPCF( vec4 PosFragInLightSpace )
 {
     vec3 ProjCoords = PosFragInLightSpace.xyz / PosFragInLightSpace.w;
 	ProjCoords = ProjCoords * 0.5f + 0.5f;
@@ -77,7 +77,7 @@ void main()
 	float SpotFactor = dot( light.SpotDirection, -lightDirection );
 	SpotFactor = clamp( ( SpotFactor - light.SpotCutoff ) / ( 1.0f - light.SpotCutoff ), 0.0f, 1.0f );
 	float Attenuation = max( 1.0f - pow( Distance / light.Height, 2 ), 0.f );
-	float Shadow = ShadowCalculationPCF( PosFragInLightSpace, NdotL );
+	float Shadow = ShadowCalculationPCF( PosFragInLightSpace );
 	
 	Color = ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity * SpotFactor ) * Attenuation * texture( ColorMap, texCoord );
 }

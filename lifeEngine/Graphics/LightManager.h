@@ -79,6 +79,13 @@ namespace le
 		/// \param[in] GeometryAnimationModels Массив динамических моделей
 		//////////////////////////////////////////////////////////////////////
 		void BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels );
+		
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Построить карты теней для прожекторного света
+		///
+		/// \param[in] GeometryLevel Массив геометрии уровня (браши)
+		//////////////////////////////////////////////////////////////////////
+		void BuildShadowMaps_DirectionalLight( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 

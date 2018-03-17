@@ -138,7 +138,7 @@ void main()
 	vec3 lightDirection = ( light.Position - PositionFragment ).xyz;
 	float Distance = length( lightDirection );
 	lightDirection = normalize( lightDirection );
-		
+	
 	float NdotL = dot( Normal, lightDirection );
 	float DiffuseFactor = max( NdotL, 0.0f );
 	float Attenuation =  max( 1.0f - pow( Distance / light.Radius, 2 ), 0.f );

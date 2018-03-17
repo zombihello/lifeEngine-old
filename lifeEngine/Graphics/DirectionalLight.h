@@ -10,6 +10,9 @@
 
 #ifndef DIRECTIONAL_LIGHT_H
 #define DIRECTIONAL_LIGHT_H
+#pragma warning( push )
+
+#pragma warning( disable: 4251 ) 
 
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
@@ -73,13 +76,23 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		void SetPosition( const glm::vec3& Position );
 
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать центр направленого света
+		///		
+		/// \param[in] Center Центр направленого света
+		//////////////////////////////////////////////////////////////////////
+		void SetCenter( const glm::vec3& Center );
+
 		le::DirectionalLight& operator=( const DirectionalLight& Copy );
 
 		LightQuad			Quad; ///< Квадрат света
+		glm::vec3 d;
+		glm::vec3			Center; ///< Центр направленого света
 	};
 
 	//-------------------------------------------------------------------------//
 }
 
+#pragma warning( pop )
 #endif // DIRECTIONAL_LIGHT_H
 

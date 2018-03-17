@@ -23,7 +23,7 @@ le::SpotLight::SpotLight() :
 	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );
 
-	glm::vec3 TempPosition = Position;
+	glm::vec3 TempPosition( Position );
 	Center = TempPosition + SpotDirection;
 	NormalizeCenter = glm::normalize( Center );
 
@@ -125,7 +125,7 @@ void le::SpotLight::SetRadius( float Radius )
 	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
 	SpotCutoff = Height / C;
 
-	glm::vec3 TempPosition = Position;
+	glm::vec3 TempPosition( Position );
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
 	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
@@ -140,7 +140,7 @@ void le::SpotLight::SetHeight( float Height )
 	float C = sqrt( pow( Height, 2 ) + pow( Radius, 2 ) );
 	SpotCutoff = Height / C;
 
-	glm::vec3 TempPosition = Position;
+	glm::vec3 TempPosition( Position );
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
 	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
 }
@@ -154,7 +154,7 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 
 	LightCone.SetRotation( SpotDirection );
 
-	glm::vec3 TempPosition = Position;
+	glm::vec3 TempPosition( Position );
 	Center = TempPosition + SpotDirection;
 	NormalizeCenter = glm::normalize( Center );
 
@@ -173,7 +173,7 @@ void le::SpotLight::SetRotation( const glm::quat& Rotation )
 
 	LightCone.SetRotation( Rotation );
 
-	glm::vec3 TempPosition = Position;
+	glm::vec3 TempPosition( Position );
 	Center = TempPosition + SpotDirection;
 	NormalizeCenter = glm::normalize( Center );
 

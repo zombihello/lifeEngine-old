@@ -36,28 +36,33 @@ le::Scene::Scene() :
 
 	string PointLight_FragmentShader;
 	string SpotLight_FragmentShader;
+	string DirectionalLight_FragmentShader;
 
 	switch ( System::Configuration.QualityShadows )
 	{
 	case LightManager::None:
 		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowNone.fs";
 		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowNone.fs";
+		DirectionalLight_FragmentShader = "../shaders/light/DirectionalLightRender_ShadowNone.fs";
 		break;
 
 	case LightManager::Low:
 		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowLow.fs";
 		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowLow.fs";
+		DirectionalLight_FragmentShader = "../shaders/light/DirectionalLightRender_ShadowLow.fs";
 		break;
 
 	case LightManager::Medium:
 		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowMedium.fs";
 		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowMedium.fs";
+		DirectionalLight_FragmentShader = "../shaders/light/DirectionalLightRender_ShadowMedium.fs";
 		break;
 
 	default:
 	case LightManager::High:
 		PointLight_FragmentShader = "../shaders/light/PointLightRender_ShadowHigh.fs";
 		SpotLight_FragmentShader = "../shaders/light/SpotLightRender_ShadowHigh.fs";
+		DirectionalLight_FragmentShader = "../shaders/light/DirectionalLightRender_ShadowHigh.fs";
 		break;
 	}
 
@@ -66,7 +71,7 @@ le::Scene::Scene() :
 	ResourcesManager::LoadShader( "Brushes", "../shaders/geometry/LevelRender.vs", "../shaders/geometry/LevelRender.fs" );
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
 	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
-	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", "../shaders/light/DirectionalLightRender.fs" );
+	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", DirectionalLight_FragmentShader );
 	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", SpotLight_FragmentShader );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
@@ -99,7 +104,9 @@ le::Scene::Scene() :
 	{
 		DirectionalLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
 		DirectionalLightRender->setUniform( "ColorMap", GBuffer::Textures );
+		DirectionalLightRender->setUniform( "PositionMap", GBuffer::Position );
 		DirectionalLightRender->setUniform( "NormalMap", GBuffer::Normal );
+		DirectionalLightRender->setUniform( "ShadowMap", 3 );
 	}
 
 	GBuffer.InitGBuffer( System::Configuration.WindowSize );
@@ -286,14 +293,20 @@ void le::Scene::RenderScene()
 	// ****************************
 	FrustumCulling();
 
-	//// ****************************
-	//// Рендер геометрии сцены
-	//// ****************************
+	// ****************************
+	// Построение карт теней
+	// ****************************
+	if ( !Configuration::IsWireframeRender || LightManager != NULL )
+		BuildShadowMaps();
+
+	// ****************************
+	// Рендер геометрии сцены
+	// ****************************
 	GeometryRender();
 
-	//// ****************************
-	//// Просчитывание освещения
-	//// ****************************
+	// ****************************
+	// Просчитывание освещения
+	// ****************************
 	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
 	else
@@ -550,6 +563,32 @@ void le::Scene::FrustumCulling()
 
 	if ( Configuration::IsWireframeRender ) // включаем каркасный рендер обратно если он был включен
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Scene::BuildShadowMaps()
+{
+	//if ( Camera && LightManager )
+	//{
+	for ( size_t i = 0; i < DirectionalLights->size(); i++ )
+	{
+		DirectionalLight* DirectionalLight = &( *DirectionalLights )[ i ];
+
+	//	glm::vec3 Temp = DirectionalLight->Center - Camera->GetPosition();
+
+	//	float Dist = glm::length( Temp );
+
+
+	//	if ( Dist*4 > System::Configuration.RenderDistance / 4.f )
+		//{
+			( *DirectionalLights )[ i ].SetCenter( Camera->GetPosition() );
+
+			glDepthRange( 0, 1 );
+			LightManager->BuildShadowMaps_DirectionalLight( RenderBuffer_Level );
+		//}
+	}
+	//}
 }
 
 //-------------------------------------------------------------------------//
@@ -827,6 +866,10 @@ void le::Scene::RenderDirectionalLight( const size_t& Index )
 {
 	DirectionalLight* DirectionalLight = &( *DirectionalLights )[ Index ];
 
+	glActiveTexture( GL_TEXTURE3 );
+	glBindTexture( GL_TEXTURE_2D, DirectionalLight->ShadowMap );
+
+	DirectionalLightRender->setUniform( "light.LightMatrix", DirectionalLight->LightTransforms[ 0 ] );
 	DirectionalLightRender->setUniform( "light.Position", DirectionalLight->Position );
 	DirectionalLightRender->setUniform( "light.Color", DirectionalLight->Color );
 	DirectionalLightRender->setUniform( "light.Intensivity", DirectionalLight->Intensivity );

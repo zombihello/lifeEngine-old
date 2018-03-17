@@ -15,6 +15,13 @@ le::DirectionalLight::DirectionalLight()
 	Position.w = 0;
 	Quad.InitQuad( 1.f );
 
+	float HalfSizeShadowMap = SHADOWMAP_SIZE / 2.f;
+	float HalfRenderDistance = System::Configuration.RenderDistance / 2.f;
+
+	glm::vec3 TempPosition( Position );
+	LightProjection = glm::ortho( -HalfSizeShadowMap, HalfSizeShadowMap, -HalfSizeShadowMap, HalfSizeShadowMap, -HalfRenderDistance, HalfRenderDistance );
+	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) );
+
 	Logger::Log( Logger::Info, "Created Directional Light" );
 }
 
@@ -35,6 +42,12 @@ le::DirectionalLight::DirectionalLight( const glm::vec3& Position, const glm::ve
 
 	Quad.InitQuad( 1 );
 
+	float HalfSizeShadowMap = SHADOWMAP_SIZE / 2.f;
+	float HalfRenderDistance = System::Configuration.RenderDistance / 2.f;
+
+	LightProjection = glm::ortho( -HalfSizeShadowMap, HalfSizeShadowMap, -HalfSizeShadowMap, HalfSizeShadowMap, -HalfRenderDistance, HalfRenderDistance );
+	LightTransforms.push_back( LightProjection * glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) );
+
 	Logger::Log( Logger::Info, "Created Directional Light" );
 }
 
@@ -45,6 +58,7 @@ le::DirectionalLight::DirectionalLight( const DirectionalLight& Copy )
 	CopyBaseLight( Copy );
 
 	Quad = Copy.Quad;
+	Center = Copy.Center;
 }
 
 //-------------------------------------------------------------------------//
@@ -57,6 +71,21 @@ le::DirectionalLight::~DirectionalLight()
 void le::DirectionalLight::SetPosition( const glm::vec3& Position )
 {
 	this->Position = glm::vec4( Position, 0.0f );
+
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) * glm::translate( Position - Center );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::DirectionalLight::SetCenter( const glm::vec3& Center )
+{
+	//TODO: [zombiHello] Оптимизировать перемещение направленого света
+
+	this->Center = Center;
+	
+	glm::vec3 TempPosition( Position );
+	d = TempPosition - Center;
+	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) * glm::translate( TempPosition - Center );
 }
 
 //-------------------------------------------------------------------------//
@@ -66,6 +95,7 @@ le::DirectionalLight& le::DirectionalLight::operator=( const DirectionalLight& C
 	CopyBaseLight( Copy );
 
 	Quad = Copy.Quad;
+	Center = Copy.Center;
 
 	return *this;
 }
