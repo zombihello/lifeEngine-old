@@ -54,7 +54,8 @@ namespace le
 		{
 			RenderBuffers,
 			RenderLight,
-			RenderSkybox
+			RenderSkybox,
+			RenderShadowMaps
 		};
 
 		//-------------------------------------------------------------------------//

@@ -108,6 +108,9 @@ $(function() {
 <tr class="memitem:af2d812798cc48baf993bc2d5faa841d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_directional_light.html#af2d812798cc48baf993bc2d5faa841d2">SetPosition</a> (const glm::vec3 &amp;<a class="el" href="classle_1_1_base_light.html#af1492e51cb0ac24e64aca45650a6a2dd">Position</a>)</td></tr>
 <tr class="memdesc:af2d812798cc48baf993bc2d5faa841d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задать направление света  <a href="#af2d812798cc48baf993bc2d5faa841d2">Подробнее...</a><br /></td></tr>
 <tr class="separator:af2d812798cc48baf993bc2d5faa841d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7810dfb5d9d58df06bed142d7984615a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_directional_light.html#a7810dfb5d9d58df06bed142d7984615a">SetCenter</a> (const glm::vec3 &amp;<a class="el" href="classle_1_1_directional_light.html#a39d8176e4ac3579e46e8c3f08ea4e6ff">Center</a>)</td></tr>
+<tr class="memdesc:a7810dfb5d9d58df06bed142d7984615a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задать центр направленого света  <a href="#a7810dfb5d9d58df06bed142d7984615a">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7810dfb5d9d58df06bed142d7984615a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b477e477c1ce4d28b86e6d3bde7c7d5"><td class="memItemLeft" align="right" valign="top"><a id="a7b477e477c1ce4d28b86e6d3bde7c7d5"></a>
 <a class="el" href="classle_1_1_directional_light.html">le::DirectionalLight</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classle_1_1_directional_light.html">DirectionalLight</a> &amp;Copy)</td></tr>
 <tr class="separator:a7b477e477c1ce4d28b86e6d3bde7c7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,11 +145,19 @@ $(function() {
 <a class="el" href="classle_1_1_light_quad.html">LightQuad</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_directional_light.html#a3b70770fe40585309d9a7aa2e80b505c">Quad</a></td></tr>
 <tr class="memdesc:a3b70770fe40585309d9a7aa2e80b505c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Квадрат света <br /></td></tr>
 <tr class="separator:a3b70770fe40585309d9a7aa2e80b505c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39d8176e4ac3579e46e8c3f08ea4e6ff"><td class="memItemLeft" align="right" valign="top"><a id="a39d8176e4ac3579e46e8c3f08ea4e6ff"></a>
+glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_directional_light.html#a39d8176e4ac3579e46e8c3f08ea4e6ff">Center</a></td></tr>
+<tr class="memdesc:a39d8176e4ac3579e46e8c3f08ea4e6ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Центр направленого света <br /></td></tr>
+<tr class="separator:a39d8176e4ac3579e46e8c3f08ea4e6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classle_1_1_base_light"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classle_1_1_base_light')"><img src="closed.png" alt="-"/>&#160;Открытые атрибуты унаследованные от <a class="el" href="classle_1_1_base_light.html">le::BaseLight</a></td></tr>
 <tr class="memitem:a814afec37b385df9da9df11a2e638dfb inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="a814afec37b385df9da9df11a2e638dfb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a814afec37b385df9da9df11a2e638dfb">IsInitShadowMap</a></td></tr>
 <tr class="memdesc:a814afec37b385df9da9df11a2e638dfb inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализирована ли карта теней <br /></td></tr>
 <tr class="separator:a814afec37b385df9da9df11a2e638dfb inherit pub_attribs_classle_1_1_base_light"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53878b772fbdbcc9e7f7b968c1972c54 inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="a53878b772fbdbcc9e7f7b968c1972c54"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a53878b772fbdbcc9e7f7b968c1972c54">IsVisible</a></td></tr>
+<tr class="memdesc:a53878b772fbdbcc9e7f7b968c1972c54 inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Виден ли источник света <br /></td></tr>
+<tr class="separator:a53878b772fbdbcc9e7f7b968c1972c54 inherit pub_attribs_classle_1_1_base_light"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf47350ab79b23eafbf615c225b8d685 inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="abf47350ab79b23eafbf615c225b8d685"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#abf47350ab79b23eafbf615c225b8d685">Intensivity</a></td></tr>
 <tr class="memdesc:abf47350ab79b23eafbf615c225b8d685 inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Интенсивность света <br /></td></tr>
@@ -179,6 +190,14 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a0e280551b90e994058c241a9b84b2277">LightProjection</a></td></tr>
 <tr class="memdesc:a0e280551b90e994058c241a9b84b2277 inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Матрица проекции для карт теней <br /></td></tr>
 <tr class="separator:a0e280551b90e994058c241a9b84b2277 inherit pub_attribs_classle_1_1_base_light"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba0001ada65935e20a43c28c63b0d041 inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="aba0001ada65935e20a43c28c63b0d041"></a>
+vector&lt; <a class="el" href="classle_1_1_frustum.html">Frustum</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#aba0001ada65935e20a43c28c63b0d041">Frustums</a></td></tr>
+<tr class="memdesc:aba0001ada65935e20a43c28c63b0d041 inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив усеченых пирамид для отсечения геометрии <br /></td></tr>
+<tr class="separator:aba0001ada65935e20a43c28c63b0d041 inherit pub_attribs_classle_1_1_base_light"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c91186002b6fb94f35d83124682af6 inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="ad0c91186002b6fb94f35d83124682af6"></a>
+vector&lt; glm::mat4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#ad0c91186002b6fb94f35d83124682af6">LightViews</a></td></tr>
+<tr class="memdesc:ad0c91186002b6fb94f35d83124682af6 inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив видовых матриц <br /></td></tr>
+<tr class="separator:ad0c91186002b6fb94f35d83124682af6 inherit pub_attribs_classle_1_1_base_light"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cc29c8c114f353ccb7fb413ea78dc7e inherit pub_attribs_classle_1_1_base_light"><td class="memItemLeft" align="right" valign="top"><a id="a0cc29c8c114f353ccb7fb413ea78dc7e"></a>
 vector&lt; glm::mat4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_base_light.html#a0cc29c8c114f353ccb7fb413ea78dc7e">LightTransforms</a></td></tr>
 <tr class="memdesc:a0cc29c8c114f353ccb7fb413ea78dc7e inherit pub_attribs_classle_1_1_base_light"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив матриц трансформаций <br /></td></tr>
@@ -248,6 +267,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Методы</h2>
+<a id="a7810dfb5d9d58df06bed142d7984615a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7810dfb5d9d58df06bed142d7984615a">&#9670;&nbsp;</a></span>SetCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::DirectionalLight::SetCenter </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>Center</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Задать центр направленого света </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Center</td><td>Центр направленого света </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af2d812798cc48baf993bc2d5faa841d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2d812798cc48baf993bc2d5faa841d2">&#9670;&nbsp;</a></span>SetPosition()</h2>
 

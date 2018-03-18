@@ -31,7 +31,11 @@ le::SpotLight::SpotLight() :
 	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
-	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, Center, Up ) );
+	LightViews.push_back( glm::lookAt( TempPosition, Center, Up ) );
+	LightTransforms.push_back( LightProjection * LightViews[ 0 ] );
+
+	Frustums.push_back( Frustum() );
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -105,7 +109,11 @@ le::SpotLight::SpotLight( float Radius, float Height, const glm::vec3& Rotation,
 	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
-	LightTransforms.push_back( LightProjection * glm::lookAt( Position, Center, Up ) );
+	LightViews.push_back( glm::lookAt( Position, Center, Up ) );
+	LightTransforms.push_back( LightProjection * LightViews[ 0 ] );
+
+	Frustums.push_back( Frustum() );
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 
 	Logger::Log( Logger::Info, "Created Spotlight" );
 }
@@ -127,7 +135,10 @@ void le::SpotLight::SetRadius( float Radius )
 
 	glm::vec3 TempPosition( Position );
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
+
+	LightViews[ 0 ] = glm::lookAt( TempPosition, Center, Up );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -142,7 +153,10 @@ void le::SpotLight::SetHeight( float Height )
 
 	glm::vec3 TempPosition( Position );
 	LightProjection = glm::perspective( glm::acos( SpotCutoff ) * 2, 1.f, 1.f, Height );
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
+
+	LightViews[ 0 ] = glm::lookAt( TempPosition, Center, Up );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -161,7 +175,9 @@ void le::SpotLight::SetRotation( const glm::vec3& Rotation )
 	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
 	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
+	LightViews[ 0 ] = glm::lookAt( TempPosition, Center, Up );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -180,7 +196,9 @@ void le::SpotLight::SetRotation( const glm::quat& Rotation )
 	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
 	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, Center, Up );
+	LightViews[ 0 ] = glm::lookAt( TempPosition, Center, Up );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -196,7 +214,9 @@ void le::SpotLight::SetPosition( const glm::vec3& Position )
 	Right = glm::normalize( glm::cross( glm::vec3( 0, 1, 0 ), NormalizeCenter ) );
 	Up = glm::normalize( glm::cross( NormalizeCenter, Right ) );
 
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, Center, Up );
+	LightViews[ 0 ] = glm::lookAt( Position, Center, Up );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//

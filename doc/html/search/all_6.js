@@ -1,6 +1,9 @@
 var searchData=
 [
   ['gbuffer',['GBuffer',['../classle_1_1_g_buffer.html',1,'le::GBuffer'],['../classle_1_1_g_buffer.html#ae6f6322dc04c36abb77d943b96cd7b8c',1,'le::GBuffer::GBuffer()']]],
+  ['geometryanimationmodels',['GeometryAnimationModels',['../structle_1_1_light_manager_1_1_info_shadows.html#a731963b644b2b8cd0ba467f7195d53ef',1,'le::LightManager::InfoShadows']]],
+  ['geometrylevel',['GeometryLevel',['../structle_1_1_light_manager_1_1_info_shadows.html#afd2bae88f3dad4825f6484da419b0695',1,'le::LightManager::InfoShadows']]],
+  ['geometrystaticmodels',['GeometryStaticModels',['../structle_1_1_light_manager_1_1_info_shadows.html#ad4fc754c2ce6dbd489dcf1be0ec6a0ef',1,'le::LightManager::InfoShadows']]],
   ['getallbones',['GetAllBones',['../classle_1_1_skeleton.html#a82e6b0c4b3ee7b25a6109e3437bbb84d',1,'le::Skeleton']]],
   ['getallbrushes',['GetAllBrushes',['../classle_1_1_level.html#abe75946dd12d4eb94aeb1f7639ab8b9e',1,'le::Level']]],
   ['getalldirectionallight',['GetAllDirectionalLight',['../classle_1_1_light_manager.html#ad700c334c2b91107f7af1d551ad42eb8',1,'le::LightManager']]],
@@ -21,6 +24,8 @@ var searchData=
   ['getheight',['GetHeight',['../classle_1_1_light_cone.html#ab2976d198c54f9032cdbf4e64990d52f',1,'le::LightCone']]],
   ['getidvertexs',['GetIdVertexs',['../classle_1_1_mesh.html#a32d8ad6c622a293a55c254c01bdbc99d',1,'le::Mesh']]],
   ['getinclinationcamera',['GetInclinationCamera',['../classle_1_1_camera.html#aaa9accd679949e6a5138ac6469c9403c',1,'le::Camera']]],
+  ['getlightbuffer_5fpointlight',['GetLightBuffer_PointLight',['../classle_1_1_scene.html#a47c368701eccb950ce5dd8f83252b876',1,'le::Scene']]],
+  ['getlightbuffer_5fspotlight',['GetLightBuffer_SpotLight',['../classle_1_1_scene.html#ac1eb52ee45006d471a81a1a31517bb08',1,'le::Scene']]],
   ['getmaxvertex',['GetMaxVertex',['../classle_1_1_bounding_box.html#a60986f7ee6b4af3bf65c40ea71df9ae0',1,'le::BoundingBox']]],
   ['getmesh',['GetMesh',['../classle_1_1_resources_manager.html#a45d8aabb16e93fd6a2197f4530c2f7a2',1,'le::ResourcesManager']]],
   ['getminvertex',['GetMinVertex',['../classle_1_1_bounding_box.html#a67510c32b3fc8a419fe92df1918508d8',1,'le::BoundingBox']]],
@@ -53,5 +58,9 @@ var searchData=
   ['getveluevectorstring',['GetVelueVectorString',['../classle_1_1_level_1_1_entity.html#ab38aba1586c30dcc8f98375f0224d64c',1,'le::Level::Entity']]],
   ['getvertexs',['GetVertexs',['../classle_1_1_bounding_box.html#a55e7726f62e63d0e1112a42afa23060b',1,'le::BoundingBox::GetVertexs()'],['../classle_1_1_mesh.html#aff1c1c05dc58d790f21b24ca8e64765a',1,'le::Mesh::GetVertexs()']]],
   ['getviewmatrix',['GetViewMatrix',['../classle_1_1_camera.html#adbbd963ec37a82d5e2743d5665e10879',1,'le::Camera']]],
+  ['getvisible_5fbrushes',['GetVisible_Brushes',['../classle_1_1_scene.html#a5702f5c79904731fdfb2b7a147469342',1,'le::Scene']]],
+  ['getvisible_5fmodels',['GetVisible_Models',['../classle_1_1_scene.html#a34865119ad1d94e8db9be7f460aa4e55',1,'le::Scene']]],
+  ['getvisible_5fpointlight',['GetVisible_PointLight',['../classle_1_1_scene.html#a0a3e4b9b495c16c38994a1aa76834209',1,'le::Scene']]],
+  ['getvisible_5fspotlight',['GetVisible_SpotLight',['../classle_1_1_scene.html#ac10a43ae012e4138b5282b22cd1d150a',1,'le::Scene']]],
   ['getwindow',['GetWindow',['../classle_1_1_system.html#aa5b77bbb01775668b89028c01937c535',1,'le::System']]]
 ];

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['radius',['Radius',['../classle_1_1_point_light.html#acebdfd223323fd47eb9b84405b407266',1,'le::PointLight::Radius()'],['../classle_1_1_spot_light.html#af7fb1474497a386ba0e5224f5a369fe3',1,'le::SpotLight::Radius()']]],
-  ['realese',['Realese',['../structle_1_1_skeleton_1_1_bone.html#a0ef476a6fb106419369774c5bd34ddb3',1,'le::Skeleton::Bone']]],
-  ['renderdistance',['RenderDistance',['../structle_1_1_configuration.html#a2dc5b8da308837d0ca15b749c4ba2fab',1,'le::Configuration']]],
-  ['rotation',['Rotation',['../classle_1_1_spot_light.html#aa8877189776085ecee71c75c441cfda6',1,'le::SpotLight']]]
+  ['quad',['Quad',['../classle_1_1_directional_light.html#a3b70770fe40585309d9a7aa2e80b505c',1,'le::DirectionalLight']]],
+  ['qualityshadows',['QualityShadows',['../structle_1_1_configuration.html#ac4421a46352e068e0c6b0e8f0ddc554f',1,'le::Configuration']]],
+  ['query',['Query',['../classle_1_1_bounding_box.html#a53a1b5f121db3546b36842c155778f61',1,'le::BoundingBox::Query()'],['../classle_1_1_bounding_sphere.html#ae068b8be816eeca4aa3d9ab6fb43ac15',1,'le::BoundingSphere::Query()'],['../classle_1_1_light_cone.html#a75bfcf8dbed2a14200145709b00d8365',1,'le::LightCone::Query()']]]
 ];

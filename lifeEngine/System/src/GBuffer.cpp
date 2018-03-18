@@ -162,6 +162,7 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 
 	case TypeBind::RenderLight:
 		glDepthRange( 0, 0.8 );
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 		glDrawBuffer( GL_COLOR_ATTACHMENT4 );
 
 		for ( unsigned int i = 0; i < GBUFFER_NUM_TEXTURES; i++ )
@@ -174,6 +175,10 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 	case TypeBind::RenderSkybox:		
 		glDepthRange( 0.8, 1.0 );
 		glDrawBuffer( GL_COLOR_ATTACHMENT4 );
+		break;
+
+	case TypeBind::RenderShadowMaps:
+		glDepthRange( 0.f, 1.f );
 		break;
 	}
 }

@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Классы</a> &#124;
 <a href="#pub-types">Открытые типы</a> &#124;
 <a href="#pub-methods">Открытые члены</a> &#124;
 <a href="classle_1_1_light_manager-members.html">Полный список членов класса</a>  </div>
@@ -79,6 +80,12 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="_light_manager_8h_source.html">LightManager.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structle_1_1_light_manager_1_1_info_shadows.html">InfoShadows</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Структура хранения информации для теней  <a href="structle_1_1_light_manager_1_1_info_shadows.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Открытые типы</h2></td></tr>
 <tr class="memitem:a92ad366f273c85b27e7d2d4dbb85727f"><td class="memItemLeft" align="right" valign="top"><a id="a92ad366f273c85b27e7d2d4dbb85727f"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>QualityShadows</b> { <b>None</b>, 
@@ -102,10 +109,9 @@ $(function() {
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd">AddLightsToScene</a> (<a class="el" href="classle_1_1_scene.html">Scene</a> &amp;<a class="el" href="classle_1_1_scene.html">Scene</a>)</td></tr>
 <tr class="memdesc:a272725e354dc3aa32a24865e7b15b0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить все источники света на сцену <br /></td></tr>
 <tr class="separator:a272725e354dc3aa32a24865e7b15b0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc073609eea75e2fc25c4290553c8e51"><td class="memItemLeft" align="right" valign="top"><a id="afc073609eea75e2fc25c4290553c8e51"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#afc073609eea75e2fc25c4290553c8e51">BuildShadowMaps</a> ()</td></tr>
-<tr class="memdesc:afc073609eea75e2fc25c4290553c8e51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней <br /></td></tr>
-<tr class="separator:afc073609eea75e2fc25c4290553c8e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9641abf7a5fd9380173584386727fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#ab9641abf7a5fd9380173584386727fef">BuildShadowMaps</a> (bool ShadowMap_PointLight, bool ShadowMap_SpotLight, bool ShadowMap_DirectionalLight)</td></tr>
+<tr class="memdesc:ab9641abf7a5fd9380173584386727fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#ab9641abf7a5fd9380173584386727fef">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab9641abf7a5fd9380173584386727fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13035c4713206af3687de60abef80d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a13035c4713206af3687de60abef80d71">BuildShadowMaps</a> (map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryLevel, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryStaticModels, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryAnimationModels)</td></tr>
 <tr class="memdesc:a13035c4713206af3687de60abef80d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#a13035c4713206af3687de60abef80d71">Подробнее...</a><br /></td></tr>
 <tr class="separator:a13035c4713206af3687de60abef80d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -504,8 +510,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="ab9641abf7a5fd9380173584386727fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9641abf7a5fd9380173584386727fef">&#9670;&nbsp;</a></span>BuildShadowMaps() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void le::LightManager::BuildShadowMaps </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ShadowMap_PointLight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ShadowMap_SpotLight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ShadowMap_DirectionalLight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Построить карты теней </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ShadowMap_PointLight</td><td>Обновить карту теней у точечных источников света </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ShadowMap_SpotLight</td><td>Обновить карту теней у прожекторных источников света </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ShadowMap_DirectionalLight</td><td>Обновить карту теней у направленых источников света </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a13035c4713206af3687de60abef80d71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13035c4713206af3687de60abef80d71">&#9670;&nbsp;</a></span>BuildShadowMaps()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13035c4713206af3687de60abef80d71">&#9670;&nbsp;</a></span>BuildShadowMaps() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

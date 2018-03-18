@@ -5,6 +5,7 @@
 
 le::BaseLight::BaseLight() :
 	IsInitShadowMap( false ),
+	IsVisible( true ),
 	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
 	Specular( 0, 0, 0, 1 )
@@ -25,9 +26,9 @@ le::BaseLight::~BaseLight()
 
 bool le::BaseLight::InitShadowMap( bool IsCubeMap )
 {
-	if ( IsInitShadowMap )
-		return true;
-	
+		if ( IsInitShadowMap )
+			return true;
+
 	GLsizei SizeShadowMap_Width = SHADOWMAP_SIZE;
 	GLsizei SizeShadowMap_Height = SHADOWMAP_SIZE;
 
@@ -119,8 +120,11 @@ void le::BaseLight::CopyBaseLight( const BaseLight& Copy )
 	Specular = Copy.Specular;
 	Color = Copy.Color;
 	Intensivity = Copy.Intensivity;
+	IsVisible = Copy.IsVisible;
 
+	Frustums = Copy.Frustums;
 	LightProjection = Copy.LightProjection;
+	LightViews = Copy.LightViews;
 	LightTransforms = Copy.LightTransforms;
 
 	//TODO: [zombiHello] Сделать копирование карты теней

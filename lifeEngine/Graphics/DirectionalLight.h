@@ -28,6 +28,7 @@
 ///////////////
 #include <Graphics\BaseLight.h>
 #include <Graphics\LightQuad.h>
+#include <Graphics\Frustum.h>
 
 namespace le
 {
@@ -86,7 +87,7 @@ namespace le
 		le::DirectionalLight& operator=( const DirectionalLight& Copy );
 
 		LightQuad			Quad; ///< Квадрат света
-		glm::vec3 d;
+
 		glm::vec3			Center; ///< Центр направленого света
 	};
 

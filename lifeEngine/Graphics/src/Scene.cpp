@@ -294,12 +294,6 @@ void le::Scene::RenderScene()
 	FrustumCulling();
 
 	// ****************************
-	// Построение карт теней
-	// ****************************
-	if ( !Configuration::IsWireframeRender || LightManager != NULL )
-		BuildShadowMaps();
-
-	// ****************************
 	// Рендер геометрии сцены
 	// ****************************
 	GeometryRender();
@@ -310,7 +304,10 @@ void le::Scene::RenderScene()
 	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
 	else
+	{
+		BuildShadowMaps();
 		LightRender();
+	}
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
@@ -351,6 +348,48 @@ void le::Scene::SetCamera( le::Camera& Camera )
 le::GBuffer& le::Scene::GetGBuffer()
 {
 	return GBuffer;
+}
+
+//-------------------------------------------------------------------------//
+
+size_t& le::Scene::GetVisible_PointLight()
+{
+	return Visible_PointLight;
+}
+
+//-------------------------------------------------------------------------//
+
+size_t& le::Scene::GetVisible_SpotLight()
+{
+	return Visible_SpotLight;
+}
+
+//-------------------------------------------------------------------------//
+
+size_t& le::Scene::GetVisible_Models()
+{
+	return Visible_Models;
+}
+
+//-------------------------------------------------------------------------//
+
+size_t & le::Scene::GetVisible_Brushes()
+{
+	return Visible_Brushes;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::PointLight*>& le::Scene::GetLightBuffer_PointLight()
+{
+	return LightBuffer_PointLight;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::SpotLight*>& le::Scene::GetLightBuffer_SpotLight()
+{
+	return LightBuffer_SpotLight;
 }
 
 //-------------------------------------------------------------------------//
@@ -492,6 +531,12 @@ void le::Scene::FrustumCulling()
 	for ( auto it = PointLights->begin(); it != PointLights->end(); it++ )
 		if ( Frustum->IsVisible( it->LightSphere ) )
 		{
+			if ( PositionCamera != NULL )
+			{
+				float Distance = distance( *PositionCamera, it->LightSphere.GetPosition() );
+				it->IsVisible = Distance > -it->Radius && Distance < it->Radius;
+			}
+			
 			if ( Visible_PointLight >= LightBuffer_PointLight.size() )
 				LightBuffer_PointLight.push_back( &( *it ) );
 			else
@@ -503,9 +548,28 @@ void le::Scene::FrustumCulling()
 	// ***************************************** //
 	// Проверка прожекторного освещения на отсечение по фрустуму
 
+	bool IsCameraInBox = false;
+	bool IsCameraInCircle = false;
+
 	for ( auto it = SpotLights->begin(); it != SpotLights->end(); it++ )
 		if ( Frustum->IsVisible( it->LightCone.BoundingBox ) )
 		{
+			if ( PositionCamera != NULL )
+			{
+				glm::vec3 *MaxVertexBox = &it->LightCone.BoundingBox.GetMaxVertex();
+				glm::vec3 *MinVertexBox = &it->LightCone.BoundingBox.GetMinVertex();
+				float Distance = PositionCamera->z - it->Position.z;
+
+				if ( PositionCamera->x > MinVertexBox->x && PositionCamera->x < MaxVertexBox->x )
+					if ( PositionCamera->y > MinVertexBox->y && PositionCamera->y < MaxVertexBox->y )
+						if ( PositionCamera->z > MinVertexBox->z && PositionCamera->z < MaxVertexBox->z )
+							IsCameraInBox = true;
+
+				IsCameraInCircle = Distance > -it->Radius && Distance < it->Radius;
+
+				it->IsVisible = IsCameraInBox && IsCameraInCircle;
+			}
+
 			if ( Visible_SpotLight >= LightBuffer_SpotLight.size() )
 				LightBuffer_SpotLight.push_back( &( *it ) );
 			else
@@ -569,26 +633,15 @@ void le::Scene::FrustumCulling()
 
 void le::Scene::BuildShadowMaps()
 {
-	//if ( Camera && LightManager )
-	//{
-	for ( size_t i = 0; i < DirectionalLights->size(); i++ )
-	{
-		DirectionalLight* DirectionalLight = &( *DirectionalLights )[ i ];
+	if ( Camera )
+		for ( size_t i = 0; i < DirectionalLights->size(); i++ )
+			( *DirectionalLights )[ i ].SetCenter( Camera->GetPosition() ); // Перемещаем направленные источники света за камерой игрока
 
-	//	glm::vec3 Temp = DirectionalLight->Center - Camera->GetPosition();
+	// ***************************************** //
+	// Обновление карт теней
 
-	//	float Dist = glm::length( Temp );
-
-
-	//	if ( Dist*4 > System::Configuration.RenderDistance / 4.f )
-		//{
-			( *DirectionalLights )[ i ].SetCenter( Camera->GetPosition() );
-
-			glDepthRange( 0, 1 );
-			LightManager->BuildShadowMaps_DirectionalLight( RenderBuffer_Level );
-		//}
-	}
-	//}
+	GBuffer.Bind( GBuffer::RenderShadowMaps );
+	LightManager->BuildShadowMaps( false, false, true );
 }
 
 //-------------------------------------------------------------------------//
@@ -616,7 +669,10 @@ void le::Scene::GeometryRender()
 				Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ i ];
 
 				if ( !Ptr_InfoMesh->IsRender || Ptr_InfoMesh->BoundingBox->Query.GetResult() == 0 )
+				{
+					Ptr_InfoMesh = false;
 					continue;
+				}
 
 				VAO::BindVAO( Ptr_InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -759,16 +815,7 @@ void le::Scene::RenderPointLight( const size_t& Index )
 {
 	PointLight* PointLight = LightBuffer_PointLight[ Index ];
 
-	bool IsCameraInCircle = false;
-	float Distance = 0;
-
-	if ( PositionCamera != NULL )
-	{
-		Distance = distance( *PositionCamera, PointLight->LightSphere.GetPosition() );
-		IsCameraInCircle = Distance > -PointLight->Radius && Distance < PointLight->Radius;
-	}
-
-	if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL && IsCameraInCircle )
+	if ( PointLight->LightSphere.Query.GetResult() > 0 || PositionCamera != NULL && PointLight->IsVisible )
 	{
 		glActiveTexture( GL_TEXTURE3 );
 		glBindTexture( GL_TEXTURE_2D, PointLight->ShadowMap );
@@ -806,26 +853,7 @@ void le::Scene::RenderSpotLight( const size_t& Index )
 {
 	SpotLight* SpotLight = LightBuffer_SpotLight[ Index ];
 
-	bool IsCameraInBox = false;
-	bool IsCameraInCircle = false;
-	float Distance = 0;
-	glm::vec3 *MinVertexBox, *MaxVertexBox;
-
-	if ( PositionCamera != NULL )
-	{
-		MaxVertexBox = &SpotLight->LightCone.BoundingBox.GetMaxVertex();
-		MinVertexBox = &SpotLight->LightCone.BoundingBox.GetMinVertex();
-		Distance = PositionCamera->z - SpotLight->Position.z;
-
-		if ( PositionCamera->x > MinVertexBox->x && PositionCamera->x < MaxVertexBox->x )
-			if ( PositionCamera->y > MinVertexBox->y && PositionCamera->y < MaxVertexBox->y )
-				if ( PositionCamera->z > MinVertexBox->z && PositionCamera->z < MaxVertexBox->z )
-					IsCameraInBox = true;
-
-		IsCameraInCircle = Distance > -SpotLight->Radius && Distance < SpotLight->Radius;
-	}
-
-	if ( SpotLight->LightCone.Query.GetResult() > 0 || IsCameraInBox && IsCameraInCircle )
+	if ( SpotLight->LightCone.Query.GetResult() > 0 || PositionCamera != NULL && SpotLight->IsVisible )
 	{
 		glActiveTexture( GL_TEXTURE3 );
 		glBindTexture( GL_TEXTURE_2D, SpotLight->ShadowMap );

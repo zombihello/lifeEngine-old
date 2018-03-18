@@ -11755,7 +11755,7 @@
 <Position X="-128" Y="288" Z="-544"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
-<Value Name="Intensivity" Value="0.5"/>
+<Value Name="Intensivity" Value="0.8"/>
 </Entity>
 <Entity Name="SpotLight">
 <Position X="480" Y="32" Z="-432"/>

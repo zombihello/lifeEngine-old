@@ -20,7 +20,12 @@ le::DirectionalLight::DirectionalLight()
 
 	glm::vec3 TempPosition( Position );
 	LightProjection = glm::ortho( -HalfSizeShadowMap, HalfSizeShadowMap, -HalfSizeShadowMap, HalfSizeShadowMap, -HalfRenderDistance, HalfRenderDistance );
-	LightTransforms.push_back( LightProjection * glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) );
+	
+	LightViews.push_back( glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) );
+	LightTransforms.push_back( LightProjection * LightViews[ 0 ] );
+
+	Frustums.push_back( Frustum() );
+	Frustums[0].UpdateFrustum( LightProjection, LightViews[0] );
 
 	Logger::Log( Logger::Info, "Created Directional Light" );
 }
@@ -46,7 +51,12 @@ le::DirectionalLight::DirectionalLight( const glm::vec3& Position, const glm::ve
 	float HalfRenderDistance = System::Configuration.RenderDistance / 2.f;
 
 	LightProjection = glm::ortho( -HalfSizeShadowMap, HalfSizeShadowMap, -HalfSizeShadowMap, HalfSizeShadowMap, -HalfRenderDistance, HalfRenderDistance );
-	LightTransforms.push_back( LightProjection * glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) );
+	
+	LightViews.push_back( glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) );
+	LightTransforms.push_back( LightProjection * LightViews[ 0 ] );
+
+	Frustums.push_back( Frustum() );
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 
 	Logger::Log( Logger::Info, "Created Directional Light" );
 }
@@ -72,7 +82,9 @@ void le::DirectionalLight::SetPosition( const glm::vec3& Position )
 {
 	this->Position = glm::vec4( Position, 0.0f );
 
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) * glm::translate( Position - Center );
+	LightViews[0] = glm::lookAt( Position, -Position, glm::vec3( 0, 1, 0 ) ) * glm::translate( Position - Center );
+	LightTransforms[0] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -82,10 +94,11 @@ void le::DirectionalLight::SetCenter( const glm::vec3& Center )
 	//TODO: [zombiHello] Оптимизировать перемещение направленого света
 
 	this->Center = Center;
-	
 	glm::vec3 TempPosition( Position );
-	d = TempPosition - Center;
-	LightTransforms[ 0 ] = LightProjection * glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) * glm::translate( TempPosition - Center );
+
+	LightViews[ 0 ] = glm::lookAt( TempPosition, -TempPosition, glm::vec3( 0, 1, 0 ) ) * glm::translate( TempPosition - Center );
+	LightTransforms[ 0 ] = LightProjection * LightViews[ 0 ];
+	Frustums[ 0 ].UpdateFrustum( LightProjection, LightViews[ 0 ] );
 }
 
 //-------------------------------------------------------------------------//

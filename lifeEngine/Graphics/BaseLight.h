@@ -36,6 +36,7 @@ using namespace std;
 // LIFEENGINE
 ///////////////
 #include <System\Logger.h>
+#include <Graphics\Frustum.h>
 
 namespace le
 {
@@ -103,6 +104,7 @@ namespace le
 		void SetIntensivity( float Intensivity );
 
 		bool					IsInitShadowMap; ///< Инициализирована ли карта теней
+		bool					IsVisible; ///< Виден ли источник света
 
 		float					Intensivity; ///< Интенсивность света
 
@@ -114,6 +116,9 @@ namespace le
 		glm::vec4				Specular; ///< Отражение света
 		glm::vec4				Color; ///< Цвет света
 		glm::mat4				LightProjection; ///< Матрица проекции для карт теней
+
+		vector<Frustum>			Frustums; ///< Массив усеченых пирамид для отсечения геометрии
+		vector<glm::mat4>		LightViews; ///< Массив видовых матриц
 		vector<glm::mat4>		LightTransforms; ///< Массив матриц трансформаций
 
 	protected:

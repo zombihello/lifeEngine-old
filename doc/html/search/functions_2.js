@@ -2,6 +2,7 @@ var searchData=
 [
   ['camera',['Camera',['../classle_1_1_camera.html#a37703b059c80624453f2cff29b958031',1,'le::Camera']]],
   ['clearframe',['ClearFrame',['../classle_1_1_g_buffer.html#ab366a16d6a0f1d07c9883713c238b068',1,'le::GBuffer']]],
+  ['clearinfoshadows',['ClearInfoShadows',['../structle_1_1_light_manager_1_1_info_shadows.html#a3f328f0a5e2822f50de14e0519705d07',1,'le::LightManager::InfoShadows']]],
   ['clearlevel',['ClearLevel',['../classle_1_1_level.html#a1167b1820b5c790ea815464378bf3848',1,'le::Level']]],
   ['clearmesh',['ClearMesh',['../classle_1_1_mesh.html#a8737f3bfb41ebee530472ad9602e07a3',1,'le::Mesh']]],
   ['clearsavebuffer',['ClearSaveBuffer',['../classle_1_1_config_file.html#ab8d8694b8cb6cb42f661cfc4cb3cf030',1,'le::ConfigFile']]],

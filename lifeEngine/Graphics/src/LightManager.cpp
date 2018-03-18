@@ -29,32 +29,177 @@ le::LightManager::~LightManager()
 void le::LightManager::AddLightsToScene( le::Scene& Scene )
 {
 	Scene.AddLightManagerToScene( this );
+	InfoShadows.InitInfoShadows( Scene );
 }
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::BuildShadowMaps()
+void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMap_SpotLight, bool ShadowMap_DirectionalLight )
 {
-	if ( Scene != NULL )
-		BuildShadowMaps( Scene->GetRenderBuffer_Level(), Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );	
+	if ( ShadowMapRender == NULL || InfoShadows.IsEmpty )
+		return;
+
+	bool IsDisable_DepthTest = !glIsEnabled( GL_DEPTH_TEST );
+	bool IsDisable_CullFace = !glIsEnabled( GL_CULL_FACE );
+
+	if ( IsDisable_DepthTest ) // Если выключен тест глубины - включаем
+		glEnable( GL_DEPTH_TEST );
+
+	if ( IsDisable_CullFace ) // Если выключено отсичение сторон - включаем
+		glEnable( GL_CULL_FACE );
+
+	glCullFace( GL_FRONT );
+
+	le::Scene::InfoMesh*			Ptr_InfoMesh;
+	Shader::bind( ShadowMapRender );
+
+	// ***************************************** //
+	// Строим карту теней для точечных источников
+
+	if ( ShadowMap_PointLight )
+	{
+		int		OffsetX = 0;
+		int		OffsetY = 0;
+
+		ShadowMapRender->setUniform( "IsPointLight", true );
+
+		for ( size_t Index = 0; Index < *InfoShadows.Visible_PointLight; Index++ )
+		{
+			PointLight* PointLight = ( *InfoShadows.LightBuffer_PointLight )[ Index ];
+
+			if ( PointLight->IsVisible && PointLight->InitShadowMap( true ) )
+			{
+				glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );
+				glClear( GL_DEPTH_BUFFER_BIT );
+
+				OffsetX = OffsetY = 0;
+				ShadowMapRender->setUniform( "LightPosition", PointLight->Position );
+				ShadowMapRender->setUniform( "FarPlane", PointLight->Radius );
+
+				for ( int Face = 0; Face < 6; Face++ )
+				{
+					glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
+
+					ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
+
+					for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
+						for ( size_t j = 0; j < it->second.size(); j++ )
+						{
+							Ptr_InfoMesh = it->second[ j ];
+
+							if ( !PointLight->Frustums[ Face ].IsVisible( *Ptr_InfoMesh->BoundingBox ) )
+								continue;
+
+							VAO::BindVAO( Ptr_InfoMesh->VertexArray );
+							glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+						}
+
+					if ( OffsetX == 2 )
+					{
+						OffsetX = 0;
+						OffsetY++;
+					}
+					else
+						OffsetX++;
+				}
+			}
+		}
+	}
+
+	// ***************************************** //
+	// Строим карту теней для прожекторных источников
+
+	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
+	ShadowMapRender->setUniform( "IsPointLight", false );
+
+	if ( ShadowMap_SpotLight )
+	{
+		for ( size_t Index = 0; Index < *InfoShadows.Visible_SpotLight; Index++ )
+		{
+			SpotLight* SpotLight = ( *InfoShadows.LightBuffer_SpotLight )[ Index ];
+
+			if ( SpotLight->IsVisible && SpotLight->InitShadowMap() )
+			{
+				glBindFramebuffer( GL_FRAMEBUFFER, SpotLight->ShadowMap_FBO );
+				glClear( GL_DEPTH_BUFFER_BIT );
+
+				ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
+
+				for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
+					for ( size_t j = 0; j < it->second.size(); j++ )
+					{
+						Ptr_InfoMesh = it->second[ j ];
+
+						if ( !SpotLight->Frustums[ 0 ].IsVisible( *Ptr_InfoMesh->BoundingBox ) )
+							continue;
+
+						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
+						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+					}
+			}
+		}
+	}
+
+	// ***************************************** //
+	// Строим карту теней для направленых источников
+
+	if ( ShadowMap_DirectionalLight )
+	{
+		bool IsVisibleObject;
+
+		for ( size_t i = 0; i < DirectionalLights.size(); i++ )
+			if ( DirectionalLights[ i ].InitShadowMap() )
+			{
+				DirectionalLight* DirectionalLight = &DirectionalLights[ i ];
+
+				glBindFramebuffer( GL_FRAMEBUFFER, DirectionalLight->ShadowMap_FBO );
+				glClear( GL_DEPTH_BUFFER_BIT );
+
+				ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
+
+				for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
+					for ( size_t j = 0; j < it->second.size(); j++ )
+					{
+						Ptr_InfoMesh = it->second[ j ];
+						IsVisibleObject = DirectionalLight->Frustums[ 0 ].IsVisible( *Ptr_InfoMesh->BoundingBox );
+
+						if ( !IsVisibleObject || IsVisibleObject && Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
+							continue;
+
+						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
+						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+					}
+			}
+	}
+
+	Shader::bind( NULL );
+
+	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+	glCullFace( GL_BACK );
+
+	if ( IsDisable_DepthTest )
+		glDisable( GL_DEPTH_TEST );
+
+	if ( IsDisable_CullFace )
+		glDisable( GL_CULL_FACE );
+
+	glViewport( 0, 0, ( GLsizei ) System::Configuration.WindowSize.x, ( GLsizei ) System::Configuration.WindowSize.y );
 }
 
 //-------------------------------------------------------------------------//
 
 void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels )
 {
-	if ( ShadowMapRender == NULL ) 
+	if ( ShadowMapRender == NULL )
 		return;
 
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_CULL_FACE );
 	glCullFace( GL_FRONT );
-	
+
 	int								OffsetX = 0;
 	int								OffsetY = 0;
-
 	le::Scene::InfoMesh*			Ptr_InfoMesh;
-	vector<le::Scene::InfoMesh*>*	Ptr_GeometryBuffer;
 
 	Shader::bind( ShadowMapRender );
 	ShadowMapRender->setUniform( "IsPointLight", true );
@@ -67,29 +212,25 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 		{
 			PointLight* PointLight = &PointLights[ i ];
 
-			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );	
-			glClear( GL_DEPTH_BUFFER_BIT );			
+			glBindFramebuffer( GL_FRAMEBUFFER, PointLight->ShadowMap_FBO );
+			glClear( GL_DEPTH_BUFFER_BIT );
+
+			ShadowMapRender->setUniform( "LightPosition", PointLight->Position );
+			ShadowMapRender->setUniform( "FarPlane", PointLight->Radius );
 
 			for ( int Face = 0; Face < 6; Face++ )
 			{
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
-
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
-				ShadowMapRender->setUniform( "LightPosition", PointLight->Position );
-				ShadowMapRender->setUniform( "FarPlane", PointLight->Radius );
 
 				for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-				{
-					Ptr_GeometryBuffer = &it->second;
-
-					for ( size_t j = 0; j < Ptr_GeometryBuffer->size(); j++ )
+					for ( size_t j = 0; j < it->second.size(); j++ )
 					{
-						Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ j ];
+						Ptr_InfoMesh = it->second[ j ];
 
 						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
 						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 					}
-				}
 
 				if ( OffsetX == 2 )
 				{
@@ -99,16 +240,16 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 				else
 					OffsetX++;
 			}
-	
+
 			OffsetX = OffsetY = 0;
 		}
-	
+
 	// ***************************************** //
 	// Строим карту теней для прожекторных источников
 
 	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 	ShadowMapRender->setUniform( "IsPointLight", false );
-	
+
 	for ( size_t i = 0; i < SpotLights.size(); i++ )
 		if ( SpotLights[ i ].InitShadowMap() )
 		{
@@ -120,17 +261,13 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
 			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-			{
-				Ptr_GeometryBuffer = &it->second;
-
-				for ( size_t j = 0; j < Ptr_GeometryBuffer->size(); j++ )
+				for ( size_t j = 0; j < it->second.size(); j++ )
 				{
-					Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ j ];
+					Ptr_InfoMesh = it->second[ j ];
 
 					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
-			}
 		}
 
 	// ***************************************** //
@@ -147,86 +284,21 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
 			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-			{
-				Ptr_GeometryBuffer = &it->second;
-
-				for ( size_t j = 0; j < Ptr_GeometryBuffer->size(); j++ )
+				for ( size_t j = 0; j < it->second.size(); j++ )
 				{
-					Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ j ];
+					Ptr_InfoMesh = it->second[ j ];
 
 					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
-			}
 		}
-	
+
 	Shader::bind( NULL );
-	
+
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 	glCullFace( GL_BACK );
 	glDisable( GL_DEPTH_TEST );
 	glDisable( GL_CULL_FACE );
-
-	glViewport( 0, 0, ( GLsizei ) System::Configuration.WindowSize.x, ( GLsizei ) System::Configuration.WindowSize.y );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::LightManager::BuildShadowMaps_DirectionalLight( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel )
-{
-	if ( ShadowMapRender == NULL )
-		return;
-
-//	glEnable( GL_DEPTH_TEST );
-//	glEnable( GL_CULL_FACE );
-	glCullFace( GL_FRONT );
-	glDepthRange( 0, 1 );
-
-	le::Scene::InfoMesh*			Ptr_InfoMesh;
-	vector<le::Scene::InfoMesh*>*	Ptr_GeometryBuffer;
-
-	float HalfRenderDistance = System::Configuration.RenderDistance / 2;
-
-	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
-	Shader::bind( ShadowMapRender );
-	ShadowMapRender->setUniform( "IsPointLight", false );
-
-	// ***************************************** //
-	// Строим карту теней для направленых источников
-
-	for ( size_t i = 0; i < DirectionalLights.size(); i++ )
-		//if ( DirectionalLights[ i ].IsInitShadowMap )
-		{
-			DirectionalLight* DirectionalLight = &DirectionalLights[ i ];
-
-			glBindFramebuffer( GL_FRAMEBUFFER, DirectionalLight->ShadowMap_FBO );
-			glClear( GL_DEPTH_BUFFER_BIT );
-
-			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
-
-			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-			{
-				Ptr_GeometryBuffer = &it->second;
-
-				for ( size_t j = 0; j < Ptr_GeometryBuffer->size(); j++ )
-				{
-					Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ j ];
-
-					if ( !Ptr_InfoMesh->IsRender && Ptr_InfoMesh->DistanceToCamera < 0 && Ptr_InfoMesh->DistanceToCamera < -HalfRenderDistance )
-						continue;
-
-					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-				}
-			}
-		}
-
-	//Shader::bind( NULL );
-	VAO::UnbindVAO();
-	//glBindFramebuffer( GL_FRAMEBUFFER, 0 );
-	glCullFace( GL_BACK );
-	//glDisable( GL_DEPTH_TEST );
-	//glDisable( GL_CULL_FACE );
 
 	glViewport( 0, 0, ( GLsizei ) System::Configuration.WindowSize.x, ( GLsizei ) System::Configuration.WindowSize.y );
 }
@@ -350,6 +422,9 @@ void le::LightManager::DestroyAllLight()
 void le::LightManager::SetScene( le::Scene* Scene )
 {
 	this->Scene = Scene;
+
+	if ( Scene == NULL )
+		InfoShadows.ClearInfoShadows();
 }
 
 //-------------------------------------------------------------------------//
@@ -443,6 +518,55 @@ vector<le::PointLight>& le::LightManager::GetAllPointLight()
 vector<le::DirectionalLight>& le::LightManager::GetAllDirectionalLight()
 {
 	return DirectionalLights;
+}
+
+//-------------------------------------------------------------------------//
+
+///////////////////////////////////////////////
+//			СТРУКТУРА ИНФОРМАЦИИ О ТЕНЯХ
+//////////////////////////////////////////////
+
+//-------------------------------------------------------------------------//
+
+le::LightManager::InfoShadows::InfoShadows() :
+	Visible_PointLight( NULL ),
+	Visible_SpotLight( NULL ),
+	LightBuffer_PointLight( NULL ),
+	LightBuffer_SpotLight( NULL ),
+	GeometryLevel( NULL ),
+	GeometryStaticModels( NULL ),
+	GeometryAnimationModels( NULL ),
+	IsEmpty( true )
+{}
+
+//-------------------------------------------------------------------------//
+
+void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
+{
+	Visible_PointLight = &Scene.GetVisible_PointLight();
+	Visible_SpotLight = &Scene.GetVisible_SpotLight();
+	LightBuffer_PointLight = &Scene.GetLightBuffer_PointLight();
+	LightBuffer_SpotLight = &Scene.GetLightBuffer_SpotLight();
+	GeometryLevel = &Scene.GetRenderBuffer_Level();
+	GeometryStaticModels = &Scene.GetRenderBuffer_StaticModel();
+	GeometryAnimationModels = &Scene.GetRenderBuffer_AnimationModel();
+
+	IsEmpty = false;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::LightManager::InfoShadows::ClearInfoShadows()
+{
+	Visible_PointLight = NULL;
+	Visible_SpotLight = NULL;
+	LightBuffer_PointLight = NULL;
+	LightBuffer_SpotLight = NULL;
+	GeometryLevel = NULL;
+	GeometryStaticModels = NULL;
+	GeometryAnimationModels = NULL;
+
+	IsEmpty = true;
 }
 
 //-------------------------------------------------------------------------//

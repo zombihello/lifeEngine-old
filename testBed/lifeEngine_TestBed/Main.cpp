@@ -73,11 +73,14 @@ public:
 			}
 		}
 
-		LightManager.AddSpotLight( "spot", 150, 150, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), 2 );
+		LightManager.AddSpotLight( "spot", 150, 150, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
 		Spot = LightManager.GetSpotLight( "spot" );
 
+		LightManager.AddPointLight( "point", 100, glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
+		Point = LightManager.GetPointLight( "point" );
+
 		LightManager.AddLightsToScene( *Scene );	
-		LightManager.BuildShadowMaps();
+		LightManager.BuildShadowMaps( Scene->GetRenderBuffer_Level(), Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );
 	}
 
 	~Game()
@@ -119,6 +122,9 @@ public:
 		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
 			Spot->SetPosition( Camera->GetPosition() );
 
+		if ( Keyboard::isKeyPressed( Keyboard::X ) )
+			Point->SetPosition( Camera->GetPosition() );
+
 		if ( !Keyboard::isKeyPressed( Keyboard::A ) && !Keyboard::isKeyPressed( Keyboard::D ) )
 		{
 			if ( Camera->GetInclinationCamera() + 0.5f < 0 )
@@ -142,6 +148,7 @@ public:
 	le::GBuffer* GBuffer;
 	le::LightManager LightManager;
 	le::SpotLight* Spot;
+	le::PointLight* Point;
 };
 
 int main( int argc, char** argv )

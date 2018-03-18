@@ -20,15 +20,31 @@ le::PointLight::PointLight() :
 	glm::vec3 TempPosition = Position;
 	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
+	LightViews =
+	{
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+	};
+
 	LightTransforms =
 	{
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+		LightProjection * LightViews[ 0 ],
+		LightProjection * LightViews[ 1 ],
+		LightProjection * LightViews[ 2 ],
+		LightProjection * LightViews[ 3 ],
+		LightProjection * LightViews[ 4 ],
+		LightProjection * LightViews[ 5 ]
 	};
+
+	for ( size_t i = 0; i < 6; i++ )
+	{
+		Frustums.push_back( Frustum() );
+		Frustums[ i ].UpdateFrustum( LightProjection, LightViews[ i ] );
+	}
 
 	Logger::Log( Logger::Info, "Created Point Light" );
 }
@@ -65,15 +81,31 @@ le::PointLight::PointLight( float Radius, const glm::vec3& Position, const glm::
 
 	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
+	LightViews =
+	{
+		glm::lookAt( Position, Position + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+	};
+
 	LightTransforms =
 	{
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+		LightProjection * LightViews[ 0 ],
+		LightProjection * LightViews[ 1 ],
+		LightProjection * LightViews[ 2 ],
+		LightProjection * LightViews[ 3 ],
+		LightProjection * LightViews[ 4 ],
+		LightProjection * LightViews[ 5 ]
 	};
+
+	for ( size_t i = 0; i < 6; i++ )
+	{
+		Frustums.push_back( Frustum() );
+		Frustums[ i ].UpdateFrustum( LightProjection, LightViews[ i ] );
+	}
 
 	Logger::Log( Logger::Info, "Created Point Light" );
 }
@@ -93,15 +125,31 @@ void le::PointLight::SetRadius( float Radius )
 	glm::vec3 TempPosition = Position;
 	LightProjection = glm::perspective( glm::radians( 90.f ), 1.f, 1.f, Radius );
 
+	LightViews =
+	{
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+	};
+
 	LightTransforms =
 	{
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( TempPosition, TempPosition + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+		LightProjection * LightViews[ 0 ],
+		LightProjection * LightViews[ 1 ],
+		LightProjection * LightViews[ 2 ],
+		LightProjection * LightViews[ 3 ],
+		LightProjection * LightViews[ 4 ],
+		LightProjection * LightViews[ 5 ]
 	};
+
+	for ( size_t i = 0; i < 6; i++ )
+	{
+		Frustums.push_back( Frustum() );
+		Frustums[ i ].UpdateFrustum( LightProjection, LightViews[ i ] );
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -111,15 +159,31 @@ void le::PointLight::SetPosition( const glm::vec3& Position )
 	this->Position = glm::vec4( Position, 1.0f );
 	LightSphere.SetPosition( Position );
 
+	LightViews =
+	{
+		glm::lookAt( Position, Position + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
+		glm::lookAt( Position, Position + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+	};
+
 	LightTransforms =
 	{
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( -1, 0, 0 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 1, 0 ), glm::vec3( 0, 0, 1 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, -1, 0 ), glm::vec3( 0, 0, -1 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 0, 1 ), glm::vec3( 0, 1, 0 ) ),
-		LightProjection * glm::lookAt( Position, Position + glm::vec3( 0, 0, -1 ), glm::vec3( 0, 1, 0 ) )
+		LightProjection * LightViews[ 0 ],
+		LightProjection * LightViews[ 1 ],
+		LightProjection * LightViews[ 2 ],
+		LightProjection * LightViews[ 3 ],
+		LightProjection * LightViews[ 4 ],
+		LightProjection * LightViews[ 5 ]
 	};
+
+	for ( size_t i = 0; i < 6; i++ )
+	{
+		Frustums.push_back( Frustum() );
+		Frustums[ i ].UpdateFrustum( LightProjection, LightViews[ i ] );
+	}
 }
 
 //-------------------------------------------------------------------------//
