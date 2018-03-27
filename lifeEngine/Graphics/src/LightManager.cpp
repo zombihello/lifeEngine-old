@@ -1,4 +1,5 @@
 ﻿#include <Graphics\Scene.h>
+#include <Graphics\Level.h>
 #include <System\ResourcesManager.h>
 #include <System\VAO.h>
 #include "..\LightManager.h"
@@ -36,7 +37,7 @@ void le::LightManager::AddLightsToScene( le::Scene& Scene )
 
 void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMap_SpotLight, bool ShadowMap_DirectionalLight )
 {
-	if ( ShadowMapRender == NULL || InfoShadows.IsEmpty )
+	if ( ShadowMapRender == NULL || InfoShadows.IsEmpty || InfoShadows.GeometryLevel == NULL )
 		return;
 
 	bool IsDisable_DepthTest = !glIsEnabled( GL_DEPTH_TEST );
@@ -50,7 +51,6 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 	glCullFace( GL_FRONT );
 
-	le::Scene::InfoMesh*			Ptr_InfoMesh;
 	Shader::bind( ShadowMapRender );
 
 	// ***************************************** //
@@ -82,17 +82,15 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 					ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
-					for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
-						for ( size_t j = 0; j < it->second.size(); j++ )
-						{
-							Ptr_InfoMesh = it->second[ j ];
+					for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
+					{
+						Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
 
-							if ( !PointLight->Frustums[ Face ].IsVisible( *Ptr_InfoMesh->BoundingBox ) )
-								continue;
+						if ( !Brush->IsVisible( PointLight->Frustums[ Face ] ) )
+							continue;
 
-							VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-							glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-						}
+						Brush->GetBoundingBox().RenderBox();
+					}
 
 					if ( OffsetX == 2 )
 					{
@@ -125,17 +123,15 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 				ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
-				for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
-					for ( size_t j = 0; j < it->second.size(); j++ )
-					{
-						Ptr_InfoMesh = it->second[ j ];
+				for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
+				{
+					Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
 
-						if ( !SpotLight->Frustums[ 0 ].IsVisible( *Ptr_InfoMesh->BoundingBox ) )
-							continue;
+					if ( !Brush->IsVisible( SpotLight->Frustums[ 0 ] ) )
+						continue;
 
-						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-					}
+					Brush->GetBoundingBox().RenderBox();
+				}
 			}
 		}
 	}
@@ -157,18 +153,17 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 				ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
-				for ( auto it = InfoShadows.GeometryLevel->begin(); it != InfoShadows.GeometryLevel->end(); it++ )
-					for ( size_t j = 0; j < it->second.size(); j++ )
-					{
-						Ptr_InfoMesh = it->second[ j ];
-						IsVisibleObject = DirectionalLight->Frustums[ 0 ].IsVisible( *Ptr_InfoMesh->BoundingBox );
+				for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
+				{
+					Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
 
-						if ( !IsVisibleObject || IsVisibleObject && Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
-							continue;
+					IsVisibleObject = Brush->IsVisible( DirectionalLight->Frustums[ 0 ] );
 
-						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-					}
+					if ( !IsVisibleObject || IsVisibleObject && Brush->GetDistanceToCamera() > System::Configuration.RenderDistance )
+						continue;
+
+					Brush->GetBoundingBox().RenderBox();
+				}
 			}
 	}
 
@@ -188,7 +183,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 //-------------------------------------------------------------------------//
 
-void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels )
+void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels )
 {
 	if ( ShadowMapRender == NULL )
 		return;
@@ -197,9 +192,9 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 	glEnable( GL_CULL_FACE );
 	glCullFace( GL_FRONT );
 
-	int								OffsetX = 0;
-	int								OffsetY = 0;
-	le::Scene::InfoMesh*			Ptr_InfoMesh;
+	int									OffsetX = 0;
+	int									OffsetY = 0;
+	vector<Brush*>*						Brushes = &Level.GetAllBrushes();
 
 	Shader::bind( ShadowMapRender );
 	ShadowMapRender->setUniform( "IsPointLight", true );
@@ -223,14 +218,8 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
-				for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-					for ( size_t j = 0; j < it->second.size(); j++ )
-					{
-						Ptr_InfoMesh = it->second[ j ];
-
-						VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-						glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-					}
+				for ( size_t i = 0; i < Brushes->size(); i++ )
+					( *Brushes )[ i ]->GetBoundingBox().RenderBox();
 
 				if ( OffsetX == 2 )
 				{
@@ -260,14 +249,8 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
-			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-				for ( size_t j = 0; j < it->second.size(); j++ )
-				{
-					Ptr_InfoMesh = it->second[ j ];
-
-					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-				}
+			for ( size_t i = 0; i < Brushes->size(); i++ )
+				( *Brushes )[ i ]->GetBoundingBox().RenderBox();
 		}
 
 	// ***************************************** //
@@ -283,14 +266,8 @@ void le::LightManager::BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*>
 
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
-			for ( auto it = GeometryLevel.begin(); it != GeometryLevel.end(); it++ )
-				for ( size_t j = 0; j < it->second.size(); j++ )
-				{
-					Ptr_InfoMesh = it->second[ j ];
-
-					VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-					glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-				}
+			for ( size_t i = 0; i < Brushes->size(); i++ )
+				( *Brushes )[ i ]->GetBoundingBox().RenderBox();
 		}
 
 	Shader::bind( NULL );
@@ -543,13 +520,19 @@ le::LightManager::InfoShadows::InfoShadows() :
 
 void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
 {
+	Level* Level = Scene.GetLevel();
+
 	Visible_PointLight = &Scene.GetVisible_PointLight();
 	Visible_SpotLight = &Scene.GetVisible_SpotLight();
 	LightBuffer_PointLight = &Scene.GetLightBuffer_PointLight();
 	LightBuffer_SpotLight = &Scene.GetLightBuffer_SpotLight();
-	GeometryLevel = &Scene.GetRenderBuffer_Level();
 	GeometryStaticModels = &Scene.GetRenderBuffer_StaticModel();
 	GeometryAnimationModels = &Scene.GetRenderBuffer_AnimationModel();
+
+	if ( Level != NULL )
+		GeometryLevel = &Level->GetAllBrushes();
+	else
+		GeometryLevel = NULL;
 
 	IsEmpty = false;
 }

@@ -33,7 +33,7 @@ public:
 		string NameLight;
 		vector<int> LightColor;
 		vector<float> Rotation;
-		vector<le::Level::Entity>* LevelEntitys = &Level->GetAllEntitys();
+		vector<le::Entity>* LevelEntitys = &Level->GetAllEntitys();
 
 		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
 		{
@@ -80,7 +80,8 @@ public:
 		Point = LightManager.GetPointLight( "point" );
 
 		LightManager.AddLightsToScene( *Scene );	
-		LightManager.BuildShadowMaps( Scene->GetRenderBuffer_Level(), Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );
+		LightManager.BuildShadowMaps( *Level, Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );
+		Level->GenerateLightMap( LightManager );
 	}
 
 	~Game()

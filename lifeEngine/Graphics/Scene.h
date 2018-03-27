@@ -47,9 +47,11 @@ namespace le
 
 	class Model;
 	class BoundingBox;
-	class Level;
 	class Camera;
 	class Frustum;
+	class Level;
+	class Brush;
+	struct BrushPlane;
 	class Skeleton;
 	class PointLight;
 	class DirectionalLight;
@@ -176,6 +178,13 @@ namespace le
 		GBuffer& GetGBuffer();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить карту наход. на сцене
+		///		
+		/// \return Level*, если ее нету, то вернет NULL
+		//////////////////////////////////////////////////////////////////////
+		Level* GetLevel();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить кол-во видимых точечных источников света
 		/// \warning Кол-во объектов которые попали в камеру без учета перекрытий
 		///		
@@ -220,13 +229,6 @@ namespace le
 		/// \return vector<SpotLight*>&
 		//////////////////////////////////////////////////////////////////////
 		vector<SpotLight*>& GetLightBuffer_SpotLight();
-
-		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить геометрию карты (брашей)
-		///		
-		/// \return map<GLuint, vector<InfoMesh*> >&
-		//////////////////////////////////////////////////////////////////////
-		map<GLuint, vector<InfoMesh*> >& GetRenderBuffer_Level();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить геометрию анимируемых моделей
@@ -317,12 +319,12 @@ namespace le
 		vector<PointLight>*					PointLights; ///< Массив точечный источников которые нах. на сцене
 		vector<SpotLight>*					SpotLights; ///< Массив прожекторных источников которые нах. на сцене
 		vector<DirectionalLight>*			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
-		vector<InfoMesh*>					GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
+		vector<Brush*>						GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
 		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 		vector<SpotLight*>					LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
 
-		map<GLuint, vector<InfoMesh*> >		RenderBuffer_Level; ///< Буффер рендера карты
+		map<GLuint, vector<BrushPlane*> >	RenderBuffer_Level; ///< Буффер рендера карты
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel; ///< Буффер рендера анимируемых моделей
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)	
 	};

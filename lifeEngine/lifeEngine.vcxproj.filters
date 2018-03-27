@@ -108,6 +108,12 @@
     <ClCompile Include="Graphics\src\LightCone.cpp">
       <Filter>Graphics\Light</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\src\Entity.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Brush.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -197,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="Graphics\LightCone.h">
       <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Entity.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Brush.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

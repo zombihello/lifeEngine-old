@@ -1,4 +1,8 @@
-﻿#include <System\VAO.h>
+﻿#include <System\Logger.h>
+#include <System\ResourcesManager.h>
+#include <Graphics\Camera.h>
+#include <Graphics\Scene.h>
+#include <Graphics\LightManager.h>
 #include "..\Level.h"
 
 //-------------------------------------------------------------------------//
@@ -189,7 +193,7 @@ bool le::Level::LoadLevel( const string& Route )
 				Point = Point->NextSiblingElement();
 			}
 
-			Level::Brush* LevelBrush = new Level::Brush();
+			le::Brush* LevelBrush = new le::Brush();
 			LevelBrush->CreateBrush( Brush::Cube, Position, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords );
 
 			this->Brushes.push_back( LevelBrush );
@@ -245,6 +249,32 @@ void le::Level::RemoveFromScene()
 
 //-------------------------------------------------------------------------//
 
+void le::Level::GenerateLightMap( LightManager& LightManager )
+{
+	// создаем текстуры 10х10
+	for ( size_t i = 0; i < Brushes.size(); i++ )
+	{
+		Brush* Brush = Brushes[ i ];
+		map< GLuint, vector<BrushPlane> >* Planes = &Brush->GetPlanes();
+
+		for ( auto it = Planes->begin(); it != Planes->end(); it++ )
+			for ( size_t j = 0; j < it->second.size(); j++ )
+			{
+				glGenTextures( 1, &it->second[ j ].LightMap );
+
+				glBindTexture( GL_TEXTURE_2D, it->second[ j ].LightMap );
+				glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 10, 10, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL );
+
+				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+			}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Level::SetScene( le::Scene* Scene )
 {
 	this->Scene = Scene;
@@ -268,7 +298,7 @@ le::Skybox& le::Level::GetSkybox()
 
 //-------------------------------------------------------------------------//
 
-le::Level::Entity* le::Level::GetEntity( const string& NameEntity )
+le::Entity* le::Level::GetEntity( const string& NameEntity )
 {
 	for ( size_t i = 0; i < Entitys.size(); i++ )
 		if ( Entitys[ i ].GetNameEntity() == NameEntity )
@@ -279,285 +309,17 @@ le::Level::Entity* le::Level::GetEntity( const string& NameEntity )
 
 //-------------------------------------------------------------------------//
 
-vector<le::Level::Brush*>& le::Level::GetAllBrushes()
+vector<le::Brush*>& le::Level::GetAllBrushes()
 {
 	return Brushes;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<le::Level::Entity>& le::Level::GetAllEntitys()
+vector<le::Entity>& le::Level::GetAllEntitys()
 {
 	return Entitys;
 }
 
 //-------------------------------------------------------------------------//
 
-
-///////////////////////////////////
-//			КЛАСС БРАШ
-//////////////////////////////////
-
-//-------------------------------------------------------------------------//
-
-le::Level::Brush::Brush() :
-	VertexBuffer( 0 ),
-	IndexBuffer( 0 ),
-	ArrayBuffer( 0 )
-{}
-
-//-------------------------------------------------------------------------//
-
-le::Level::Brush::~Brush()
-{
-	if ( VertexBuffer != 0 )
-		VAO::DeleteBuffer( &VertexBuffer );
-
-	if ( IndexBuffer != 0 )
-		VAO::DeleteBuffer( &IndexBuffer );
-
-	if ( ArrayBuffer != 0 )
-		VAO::DeleteVAO( &ArrayBuffer );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Level::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords )
-{
-	vector<BrushVertex> BrushVertex;
-	vector<unsigned int> IdVertex, TmpIdVertex;
-
-	BoundingBox.InitBox( Vertex );
-	this->Position = Position;
-
-	switch ( TypeBrush )
-	{
-	case Cube:
-		TmpIdVertex =
-		{
-			7, 3, 4, 3, 0, 4, 2, 6, 1,
-			6, 5, 1, 7, 6, 3, 6, 2, 3,
-			0, 1, 4, 1, 5, 4, 6, 4, 5,
-			6, 7, 4, 0, 2, 1, 0, 3, 2
-		};
-		break;
-
-	case Sphere:
-		break;
-
-	case Plane:
-		break;
-	}
-
-	Brush::BrushVertex TempVertex;
-
-	for ( size_t i = 0; i < TmpIdVertex.size(); i++ )
-	{
-		TempVertex.Position = Vertex[ TmpIdVertex[ i ] ];
-		TempVertex.Normal = Normals[ i ];
-		TempVertex.TextureCoord = TextureCoords[ i ];
-
-		bool IsFind = false;
-
-		for ( size_t j = 0; j < BrushVertex.size(); j++ )
-			if ( TempVertex == BrushVertex[ j ] )
-			{
-				IdVertex.push_back( j );
-				IsFind = true;
-				break;
-			}
-
-		if ( !IsFind )
-		{
-			IdVertex.push_back( BrushVertex.size() );
-			BrushVertex.push_back( TempVertex );
-		}
-	}
-
-	Scene::InfoMesh InfoMesh;
-
-	ArrayBuffer = VAO::CreateVAO();
-	VAO::BindVAO( ArrayBuffer );
-
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, BrushVertex, VAO::Static_Draw );
-	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, IdVertex, VAO::Static_Draw );
-
-	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( Brush::BrushVertex ), ( void* ) ( offsetof( Brush::BrushVertex, Position ) ) );
-	VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( Brush::BrushVertex ), ( void* ) ( offsetof( Brush::BrushVertex, Normal ) ) );
-	VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( Brush::BrushVertex ), ( void* ) ( offsetof( Brush::BrushVertex, TextureCoord ) ) );
-
-	VAO::UnbindVAO();
-	VAO::UnbindBuffer( VAO::Vertex_Buffer );
-	VAO::UnbindBuffer( VAO::Index_Buffer );
-
-	InfoMesh.CountIndexs = NUMBER_TO_INT( IdVertex.size() );
-	InfoMesh.VertexArray = ArrayBuffer;
-	InfoMesh.BoundingBox = &BoundingBox;
-	InfoMesh.Position = &this->Position;
-
-	RenderMesh[ Texture ] = InfoMesh;
-}
-
-//-------------------------------------------------------------------------//
-
-map<GLuint, le::Scene::InfoMesh>& le::Level::Brush::GetRenderMesh()
-{
-	return RenderMesh;
-}
-
-//-------------------------------------------------------------------------//
-
-bool le::Level::Brush::BrushVertex::operator==( BrushVertex& BrushVertex )
-{
-	return Position == BrushVertex.Position && Normal == BrushVertex.Normal && TextureCoord == BrushVertex.TextureCoord;
-}
-
-//-------------------------------------------------------------------------//
-
-///////////////////////////////////
-//			КЛАСС ЭНТИТИ
-//////////////////////////////////
-
-//-------------------------------------------------------------------------//
-
-le::Level::Entity::Entity( TiXmlElement& ElementEntity )
-{
-	// ***************************************** //
-	// Загружаем название энтити
-
-	NameEntity = ElementEntity.Attribute( "Name" );
-
-	// ***************************************** //
-	// Загружаем позицию энтити в мире
-
-	TiXmlElement* position;
-	position = ElementEntity.FirstChildElement( "Position" );
-
-	Position.x = NUMBER_TO_FLOAT( atof( position->Attribute( "X" ) ) );
-	Position.y = NUMBER_TO_FLOAT( atof( position->Attribute( "Y" ) ) );
-	Position.z = NUMBER_TO_FLOAT( atof( position->Attribute( "Z" ) ) );
-
-	// ***************************************** //
-	// Загружаем значения у энтити
-
-	TiXmlElement* Value;
-	Value = ElementEntity.FirstChildElement( "Value" );
-
-	while ( Value )
-	{
-		Values[ Value->Attribute( "Name" ) ] = Value->Attribute( "Value" );
-		Value = Value->NextSiblingElement();
-	}
-}
-
-//-------------------------------------------------------------------------//
-
-string& le::Level::Entity::GetNameEntity()
-{
-	return NameEntity;
-}
-
-//-------------------------------------------------------------------------//
-
-string le::Level::Entity::GetValueString( const string& NameValue )
-{
-	if ( Values.find( NameValue ) != Values.end() )
-		return Values[ NameValue ];
-
-	return "";
-}
-
-//-------------------------------------------------------------------------//
-
-int le::Level::Entity::GetValueInt( const string& NameValue )
-{
-	if ( Values.find( NameValue ) != Values.end() )
-		return atoi( Values[ NameValue ].c_str() );
-
-	return -1;
-}
-
-//-------------------------------------------------------------------------//
-
-float le::Level::Entity::GetValueFloat( const string& NameValue )
-{
-	if ( Values.find( NameValue ) != Values.end() )
-		return NUMBER_TO_FLOAT( atof( Values[ NameValue ].c_str() ) );
-
-	return -1.f;
-}
-
-//-------------------------------------------------------------------------//
-
-vector<string> le::Level::Entity::GetVelueVectorString( const string& NameValue )
-{
-	vector<string> Vector;
-
-	if ( Values.find( NameValue ) != Values.end() )
-	{
-		string TempString;
-		stringstream StringStream( Values[ NameValue ] );
-
-		while ( !StringStream.eof() )
-		{
-			StringStream >> TempString;
-			Vector.push_back( TempString );
-			TempString.clear();
-		}
-	}
-
-	return Vector;
-}
-
-//-------------------------------------------------------------------------//
-
-vector<int> le::Level::Entity::GetVelueVectorInt( const string& NameValue )
-{
-	vector<int> Vector;
-
-	if ( Values.find( NameValue ) != Values.end() )
-	{
-		string TempString;
-		stringstream StringStream( Values[ NameValue ] );
-
-		while ( !StringStream.eof() )
-		{
-			StringStream >> TempString;
-			Vector.push_back( atoi( TempString.c_str() ) );
-			TempString.clear();
-		}
-	}
-
-	return Vector;
-}
-
-//-------------------------------------------------------------------------//
-
-vector<float> le::Level::Entity::GetVelueVectorFloat( const string& NameValue )
-{
-	vector<float> Vector;
-
-	if ( Values.find( NameValue ) != Values.end() )
-	{
-		string TempString;
-		stringstream StringStream( Values[ NameValue ] );
-
-		while ( !StringStream.eof() )
-		{
-			StringStream >> TempString;
-			Vector.push_back( NUMBER_TO_FLOAT( atof( TempString.c_str() ) ) );
-			TempString.clear();
-		}
-	}
-
-	return Vector;
-}
-
-//-------------------------------------------------------------------------//
-
-glm::vec3& le::Level::Entity::GetPosition()
-{
-	return Position;
-}
-
-//-------------------------------------------------------------------------//

@@ -71,7 +71,7 @@ namespace le
 			vector<PointLight*>*								LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 			vector<SpotLight*>*									LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
 
-			map<GLuint, vector<le::Scene::InfoMesh*> >*			GeometryLevel; ///< Буффер рендера карты
+			vector<le::Brush*>*									GeometryLevel; ///< Буффер рендера карты
 			map<GLuint, vector<le::Scene::InfoMesh*> >*			GeometryStaticModels; ///< Буффер рендера анимируемых моделей
 			map<GLuint, vector<le::Scene::InfoMesh*> >*			GeometryAnimationModels; ///< Буффер рендера статичных моделей (не анимируемых)
 		};
@@ -115,11 +115,11 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Построить карты теней
 		///
-		/// \param[in] GeometryLevel Массив геометрии уровня (браши)
+		/// \param[in] Level Уровень
 		/// \param[in] GeometryStaticModels Массив статичных моделей
 		/// \param[in] GeometryAnimationModels Массив динамических моделей
 		//////////////////////////////////////////////////////////////////////
-		void BuildShadowMaps( map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryLevel, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels );
+		void BuildShadowMaps( Level& Level, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryStaticModels, map<GLuint, vector<le::Scene::InfoMesh*> >& GeometryAnimationModels );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 

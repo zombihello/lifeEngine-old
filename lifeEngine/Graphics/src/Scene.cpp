@@ -1,4 +1,5 @@
 ﻿#include <System\VAO.h>
+#include <System\ResourcesManager.h>
 #include <Graphics\Model.h>
 #include <Graphics\Camera.h>
 #include <Graphics\Level.h>
@@ -8,9 +9,9 @@
 
 //-------------------------------------------------------------------------//
 
-inline bool sortFUNCTION( le::Scene::InfoMesh* InfoMesh_1, le::Scene::InfoMesh* InfoMesh_2 )
+inline bool sortFUNCTION( le::Brush* Brush_1, le::Brush* Brush_2 )
 {
-	return InfoMesh_1->DistanceToCamera < InfoMesh_2->DistanceToCamera;
+	return Brush_1->GetDistanceToCamera() < Brush_2->GetDistanceToCamera();
 }
 
 //-------------------------------------------------------------------------//
@@ -188,17 +189,6 @@ void le::Scene::RemoveModelFromScene( Model* Model )
 void le::Scene::AddLevelToScene( Level* Level )
 {
 	LevelInScene = Level;
-	vector<Level::Brush*>* Brushes = &Level->GetAllBrushes();
-	map<GLuint, InfoMesh>* RenderMesh;
-
-	for ( size_t i = 0; i < Brushes->size(); i++ )
-	{
-		Level::Brush* Brush = ( *Brushes )[ i ];
-		RenderMesh = &Brush->GetRenderMesh();
-
-		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-			RenderBuffer_Level[ it->first ].push_back( &it->second );
-	}
 
 	Skybox = &Level->GetSkybox();
 
@@ -212,27 +202,7 @@ void le::Scene::AddLevelToScene( Level* Level )
 
 void le::Scene::RemoveLevelFromScene( Level* Level )
 {
-	vector<Level::Brush*>* Brushes = &Level->GetAllBrushes();
-	map<GLuint, InfoMesh>* RenderMesh;
-	vector<InfoMesh*>* InfoMeshes;
-
-	for ( size_t i = 0; i < Brushes->size(); i++ )
-	{
-		Level::Brush* Brush = ( *Brushes )[ i ];
-		RenderMesh = &Brush->GetRenderMesh();
-
-		for ( auto it = RenderMesh->begin(); it != RenderMesh->end(); it++ )
-		{
-			InfoMeshes = &RenderBuffer_Level[ it->first ];
-
-			for ( size_t j = 0; j < InfoMeshes->size(); j++ )
-				if ( ( *InfoMeshes )[ j ] == &it->second )
-				{
-					InfoMeshes->erase( InfoMeshes->begin() + j );
-					break;
-				}
-		}
-	}
+	RenderBuffer_Level.clear();
 
 	Level->SetScene( NULL );
 	Skybox->RemovePlayerCamera();
@@ -394,9 +364,9 @@ vector<le::SpotLight*>& le::Scene::GetLightBuffer_SpotLight()
 
 //-------------------------------------------------------------------------//
 
-map<GLuint, vector<le::Scene::InfoMesh*>>& le::Scene::GetRenderBuffer_Level()
+le::Level* le::Scene::GetLevel()
 {
-	return RenderBuffer_Level;
+	return LevelInScene;
 }
 
 //-------------------------------------------------------------------------//
@@ -428,36 +398,36 @@ void le::Scene::FrustumCulling()
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
 	Visible_Brushes = Visible_Models = Visible_PointLight = Visible_SpotLight = 0;
+	RenderBuffer_Level.clear();
 
 	// ***************************************** //
 	// Проверка брашей на отсечение по фрустуму
 
-	for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
+	vector<Brush*>* Brushes = &LevelInScene->GetAllBrushes();
+	map<GLuint, vector<BrushPlane> >* BrushPlanes;
+
+	for ( auto it = Brushes->begin(); it != Brushes->end(); it++ )
 	{
-		Ptr_GeometryBuffer = &it->second;
+		le::Brush* Brush = ( *it );
 
-		for ( size_t i = 0; i < Ptr_GeometryBuffer->size(); i++ )
+		if ( Brush->IsVisible( *Frustum ) )
 		{
-			Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ i ];
+			Brush->SetDistanceToCamera( *Camera );
+			BrushPlanes = &Brush->GetPlanes();
 
-			if ( !Frustum->IsVisible( *Ptr_InfoMesh->BoundingBox ) )
-				Ptr_InfoMesh->IsRender = false;
+			if ( Brush->GetDistanceToCamera() > System::Configuration.RenderDistance )
+				continue;			
+
+			for ( auto itPlanes = BrushPlanes->begin(); itPlanes != BrushPlanes->end(); itPlanes++ )
+				for ( size_t i = 0; i < itPlanes->second.size(); i++ )
+				RenderBuffer_Level[ itPlanes->first ].push_back( &itPlanes->second[i] );
+
+			if ( Visible_Brushes >= GeometryBuffer_Level.size() )
+				GeometryBuffer_Level.push_back( Brush );
 			else
-			{
-				Ptr_InfoMesh->DistanceToCamera = Camera->GetDistance( *Ptr_InfoMesh->Position );
+				GeometryBuffer_Level[ Visible_Brushes ] = Brush;
 
-				if ( Ptr_InfoMesh->DistanceToCamera > System::Configuration.RenderDistance )
-					continue;
-
-				Ptr_InfoMesh->IsRender = true;
-
-				if ( Visible_Brushes >= GeometryBuffer_Level.size() )
-					GeometryBuffer_Level.push_back( Ptr_InfoMesh );
-				else
-					GeometryBuffer_Level[ Visible_Brushes ] = Ptr_InfoMesh;
-
-				Visible_Brushes++;
-			}
+			Visible_Brushes++;
 		}
 	}
 
@@ -587,7 +557,7 @@ void le::Scene::FrustumCulling()
 	// Рендер ограничивающих тел брашей
 
 	for ( size_t i = 0; i < Visible_Brushes; i++ )
-		GeometryBuffer_Level[ i ]->BoundingBox->QueryTest();
+		GeometryBuffer_Level[ i ]->QueryTest();
 
 	// ***************************************** //
 	// Рендер ограничивающих тел моделей
@@ -662,20 +632,17 @@ void le::Scene::GeometryRender()
 		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
 			glBindTexture( GL_TEXTURE_2D, it->first );
-			Ptr_GeometryBuffer = &it->second;
+			le::BrushPlane* Plane;
 
-			for ( size_t i = 0; i < Ptr_GeometryBuffer->size(); i++ )
+			for ( size_t i = 0; i < it->second.size(); i++ )
 			{
-				Ptr_InfoMesh = ( *Ptr_GeometryBuffer )[ i ];
+				Plane = it->second[ i ];
 
-				if ( !Ptr_InfoMesh->IsRender || Ptr_InfoMesh->BoundingBox->Query.GetResult() == 0 )
-				{
-					Ptr_InfoMesh = false;
+				if ( !Plane->Brush->IsVisible() )
 					continue;
-				}
 
-				VAO::BindVAO( Ptr_InfoMesh->VertexArray );
-				glDrawElements( GL_TRIANGLES, Ptr_InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				VAO::BindVAO( Plane->ArrayBuffer );
+				glDrawElements( GL_TRIANGLES, Plane->CountIndexs, GL_UNSIGNED_INT, 0 );
 			}
 		}
 	}
