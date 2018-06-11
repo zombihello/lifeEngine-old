@@ -1,0 +1,6 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="node1" href="$classle_1_1_base_light.html" title="Базовый класс света " alt="" coords="5,56,104,83"/>
+<area shape="rect" id="node2" href="$classle_1_1_directional_light.html" title="Класс направленного света " alt="" coords="152,5,281,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_point_light.html" title="Класс точечного света " alt="" coords="167,56,266,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_spot_light.html" title="Класс прожекторного света " alt="" coords="169,107,264,133"/>
+</map>

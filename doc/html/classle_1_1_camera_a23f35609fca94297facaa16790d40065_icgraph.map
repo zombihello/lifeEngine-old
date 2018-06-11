@@ -1,0 +1,4 @@
+<map id="le::Camera::GetFrustum" name="le::Camera::GetFrustum">
+<area shape="rect" id="node2" href="$classle_1_1_brush.html#a277f6114224a8ee220769e5bc5baf2ad" title="Попал ли браш в камеру " alt="" coords="226,5,357,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea" title="Задать камеру " alt="" coords="216,56,367,83"/>
+</map>

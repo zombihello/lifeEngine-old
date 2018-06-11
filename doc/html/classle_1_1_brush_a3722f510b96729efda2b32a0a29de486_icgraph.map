@@ -1,0 +1,6 @@
+<map id="le::Brush::IsVisible" name="le::Brush::IsVisible">
+<area shape="rect" id="node2" href="$classle_1_1_light_manager.html#ab9641abf7a5fd9380173584386727fef" title="Построить карты теней " alt="" coords="184,5,417,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_scene.html#a93714523f57e328aa086f46ba341b6e1" title="Получить геометрию статичных моделей " alt="" coords="465,23,645,65"/>
+<area shape="rect" id="node4" href="$structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="693,23,892,65"/>
+<area shape="rect" id="node5" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="940,23,1124,65"/>
+</map>

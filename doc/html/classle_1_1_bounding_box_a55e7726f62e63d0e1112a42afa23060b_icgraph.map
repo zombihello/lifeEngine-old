@@ -1,0 +1,12 @@
+<map id="le::BoundingBox::GetVertexs" name="le::BoundingBox::GetVertexs">
+<area shape="rect" id="node2" href="$classle_1_1_frustum.html#a3f964532a8ac6a3f0498dd803d0e6f79" title="Видно ли ограничивающее тело " alt="" coords="255,107,400,133"/>
+<area shape="rect" id="node8" href="$classle_1_1_light_cone.html#ab353c9205b4a13fa3e3b335506a0f896" title="Задать радиус конуса " alt="" coords="244,157,411,184"/>
+<area shape="rect" id="node10" href="$classle_1_1_light_cone.html#a49d1252df199906d3ed238ead02c2576" title="Задать высоту конуса " alt="" coords="246,208,409,235"/>
+<area shape="rect" id="node3" href="$classle_1_1_brush.html#a3722f510b96729efda2b32a0a29de486" title="Попал ли браш в камеру " alt="" coords="475,56,605,83"/>
+<area shape="rect" id="node5" href="$classle_1_1_scene.html#a93714523f57e328aa086f46ba341b6e1" title="Получить геометрию статичных моделей " alt="" coords="951,49,1131,90"/>
+<area shape="rect" id="node4" href="$classle_1_1_light_manager.html#ab9641abf7a5fd9380173584386727fef" title="Построить карты теней " alt="" coords="669,5,903,32"/>
+<area shape="rect" id="node6" href="$structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="1179,49,1377,90"/>
+<area shape="rect" id="node7" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="1425,49,1609,90"/>
+<area shape="rect" id="node9" href="$classle_1_1_spot_light.html#a95df99cec29409aff4c8fbb538205f8d" title="Задать радиус конуса у света " alt="" coords="459,157,621,184"/>
+<area shape="rect" id="node11" href="$classle_1_1_spot_light.html#a15ad3393d9a20a16b02a542108ed3d97" title="Задать высоту конуса у света " alt="" coords="460,208,620,235"/>
+</map>

@@ -112,9 +112,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ab9641abf7a5fd9380173584386727fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#ab9641abf7a5fd9380173584386727fef">BuildShadowMaps</a> (bool ShadowMap_PointLight, bool ShadowMap_SpotLight, bool ShadowMap_DirectionalLight)</td></tr>
 <tr class="memdesc:ab9641abf7a5fd9380173584386727fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#ab9641abf7a5fd9380173584386727fef">Подробнее...</a><br /></td></tr>
 <tr class="separator:ab9641abf7a5fd9380173584386727fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13035c4713206af3687de60abef80d71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a13035c4713206af3687de60abef80d71">BuildShadowMaps</a> (map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryLevel, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryStaticModels, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryAnimationModels)</td></tr>
-<tr class="memdesc:a13035c4713206af3687de60abef80d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#a13035c4713206af3687de60abef80d71">Подробнее...</a><br /></td></tr>
-<tr class="separator:a13035c4713206af3687de60abef80d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df3eae1baebbbca2e665d8f8851b1da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a7df3eae1baebbbca2e665d8f8851b1da">BuildShadowMaps</a> (<a class="el" href="classle_1_1_level.html">Level</a> &amp;<a class="el" href="classle_1_1_level.html">Level</a>, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryStaticModels, map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;GeometryAnimationModels)</td></tr>
+<tr class="memdesc:a7df3eae1baebbbca2e665d8f8851b1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Построить карты теней  <a href="#a7df3eae1baebbbca2e665d8f8851b1da">Подробнее...</a><br /></td></tr>
+<tr class="separator:a7df3eae1baebbbca2e665d8f8851b1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classle_1_1_light_manager.html#a40114d4cbe1a69bea8f9ee34ebaa1d7b">AddPointLight</a> (const string &amp;NameLight, float Radius, const glm::vec3 &amp;Position, const glm::vec4 &amp;Color, float Intensivity=1.f, const glm::vec4 &amp;Specular=glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))</td></tr>
 <tr class="memdesc:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавить точечный источник света  <a href="#a40114d4cbe1a69bea8f9ee34ebaa1d7b">Подробнее...</a><br /></td></tr>
 <tr class="separator:a40114d4cbe1a69bea8f9ee34ebaa1d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -551,11 +551,39 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_cgraph.png" border="0" usemap="#classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_cgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_cgraph" id="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_cgraph">
+<area shape="rect" id="node2" href="classle_1_1_base_light.html#a98902d277d5e0eca47cc9f4801de5c68" title="Инициализировать карту теней " alt="" coords="287,5,481,32"/>
+<area shape="rect" id="node4" href="classle_1_1_brush.html#a3722f510b96729efda2b32a0a29de486" title="Попал ли браш в камеру " alt="" coords="319,56,449,83"/>
+<area shape="rect" id="node8" href="classle_1_1_brush.html#a1179800ac96d290337f67726fd425272" title="Получить ограничивающее тело браша " alt="" coords="294,107,474,133"/>
+<area shape="rect" id="node9" href="classle_1_1_bounding_box.html#a484fa3a0fa46ab3f15dfbbea012fe4d1" title="Отрендерить объект " alt="" coords="289,157,479,184"/>
+<area shape="rect" id="node12" href="classle_1_1_brush.html#acf80096e642a86c80d58eadfd9adb2a7" title="Получить расстояние между брашем и камерой " alt="" coords="300,209,468,250"/>
+<area shape="rect" id="node3" href="classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="548,5,656,32"/>
+<area shape="rect" id="node5" href="classle_1_1_frustum.html#a3f964532a8ac6a3f0498dd803d0e6f79" title="Видно ли ограничивающее тело " alt="" coords="529,56,675,83"/>
+<area shape="rect" id="node6" href="classle_1_1_bounding_box.html#a55e7726f62e63d0e1112a42afa23060b" title="Получить вершины " alt="" coords="724,31,915,57"/>
+<area shape="rect" id="node7" href="classle_1_1_bounding_box.html#a301efe9aec27e5729e5747dabe8916f6" title="Получить позицию " alt="" coords="723,81,916,108"/>
+<area shape="rect" id="node10" href="classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="537,132,667,159"/>
+<area shape="rect" id="node11" href="classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="530,183,674,209"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_icgraph.png" border="0" usemap="#classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_icgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_icgraph" id="classle_1_1_light_manager_ab9641abf7a5fd9380173584386727fef_icgraph">
+<area shape="rect" id="node2" href="classle_1_1_scene.html#a93714523f57e328aa086f46ba341b6e1" title="Получить геометрию статичных моделей " alt="" coords="287,5,467,47"/>
+<area shape="rect" id="node3" href="structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="515,5,713,47"/>
+<area shape="rect" id="node4" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="761,5,945,47"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a13035c4713206af3687de60abef80d71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13035c4713206af3687de60abef80d71">&#9670;&nbsp;</a></span>BuildShadowMaps() <span class="overload">[2/2]</span></h2>
+<a id="a7df3eae1baebbbca2e665d8f8851b1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df3eae1baebbbca2e665d8f8851b1da">&#9670;&nbsp;</a></span>BuildShadowMaps() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -563,8 +591,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void le::LightManager::BuildShadowMaps </td>
           <td>(</td>
-          <td class="paramtype">map&lt; GLuint, vector&lt; <a class="el" href="structle_1_1_scene_1_1_info_mesh.html">le::Scene::InfoMesh</a> *&gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>GeometryLevel</em>, </td>
+          <td class="paramtype"><a class="el" href="classle_1_1_level.html">Level</a> &amp;&#160;</td>
+          <td class="paramname"><em>Level</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -589,12 +617,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Построить карты теней </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">GeometryLevel</td><td>Массив геометрии уровня (браши) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="classle_1_1_level.html" title="Класс для работы с уровнем ">Level</a></td><td>Уровень </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">GeometryStaticModels</td><td>Массив статичных моделей </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">GeometryAnimationModels</td><td>Массив динамических моделей </td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_a7df3eae1baebbbca2e665d8f8851b1da_cgraph.png" border="0" usemap="#classle_1_1_light_manager_a7df3eae1baebbbca2e665d8f8851b1da_cgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_a7df3eae1baebbbca2e665d8f8851b1da_cgraph" id="classle_1_1_light_manager_a7df3eae1baebbbca2e665d8f8851b1da_cgraph">
+<area shape="rect" id="node2" href="classle_1_1_level.html#a0131b0dc9259447dec1ab2dcbfb7e46c" title="Получить все браши на уровне " alt="" coords="287,5,448,32"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -718,6 +754,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Получить весь массив направленных источников света </p>
 <dl class="section return"><dt>Возвращает</dt><dd>vector&lt;DirectionalLight&gt;&amp; </dd></dl>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_ad700c334c2b91107f7af1d551ad42eb8_icgraph.png" border="0" usemap="#classle_1_1_light_manager_ad700c334c2b91107f7af1d551ad42eb8_icgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_ad700c334c2b91107f7af1d551ad42eb8_icgraph" id="classle_1_1_light_manager_ad700c334c2b91107f7af1d551ad42eb8_icgraph">
+<area shape="rect" id="node2" href="classle_1_1_scene.html#a181724695c22eb58bfbb37bf98d0bd4b" title="Добавить менеджер света на сцену " alt="" coords="216,5,403,47"/>
+<area shape="rect" id="node3" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="451,5,635,47"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -738,6 +783,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Получить весь массив точеных источников света </p>
 <dl class="section return"><dt>Возвращает</dt><dd>vector&lt;PointLight&gt;&amp; </dd></dl>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_a0c1766f6c079c76168246dce9187003a_icgraph.png" border="0" usemap="#classle_1_1_light_manager_a0c1766f6c079c76168246dce9187003a_icgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_a0c1766f6c079c76168246dce9187003a_icgraph" id="classle_1_1_light_manager_a0c1766f6c079c76168246dce9187003a_icgraph">
+<area shape="rect" id="node2" href="classle_1_1_scene.html#a181724695c22eb58bfbb37bf98d0bd4b" title="Добавить менеджер света на сцену " alt="" coords="216,5,403,47"/>
+<area shape="rect" id="node3" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="451,5,635,47"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -758,6 +812,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Получить весь массив прожекторных источников света </p>
 <dl class="section return"><dt>Возвращает</dt><dd>vector&lt;SpotLight&gt;&amp; </dd></dl>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_a6d2ad035932379c60049dc4884c78db0_icgraph.png" border="0" usemap="#classle_1_1_light_manager_a6d2ad035932379c60049dc4884c78db0_icgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_a6d2ad035932379c60049dc4884c78db0_icgraph" id="classle_1_1_light_manager_a6d2ad035932379c60049dc4884c78db0_icgraph">
+<area shape="rect" id="node2" href="classle_1_1_scene.html#a181724695c22eb58bfbb37bf98d0bd4b" title="Добавить менеджер света на сцену " alt="" coords="216,5,403,47"/>
+<area shape="rect" id="node3" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="451,5,635,47"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -946,12 +1009,31 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Граф вызовов:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_cgraph.png" border="0" usemap="#classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_cgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_cgraph" id="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_cgraph">
+<area shape="rect" id="node2" href="structle_1_1_light_manager_1_1_info_shadows.html#a3f328f0a5e2822f50de14e0519705d07" title="Сбросить всю информацию о тенях " alt="" coords="236,5,435,47"/>
+</map>
+</div>
+<div class="dynheader">
+Граф вызова функции:</div>
+<div class="dyncontent">
+<div class="center"><img src="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_icgraph.png" border="0" usemap="#classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_icgraph" alt=""/></div>
+<map name="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_icgraph" id="classle_1_1_light_manager_ac5154f151af07a74a98ecd4921054bf2_icgraph">
+<area shape="rect" id="node2" href="classle_1_1_scene.html#a181724695c22eb58bfbb37bf98d0bd4b" title="Добавить менеджер света на сцену " alt="" coords="247,5,434,47"/>
+<area shape="rect" id="node4" href="classle_1_1_scene.html#aab08a2ed1ca606bcd5e847607b68df62" title="Удалить менеджер света со сцены " alt="" coords="236,71,445,112"/>
+<area shape="rect" id="node3" href="classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="493,5,677,47"/>
+<area shape="rect" id="node5" href="classle_1_1_light_manager.html#aa851cb28191f846bba460d49389a4808" title="Деструктор " alt="" coords="522,71,649,112"/>
+</map>
+</div>
 
 </div>
 </div>
 <hr/>Объявления и описания членов классов находятся в файлах:<ul>
-<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/Graphics/<a class="el" href="_light_manager_8h_source.html">LightManager.h</a></li>
-<li>E:/Egor/projects/GameEngine/lifeEngine/lifeEngine/Graphics/src/LightManager.cpp</li>
+<li>E:/Egor/projects/C++/GameEngine/lifeEngine/lifeEngine/Graphics/<a class="el" href="_light_manager_8h_source.html">LightManager.h</a></li>
+<li>E:/Egor/projects/C++/GameEngine/lifeEngine/lifeEngine/Graphics/src/LightManager.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

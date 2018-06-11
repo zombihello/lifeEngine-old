@@ -1,0 +1,6 @@
+<map id="le::ResourcesManager::GetGlTexture" name="le::ResourcesManager::GetGlTexture">
+<area shape="rect" id="node2" href="$classle_1_1_level.html#a2681e01f64ae4c60bc53400846c11af4" title="Загрузить карту " alt="" coords="208,5,343,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_mesh.html#ab9d84bb4efb85dc42a31dd8d927f0382" title="Загрузить модель " alt="" coords="205,56,345,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_resources_manager.html#a4c4406ea0088dffc036902b5390d4c8d" title="Загрузить меш " alt="" coords="393,49,545,90"/>
+<area shape="rect" id="node5" href="$classle_1_1_model.html#a499446af768ed6bd05ebf0d9283a9192" title="Загрузить модель " alt="" coords="593,56,740,83"/>
+</map>

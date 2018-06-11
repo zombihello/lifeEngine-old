@@ -32,44 +32,10 @@ using namespace std;
 //////////////////
 #include <Graphics\BoundingBox.h>
 #include <Graphics\Camera.h>
+#include <Graphics\BrushPlane.h>
 
 namespace le
 {
-	//-------------------------------------------------------------------------//
-
-	class Brush;
-
-	//-------------------------------------------------------------------------//
-
-	//////////////////////////////////////////////////////////////////////
-	/// \brief Структура хранит информацию вершины (позиция,
-	/// нормаль и т.д ) для браша
-	//////////////////////////////////////////////////////////////////////
-	struct DLL_API BrushVertex
-	{
-		glm::vec3		Position; ///< Позиция вершины
-		glm::vec3		Normal; ///< Нормаль вершины
-		glm::vec2		TextureCoord; ///< Текстурная координата
-
-		bool operator==( BrushVertex& BrushVertex );
-	};
-
-	//-------------------------------------------------------------------------//
-
-	//////////////////////////////////////////////////////////////////////
-	/// \brief Структура хранит информацию плоскости браша (LightMap,
-	/// текстура и т.д)
-	//////////////////////////////////////////////////////////////////////
-	struct DLL_API BrushPlane
-	{
-		int					CountIndexs; ///< Количество индексов вершин
-		Brush*				Brush; ///< Указатель на браш
-
-		GLuint				LightMap; ///< Карта освещения плоскости браша
-		GLuint				ArrayBuffer; ///< VAO
-		GLuint				IndexBuffer; ///< Индексный буффер
-	};
-
 	//-------------------------------------------------------------------------//
 
 	//////////////////////////////////////////////////////////////////////
@@ -110,7 +76,7 @@ namespace le
 		/// \param[in] Normals Нормали
 		/// \param[in] TextureCoords Текстурные координаты
 		//////////////////////////////////////////////////////////////////////
-		void CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords );
+		void CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords, const vector<glm::vec2>& TextureCoords_LightMap, const vector<string>& NameLightmaps );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Попал ли браш в камеру

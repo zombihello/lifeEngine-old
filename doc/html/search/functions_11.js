@@ -3,7 +3,7 @@ var searchData=
   ['_7ebaselight',['~BaseLight',['../classle_1_1_base_light.html#a4c3066853d9b1180bd96457ab0e7c354',1,'le::BaseLight']]],
   ['_7eboundingbox',['~BoundingBox',['../classle_1_1_bounding_box.html#a1b0d754e03870676c8efa65bd556365c',1,'le::BoundingBox']]],
   ['_7eboundingsphere',['~BoundingSphere',['../classle_1_1_bounding_sphere.html#af38a0c2cddf836b2ccb63c3a5bb75c29',1,'le::BoundingSphere']]],
-  ['_7ebrush',['~Brush',['../classle_1_1_level_1_1_brush.html#ada5561103beb721af9fb92606566fb31',1,'le::Level::Brush']]],
+  ['_7ebrush',['~Brush',['../classle_1_1_brush.html#ac3e0b97b0373042eb5d5baea50035b86',1,'le::Brush']]],
   ['_7ecamera',['~Camera',['../classle_1_1_camera.html#a7465a39d70b4c5f9388474e22103302e',1,'le::Camera']]],
   ['_7edirectionallight',['~DirectionalLight',['../classle_1_1_directional_light.html#a4b78188205fad417dd64b92e0f1ed599',1,'le::DirectionalLight']]],
   ['_7egbuffer',['~GBuffer',['../classle_1_1_g_buffer.html#ab765098784cbe128897c9f979115a9a2',1,'le::GBuffer']]],

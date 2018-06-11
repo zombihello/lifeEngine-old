@@ -116,12 +116,13 @@ bool le::Level::LoadLevel( const string& Route )
 	if ( Solid != NULL )
 	{
 		TiXmlElement* Brush;
-		string str_TypeBrush, str_TextureName;
+		string str_TypeBrush, str_TextureName, str_Temp;
 		glm::vec3 Position;
 		glm::vec3 TempVector3;
 		glm::vec2 TempVector2;
+		vector<string> NameLightmaps;
 		vector<glm::vec3> Vertexs, Normals;
-		vector<glm::vec2> TexCoords;
+		vector<glm::vec2> TexCoords, TexCoords_Lightmap;
 
 		Brush = Solid->FirstChildElement( "Brush" );
 
@@ -193,14 +194,48 @@ bool le::Level::LoadLevel( const string& Route )
 				Point = Point->NextSiblingElement();
 			}
 
+			// ****************************
+			// Загружаем текстурные координаты карты освещения
+			// ****************************
+
+			TiXmlElement *TextureCoords_LightMap;
+			TextureCoords_LightMap = Brush->FirstChildElement( "TextureCoords_LightMap" );
+			Point = TextureCoords_LightMap->FirstChildElement( "Point" );
+
+			while ( Point )
+			{
+				TempVector2.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "X" ) ) );
+				TempVector2.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "Y" ) ) );
+
+				TexCoords_Lightmap.push_back( TempVector2 );
+				Point = Point->NextSiblingElement();
+			}
+
+
+			// ****************************
+			// Запоминаем названия лайтмапы для каждого треугольника
+			// ****************************
+
+			TiXmlElement *LightMaps;
+			LightMaps = Brush->FirstChildElement( "LightMaps" );
+			TiXmlElement *Triangle = LightMaps->FirstChildElement( "Triangle" );
+
+			while ( Triangle )
+			{
+				NameLightmaps.push_back( Triangle->Attribute( "Route" ) );
+				Triangle = Triangle->NextSiblingElement();
+			}
+
 			le::Brush* LevelBrush = new le::Brush();
-			LevelBrush->CreateBrush( Brush::Cube, Position, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords );
+			LevelBrush->CreateBrush( Brush::Cube, Position, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords, TexCoords_Lightmap, NameLightmaps );
 
 			this->Brushes.push_back( LevelBrush );
 
 			Vertexs.clear();
 			Normals.clear();
 			TexCoords.clear();
+			TexCoords_Lightmap.clear();
+			NameLightmaps.clear();
 			Brush = Brush->NextSiblingElement();
 		}
 	}
@@ -245,32 +280,6 @@ void le::Level::RemoveFromScene()
 {
 	if ( Scene )
 		Scene->RemoveLevelFromScene( this );
-}
-
-//-------------------------------------------------------------------------//
-
-void le::Level::GenerateLightMap( LightManager& LightManager )
-{
-	// создаем текстуры 10х10
-	for ( size_t i = 0; i < Brushes.size(); i++ )
-	{
-		Brush* Brush = Brushes[ i ];
-		map< GLuint, vector<BrushPlane> >* Planes = &Brush->GetPlanes();
-
-		for ( auto it = Planes->begin(); it != Planes->end(); it++ )
-			for ( size_t j = 0; j < it->second.size(); j++ )
-			{
-				glGenTextures( 1, &it->second[ j ].LightMap );
-
-				glBindTexture( GL_TEXTURE_2D, it->second[ j ].LightMap );
-				glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 10, 10, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL );
-
-				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
-				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
-				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-				glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-			}
-	}
 }
 
 //-------------------------------------------------------------------------//

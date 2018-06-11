@@ -1,0 +1,18 @@
+<map id="le::Model::LoadModel" name="le::Model::LoadModel">
+<area shape="rect" id="node2" href="$classle_1_1_mesh.html#aa619b8aa8bdbd75ad61864846ffa8c38" title="Получить массив вершин для VBO. " alt="" coords="200,5,381,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_mesh.html#aebf0512245d2cc41079a6110c1c9d46c" title="Получить массив текстур " alt="" coords="215,56,366,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_mesh.html#a32d8ad6c622a293a55c254c01bdbc99d" title="Получить ID вершин, порядок соединения " alt="" coords="213,107,369,133"/>
+<area shape="rect" id="node5" href="$classle_1_1_mesh.html#ac5c1b4a43c81bd6a8ef75c93f25447ac" title="Нет ли скелета " alt="" coords="212,157,369,184"/>
+<area shape="rect" id="node6" href="$classle_1_1_mesh.html#a5bfaa054f30efd736acb531e5b644f89" title="Получить скелет меша " alt="" coords="215,208,367,235"/>
+<area shape="rect" id="node7" href="$classle_1_1_mesh.html#a9b18bf042bf8803164217763705da4ac" title="Получить ограничивающее тело меша " alt="" coords="201,259,380,285"/>
+<area shape="rect" id="node8" href="$classle_1_1_mesh.html#acf723564af1205298bc0accf93cdfcf5" title="Получить анимации меша " alt="" coords="207,309,374,336"/>
+<area shape="rect" id="node9" href="$classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120" title="Создать буффер для VAO. " alt="" coords="217,360,364,387"/>
+<area shape="rect" id="node10" href="$classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7" title="Создать VAO. " alt="" coords="219,411,362,437"/>
+<area shape="rect" id="node11" href="$classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="225,461,356,488"/>
+<area shape="rect" id="node12" href="$classle_1_1_v_a_o.html#ae1870d1ffbb906306e5304845507651b" title="Присоединить буффер к VAO. " alt="" coords="219,512,362,539"/>
+<area shape="rect" id="node13" href="$classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3" title="Задать индекс атрибута вершины в шейдере " alt="" coords="208,563,373,605"/>
+<area shape="rect" id="node14" href="$classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="219,629,363,656"/>
+<area shape="rect" id="node15" href="$classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4" title="Деактивировать текущий буффер " alt="" coords="216,680,365,707"/>
+<area shape="rect" id="node16" href="$classle_1_1_animation_manager.html#a22da6df5d251e92781076decda4dc50a" title="Установить скелет модели " alt="" coords="217,731,365,773"/>
+<area shape="rect" id="node17" href="$classle_1_1_animation_manager.html#ae821989b0638e0b884354b563e20f24e" title="Установить информацию о меше " alt="" coords="217,797,365,838"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="le::BaseLight" name="le::BaseLight">
+<area shape="rect" id="node2" href="$classle_1_1_directional_light.html" title="Класс направленного света " alt="" coords="5,80,135,107"/>
+<area shape="rect" id="node3" href="$classle_1_1_point_light.html" title="Класс точечного света " alt="" coords="159,80,258,107"/>
+<area shape="rect" id="node4" href="$classle_1_1_spot_light.html" title="Класс прожекторного света " alt="" coords="283,80,377,107"/>
+</map>

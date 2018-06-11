@@ -1,0 +1,4 @@
+<map id="le::Skybox::SetPlayerCamera" name="le::Skybox::SetPlayerCamera">
+<area shape="rect" id="node2" href="$classle_1_1_camera.html#ab5c51b64a1bcd1b377ba1aa304b867a5" title="Получить позицию камеры " alt="" coords="257,5,418,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_camera.html#adbbd963ec37a82d5e2743d5665e10879" title="Получить видовую матрицу " alt="" coords="248,56,427,83"/>
+</map>

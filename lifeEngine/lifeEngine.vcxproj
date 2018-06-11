@@ -160,6 +160,8 @@
     <ClInclude Include="Graphics\BoundingBox.h" />
     <ClInclude Include="Graphics\BoundingSphere.h" />
     <ClInclude Include="Graphics\Brush.h" />
+    <ClInclude Include="Graphics\BrushPlane.h" />
+    <ClInclude Include="Graphics\BrushVertex.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\DirectionalLight.h" />
     <ClInclude Include="Graphics\Entity.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Graphics\src\BoundingBox.cpp" />
     <ClCompile Include="Graphics\src\BoundingSphere.cpp" />
     <ClCompile Include="Graphics\src\Brush.cpp" />
+    <ClCompile Include="Graphics\src\BrushVertex.cpp" />
     <ClCompile Include="Graphics\src\Camera.cpp" />
     <ClCompile Include="Graphics\src\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\src\Entity.cpp" />

@@ -1,0 +1,7 @@
+<map id="le::Model::IsNoSkeleton" name="le::Model::IsNoSkeleton">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#ab2014070788465b1eec40cff0bbfc0c3" title="Добавить модель на сцену " alt="" coords="214,5,409,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_scene.html#aaedcf867db03ecad4df4bb93f5591644" title="Удалить модель с сцены " alt="" coords="213,57,409,98"/>
+<area shape="rect" id="node3" href="$classle_1_1_model.html#a9066241d98c3e1367be676d867c1e6d0" title="Добавить на сцену " alt="" coords="477,5,634,32"/>
+<area shape="rect" id="node5" href="$classle_1_1_model.html#a493d9095e12257d221fca3056f57c01a" title="Дуструктор " alt="" coords="492,60,619,87"/>
+<area shape="rect" id="node6" href="$classle_1_1_model.html#a8d0977a0bbab0cf127bdc85cccc7e9c8" title="Удалить с сцены " alt="" coords="457,111,653,137"/>
+</map>

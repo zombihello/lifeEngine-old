@@ -1,0 +1,19 @@
+<map id="le::Level::LoadLevel" name="le::Level::LoadLevel">
+<area shape="rect" id="node2" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="1035,51,1143,77"/>
+<area shape="rect" id="node3" href="$classle_1_1_level.html#a69cba8aa453131228315ae63d2fde087" title="Конструктор " alt="" coords="212,235,319,261"/>
+<area shape="rect" id="node5" href="$classle_1_1_skybox.html#aa4bada5b3106b1f040c14c58343ceb58" title="Загрузить текстуру скайбокса " alt="" coords="622,83,786,109"/>
+<area shape="rect" id="node14" href="$classle_1_1_resources_manager.html#aca5bdf85a31922c03b36018216faec38" title="Загрузить OpenGL текстуру " alt="" coords="835,174,987,215"/>
+<area shape="rect" id="node15" href="$classle_1_1_resources_manager.html#a6e1e7a75d545c4ec9d485299f869fc45" title="Получить OpenGL текстуру " alt="" coords="189,387,341,429"/>
+<area shape="rect" id="node16" href="$classle_1_1_brush.html#a0355cbbd1b82d3211e6370ee768cdf2b" title="Создать браш " alt="" coords="188,336,343,363"/>
+<area shape="rect" id="node4" href="$classle_1_1_skybox.html#aa3ca223bd347a92828439fb82b6dc975" title="Задать размер скайбокса " alt="" coords="391,285,573,312"/>
+<area shape="rect" id="node8" href="$classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7" title="Создать VAO. " alt="" coords="633,387,775,413"/>
+<area shape="rect" id="node9" href="$classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="639,437,769,464"/>
+<area shape="rect" id="node10" href="$classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120" title="Создать буффер для VAO. " alt="" coords="631,285,777,312"/>
+<area shape="rect" id="node11" href="$classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3" title="Задать индекс атрибута вершины в шейдере " alt="" coords="621,489,787,530"/>
+<area shape="rect" id="node12" href="$classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="632,235,776,261"/>
+<area shape="rect" id="node13" href="$classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4" title="Деактивировать текущий буффер " alt="" coords="629,336,779,363"/>
+<area shape="rect" id="node6" href="$classle_1_1_resources_manager.html#a6df6bd22df506d7a4f52b4f13db57a95" title="Загрузить OpenGL кубическую текстуру " alt="" coords="835,43,987,85"/>
+<area shape="rect" id="node7" href="$classle_1_1_resources_manager.html#a51f32bcecc69df2170029036a1294a22" title="Получить OpenGL кубическую текстуру " alt="" coords="835,109,987,150"/>
+<area shape="rect" id="node17" href="$classle_1_1_bounding_box.html#aac1c21c4dadb053b58979c1f581c8bde" title="Инициализировать ограничивающее тело " alt="" coords="399,387,565,413"/>
+<area shape="rect" id="node18" href="$classle_1_1_v_a_o.html#ae1870d1ffbb906306e5304845507651b" title="Присоединить буффер к VAO. " alt="" coords="411,539,553,565"/>
+</map>

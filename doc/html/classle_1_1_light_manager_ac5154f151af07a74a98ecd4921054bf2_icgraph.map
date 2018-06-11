@@ -1,0 +1,6 @@
+<map id="le::LightManager::SetScene" name="le::LightManager::SetScene">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#a181724695c22eb58bfbb37bf98d0bd4b" title="Добавить менеджер света на сцену " alt="" coords="247,5,434,47"/>
+<area shape="rect" id="node4" href="$classle_1_1_scene.html#aab08a2ed1ca606bcd5e847607b68df62" title="Удалить менеджер света со сцены " alt="" coords="236,71,445,112"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="493,5,677,47"/>
+<area shape="rect" id="node5" href="$classle_1_1_light_manager.html#aa851cb28191f846bba460d49389a4808" title="Деструктор " alt="" coords="522,71,649,112"/>
+</map>

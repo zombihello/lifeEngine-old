@@ -154,14 +154,14 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 	switch ( TypeBind )
 	{
 	case TypeBind::RenderBuffers:
-		glDepthRange( 0, 0.8 );
+		glDepthRange( 0, 1.0 );
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 		glDrawBuffers( GBUFFER_NUM_TEXTURES, DrawBuffers );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		break;
 
 	case TypeBind::RenderLight:
-		glDepthRange( 0, 0.8 );
+		glDepthRange( 0, 1.0 );
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 		glDrawBuffer( GL_COLOR_ATTACHMENT4 );
 

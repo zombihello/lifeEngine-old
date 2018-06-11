@@ -83,6 +83,12 @@ le::Scene::Scene() :
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
+	if ( LevelRender != NULL )
+	{
+		LevelRender->setUniform( "ColorMap", 0 );
+		LevelRender->setUniform( "LightMap", 1 );
+	}
+
 	if ( PointLightRender != NULL )
 	{
 		PointLightRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
@@ -271,13 +277,13 @@ void le::Scene::RenderScene()
 	// ****************************
 	// Просчитывание освещения
 	// ****************************
-	if ( Configuration::IsWireframeRender || LightManager == NULL )
+	//if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
-	else
+/*	else
 	{
 		BuildShadowMaps();
 		LightRender();
-	}
+	}*/
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
@@ -631,6 +637,7 @@ void le::Scene::GeometryRender()
 
 		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
 		{
+			glActiveTexture( GL_TEXTURE0 );
 			glBindTexture( GL_TEXTURE_2D, it->first );
 			le::BrushPlane* Plane;
 
@@ -640,6 +647,9 @@ void le::Scene::GeometryRender()
 
 				if ( !Plane->Brush->IsVisible() )
 					continue;
+
+				glActiveTexture( GL_TEXTURE1 );
+				glBindTexture( GL_TEXTURE_2D, Plane->LightMap );
 
 				VAO::BindVAO( Plane->ArrayBuffer );
 				glDrawElements( GL_TRIANGLES, Plane->CountIndexs, GL_UNSIGNED_INT, 0 );

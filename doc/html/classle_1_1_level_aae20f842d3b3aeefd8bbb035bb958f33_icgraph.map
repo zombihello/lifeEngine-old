@@ -1,0 +1,6 @@
+<map id="le::Level::SetScene" name="le::Level::SetScene">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#a7c1c2957a69e0a3c3dd73a0c89ef4cc4" title="Добавить уровень на сцену " alt="" coords="189,5,377,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_scene.html#a6844d9ecd0e8b143645b27d7d5cda003" title="Удалить уровень с сцены " alt="" coords="188,57,379,98"/>
+<area shape="rect" id="node3" href="$classle_1_1_level.html#a5303c45e30043051d6911d66a1fe5103" title="Добавить на сцену " alt="" coords="447,5,597,32"/>
+<area shape="rect" id="node5" href="$classle_1_1_level.html#a652fe0732586f9460950a338cce17416" title="Удалить с сцены " alt="" coords="427,64,617,91"/>
+</map>

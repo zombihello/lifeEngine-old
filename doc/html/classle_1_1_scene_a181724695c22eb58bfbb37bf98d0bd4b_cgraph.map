@@ -1,0 +1,7 @@
+<map id="le::Scene::AddLightManagerToScene" name="le::Scene::AddLightManagerToScene">
+<area shape="rect" id="node2" href="$classle_1_1_light_manager.html#a0c1766f6c079c76168246dce9187003a" title="Получить весь массив точеных источников света " alt="" coords="250,5,413,47"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_manager.html#ad700c334c2b91107f7af1d551ad42eb8" title="Получить весь массив направленных источников света " alt="" coords="250,71,413,112"/>
+<area shape="rect" id="node4" href="$classle_1_1_light_manager.html#a6d2ad035932379c60049dc4884c78db0" title="Получить весь массив прожекторных источников света " alt="" coords="250,136,413,177"/>
+<area shape="rect" id="node5" href="$classle_1_1_light_manager.html#ac5154f151af07a74a98ecd4921054bf2" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="240,202,423,229"/>
+<area shape="rect" id="node6" href="$structle_1_1_light_manager_1_1_info_shadows.html#a3f328f0a5e2822f50de14e0519705d07" title="Сбросить всю информацию о тенях " alt="" coords="471,195,669,236"/>
+</map>

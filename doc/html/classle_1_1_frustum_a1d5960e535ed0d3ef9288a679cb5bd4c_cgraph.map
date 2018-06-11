@@ -1,0 +1,11 @@
+<map id="le::Frustum::IsVisible" name="le::Frustum::IsVisible">
+<area shape="rect" id="node2" href="$classle_1_1_bounding_sphere.html#afaeca56bd6363550ddbb3f2fb94707d1" title="Получить позицию " alt="" coords="199,129,333,170"/>
+<area shape="rect" id="node10" href="$classle_1_1_bounding_sphere.html#a3204c2a5b2ce164da63eb66c7334ca22" title="Получить радиус тела " alt="" coords="199,194,333,235"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_sphere.html#a03c774199de01964baff1fbfae73f0c6" title="Инициализировать ограничивающее тело " alt="" coords="381,129,516,170"/>
+<area shape="rect" id="node4" href="$classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7" title="Создать VAO. " alt="" coords="575,5,718,32"/>
+<area shape="rect" id="node5" href="$classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="581,56,712,83"/>
+<area shape="rect" id="node6" href="$classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120" title="Создать буффер для VAO. " alt="" coords="573,107,720,133"/>
+<area shape="rect" id="node7" href="$classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3" title="Задать индекс атрибута вершины в шейдере " alt="" coords="564,158,729,199"/>
+<area shape="rect" id="node8" href="$classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="575,224,719,251"/>
+<area shape="rect" id="node9" href="$classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4" title="Деактивировать текущий буффер " alt="" coords="572,275,721,301"/>
+</map>

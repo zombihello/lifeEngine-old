@@ -1,0 +1,6 @@
+<map id="le::BoundingSphere::InitSphere" name="le::BoundingSphere::InitSphere">
+<area shape="rect" id="node2" href="$classle_1_1_bounding_sphere.html#a54956a2b861b09ae3535262c0e6fac3c" title="Конструктор копирывания " alt="" coords="203,5,337,47"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_sphere.html#afaeca56bd6363550ddbb3f2fb94707d1" title="Получить позицию " alt="" coords="203,71,337,112"/>
+<area shape="rect" id="node5" href="$classle_1_1_point_light.html#ac564c73196ca9e57e8df5c333ec36757" title="Конструктор " alt="" coords="188,137,352,163"/>
+<area shape="rect" id="node4" href="$classle_1_1_frustum.html#a1d5960e535ed0d3ef9288a679cb5bd4c" title="Видно ли ограничивающее тело " alt="" coords="400,78,545,105"/>
+</map>

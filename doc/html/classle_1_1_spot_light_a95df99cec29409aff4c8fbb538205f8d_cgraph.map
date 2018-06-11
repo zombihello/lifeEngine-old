@@ -1,0 +1,4 @@
+<map id="le::SpotLight::SetRadius" name="le::SpotLight::SetRadius">
+<area shape="rect" id="node2" href="$classle_1_1_light_cone.html#ab353c9205b4a13fa3e3b335506a0f896" title="Задать радиус конуса " alt="" coords="216,5,383,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_box.html#a55e7726f62e63d0e1112a42afa23060b" title="Получить вершины " alt="" coords="431,5,621,32"/>
+</map>

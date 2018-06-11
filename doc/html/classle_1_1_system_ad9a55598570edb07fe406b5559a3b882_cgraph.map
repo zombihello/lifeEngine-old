@@ -1,0 +1,10 @@
+<map id="le::System::System" name="le::System::System">
+<area shape="rect" id="node2" href="$classle_1_1_logger.html#ac9224ee4c980011eab71cf30c48942b3" title="Указать файл для логов " alt="" coords="209,5,359,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="230,56,338,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_config_file.html#ae34f5224c56d4511cb8022aef3093fbf" title="Загрузка конфигураций с файла " alt="" coords="192,107,376,133"/>
+<area shape="rect" id="node5" href="$classle_1_1_config_file.html#aad3d1e182918f9a52669c6cd529482a8" title="Получить значение конфигурации в виде целого числа " alt="" coords="197,157,371,184"/>
+<area shape="rect" id="node6" href="$classle_1_1_config_file.html#ab73fdcb25ceb96b2f03990c108faa058" title="Получить значение конфигурации в виде дробного числа " alt="" coords="205,209,363,250"/>
+<area shape="rect" id="node7" href="$classle_1_1_config_file.html#a0727fac672dd5f9262314144ae33cbb8" title="Написать группу в буффер сохранения " alt="" coords="199,275,369,301"/>
+<area shape="rect" id="node8" href="$classle_1_1_config_file.html#a46e251813cf6dc6023f1867ac1fb382f" title="Написать строку в буффер сохранения " alt="" coords="199,325,369,352"/>
+<area shape="rect" id="node9" href="$classle_1_1_config_file.html#a4acf355992015a169b8077b62a66af1c" title="Сохранить данные в файл конфигураций " alt="" coords="202,376,366,403"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="le::Model::AddToScene" name="le::Model::AddToScene">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#ab2014070788465b1eec40cff0bbfc0c3" title="Добавить модель на сцену " alt="" coords="211,56,405,83"/>
+<area shape="rect" id="node3" href="$classle_1_1_model.html#adc3b9a6a3dd30d2622eccce0f141f462" title="Получить информацию меша для рендера " alt="" coords="453,5,631,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_model.html#ac1d762ca490e5bcf4c89ef52ac314f5f" title="Нет ли скелета " alt="" coords="462,56,622,83"/>
+<area shape="rect" id="node5" href="$classle_1_1_model.html#af5e1831b306e60f2bb55d6465c3799d7" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="472,107,612,133"/>
+</map>

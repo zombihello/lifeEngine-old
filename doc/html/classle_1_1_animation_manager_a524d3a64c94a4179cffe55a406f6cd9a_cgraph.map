@@ -1,0 +1,5 @@
+<map id="le::AnimationManager::LoadAnimations" name="le::AnimationManager::LoadAnimations">
+<area shape="rect" id="node2" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="441,5,549,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_animation.html#a2759db23217d31e5c179f2925a203686" title="Загрузить анимацию модели " alt="" coords="201,31,393,57"/>
+<area shape="rect" id="node4" href="$classle_1_1_animation.html#a471a7bea24354c2dabb976ee34a3c6d4" title="Установить частоту кадров " alt="" coords="221,81,373,108"/>
+</map>

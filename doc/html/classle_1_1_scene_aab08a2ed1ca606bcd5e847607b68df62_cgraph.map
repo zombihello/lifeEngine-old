@@ -1,0 +1,4 @@
+<map id="le::Scene::RemoveLightManagerFromScene" name="le::Scene::RemoveLightManagerFromScene">
+<area shape="rect" id="node2" href="$classle_1_1_light_manager.html#ac5154f151af07a74a98ecd4921054bf2" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="263,13,445,39"/>
+<area shape="rect" id="node3" href="$structle_1_1_light_manager_1_1_info_shadows.html#a3f328f0a5e2822f50de14e0519705d07" title="Сбросить всю информацию о тенях " alt="" coords="493,5,692,47"/>
+</map>

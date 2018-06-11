@@ -1,0 +1,5 @@
+<map id="le::SpotLight::SetPosition" name="le::SpotLight::SetPosition">
+<area shape="rect" id="node2" href="$classle_1_1_light_cone.html#a66aebb6a55c0b649262ef81d614bb8d5" title="Задать позицию конуса " alt="" coords="235,5,408,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_base_light.html#ac5eea2e965686a8af3ae6f4f817d7f5f" title="Скопировать базовые параметры света " alt="" coords="224,56,419,83"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_box.html#a249dfc913ac9e62e5c372f3b2a893607" title="Задать позицию объекта " alt="" coords="467,5,659,32"/>
+</map>

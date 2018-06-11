@@ -1,0 +1,5 @@
+<map id="le::Scene::InfoMesh" name="le::Scene::InfoMesh">
+<area shape="rect" id="node2" href="$classle_1_1_bounding_box.html" title="Класс ограничивающего тела (прямоугольный параллелепипед) " alt="" coords="5,95,123,121"/>
+<area shape="rect" id="node3" href="$classle_1_1_query.html" title="Класс для работы с Occlusion Queries. " alt="" coords="27,5,101,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_skeleton.html" title="Класс для работы со скелетом модели " alt="" coords="147,95,237,121"/>
+</map>

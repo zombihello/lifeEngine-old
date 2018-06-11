@@ -1,0 +1,7 @@
+<map id="le::ResourcesManager::GetGlCubeTexture" name="le::ResourcesManager::GetGlCubeTexture">
+<area shape="rect" id="node2" href="$classle_1_1_skybox.html#aa4bada5b3106b1f040c14c58343ceb58" title="Загрузить текстуру скайбокса " alt="" coords="205,24,369,51"/>
+<area shape="rect" id="node3" href="$classle_1_1_level.html#a2681e01f64ae4c60bc53400846c11af4" title="Загрузить карту " alt="" coords="803,12,937,39"/>
+<area shape="rect" id="node4" href="$classle_1_1_skybox.html#aad0548a8cf95317b156d866d9394b9a1" title="Конструктор копирывания " alt="" coords="441,24,577,51"/>
+<area shape="rect" id="node5" href="$classle_1_1_skybox.html#aa3ca223bd347a92828439fb82b6dc975" title="Задать размер скайбокса " alt="" coords="417,75,600,101"/>
+<area shape="rect" id="node6" href="$classle_1_1_level.html#a69cba8aa453131228315ae63d2fde087" title="Конструктор " alt="" coords="648,49,755,76"/>
+</map>

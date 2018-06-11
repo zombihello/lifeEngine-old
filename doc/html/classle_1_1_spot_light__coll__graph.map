@@ -1,0 +1,6 @@
+<map id="le::SpotLight" name="le::SpotLight">
+<area shape="rect" id="node2" href="$classle_1_1_base_light.html" title="Базовый класс света " alt="" coords="5,184,104,211"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_cone.html" title="Класс конуса для прожекторного освещения " alt="" coords="128,184,227,211"/>
+<area shape="rect" id="node4" href="$classle_1_1_bounding_box.html" title="Класс ограничивающего тела (прямоугольный параллелепипед) " alt="" coords="200,95,317,121"/>
+<area shape="rect" id="node5" href="$classle_1_1_query.html" title="Класс для работы с Occlusion Queries. " alt="" coords="140,5,215,32"/>
+</map>

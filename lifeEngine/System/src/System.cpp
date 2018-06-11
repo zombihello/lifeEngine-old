@@ -110,7 +110,7 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 	{
 		Logger::Log( Logger::Error, "System Not Supported Shaders" );
 		exit( -1 );
-	}	
+	}
 }
 
 //-------------------------------------------------------------------------//

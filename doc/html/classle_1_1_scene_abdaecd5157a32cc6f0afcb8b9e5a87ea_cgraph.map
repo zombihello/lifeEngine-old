@@ -1,0 +1,6 @@
+<map id="le::Scene::SetCamera" name="le::Scene::SetCamera">
+<area shape="rect" id="node2" href="$classle_1_1_camera.html#adbbd963ec37a82d5e2743d5665e10879" title="Получить видовую матрицу " alt="" coords="447,55,625,82"/>
+<area shape="rect" id="node3" href="$classle_1_1_camera.html#a23f35609fca94297facaa16790d40065" title="Получить пирамиду усечения " alt="" coords="220,30,383,56"/>
+<area shape="rect" id="node4" href="$classle_1_1_camera.html#ab5c51b64a1bcd1b377ba1aa304b867a5" title="Получить позицию камеры " alt="" coords="455,118,617,144"/>
+<area shape="rect" id="node5" href="$classle_1_1_skybox.html#ae2e50731b094abb613ee2d808c2624c3" title="Привязать камеру игрока к скайбоксу " alt="" coords="204,80,399,107"/>
+</map>

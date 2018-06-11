@@ -1,0 +1,6 @@
+<map id="le::Camera::GetViewMatrix" name="le::Camera::GetViewMatrix">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea" title="Задать камеру " alt="" coords="493,5,644,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_skybox.html#ae2e50731b094abb613ee2d808c2624c3" title="Привязать камеру игрока к скайбоксу " alt="" coords="232,56,427,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_scene.html#a7c1c2957a69e0a3c3dd73a0c89ef4cc4" title="Добавить уровень на сцену " alt="" coords="475,56,663,83"/>
+<area shape="rect" id="node5" href="$classle_1_1_level.html#a5303c45e30043051d6911d66a1fe5103" title="Добавить на сцену " alt="" coords="711,56,861,83"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="le::ResourcesManager::LoadMesh" name="le::ResourcesManager::LoadMesh">
+<area shape="rect" id="node2" href="$classle_1_1_mesh.html#ab9d84bb4efb85dc42a31dd8d927f0382" title="Загрузить модель " alt="" coords="205,387,345,414"/>
+<area shape="rect" id="node3" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="847,434,955,460"/>
+<area shape="rect" id="node4" href="$classle_1_1_bounding_box.html#aac1c21c4dadb053b58979c1f581c8bde" title="Инициализировать ограничивающее тело " alt="" coords="393,223,559,250"/>
+<area shape="rect" id="node11" href="$classle_1_1_resources_manager.html#aca5bdf85a31922c03b36018216faec38" title="Загрузить OpenGL текстуру " alt="" coords="400,346,552,388"/>
+<area shape="rect" id="node12" href="$classle_1_1_resources_manager.html#a6e1e7a75d545c4ec9d485299f869fc45" title="Получить OpenGL текстуру " alt="" coords="400,412,552,453"/>
+<area shape="rect" id="node13" href="$classle_1_1_animation_manager.html#a524d3a64c94a4179cffe55a406f6cd9a" title="Загрузить анимации модели " alt="" coords="402,477,550,518"/>
+<area shape="rect" id="node5" href="$classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7" title="Создать VAO. " alt="" coords="631,63,774,90"/>
+<area shape="rect" id="node6" href="$classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="637,114,768,140"/>
+<area shape="rect" id="node7" href="$classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120" title="Создать буффер для VAO. " alt="" coords="629,164,776,191"/>
+<area shape="rect" id="node8" href="$classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3" title="Задать индекс атрибута вершины в шейдере " alt="" coords="620,216,785,257"/>
+<area shape="rect" id="node9" href="$classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="631,282,775,308"/>
+<area shape="rect" id="node10" href="$classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4" title="Деактивировать текущий буффер " alt="" coords="628,332,777,359"/>
+<area shape="rect" id="node14" href="$classle_1_1_animation.html#a2759db23217d31e5c179f2925a203686" title="Загрузить анимацию модели " alt="" coords="607,484,799,511"/>
+<area shape="rect" id="node15" href="$classle_1_1_animation.html#a471a7bea24354c2dabb976ee34a3c6d4" title="Установить частоту кадров " alt="" coords="627,535,779,562"/>
+</map>

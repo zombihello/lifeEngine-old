@@ -1,0 +1,9 @@
+<map id="le::Camera::GetPosition" name="le::Camera::GetPosition">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#abdaecd5157a32cc6f0afcb8b9e5a87ea" title="Задать камеру " alt="" coords="481,71,632,98"/>
+<area shape="rect" id="node3" href="$classle_1_1_scene.html#a93714523f57e328aa086f46ba341b6e1" title="Получить геометрию статичных моделей " alt="" coords="222,5,402,47"/>
+<area shape="rect" id="node6" href="$classle_1_1_skybox.html#ae2e50731b094abb613ee2d808c2624c3" title="Привязать камеру игрока к скайбоксу " alt="" coords="215,122,409,149"/>
+<area shape="rect" id="node4" href="$structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="457,5,656,47"/>
+<area shape="rect" id="node5" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="704,5,888,47"/>
+<area shape="rect" id="node7" href="$classle_1_1_scene.html#a7c1c2957a69e0a3c3dd73a0c89ef4cc4" title="Добавить уровень на сцену " alt="" coords="463,122,651,149"/>
+<area shape="rect" id="node8" href="$classle_1_1_level.html#a5303c45e30043051d6911d66a1fe5103" title="Добавить на сцену " alt="" coords="721,122,871,149"/>
+</map>

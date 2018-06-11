@@ -1,0 +1,7 @@
+<map id="le::Scene::AddLevelToScene" name="le::Scene::AddLevelToScene">
+<area shape="rect" id="node2" href="$classle_1_1_level.html#ad39aa33c3fe714dd5323f384658f6760" title="Получить скайбокс уровня " alt="" coords="267,5,410,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_skybox.html#ae2e50731b094abb613ee2d808c2624c3" title="Привязать камеру игрока к скайбоксу " alt="" coords="241,56,436,83"/>
+<area shape="rect" id="node6" href="$classle_1_1_level.html#aae20f842d3b3aeefd8bbb035bb958f33" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="271,107,406,133"/>
+<area shape="rect" id="node4" href="$classle_1_1_camera.html#ab5c51b64a1bcd1b377ba1aa304b867a5" title="Получить позицию камеры " alt="" coords="493,31,654,57"/>
+<area shape="rect" id="node5" href="$classle_1_1_camera.html#adbbd963ec37a82d5e2743d5665e10879" title="Получить видовую матрицу " alt="" coords="484,81,663,108"/>
+</map>

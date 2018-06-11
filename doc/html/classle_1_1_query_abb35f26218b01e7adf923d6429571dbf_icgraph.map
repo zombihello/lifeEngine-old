@@ -1,0 +1,6 @@
+<map id="le::Query::GetResult" name="le::Query::GetResult">
+<area shape="rect" id="node2" href="$classle_1_1_brush.html#a27b9ba0a153251d0cdd1c269ae8c2ab7" title="Не перекрывают ли браш другие объекты " alt="" coords="219,5,350,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_scene.html#a93714523f57e328aa086f46ba341b6e1" title="Получить геометрию статичных моделей " alt="" coords="195,57,375,98"/>
+<area shape="rect" id="node4" href="$structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="423,57,621,98"/>
+<area shape="rect" id="node5" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="669,57,853,98"/>
+</map>

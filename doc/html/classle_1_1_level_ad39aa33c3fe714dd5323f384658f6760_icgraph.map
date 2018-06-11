@@ -1,0 +1,4 @@
+<map id="le::Level::GetSkybox" name="le::Level::GetSkybox">
+<area shape="rect" id="node2" href="$classle_1_1_scene.html#a7c1c2957a69e0a3c3dd73a0c89ef4cc4" title="Добавить уровень на сцену " alt="" coords="196,5,384,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_level.html#a5303c45e30043051d6911d66a1fe5103" title="Добавить на сцену " alt="" coords="432,5,583,32"/>
+</map>

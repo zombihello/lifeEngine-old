@@ -81,7 +81,6 @@ public:
 
 		LightManager.AddLightsToScene( *Scene );	
 		LightManager.BuildShadowMaps( *Level, Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );
-		Level->GenerateLightMap( LightManager );
 	}
 
 	~Game()

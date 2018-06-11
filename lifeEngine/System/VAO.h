@@ -14,9 +14,10 @@
 #define COMPILING_LIBRARY
 #define VERT_POSITION 0
 #define VERT_NORMAL 1
-#define VERT_TEXCOORD 2
+#define VERT_TEXCOORD_DIFFUSE 2
 #define VERT_IDBONES 3
 #define VERT_WEIGHTSBONES 4
+#define VERT_TEXCOORD_LIGHTMAP 5
 
 #include <DllGlobal.h>
 

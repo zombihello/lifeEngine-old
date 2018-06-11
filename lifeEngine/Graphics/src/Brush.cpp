@@ -1,6 +1,7 @@
 ﻿#include <System\VAO.h>
 #include "..\Brush.h"
-
+#include <System\Logger.h>
+#include <string>
 //-------------------------------------------------------------------------//
 
 le::Brush::Brush() :
@@ -20,21 +21,22 @@ le::Brush::~Brush()
 			{
 				VAO::DeleteBuffer( &it->second[ i ].IndexBuffer );
 				VAO::DeleteVAO( &it->second[ i ].ArrayBuffer );
-				glDeleteTextures( 1, &it->second[ i ].LightMap );
-			}	
+			}
 	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords )
+#include <fstream>
+
+void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& Position, const GLuint& Texture, const vector<glm::vec3>& Vertex, const vector<glm::vec3>& Normals, const vector<glm::vec2>& TextureCoords, const vector<glm::vec2>& TextureCoords_LightMap, const vector<string>& NameLightmaps )
 {
 	vector<BrushVertex> BrushVertex;
 	vector<unsigned int> IdVertex, TmpIdVertex;
 
 	BoundingBox.InitBox( Vertex );
 	this->Position = Position;
-	
+
 	switch ( TypeBrush )
 	{
 	case Cube:
@@ -74,7 +76,8 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 	{
 		TempVertex.Position = Vertex[ TmpIdVertex[ i ] ];
 		TempVertex.Normal = Normals[ i ];
-		TempVertex.TextureCoord = TextureCoords[ i ];
+		TempVertex.TextureCoord_DiffuseMap = TextureCoords[ i ];
+		TempVertex.TextureCoord_LightMap = TextureCoords_LightMap[ i ];
 
 		bool IsFind = false;
 
@@ -89,7 +92,7 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 
 		if ( !IsFind )
 		{
-			IdVertex.push_back( BrushVertex.size() );			
+			IdVertex.push_back( BrushVertex.size() );
 			PlaneIdVertex[ Face ].push_back( BrushVertex.size() );
 			BrushVertex.push_back( TempVertex );
 		}
@@ -101,9 +104,83 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 		}
 	}
 
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, BrushVertex, VAO::Static_Draw );
-	
 	for ( size_t Face = 0; Face < 6; Face++ )
+		for ( size_t i = 0, j = 0; i < PlaneIdVertex[ Face ].size() / 3; i++, j += 3 )
+		{
+			le::BrushVertex* A = &BrushVertex[ PlaneIdVertex[ Face ][ j ] ];
+			le::BrushVertex* B = &BrushVertex[ PlaneIdVertex[ Face ][ j + 1 ] ];
+			le::BrushVertex* C = &BrushVertex[ PlaneIdVertex[ Face ][ j + 2 ] ];
+
+			glm::vec3 Normal = glm::normalize( glm::cross( B->Position - A->Position, C->Position - A->Position ) );
+
+			if ( fabs( Normal.x ) > fabs( Normal.y ) && fabs( Normal.x ) > fabs( Normal.z ) )
+			{
+				A->TextureCoord_LightMap.x = A->Position.y;
+				A->TextureCoord_LightMap.y = A->Position.z;
+
+				B->TextureCoord_LightMap.x = B->Position.y;
+				B->TextureCoord_LightMap.y = B->Position.z;
+
+				C->TextureCoord_LightMap.x = C->Position.y;
+				C->TextureCoord_LightMap.y = C->Position.z;
+			}
+			else if ( fabs( Normal.y ) > fabs( Normal.x ) && fabs( Normal.y ) > fabs( Normal.z ) )
+			{
+				A->TextureCoord_LightMap.x = A->Position.x;
+				A->TextureCoord_LightMap.y = A->Position.z;
+
+				B->TextureCoord_LightMap.x = B->Position.x;
+				B->TextureCoord_LightMap.y = B->Position.z;
+
+				C->TextureCoord_LightMap.x = C->Position.x;
+				C->TextureCoord_LightMap.y = C->Position.z;
+			}
+			else
+			{
+				A->TextureCoord_LightMap.x = A->Position.x;
+				A->TextureCoord_LightMap.y = A->Position.y;
+
+				B->TextureCoord_LightMap.x = B->Position.x;
+				B->TextureCoord_LightMap.y = B->Position.y;
+
+				C->TextureCoord_LightMap.x = C->Position.x;
+				C->TextureCoord_LightMap.y = C->Position.y;
+			}
+
+			glm::vec2 UVMin = A->TextureCoord_LightMap;
+			glm::vec2 UVMax = A->TextureCoord_LightMap;
+
+			for ( int n = 0; n < 3; n++ )
+			{
+				le::BrushVertex* Vertex = &BrushVertex[ PlaneIdVertex[ Face ][ n + j ] ];
+
+				if ( Vertex->TextureCoord_LightMap.x < UVMin.x )
+					UVMin.x = Vertex->TextureCoord_LightMap.x;
+
+				if ( Vertex->TextureCoord_LightMap.y < UVMin.y )
+					UVMin.y = Vertex->TextureCoord_LightMap.y;
+
+				if ( Vertex->TextureCoord_LightMap.x > UVMax.x )
+					UVMax.x = Vertex->TextureCoord_LightMap.x;
+
+				if ( Vertex->TextureCoord_LightMap.y > UVMax.y )
+					UVMax.y = Vertex->TextureCoord_LightMap.y;
+			}
+
+			glm::vec2 UVDelta = UVMax - UVMin;
+
+
+			for ( int n = 0; n < 3; n++ )
+			{
+				le::BrushVertex* Vertex = &BrushVertex[ PlaneIdVertex[ Face ][ n + j ] ];
+				Vertex->TextureCoord_LightMap -= UVMin;
+				Vertex->TextureCoord_LightMap /= UVDelta;
+			}
+		}
+
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, BrushVertex, VAO::Static_Draw );
+
+	for ( size_t Face = 0, IdLightMap = 0; Face < 6; Face++, IdLightMap += 2 )
 	{
 		BrushPlane Plane;
 
@@ -111,11 +188,12 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 		VAO::BindVAO( Plane.ArrayBuffer );
 
 		VAO::AtachBuffer( VAO::Vertex_Buffer, VertexBuffer );
-		Plane.IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, PlaneIdVertex[Face], VAO::Static_Draw );
+		Plane.IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, PlaneIdVertex[ Face ], VAO::Static_Draw );
 
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( le::BrushVertex ), ( void* ) ( offsetof( le::BrushVertex, Position ) ) );
 		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( le::BrushVertex ), ( void* ) ( offsetof( le::BrushVertex, Normal ) ) );
-		VAO::SetVertexAttribPointer( VERT_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( le::BrushVertex ), ( void* ) ( offsetof( le::BrushVertex, TextureCoord ) ) );
+		VAO::SetVertexAttribPointer( VERT_TEXCOORD_DIFFUSE, 2, GL_FLOAT, GL_FALSE, sizeof( le::BrushVertex ), ( void* ) ( offsetof( le::BrushVertex, TextureCoord_DiffuseMap ) ) );
+		VAO::SetVertexAttribPointer( VERT_TEXCOORD_LIGHTMAP, 2, GL_FLOAT, GL_FALSE, sizeof( le::BrushVertex ), ( void* ) ( offsetof( le::BrushVertex, TextureCoord_LightMap ) ) );
 
 		VAO::UnbindVAO();
 		VAO::UnbindBuffer( VAO::Vertex_Buffer );
@@ -123,6 +201,21 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 
 		Plane.CountIndexs = PlaneIdVertex[ Face ].size();
 		Plane.Brush = this;
+
+		for ( size_t i = 0; i < PlaneIdVertex[ Face ].size(); i++ )
+			Plane.Vertexes.push_back( BrushVertex[ PlaneIdVertex[ Face ][ i ] ] );
+
+		sf::Image Im;	
+		Im.loadFromFile( NameLightmaps[ Face ] );
+		glm::vec2 Size( Im.getSize().x, Im.getSize().y );
+
+		glGenTextures( 1, &Plane.LightMap );
+		glBindTexture( GL_TEXTURE_2D, Plane.LightMap );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, Size.x, Size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, Im.getPixelsPtr() );
 
 		Planes[ Texture ].push_back( Plane );
 	}
@@ -189,13 +282,6 @@ glm::vec3& le::Brush::GetPosition()
 le::BoundingBox& le::Brush::GetBoundingBox()
 {
 	return BoundingBox;
-}
-
-//-------------------------------------------------------------------------//
-
-bool le::BrushVertex::operator==( BrushVertex& BrushVertex )
-{
-	return Position == BrushVertex.Position && Normal == BrushVertex.Normal && TextureCoord == BrushVertex.TextureCoord;
 }
 
 //-------------------------------------------------------------------------//

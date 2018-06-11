@@ -1,0 +1,4 @@
+<map id="le::Scene::GetVisible_PointLight" name="le::Scene::GetVisible_PointLight">
+<area shape="rect" id="node2" href="$structle_1_1_light_manager_1_1_info_shadows.html#aa5e378a8911de28d3d1709bc036b7b3b" title="Инициализировать информацию о тенях " alt="" coords="199,5,397,47"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_manager.html#a272725e354dc3aa32a24865e7b15b0cd" title="Добавить все источники света на сцену " alt="" coords="445,5,629,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="le::Skybox::LoadSkybox" name="le::Skybox::LoadSkybox">
+<area shape="rect" id="node2" href="$classle_1_1_resources_manager.html#a6df6bd22df506d7a4f52b4f13db57a95" title="Загрузить OpenGL кубическую текстуру " alt="" coords="217,5,369,47"/>
+<area shape="rect" id="node4" href="$classle_1_1_resources_manager.html#a51f32bcecc69df2170029036a1294a22" title="Получить OpenGL кубическую текстуру " alt="" coords="217,71,369,112"/>
+<area shape="rect" id="node3" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="417,13,525,39"/>
+</map>

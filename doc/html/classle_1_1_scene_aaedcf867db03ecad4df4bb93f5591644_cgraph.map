@@ -1,0 +1,5 @@
+<map id="le::Scene::RemoveModelFromScene" name="le::Scene::RemoveModelFromScene">
+<area shape="rect" id="node2" href="$classle_1_1_model.html#adc3b9a6a3dd30d2622eccce0f141f462" title="Получить информацию меша для рендера " alt="" coords="249,5,427,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_model.html#ac1d762ca490e5bcf4c89ef52ac314f5f" title="Нет ли скелета " alt="" coords="258,56,418,83"/>
+<area shape="rect" id="node4" href="$classle_1_1_model.html#af5e1831b306e60f2bb55d6465c3799d7" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="268,107,408,133"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="le::DirectionalLight" name="le::DirectionalLight">
+<area shape="rect" id="node2" href="$classle_1_1_base_light.html" title="Базовый класс света " alt="" coords="5,5,104,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_quad.html" title="Класс квадрата для направленого освещения " alt="" coords="128,5,227,32"/>
+</map>

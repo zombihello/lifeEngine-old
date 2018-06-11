@@ -1,0 +1,4 @@
+<map id="le::SpotLight::SetRotation" name="le::SpotLight::SetRotation">
+<area shape="rect" id="node2" href="$classle_1_1_light_cone.html#a7f865e800b1ab52283de0b521165b59b" title="Задать угол поворота конуса " alt="" coords="224,5,399,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_box.html#aa310f2df4c6d8b773ad11339aad4512a" title="Задать угол поворота объекта " alt="" coords="447,5,640,32"/>
+</map>

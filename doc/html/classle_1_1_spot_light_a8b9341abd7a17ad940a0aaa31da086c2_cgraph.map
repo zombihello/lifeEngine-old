@@ -1,0 +1,15 @@
+<map id="le::SpotLight::SpotLight" name="le::SpotLight::SpotLight">
+<area shape="rect" id="node2" href="$classle_1_1_logger.html#a0d4da98510720dcaae1c5ca8a223b90d" title="Написать лог " alt="" coords="245,156,353,183"/>
+<area shape="rect" id="node3" href="$classle_1_1_light_cone.html#a2c6e68b8fc37f18ef9782d48f240f980" title="Инициализировать конус " alt="" coords="223,207,376,233"/>
+<area shape="rect" id="node11" href="$classle_1_1_light_cone.html#a66aebb6a55c0b649262ef81d614bb8d5" title="Задать позицию конуса " alt="" coords="213,283,386,309"/>
+<area shape="rect" id="node13" href="$classle_1_1_light_cone.html#a7f865e800b1ab52283de0b521165b59b" title="Задать угол поворота конуса " alt="" coords="212,384,387,411"/>
+<area shape="rect" id="node4" href="$classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7" title="Создать VAO. " alt="" coords="687,5,830,32"/>
+<area shape="rect" id="node5" href="$classle_1_1_v_a_o.html#a517121811f8c1aa42ebe86d832aee7af" title="Сделать активным VAO. " alt="" coords="693,59,824,85"/>
+<area shape="rect" id="node6" href="$classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120" title="Создать буффер для VAO. " alt="" coords="685,113,832,140"/>
+<area shape="rect" id="node7" href="$classle_1_1_v_a_o.html#af1a4f610952e74c6a1a5e4e0324740e3" title="Задать индекс атрибута вершины в шейдере " alt="" coords="676,173,841,214"/>
+<area shape="rect" id="node8" href="$classle_1_1_v_a_o.html#a47c90585678509f0382eab3c83205316" title="Деактивировать текущий VAO. " alt="" coords="687,256,831,283"/>
+<area shape="rect" id="node9" href="$classle_1_1_v_a_o.html#a10109764bf7ad1f3f12fe414dc4f40c4" title="Деактивировать текущий буффер " alt="" coords="684,308,833,335"/>
+<area shape="rect" id="node10" href="$classle_1_1_bounding_box.html#aac1c21c4dadb053b58979c1f581c8bde" title="Инициализировать ограничивающее тело " alt="" coords="449,156,614,183"/>
+<area shape="rect" id="node12" href="$classle_1_1_bounding_box.html#a249dfc913ac9e62e5c372f3b2a893607" title="Задать позицию объекта " alt="" coords="435,359,627,385"/>
+<area shape="rect" id="node14" href="$classle_1_1_bounding_box.html#aa310f2df4c6d8b773ad11339aad4512a" title="Задать угол поворота объекта " alt="" coords="435,409,628,436"/>
+</map>

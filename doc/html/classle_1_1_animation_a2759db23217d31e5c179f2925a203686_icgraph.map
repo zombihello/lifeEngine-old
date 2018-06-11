@@ -1,0 +1,6 @@
+<map id="le::Animation::LoadAnimation" name="le::Animation::LoadAnimation">
+<area shape="rect" id="node2" href="$classle_1_1_animation_manager.html#a524d3a64c94a4179cffe55a406f6cd9a" title="Загрузить анимации модели " alt="" coords="245,5,393,47"/>
+<area shape="rect" id="node3" href="$classle_1_1_mesh.html#ab9d84bb4efb85dc42a31dd8d927f0382" title="Загрузить модель " alt="" coords="441,13,581,39"/>
+<area shape="rect" id="node4" href="$classle_1_1_resources_manager.html#a4c4406ea0088dffc036902b5390d4c8d" title="Загрузить меш " alt="" coords="629,5,781,47"/>
+<area shape="rect" id="node5" href="$classle_1_1_model.html#a499446af768ed6bd05ebf0d9283a9192" title="Загрузить модель " alt="" coords="829,13,976,39"/>
+</map>

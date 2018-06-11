@@ -9,7 +9,7 @@ var searchData=
   ['clearscene',['ClearScene',['../classle_1_1_scene.html#aced9026445b5a6cd9d9522d7e8ddaf1f',1,'le::Scene']]],
   ['configuration',['Configuration',['../structle_1_1_configuration.html#a660fd64d05acbfe5764f7cf71e5dbd77',1,'le::Configuration']]],
   ['copybaselight',['CopyBaseLight',['../classle_1_1_base_light.html#ac5eea2e965686a8af3ae6f4f817d7f5f',1,'le::BaseLight']]],
-  ['createbrush',['CreateBrush',['../classle_1_1_level_1_1_brush.html#a8a1c858082575f498dfb0d841e9acfa7',1,'le::Level::Brush']]],
+  ['createbrush',['CreateBrush',['../classle_1_1_brush.html#a0355cbbd1b82d3211e6370ee768cdf2b',1,'le::Brush']]],
   ['createbuffer',['CreateBuffer',['../classle_1_1_v_a_o.html#a81040b7e07de5f21095fff3cda950120',1,'le::VAO::CreateBuffer(TypeBuffer TypeBuffer, vector&lt; T &gt; Data, TypeUpdate Usage)'],['../classle_1_1_v_a_o.html#ad78812d666f6b933a589491cead16df3',1,'le::VAO::CreateBuffer(TypeBuffer TypeBuffer, int SizeData, T *Data, TypeUpdate Usage)']]],
   ['createvao',['CreateVAO',['../classle_1_1_v_a_o.html#a7c5268f07df49926073996716332fbd7',1,'le::VAO']]]
 ];

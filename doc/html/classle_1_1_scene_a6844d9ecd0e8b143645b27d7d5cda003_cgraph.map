@@ -1,0 +1,4 @@
+<map id="le::Scene::RemoveLevelFromScene" name="le::Scene::RemoveLevelFromScene">
+<area shape="rect" id="node2" href="$classle_1_1_level.html#aae20f842d3b3aeefd8bbb035bb958f33" title="Указать сцену (необходима для уничтожения со сцены) " alt="" coords="264,5,399,32"/>
+<area shape="rect" id="node3" href="$classle_1_1_skybox.html#ad6855a020b879bb4dba7edf0cfab37ae" title="Отвязать камеру игрока от скайбокса " alt="" coords="244,57,419,98"/>
+</map>

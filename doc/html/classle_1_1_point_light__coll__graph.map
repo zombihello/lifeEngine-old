@@ -1,0 +1,5 @@
+<map id="le::PointLight" name="le::PointLight">
+<area shape="rect" id="node2" href="$classle_1_1_base_light.html" title="Базовый класс света " alt="" coords="5,95,104,121"/>
+<area shape="rect" id="node3" href="$classle_1_1_bounding_sphere.html" title="Класс ограничивающего тела (сфера) " alt="" coords="129,95,263,121"/>
+<area shape="rect" id="node4" href="$classle_1_1_query.html" title="Класс для работы с Occlusion Queries. " alt="" coords="159,5,233,32"/>
+</map>

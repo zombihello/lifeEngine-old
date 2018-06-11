@@ -1,0 +1,5 @@
+<map id="le::BoundingBox::SetRotation" name="le::BoundingBox::SetRotation">
+<area shape="rect" id="node2" href="$classle_1_1_light_cone.html#a7f865e800b1ab52283de0b521165b59b" title="Задать угол поворота конуса " alt="" coords="247,31,421,57"/>
+<area shape="rect" id="node3" href="$classle_1_1_spot_light.html#a8b9341abd7a17ad940a0aaa31da086c2" title="Конструктор " alt="" coords="475,5,634,32"/>
+<area shape="rect" id="node4" href="$classle_1_1_spot_light.html#a2c1e56bd47885299e1761f8f3435c775" title="Задать угол поворота света " alt="" coords="469,56,640,83"/>
+</map>
