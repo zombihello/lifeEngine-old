@@ -74,6 +74,7 @@ le::Scene::Scene() :
 	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
 	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", DirectionalLight_FragmentShader );
 	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", SpotLight_FragmentShader );
+	ResourcesManager::LoadShader( "LightMap", "../shaders/light/LightMapRender.vs", "../shaders/light/LightMapRender.fs" );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
@@ -82,11 +83,19 @@ le::Scene::Scene() :
 	PointLightRender = ResourcesManager::GetShader( "PointLight" );
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
+	LightMapRender = ResourcesManager::GetShader( "LightMap" );
 
 	if ( LevelRender != NULL )
 	{
 		LevelRender->setUniform( "ColorMap", 0 );
 		LevelRender->setUniform( "LightMap", 1 );
+	}
+
+	if ( LightMapRender != NULL )
+	{
+		LightMapRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
+		LightMapRender->setUniform( "ColorMap", GBuffer::Textures );
+		LightMapRender->setUniform( "LightMap", GBuffer::Lightmap );
 	}
 
 	if ( PointLightRender != NULL )
@@ -131,6 +140,7 @@ le::Scene::~Scene()
 	ResourcesManager::DeleteShader( "PointLight" );
 	ResourcesManager::DeleteShader( "DirectionalLight" );
 	ResourcesManager::DeleteShader( "SpotLight" );
+	ResourcesManager::DeleteShader( "LightMap" );
 }
 
 //-------------------------------------------------------------------------//
@@ -277,13 +287,13 @@ void le::Scene::RenderScene()
 	// ****************************
 	// Просчитывание освещения
 	// ****************************
-	//if ( Configuration::IsWireframeRender || LightManager == NULL )
+	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
-/*	else
+	else
 	{
 		BuildShadowMaps();
 		LightRender();
-	}*/
+	}
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
@@ -616,8 +626,7 @@ void le::Scene::BuildShadowMaps()
 	// ***************************************** //
 	// Обновление карт теней
 
-	GBuffer.Bind( GBuffer::RenderShadowMaps );
-	LightManager->BuildShadowMaps( false, false, true );
+	LightManager->BuildShadowMaps( true, true, true );
 }
 
 //-------------------------------------------------------------------------//
@@ -670,6 +679,7 @@ void le::Scene::GeometryRender()
 		for ( auto it = RenderBuffer_AnimationModel.begin(); it != RenderBuffer_AnimationModel.end(); it++ )
 		{
 			glBindTexture( GL_TEXTURE_2D, it->first );
+
 			Ptr_GeometryBuffer = &it->second;
 
 			for ( size_t i = 0; i < Ptr_GeometryBuffer->size(); i++ )
@@ -726,7 +736,11 @@ void le::Scene::GeometryRender()
 	if ( Skybox != NULL )
 	{
 		GBuffer.Bind( GBuffer::RenderSkybox );
+		glDisable( GL_DEPTH_TEST );
+
 		Skybox->RenderSkybox();
+
+		glEnable( GL_DEPTH_TEST );
 	}
 }
 
@@ -737,8 +751,9 @@ void le::Scene::LightRender()
 	if ( LightManager == NULL )
 		return;
 
-	glDepthMask( GL_FALSE );
-	glEnable( GL_STENCIL_TEST );
+	GBuffer.Bind( GBuffer::RenderLight );
+
+	glDepthMask( GL_FALSE );	
 	glDisable( GL_CULL_FACE );
 
 	glBlendEquation( GL_FUNC_ADD );
@@ -747,10 +762,24 @@ void le::Scene::LightRender()
 	glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
 	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
 
-	GBuffer.Bind( GBuffer::RenderLight );
+	// ***************************************** //
+	// Налаживаем карту освещения
+
+	if ( LightMapRender != NULL )
+	{
+		glEnable( GL_ALPHA_TEST );
+		glAlphaFunc( GL_GREATER, 0.0f );
+
+		Shader::bind( LightMapRender );
+		LightQuad.RenderQuad();
+
+		glDisable( GL_ALPHA_TEST );
+	}
 
 	// ***************************************** //
 	// Просчитываем точечные источники света
+
+	glEnable( GL_STENCIL_TEST );
 
 	if ( PointLightRender != NULL && TestRender != NULL )
 		for ( size_t Index = 0; Index < Visible_PointLight; Index++ )

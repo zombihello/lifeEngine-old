@@ -42,7 +42,7 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	for ( int i = 0; i < GBUFFER_NUM_TEXTURES; i++ )
 	{
 		glBindTexture( GL_TEXTURE_2D, Buffers[ i ] );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB32F, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGB, GL_FLOAT, NULL );
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA32F, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGBA, GL_FLOAT, NULL );
 
 		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
@@ -55,7 +55,7 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	// Инициализируем текстуру для финального кадра
 
 	glBindTexture( GL_TEXTURE_2D, FinalFrame );
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGB, GL_FLOAT, NULL );
+	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGBA, GL_FLOAT, NULL );
 	glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, FinalFrame, 0 );
 
 	// ***************************************** //
@@ -154,14 +154,12 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 	switch ( TypeBind )
 	{
 	case TypeBind::RenderBuffers:
-		glDepthRange( 0, 1.0 );
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 		glDrawBuffers( GBUFFER_NUM_TEXTURES, DrawBuffers );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		break;
 
 	case TypeBind::RenderLight:
-		glDepthRange( 0, 1.0 );
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
 		glDrawBuffer( GL_COLOR_ATTACHMENT4 );
 
@@ -172,15 +170,18 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 		}
 		break;
 
-	case TypeBind::RenderSkybox:		
-		glDepthRange( 0.8, 1.0 );
+	case TypeBind::RenderSkybox:
 		glDrawBuffer( GL_COLOR_ATTACHMENT4 );
 		break;
-
-	case TypeBind::RenderShadowMaps:
-		glDepthRange( 0.f, 1.f );
-		break;
 	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::GBuffer::BindTexture( int NumberTexture, TypeTexture TypeTexture )
+{
+	glActiveTexture( GL_TEXTURE0 + NumberTexture );
+	glBindTexture( GL_TEXTURE_2D, Buffers[ TypeTexture ] );
 }
 
 //-------------------------------------------------------------------------//
@@ -201,14 +202,17 @@ void le::GBuffer::ShowDebug()
 	float HalfWidth = SizeWindow.x / 2;
 	float HalfHeight = SizeWindow.y / 2;
 
-	glReadBuffer( GL_COLOR_ATTACHMENT0 );
+	glReadBuffer( GL_COLOR_ATTACHMENT0 ); // Position Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), 0, 0, NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
-	glReadBuffer( GL_COLOR_ATTACHMENT1 );
+	glReadBuffer( GL_COLOR_ATTACHMENT1 ); // Diffuse Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), 0, NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
-	glReadBuffer( GL_COLOR_ATTACHMENT2 );
+	glReadBuffer( GL_COLOR_ATTACHMENT2 ); // Normal Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT3 ); // Lightmap Buffer
+	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 }
 
 //-------------------------------------------------------------------------//
@@ -222,14 +226,17 @@ void le::GBuffer::ShowDebug( const glm::vec2& SizeWindow )
 	float HalfWidth = SizeWindow.x / 2;
 	float HalfHeight = SizeWindow.y / 2;
 
-	glReadBuffer( GL_COLOR_ATTACHMENT0 );
+	glReadBuffer( GL_COLOR_ATTACHMENT0 ); // Position Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), 0, 0, NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
-	glReadBuffer( GL_COLOR_ATTACHMENT1 );
+	glReadBuffer( GL_COLOR_ATTACHMENT1 ); // Diffuse Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), 0, NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 
-	glReadBuffer( GL_COLOR_ATTACHMENT2 );
+	glReadBuffer( GL_COLOR_ATTACHMENT2 ); // Normal Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
+
+	glReadBuffer( GL_COLOR_ATTACHMENT3 ); // Lightmap Buffer
+	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 }
 
 //-------------------------------------------------------------------------//

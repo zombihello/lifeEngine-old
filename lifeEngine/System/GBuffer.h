@@ -12,7 +12,7 @@
 #define GBUFFER_H
 
 #define COMPILING_LIBRARY
-#define GBUFFER_NUM_TEXTURES 3
+#define GBUFFER_NUM_TEXTURES 4
 #include <DllGlobal.h>
 
 //////////////
@@ -45,7 +45,8 @@ namespace le
 		{
 			Position,
 			Textures,
-			Normal
+			Normal,
+			Lightmap
 		};
 
 		//-------------------------------------------------------------------------//
@@ -54,8 +55,7 @@ namespace le
 		{
 			RenderBuffers,
 			RenderLight,
-			RenderSkybox,
-			RenderShadowMaps
+			RenderSkybox
 		};
 
 		//-------------------------------------------------------------------------//
@@ -117,6 +117,14 @@ namespace le
 		/// \param[in] TypeBind Тип рендера
 		//////////////////////////////////////////////////////////////////////
 		void Bind( TypeBind TypeBind );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Привязать буффер как текстуру
+		///
+		/// \param[in] NumberTexture Номер под которым привязать текстуру
+		/// \param[in] TypeTexture Тип рендера
+		//////////////////////////////////////////////////////////////////////
+		void BindTexture( int NumberTexture, TypeTexture TypeTexture );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Отвязать G-Буффер от рендера

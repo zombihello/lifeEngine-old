@@ -4,6 +4,7 @@
 <NameMap Value=""/>
 <DescriptionMap Value=""/>
 <SkyBoxName Value="../textures/skybox.jpg"/>
+<AmbienceColor Value=""/>
 </Settings>
 <Textures>
 <Texture Name="brick1.jpg" Route="..\textures\brick1.jpg"/>

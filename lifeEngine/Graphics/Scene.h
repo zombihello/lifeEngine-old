@@ -290,6 +290,7 @@ namespace le
 		Shader*								StaticModelsRender; ///< Шейдер рендера статичных моделей
 		Shader*								LevelRender; ///< Шейдер рендера уровня
 		Shader*								TestRender; ///< Шейдер тестового рендера на перекрытия
+		Shader*								LightMapRender; ///< Шейдер рендера карт освещения
 		Shader*								PointLightRender; ///< Шейдер точечного света
 		Shader*								DirectionalLightRender; ///< Шейдер направленого света
 		Shader*								SpotLightRender; ///< Шейдер прожекторного света
