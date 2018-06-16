@@ -17844,83 +17844,83 @@
 <Value Name="Healtch" Value="100"/>
 <Value Name="Armor" Value="0"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="192" Y="32" Z="-48"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 0 0"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="-80" Y="32" Z="112"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="0 255 0"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="200" Y="128" Z="88"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="0 0 255"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="-72" Y="128" Z="-40"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="150 125 110"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="48" Y="64" Z="16"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="300"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="-72" Y="128" Z="96"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="200" Y="128" Z="-32"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="352" Y="48" Z="0"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="656" Y="64" Z="0"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="488" Y="52" Z="-8"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="153 217 234"/>
 <Value Name="Radius" Value="45"/>
 <Value Name="Intensivity" Value="1"/>
 </Entity>
-<Entity Name="lightDirectional">
+<Entity Name="Static_lightDirectional">
 <Position X="-128" Y="288" Z="-544"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Intensivity" Value="0.5"/>
 </Entity>
-<Entity Name="SpotLight">
+<Entity Name="Static_SpotLight">
 <Position X="480" Y="32" Z="-432"/>
 <Value Name="Name" Value=""/>
 <Value Name="Rotation" Value="90 35 20"/>
@@ -17929,35 +17929,35 @@
 <Value Name="Color" Value="255 255 255"/>
 <Value Name="Intensivity" Value="4"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="552" Y="48" Z="-440"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="2"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="264" Y="48" Z="-440"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="2"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="-16" Y="56" Z="-440"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="100"/>
 <Value Name="Intensivity" Value="2"/>
 </Entity>
-<Entity Name="light">
+<Entity Name="Static_Light">
 <Position X="40" Y="56" Z="-264"/>
 <Value Name="Name" Value=""/>
 <Value Name="Color" Value="228 211 112"/>
 <Value Name="Radius" Value="200"/>
 <Value Name="Intensivity" Value="2"/>
 </Entity>
-<Entity Name="SpotLight">
+<Entity Name="Static_SpotLight">
 <Position X="400" Y="32" Z="-480"/>
 <Value Name="Name" Value=""/>
 <Value Name="Rotation" Value="-90 35 -20"/>
