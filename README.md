@@ -2,7 +2,7 @@
 Это игровой 3D-движок, написанный на С++ и распространяющийся под лицензией [GNU LGPL](https://ru.wikipedia.org/wiki/GNU_Lesser_General_Public_License). Он обладает высокоуровневым API которое упрощающает разработку игры.
 
 # Пример работы движка
-![lifeEngine DEMO](github.com/zombihello/lifeEngine/blob/dev/doc/example.jpg?raw=true) 
+![lifeEngine DEMO](doc/example.jpg?raw=true) 
 Исходный код примера можно посмотреть по [этой сылке](https://github.com/zombihello/lifeEngine/blob/dev/testBed/lifeEngine_TestBed/Main.cpp)
 
 # Пример использования
