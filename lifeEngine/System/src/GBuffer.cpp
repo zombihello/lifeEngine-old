@@ -57,6 +57,7 @@ bool le::GBuffer::InitGBuffer( const float& WindowWidth, const float& WindowHeig
 	glBindTexture( GL_TEXTURE_2D, FinalFrame );
 	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, NUMBER_TO_INT( WindowWidth ), NUMBER_TO_INT( WindowHeight ), 0, GL_RGBA, GL_FLOAT, NULL );
 	glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT4, GL_TEXTURE_2D, FinalFrame, 0 );
+	DrawBuffers[ GBUFFER_NUM_TEXTURES ] = GL_COLOR_ATTACHMENT4;
 
 	// ***************************************** //
 	// Инициализируем буффер глубины
@@ -110,8 +111,8 @@ bool le::GBuffer::InitGBuffer( const glm::vec2& SizeWindow )
 void le::GBuffer::ClearFrame()
 {
 	glBindFramebuffer( GL_FRAMEBUFFER, FrameBuffer );
-	glDrawBuffer( GL_COLOR_ATTACHMENT4 );
-	glClear( GL_COLOR_BUFFER_BIT );
+	glDrawBuffers( GBUFFER_NUM_TEXTURES+1, DrawBuffers );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
 //-------------------------------------------------------------------------//
@@ -155,8 +156,7 @@ void le::GBuffer::Bind( TypeBind TypeBind )
 	{
 	case TypeBind::RenderBuffers:
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, FrameBuffer );
-		glDrawBuffers( GBUFFER_NUM_TEXTURES, DrawBuffers );
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		glDrawBuffers( GBUFFER_NUM_TEXTURES+1, DrawBuffers );
 		break;
 
 	case TypeBind::RenderLight:
@@ -210,9 +210,6 @@ void le::GBuffer::ShowDebug()
 
 	glReadBuffer( GL_COLOR_ATTACHMENT2 ); // Normal Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
-
-	glReadBuffer( GL_COLOR_ATTACHMENT3 ); // Lightmap Buffer
-	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 }
 
 //-------------------------------------------------------------------------//
@@ -234,9 +231,6 @@ void le::GBuffer::ShowDebug( const glm::vec2& SizeWindow )
 
 	glReadBuffer( GL_COLOR_ATTACHMENT2 ); // Normal Buffer
 	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), NUMBER_TO_INT( HalfHeight ), NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
-
-	glReadBuffer( GL_COLOR_ATTACHMENT3 ); // Lightmap Buffer
-	glBlitFramebuffer( 0, 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( SizeWindow.y ), NUMBER_TO_INT( HalfWidth ), 0, NUMBER_TO_INT( SizeWindow.x ), NUMBER_TO_INT( HalfHeight ), GL_COLOR_BUFFER_BIT, GL_LINEAR );
 }
 
 //-------------------------------------------------------------------------//

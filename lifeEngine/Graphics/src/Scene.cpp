@@ -74,7 +74,6 @@ le::Scene::Scene() :
 	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
 	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", DirectionalLight_FragmentShader );
 	ResourcesManager::LoadShader( "SpotLight", "../shaders/light/SpotLightRender.vs", SpotLight_FragmentShader );
-	ResourcesManager::LoadShader( "LightMap", "../shaders/light/LightMapRender.vs", "../shaders/light/LightMapRender.fs" );
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
@@ -83,19 +82,11 @@ le::Scene::Scene() :
 	PointLightRender = ResourcesManager::GetShader( "PointLight" );
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
-	LightMapRender = ResourcesManager::GetShader( "LightMap" );
 
 	if ( LevelRender != NULL )
 	{
 		LevelRender->setUniform( "ColorMap", 0 );
 		LevelRender->setUniform( "LightMap", 1 );
-	}
-
-	if ( LightMapRender != NULL )
-	{
-		LightMapRender->setUniform( "ScreenSize", System::Configuration.WindowSize );
-		LightMapRender->setUniform( "ColorMap", GBuffer::Textures );
-		LightMapRender->setUniform( "LightMap", GBuffer::Lightmap );
 	}
 
 	if ( PointLightRender != NULL )
@@ -140,7 +131,6 @@ le::Scene::~Scene()
 	ResourcesManager::DeleteShader( "PointLight" );
 	ResourcesManager::DeleteShader( "DirectionalLight" );
 	ResourcesManager::DeleteShader( "SpotLight" );
-	ResourcesManager::DeleteShader( "LightMap" );
 }
 
 //-------------------------------------------------------------------------//
@@ -287,6 +277,8 @@ void le::Scene::RenderScene()
 	// ****************************
 	// Просчитывание освещения
 	// ****************************
+	//GBuffer.RenderFrame();
+
 	if ( Configuration::IsWireframeRender || LightManager == NULL )
 		GBuffer.RenderFrame( GBuffer::Textures );
 	else
@@ -432,11 +424,11 @@ void le::Scene::FrustumCulling()
 			BrushPlanes = &Brush->GetPlanes();
 
 			if ( Brush->GetDistanceToCamera() > System::Configuration.RenderDistance )
-				continue;			
+				continue;
 
 			for ( auto itPlanes = BrushPlanes->begin(); itPlanes != BrushPlanes->end(); itPlanes++ )
 				for ( size_t i = 0; i < itPlanes->second.size(); i++ )
-				RenderBuffer_Level[ itPlanes->first ].push_back( &itPlanes->second[i] );
+					RenderBuffer_Level[ itPlanes->first ].push_back( &itPlanes->second[ i ] );
 
 			if ( Visible_Brushes >= GeometryBuffer_Level.size() )
 				GeometryBuffer_Level.push_back( Brush );
@@ -519,10 +511,11 @@ void le::Scene::FrustumCulling()
 		{
 			if ( PositionCamera != NULL )
 			{
+				// TODO: [zombiHello] - Неправильная проверка видимости у источников света
 				float Distance = distance( *PositionCamera, it->LightSphere.GetPosition() );
 				it->IsVisible = Distance > -it->Radius && Distance < it->Radius;
 			}
-			
+
 			if ( Visible_PointLight >= LightBuffer_PointLight.size() )
 				LightBuffer_PointLight.push_back( &( *it ) );
 			else
@@ -634,10 +627,25 @@ void le::Scene::BuildShadowMaps()
 void le::Scene::GeometryRender()
 {
 	GBuffer.ClearFrame();
-	GBuffer.Bind( GBuffer::RenderBuffers );
+
+	// ****************************
+	// Рендер скайбокса
+	// ****************************
+
+	if ( Skybox != NULL )
+	{
+		GBuffer.Bind( GBuffer::RenderSkybox );
+		glDisable( GL_DEPTH_TEST );
+
+		Skybox->RenderSkybox();
+
+		glEnable( GL_DEPTH_TEST );
+	}
 
 	// ***************************************** //
 	// Рендер брашей уровня
+
+	GBuffer.Bind( GBuffer::RenderBuffers );
 
 	if ( LevelRender != NULL && !RenderBuffer_Level.empty() )
 	{
@@ -728,20 +736,6 @@ void le::Scene::GeometryRender()
 			}
 		}
 	}
-
-	// ****************************
-	// Рендер скайбокса
-	// ****************************
-
-	if ( Skybox != NULL )
-	{
-		GBuffer.Bind( GBuffer::RenderSkybox );
-		glDisable( GL_DEPTH_TEST );
-
-		Skybox->RenderSkybox();
-
-		glEnable( GL_DEPTH_TEST );
-	}
 }
 
 //-------------------------------------------------------------------------//
@@ -753,7 +747,7 @@ void le::Scene::LightRender()
 
 	GBuffer.Bind( GBuffer::RenderLight );
 
-	glDepthMask( GL_FALSE );	
+	glDepthMask( GL_FALSE );
 	glDisable( GL_CULL_FACE );
 
 	glBlendEquation( GL_FUNC_ADD );
@@ -761,20 +755,6 @@ void le::Scene::LightRender()
 
 	glStencilOpSeparate( GL_FRONT, GL_KEEP, GL_INCR_WRAP, GL_KEEP );
 	glStencilOpSeparate( GL_BACK, GL_KEEP, GL_DECR_WRAP, GL_KEEP );
-
-	// ***************************************** //
-	// Налаживаем карту освещения
-
-	if ( LightMapRender != NULL )
-	{
-		glEnable( GL_ALPHA_TEST );
-		glAlphaFunc( GL_GREATER, 0.0f );
-
-		Shader::bind( LightMapRender );
-		LightQuad.RenderQuad();
-
-		glDisable( GL_ALPHA_TEST );
-	}
 
 	// ***************************************** //
 	// Просчитываем точечные источники света

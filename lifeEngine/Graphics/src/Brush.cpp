@@ -188,25 +188,6 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 				Vertex->TextureCoord_LightMap.x = fabsf(( Vertex->TextureCoord_LightMap.x - UVMin.x ) / UVDelta.x);
 				Vertex->TextureCoord_LightMap.y = fabsf( ( Vertex->TextureCoord_LightMap.y - UVMin.y ) / UVDelta.y );
 			}
-
-	
-			//const int borderSize = 1;
-
-			//float scaleCoeffX =  ( float ) Size.x / ( float ) ( Size.x + borderSize );
-			//float scaleCoeffY =  ( float ) Size.y / ( float ) ( Size.y + borderSize );
-
-			//float offsetX =  ( float ) borderSize / ( 2.0f * ( float ) Size.x );
-			//float offsetY = ( float ) borderSize / ( 2.0f * ( float ) Size.y );
-
-			////// push uv's towards center, to remove possible seams due to bilinear filtration on GPU
-			//A->TextureCoord_LightMap.x = ( A->TextureCoord_LightMap.x + offsetX ) * scaleCoeffX;
-			//A->TextureCoord_LightMap.y = ( A->TextureCoord_LightMap.y + offsetY ) * scaleCoeffY;
-
-			//B->TextureCoord_LightMap.x = ( B->TextureCoord_LightMap.x + offsetX ) * scaleCoeffX;
-			//B->TextureCoord_LightMap.y = ( B->TextureCoord_LightMap.y + offsetY ) * scaleCoeffY;
-
-			//C->TextureCoord_LightMap.x = ( C->TextureCoord_LightMap.x + offsetX ) * scaleCoeffX;
-			//C->TextureCoord_LightMap.y = ( C->TextureCoord_LightMap.y + offsetY ) * scaleCoeffY;
 		}
 	}
 
@@ -237,8 +218,6 @@ void le::Brush::CreateBrush( const PrimitivesType& TypeBrush, const glm::vec3& P
 		for ( size_t i = 0; i < PlaneIdVertex[ Face ].size(); i++ )
 			Plane.Vertexes.push_back( BrushVertex[ PlaneIdVertex[ Face ][ i ] ] );
 
-		//sf::Image Im;	
-		//Im.loadFromFile( NameLightmaps[ Face ] );
 		Image = &Lights[ Face ];
 		Size = glm::vec2( Image->getSize().x, Image->getSize().y );
 

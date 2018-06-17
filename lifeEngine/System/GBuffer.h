@@ -12,7 +12,7 @@
 #define GBUFFER_H
 
 #define COMPILING_LIBRARY
-#define GBUFFER_NUM_TEXTURES 4
+#define GBUFFER_NUM_TEXTURES 3
 #include <DllGlobal.h>
 
 //////////////
@@ -45,8 +45,7 @@ namespace le
 		{
 			Position,
 			Textures,
-			Normal,
-			Lightmap
+			Normal
 		};
 
 		//-------------------------------------------------------------------------//
@@ -153,11 +152,10 @@ namespace le
 		GLuint			FinalFrame; ///< Финальный кадр
 		GLuint			DepthBuffer; ///< Буффер глубины
 		GLuint			Buffers[ GBUFFER_NUM_TEXTURES ]; ///< Буфферы (нормалей, позиций вершин и т.д)
-		GLenum			DrawBuffers[ GBUFFER_NUM_TEXTURES ]; ///< Типы буфферов
+		GLenum			DrawBuffers[ GBUFFER_NUM_TEXTURES+1 ]; ///< Типы буфферов
 	};
 
 	//-------------------------------------------------------------------------//
 }
 
 #endif // GBUFFER_H
-

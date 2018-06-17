@@ -67,7 +67,7 @@ public:
 				float Height = it->GetValueFloat( "Height" );
 				float Intensivity = it->GetValueFloat( "Intensivity" );
 				LightPosition = it->GetPosition();
-				LightRotation = glm::vec3( Rotation[0], Rotation[1], Rotation[2] );			
+				LightRotation = glm::vec3( Rotation[ 0 ], Rotation[ 1 ], Rotation[ 2 ] );
 
 				LightManager.AddSpotLight( NameLight, Radius, Height, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
@@ -79,8 +79,11 @@ public:
 		LightManager.AddPointLight( "point", 100, glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
 		Point = LightManager.GetPointLight( "point" );
 
-		LightManager.AddLightsToScene( *Scene );	
+		LightManager.AddLightsToScene( *Scene );
 		LightManager.BuildShadowMaps( *Level, Scene->GetRenderBuffer_StaticModel(), Scene->GetRenderBuffer_AnimationModel() );
+
+		Count = 0.f;
+		MoveRight = true;
 	}
 
 	~Game()
@@ -92,6 +95,22 @@ public:
 
 	void Update()
 	{
+		if ( MoveRight )
+		{
+			Point->SetPosition( glm::vec3( Point->Position.x + 1.f, Point->Position.y, Point->Position.z ) );
+			Count += 1.f;
+		}
+		else
+		{
+			Point->SetPosition( glm::vec3( Point->Position.x - 1.f, Point->Position.y, Point->Position.z ) );
+			Count -= 1.f;
+		}
+
+		if ( Count > 50 )
+			MoveRight = false;
+		else if ( Count < -50 )
+			MoveRight = true;
+
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
 			Camera->Move( le::Camera::Forward, 1.25f * Configuration->Time );
 
@@ -118,7 +137,7 @@ public:
 			le::System::SetWireframeRender( true );
 		else
 			le::System::SetWireframeRender( false );
-		
+
 		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
 			Spot->SetPosition( Camera->GetPosition() );
 
@@ -136,10 +155,13 @@ public:
 		model.GetAnimationManager()->Update();
 		Camera->UpdateCamera();
 		Scene->RenderScene();
-		
+
 		if ( Keyboard::isKeyPressed( Keyboard::E ) )
 			GBuffer->ShowDebug();
 	}
+
+	bool MoveRight;
+	float Count;
 
 	le::Model model;
 	le::Scene* Scene;
