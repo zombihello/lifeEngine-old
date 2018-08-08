@@ -1,0 +1,1123 @@
+<!-- lifeMap Alpha 1.4.3 -->
+<Map>
+<Settings>
+<NameMap Value=""/>
+<DescriptionMap Value=""/>
+<SkyBoxName Value=""/>
+<AmbienceColor Value=""/>
+</Settings>
+<Textures>
+<Texture Name="white.png" Route="..\textures\white.png"/>
+<Texture Name="green.png" Route="..\textures\green.png"/>
+<Texture Name="red.png" Route="..\textures\red.png"/>
+</Textures>
+<Brushes>
+<Solid>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="48" Y="120" Z="-32"/>
+<PositionVertex>
+<Vertex X="-48" Y="112" Z="-128"/>
+<Vertex X="144" Y="112" Z="-128"/>
+<Vertex X="144" Y="128" Z="-128"/>
+<Vertex X="-48" Y="128" Z="-128"/>
+<Vertex X="-48" Y="112" Z="64"/>
+<Vertex X="144" Y="112" Z="64"/>
+<Vertex X="144" Y="128" Z="64"/>
+<Vertex X="-48" Y="128" Z="64"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="9.599993" Y="0.800096"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-9.599993" Y="0.800096"/>
+<Point X="0" Y="0"/>
+<Point X="-9.599993" Y="0.800096"/>
+<Point X="-9.6" Y="9.6E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="-9.6" Y="9.6"/>
+<Point X="0" Y="0"/>
+<Point X="-9.6" Y="9.6"/>
+<Point X="-9.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="9.6" Y="0"/>
+<Point X="9.6" Y="9.6"/>
+<Point X="0" Y="9.6"/>
+<Point X="9.6" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="0"/>
+<Point X="9.6" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-9.6" Y="0.8"/>
+<Point X="-9.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-9.6" Y="0.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_0.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_1.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_2.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_3.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_4.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_5.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="48" Y="64" Z="56"/>
+<PositionVertex>
+<Vertex X="-32" Y="16" Z="48"/>
+<Vertex X="128" Y="16" Z="48"/>
+<Vertex X="128" Y="112" Z="48"/>
+<Vertex X="-32" Y="112" Z="48"/>
+<Vertex X="-32" Y="16" Z="64"/>
+<Vertex X="128" Y="16" Z="64"/>
+<Vertex X="128" Y="112" Z="64"/>
+<Vertex X="-32" Y="112" Z="64"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799952" Y="4.800008"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4.8E-05" Y="4.8"/>
+<Point X="-0.799952" Y="4.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799952" Y="4.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-8" Y="0.8"/>
+<Point X="-8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="8" Y="0"/>
+<Point X="8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="8" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="8" Y="0"/>
+<Point X="8" Y="4.8"/>
+<Point X="0" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-8" Y="4.8"/>
+<Point X="-8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4.8"/>
+<Point X="-8" Y="4.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_6.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_7.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_8.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_9.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_10.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_11.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="48" Y="64" Z="-120"/>
+<PositionVertex>
+<Vertex X="-32" Y="16" Z="-128"/>
+<Vertex X="128" Y="16" Z="-128"/>
+<Vertex X="128" Y="112" Z="-128"/>
+<Vertex X="-32" Y="112" Z="-128"/>
+<Vertex X="-32" Y="16" Z="-112"/>
+<Vertex X="128" Y="16" Z="-112"/>
+<Vertex X="128" Y="112" Z="-112"/>
+<Vertex X="-32" Y="112" Z="-112"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="0.799952" Y="4.800008"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="8E-06"/>
+<Point X="4.8E-05" Y="4.8"/>
+<Point X="-0.799952" Y="4.800008"/>
+<Point X="0" Y="0"/>
+<Point X="-0.799952" Y="4.800008"/>
+<Point X="-0.8" Y="8E-06"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-8" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="-8" Y="0.8"/>
+<Point X="-8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="8" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="8" Y="0"/>
+<Point X="8" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="8" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="8" Y="0"/>
+<Point X="8" Y="4.8"/>
+<Point X="0" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-8" Y="4.8"/>
+<Point X="-8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4.8"/>
+<Point X="-8" Y="4.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_12.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_13.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_14.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_15.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_16.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_17.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="48" Y="8" Z="-32"/>
+<PositionVertex>
+<Vertex X="-48" Y="0" Z="-128"/>
+<Vertex X="144" Y="0" Z="-128"/>
+<Vertex X="144" Y="16" Z="-128"/>
+<Vertex X="-48" Y="16" Z="-128"/>
+<Vertex X="-48" Y="0" Z="64"/>
+<Vertex X="144" Y="0" Z="64"/>
+<Vertex X="144" Y="16" Z="64"/>
+<Vertex X="-48" Y="16" Z="64"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="9.599993" Y="0.800096"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="-8E-06" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="8E-06" Y="0.8"/>
+<Point X="-9.599993" Y="0.800096"/>
+<Point X="0" Y="0"/>
+<Point X="-9.599993" Y="0.800096"/>
+<Point X="-9.6" Y="9.6E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="-9.6" Y="9.6"/>
+<Point X="0" Y="0"/>
+<Point X="-9.6" Y="9.6"/>
+<Point X="-9.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="9.6" Y="0"/>
+<Point X="9.6" Y="9.6"/>
+<Point X="0" Y="9.6"/>
+<Point X="9.6" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="0"/>
+<Point X="9.6" Y="0.8"/>
+<Point X="0" Y="0.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-9.6" Y="0.8"/>
+<Point X="-9.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0.8"/>
+<Point X="-9.6" Y="0.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_18.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_19.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_20.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_21.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_22.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_23.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="-8" Y="40" Z="-72"/>
+<PositionVertex>
+<Vertex X="-32" Y="16" Z="-96"/>
+<Vertex X="16" Y="16" Z="-96"/>
+<Vertex X="16" Y="64" Z="-96"/>
+<Vertex X="-32" Y="64" Z="-96"/>
+<Vertex X="-32" Y="16" Z="-48"/>
+<Vertex X="16" Y="16" Z="-48"/>
+<Vertex X="16" Y="64" Z="-48"/>
+<Vertex X="-32" Y="64" Z="-48"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="2.399976" Y="2.400024"/>
+<Point X="-2.4E-05" Y="2.4"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="-2.4E-05" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="2.4E-05"/>
+<Point X="2.4E-05" Y="2.4"/>
+<Point X="-2.399976" Y="2.400024"/>
+<Point X="0" Y="0"/>
+<Point X="-2.399976" Y="2.400024"/>
+<Point X="-2.4" Y="2.4E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-2.4" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="-2.4" Y="2.4"/>
+<Point X="-2.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="2.4" Y="0"/>
+<Point X="2.4" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="2.4" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="2.4" Y="0"/>
+<Point X="2.4" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-2.4" Y="2.4"/>
+<Point X="-2.4" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-2.4" Y="2.4"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_24.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_25.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_26.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_27.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_28.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_29.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="white.png"/>
+<Position X="96" Y="40" Z="0"/>
+<PositionVertex>
+<Vertex X="74.53374" Y="16" Z="7.155418"/>
+<Vertex X="88.84458" Y="16" Z="-21.46625"/>
+<Vertex X="88.84458" Y="64" Z="-21.46625"/>
+<Vertex X="74.53374" Y="64" Z="7.155418"/>
+<Vertex X="103.1554" Y="16" Z="21.46625"/>
+<Vertex X="117.4662" Y="16" Z="-7.155418"/>
+<Vertex X="117.4662" Y="64" Z="-7.155418"/>
+<Vertex X="103.1554" Y="64" Z="21.46625"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="1.599976" Y="2.400016"/>
+<Point X="-2.4E-05" Y="2.4"/>
+<Point X="1.6" Y="1.6E-05"/>
+<Point X="-2.4E-05" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="1.6" Y="1.6E-05"/>
+<Point X="2.4E-05" Y="2.4"/>
+<Point X="-1.599976" Y="2.400016"/>
+<Point X="0" Y="0"/>
+<Point X="-1.599976" Y="2.400016"/>
+<Point X="-1.6" Y="1.6E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1.6"/>
+<Point X="-1.6" Y="1.6"/>
+<Point X="0" Y="0"/>
+<Point X="-1.6" Y="1.6"/>
+<Point X="-1.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1.6" Y="0"/>
+<Point X="0" Y="1.6"/>
+<Point X="1.6" Y="0"/>
+<Point X="1.6" Y="1.6"/>
+<Point X="0" Y="1.6"/>
+<Point X="1.6" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="1.6" Y="0"/>
+<Point X="1.6" Y="2.4"/>
+<Point X="0" Y="2.4"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-1.6" Y="2.4"/>
+<Point X="-1.6" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="2.4"/>
+<Point X="-1.6" Y="2.4"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_30.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_31.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_32.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_33.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_34.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_35.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="green.png"/>
+<Position X="-40" Y="64" Z="-32"/>
+<PositionVertex>
+<Vertex X="-48" Y="16" Z="-128"/>
+<Vertex X="-32" Y="16" Z="-128"/>
+<Vertex X="-32" Y="112" Z="-128"/>
+<Vertex X="-48" Y="112" Z="-128"/>
+<Vertex X="-48" Y="16" Z="64"/>
+<Vertex X="-32" Y="16" Z="64"/>
+<Vertex X="-32" Y="112" Z="64"/>
+<Vertex X="-48" Y="112" Z="64"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="9.599952" Y="4.800096"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="4.8E-05" Y="4.8"/>
+<Point X="-9.599952" Y="4.800096"/>
+<Point X="0" Y="0"/>
+<Point X="-9.599952" Y="4.800096"/>
+<Point X="-9.6" Y="9.6E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="-0.8" Y="9.6"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="9.6"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="9.6"/>
+<Point X="0" Y="9.6"/>
+<Point X="0.8" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4.8"/>
+<Point X="0" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4.8"/>
+<Point X="-0.8" Y="4.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_36.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_37.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_38.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_39.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_40.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_41.png"/>
+</LightMaps>
+</Brush>
+<Brush>
+<Type Value="Cube"/>
+<TextureName Value="red.png"/>
+<Position X="136" Y="64" Z="-32"/>
+<PositionVertex>
+<Vertex X="128" Y="16" Z="-128"/>
+<Vertex X="144" Y="16" Z="-128"/>
+<Vertex X="144" Y="112" Z="-128"/>
+<Vertex X="128" Y="112" Z="-128"/>
+<Vertex X="128" Y="16" Z="64"/>
+<Vertex X="144" Y="16" Z="64"/>
+<Vertex X="144" Y="112" Z="64"/>
+<Vertex X="128" Y="112" Z="64"/>
+</PositionVertex>
+<Normals>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="-1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="1" Y="0" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="-1" Z="0"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+<Point X="0" Y="0" Z="-1"/>
+</Normals>
+<TextureCoords>
+<Point X="9.599952" Y="4.800096"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="-4.8E-05" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="9.6" Y="9.6E-05"/>
+<Point X="4.8E-05" Y="4.8"/>
+<Point X="-9.599952" Y="4.800096"/>
+<Point X="0" Y="0"/>
+<Point X="-9.599952" Y="4.800096"/>
+<Point X="-9.6" Y="9.6E-05"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="-0.8" Y="9.6"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="9.6"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0" Y="9.6"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="9.6"/>
+<Point X="0" Y="9.6"/>
+<Point X="0.8" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0.8" Y="0"/>
+<Point X="0.8" Y="4.8"/>
+<Point X="0" Y="4.8"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="-0.8" Y="4.8"/>
+<Point X="-0.8" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="4.8"/>
+<Point X="-0.8" Y="4.8"/>
+</TextureCoords>
+<TextureCoords_LightMap>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="0" Y="1"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="1" Y="1"/>
+<Point X="1" Y="0"/>
+<Point X="0" Y="0"/>
+<Point X="0" Y="1"/>
+<Point X="1" Y="1"/>
+</TextureCoords_LightMap>
+<LightMaps>
+<Triangle Route="..\maps\lm-cornellbox\lm_42.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_43.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_44.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_45.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_46.png"/>
+<Triangle Route="..\maps\lm-cornellbox\lm_47.png"/>
+</LightMaps>
+</Brush>
+</Solid>
+</Brushes>
+<Entitys>
+<Entity Name="Static_Light">
+<Position X="48" Y="64" Z="-32"/>
+<Value Name="Name" Value=""/>
+<Value Name="Color" Value="255 255 255"/>
+<Value Name="Radius" Value="35"/>
+<Value Name="Intensivity" Value="1"/>
+</Entity>
+</Entitys>
+</Map>

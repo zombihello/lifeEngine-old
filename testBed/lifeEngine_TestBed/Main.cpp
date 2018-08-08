@@ -15,12 +15,8 @@ public:
 	{
 		le::ResourcesManager::SetErrorTexture( "../textures/Error.png" );
 
-		model.LoadModel( "Leanna", "../models/leanna.lmd" );
-		model.GetAnimationManager()->Play( "leanna_anim", true );
-
 		Scene = new le::Scene();
 		GBuffer = &Scene->GetGBuffer();
-		Scene->AddModelToScene( &model );
 
 		Camera = new le::Camera( System );
 		Scene->SetCamera( *Camera );
@@ -29,47 +25,66 @@ public:
 		Level->LoadLevel( "../maps/" + NameMap + ".lmap" );
 		Level->AddToScene( *Scene );
 
-		glm::vec3 LightPosition, LightRotation;
-		string NameLight;
+		glm::vec3 Position, LightRotation;
+		string Name;
 		vector<int> LightColor;
 		vector<float> Rotation;
 		vector<le::Entity>* LevelEntitys = &Level->GetAllEntitys();
 
 		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
 		{
-			if ( it->GetNameEntity() == "light" )
+			if ( it->GetNameEntity() == "Dinamic_Light" )
 			{
 				LightColor = it->GetVelueVectorInt( "Color" );
 				float Radius = it->GetValueFloat( "Radius" );
 				float Intensivity = it->GetValueFloat( "Intensivity" );
-				NameLight = it->GetValueString( "Name" );
-				LightPosition = it->GetPosition();
+				Name = it->GetValueString( "Name" );
+				Position = it->GetPosition();
 
-				LightManager.AddPointLight( NameLight, Radius, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
+				LightManager.AddPointLight( Name, Radius, Position, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
 
-			if ( it->GetNameEntity() == "lightDirectional" )
+			if ( it->GetNameEntity() == "Dinamic_DirectionalLight" )
 			{
 				LightColor = it->GetVelueVectorInt( "Color" );
-				NameLight = it->GetValueString( "Name" );
+				Name = it->GetValueString( "Name" );
 				float Intensivity = it->GetValueFloat( "Intensivity" );
-				LightPosition = it->GetPosition();
+				Position = it->GetPosition();
 
-				LightManager.AddDirectionalLight( NameLight, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
+				LightManager.AddDirectionalLight( Name, Position, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
 			}
 
-			if ( it->GetNameEntity() == "SpotLight" )
+			if ( it->GetNameEntity() == "Dinamic_SpotLight" )
 			{
 				LightColor = it->GetVelueVectorInt( "Color" );
 				Rotation = it->GetVelueVectorFloat( "Rotation" );
-				NameLight = it->GetValueString( "Name" );
+				Name = it->GetValueString( "Name" );
 				float Radius = it->GetValueFloat( "Radius" );
 				float Height = it->GetValueFloat( "Height" );
 				float Intensivity = it->GetValueFloat( "Intensivity" );
-				LightPosition = it->GetPosition();
+				Position = it->GetPosition();
 				LightRotation = glm::vec3( Rotation[ 0 ], Rotation[ 1 ], Rotation[ 2 ] );
 
-				LightManager.AddSpotLight( NameLight, Radius, Height, LightRotation, LightPosition, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
+				LightManager.AddSpotLight( Name, Radius, Height, LightRotation, Position, glm::vec4( LightColor[ 0 ], LightColor[ 1 ], LightColor[ 2 ], 255 ), Intensivity );
+			}
+
+			if ( it->GetNameEntity() == "StaticProp" )
+			{
+				string ModelName = it->GetValueString( "ModelName" );
+				Name = it->GetValueString( "Name" );
+				string AnimationName = it->GetValueString( "AnimationName" );
+				Rotation = it->GetVelueVectorFloat( "Rotation" );
+				Position = it->GetPosition();
+
+				le::Model* Model = new le::Model();
+				Model->LoadModel( Name, "../models/" + ModelName + ".lmd" );
+				Model->GetAnimationManager()->Play( AnimationName, true );
+				Model->SetPosition( Position );
+				Model->SetRotation( glm::vec3( Rotation[ 0 ], Rotation[ 1 ], Rotation[ 2 ] ) );
+				Model->SetScale( glm::vec3( 0.5f, 0.5f, 0.5f ) );
+
+				Scene->AddModelToScene( Model );
+				Models.push_back( Model );
 			}
 		}
 
@@ -91,6 +106,9 @@ public:
 		delete Scene;
 		delete Camera;
 		delete Level;
+
+		for ( size_t i = 0; i < Models.size(); i++ )
+			delete Models[ i ];
 	}
 
 	void Update()
@@ -152,7 +170,9 @@ public:
 				Camera->TiltCamera( -0.5f );
 		}
 
-		model.GetAnimationManager()->Update();
+		for ( size_t Id = 0; Id < Models.size(); Id++ )
+			Models[ Id ]->GetAnimationManager()->Update();
+
 		Camera->UpdateCamera();
 		Scene->RenderScene();
 
@@ -163,14 +183,15 @@ public:
 	bool MoveRight;
 	float Count;
 
-	le::Model model;
-	le::Scene* Scene;
-	le::Camera* Camera;
-	le::Level* Level;
-	le::GBuffer* GBuffer;
-	le::LightManager LightManager;
-	le::SpotLight* Spot;
-	le::PointLight* Point;
+	le::Scene*			Scene;
+	le::Camera*			Camera;
+	le::Level*			Level;
+	le::GBuffer*		GBuffer;
+	le::LightManager	LightManager;
+	le::SpotLight*		Spot;
+	le::PointLight*		Point;
+
+	vector<le::Model*>	Models;
 };
 
 int main( int argc, char** argv )
@@ -180,18 +201,29 @@ int main( int argc, char** argv )
 
 	cout << "*******************\n";
 	cout << "*    Select Map   *\n";
-	cout << "* 1. base         *\n";
-	cout << "* 2. shadows      *\n";
+	cout << "* 1. Base         *\n";
+	cout << "* 2. Cornell Box  *\n";
+	cout << "* 3. Prototype    *\n";
+	cout << "* 4. Other..	   *\n";
 	cout << "*******************\n\n";
 
 	cout << "> Select: ";
 	cin >> IndexMap;
-	cout << endl;
 
 	switch ( IndexMap )
 	{
 	case 2:
-		NameMap = "shadows";
+		NameMap = "cornellbox";
+		break;
+
+	case 3:
+		NameMap = "prototype";
+		break;
+
+	case 4:
+		cout << "> Enter Name Map: ";
+		cin >> NameMap;
+		cout << endl;
 		break;
 
 	default:

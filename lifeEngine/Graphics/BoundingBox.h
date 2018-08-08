@@ -100,7 +100,7 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Задать позицию объекта
 		///		
-		/// \param[in] Position Позиция сферы
+		/// \param[in] Position Позиция
 		//////////////////////////////////////////////////////////////////////
 		void SetPosition( const glm::vec3& Position );
 
@@ -117,6 +117,23 @@ namespace le
 		/// \param[in] Rotation Угол поворота
 		//////////////////////////////////////////////////////////////////////
 		void SetRotation( const glm::quat& Rotation );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать масштаб
+		///		
+		/// \param[in] Scale Масштаб
+		//////////////////////////////////////////////////////////////////////
+		void SetScale( const glm::vec3& Scale );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Задать трансформацию ограничивающего тела
+		///
+		/// \param[in] Transformation Трансформация
+		/// \param[in] Position Позиция
+		/// \param[in] Rotation Поворот кватернионом
+		/// \param[in] Scale Масштаб
+		//////////////////////////////////////////////////////////////////////
+		void SetTransformation( const glm::mat4& Transformation, const glm::vec3& Position, const glm::quat& Rotation, const glm::vec3& Scale );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить матрицу трансформации
@@ -174,10 +191,12 @@ namespace le
 		glm::vec3			GlobalVertexs[ 8 ]; ///< Массив вершин в глобальной СК
 		glm::vec3			MinVertex; ///< Самая низка вершина
 		glm::vec3			MaxVertex; ///< Самая высокая вершина
-		glm::vec3			Position; ///< Позиция конуса		
-		glm::quat			Rotation; ///< Поворот конуса
+		glm::vec3			Position; ///< Позиция	
+		glm::vec3			Scale; /// < Масштаб
+		glm::quat			Rotation; ///< Поворот
 		glm::mat4			MatrixPosition; ///< Матрица позиции
 		glm::mat4			MatrixRotation; ///< Матрица поворота
+		glm::mat4			MatrixScale; ///< Матрица масштаба
 		glm::mat4			Transformation; ///< Матрица трансформации
 	};
 

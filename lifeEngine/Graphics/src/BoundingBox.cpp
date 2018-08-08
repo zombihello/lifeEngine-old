@@ -16,9 +16,11 @@ le::BoundingBox::BoundingBox( BoundingBox& Copy )
 	Query = Copy.Query;
 	Position = Copy.Position;
 	Rotation = Copy.Rotation;
+	Scale = Copy.Scale;
 	Transformation = Copy.Transformation;
 	MatrixPosition = Copy.MatrixPosition;
 	MatrixRotation = Copy.MatrixRotation;
+	MatrixScale = Copy.MatrixScale;
 	MaxVertex = Copy.MaxVertex;
 	MinVertex = Copy.MinVertex;
 
@@ -277,7 +279,7 @@ void le::BoundingBox::SetPosition( const glm::vec3& Position )
 {
 	this->Position = Position;
 	MatrixPosition = glm::translate( Position );
-	Transformation = MatrixPosition * MatrixRotation;
+	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -317,7 +319,7 @@ void le::BoundingBox::SetRotation( const glm::vec3& Rotation )
 	this->Rotation = RotateX * RotateY * RotateZ;
 	MatrixRotation = glm::mat4_cast( this->Rotation );
 
-	Transformation = MatrixPosition * MatrixRotation;
+	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -350,7 +352,72 @@ void le::BoundingBox::SetRotation( const glm::quat& Rotation )
 	this->Rotation = Rotation;
 	MatrixRotation = glm::mat4_cast( Rotation );
 
-	Transformation = MatrixPosition * MatrixRotation;
+	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
+
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BoundingBox::SetScale( const glm::vec3& Scale )
+{
+	this->Scale = Scale;
+	MatrixScale = glm::scale( Scale );
+	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
+
+		if ( MaxVertex.x < GlobalVertexs[ i ].x )
+			MaxVertex.x = GlobalVertexs[ i ].x;
+		else
+			if ( MinVertex.x > GlobalVertexs[ i ].x )
+				MinVertex.x = GlobalVertexs[ i ].x;
+
+		if ( MaxVertex.y < GlobalVertexs[ i ].y )
+			MaxVertex.y = GlobalVertexs[ i ].y;
+		else
+			if ( MinVertex.y > GlobalVertexs[ i ].y )
+				MinVertex.y = GlobalVertexs[ i ].y;
+
+		if ( MaxVertex.z < GlobalVertexs[ i ].z )
+			MaxVertex.z = GlobalVertexs[ i ].z;
+		else
+			if ( MinVertex.z > GlobalVertexs[ i ].z )
+				MinVertex.z = GlobalVertexs[ i ].z;
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::BoundingBox::SetTransformation( const glm::mat4& Transformation, const glm::vec3& Position, const glm::quat& Rotation, const glm::vec3& Scale )
+{
+	this->Transformation = Transformation;
+	this->Position = Position;
+	this->Rotation = Rotation;
+	this->Scale = Scale;
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -411,9 +478,11 @@ le::BoundingBox & le::BoundingBox::operator=( const BoundingBox& Copy )
 	Query = Copy.Query;
 	Position = Copy.Position;
 	Rotation = Copy.Rotation;
+	Scale = Copy.Scale;
 	Transformation = Copy.Transformation;
 	MatrixPosition = Copy.MatrixPosition;
 	MatrixRotation = Copy.MatrixRotation;
+	MatrixScale = Copy.MatrixScale;
 	MaxVertex = Copy.MaxVertex;
 	MinVertex = Copy.MinVertex;
 

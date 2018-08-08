@@ -123,6 +123,34 @@ le::AnimationManager* le::Model::GetAnimationManager()
 
 //-------------------------------------------------------------------------//
 
+glm::vec3& le::Model::GetPosition()
+{
+	return Position;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3& le::Model::GetScale()
+{
+	return ScaleModel;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::quat& le::Model::GetRotation()
+{
+	return Rotation;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::mat4& le::Model::GetTransformation()
+{
+	return MatrixTransformation;
+}
+
+//-------------------------------------------------------------------------//
+
 bool le::Model::IsNoSkeleton()
 {
 	return NoSkeleton;
@@ -133,6 +161,108 @@ bool le::Model::IsNoSkeleton()
 void le::Model::SetScene( le::Scene* Scene )
 {
 	this->Scene = Scene;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetPosition( const glm::vec3& Position )
+{
+	this->Position = Position;
+	MatrixPosition = glm::translate( Position );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetRotation( const glm::vec3& Rotation )
+{
+	glm::vec3 Axis( sin( Rotation.x / 2 ), sin( Rotation.y / 2 ), sin( Rotation.z / 2 ) );
+	glm::vec3 Rotations( cos( Rotation.x / 2 ), cos( Rotation.y / 2 ), cos( Rotation.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	this->Rotation = RotateX * RotateY * RotateZ;
+	MatrixRotation = glm::mat4_cast( this->Rotation );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetRotation( const glm::quat& Rotation )
+{
+	this->Rotation = Rotation;
+	MatrixRotation = glm::mat4_cast( this->Rotation );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetScale( const glm::vec3& Scale )
+{
+	ScaleModel = Scale;
+	MatrixScale = glm::scale( Scale );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Move( const glm::vec3& FactorMove )
+{
+	Position += FactorMove;
+	MatrixPosition *= glm::translate( FactorMove );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Scale( const glm::vec3& FactorScale )
+{
+	ScaleModel += FactorScale;
+	MatrixScale *= glm::scale( FactorScale );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Rotate( const glm::vec3& FactorRotate )
+{
+	glm::vec3 Axis( sin( FactorRotate.x / 2 ), sin( FactorRotate.y / 2 ), sin( FactorRotate.z / 2 ) );
+	glm::vec3 Rotations( cos( FactorRotate.x / 2 ), cos( FactorRotate.y / 2 ), cos( FactorRotate.z / 2 ) );
+
+	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
+	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
+	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
+
+	Rotation *= RotateX * RotateY * RotateZ;
+	MatrixRotation = glm::mat4_cast( Rotation );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::Rotate( const glm::quat& FactorRotate )
+{
+	Rotation *= FactorRotate;
+	MatrixRotation = glm::mat4_cast( FactorRotate );
+
+	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
+	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
 }
 
 //-------------------------------------------------------------------------//

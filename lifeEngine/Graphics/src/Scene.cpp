@@ -574,7 +574,12 @@ void le::Scene::FrustumCulling()
 	glDepthMask( GL_FALSE );
 
 	for ( size_t i = 0; i < Visible_Models; i++ )
-		GeometryBuffer_Models[ i ]->BoundingBox->QueryTest();
+	{
+		InfoMesh* InfoMesh = GeometryBuffer_Models[ i ];
+
+		TestRender->setUniform( "PVTMatrix", PVMatrix * InfoMesh->BoundingBox->GetTransformation() );
+		InfoMesh->BoundingBox->QueryTest();
+	}
 
 	// ***************************************** //
 	// Рендер ограничивающих тел точечных источников света

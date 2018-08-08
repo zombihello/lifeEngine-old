@@ -30,8 +30,8 @@ void main()
 	BoneTrans += Bones[int(in_IdBones.z)] * in_Weights.z;
 	BoneTrans += Bones[int(in_IdBones.w)] * in_Weights.w;
 	
-	Position = ( TransformMatrix * vec4( in_Position, 1.0f ) * BoneTrans ).xyz;
-	Normal = ( TransformMatrix * vec4( in_Normal, 0.0f ) * BoneTrans ).xyz;
+	Position = ( TransformMatrix * ( vec4( in_Position, 1.0f ) * BoneTrans ) ).xyz;
+	Normal =  ( TransformMatrix * (  vec4( in_Normal, 0.0f ) * BoneTrans ) ).xyz;
 	TexCoord = in_TexCoord;
 	
 	gl_Position = PVMatrix * vec4( Position, 1.0f );	
