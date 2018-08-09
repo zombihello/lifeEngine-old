@@ -8,7 +8,10 @@
 //-------------------------------------------------------------------------//
 
 le::Level::Level( System& System ) :
-	Scene( NULL )
+	Scene( NULL ),
+	VertexBuffer( 0 ),
+	IndexBuffer( 0 ),
+	ArrayBuffer( 0 )
 {
 	Skybox = new le::Skybox();
 	Skybox->SetSizeSkybox( 500 );
@@ -18,9 +21,21 @@ le::Level::Level( System& System ) :
 
 le::Level::~Level()
 {
-	if ( !Brushes.empty() )
-		for ( size_t i = 0; i < Brushes.size(); i++ )
-			delete Brushes[ i ];
+	if ( !Planes.empty() )
+	{
+		for ( auto It = Planes.begin(); It != Planes.end(); It++ )
+			for ( size_t i = 0; i < It->second.size(); i++ )
+				delete Planes[ It->first ][ i ];
+
+		Planes.clear();
+	}
+
+	if ( VertexBuffer != 0 )
+	{
+		VAO::DeleteVAO( &ArrayBuffer );
+		VAO::DeleteBuffer( &VertexBuffer );
+		VAO::DeleteBuffer( &IndexBuffer );
+	}
 
 	delete Skybox;
 }
@@ -29,240 +44,55 @@ le::Level::~Level()
 
 bool le::Level::LoadLevel( const string& Route )
 {
-	Logger::Log( Logger::Info, "Loading Level [" + Route + "]" );
+	BSPLoad BSPLoad;
 
-	TiXmlDocument Level;
-
-	if ( !Level.LoadFile( Route.c_str() ) )
-	{
-		Logger::Log( Logger::Error, "Level [" + Route + "] Not Found Or Not Currect Format" );
+	if ( !BSPLoad.LoadBSP( Route ) )
 		return false;
-	}
 
-	TiXmlElement* Map;
-	Map = Level.FirstChildElement( "Map" );
+	// *****************************************
+	// Получаем массив вершин, индексов и фейсов
 
-	if ( Map == NULL )
+	int NumberVertexes = BSPLoad.GetNumberVertexs();
+	BSPVertex* Vertexes = BSPLoad.GetPtrVertexs();
+
+	int NumberIndices = BSPLoad.GetNumberIndices();
+	unsigned int* Indeces = BSPLoad.GetPtrIndeces();
+
+	int NumberFaces = BSPLoad.GetNumberFaces();
+	BSPFace* Faces = BSPLoad.GetPtrFaces();
+
+	GLuint* Textures = BSPLoad.GetPtrTextures();
+
+	// *****************************************
+	// Инициализируем плоскости
+
+	for ( int i = 0; i < NumberFaces; i++ )
 	{
-		Logger::Log( Logger::Error, "Not Correct Format In Level [" + Route + "]. Not Found Tag \"Map\"" );
-		return false;
+		if ( Faces[ i ].Type != 1 ) continue;
+
+		Plane* Plane = new le::Plane();
+		Plane->InitPlane( Faces[ i ] );
+		Planes[ Textures[ Faces[ i ].TextureID ] ].push_back( Plane );
 	}
 
-	//====== ЗАГРУЖАЕМ НАСТРОЙКИ КАРТЫ ======//
+	// *****************************************
+	// Создаем VAO
 
-	TiXmlElement* Settings;
-	Settings = Map->FirstChildElement( "Settings" );
+	ArrayBuffer = VAO::CreateVAO();
+	VAO::BindVAO( ArrayBuffer );
 
-	if ( Settings != NULL )
-	{
-		TiXmlElement *NameMap, *DescriptionMap, *SkyBoxName;
-		NameMap = Settings->FirstChildElement( "NameMap" );
-		DescriptionMap = Settings->FirstChildElement( "DescriptionMap" );
-		SkyBoxName = Settings->FirstChildElement( "SkyBoxName" );
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, NumberVertexes, &Vertexes[ 0 ], VAO::Static_Draw );
+	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, NumberIndices, &Indeces[ 0 ], VAO::Static_Draw );
 
-		this->NameMap = NameMap->Attribute( "Value" );
-		this->DescriptionMap = DescriptionMap->Attribute( "Value" );
-		this->SkyBoxName = SkyBoxName->Attribute( "Value" );
+	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, Position ) ) );
+	VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, Normal ) ) );
+	VAO::SetVertexAttribPointer( VERT_TEXCOORD_DIFFUSE, 2, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, TextureCoord ) ) );
+	VAO::SetVertexAttribPointer( VERT_TEXCOORD_LIGHTMAP, 2, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, LightmapCoord ) ) );
 
-		if ( !this->SkyBoxName.empty() )
-			Skybox->LoadSkybox( this->SkyBoxName );
-		else
-			Logger::Log( Logger::Warning, "On The Level Missing Skybox" );
-	}
+	VAO::UnbindVAO();
+	VAO::UnbindBuffer( VAO::Vertex_Buffer );
+	VAO::UnbindBuffer( VAO::Index_Buffer );
 
-	//====== ЗАГРУЖАЕМ ТЕКСТУРЫ КОТОРЫЕ ИСП. НА КАРТЕ ======//
-
-	TiXmlElement *Textures, *Texture;
-	map<string, GLuint> mTextures;
-	Textures = Map->FirstChildElement( "Textures" );
-
-	if ( Textures != NULL )
-	{
-		string Name, Route;
-		Texture = Textures->FirstChildElement( "Texture" );
-
-		while ( Texture )
-		{
-			Name = Texture->Attribute( "Name" );
-			Route = Texture->Attribute( "Route" );
-
-			ResourcesManager::LoadGlTexture( Name, Route );
-			mTextures[ Name ] = ResourcesManager::GetGlTexture( Name );
-
-			Texture = Texture->NextSiblingElement();
-		}
-	}
-	else
-		Logger::Log( Logger::Warning, "In Level [" + Route + "]. Not Found Tag \"Textures\"" );
-
-	//====== ЗАГРУЖАЕМ БРАШИ ======//
-
-	TiXmlElement* Brushes;
-	Brushes = Map->FirstChildElement( "Brushes" );
-
-	if ( Brushes == NULL )
-	{
-		Logger::Log( Logger::Error, "Not Correct Format In Level [" + Route + "]. Not Found Tag \"Brushes\"" );
-		return false;
-	}
-
-	// ****************************
-	// Загружаем твердые браши
-	// ****************************
-
-	TiXmlElement* Solid;
-	Solid = Brushes->FirstChildElement( "Solid" );
-
-	if ( Solid != NULL )
-	{
-		TiXmlElement* Brush;
-		string str_TypeBrush, str_TextureName, str_Temp;
-		glm::vec3 Position;
-		glm::vec3 TempVector3;
-		glm::vec2 TempVector2;
-		vector<string> NameLightmaps;
-		vector<glm::vec3> Vertexs, Normals;
-		vector<glm::vec2> TexCoords, TexCoords_Lightmap;
-
-		Brush = Solid->FirstChildElement( "Brush" );
-
-		while ( Brush )
-		{
-			TiXmlElement *Type, *TextureName, *PositionBrush;
-
-			Type = Brush->FirstChildElement( "Type" );
-			TextureName = Brush->FirstChildElement( "TextureName" );
-			PositionBrush = Brush->FirstChildElement( "Position" );
-
-			str_TypeBrush = Type->Attribute( "Value" );
-			str_TextureName = TextureName->Attribute( "Value" );
-
-			Position.x = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "X" ) ) );
-			Position.y = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "Y" ) ) );
-			Position.z = NUMBER_TO_FLOAT( atof( PositionBrush->Attribute( "Z" ) ) );
-
-			// ****************************
-			// Загружаем позиции вершин
-			// ****************************
-
-			TiXmlElement *PositionVertex, *Vertex;
-			PositionVertex = Brush->FirstChildElement( "PositionVertex" );
-			Vertex = PositionVertex->FirstChildElement( "Vertex" );
-
-			while ( Vertex )
-			{
-				TempVector3.x = NUMBER_TO_FLOAT( atof( Vertex->Attribute( "X" ) ) );
-				TempVector3.y = NUMBER_TO_FLOAT( atof( Vertex->Attribute( "Y" ) ) );
-				TempVector3.z = NUMBER_TO_FLOAT( atof( Vertex->Attribute( "Z" ) ) );
-
-				Vertexs.push_back( TempVector3 );
-				Vertex = Vertex->NextSiblingElement();
-			}
-
-			// ****************************
-			// Загружаем нормали
-			// ****************************
-
-			TiXmlElement *xml_Normals, *Point;
-			xml_Normals = Brush->FirstChildElement( "Normals" );
-			Point = xml_Normals->FirstChildElement( "Point" );
-
-			while ( Point )
-			{
-				TempVector3.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "X" ) ) );
-				TempVector3.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "Y" ) ) );
-				TempVector3.z = NUMBER_TO_FLOAT( atof( Point->Attribute( "Z" ) ) );
-
-				Normals.push_back( TempVector3 );
-				Point = Point->NextSiblingElement();
-			}
-
-			// ****************************
-			// Загружаем текстурные координаты
-			// ****************************
-
-			TiXmlElement *TextureCoords;
-			TextureCoords = Brush->FirstChildElement( "TextureCoords" );
-			Point = TextureCoords->FirstChildElement( "Point" );
-
-			while ( Point )
-			{
-				TempVector2.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "X" ) ) );
-				TempVector2.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "Y" ) ) );
-
-				TexCoords.push_back( TempVector2 );
-				Point = Point->NextSiblingElement();
-			}
-
-			// ****************************
-			// Загружаем текстурные координаты карты освещения
-			// ****************************
-
-			TiXmlElement *TextureCoords_LightMap;
-			TextureCoords_LightMap = Brush->FirstChildElement( "TextureCoords_LightMap" );
-			Point = TextureCoords_LightMap->FirstChildElement( "Point" );
-
-			while ( Point )
-			{
-				TempVector2.x = NUMBER_TO_FLOAT( atof( Point->Attribute( "X" ) ) );
-				TempVector2.y = NUMBER_TO_FLOAT( atof( Point->Attribute( "Y" ) ) );
-
-				TexCoords_Lightmap.push_back( TempVector2 );
-				Point = Point->NextSiblingElement();
-			}
-
-
-			// ****************************
-			// Запоминаем названия лайтмапы для каждого треугольника
-			// ****************************
-
-			TiXmlElement *LightMaps;
-			LightMaps = Brush->FirstChildElement( "LightMaps" );
-			TiXmlElement *Triangle = LightMaps->FirstChildElement( "Triangle" );
-
-			while ( Triangle )
-			{
-				NameLightmaps.push_back( Triangle->Attribute( "Route" ) );
-				Triangle = Triangle->NextSiblingElement();
-			}
-
-			le::Brush* LevelBrush = new le::Brush();
-			LevelBrush->CreateBrush( Brush::Cube, Position, mTextures[ str_TextureName ], Vertexs, Normals, TexCoords, TexCoords_Lightmap, NameLightmaps );
-
-			this->Brushes.push_back( LevelBrush );
-
-			Vertexs.clear();
-			Normals.clear();
-			TexCoords.clear();
-			TexCoords_Lightmap.clear();
-			NameLightmaps.clear();
-			Brush = Brush->NextSiblingElement();
-		}
-	}
-
-	//====== ЗАГРУЖАЕМ ЭНТИТИ-ОБЪЕКТЫ ======//
-
-	TiXmlElement *xml_Entitys;
-	xml_Entitys = Map->FirstChildElement( "Entitys" );
-
-	if ( xml_Entitys == NULL )
-	{
-		Logger::Log( Logger::Error, "Not Correct Format In Level [" + Route + "]. Not Found Tag \"Entitys\"" );
-		return false;
-	}
-
-	TiXmlElement *xml_Entity;
-	xml_Entity = xml_Entitys->FirstChildElement( "Entity" );
-
-	while ( xml_Entity )
-	{
-		Entity Entity( *xml_Entity );
-		Entitys.push_back( Entity );
-
-		xml_Entity = xml_Entity->NextSiblingElement();
-	}
-
-	Logger::Log( Logger::Info, "Level [" + Route + "] Loaded" );
 	return true;
 }
 
@@ -293,9 +123,21 @@ void le::Level::SetScene( le::Scene* Scene )
 
 void le::Level::ClearLevel()
 {
-	if ( !Brushes.empty() )
-		for ( size_t i = 0; i < Brushes.size(); i++ )
-			delete Brushes[ i ];
+	if ( !Planes.empty() )
+	{
+		for ( auto It = Planes.begin(); It != Planes.end(); It++ )
+			for ( size_t i = 0; i < It->second.size(); i++ )
+				delete Planes[ It->first ][ i ];
+
+		Planes.clear();
+	}
+
+	if ( VertexBuffer != 0 )
+	{
+		VAO::DeleteVAO( &ArrayBuffer );
+		VAO::DeleteBuffer( &VertexBuffer );
+		VAO::DeleteBuffer( &IndexBuffer );
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -303,6 +145,13 @@ void le::Level::ClearLevel()
 le::Skybox& le::Level::GetSkybox()
 {
 	return *Skybox;
+}
+
+//-------------------------------------------------------------------------//
+
+GLuint& le::Level::GetArrayBuffer()
+{
+	return ArrayBuffer;
 }
 
 //-------------------------------------------------------------------------//
@@ -318,9 +167,9 @@ le::Entity* le::Level::GetEntity( const string& NameEntity )
 
 //-------------------------------------------------------------------------//
 
-vector<le::Brush*>& le::Level::GetAllBrushes()
+map<GLuint, vector<le::Plane*> >& le::Level::GetAllPlanes()
 {
-	return Brushes;
+	return Planes;
 }
 
 //-------------------------------------------------------------------------//

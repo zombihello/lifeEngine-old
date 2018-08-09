@@ -50,8 +50,7 @@ namespace le
 	class Camera;
 	class Frustum;
 	class Level;
-	class Brush;
-	struct BrushPlane;
+	struct Plane;
 	class Skeleton;
 	class PointLight;
 	class DirectionalLight;
@@ -209,12 +208,11 @@ namespace le
 		size_t& GetVisible_Models();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить кол-во видимых брашей
-		/// \warning Кол-во объектов которые попали в камеру без учета перекрытий
+		/// \brief Получить буффер плоскостей на сцене
 		///		
-		/// \return size_t&
+		/// \return map<GLuint, vector<Plane*> >&
 		//////////////////////////////////////////////////////////////////////
-		size_t& GetVisible_Brushes();
+		map<GLuint, vector<Plane*> >& GetRenderBuffer_Level();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить буффер точечного света который попал в камеру
@@ -297,7 +295,6 @@ namespace le
 		size_t								Visible_PointLight; ///< Кол-во видимых точечных источников света
 		size_t								Visible_SpotLight; ///< Кол-во видимых прожекторных источников света
 		size_t								Visible_Models; ///< Кол-во видимых моделей
-		size_t								Visible_Brushes; ///< Кол-во видимых брашей
 
 		glm::vec3*							PositionCamera; ///< Позиция камеры
 		glm::mat4*							ViewMatrix; ///< Матрица вида
@@ -319,12 +316,11 @@ namespace le
 		vector<PointLight>*					PointLights; ///< Массив точечный источников которые нах. на сцене
 		vector<SpotLight>*					SpotLights; ///< Массив прожекторных источников которые нах. на сцене
 		vector<DirectionalLight>*			DirectionalLights; ///< Массив направленных источников света которые нах. на сцене
-		vector<Brush*>						GeometryBuffer_Level; ///< Буффер геометрии уровня (отсортированый по удалению от камеры)
 		vector<InfoMesh*>					GeometryBuffer_Models; ///< Буффер геометрии моделей
 		vector<PointLight*>					LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 		vector<SpotLight*>					LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
 
-		map<GLuint, vector<BrushPlane*> >	RenderBuffer_Level; ///< Буффер рендера карты
+		map<GLuint, vector<Plane*> >*		RenderBuffer_Level; ///< Буффер рендера карты
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel; ///< Буффер рендера анимируемых моделей
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel; ///< Буффер рендера статичных моделей (не анимируемых)	
 	};

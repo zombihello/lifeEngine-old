@@ -111,10 +111,10 @@
     <ClCompile Include="Graphics\src\Entity.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Brush.cpp">
+    <ClCompile Include="Graphics\src\BSPLoad.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\BrushVertex.cpp">
+    <ClCompile Include="Graphics\src\Plane.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -210,13 +210,10 @@
     <ClInclude Include="Graphics\Entity.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Brush.h">
+    <ClInclude Include="Graphics\BSPLoad.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\BrushVertex.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BrushPlane.h">
+    <ClInclude Include="Graphics\Plane.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

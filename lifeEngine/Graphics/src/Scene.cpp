@@ -9,18 +9,10 @@
 
 //-------------------------------------------------------------------------//
 
-inline bool sortFUNCTION( le::Brush* Brush_1, le::Brush* Brush_2 )
-{
-	return Brush_1->GetDistanceToCamera() < Brush_2->GetDistanceToCamera();
-}
-
-//-------------------------------------------------------------------------//
-
 le::Scene::Scene() :
 	Visible_PointLight( 0 ),
 	Visible_SpotLight( 0 ),
 	Visible_Models( 0 ),
-	Visible_Brushes( 0 ),
 	ViewMatrix( NULL ),
 	Frustum( NULL ),
 	Camera( NULL ),
@@ -202,15 +194,15 @@ void le::Scene::AddLevelToScene( Level* Level )
 		Skybox->SetPlayerCamera( *Camera );
 
 	Level->SetScene( this );
+	RenderBuffer_Level = &Level->GetAllPlanes();
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Scene::RemoveLevelFromScene( Level* Level )
 {
-	RenderBuffer_Level.clear();
-
 	Level->SetScene( NULL );
+	RenderBuffer_Level = NULL;
 	Skybox->RemovePlayerCamera();
 	Skybox = NULL;
 	LevelInScene = NULL;
@@ -351,9 +343,9 @@ size_t& le::Scene::GetVisible_Models()
 
 //-------------------------------------------------------------------------//
 
-size_t & le::Scene::GetVisible_Brushes()
+map<GLuint, vector<le::Plane*>>& le::Scene::GetRenderBuffer_Level()
 {
-	return Visible_Brushes;
+	return *RenderBuffer_Level;
 }
 
 //-------------------------------------------------------------------------//
@@ -405,39 +397,7 @@ void le::Scene::FrustumCulling()
 	TestRender->setUniform( "PVTMatrix", PVMatrix );
 	glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
 
-	Visible_Brushes = Visible_Models = Visible_PointLight = Visible_SpotLight = 0;
-	RenderBuffer_Level.clear();
-
-	// ***************************************** //
-	// Проверка брашей на отсечение по фрустуму
-
-	vector<Brush*>* Brushes = &LevelInScene->GetAllBrushes();
-	map<GLuint, vector<BrushPlane> >* BrushPlanes;
-
-	for ( auto it = Brushes->begin(); it != Brushes->end(); it++ )
-	{
-		le::Brush* Brush = ( *it );
-
-		if ( Brush->IsVisible( *Frustum ) )
-		{
-			Brush->SetDistanceToCamera( *Camera );
-			BrushPlanes = &Brush->GetPlanes();
-
-			if ( Brush->GetDistanceToCamera() > System::Configuration.RenderDistance )
-				continue;
-
-			for ( auto itPlanes = BrushPlanes->begin(); itPlanes != BrushPlanes->end(); itPlanes++ )
-				for ( size_t i = 0; i < itPlanes->second.size(); i++ )
-					RenderBuffer_Level[ itPlanes->first ].push_back( &itPlanes->second[ i ] );
-
-			if ( Visible_Brushes >= GeometryBuffer_Level.size() )
-				GeometryBuffer_Level.push_back( Brush );
-			else
-				GeometryBuffer_Level[ Visible_Brushes ] = Brush;
-
-			Visible_Brushes++;
-		}
-	}
+	Visible_Models = Visible_PointLight = Visible_SpotLight = 0;
 
 	// ***************************************** //
 	// Проверка статичных моделей на отсечение по фрустуму
@@ -558,17 +518,6 @@ void le::Scene::FrustumCulling()
 		}
 
 	// ***************************************** //
-	// Сортируем геометрию уровня по удалению от камеры
-
-	sort( GeometryBuffer_Level.begin(), GeometryBuffer_Level.begin() + Visible_Brushes, sortFUNCTION );
-
-	// ***************************************** //
-	// Рендер ограничивающих тел брашей
-
-	for ( size_t i = 0; i < Visible_Brushes; i++ )
-		GeometryBuffer_Level[ i ]->QueryTest();
-
-	// ***************************************** //
 	// Рендер ограничивающих тел моделей
 
 	glDepthMask( GL_FALSE );
@@ -651,30 +600,23 @@ void le::Scene::GeometryRender()
 	// Рендер брашей уровня
 
 	GBuffer.Bind( GBuffer::RenderBuffers );
-
-	if ( LevelRender != NULL && !RenderBuffer_Level.empty() )
+	glCullFace( GL_FRONT );
+	if ( LevelRender != NULL && !RenderBuffer_Level->empty() )
 	{
 		Shader::bind( LevelRender );
 		LevelRender->setUniform( "PVMatrix", PVMatrix );
 
-		for ( auto it = RenderBuffer_Level.begin(); it != RenderBuffer_Level.end(); it++ )
+		VAO::BindVAO( LevelInScene->GetArrayBuffer() );
+		int z = 0;
+		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
 		{
-			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, it->first );
-			le::BrushPlane* Plane;
-
-			for ( size_t i = 0; i < it->second.size(); i++ )
+			//	glActiveTexture( GL_TEXTURE0 );
+			glBindTexture( GL_TEXTURE_2D, It->first );
+			le::Plane* Plane;
+			for ( size_t i = 0; i < It->second.size(); i++ )
 			{
-				Plane = it->second[ i ];
-
-				if ( !Plane->Brush->IsVisible() )
-					continue;
-
-				glActiveTexture( GL_TEXTURE1 );
-				glBindTexture( GL_TEXTURE_2D, Plane->LightMap );
-
-				VAO::BindVAO( Plane->ArrayBuffer );
-				glDrawElements( GL_TRIANGLES, Plane->CountIndexs, GL_UNSIGNED_INT, 0 );
+				Plane = It->second[ i ];
+				glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 			}
 		}
 	}

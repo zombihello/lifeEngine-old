@@ -71,7 +71,7 @@ namespace le
 			vector<PointLight*>*								LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 			vector<SpotLight*>*									LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру
 
-			vector<le::Brush*>*									GeometryLevel; ///< Буффер рендера карты
+			map<GLuint, vector<le::Plane*> >*					GeometryLevel; ///< Буффер рендера карты								
 			map<GLuint, vector<le::Scene::InfoMesh*> >*			GeometryStaticModels; ///< Буффер рендера анимируемых моделей
 			map<GLuint, vector<le::Scene::InfoMesh*> >*			GeometryAnimationModels; ///< Буффер рендера статичных моделей (не анимируемых)
 		};
@@ -137,7 +137,7 @@ namespace le
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
 		void AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
-		
+
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 
 		/// \details Этот метод создает копию точечного света и добовляет

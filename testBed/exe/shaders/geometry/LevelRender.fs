@@ -26,5 +26,5 @@ void main()
 	out_Position = Position;
 	out_Diffuse = texture( ColorMap, TexCoord ).xyz;
 	out_Normal = normalize( Normal );
-	out_FinalFrame = out_Diffuse * texture( LightMap, TexCoord_LightMap ).xyz;
+	out_FinalFrame = out_Diffuse;// * texture( LightMap, TexCoord_LightMap ).xyz;
 }

@@ -8,6 +8,8 @@
 #include <Graphics\LightManager.h>
 #include <System\Logger.h>
 
+#include <Graphics\BSPLoad.h>
+
 class Game : public le::BasicApplication
 {
 public:
@@ -22,14 +24,14 @@ public:
 		Scene->SetCamera( *Camera );
 
 		Level = new le::Level( System );
-		Level->LoadLevel( "../maps/" + NameMap + ".lmap" );
+		Level->LoadLevel( "../maps/01.bsp" );
 		Level->AddToScene( *Scene );
 
 		glm::vec3 Position, LightRotation;
 		string Name;
 		vector<int> LightColor;
 		vector<float> Rotation;
-		vector<le::Entity>* LevelEntitys = &Level->GetAllEntitys();
+	/*	vector<le::Entity>* LevelEntitys = &Level->GetAllEntitys();
 
 		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
 		{
@@ -87,7 +89,7 @@ public:
 				Models.push_back( Model );
 			}
 		}
-
+		*/
 		LightManager.AddSpotLight( "spot", 150, 150, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
 		Spot = LightManager.GetSpotLight( "spot" );
 

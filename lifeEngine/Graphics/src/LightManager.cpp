@@ -82,15 +82,12 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 					ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
-					for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
-					{
-						Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
-
-						if ( !Brush->IsVisible( PointLight->Frustums[ Face ] ) )
-							continue;
-
-						Brush->GetBoundingBox().RenderBox();
-					}
+					for ( auto It = InfoShadows.GeometryLevel->begin(); It != InfoShadows.GeometryLevel->end(); It++ )
+						for ( size_t i = 0; i < It->second.size(); i++ )
+						{
+							Plane* Plane = It->second[ i ];
+							glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+						}
 
 					if ( OffsetX == 2 )
 					{
@@ -123,15 +120,12 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 				ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
-				for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
-				{
-					Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
-
-					if ( !Brush->IsVisible( SpotLight->Frustums[ 0 ] ) )
-						continue;
-
-					Brush->GetBoundingBox().RenderBox();
-				}
+				for ( auto It = InfoShadows.GeometryLevel->begin(); It != InfoShadows.GeometryLevel->end(); It++ )
+					for ( size_t i = 0; i < It->second.size(); i++ )
+					{
+						Plane* Plane = It->second[ i ];
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+					}
 			}
 		}
 	}
@@ -153,17 +147,12 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 				ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
-				for ( size_t i = 0; i < InfoShadows.GeometryLevel->size(); i++ )
-				{
-					Brush* Brush = ( *InfoShadows.GeometryLevel )[ i ];
-
-					IsVisibleObject = Brush->IsVisible( DirectionalLight->Frustums[ 0 ] );
-
-					if ( !IsVisibleObject || IsVisibleObject && Brush->GetDistanceToCamera() > System::Configuration.RenderDistance )
-						continue;
-
-					Brush->GetBoundingBox().RenderBox();
-				}
+				for ( auto It = InfoShadows.GeometryLevel->begin(); It != InfoShadows.GeometryLevel->end(); It++ )
+					for ( size_t i = 0; i < It->second.size(); i++ )
+					{
+						Plane* Plane = It->second[ i ];
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+					}
 			}
 	}
 
@@ -194,7 +183,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 	int									OffsetX = 0;
 	int									OffsetY = 0;
-	vector<Brush*>*						Brushes = &Level.GetAllBrushes();
+	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetAllPlanes();
 
 	Shader::bind( ShadowMapRender );
 	ShadowMapRender->setUniform( "IsPointLight", true );
@@ -218,8 +207,12 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
-				for ( size_t i = 0; i < Brushes->size(); i++ )
-					( *Brushes )[ i ]->GetBoundingBox().RenderBox();
+				for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
+					for ( size_t i = 0; i < It->second.size(); i++ )
+					{
+						Plane* Plane = It->second[ i ];
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+					}
 
 				if ( OffsetX == 2 )
 				{
@@ -249,8 +242,12 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
-			for ( size_t i = 0; i < Brushes->size(); i++ )
-				( *Brushes )[ i ]->GetBoundingBox().RenderBox();
+			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
+				for ( size_t i = 0; i < It->second.size(); i++ )
+				{
+					Plane* Plane = It->second[ i ];
+					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+				}
 		}
 
 	// ***************************************** //
@@ -266,8 +263,12 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
-			for ( size_t i = 0; i < Brushes->size(); i++ )
-				( *Brushes )[ i ]->GetBoundingBox().RenderBox();
+			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
+				for ( size_t i = 0; i < It->second.size(); i++ )
+				{
+					Plane* Plane = It->second[ i ];
+					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+				}
 		}
 
 	Shader::bind( NULL );
@@ -530,7 +531,7 @@ void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
 	GeometryAnimationModels = &Scene.GetRenderBuffer_AnimationModel();
 
 	if ( Level != NULL )
-		GeometryLevel = &Level->GetAllBrushes();
+		GeometryLevel = &Level->GetAllPlanes();
 	else
 		GeometryLevel = NULL;
 

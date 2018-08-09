@@ -32,54 +32,10 @@ lifeEngine v3.0.0
 [Info] GBuffer Initialized
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
-[Info] Loading Level [../maps/prototype.lmap]
-[Info] Loading Cube Texture With Name [Skybox]
-[Info] Cube Texture With Name [Skybox] Loaded
-[Info] Loading Texture [..\textures\brick1.jpg] With Name [brick1.jpg]
-[Info] Texture With Name [brick1.jpg] Loaded
-[Info] Loading Texture [..\textures\grass_dm01.jpg] With Name [grass_dm01.jpg]
-[Info] Texture With Name [grass_dm01.jpg] Loaded
-[Info] Loading Texture [..\textures\fs_madbrick.jpg] With Name [fs_madbrick.jpg]
-[Info] Texture With Name [fs_madbrick.jpg] Loaded
-[Info] Loading Texture [..\textures\fs_madbrick_plain.jpg] With Name [fs_madbrick_plain.jpg]
-[Info] Texture With Name [fs_madbrick_plain.jpg] Loaded
-[Info] Loading Texture [..\textures\floor_c02.jpg] With Name [floor_c02.jpg]
-[Info] Texture With Name [floor_c02.jpg] Loaded
-[Info] Loading Texture [..\textures\church_c01dm.jpg] With Name [church_c01dm.jpg]
-[Info] Texture With Name [church_c01dm.jpg] Loaded
-[Info] Loading Texture [..\textures\wood1.jpg] With Name [wood1.jpg]
-[Info] Texture With Name [wood1.jpg] Loaded
-[Info] Loading Texture [..\textures\metal1.jpg] With Name [metal1.jpg]
-[Info] Texture With Name [metal1.jpg] Loaded
-[Info] Loading Texture [..\textures\floor_d01.jpg] With Name [floor_d01.jpg]
-[Info] Texture With Name [floor_d01.jpg] Loaded
-[Info] Loading Texture [..\textures\light_m16.jpg] With Name [light_m16.jpg]
-[Info] Texture With Name [light_m16.jpg] Loaded
-[Info] Loading Texture [..\textures\light_tp_m07.jpg] With Name [light_tp_m07.jpg]
-[Info] Texture With Name [light_tp_m07.jpg] Loaded
-[Info] Loading Texture [..\textures\light_m32.jpg] With Name [light_m32.jpg]
-[Info] Texture With Name [light_m32.jpg] Loaded
-[Info] Loading Texture [..\textures\green.png] With Name [green.png]
-[Info] Texture With Name [green.png] Loaded
-[Info] Loading Texture [..\textures\dirt_m03i.jpg] With Name [dirt_m03i.jpg]
-[Info] Texture With Name [dirt_m03i.jpg] Loaded
-[Info] Loading Texture [..\textures\red.png] With Name [red.png]
-[Info] Texture With Name [red.png] Loaded
-[Info] Loading Texture [..\textures\white.png] With Name [white.png]
-[Info] Texture With Name [white.png] Loaded
-[Info] Loading Texture [..\textures\sf2_redbrick2.jpg] With Name [sf2_redbrick2.jpg]
-[Info] Texture With Name [sf2_redbrick2.jpg] Loaded
-[Info] Loading Texture [..\textures\Graph.png] With Name [Graph.png]
-[Info] Texture With Name [Graph.png] Loaded
-[Info] Level [../maps/prototype.lmap] Loaded
-[Info] Loading Mesh [../models/leanna.lmd]
-[Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
-[Info] Texture With Name [leanna.tga] Loaded
-[Info] Loading Skeleton Mesh
-[Info] Loaded Skeleton Mesh
-[Info] Loading Animations Mesh
-[Info] Loaded Animations Mesh
-[Info] Mesh [../models/leanna.lmd] Loaded
+[Info] Loading Texture [../textures/base_floor/clang_floor2.jpg] With Name [textures/base_floor/clang_floor2]
+[Info] Texture With Name [textures/base_floor/clang_floor2] Loaded
+[Info] Loading Texture [../textures/base_floor/achtung_clang.jpg] With Name [textures/base_floor/achtung_clang]
+[Info] Texture With Name [textures/base_floor/achtung_clang] Loaded
 [Info] Creating Spotlight
   Cone Radius: 150.000000
   Cone Height: 150.000000
@@ -105,27 +61,8 @@ lifeEngine v3.0.0
 [Info] Shader With Name [PointLight] Deleted
 [Info] Shader With Name [DirectionalLight] Deleted
 [Info] Shader With Name [SpotLight] Deleted
-[Info] Cube Texture With Name [Skybox] Deleted
 [Info] Shader With Name [ShadowMap] Deleted
-[Info] Texture With Name [Graph.png] Deleted
-[Info] Texture With Name [brick1.jpg] Deleted
-[Info] Texture With Name [church_c01dm.jpg] Deleted
-[Info] Texture With Name [dirt_m03i.jpg] Deleted
-[Info] Texture With Name [floor_c02.jpg] Deleted
-[Info] Texture With Name [floor_d01.jpg] Deleted
-[Info] Texture With Name [fs_madbrick.jpg] Deleted
-[Info] Texture With Name [fs_madbrick_plain.jpg] Deleted
-[Info] Texture With Name [grass_dm01.jpg] Deleted
-[Info] Texture With Name [green.png] Deleted
-[Info] Texture With Name [leanna.tga] Deleted
-[Info] Texture With Name [light_m16.jpg] Deleted
-[Info] Texture With Name [light_m32.jpg] Deleted
-[Info] Texture With Name [light_tp_m07.jpg] Deleted
-[Info] Texture With Name [metal1.jpg] Deleted
-[Info] Texture With Name [red.png] Deleted
-[Info] Texture With Name [sf2_redbrick2.jpg] Deleted
-[Info] Texture With Name [white.png] Deleted
-[Info] Texture With Name [wood1.jpg] Deleted
-[Info] Mesh With Name [] Deleted
+[Info] Texture With Name [textures/base_floor/achtung_clang] Deleted
+[Info] Texture With Name [textures/base_floor/clang_floor2] Deleted
 [Info] Shader With Name [Skybox] Deleted
 *** lifeEngine End ***

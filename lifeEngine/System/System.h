@@ -23,6 +23,8 @@
 #define MATH_PI						3.14159274f
 #include <DllGlobal.h>
 
+typedef unsigned char byte;
+
 ///////////////////////////
 // СИСТЕМНЫЕ БИБЛИОТЕКИ
 ///////////////////////////

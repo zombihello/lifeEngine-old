@@ -14,16 +14,12 @@
 #define COMPILING_LIBRARY
 #include <DllGlobal.h>
 
-//////////
-// XML
-//////////
-#include <tinyxml.h>
-
 //////////////////
 // LIFEENGINE
 //////////////////
+#include <System\VAO.h>
 #include <Graphics\Skybox.h>
-#include <Graphics\Brush.h>
+#include <Graphics\Plane.h>
 #include <Graphics\Entity.h>
 
 namespace le
@@ -52,7 +48,7 @@ namespace le
 		~Level();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Загрузить карту
+		/// \brief Загрузить карту в формате BSP (Версия Quake 3)
 		///
 		/// \param[in] Route Путь к файлу
 		/// \return true если все прошло успешно, иначе false
@@ -91,6 +87,13 @@ namespace le
 		Skybox& GetSkybox();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить VAO уровня
+		///		
+		/// \return Массив буфером уровня в OpenGL
+		//////////////////////////////////////////////////////////////////////
+		GLuint& GetArrayBuffer();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить энтити по названию
 		///		
 		/// \param[in] NameEntity Название энтити
@@ -99,11 +102,11 @@ namespace le
 		Entity* GetEntity( const string& NameEntity );
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить все браши на уровне
+		/// \brief Получить все плоскости на уровне
 		///		
-		/// \return vector<Brush*>&
+		/// \return Массив плоскостей на уровне
 		//////////////////////////////////////////////////////////////////////
-		vector<Brush*>& GetAllBrushes();
+		map<GLuint, vector<Plane*> >& GetAllPlanes();
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить все энтити на уровне
@@ -116,10 +119,12 @@ namespace le
 
 		Scene*							Scene; ///< Сцена на котором находится уровень
 		Skybox*							Skybox; ///< Скайбокс уровня
-		string							NameMap; ///< Название карты
-		string							DescriptionMap; ///< Описание карты
-		string							SkyBoxName; ///< Название скайбокса
-		vector<Brush*>					Brushes; ///< Массив брашей
+
+		GLuint							VertexBuffer; ///< Вершиный буфер
+		GLuint							IndexBuffer; ///< Индексный буфер
+		GLuint							ArrayBuffer; ///< VAO
+
+		map<GLuint, vector<Plane*> >	Planes; ///< Массив плоскостей уровня разделенный на текстуры
 		vector<Entity>					Entitys; ///< Массив энтити-объектов
 	};
 

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE project SYSTEM "dtds/project.dtd">
+<!--
+$TEMPLATEapppath: Path to GtkRadiant (e.g. C:\Program Files\GtkRadiant\)
+$TEMPLATEenginepath: Path to the game engine (e.g. C:\Program Files\Quake II\)
+$TEMPLATEexecpath: Path to the tools directory (e.g C:\Program Files\Quake2World\bin\)
+$TEMPLATEuserhomepath: Path to the per-user directory (e.g. ~/.quake2)
+$TEMPLATEbasedir: base game dir (e.g. default\)
+-->
+<project>
+  <key name="version" value="2"/>
+  <key name="bsp_ASE: convert to ASE model" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -meta -patchmeta -subdivisions 4 $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -convert $"/>
+  <key name="bsp_AAS: compile AAS" value="! &quot;$TEMPLATEapppath/bspc&quot; -optimize -forcesidesvisible -bsp2aas $"/>
+  <key name="bsp_Q3Map2: (full final) -meta -vis -light -fast -patchshadows -samples 3 -bounce 8 -dirty -gamma 2 -compensate 4" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -meta $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -vis -saveprt $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 3 -bounce 8 -dirty -gamma 2 -compensate 4 $"/>
+  <key name="bsp_Q3Map2: (full test) -meta -vis -light -fast -patchshadows -samples 2 -bounce 2 -dirty -gamma 2 -compensate 4" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -meta $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -vis -saveprt $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 2 -bounce 2 -dirty -gamma 2 -compensate 4 $"/>
+  <key name="bsp_Q3Map2: (fast test) -meta -vis -fast -light -fast -patchshadows" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -meta $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -vis -fast -saveprt $ &amp;&amp; ! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows $"/>
+  <key name="bsp_Q3Map2: (single light) -light -fast -patchshadows -samples 3 -bounce 8 -dirty -gamma 2 -compensate 4" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 3 -bounce 8 -dirty -gamma 2 -compensate 4 $"/>
+  <key name="bsp_Q3Map2: (single light) -light -fast -patchshadows -samples 3 -bounce 8 -dirty" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 3 -bounce 8 -dirty $"/>
+  <key name="bsp_Q3Map2: (single light) -light -fast -patchshadows -samples 2 -bounce 2 -dirty -gamma 2 -compensate 4" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 2 -bounce 2 -dirty -gamma 2 -compensate 4 $"/>
+  <key name="bsp_Q3Map2: (single light) -light -fast -patchshadows -samples 2 -bounce 2 -dirty" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows -samples 2 -bounce 2 -dirty $"/>
+  <key name="bsp_Q3Map2: (single light) -light -fast -patchshadows" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -light -fast -patchshadows $"/>
+  <key name="bsp_Q3Map2: (single vis) -fast" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -vis -fast -saveprt $"/>
+  <key name="bsp_Q3Map2: (single vis)" value="! &quot;$TEMPLATEapppath/q3map2&quot; # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -vis -saveprt $"/>
+  <key name="bsp_Q3Map2: (single bsp) -meta" value="! &quot;$TEMPLATEapppath/x64/q3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEapppath/installs/Q3Pack/&quot; -meta $"/>
+  <key name="basepath" value="$TEMPLATEenginepath$TEMPLATEbasedir/"/>
+  <key name="rshcmd" value=""/>
+  <key name="remotebasepath" value="$TEMPLATEenginepath$TEMPLATEbasedir/"/>
+  <key name="entitypath" value="$TEMPLATEenginepath$TEMPLATEbasedir/scripts/entities.def"/>
+  <key name="texturepath" value="$TEMPLATEenginepath$TEMPLATEbasedir/"/>
+  <key name="autosave" value="$TEMPLATEuserhomepath$TEMPLATEbasedir/maps/autosave.map"/>
+  <key name="mapspath" value="$TEMPLATEuserhomepath$TEMPLATEbasedir/maps/"/>
+</project>
+
