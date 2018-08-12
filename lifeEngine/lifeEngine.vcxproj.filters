@@ -19,6 +19,9 @@
     <Filter Include="System\OpenGL">
       <UniqueIdentifier>{423e96e0-e1bc-4894-a0fc-e03c0eac5359}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Level">
+      <UniqueIdentifier>{71af3d95-ecbe-406f-810e-cd11f7b2e227}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\System.cpp">
@@ -43,9 +46,6 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Camera.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Level.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Frustum.cpp">
@@ -99,23 +99,23 @@
     <ClCompile Include="System\src\VAO.cpp">
       <Filter>System\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Skybox.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\src\LightQuad.cpp">
       <Filter>Graphics\Light</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\LightCone.cpp">
       <Filter>Graphics\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Entity.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\BSPLoad.cpp">
-      <Filter>Graphics</Filter>
+    <ClCompile Include="Graphics\src\Level.cpp">
+      <Filter>Graphics\Level</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\src\Plane.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Entity.cpp">
+      <Filter>Graphics\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Skybox.cpp">
+      <Filter>Graphics\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,9 +145,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Frustum.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Level.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\BoundingBox.h">
@@ -198,23 +195,23 @@
     <ClInclude Include="System\VAO.h">
       <Filter>System\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Skybox.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\LightQuad.h">
       <Filter>Graphics\Light</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\LightCone.h">
       <Filter>Graphics\Light</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Entity.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BSPLoad.h">
-      <Filter>Graphics</Filter>
+    <ClInclude Include="Graphics\Level.h">
+      <Filter>Graphics\Level</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Plane.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Entity.h">
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Skybox.h">
+      <Filter>Graphics\Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

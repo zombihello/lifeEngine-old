@@ -8,8 +8,6 @@
 #include <Graphics\LightManager.h>
 #include <System\Logger.h>
 
-#include <Graphics\BSPLoad.h>
-
 class Game : public le::BasicApplication
 {
 public:
@@ -24,7 +22,7 @@ public:
 		Scene->SetCamera( *Camera );
 
 		Level = new le::Level( System );
-		Level->LoadLevel( "../maps/01.bsp" );
+		Level->LoadLevel( "../maps/" + NameMap + ".bsp" );
 		Level->AddToScene( *Scene );
 
 		glm::vec3 Position, LightRotation;
@@ -203,7 +201,7 @@ int main( int argc, char** argv )
 
 	cout << "*******************\n";
 	cout << "*    Select Map   *\n";
-	cout << "* 1. Base         *\n";
+	cout << "* 1. Map from Return to Castle Wolfenstein\n";
 	cout << "* 2. Cornell Box  *\n";
 	cout << "* 3. Prototype    *\n";
 	cout << "* 4. Other..	   *\n";

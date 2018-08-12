@@ -159,7 +159,6 @@
     <ClInclude Include="Graphics\BaseLight.h" />
     <ClInclude Include="Graphics\BoundingBox.h" />
     <ClInclude Include="Graphics\BoundingSphere.h" />
-    <ClInclude Include="Graphics\BSPLoad.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\DirectionalLight.h" />
     <ClInclude Include="Graphics\Entity.h" />
@@ -193,7 +192,6 @@
     <ClCompile Include="Graphics\src\BaseLight.cpp" />
     <ClCompile Include="Graphics\src\BoundingBox.cpp" />
     <ClCompile Include="Graphics\src\BoundingSphere.cpp" />
-    <ClCompile Include="Graphics\src\BSPLoad.cpp" />
     <ClCompile Include="Graphics\src\Camera.cpp" />
     <ClCompile Include="Graphics\src\DirectionalLight.cpp" />
     <ClCompile Include="Graphics\src\Entity.cpp" />

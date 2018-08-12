@@ -29,12 +29,13 @@ bool le::ResourcesManager::LoadGlTexture( const string & NameTexture, const stri
 
 		GLuint Texture = 0;
 		glGenTextures( 1, &Texture );
+
 		glBindTexture( GL_TEXTURE_2D, Texture );
 		gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGBA, Image.getSize().x, Image.getSize().y, GL_RGBA, GL_UNSIGNED_BYTE, Image.getPixelsPtr() );
 
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
+		
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 

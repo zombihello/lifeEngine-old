@@ -601,13 +601,14 @@ void le::Scene::GeometryRender()
 
 	GBuffer.Bind( GBuffer::RenderBuffers );
 	glCullFace( GL_FRONT );
+
 	if ( LevelRender != NULL && !RenderBuffer_Level->empty() )
 	{
 		Shader::bind( LevelRender );
 		LevelRender->setUniform( "PVMatrix", PVMatrix );
 
 		VAO::BindVAO( LevelInScene->GetArrayBuffer() );
-		int z = 0;
+
 		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
 		{
 			//	glActiveTexture( GL_TEXTURE0 );
