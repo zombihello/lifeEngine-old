@@ -49,7 +49,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 	if ( IsDisable_CullFace ) // Если выключено отсичение сторон - включаем
 		glEnable( GL_CULL_FACE );
 
-	glCullFace( GL_FRONT );
+	glCullFace( GL_BACK );
 
 	Shader::bind( ShadowMapRender );
 
@@ -86,7 +86,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 						for ( size_t i = 0; i < It->second.size(); i++ )
 						{
 							Plane* Plane = It->second[ i ];
-							glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+							glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 						}
 
 					if ( OffsetX == 2 )
@@ -124,7 +124,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 			}
 		}
@@ -151,7 +151,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 			}
 	}
@@ -159,7 +159,6 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 	Shader::bind( NULL );
 
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
-	glCullFace( GL_BACK );
 
 	if ( IsDisable_DepthTest )
 		glDisable( GL_DEPTH_TEST );
@@ -179,7 +178,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_CULL_FACE );
-	glCullFace( GL_FRONT );
+	glCullFace( GL_BACK );
 
 	int									OffsetX = 0;
 	int									OffsetY = 0;
@@ -211,7 +210,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 
 				if ( OffsetX == 2 )
@@ -246,7 +245,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t i = 0; i < It->second.size(); i++ )
 				{
 					Plane* Plane = It->second[ i ];
-					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 				}
 		}
 
@@ -267,14 +266,13 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t i = 0; i < It->second.size(); i++ )
 				{
 					Plane* Plane = It->second[ i ];
-					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) Plane->StartIndex );
+					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 				}
 		}
 
 	Shader::bind( NULL );
 
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
-	glCullFace( GL_BACK );
 	glDisable( GL_DEPTH_TEST );
 	glDisable( GL_CULL_FACE );
 

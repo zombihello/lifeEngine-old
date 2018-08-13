@@ -611,12 +611,17 @@ void le::Scene::GeometryRender()
 
 		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
 		{
-			//	glActiveTexture( GL_TEXTURE0 );
+			glActiveTexture( GL_TEXTURE0 );
 			glBindTexture( GL_TEXTURE_2D, It->first );
 			le::Plane* Plane;
+
 			for ( size_t i = 0; i < It->second.size(); i++ )
 			{
 				Plane = It->second[ i ];
+
+				glActiveTexture( GL_TEXTURE1 );
+				glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+			
 				glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 			}
 		}

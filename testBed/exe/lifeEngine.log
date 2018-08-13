@@ -32,266 +32,82 @@ lifeEngine v3.0.0
 [Info] GBuffer Initialized
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
-[Info] Loading Texture [../textures/common/slip_e.jpg] With Name [textures/common/slip_e]
-[Error] Texture [../textures/common/slip_e.jpg] Not Found
-[Info] Loading Texture [../textures/wood/wood_m12.jpg] With Name [textures/wood/wood_m12]
-[Info] Texture With Name [textures/wood/wood_m12] Loaded
+[Info] Loading Texture [../textures/common/clipweap.jpg] With Name [textures/common/clipweap]
+[Error] Texture [../textures/common/clipweap.jpg] Not Found
+[Info] Loading Texture [../textures/snow/s_cathedrale_c24B.jpg] With Name [textures/snow/s_cathedrale_c24B]
+[Info] Texture With Name [textures/snow/s_cathedrale_c24B] Loaded
 [Info] Loading Texture [../textures/common/caulk.tga] With Name [textures/common/caulk]
 [Info] Texture With Name [textures/common/caulk] Loaded
-[Info] Loading Texture [../textures/wood/wood_m06.jpg] With Name [textures/wood/wood_m06]
-[Info] Texture With Name [textures/wood/wood_m06] Loaded
-[Info] Loading Texture [../textures/metal_misc/ametal_m03.jpg] With Name [textures/metal_misc/ametal_m03]
-[Info] Texture With Name [textures/metal_misc/ametal_m03] Loaded
-[Info] Loading Texture [../noshader] With Name [noshader]
-[Error] Texture [../noshader] Not Found
-[Info] Loading Texture [../textures/castle_wall/castle_grid_c19m.jpg] With Name [textures/castle_wall/castle_grid_c19m]
-[Info] Texture With Name [textures/castle_wall/castle_grid_c19m] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_m03a_step.jpg] With Name [textures/castle_wall/castle_m03a_step]
-[Info] Texture With Name [textures/castle_wall/castle_m03a_step] Loaded
-[Info] Loading Texture [../textures/snow/s_cathedrale_c06.jpg] With Name [textures/snow/s_cathedrale_c06]
-[Info] Texture With Name [textures/snow/s_cathedrale_c06] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_m03_step.jpg] With Name [textures/castle_wall/castle_m03_step]
-[Info] Texture With Name [textures/castle_wall/castle_m03_step] Loaded
-[Info] Loading Texture [../textures/snow/s_castle_m03a_step.jpg] With Name [textures/snow/s_castle_m03a_step]
-[Info] Texture With Name [textures/snow/s_castle_m03a_step] Loaded
-[Info] Loading Texture [../textures/snow/s_castle_m03_step_2a.jpg] With Name [textures/snow/s_castle_m03_step_2a]
-[Info] Texture With Name [textures/snow/s_castle_m03_step_2a] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c09_2.jpg] With Name [textures/castle_wall/castle_c09_2]
-[Info] Texture With Name [textures/castle_wall/castle_c09_2] Loaded
-[Info] Loading Texture [../textures/assault/atrim_m01.jpg] With Name [textures/assault/atrim_m01]
-[Info] Texture With Name [textures/assault/atrim_m01] Loaded
-[Info] Loading Texture [../textures/assault/metal_c07a.jpg] With Name [textures/assault/metal_c07a]
-[Info] Texture With Name [textures/assault/metal_c07a] Loaded
-[Info] Loading Texture [../textures/props/tabletop_m01.jpg] With Name [textures/props/tabletop_m01]
-[Info] Texture With Name [textures/props/tabletop_m01] Loaded
-[Info] Loading Texture [../textures/castle_wood/cwood_c10.jpg] With Name [textures/castle_wood/cwood_c10]
-[Info] Texture With Name [textures/castle_wood/cwood_c10] Loaded
-[Info] Loading Texture [../textures/castle_wood/cwood_mo6.jpg] With Name [textures/castle_wood/cwood_mo6]
-[Info] Texture With Name [textures/castle_wood/cwood_mo6] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c31.jpg] With Name [textures/castle_wall/castle_c31]
-[Info] Texture With Name [textures/castle_wall/castle_c31] Loaded
-[Info] Loading Texture [../textures/castle_window/cwindow_m01] With Name [textures/castle_window/cwindow_m01]
-[Error] Texture [../textures/castle_window/cwindow_m01] Not Found
-[Info] Loading Texture [../textures/castle_window/cwindow_m01a] With Name [textures/castle_window/cwindow_m01a]
-[Error] Texture [../textures/castle_window/cwindow_m01a] Not Found
-[Info] Loading Texture [../textures/castle_wall/castle_c46_on_grid.jpg] With Name [textures/castle_wall/castle_c46_on_grid]
-[Info] Texture With Name [textures/castle_wall/castle_c46_on_grid] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c46_a.tga] With Name [textures/castle_wall/castle_c46_a]
-[Info] Texture With Name [textures/castle_wall/castle_c46_a] Loaded
-[Info] Loading Texture [../textures/common/clip.tga] With Name [textures/common/clip]
-[Info] Texture With Name [textures/common/clip] Loaded
-[Info] Loading Texture [../textures/snow/s_castle_c38.jpg] With Name [textures/snow/s_castle_c38]
-[Info] Texture With Name [textures/snow/s_castle_c38] Loaded
-[Info] Loading Texture [../textures/common/nodraw.tga] With Name [textures/common/nodraw]
-[Info] Texture With Name [textures/common/nodraw] Loaded
-[Info] Loading Texture [../textures/sfx/c_flame_10a] With Name [textures/sfx/c_flame_10a]
-[Error] Texture [../textures/sfx/c_flame_10a] Not Found
-[Info] Loading Texture [../textures/sfx/c_flame_10b] With Name [textures/sfx/c_flame_10b]
-[Error] Texture [../textures/sfx/c_flame_10b] Not Found
-[Info] Loading Texture [../textures/sfx/c_flame_10c] With Name [textures/sfx/c_flame_10c]
-[Error] Texture [../textures/sfx/c_flame_10c] Not Found
-[Info] Loading Texture [../textures/chat/carpet_c11.jpg] With Name [textures/chat/carpet_c11]
-[Info] Texture With Name [textures/chat/carpet_c11] Loaded
-[Info] Loading Texture [../textures/castle_props/castle_c11a] With Name [textures/castle_props/castle_c11a]
-[Error] Texture [../textures/castle_props/castle_c11a] Not Found
-[Info] Loading Texture [../textures/castle_props/castle_c11] With Name [textures/castle_props/castle_c11]
-[Error] Texture [../textures/castle_props/castle_c11] Not Found
+[Info] Loading Texture [../textures/skies/sky_dark] With Name [textures/skies/sky_dark]
+[Error] Texture [../textures/skies/sky_dark] Not Found
+[Info] Loading Texture [../textures/awf/awf_w_m12.jpg] With Name [textures/awf/awf_w_m12]
+[Info] Texture With Name [textures/awf/awf_w_m12] Loaded
 [Info] Loading Texture [../textures/snow/s_grass_ml03a_s.jpg] With Name [textures/snow/s_grass_ml03a_s]
 [Info] Texture With Name [textures/snow/s_grass_ml03a_s] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_m02dm.jpg] With Name [textures/castle_wall/castle_m02dm]
-[Info] Texture With Name [textures/castle_wall/castle_m02dm] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c46_om_2.jpg] With Name [textures/castle_wall/castle_c46_om_2]
-[Info] Texture With Name [textures/castle_wall/castle_c46_om_2] Loaded
-[Info] Loading Texture [../textures/skies/sky_escape2] With Name [textures/skies/sky_escape2]
-[Error] Texture [../textures/skies/sky_escape2] Not Found
-[Info] Loading Texture [../textures/snow/roof_M01.jpg] With Name [textures/snow/roof_M01]
-[Info] Texture With Name [textures/snow/roof_M01] Loaded
-[Info] Loading Texture [../textures/town_wall/town_c33_s.jpg] With Name [textures/town_wall/town_c33_s]
-[Info] Texture With Name [textures/town_wall/town_c33_s] Loaded
-[Info] Loading Texture [../textures/snow/s_roof_c04dm.jpg] With Name [textures/snow/s_roof_c04dm]
-[Info] Texture With Name [textures/snow/s_roof_c04dm] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c17.jpg] With Name [textures/castle_wall/castle_c17]
-[Info] Texture With Name [textures/castle_wall/castle_c17] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c17_m2dmc1s.jpg] With Name [textures/castle_wall/castle_c17_m2dmc1s]
-[Info] Texture With Name [textures/castle_wall/castle_c17_m2dmc1s] Loaded
-[Info] Loading Texture [../textures/metal_misc/metal_c02.jpg] With Name [textures/metal_misc/metal_c02]
-[Info] Texture With Name [textures/metal_misc/metal_c02] Loaded
-[Info] Loading Texture [../textures/castle_wood/cwood_mo7_C] With Name [textures/castle_wood/cwood_mo7_C]
-[Error] Texture [../textures/castle_wood/cwood_mo7_C] Not Found
-[Info] Loading Texture [../textures/metal_misc/metal_m04dg.jpg] With Name [textures/metal_misc/metal_m04dg]
-[Info] Texture With Name [textures/metal_misc/metal_m04dg] Loaded
-[Info] Loading Texture [../textures/props/lockers_c02.jpg] With Name [textures/props/lockers_c02]
-[Info] Texture With Name [textures/props/lockers_c02] Loaded
-[Info] Loading Texture [../textures/props/sho_box_c03.jpg] With Name [textures/props/sho_box_c03]
-[Info] Texture With Name [textures/props/sho_box_c03] Loaded
-[Info] Loading Texture [../textures/props/sho_box_c01.jpg] With Name [textures/props/sho_box_c01]
-[Info] Texture With Name [textures/props/sho_box_c01] Loaded
-[Info] Loading Texture [../textures/props/sho_box_c02.jpg] With Name [textures/props/sho_box_c02]
-[Info] Texture With Name [textures/props/sho_box_c02] Loaded
-[Info] Loading Texture [../textures/castle_props/castle_c17s] With Name [textures/castle_props/castle_c17s]
-[Error] Texture [../textures/castle_props/castle_c17s] Not Found
-[Info] Loading Texture [../textures/castle_wall/castle_c50.jpg] With Name [textures/castle_wall/castle_c50]
-[Info] Texture With Name [textures/castle_wall/castle_c50] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c46_om_1.jpg] With Name [textures/castle_wall/castle_c46_om_1]
-[Info] Texture With Name [textures/castle_wall/castle_c46_om_1] Loaded
-[Info] Loading Texture [../textures/metal_misc/ametal_m03snow.jpg] With Name [textures/metal_misc/ametal_m03snow]
-[Info] Texture With Name [textures/metal_misc/ametal_m03snow] Loaded
-[Info] Loading Texture [../textures/snow/s_bars_m01.tga] With Name [textures/snow/s_bars_m01]
-[Info] Texture With Name [textures/snow/s_bars_m01] Loaded
-[Info] Loading Texture [../textures/snow/S_CASHUDDER_C01.jpg] With Name [textures/snow/S_CASHUDDER_C01]
-[Info] Texture With Name [textures/snow/S_CASHUDDER_C01] Loaded
-[Info] Loading Texture [../textures/props/box_m02.jpg] With Name [textures/props/box_m02]
-[Info] Texture With Name [textures/props/box_m02] Loaded
-[Info] Loading Texture [../textures/props/box_m03.jpg] With Name [textures/props/box_m03]
-[Info] Texture With Name [textures/props/box_m03] Loaded
-[Info] Loading Texture [../textures/props/box_m01.jpg] With Name [textures/props/box_m01]
-[Info] Texture With Name [textures/props/box_m01] Loaded
-[Info] Loading Texture [../textures/metal_misc/ametal_m04a.jpg] With Name [textures/metal_misc/ametal_m04a]
-[Info] Texture With Name [textures/metal_misc/ametal_m04a] Loaded
-[Info] Loading Texture [../textures/miltary_door/mdoor_m01.jpg] With Name [textures/miltary_door/mdoor_m01]
-[Info] Texture With Name [textures/miltary_door/mdoor_m01] Loaded
-[Info] Loading Texture [../textures/props/controlpanel_c06.jpg] With Name [textures/props/controlpanel_c06]
-[Info] Texture With Name [textures/props/controlpanel_c06] Loaded
-[Info] Loading Texture [../textures/props/controlpanel_c05.jpg] With Name [textures/props/controlpanel_c05]
-[Info] Texture With Name [textures/props/controlpanel_c05] Loaded
-[Info] Loading Texture [../textures/metal_misc/diamond_c_01.tga] With Name [textures/metal_misc/diamond_c_01]
-[Info] Texture With Name [textures/metal_misc/diamond_c_01] Loaded
-[Info] Loading Texture [../textures/decals/vent.jpg] With Name [textures/decals/vent]
-[Info] Texture With Name [textures/decals/vent] Loaded
-[Info] Loading Texture [../textures/props/box_m05.jpg] With Name [textures/props/box_m05]
-[Info] Texture With Name [textures/props/box_m05] Loaded
-[Info] Loading Texture [../textures/common/clipmissile.tga] With Name [textures/common/clipmissile]
-[Info] Texture With Name [textures/common/clipmissile] Loaded
-[Info] Loading Texture [../textures/alpha/cweb_m01a.tga] With Name [textures/alpha/cweb_m01a]
-[Info] Texture With Name [textures/alpha/cweb_m01a] Loaded
-[Info] Loading Texture [../textures/common/clipmonster.tga] With Name [textures/common/clipmonster]
-[Info] Texture With Name [textures/common/clipmonster] Loaded
-[Info] Loading Texture [../textures/common/areaportal.tga] With Name [textures/common/areaportal]
-[Info] Texture With Name [textures/common/areaportal] Loaded
-[Info] Loading Texture [../textures/common/clusterportal.tga] With Name [textures/common/clusterportal]
-[Info] Texture With Name [textures/common/clusterportal] Loaded
-[Info] Loading Texture [../textures/decals/snow_corner.tga] With Name [textures/decals/snow_corner]
-[Info] Texture With Name [textures/decals/snow_corner] Loaded
-[Info] Loading Texture [../textures/decals/snow_pool.tga] With Name [textures/decals/snow_pool]
-[Info] Texture With Name [textures/decals/snow_pool] Loaded
-[Info] Loading Texture [../textures/props/box_m04a.jpg] With Name [textures/props/box_m04a]
-[Info] Texture With Name [textures/props/box_m04a] Loaded
-[Info] Loading Texture [../textures/props/box_m05a.jpg] With Name [textures/props/box_m05a]
-[Info] Texture With Name [textures/props/box_m05a] Loaded
-[Info] Loading Texture [../textures/props/box_t_m04.jpg] With Name [textures/props/box_t_m04]
-[Info] Texture With Name [textures/props/box_t_m04] Loaded
-[Info] Loading Texture [../textures/props/box_t_m04a.jpg] With Name [textures/props/box_t_m04a]
-[Info] Texture With Name [textures/props/box_t_m04a] Loaded
-[Info] Loading Texture [../textures/props/box_t_m04b.jpg] With Name [textures/props/box_t_m04b]
-[Info] Texture With Name [textures/props/box_t_m04b] Loaded
-[Info] Loading Texture [../textures/props/box_t_m01.jpg] With Name [textures/props/box_t_m01]
-[Info] Texture With Name [textures/props/box_t_m01] Loaded
-[Info] Loading Texture [../textures/props/box_t_m01a.jpg] With Name [textures/props/box_t_m01a]
-[Info] Texture With Name [textures/props/box_t_m01a] Loaded
-[Info] Loading Texture [../textures/props/wine_c05.jpg] With Name [textures/props/wine_c05]
-[Info] Texture With Name [textures/props/wine_c05] Loaded
-[Info] Loading Texture [../textures/props/wine_c06.jpg] With Name [textures/props/wine_c06]
-[Info] Texture With Name [textures/props/wine_c06] Loaded
-[Info] Loading Texture [../textures/castle_props/SHADE_C01_rf] With Name [textures/castle_props/SHADE_C01_rf]
-[Error] Texture [../textures/castle_props/SHADE_C01_rf] Not Found
-[Info] Loading Texture [../textures/common/slick.tga] With Name [textures/common/slick]
-[Info] Texture With Name [textures/common/slick] Loaded
-[Info] Loading Texture [../textures/castle_door/mdoor_c07] With Name [textures/castle_door/mdoor_c07]
-[Error] Texture [../textures/castle_door/mdoor_c07] Not Found
-[Info] Loading Texture [../textures/common/ladder.tga] With Name [textures/common/ladder]
-[Info] Texture With Name [textures/common/ladder] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c17_m2dmc2.jpg] With Name [textures/castle_wall/castle_c17_m2dmc2]
-[Info] Texture With Name [textures/castle_wall/castle_c17_m2dmc2] Loaded
-[Info] Loading Texture [../textures/castle_door/door_c17] With Name [textures/castle_door/door_c17]
-[Error] Texture [../textures/castle_door/door_c17] Not Found
-[Info] Loading Texture [../textures/props/hay.tga] With Name [textures/props/hay]
-[Info] Texture With Name [textures/props/hay] Loaded
-[Info] Loading Texture [../textures/snow/s_metal_m04dg2.jpg] With Name [textures/snow/s_metal_m04dg2]
-[Info] Texture With Name [textures/snow/s_metal_m04dg2] Loaded
-[Info] Loading Texture [../textures/skies/terrain_haze] With Name [textures/skies/terrain_haze]
-[Error] Texture [../textures/skies/terrain_haze] Not Found
-[Info] Loading Texture [../textures/rock/haze] With Name [textures/rock/haze]
-[Error] Texture [../textures/rock/haze] Not Found
-[Info] Loading Texture [../textures/common/clipweap.tga] With Name [textures/common/clipweap]
-[Info] Texture With Name [textures/common/clipweap] Loaded
-[Info] Loading Texture [../textures/decals/burnm_01a] With Name [textures/decals/burnm_01a]
-[Error] Texture [../textures/decals/burnm_01a] Not Found
+[Info] Loading Texture [../textures/town_wood/wood_c11.jpg] With Name [textures/town_wood/wood_c11]
+[Info] Texture With Name [textures/town_wood/wood_c11] Loaded
+[Info] Loading Texture [../textures/rubble/debri_m01d.jpg] With Name [textures/rubble/debri_m01d]
+[Info] Texture With Name [textures/rubble/debri_m01d] Loaded
+[Info] Loading Texture [../textures/town_wall/town_m_c01.jpg] With Name [textures/town_wall/town_m_c01]
+[Info] Texture With Name [textures/town_wall/town_m_c01] Loaded
+[Info] Loading Texture [../textures/sf2/sf2_greybrick.jpg] With Name [textures/sf2/sf2_greybrick]
+[Info] Texture With Name [textures/sf2/sf2_greybrick] Loaded
+[Info] Loading Texture [../textures/rubble/brk_window4.jpg] With Name [textures/rubble/brk_window4]
+[Info] Texture With Name [textures/rubble/brk_window4] Loaded
+[Info] Loading Texture [../textures/common/nodraw.tga] With Name [textures/common/nodraw]
+[Info] Texture With Name [textures/common/nodraw] Loaded
 [Info] Loading Texture [../textures/sfx/xflame2_2250] With Name [textures/sfx/xflame2_2250]
 [Error] Texture [../textures/sfx/xflame2_2250] Not Found
-[Info] Loading Texture [../textures/castle_wall/castle_m03.jpg] With Name [textures/castle_wall/castle_m03]
-[Info] Texture With Name [textures/castle_wall/castle_m03] Loaded
-[Info] Loading Texture [../textures/snow/s_castle_m04.jpg] With Name [textures/snow/s_castle_m04]
-[Info] Texture With Name [textures/snow/s_castle_m04] Loaded
-[Info] Loading Texture [../textures/props/panelside_d01.jpg] With Name [textures/props/panelside_d01]
-[Info] Texture With Name [textures/props/panelside_d01] Loaded
-[Info] Loading Texture [../textures/props/panel_d04.jpg] With Name [textures/props/panel_d04]
-[Info] Texture With Name [textures/props/panel_d04] Loaded
-[Info] Loading Texture [../textures/wood/wood_m12snow.jpg] With Name [textures/wood/wood_m12snow]
-[Info] Texture With Name [textures/wood/wood_m12snow] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_c19a.jpg] With Name [textures/castle_wall/castle_c19a]
-[Info] Texture With Name [textures/castle_wall/castle_c19a] Loaded
-[Info] Loading Texture [../textures/common/slip_s.tga] With Name [textures/common/slip_s]
-[Info] Texture With Name [textures/common/slip_s] Loaded
-[Info] Loading Texture [../textures/common/slip_w.tga] With Name [textures/common/slip_w]
-[Info] Texture With Name [textures/common/slip_w] Loaded
-[Info] Loading Texture [../textures/common/slip_n.tga] With Name [textures/common/slip_n]
-[Info] Texture With Name [textures/common/slip_n] Loaded
-[Info] Loading Texture [../textures/common/slip_se.tga] With Name [textures/common/slip_se]
-[Info] Texture With Name [textures/common/slip_se] Loaded
-[Info] Loading Texture [../textures/common/slip_ne.tga] With Name [textures/common/slip_ne]
-[Info] Texture With Name [textures/common/slip_ne] Loaded
-[Info] Loading Texture [../textures/common/slip_nw.tga] With Name [textures/common/slip_nw]
-[Info] Texture With Name [textures/common/slip_nw] Loaded
-[Info] Loading Texture [../textures/common/slip_sw.tga] With Name [textures/common/slip_sw]
-[Info] Texture With Name [textures/common/slip_sw] Loaded
-[Info] Loading Texture [../textures/common/slip_w_s.tga] With Name [textures/common/slip_w_s]
-[Info] Texture With Name [textures/common/slip_w_s] Loaded
-[Info] Loading Texture [../textures/common/slip_w_e.tga] With Name [textures/common/slip_w_e]
-[Info] Texture With Name [textures/common/slip_w_e] Loaded
-[Info] Loading Texture [../textures/tree/snowtree_c02a.tga] With Name [textures/tree/snowtree_c02a]
-[Info] Texture With Name [textures/tree/snowtree_c02a] Loaded
-[Info] Loading Texture [../textures/castle_wall/castle_d01.jpg] With Name [textures/castle_wall/castle_d01]
-[Info] Texture With Name [textures/castle_wall/castle_d01] Loaded
-[Info] Loading Texture [../textures/castle_props/trim_c03] With Name [textures/castle_props/trim_c03]
-[Error] Texture [../textures/castle_props/trim_c03] Not Found
-[Info] Loading Texture [../textures/chateau/floor_c04] With Name [textures/chateau/floor_c04]
-[Error] Texture [../textures/chateau/floor_c04] Not Found
-[Info] Loading Texture [../textures/chateau/book_c03] With Name [textures/chateau/book_c03]
-[Error] Texture [../textures/chateau/book_c03] Not Found
-[Info] Loading Texture [../textures/metal_misc/ametal_m03dm.tga] With Name [textures/metal_misc/ametal_m03dm]
-[Info] Texture With Name [textures/metal_misc/ametal_m03dm] Loaded
-[Info] Loading Texture [../textures/castle_wood/cwood_c15.jpg] With Name [textures/castle_wood/cwood_c15]
-[Info] Texture With Name [textures/castle_wood/cwood_c15] Loaded
-[Info] Loading Texture [../textures/castle_wood/cwood_c18.jpg] With Name [textures/castle_wood/cwood_c18]
-[Info] Texture With Name [textures/castle_wood/cwood_c18] Loaded
-[Info] Loading Texture [../textures/xlab_props/sign_c11.jpg] With Name [textures/xlab_props/sign_c11]
-[Info] Texture With Name [textures/xlab_props/sign_c11] Loaded
-[Info] Loading Texture [../textures/sfx/xflame2_400] With Name [textures/sfx/xflame2_400]
-[Error] Texture [../textures/sfx/xflame2_400] Not Found
-[Info] Loading Texture [../textures/sfx/xflame2_1200] With Name [textures/sfx/xflame2_1200]
-[Error] Texture [../textures/sfx/xflame2_1200] Not Found
-[Info] Loading Texture [../textures/alpha/ladder.tga] With Name [textures/alpha/ladder]
-[Info] Texture With Name [textures/alpha/ladder] Loaded
-[Info] Loading Texture [../textures/castle_door/door_c16] With Name [textures/castle_door/door_c16]
-[Error] Texture [../textures/castle_door/door_c16] Not Found
-[Info] Loading Texture [../textures/decals/hay] With Name [textures/decals/hay]
-[Error] Texture [../textures/decals/hay] Not Found
-[Info] Loading Texture [../textures/snow/alpha_ice2] With Name [textures/snow/alpha_ice2]
-[Error] Texture [../textures/snow/alpha_ice2] Not Found
-[Info] Loading Texture [../textures/castle_props/candle] With Name [textures/castle_props/candle]
-[Error] Texture [../textures/castle_props/candle] Not Found
-[Info] Loading Texture [../textures/props/wine_c01.jpg] With Name [textures/props/wine_c01]
-[Info] Texture With Name [textures/props/wine_c01] Loaded
-[Info] Loading Texture [../textures/props/wine_c02.jpg] With Name [textures/props/wine_c02]
-[Info] Texture With Name [textures/props/wine_c02] Loaded
-[Info] Loading Texture [../textures/castle_props/castle_c10] With Name [textures/castle_props/castle_c10]
-[Error] Texture [../textures/castle_props/castle_c10] Not Found
-[Info] Loading Texture [../textures/chat/picture_06.jpg] With Name [textures/chat/picture_06]
-[Info] Texture With Name [textures/chat/picture_06] Loaded
-[Info] Loading Texture [../textures/metal_misc/metal_m03.jpg] With Name [textures/metal_misc/metal_m03]
-[Info] Texture With Name [textures/metal_misc/metal_m03] Loaded
-[Info] Loading Texture [../textures/metal_misc/metal_m04dr2.jpg] With Name [textures/metal_misc/metal_m04dr2]
-[Info] Texture With Name [textures/metal_misc/metal_m04dr2] Loaded
+[Info] Loading Texture [../textures/sf2/sf2_redbrick2.jpg] With Name [textures/sf2/sf2_redbrick2]
+[Info] Texture With Name [textures/sf2/sf2_redbrick2] Loaded
+[Info] Loading Texture [../textures/rubble/rub_wall_m03b.jpg] With Name [textures/rubble/rub_wall_m03b]
+[Info] Texture With Name [textures/rubble/rub_wall_m03b] Loaded
+[Info] Loading Texture [../textures/sf2/sf2_redbrick.jpg] With Name [textures/sf2/sf2_redbrick]
+[Info] Texture With Name [textures/sf2/sf2_redbrick] Loaded
+[Info] Loading Texture [../textures/stone/mxdebri0.jpg] With Name [textures/stone/mxdebri0]
+[Info] Texture With Name [textures/stone/mxdebri0] Loaded
+[Info] Loading Texture [../textures/common/clipmissile.tga] With Name [textures/common/clipmissile]
+[Info] Texture With Name [textures/common/clipmissile] Loaded
+[Info] Loading Texture [../textures/rubble/rebar_m01.tga] With Name [textures/rubble/rebar_m01]
+[Info] Texture With Name [textures/rubble/rebar_m01] Loaded
+[Info] Loading Texture [../textures/snow/s_dirt_m03i_2.jpg] With Name [textures/snow/s_dirt_m03i_2]
+[Info] Texture With Name [textures/snow/s_dirt_m03i_2] Loaded
+[Info] Loading Texture [../textures/common/clipmonster.tga] With Name [textures/common/clipmonster]
+[Info] Texture With Name [textures/common/clipmonster] Loaded
+[Info] Loading Texture [../textures/rubble/brk_window4a.tga] With Name [textures/rubble/brk_window4a]
+[Info] Texture With Name [textures/rubble/brk_window4a] Loaded
+[Info] Loading Texture [../textures/rubble/debri_m06_r.jpg] With Name [textures/rubble/debri_m06_r]
+[Info] Texture With Name [textures/rubble/debri_m06_r] Loaded
+[Info] Loading Texture [../textures/town_door/door_c09.jpg] With Name [textures/town_door/door_c09]
+[Info] Texture With Name [textures/town_door/door_c09] Loaded
+[Info] Loading Texture [../textures/props/box_m05.jpg] With Name [textures/props/box_m05]
+[Info] Texture With Name [textures/props/box_m05] Loaded
+[Info] Loading Texture [../textures/props/box_m04.jpg] With Name [textures/props/box_m04]
+[Info] Texture With Name [textures/props/box_m04] Loaded
+[Info] Loading Texture [../textures/rubble/debri_m06.jpg] With Name [textures/rubble/debri_m06]
+[Info] Texture With Name [textures/rubble/debri_m06] Loaded
+[Info] Loading Texture [../textures/common/clip.tga] With Name [textures/common/clip]
+[Info] Texture With Name [textures/common/clip] Loaded
+[Info] Loading Texture [../models/mapobjects/bodyparts/i_helmut] With Name [models/mapobjects/bodyparts/i_helmut]
+[Error] Texture [../models/mapobjects/bodyparts/i_helmut] Not Found
+[Info] Loading Texture [../models/mapobjects/bodyparts/i_body1] With Name [models/mapobjects/bodyparts/i_body1]
+[Error] Texture [../models/mapobjects/bodyparts/i_body1] Not Found
+[Info] Loading Texture [../models/mapobjects/bodyparts/ammo1] With Name [models/mapobjects/bodyparts/ammo1]
+[Error] Texture [../models/mapobjects/bodyparts/ammo1] Not Found
+[Info] Loading Texture [../models/mapobjects/bodyparts/i_head] With Name [models/mapobjects/bodyparts/i_head]
+[Error] Texture [../models/mapobjects/bodyparts/i_head] Not Found
+[Info] Loading Texture [../models/mapobjects/bodyparts/i_legs1] With Name [models/mapobjects/bodyparts/i_legs1]
+[Error] Texture [../models/mapobjects/bodyparts/i_legs1] Not Found
+[Info] Loading Texture [../textures/alpha/barb_wire.tga] With Name [textures/alpha/barb_wire]
+[Info] Texture With Name [textures/alpha/barb_wire] Loaded
+[Info] Loading Texture [../models/mapobjects/miltary_trim/metal_m05] With Name [models/mapobjects/miltary_trim/metal_m05]
+[Error] Texture [../models/mapobjects/miltary_trim/metal_m05] Not Found
+[Info] Loading Texture [../models/mapobjects/vehicles/halftrack3] With Name [models/mapobjects/vehicles/halftrack3]
+[Error] Texture [../models/mapobjects/vehicles/halftrack3] Not Found
+[Info] Loading Texture [../textures/common/trigger.tga] With Name [textures/common/trigger]
+[Info] Texture With Name [textures/common/trigger] Loaded
+[Info] Loading Texture [../textures/metal_misc/ametal_m02.jpg] With Name [textures/metal_misc/ametal_m02]
+[Info] Texture With Name [textures/metal_misc/ametal_m02] Loaded
 [Info] Creating Spotlight
   Cone Radius: 150.000000
   Cone Height: 150.000000
@@ -318,106 +134,33 @@ lifeEngine v3.0.0
 [Info] Shader With Name [DirectionalLight] Deleted
 [Info] Shader With Name [SpotLight] Deleted
 [Info] Shader With Name [ShadowMap] Deleted
-[Info] Texture With Name [textures/alpha/cweb_m01a] Deleted
-[Info] Texture With Name [textures/alpha/ladder] Deleted
-[Info] Texture With Name [textures/assault/atrim_m01] Deleted
-[Info] Texture With Name [textures/assault/metal_c07a] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c09_2] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c17] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c17_m2dmc1s] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c17_m2dmc2] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c19a] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c31] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c46_a] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c46_om_1] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c46_om_2] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c46_on_grid] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_c50] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_d01] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_grid_c19m] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_m02dm] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_m03] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_m03_step] Deleted
-[Info] Texture With Name [textures/castle_wall/castle_m03a_step] Deleted
-[Info] Texture With Name [textures/castle_wood/cwood_c10] Deleted
-[Info] Texture With Name [textures/castle_wood/cwood_c15] Deleted
-[Info] Texture With Name [textures/castle_wood/cwood_c18] Deleted
-[Info] Texture With Name [textures/castle_wood/cwood_mo6] Deleted
-[Info] Texture With Name [textures/chat/carpet_c11] Deleted
-[Info] Texture With Name [textures/chat/picture_06] Deleted
-[Info] Texture With Name [textures/common/areaportal] Deleted
+[Info] Texture With Name [textures/alpha/barb_wire] Deleted
+[Info] Texture With Name [textures/awf/awf_w_m12] Deleted
 [Info] Texture With Name [textures/common/caulk] Deleted
 [Info] Texture With Name [textures/common/clip] Deleted
 [Info] Texture With Name [textures/common/clipmissile] Deleted
 [Info] Texture With Name [textures/common/clipmonster] Deleted
-[Info] Texture With Name [textures/common/clipweap] Deleted
-[Info] Texture With Name [textures/common/clusterportal] Deleted
-[Info] Texture With Name [textures/common/ladder] Deleted
 [Info] Texture With Name [textures/common/nodraw] Deleted
-[Info] Texture With Name [textures/common/slick] Deleted
-[Info] Texture With Name [textures/common/slip_n] Deleted
-[Info] Texture With Name [textures/common/slip_ne] Deleted
-[Info] Texture With Name [textures/common/slip_nw] Deleted
-[Info] Texture With Name [textures/common/slip_s] Deleted
-[Info] Texture With Name [textures/common/slip_se] Deleted
-[Info] Texture With Name [textures/common/slip_sw] Deleted
-[Info] Texture With Name [textures/common/slip_w] Deleted
-[Info] Texture With Name [textures/common/slip_w_e] Deleted
-[Info] Texture With Name [textures/common/slip_w_s] Deleted
-[Info] Texture With Name [textures/decals/snow_corner] Deleted
-[Info] Texture With Name [textures/decals/snow_pool] Deleted
-[Info] Texture With Name [textures/decals/vent] Deleted
-[Info] Texture With Name [textures/metal_misc/ametal_m03] Deleted
-[Info] Texture With Name [textures/metal_misc/ametal_m03dm] Deleted
-[Info] Texture With Name [textures/metal_misc/ametal_m03snow] Deleted
-[Info] Texture With Name [textures/metal_misc/ametal_m04a] Deleted
-[Info] Texture With Name [textures/metal_misc/diamond_c_01] Deleted
-[Info] Texture With Name [textures/metal_misc/metal_c02] Deleted
-[Info] Texture With Name [textures/metal_misc/metal_m03] Deleted
-[Info] Texture With Name [textures/metal_misc/metal_m04dg] Deleted
-[Info] Texture With Name [textures/metal_misc/metal_m04dr2] Deleted
-[Info] Texture With Name [textures/miltary_door/mdoor_m01] Deleted
-[Info] Texture With Name [textures/props/box_m01] Deleted
-[Info] Texture With Name [textures/props/box_m02] Deleted
-[Info] Texture With Name [textures/props/box_m03] Deleted
-[Info] Texture With Name [textures/props/box_m04a] Deleted
+[Info] Texture With Name [textures/common/trigger] Deleted
+[Info] Texture With Name [textures/metal_misc/ametal_m02] Deleted
+[Info] Texture With Name [textures/props/box_m04] Deleted
 [Info] Texture With Name [textures/props/box_m05] Deleted
-[Info] Texture With Name [textures/props/box_m05a] Deleted
-[Info] Texture With Name [textures/props/box_t_m01] Deleted
-[Info] Texture With Name [textures/props/box_t_m01a] Deleted
-[Info] Texture With Name [textures/props/box_t_m04] Deleted
-[Info] Texture With Name [textures/props/box_t_m04a] Deleted
-[Info] Texture With Name [textures/props/box_t_m04b] Deleted
-[Info] Texture With Name [textures/props/controlpanel_c05] Deleted
-[Info] Texture With Name [textures/props/controlpanel_c06] Deleted
-[Info] Texture With Name [textures/props/hay] Deleted
-[Info] Texture With Name [textures/props/lockers_c02] Deleted
-[Info] Texture With Name [textures/props/panel_d04] Deleted
-[Info] Texture With Name [textures/props/panelside_d01] Deleted
-[Info] Texture With Name [textures/props/sho_box_c01] Deleted
-[Info] Texture With Name [textures/props/sho_box_c02] Deleted
-[Info] Texture With Name [textures/props/sho_box_c03] Deleted
-[Info] Texture With Name [textures/props/tabletop_m01] Deleted
-[Info] Texture With Name [textures/props/wine_c01] Deleted
-[Info] Texture With Name [textures/props/wine_c02] Deleted
-[Info] Texture With Name [textures/props/wine_c05] Deleted
-[Info] Texture With Name [textures/props/wine_c06] Deleted
-[Info] Texture With Name [textures/snow/S_CASHUDDER_C01] Deleted
-[Info] Texture With Name [textures/snow/roof_M01] Deleted
-[Info] Texture With Name [textures/snow/s_bars_m01] Deleted
-[Info] Texture With Name [textures/snow/s_castle_c38] Deleted
-[Info] Texture With Name [textures/snow/s_castle_m03_step_2a] Deleted
-[Info] Texture With Name [textures/snow/s_castle_m03a_step] Deleted
-[Info] Texture With Name [textures/snow/s_castle_m04] Deleted
-[Info] Texture With Name [textures/snow/s_cathedrale_c06] Deleted
+[Info] Texture With Name [textures/rubble/brk_window4] Deleted
+[Info] Texture With Name [textures/rubble/brk_window4a] Deleted
+[Info] Texture With Name [textures/rubble/debri_m01d] Deleted
+[Info] Texture With Name [textures/rubble/debri_m06] Deleted
+[Info] Texture With Name [textures/rubble/debri_m06_r] Deleted
+[Info] Texture With Name [textures/rubble/rebar_m01] Deleted
+[Info] Texture With Name [textures/rubble/rub_wall_m03b] Deleted
+[Info] Texture With Name [textures/sf2/sf2_greybrick] Deleted
+[Info] Texture With Name [textures/sf2/sf2_redbrick] Deleted
+[Info] Texture With Name [textures/sf2/sf2_redbrick2] Deleted
+[Info] Texture With Name [textures/snow/s_cathedrale_c24B] Deleted
+[Info] Texture With Name [textures/snow/s_dirt_m03i_2] Deleted
 [Info] Texture With Name [textures/snow/s_grass_ml03a_s] Deleted
-[Info] Texture With Name [textures/snow/s_metal_m04dg2] Deleted
-[Info] Texture With Name [textures/snow/s_roof_c04dm] Deleted
-[Info] Texture With Name [textures/town_wall/town_c33_s] Deleted
-[Info] Texture With Name [textures/tree/snowtree_c02a] Deleted
-[Info] Texture With Name [textures/wood/wood_m06] Deleted
-[Info] Texture With Name [textures/wood/wood_m12] Deleted
-[Info] Texture With Name [textures/wood/wood_m12snow] Deleted
-[Info] Texture With Name [textures/xlab_props/sign_c11] Deleted
+[Info] Texture With Name [textures/stone/mxdebri0] Deleted
+[Info] Texture With Name [textures/town_door/door_c09] Deleted
+[Info] Texture With Name [textures/town_wall/town_m_c01] Deleted
+[Info] Texture With Name [textures/town_wood/wood_c11] Deleted
 [Info] Shader With Name [Skybox] Deleted
 *** lifeEngine End ***

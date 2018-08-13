@@ -203,7 +203,6 @@
     <ClCompile Include="Graphics\src\Mesh.cpp" />
     <ClCompile Include="Graphics\src\MeshVertex.cpp" />
     <ClCompile Include="Graphics\src\Model.cpp" />
-    <ClCompile Include="Graphics\src\Plane.cpp" />
     <ClCompile Include="Graphics\src\PointLight.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />
     <ClCompile Include="Graphics\src\Skeleton.cpp" />

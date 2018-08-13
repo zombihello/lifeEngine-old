@@ -130,14 +130,14 @@ public:
 			MoveRight = true;
 
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			Camera->Move( le::Camera::Forward, 1.25f * Configuration->Time );
+			Camera->Move( le::Camera::Forward, 5.25f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			Camera->Move( le::Camera::Back, 1.25f * Configuration->Time );
+			Camera->Move( le::Camera::Back, 5.25f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
 		{
-			Camera->Move( le::Camera::Left, 1.25f * Configuration->Time );
+			Camera->Move( le::Camera::Left, 3.25f * Configuration->Time );
 
 			if ( Camera->GetInclinationCamera() > -5 )
 				Camera->TiltCamera( -0.2f );
@@ -145,7 +145,7 @@ public:
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
 		{
-			Camera->Move( le::Camera::Right, 1.25f * Configuration->Time );
+			Camera->Move( le::Camera::Right, 3.25f * Configuration->Time );
 
 			if ( Camera->GetInclinationCamera() < 5 )
 				Camera->TiltCamera( 0.2f );
@@ -199,13 +199,13 @@ int main( int argc, char** argv )
 	int IndexMap;
 	string NameMap;
 
-	cout << "*******************\n";
-	cout << "*    Select Map   *\n";
-	cout << "* 1. Map from Return to Castle Wolfenstein\n";
-	cout << "* 2. Cornell Box  *\n";
-	cout << "* 3. Prototype    *\n";
-	cout << "* 4. Other..	   *\n";
-	cout << "*******************\n\n";
+	cout << "------------\n";
+	cout << "     Select Map					 \n";
+	cout << "> 1. Wolfenstein: Stalingrad		 \n";
+	cout << "> 2. Return to Castle Wolfenstein	 \n";
+	cout << "> 3. Quake							 \n";
+	cout << "> 4. Other..	   					 \n";
+	cout << "------------\n";
 
 	cout << "> Select: ";
 	cin >> IndexMap;
@@ -213,11 +213,11 @@ int main( int argc, char** argv )
 	switch ( IndexMap )
 	{
 	case 2:
-		NameMap = "cornellbox";
+		NameMap = "escape2";
 		break;
 
 	case 3:
-		NameMap = "prototype";
+		NameMap = "QuakeMap";
 		break;
 
 	case 4:
@@ -227,7 +227,7 @@ int main( int argc, char** argv )
 		break;
 
 	default:
-		NameMap = "base";
+		NameMap = "stalingrad";
 		break;
 	}
 
