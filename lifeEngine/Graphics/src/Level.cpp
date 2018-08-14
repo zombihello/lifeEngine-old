@@ -143,7 +143,12 @@ bool le::Level::LoadLevel( const string& Route )
 
 	// Если карт освещения нет, то загружаем черную текстуру
 	if ( NumberLightmaps == 0 )
+	{
 		CreateLightmapTexture( NULL, 1, 1 );
+
+		for ( int IdFace = 0; IdFace < NumberFaces; IdFace++ )
+			Array_Faces[ IdFace ].LightmapID = 0;
+	}
 	else
 	{
 		// Смещаемся на участок в файле, в котором хранится информация о карте освещения
@@ -221,7 +226,11 @@ bool le::Level::LoadLevel( const string& Route )
 
 		Plane->StartIndex = StartIndex;
 		Plane->NumberIndices = VAO_Indices.size() - StartIndex;
-		Plane->Lightmap = ArrayLightmaps[ Face->LightmapID ];
+
+		if ( Face->LightmapID >= 0 )
+			Plane->Lightmap = ArrayLightmaps[ Face->LightmapID ];
+		else
+			Plane->Lightmap = 0;
 
 		ArrayPlanes[ GLTextures[ Face->TextureID ] ].push_back( Plane );
 	}

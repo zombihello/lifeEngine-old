@@ -6,193 +6,259 @@ default
 	longestCurve 0.000000
 }
 
-0 // SURFACE_META V: 4 I: 6 planar
+0 // SURFACE_META V: 5 I: 9 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	shader textures/wood/wood_m01_usat
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-1 // SURFACE_META V: 4 I: 6 planar
+1 // SURFACE_META V: 5 I: 9 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-2 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/test/treeline_cntr
+	shader textures/wood/wood_m01_usat
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+2 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/wood/wood_m01_usat
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 3 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/test/treeline_cntr
+	shader textures/wood/wood_m02
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+4 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/wood/wood_m02
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+5 // SURFACE_META V: 13 I: 33 planar
+{
+	shader textures/wood/wood_m02
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-4 // SURFACE_META V: 4 I: 6 planar
+6 // SURFACE_META V: 6 I: 12 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-5 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/test/treeline_cntr
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-6 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/wood/wood_m02
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 7 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/test/treeline_cntr
+	shader textures/wood/wood_m02
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 8 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	shader textures/wood/wood_m02
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 9 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/wood/wood_m02
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 10 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/test/treeline_cntr
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	shader textures/wood/wood_m02
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 11 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/test/treeline_cntr
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 12 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03i
+	shader textures/test/treeline_cntr
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 13 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03i
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 14 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03i
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-15 // SURFACE_META V: 5 I: 9 planar
-{
-	shader textures/terrain/dirt_m03g
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-16 // SURFACE_META V: 3 I: 3 planar
-{
-	shader textures/terrain/dirt_m03g
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-17 // SURFACE_META V: 3 I: 3 planar
-{
-	shader textures/terrain/dirt_m03g
+	shader textures/test/treeline_cntr
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-18 // SURFACE_META V: 5 I: 9 planar
+15 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+16 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+17 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/test/treeline_cntr
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+18 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 19 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
+	shader textures/test/treeline_cntr
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
 20 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 21 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	shader textures/test/treeline_cntr
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 22 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
+	shader textures/test/treeline_cntr
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-23 // SURFACE_META V: 3 I: 3 planar
+23 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/dirt_m03g
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	shader textures/terrain/dirt_m03i
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-24 // SURFACE_META V: 6 I: 12 planar
+24 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/grass_dm01
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	shader textures/terrain/dirt_m03i
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
 25 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/terrain/grass_dm01
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-26 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/terrain/grass_dm01
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
-}
-
-27 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/terrain/grass_dm01
+	shader textures/terrain/dirt_m03i
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-28 // SURFACE_META V: 4 I: 6 planar
+26 // SURFACE_META V: 5 I: 9 planar
 {
-	shader textures/terrain/grass_dm01
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+27 // SURFACE_META V: 3 I: 3 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+28 // SURFACE_META V: 3 I: 3 planar
+{
+	shader textures/terrain/dirt_m03g
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
 29 // SURFACE_META V: 4 I: 6 planar
 {
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+30 // SURFACE_META V: 5 I: 9 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+31 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+32 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+33 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+34 // SURFACE_META V: 3 I: 3 planar
+{
+	shader textures/terrain/dirt_m03g
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+35 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/terrain/grass_dm01
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+36 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/grass_dm01
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+37 // SURFACE_META V: 4 I: 6 planar
+{
 	shader textures/terrain/grass_dm01
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-30 // SURFACE_META V: 4 I: 6 planar
+38 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/terrain/grass_dm01
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+39 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/grass_dm01
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+40 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/terrain/grass_dm01
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+41 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/terrain/grass_dm01
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-31 // SURFACE_META V: 4 I: 6 planar
+42 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/terrain/grass_dm01
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )

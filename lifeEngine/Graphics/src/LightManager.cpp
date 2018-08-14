@@ -37,7 +37,7 @@ void le::LightManager::AddLightsToScene( le::Scene& Scene )
 
 void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMap_SpotLight, bool ShadowMap_DirectionalLight )
 {
-	if ( ShadowMapRender == NULL || InfoShadows.IsEmpty || InfoShadows.GeometryLevel == NULL )
+	if ( ShadowMapRender == NULL || InfoShadows.IsEmpty || InfoShadows.GeometryLevel == NULL || InfoShadows.ArrayBuffer == 0 )
 		return;
 
 	bool IsDisable_DepthTest = !glIsEnabled( GL_DEPTH_TEST );
@@ -49,9 +49,10 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 	if ( IsDisable_CullFace ) // Если выключено отсичение сторон - включаем
 		glEnable( GL_CULL_FACE );
 
-	glCullFace( GL_BACK );
+	glCullFace( GL_FRONT );
 
 	Shader::bind( ShadowMapRender );
+	VAO::BindVAO( InfoShadows.ArrayBuffer );
 
 	// ***************************************** //
 	// Строим карту теней для точечных источников
@@ -86,7 +87,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 						for ( size_t i = 0; i < It->second.size(); i++ )
 						{
 							Plane* Plane = It->second[ i ];
-							glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+							glDrawRangeElements( GL_TRIANGLES,0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 						}
 
 					if ( OffsetX == 2 )
@@ -124,7 +125,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+						glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 			}
 		}
@@ -151,7 +152,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+						glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 			}
 	}
@@ -178,13 +179,14 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 	glEnable( GL_DEPTH_TEST );
 	glEnable( GL_CULL_FACE );
-	glCullFace( GL_BACK );
+	glCullFace( GL_FRONT );
 
 	int									OffsetX = 0;
 	int									OffsetY = 0;
 	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetAllPlanes();
 
 	Shader::bind( ShadowMapRender );
+	VAO::BindVAO( Level.GetArrayBuffer() );
 	ShadowMapRender->setUniform( "IsPointLight", true );
 
 	// ***************************************** //
@@ -210,7 +212,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 					for ( size_t i = 0; i < It->second.size(); i++ )
 					{
 						Plane* Plane = It->second[ i ];
-						glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+						glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 					}
 
 				if ( OffsetX == 2 )
@@ -245,7 +247,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t i = 0; i < It->second.size(); i++ )
 				{
 					Plane* Plane = It->second[ i ];
-					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 				}
 		}
 
@@ -266,7 +268,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t i = 0; i < It->second.size(); i++ )
 				{
 					Plane* Plane = It->second[ i ];
-					glDrawElements( GL_TRIANGLES, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 				}
 		}
 
@@ -512,6 +514,7 @@ le::LightManager::InfoShadows::InfoShadows() :
 	GeometryLevel( NULL ),
 	GeometryStaticModels( NULL ),
 	GeometryAnimationModels( NULL ),
+	ArrayBuffer( 0 ),
 	IsEmpty( true )
 {}
 
@@ -529,9 +532,15 @@ void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
 	GeometryAnimationModels = &Scene.GetRenderBuffer_AnimationModel();
 
 	if ( Level != NULL )
+	{
 		GeometryLevel = &Level->GetAllPlanes();
+		ArrayBuffer = Level->GetArrayBuffer();
+	}
 	else
+	{
 		GeometryLevel = NULL;
+		ArrayBuffer = 0;
+	}
 
 	IsEmpty = false;
 }
@@ -547,6 +556,7 @@ void le::LightManager::InfoShadows::ClearInfoShadows()
 	GeometryLevel = NULL;
 	GeometryStaticModels = NULL;
 	GeometryAnimationModels = NULL;
+	ArrayBuffer = 0;
 
 	IsEmpty = true;
 }

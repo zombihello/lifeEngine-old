@@ -82,14 +82,15 @@ vec2 GetShadowTC( vec3 Dir)
 
 //------------------------------------------
 
-float ShadowCalculation( vec4 PositionFragment )
+float ShadowCalculation( vec4 PositionFragment, float NdotL )
 {
     vec3 FragToLight = ( PositionFragment - light.Position ).xyz; 
 	
+	float Bias = max( 3.5f * ( 1.0f - NdotL ), 0.5f );
 	float CurrentDepth = length( FragToLight );
     float ClosestDepth = texture( ShadowMap, GetShadowTC( normalize(FragToLight) ) ).r * light.Radius;
 	
-    float Shadow = CurrentDepth > ClosestDepth ? 1.0f : 0.0f;        
+    float Shadow = CurrentDepth - Bias > ClosestDepth ? 1.0f : 0.0f;        
         
     return Shadow;
 }
@@ -109,7 +110,7 @@ void main()
 	float NdotL = dot( Normal, lightDirection );
 	float DiffuseFactor = max( NdotL, 0.0f );
 	float Attenuation =  max( 1.0f - pow( Distance / light.Radius, 2 ), 0.f );
-	float Shadow = ShadowCalculation( PositionFragment );
+	float Shadow = ShadowCalculation( PositionFragment, NdotL );
 		
 	Color = ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity ) * Attenuation * texture( ColorMap, texCoord ); 
 }

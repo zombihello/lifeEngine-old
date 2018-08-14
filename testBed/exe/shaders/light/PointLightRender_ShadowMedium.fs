@@ -82,12 +82,13 @@ vec2 GetShadowTC( vec3 Dir)
 
 //------------------------------------------
 
-float ShadowCalculationPCF( vec4 PositionFragment )
+float ShadowCalculationPCF( vec4 PositionFragment, float NdotL )
 {
     vec3 FragToLight = ( PositionFragment - light.Position ).xyz; 
 	vec2 TexelSize = 1.0f / textureSize(ShadowMap, 0);
 	vec2 TextureCoords = GetShadowTC( normalize( FragToLight ) );
 	
+	float Bias = max( 3.5f * ( 1.0f - NdotL ), 0.5f );
 	float CurrentDepth = length( FragToLight );
 	float PCF_Depth;
 	float Shadow = 0.0f;
@@ -96,7 +97,7 @@ float ShadowCalculationPCF( vec4 PositionFragment )
 		for ( int y = -1; y <= 1; ++y )
 		{
 			PCF_Depth = texture( ShadowMap, TextureCoords + vec2( x, y ) * TexelSize ).r * light.Radius;
-			Shadow += CurrentDepth > PCF_Depth ? 1.0f : 0.0f;
+			Shadow += CurrentDepth - Bias > PCF_Depth ? 1.0f : 0.0f;
 		}
 	           
     return Shadow / 9.0f;
@@ -117,7 +118,7 @@ void main()
 	float NdotL = dot( Normal, lightDirection );
 	float DiffuseFactor = max( NdotL, 0.0f );
 	float Attenuation =  max( 1.0f - pow( Distance / light.Radius, 2 ), 0.f );
-	float Shadow = ShadowCalculationPCF( PositionFragment );
+	float Shadow = ShadowCalculationPCF( PositionFragment, NdotL );
 		
 	Color = ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity ) * Attenuation * texture( ColorMap, texCoord ); 
 }

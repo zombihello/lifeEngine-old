@@ -109,8 +109,8 @@ lifeEngine v3.0.0
 [Info] Loading Texture [../textures/metal_misc/ametal_m02.jpg] With Name [textures/metal_misc/ametal_m02]
 [Info] Texture With Name [textures/metal_misc/ametal_m02] Loaded
 [Info] Creating Spotlight
-  Cone Radius: 150.000000
-  Cone Height: 150.000000
+  Cone Radius: 300.000000
+  Cone Height: 300.000000
   Spot Cutoff: 0.707107
   Intensivity: 2.000000
   Position: 0.000000 0.000000 0.000000
@@ -120,7 +120,7 @@ lifeEngine v3.0.0
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Spotlight
 [Info] Creating Point Light
-  Radius: 100.000000
+  Radius: 300.000000
   Intensivity: 2.000000
   Position: 0.000000 0.000000 0.000000
   Color: 164.000000 126.000000 0.000000 255.000000

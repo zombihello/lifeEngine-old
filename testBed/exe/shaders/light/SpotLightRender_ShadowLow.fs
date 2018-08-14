@@ -39,15 +39,16 @@ vec2 CalcTexCoord()
 
 //------------------------------------------
 
-float ShadowCalculation( vec4 PosFragInLightSpace )
+float ShadowCalculation( vec4 PosFragInLightSpace, float NdotL )
 {		
 	vec3 ProjCoords = PosFragInLightSpace.xyz / PosFragInLightSpace.w;
 	ProjCoords = ProjCoords * 0.5f + 0.5f;
 
+	float Bias = max( 0.0015f * ( 1.0f - NdotL ), 0.00005f );
 	float CurrentDepth = ProjCoords.z;
     float ClosestDepth = texture( ShadowMap, ProjCoords.xy ).r; 	
 
-    float Shadow = CurrentDepth > ClosestDepth ? 1.0f : 0.0f;        
+    float Shadow = CurrentDepth - Bias > ClosestDepth ? 1.0f : 0.0f;        
         
     return Shadow;
 }
@@ -70,7 +71,7 @@ void main()
 	float SpotFactor = dot( light.SpotDirection, -lightDirection );
 	SpotFactor = clamp( ( SpotFactor - light.SpotCutoff ) / ( 1.0f - light.SpotCutoff ), 0.0f, 1.0f );
 	float Attenuation = max( 1.0f - pow( Distance / light.Height, 2 ), 0.f );
-	float Shadow = ShadowCalculation( PosFragInLightSpace );
+	float Shadow = ShadowCalculation( PosFragInLightSpace, NdotL );
 	
 	Color = ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity * SpotFactor ) * Attenuation * texture( ColorMap, texCoord );
 }

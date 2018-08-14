@@ -65,6 +65,8 @@ namespace le
 
 			bool												IsEmpty; ///< Пустая ли информация о тенях
 
+			GLuint												ArrayBuffer; ///< VAO уровня
+
 			size_t*												Visible_PointLight; ///< Кол-во видимых точечных источников света
 			size_t*												Visible_SpotLight; ///< Кол-во видимых прожекторных источников света
 
