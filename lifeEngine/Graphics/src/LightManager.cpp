@@ -79,15 +79,16 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 				for ( int Face = 0; Face < 6; Face++ )
 				{
-					glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
+					InfoShadows.Level->CalculateVisablePlanes( PointLight->Position, PointLight->Frustums[ Face ] );
 
+					glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 					ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
 					for ( auto It = InfoShadows.GeometryLevel->begin(); It != InfoShadows.GeometryLevel->end(); It++ )
 						for ( size_t i = 0; i < It->second.size(); i++ )
 						{
 							Plane* Plane = It->second[ i ];
-							glDrawRangeElements( GL_TRIANGLES,0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+							glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 						}
 
 					if ( OffsetX == 2 )
@@ -116,6 +117,8 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 
 			if ( SpotLight->IsVisible && SpotLight->InitShadowMap() )
 			{
+				InfoShadows.Level->CalculateVisablePlanes( SpotLight->Position, SpotLight->Frustums[ 0 ] );
+
 				glBindFramebuffer( GL_FRAMEBUFFER, SpotLight->ShadowMap_FBO );
 				glClear( GL_DEPTH_BUFFER_BIT );
 
@@ -142,6 +145,7 @@ void le::LightManager::BuildShadowMaps( bool ShadowMap_PointLight, bool ShadowMa
 			if ( DirectionalLights[ i ].InitShadowMap() )
 			{
 				DirectionalLight* DirectionalLight = &DirectionalLights[ i ];
+				InfoShadows.Level->CalculateVisablePlanes( DirectionalLight->Position, DirectionalLight->Frustums[ 0 ] );
 
 				glBindFramebuffer( GL_FRAMEBUFFER, DirectionalLight->ShadowMap_FBO );
 				glClear( GL_DEPTH_BUFFER_BIT );
@@ -183,7 +187,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 	int									OffsetX = 0;
 	int									OffsetY = 0;
-	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetAllPlanes();
+	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetVisablePlanes();
 
 	Shader::bind( ShadowMapRender );
 	VAO::BindVAO( Level.GetArrayBuffer() );
@@ -205,6 +209,8 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 			for ( int Face = 0; Face < 6; Face++ )
 			{
+				InfoShadows.Level->CalculateVisablePlanes( PointLight->Position, PointLight->Frustums[ Face ] );
+
 				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
 
@@ -237,6 +243,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 		if ( SpotLights[ i ].InitShadowMap() )
 		{
 			SpotLight* SpotLight = &SpotLights[ i ];
+			InfoShadows.Level->CalculateVisablePlanes( SpotLight->Position, SpotLight->Frustums[ 0 ] );
 
 			glBindFramebuffer( GL_FRAMEBUFFER, SpotLight->ShadowMap_FBO );
 			glClear( GL_DEPTH_BUFFER_BIT );
@@ -258,6 +265,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 		if ( DirectionalLights[ i ].InitShadowMap() )
 		{
 			DirectionalLight* DirectionalLight = &DirectionalLights[ i ];
+			InfoShadows.Level->CalculateVisablePlanes( DirectionalLight->Position, DirectionalLight->Frustums[ 0 ] );
 
 			glBindFramebuffer( GL_FRAMEBUFFER, DirectionalLight->ShadowMap_FBO );
 			glClear( GL_DEPTH_BUFFER_BIT );
@@ -514,6 +522,7 @@ le::LightManager::InfoShadows::InfoShadows() :
 	GeometryLevel( NULL ),
 	GeometryStaticModels( NULL ),
 	GeometryAnimationModels( NULL ),
+	Level( NULL ),
 	ArrayBuffer( 0 ),
 	IsEmpty( true )
 {}
@@ -522,7 +531,7 @@ le::LightManager::InfoShadows::InfoShadows() :
 
 void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
 {
-	Level* Level = Scene.GetLevel();
+	Level = Scene.GetLevel();
 
 	Visible_PointLight = &Scene.GetVisible_PointLight();
 	Visible_SpotLight = &Scene.GetVisible_SpotLight();
@@ -533,7 +542,7 @@ void le::LightManager::InfoShadows::InitInfoShadows( le::Scene& Scene )
 
 	if ( Level != NULL )
 	{
-		GeometryLevel = &Level->GetAllPlanes();
+		GeometryLevel = &Level->GetVisablePlanes();
 		ArrayBuffer = Level->GetArrayBuffer();
 	}
 	else
@@ -556,6 +565,7 @@ void le::LightManager::InfoShadows::ClearInfoShadows()
 	GeometryLevel = NULL;
 	GeometryStaticModels = NULL;
 	GeometryAnimationModels = NULL;
+	Level = NULL;
 	ArrayBuffer = 0;
 
 	IsEmpty = true;

@@ -69,6 +69,48 @@ bool le::Frustum::IsVisible( BoundingBox& BoundingBox )
 
 //-------------------------------------------------------------------------//
 
+bool le::Frustum::IsVisible( glm::vec3& MinPosition, glm::vec3& MaxPosition )
+{
+	for ( int i = 0; i < 6; i++ )
+	{
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+
+		return false;
+	}
+
+	return true;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Frustum::IsVisible( glm::ivec3& MinPosition, glm::ivec3& MaxPosition )
+{
+	for ( int i = 0; i < 6; i++ )
+	{
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MinPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MinPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MinPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+		if ( PyramidFrustum[ i ].x * MaxPosition.x + PyramidFrustum[ i ].y * MaxPosition.y + PyramidFrustum[ i ].z * MaxPosition.z + PyramidFrustum[ i ].w > 0 )  continue;
+
+		return false;
+	}
+
+	return true;
+}
+
+//-------------------------------------------------------------------------//
+
 bool le::Frustum::IsVisible( BoundingSphere& BoundingSphere )
 {
 	glm::vec3* Position = &BoundingSphere.GetPosition();

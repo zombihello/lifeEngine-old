@@ -194,7 +194,7 @@ void le::Scene::AddLevelToScene( Level* Level )
 		Skybox->SetPlayerCamera( *Camera );
 
 	Level->SetScene( this );
-	RenderBuffer_Level = &Level->GetAllPlanes();
+	RenderBuffer_Level = &Level->GetVisablePlanes();
 }
 
 //-------------------------------------------------------------------------//
@@ -202,10 +202,10 @@ void le::Scene::AddLevelToScene( Level* Level )
 void le::Scene::RemoveLevelFromScene( Level* Level )
 {
 	Level->SetScene( NULL );
-	RenderBuffer_Level = NULL;
 	Skybox->RemovePlayerCamera();
 	Skybox = NULL;
 	LevelInScene = NULL;
+	RenderBuffer_Level = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -259,7 +259,7 @@ void le::Scene::RenderScene()
 	// ****************************
 	// Проверка видимости геометрии
 	// ****************************
-	FrustumCulling();
+//	FrustumCulling();
 
 	// ****************************
 	// Рендер геометрии сцены
@@ -275,7 +275,7 @@ void le::Scene::RenderScene()
 		GBuffer.RenderFrame( GBuffer::Textures );
 	else
 	{
-		BuildShadowMaps();
+		/*BuildShadowMaps();*/
 		LightRender();
 	}
 
@@ -473,7 +473,7 @@ void le::Scene::FrustumCulling()
 			{
 				// TODO: [zombiHello] - Неправильная проверка видимости у источников света
 				float Distance = distance( *PositionCamera, it->LightSphere.GetPosition() );
-				it->IsVisible = Distance > -it->Radius && Distance < it->Radius;
+				it->IsVisible = Distance < System::Configuration.RenderDistance;
 			}
 
 			if ( Visible_PointLight >= LightBuffer_PointLight.size() )
@@ -602,13 +602,15 @@ void le::Scene::GeometryRender()
 	GBuffer.Bind( GBuffer::RenderBuffers );
 	glCullFace( GL_FRONT );
 
-	if ( LevelRender != NULL && !RenderBuffer_Level->empty() )
+	if ( LevelRender != NULL && RenderBuffer_Level != NULL )
 	{
+		// Просчитываем видимые плоскости
+		LevelInScene->CalculateVisablePlanes( *Camera );
+
 		Shader::bind( LevelRender );
-		LevelRender->setUniform( "PVMatrix", PVMatrix );
-
 		VAO::BindVAO( LevelInScene->GetArrayBuffer() );
-
+		LevelRender->setUniform( "PVMatrix", PVMatrix );
+		
 		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
 		{
 			glActiveTexture( GL_TEXTURE0 );

@@ -69,6 +69,7 @@ namespace le
 
 			size_t*												Visible_PointLight; ///< Кол-во видимых точечных источников света
 			size_t*												Visible_SpotLight; ///< Кол-во видимых прожекторных источников света
+			Level*												Level; ///< Уровень
 
 			vector<PointLight*>*								LightBuffer_PointLight; ///< Буффер точечного света который попал в камеру
 			vector<SpotLight*>*									LightBuffer_SpotLight; ///< Буффер прожекторного света который попал в камеру

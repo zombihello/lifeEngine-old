@@ -156,11 +156,11 @@ public:
 		else
 			le::System::SetWireframeRender( false );
 
-		if ( Keyboard::isKeyPressed( Keyboard::Z ) )
-			Spot->SetPosition( Camera->GetPosition() );
+		//if ( Keyboard::isKeyPressed( Keyboard::Z ) )
+		//	Spot->SetPosition( Camera->GetPosition() );
 
-		if ( Keyboard::isKeyPressed( Keyboard::X ) )
-			Point->SetPosition( Camera->GetPosition() );
+		//if ( Keyboard::isKeyPressed( Keyboard::X ) )
+		//	Point->SetPosition( Camera->GetPosition() );
 
 		if ( !Keyboard::isKeyPressed( Keyboard::A ) && !Keyboard::isKeyPressed( Keyboard::D ) )
 		{

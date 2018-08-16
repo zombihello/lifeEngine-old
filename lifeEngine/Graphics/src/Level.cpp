@@ -5,6 +5,8 @@
 #include <Graphics\LightManager.h>
 #include "..\Level.h"
 
+#define FACE_POLYGON 1
+
 //-------------------------------------------------------------------------//
 
 le::Level::Level( System& System ) :
@@ -23,9 +25,8 @@ le::Level::~Level()
 {
 	if ( !ArrayPlanes.empty() )
 	{
-		for ( auto It = ArrayPlanes.begin(); It != ArrayPlanes.end(); It++ )
-			for ( size_t i = 0; i < It->second.size(); i++ )
-				delete ArrayPlanes[ It->first ][ i ];
+		for ( size_t i = 0; i < ArrayPlanes.size(); i++ )
+			delete ArrayPlanes[ i ];
 
 		ArrayPlanes.clear();
 	}
@@ -59,6 +60,7 @@ bool le::Level::LoadLevel( const string& Route )
 		return false;
 	}
 
+	// TODO: [zombiHello] Переделать массивы с Си стиля на vector'ы
 	int						NumberVertexes = 0;
 	int						NumberFaces = 0;
 	int						NumberIndices = 0;
@@ -107,6 +109,18 @@ bool le::Level::LoadLevel( const string& Route )
 	// Выделяем память для информации о карте освещения
 	NumberLightmaps = Lumps[ Lightmaps ].Length / sizeof( BSPLightmap );
 	Array_Lightmaps = new BSPLightmap[ NumberLightmaps ];
+
+	// Выделяем память для веток BSP дерева
+	ArrayNodes.resize( Lumps[ Nodes ].Length / sizeof( BSPNode ) );
+
+	// Выделяем память для листьев BSP дерева
+	ArrayLeafs.resize( Lumps[ Leafs ].Length / sizeof( BSPLeaf ) );
+
+	// Выделяем память для массива индексов фейсов в листе
+	ArrayLeafsFaces.resize( Lumps[ LeafFaces ].Length / sizeof( int ) );
+
+	// Выделяем память для секущих плоскостей BSP дерева
+	ArrayBSPPlanes.resize( Lumps[ Planes ].Length / sizeof( BSPPlane ) );
 
 	// Смещаемся на участок в файле, в котором хранится информация о вершинах
 	File.seekg( Lumps[ Vertices ].Offset, ios::beg );
@@ -162,6 +176,64 @@ bool le::Level::LoadLevel( const string& Route )
 		}
 	}
 
+	// Смещаемся на участок в файле, в котором хранится информация о ветках BSP дерева
+	File.seekg( Lumps[ Nodes ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayNodes[ 0 ], ArrayNodes.size() * sizeof( BSPNode ) );
+
+	// Смещаемся на участок в файле, в котором хранится информация о листьях BSP дерева
+	File.seekg( Lumps[ Leafs ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayLeafs[ 0 ], ArrayLeafs.size() * sizeof( BSPLeaf ) );
+
+	// *****************************************
+	// Меняем ось Z и Y местами
+
+	for ( size_t i = 0; i < ArrayLeafs.size(); i++ )
+	{
+		BSPLeaf* Leaf = &ArrayLeafs[ i ];
+
+		int Temp = Leaf->Min.y;
+		Leaf->Min.y = Leaf->Min.z;
+		Leaf->Min.z = -Temp;
+
+		Temp = Leaf->Max.y;
+		Leaf->Max.y = Leaf->Max.z;
+		Leaf->Max.z = -Temp;
+	}
+
+	// Смещаемся на участок в файле, в котором хранится информация о ветках BSP дерева
+	File.seekg( Lumps[ LeafFaces ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayLeafsFaces[ 0 ], ArrayLeafsFaces.size() * sizeof( int ) );
+
+	// Смещаемся на участок в файле, в котором хранится информация о секущих плоскостях BSP дерева
+	File.seekg( Lumps[ Planes ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayBSPPlanes[ 0 ], ArrayBSPPlanes.size() * sizeof( BSPPlane ) );
+
+	// *****************************************
+	// Меняем ось Z и Y местами
+
+	for ( size_t i = 0; i < ArrayBSPPlanes.size(); i++ )
+	{
+		float Temp = ArrayBSPPlanes[ i ].Normal.y;
+		ArrayBSPPlanes[ i ].Normal.y = ArrayBSPPlanes[ i ].Normal.z;
+		ArrayBSPPlanes[ i ].Normal.z = -Temp;
+	}
+
+	// Смещаемся на участок в файле, в котором хранится информация о видимой геометрии
+	File.seekg( Lumps[ VisData ].Offset, ios::beg );
+
+	if ( Lumps[ VisData ].Length )
+	{
+		File.read( ( char* ) &Сlusters.NumOfClusters, sizeof( int ) );
+		File.read( ( char* ) &Сlusters.BytesPerCluster, sizeof( int ) );
+
+		int Size = Сlusters.NumOfClusters * Сlusters.BytesPerCluster;
+		Сlusters.Bitsets = new byte[ Size ];
+
+		File.read( ( char* ) &Сlusters.Bitsets[ 0 ], Size * sizeof( byte ) );
+	}
+	else
+		Сlusters.Bitsets = NULL;
+
 	// Загружаем все текстуры
 	string RouteToTexture;
 
@@ -195,8 +267,6 @@ bool le::Level::LoadLevel( const string& Route )
 
 	for ( int i = 0; i < NumberFaces; i++ )
 	{
-		if ( Array_Faces[ i ].Type != 1 ) continue;
-
 		Plane*		Plane = new le::Plane();
 		BSPFace*	Face = &Array_Faces[ i ];
 		int			StartIndex = VAO_Indices.size();
@@ -224,15 +294,17 @@ bool le::Level::LoadLevel( const string& Route )
 			}
 		}
 
+		Plane->Type = Face->Type;
 		Plane->StartIndex = StartIndex;
 		Plane->NumberIndices = VAO_Indices.size() - StartIndex;
+		Plane->Texture = GLTextures[ Face->TextureID ];
 
 		if ( Face->LightmapID >= 0 )
 			Plane->Lightmap = ArrayLightmaps[ Face->LightmapID ];
 		else
 			Plane->Lightmap = 0;
 
-		ArrayPlanes[ GLTextures[ Face->TextureID ] ].push_back( Plane );
+		ArrayPlanes.push_back( Plane );
 	}
 
 	// *****************************************
@@ -262,6 +334,7 @@ bool le::Level::LoadLevel( const string& Route )
 	delete[] Array_Textures;
 	delete[] Array_Lightmaps;
 
+	FacesDrawn.Resize( NumberFaces );
 	return true;
 }
 
@@ -294,9 +367,8 @@ void le::Level::ClearLevel()
 {
 	if ( !ArrayPlanes.empty() )
 	{
-		for ( auto It = ArrayPlanes.begin(); It != ArrayPlanes.end(); It++ )
-			for ( size_t i = 0; i < It->second.size(); i++ )
-				delete ArrayPlanes[ It->first ][ i ];
+		for ( size_t i = 0; i < ArrayPlanes.size(); i++ )
+			delete ArrayPlanes[ i ];
 
 		ArrayPlanes.clear();
 	}
@@ -312,6 +384,82 @@ void le::Level::ClearLevel()
 	}
 
 	ArrayLightmaps.clear();
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CalculateVisablePlanes( Camera& Camera )
+{
+	VisablePlanes.clear();
+	FacesDrawn.ClearAll();
+
+	int LeafIndex = FindLeaf( Camera.GetPosition() );
+	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	int FaceIndex = 0;
+
+	BSPLeaf* Leaf;
+	Plane* Plane;
+
+	for ( int i = 0; i < ArrayLeafs.size(); i++ )
+	{
+		Leaf = &ArrayLeafs[ i ];
+
+		if( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Camera.GetFrustum().IsVisible( Leaf->Min, Leaf->Max ) ) 
+			continue;
+
+		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
+		{
+			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + j ];
+
+			if ( !FacesDrawn.On( FaceIndex ) )
+			{
+				Plane = ArrayPlanes[ FaceIndex ];
+
+				if ( Plane->Type != FACE_POLYGON ) continue;
+
+				FacesDrawn.Set( FaceIndex );
+				VisablePlanes[ Plane->Texture ].push_back( Plane );
+			}
+		}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frustum )
+{
+	VisablePlanes.clear();
+	FacesDrawn.ClearAll();
+
+	int LeafIndex = FindLeaf( Position );
+	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	int FaceIndex = 0;
+
+	BSPLeaf* Leaf;
+	Plane* Plane;
+
+	for ( int i = 0; i < ArrayLeafs.size(); i++ )
+	{
+		Leaf = &ArrayLeafs[ i ];
+
+		if ( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) ) 
+			continue;
+
+		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
+		{
+			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + j ];
+
+			if ( !FacesDrawn.On( FaceIndex ) )
+			{
+				Plane = ArrayPlanes[ FaceIndex ];
+
+				if ( Plane->Type != FACE_POLYGON ) continue;
+
+				FacesDrawn.Set( FaceIndex );
+				VisablePlanes[ Plane->Texture ].push_back( Plane );
+			}
+		}
+	}
 }
 
 //-------------------------------------------------------------------------//
@@ -341,9 +489,9 @@ le::Entity* le::Level::GetEntity( const string& NameEntity )
 
 //-------------------------------------------------------------------------//
 
-map<GLuint, vector<le::Plane*> >& le::Level::GetAllPlanes()
+map<GLuint, vector<le::Plane*> >& le::Level::GetVisablePlanes()
 {
-	return ArrayPlanes;
+	return VisablePlanes;
 }
 
 //-------------------------------------------------------------------------//
@@ -412,6 +560,41 @@ void le::Level::CreateLightmapTexture( byte* ImageBits, int Width, int Height )
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 
 	ArrayLightmaps.push_back( Texture );
+}
+
+//-------------------------------------------------------------------------//
+
+int le::Level::FindLeaf( const glm::vec3 & Position )
+{
+	int			i = 0;
+	float		Distance = 0.f;
+
+	while ( i >= 0 )
+	{
+		const BSPNode&  Node = ArrayNodes[ i ];
+		const BSPPlane& Plane = ArrayBSPPlanes[ Node.Plane ];
+
+		Distance = Plane.Normal.x * Position.x + Plane.Normal.y * Position.y + Plane.Normal.z * Position.z - Plane.Distance;
+
+		if ( Distance >= 0 )
+			i = Node.Front;
+		else
+			i = Node.Back;
+	}
+
+	return ~i;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Level::IsClusterVisible( int CurrentCluster, int TestCluster )
+{
+	if ( !Сlusters.Bitsets || CurrentCluster < 0 ) return 1;
+
+	byte VisSet = Сlusters.Bitsets[ ( CurrentCluster * Сlusters.BytesPerCluster ) + ( TestCluster / 8 ) ];
+	int Result = VisSet & ( 1 << ( ( TestCluster ) & 7 ) );
+
+	return Result;
 }
 
 //-------------------------------------------------------------------------//

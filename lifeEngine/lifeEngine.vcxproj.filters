@@ -114,6 +114,9 @@
     <ClCompile Include="Graphics\src\Skybox.cpp">
       <Filter>Graphics\Level</Filter>
     </ClCompile>
+    <ClCompile Include="System\src\Bitset.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\Skybox.h">
       <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Bitset.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

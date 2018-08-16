@@ -177,6 +177,7 @@
     <ClInclude Include="Graphics\Skybox.h" />
     <ClInclude Include="Graphics\SpotLight.h" />
     <ClInclude Include="System\BasicApplication.h" />
+    <ClInclude Include="System\Bitset.h" />
     <ClInclude Include="System\ConfigFile.h" />
     <ClInclude Include="System\Configuration.h" />
     <ClInclude Include="System\GBuffer.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Graphics\src\Skybox.cpp" />
     <ClCompile Include="Graphics\src\SpotLight.cpp" />
     <ClCompile Include="System\src\BasicApplication.cpp" />
+    <ClCompile Include="System\src\Bitset.cpp" />
     <ClCompile Include="System\src\ConfigFile.cpp" />
     <ClCompile Include="System\src\Configuration.cpp" />
     <ClCompile Include="System\src\GBuffer.cpp" />
