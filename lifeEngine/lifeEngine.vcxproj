@@ -184,6 +184,7 @@
     <ClInclude Include="System\Logger.h" />
     <ClInclude Include="System\Query.h" />
     <ClInclude Include="System\ResourcesManager.h" />
+    <ClInclude Include="System\ShaderManager.h" />
     <ClInclude Include="System\System.h" />
     <ClInclude Include="System\VAO.h" />
   </ItemGroup>
@@ -217,6 +218,7 @@
     <ClCompile Include="System\src\Logger.cpp" />
     <ClCompile Include="System\src\Query.cpp" />
     <ClCompile Include="System\src\ResourcesManager.cpp" />
+    <ClCompile Include="System\src\ShaderManager.cpp" />
     <ClCompile Include="System\src\System.cpp" />
     <ClCompile Include="System\src\VAO.cpp" />
   </ItemGroup>

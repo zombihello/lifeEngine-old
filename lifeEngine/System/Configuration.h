@@ -39,18 +39,21 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		Configuration();
 
-		int					FrameLimit; ///< Макс. FPS
-		int					AntialiasingLevel; ///< Уровень сглаживания
-		int					FOV; ///< Угол обзора
-		int					RenderDistance; ///< Дальность прорисовки
-		int					QualityShadows; ///< Качество теней
-		float				SensitivityMouse; ///< Чувствительность мыши
-		float				Time; ///< Прошедшие время
+		int					FrameLimit;				///< Макс. FPS
+		int					AntialiasingLevel;		///< Уровень сглаживания
+		int					FOV;					///< Угол обзора
+		int					RenderDistance;			///< Дальность прорисовки
+		int					QualityShadows;			///< Качество теней
+		float				SensitivityMouse;		///< Чувствительность мыши
+		float				Time;					///< Прошедшие время
 
-		static bool			IsWireframeRender; ///< Включен ли каркасный рендер
+		bool				DynamicLights;			///< Включен ли динамический свет
+		bool				Fullscreen;				///< На весь ли экран окно
+		bool				VSinc;					///< Включина ли виртуальная синхронизация
+		static bool			IsWireframeRender;		///< Включен ли каркасный рендер
 
-		glm::vec2			WindowSize; ///< Размеры окна
-		glm::mat4			ProjectionMatrix; ///< Матрица проекции
+		glm::vec2			WindowSize;				///< Размеры окна
+		glm::mat4			ProjectionMatrix;		///< Матрица проекции
 	};
 }
 

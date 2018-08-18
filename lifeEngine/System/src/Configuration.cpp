@@ -1,5 +1,5 @@
 ﻿#include "../Configuration.h"
-#include <Graphics\LightManager.h>
+#include <System\ShaderManager.h>
 
 //-------------------------------------------------------------------------//
 
@@ -12,10 +12,13 @@ le::Configuration::Configuration() :
 	FrameLimit( 0 ),
 	AntialiasingLevel( 0 ),
 	RenderDistance( 1000 ),
-	QualityShadows( LightManager::Low ),
+	QualityShadows( le::QualityShadows::High ),
 	FOV( 75 ),
 	SensitivityMouse( 0.15f ),
-	Time( 0 )
+	Time( 0 ),
+	DynamicLights( true ),
+	Fullscreen( false ),
+	VSinc( false )
 {}
 
 //-------------------------------------------------------------------------//

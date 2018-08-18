@@ -13,7 +13,7 @@ le::Model::Model() :
 le::Model::~Model()
 {
 	if ( Scene )
-		Scene->RemoveModelFromScene( this );
+		Scene->RemoveModel( this );
 
 	VAO::DeleteBuffer( &VertexBuffer );
 
@@ -96,7 +96,7 @@ void le::Model::LoadModel( Mesh& Mesh )
 
 void le::Model::AddToScene( le::Scene& Scene )
 {
-	Scene.AddModelToScene( this );
+	Scene.AddModel( this );
 }
 
 //-------------------------------------------------------------------------//
@@ -104,7 +104,7 @@ void le::Model::AddToScene( le::Scene& Scene )
 void le::Model::RemoveFromScene()
 {
 	if ( Scene )
-		Scene->RemoveModelFromScene( this );
+		Scene->RemoveModel( this );
 }
 
 //-------------------------------------------------------------------------//

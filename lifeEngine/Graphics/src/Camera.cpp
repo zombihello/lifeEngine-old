@@ -3,13 +3,17 @@
 
 //-------------------------------------------------------------------------//
 
+float le::Camera::SensitivityMouse = 1.f;
+
+//-------------------------------------------------------------------------//
+
 le::Camera::Camera( System& System ) :
-	InclinationCamera( 0 )
+	IsUpdate( false ),
+	InclinationCamera( 0 ),
+	AxisVertical( 0, 1.f, 0 )
 {
 	RenderWindow = &System.GetWindow();
 	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
-	SensitivityMouse = System.Configuration.SensitivityMouse;
-
 	CenterWindow = Vector2i( NUMBER_TO_INT( System::Configuration.WindowSize.x ) / 2, NUMBER_TO_INT( System::Configuration.WindowSize.y ) / 2 );
 }
 
@@ -20,7 +24,7 @@ le::Camera::~Camera()
 
 //-------------------------------------------------------------------------//
 
-void le::Camera::UpdateCamera()
+void le::Camera::UpdateTargetPoint()
 {
 	// 1.55 радиан = 89 градусов
 
@@ -29,7 +33,7 @@ void le::Camera::UpdateCamera()
 	float OffsetX = ( MousePosition.x - CenterWindow.x ) * SensitivityMouse;
 	float OffsetY = ( CenterWindow.y - MousePosition.y ) * SensitivityMouse;
 
-	Angle.x += glm::radians( OffsetX );
+	Angle.x -= glm::radians( OffsetX );
 	Angle.y += glm::radians( OffsetY );
 
 	if ( Angle.y < -1.55f )
@@ -37,17 +41,42 @@ void le::Camera::UpdateCamera()
 	else if ( Angle.y > 1.55f )
 		Angle.y = 1.55f;
 
-	Direction.x = glm::cos( Angle.x ) * glm::cos( Angle.y );
-	Direction.y = glm::sin( Angle.y );
-	Direction.z = glm::sin( Angle.x ) * glm::cos( Angle.y );
+	if ( AxisVertical.x == 1.f )
+	{
+		Direction.x = glm::sin( Angle.y );
+		Direction.y = glm::cos( Angle.y ) * glm::cos( Angle.x );
+		Direction.z = glm::cos( Angle.y ) * glm::sin( Angle.x );
+	}
+	else if ( AxisVertical.y == 1.f )
+	{
+		Direction.x = glm::cos( Angle.y ) * glm::sin( Angle.x );
+		Direction.y = glm::sin( Angle.y );
+		Direction.z = glm::cos( Angle.y ) * glm::cos( Angle.x );
+	}
+	else
+	{
+		Direction.x = glm::cos( Angle.y ) * glm::cos( Angle.x );
+		Direction.y = glm::cos( Angle.y ) * glm::sin( Angle.x );
+		Direction.z = glm::sin( Angle.y );
+	}
+
 	Direction = glm::normalize( Direction );
-
 	CameraRight = glm::normalize( glm::cross( Direction, glm::vec3( 0, 1, 0 ) ) );
-
-	ViewMatrix =  InclinationCameraMatrix * glm::lookAt( Position, Position + Direction, glm::vec3( 0, 1, 0 ) );
-	Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
-
+	TargetPoint = Position + Direction;
 	Mouse::setPosition( CenterWindow, *RenderWindow );
+
+	IsUpdate = false;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Camera::UpdateViewMatrix()
+{
+	if ( IsUpdate ) return;
+
+	ViewMatrix = InclinationCameraMatrix * glm::lookAt( Position, TargetPoint, AxisVertical );
+	Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
+	IsUpdate = true;
 }
 
 //-------------------------------------------------------------------------//
@@ -94,6 +123,8 @@ void le::Camera::TiltCamera( float FactorTilt )
 
 	if ( InclinationCamera > 360 || InclinationCamera < -360 )
 		InclinationCamera = 0;
+
+	IsUpdate = false;
 }
 
 //-------------------------------------------------------------------------//
@@ -105,9 +136,26 @@ void le::Camera::SetSensitivityMouse( float sensitivityMouse )
 
 //-------------------------------------------------------------------------//
 
+void le::Camera::SetAxisVertical( const glm::vec3& AxisVertical )
+{
+	this->AxisVertical = AxisVertical;
+	IsUpdate = false;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Camera::SetPosition( const glm::vec3& NewPosition )
 {
 	Position = NewPosition;
+	IsUpdate = false;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Camera::SetTargetPoint( const glm::vec3& TargetPoint )
+{
+	this->TargetPoint = Direction = TargetPoint;
+	IsUpdate = false;
 }
 
 //-------------------------------------------------------------------------//
@@ -120,6 +168,14 @@ void le::Camera::SetInclinationCamera( float InclinationCamera )
 		InclinationCamera = InclinationCamera;
 
 	InclinationCameraMatrix = glm::rotate( glm::radians( InclinationCamera ), glm::vec3( 0, 0, 1 ) );
+	IsUpdate = false;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3& le::Camera::GetAxisVertical()
+{
+	return AxisVertical;
 }
 
 //-------------------------------------------------------------------------//
@@ -127,6 +183,13 @@ void le::Camera::SetInclinationCamera( float InclinationCamera )
 glm::vec3& le::Camera::GetPosition()
 {
 	return Position;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3& le::Camera::GetTargetPoint()
+{
+	return TargetPoint;
 }
 
 //-------------------------------------------------------------------------//
@@ -177,6 +240,13 @@ glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 
 glm::mat4& le::Camera::GetViewMatrix()
 {
+	if ( !IsUpdate )
+	{
+		ViewMatrix = InclinationCameraMatrix * glm::lookAt( Position, TargetPoint, AxisVertical );
+		Frustum.UpdateFrustum( *ProjectionMatrix, ViewMatrix );
+		IsUpdate = true;
+	}
+
 	return ViewMatrix;
 }
 

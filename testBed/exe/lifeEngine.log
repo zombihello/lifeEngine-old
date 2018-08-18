@@ -32,82 +32,22 @@ lifeEngine v3.0.0
 [Info] GBuffer Initialized
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
-[Info] Loading Texture [../textures/common/clipweap.jpg] With Name [textures/common/clipweap]
-[Error] Texture [../textures/common/clipweap.jpg] Not Found
-[Info] Loading Texture [../textures/snow/s_cathedrale_c24B.jpg] With Name [textures/snow/s_cathedrale_c24B]
-[Info] Texture With Name [textures/snow/s_cathedrale_c24B] Loaded
-[Info] Loading Texture [../textures/common/caulk.tga] With Name [textures/common/caulk]
-[Info] Texture With Name [textures/common/caulk] Loaded
-[Info] Loading Texture [../textures/skies/sky_dark] With Name [textures/skies/sky_dark]
-[Error] Texture [../textures/skies/sky_dark] Not Found
-[Info] Loading Texture [../textures/awf/awf_w_m12.jpg] With Name [textures/awf/awf_w_m12]
-[Info] Texture With Name [textures/awf/awf_w_m12] Loaded
-[Info] Loading Texture [../textures/snow/s_grass_ml03a_s.jpg] With Name [textures/snow/s_grass_ml03a_s]
-[Info] Texture With Name [textures/snow/s_grass_ml03a_s] Loaded
-[Info] Loading Texture [../textures/town_wood/wood_c11.jpg] With Name [textures/town_wood/wood_c11]
-[Info] Texture With Name [textures/town_wood/wood_c11] Loaded
-[Info] Loading Texture [../textures/rubble/debri_m01d.jpg] With Name [textures/rubble/debri_m01d]
-[Info] Texture With Name [textures/rubble/debri_m01d] Loaded
-[Info] Loading Texture [../textures/town_wall/town_m_c01.jpg] With Name [textures/town_wall/town_m_c01]
-[Info] Texture With Name [textures/town_wall/town_m_c01] Loaded
-[Info] Loading Texture [../textures/sf2/sf2_greybrick.jpg] With Name [textures/sf2/sf2_greybrick]
-[Info] Texture With Name [textures/sf2/sf2_greybrick] Loaded
-[Info] Loading Texture [../textures/rubble/brk_window4.jpg] With Name [textures/rubble/brk_window4]
-[Info] Texture With Name [textures/rubble/brk_window4] Loaded
-[Info] Loading Texture [../textures/common/nodraw.tga] With Name [textures/common/nodraw]
-[Info] Texture With Name [textures/common/nodraw] Loaded
-[Info] Loading Texture [../textures/sfx/xflame2_2250] With Name [textures/sfx/xflame2_2250]
-[Error] Texture [../textures/sfx/xflame2_2250] Not Found
-[Info] Loading Texture [../textures/sf2/sf2_redbrick2.jpg] With Name [textures/sf2/sf2_redbrick2]
-[Info] Texture With Name [textures/sf2/sf2_redbrick2] Loaded
-[Info] Loading Texture [../textures/rubble/rub_wall_m03b.jpg] With Name [textures/rubble/rub_wall_m03b]
-[Info] Texture With Name [textures/rubble/rub_wall_m03b] Loaded
-[Info] Loading Texture [../textures/sf2/sf2_redbrick.jpg] With Name [textures/sf2/sf2_redbrick]
-[Info] Texture With Name [textures/sf2/sf2_redbrick] Loaded
-[Info] Loading Texture [../textures/stone/mxdebri0.jpg] With Name [textures/stone/mxdebri0]
-[Info] Texture With Name [textures/stone/mxdebri0] Loaded
-[Info] Loading Texture [../textures/common/clipmissile.tga] With Name [textures/common/clipmissile]
-[Info] Texture With Name [textures/common/clipmissile] Loaded
-[Info] Loading Texture [../textures/rubble/rebar_m01.tga] With Name [textures/rubble/rebar_m01]
-[Info] Texture With Name [textures/rubble/rebar_m01] Loaded
-[Info] Loading Texture [../textures/snow/s_dirt_m03i_2.jpg] With Name [textures/snow/s_dirt_m03i_2]
-[Info] Texture With Name [textures/snow/s_dirt_m03i_2] Loaded
-[Info] Loading Texture [../textures/common/clipmonster.tga] With Name [textures/common/clipmonster]
-[Info] Texture With Name [textures/common/clipmonster] Loaded
-[Info] Loading Texture [../textures/rubble/brk_window4a.tga] With Name [textures/rubble/brk_window4a]
-[Info] Texture With Name [textures/rubble/brk_window4a] Loaded
-[Info] Loading Texture [../textures/rubble/debri_m06_r.jpg] With Name [textures/rubble/debri_m06_r]
-[Info] Texture With Name [textures/rubble/debri_m06_r] Loaded
-[Info] Loading Texture [../textures/town_door/door_c09.jpg] With Name [textures/town_door/door_c09]
-[Info] Texture With Name [textures/town_door/door_c09] Loaded
-[Info] Loading Texture [../textures/props/box_m05.jpg] With Name [textures/props/box_m05]
-[Info] Texture With Name [textures/props/box_m05] Loaded
-[Info] Loading Texture [../textures/props/box_m04.jpg] With Name [textures/props/box_m04]
-[Info] Texture With Name [textures/props/box_m04] Loaded
-[Info] Loading Texture [../textures/rubble/debri_m06.jpg] With Name [textures/rubble/debri_m06]
-[Info] Texture With Name [textures/rubble/debri_m06] Loaded
-[Info] Loading Texture [../textures/common/clip.tga] With Name [textures/common/clip]
-[Info] Texture With Name [textures/common/clip] Loaded
-[Info] Loading Texture [../models/mapobjects/bodyparts/i_helmut] With Name [models/mapobjects/bodyparts/i_helmut]
-[Error] Texture [../models/mapobjects/bodyparts/i_helmut] Not Found
-[Info] Loading Texture [../models/mapobjects/bodyparts/i_body1] With Name [models/mapobjects/bodyparts/i_body1]
-[Error] Texture [../models/mapobjects/bodyparts/i_body1] Not Found
-[Info] Loading Texture [../models/mapobjects/bodyparts/ammo1] With Name [models/mapobjects/bodyparts/ammo1]
-[Error] Texture [../models/mapobjects/bodyparts/ammo1] Not Found
-[Info] Loading Texture [../models/mapobjects/bodyparts/i_head] With Name [models/mapobjects/bodyparts/i_head]
-[Error] Texture [../models/mapobjects/bodyparts/i_head] Not Found
-[Info] Loading Texture [../models/mapobjects/bodyparts/i_legs1] With Name [models/mapobjects/bodyparts/i_legs1]
-[Error] Texture [../models/mapobjects/bodyparts/i_legs1] Not Found
-[Info] Loading Texture [../textures/alpha/barb_wire.tga] With Name [textures/alpha/barb_wire]
-[Info] Texture With Name [textures/alpha/barb_wire] Loaded
-[Info] Loading Texture [../models/mapobjects/miltary_trim/metal_m05] With Name [models/mapobjects/miltary_trim/metal_m05]
-[Error] Texture [../models/mapobjects/miltary_trim/metal_m05] Not Found
-[Info] Loading Texture [../models/mapobjects/vehicles/halftrack3] With Name [models/mapobjects/vehicles/halftrack3]
-[Error] Texture [../models/mapobjects/vehicles/halftrack3] Not Found
-[Info] Loading Texture [../textures/common/trigger.tga] With Name [textures/common/trigger]
-[Info] Texture With Name [textures/common/trigger] Loaded
-[Info] Loading Texture [../textures/metal_misc/ametal_m02.jpg] With Name [textures/metal_misc/ametal_m02]
-[Info] Texture With Name [textures/metal_misc/ametal_m02] Loaded
+[Info] Loading Level [../maps/1.bsp]
+[Info] Loading Texture [../textures/common/caulk.jpg] With Name [textures/common/caulk]
+[Error] Texture [../textures/common/caulk.jpg] Not Found
+[Info] Loading Texture [../textures/dev/small.jpg] With Name [textures/dev/small]
+[Info] Texture With Name [textures/dev/small] Loaded
+[Info] Loading Texture [../textures/doors/door_c13.jpg] With Name [textures/doors/door_c13]
+[Info] Texture With Name [textures/doors/door_c13] Loaded
+[Info] Loading Texture [../textures/doors/door_m08.jpg] With Name [textures/doors/door_m08]
+[Info] Texture With Name [textures/doors/door_m08] Loaded
+[Info] Loading Texture [../textures/common/hint.tga] With Name [textures/common/hint]
+[Info] Texture With Name [textures/common/hint] Loaded
+[Info] Loading Texture [../textures/dev/dev_measurewall01a1.jpg] With Name [textures/dev/dev_measurewall01a1]
+[Info] Texture With Name [textures/dev/dev_measurewall01a1] Loaded
+[Info] Loading Texture [../noshader] With Name [noshader]
+[Error] Texture [../noshader] Not Found
+[Info] Level [../maps/1.bsp] Loaded
 [Info] Creating Spotlight
   Cone Radius: 300.000000
   Cone Height: 300.000000
@@ -126,41 +66,18 @@ lifeEngine v3.0.0
   Color: 164.000000 126.000000 0.000000 255.000000
   Specular: 0.000000 0.000000 0.000000 1.000000
 [Info] Created Point Light
+[Info] Texture With Name [textures/common/hint] Deleted
+[Info] Texture With Name [textures/dev/dev_measurewall01a1] Deleted
+[Info] Texture With Name [textures/dev/small] Deleted
+[Info] Texture With Name [textures/doors/door_c13] Deleted
+[Info] Texture With Name [textures/doors/door_m08] Deleted
 [Info] Shader With Name [AnimationModels] Deleted
-[Info] Shader With Name [StaticModels] Deleted
 [Info] Shader With Name [Brushes] Deleted
-[Info] Shader With Name [TestRender] Deleted
-[Info] Shader With Name [PointLight] Deleted
 [Info] Shader With Name [DirectionalLight] Deleted
-[Info] Shader With Name [SpotLight] Deleted
+[Info] Shader With Name [PointLight] Deleted
 [Info] Shader With Name [ShadowMap] Deleted
-[Info] Texture With Name [textures/alpha/barb_wire] Deleted
-[Info] Texture With Name [textures/awf/awf_w_m12] Deleted
-[Info] Texture With Name [textures/common/caulk] Deleted
-[Info] Texture With Name [textures/common/clip] Deleted
-[Info] Texture With Name [textures/common/clipmissile] Deleted
-[Info] Texture With Name [textures/common/clipmonster] Deleted
-[Info] Texture With Name [textures/common/nodraw] Deleted
-[Info] Texture With Name [textures/common/trigger] Deleted
-[Info] Texture With Name [textures/metal_misc/ametal_m02] Deleted
-[Info] Texture With Name [textures/props/box_m04] Deleted
-[Info] Texture With Name [textures/props/box_m05] Deleted
-[Info] Texture With Name [textures/rubble/brk_window4] Deleted
-[Info] Texture With Name [textures/rubble/brk_window4a] Deleted
-[Info] Texture With Name [textures/rubble/debri_m01d] Deleted
-[Info] Texture With Name [textures/rubble/debri_m06] Deleted
-[Info] Texture With Name [textures/rubble/debri_m06_r] Deleted
-[Info] Texture With Name [textures/rubble/rebar_m01] Deleted
-[Info] Texture With Name [textures/rubble/rub_wall_m03b] Deleted
-[Info] Texture With Name [textures/sf2/sf2_greybrick] Deleted
-[Info] Texture With Name [textures/sf2/sf2_redbrick] Deleted
-[Info] Texture With Name [textures/sf2/sf2_redbrick2] Deleted
-[Info] Texture With Name [textures/snow/s_cathedrale_c24B] Deleted
-[Info] Texture With Name [textures/snow/s_dirt_m03i_2] Deleted
-[Info] Texture With Name [textures/snow/s_grass_ml03a_s] Deleted
-[Info] Texture With Name [textures/stone/mxdebri0] Deleted
-[Info] Texture With Name [textures/town_door/door_c09] Deleted
-[Info] Texture With Name [textures/town_wall/town_m_c01] Deleted
-[Info] Texture With Name [textures/town_wood/wood_c11] Deleted
 [Info] Shader With Name [Skybox] Deleted
+[Info] Shader With Name [SpotLight] Deleted
+[Info] Shader With Name [StaticModels] Deleted
+[Info] Shader With Name [TestRender] Deleted
 *** lifeEngine End ***

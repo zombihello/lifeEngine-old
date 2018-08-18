@@ -117,6 +117,9 @@
     <ClCompile Include="System\src\Bitset.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\src\ShaderManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System\System.h">
@@ -214,6 +217,9 @@
       <Filter>Graphics\Level</Filter>
     </ClInclude>
     <ClInclude Include="System\Bitset.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ShaderManager.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,6 @@
 ﻿#include <System\ResourcesManager.h>
+#include <System\ShaderManager.h>
+#include <Graphics\Camera.h>
 #include "..\System.h"
 
 //-------------------------------------------------------------------------//
@@ -22,10 +24,13 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Logger::Log( Logger::Info, "Loaded File Configurations [" + LogFile + "]" );
 
 		Configuration.WindowSize = glm::vec2( Config.GetValueInt( "Width" ), Config.GetValueInt( "Height" ) );
+		Configuration.Fullscreen = Config.GetValueBool( "Fullscreen" );
+		Configuration.VSinc = Config.GetValueBool( "VSinc" );
 		Configuration.FrameLimit = Config.GetValueInt( "FrameLimit" );
 		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
 		Configuration.QualityShadows = Config.GetValueInt( "QualityShadows" );
+		Configuration.DynamicLights = Config.GetValueBool( "DynamicLights" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 		Configuration.SensitivityMouse = Config.GetValueFloat( "SensitivityMouse" );
 	}
@@ -33,9 +38,11 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 	{
 		Logger::Log( Logger::Info, "File Configurations [" + LogFile + "] Not Found. Created Default Configuration File" );
 
-		Config.WriteGroup( "SCREAN" );
+		Config.WriteGroup( "SCREEN" );
 		Config.WriteValue( "Width", Configuration.WindowSize.x );
 		Config.WriteValue( "Height", Configuration.WindowSize.y );
+		Config.WriteValue( "Fullscreen", Configuration.Fullscreen );
+		Config.WriteValue( "VSinc", Configuration.VSinc );
 		Config.WriteValue( "FrameLimit", Configuration.FrameLimit );
 		Config.WriteValue( "SensitivityMouse", Configuration.SensitivityMouse );
 
@@ -43,10 +50,20 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
 		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
 		Config.WriteValue( "QualityShadows", Configuration.QualityShadows );
+		Config.WriteValue( "DynamicLights", Configuration.DynamicLights );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );
 	}
 
+	// *********************************
+	// Инициализируем качество графики
+
+	GraphicsSettings GraphicsSettings;
+	GraphicsSettings.DynamicLights = Configuration.DynamicLights;
+	GraphicsSettings.QualityShadows = ( QualityShadows ) Configuration.QualityShadows;
+
+	ShaderManager::SetGraphicsSettings( GraphicsSettings );
+	Camera::SetSensitivityMouse( Configuration.SensitivityMouse );
 	Configuration.ProjectionMatrix = glm::perspective( glm::radians( NUMBER_TO_FLOAT( Configuration.FOV ) ), Configuration.WindowSize.x / Configuration.WindowSize.y, 0.1f, NUMBER_TO_FLOAT( Configuration.RenderDistance ) );
 }
 
@@ -62,6 +79,8 @@ le::System::~System()
 
 void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouseCursorVisible )
 {
+	if ( Configuration.Fullscreen ) Style = sf::Style::Fullscreen;
+
 	glewExperimental = GL_TRUE;
 
 	ContextSettings ContextSettings;
@@ -72,6 +91,7 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 	RenderWindow.create( VideoMode( NUMBER_TO_UINT( Configuration.WindowSize.x ), NUMBER_TO_UINT( Configuration.WindowSize.y ) ), NameWindow, Style, ContextSettings );
 	RenderWindow.setFramerateLimit( Configuration.FrameLimit );
 	RenderWindow.setMouseCursorVisible( IsMouseCursorVisible );
+	RenderWindow.setVerticalSyncEnabled( Configuration.VSinc );
 
 	Logger::Log( Logger::Info, "Window Created (" + to_string( ( int ) Configuration.WindowSize.x ) + "x" + to_string( ( int ) Configuration.WindowSize.y ) + ")" );
 	Logger::Log( Logger::None, "*** OpenGL Info ***" );
@@ -111,6 +131,12 @@ void le::System::WindowCreate( const string& NameWindow, int Style, bool IsMouse
 		Logger::Log( Logger::Error, "System Not Supported Shaders" );
 		exit( -1 );
 	}
+
+	ShaderManager::LoadShaders();
+
+	glEnable( GL_TEXTURE_2D );
+	glEnable( GL_CULL_FACE );
+	glEnable( GL_DEPTH_TEST );
 }
 
 //-------------------------------------------------------------------------//

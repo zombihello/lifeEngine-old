@@ -45,4 +45,3 @@ $TEMPLATEbasedir: base game dir (e.g. default\)
 
   <key name="bsp_Q3Map2: (simulate old style -light -extra) BSP -meta, -vis, -light -super 2" value="! &quot;$TEMPLATEapppathq3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEenginepath&quot; -meta $ &amp;&amp; ! &quot;$TEMPLATEapppathq3map2&quot; # -le -fs_basepath &quot;$TEMPLATEenginepath&quot; -vis -saveprt $ &amp;&amp; ! &quot;$TEMPLATEapppathq3map2&quot; -v # -le -fs_basepath &quot;$TEMPLATEenginepath&quot; -light -super 2 $" />
 </project>
-

@@ -18,7 +18,7 @@
   <key name="bsp_Q3Map2: (single) BSP -meta" value="! &quot;D:/Projects/C++/GameEngine/lifeRadiant/lifeRadiant/install/q3map2&quot; -v # -le -fs_basepath &quot;D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/&quot; -meta $"/>
   <key name="mapspath" value="D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/.//maps/"/>
   <key name="autosave" value="D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/.//maps/autosave.map"/>
-  <key name="texturepath" value="D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/.//"/>
+  <key name="texturepath" value="D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/./textures/"/>
   <key name="entitypath" value="D:/Projects/C++/GameEngine/lifeRadiant/lifeRadiant/install/installs/LEPack/game/.//scripts/entities.def"/>
   <key name="remotebasepath" value="D:/Projects/C++/GameEngine/lifeEngine/testBed/exe/.//"/>
   <key name="rshcmd" value=""/>

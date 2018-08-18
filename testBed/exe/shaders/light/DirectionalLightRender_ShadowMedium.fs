@@ -7,6 +7,7 @@ struct DirectionalLight
 	mat4 LightMatrix;
 	vec4 Position;
 	vec4 Color;
+	vec4 Specular;
 	
 	float Intensivity;
 };
@@ -18,6 +19,7 @@ out vec4 Color;
 //-------------------------------------------
 
 uniform vec2 ScreenSize;
+uniform vec3 ViewPosition;
 uniform DirectionalLight light;
 
 // Textures
@@ -63,11 +65,15 @@ void main()
 	vec2 texCoord = CalcTexCoord();
 	vec3 Normal = normalize( texture( NormalMap, texCoord ).xyz );
 	vec4 PositionFragment = texture( PositionMap, texCoord );
-
-	float NdotL = dot( normalize( light.Position.xyz ), Normal );
+	vec3 ViewDirection = normalize( ViewPosition - PositionFragment.xyz );
+	
+	vec3 lightDirection = normalize( light.Position.xyz );
+	float NdotL = dot( lightDirection, Normal );
+	vec3 HalfwayDirection = normalize( lightDirection + ViewDirection );
 	float DiffuseFactor = max( NdotL, 0.0f );	
 	vec4 PosFragInLightSpace = light.LightMatrix * vec4(PositionFragment.xyz,1);
 	float Shadow = ShadowCalculationPCF( PosFragInLightSpace, NdotL );
+	float SpecularFactor = pow( max( dot( Normal, HalfwayDirection ), 0.0 ), 32.0 );
 	
-	Color =  ( 1.0f - Shadow ) * light.Color * DiffuseFactor * light.Intensivity * texture( ColorMap, texCoord );
+	Color =  ( 1.0f - Shadow ) * ( light.Color * DiffuseFactor * light.Intensivity + light.Specular * SpecularFactor ) * texture( ColorMap, texCoord );
 }
