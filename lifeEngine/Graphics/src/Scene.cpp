@@ -237,7 +237,15 @@ void le::Scene::Render()
 	// ****************************
 	// Проверка видимости геометрии
 
-	ClippingGeometry();
+	if ( ActiveCamera && Level )
+	{
+		//TODO: [zombiHello] Добавить учет того, что камере может быть в радиусе действия света
+
+		Level->CalculateVisablePlanes( *ActiveCamera );
+		Level->CalculateVisableModels( Models );
+		Level->CalculateVisableLights( *PointLights );
+		Level->CalculateVisableLights( *SpotLights );
+	}
 
 	// ****************************
 	// Рендер сцены
@@ -327,76 +335,6 @@ le::Level* le::Scene::GetLevel()
 
 //-------------------------------------------------------------------------//
 
-void le::Scene::ClippingGeometry()
-{
-	if ( !ActiveCamera ) return;
-
-	if ( Level )
-		Level->CalculateVisablePlanes( *ActiveCamera );
-
-	// *****************************************
-	// Проверка статичных моделей 
-	// на отсечение по фрустуму
-
-	for ( auto ItStaticModel = RenderBuffer_StaticModel.begin(); ItStaticModel != RenderBuffer_StaticModel.end(); ItStaticModel++ )
-	{
-		vector<InfoMesh*>* GeometryBuffer = &ItStaticModel->second;
-
-		for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
-		{
-			InfoMesh* InfoMesh = GeometryBuffer->at( Id );
-
-			if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-			{
-				InfoMesh->IsRender = false;
-				continue;
-			}
-
-			InfoMesh->IsRender = ActiveCamera->GetDistance( *InfoMesh->Position ) < System::Configuration.RenderDistance;
-		}
-	}
-
-	// *****************************************
-	// Проверка анимируемых моделей 
-	// на отсечение по фрустуму
-
-	for ( auto ItAnimationModel = RenderBuffer_AnimationModel.begin(); ItAnimationModel != RenderBuffer_AnimationModel.end(); ItAnimationModel++ )
-	{
-		vector<InfoMesh*>* GeometryBuffer = &ItAnimationModel->second;
-
-		for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
-		{
-			InfoMesh* InfoMesh = GeometryBuffer->at( Id );
-
-			if ( !Frustum->IsVisible( *InfoMesh->BoundingBox ) )
-			{
-				InfoMesh->IsRender = false;
-				continue;
-			}
-
-			InfoMesh->IsRender = ActiveCamera->GetDistance( *InfoMesh->Position ) < System::Configuration.RenderDistance;
-		}
-	}
-
-	// *****************************************
-	// Проверка точечного освещения 
-	// на отсечение по фрустуму
-
-	for ( auto ItPointLights = PointLights->begin(); ItPointLights != PointLights->end(); ItPointLights++ )
-		if ( Frustum->IsVisible( ItPointLights->LightSphere ) )
-			ItPointLights->IsVisible = ActiveCamera->GetDistance( ItPointLights->Position ) < System::Configuration.RenderDistance;
-
-	// *****************************************
-	// Проверка прожекторного освещения 
-	// на отсечение по фрустуму
-
-	for ( auto ItSpotLights = SpotLights->begin(); ItSpotLights != SpotLights->end(); ItSpotLights++ )
-		if ( Frustum->IsVisible( ItSpotLights->LightCone.BoundingBox ) )
-			ItSpotLights->IsVisible = ActiveCamera->GetDistance( ItSpotLights->Position ) < System::Configuration.RenderDistance;
-}
-
-//-------------------------------------------------------------------------//
-
 void le::Scene::BuildShadowMaps()
 {
 	if ( ActiveCamera )
@@ -471,7 +409,7 @@ void le::Scene::GeometryRender()
 			{
 				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
 
-				if ( !InfoMesh->IsRender ) continue;
+				if ( !*InfoMesh->IsRender ) continue;
 
 				PVTMatrix = PVMatrix * *InfoMesh->MatrixTransformation;
 				Bones = InfoMesh->Skeleton->GetAllBones();
@@ -502,7 +440,7 @@ void le::Scene::GeometryRender()
 			{
 				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
 
-				if ( !InfoMesh->IsRender ) continue;
+				if ( !*InfoMesh->IsRender ) continue;
 
 				PVTMatrix = PVMatrix * *InfoMesh->MatrixTransformation;
 				StaticModelsRender->setUniform( "PVTMatrix", PVTMatrix );
@@ -523,6 +461,8 @@ void le::Scene::GeometryRender_GBuffer()
 	// ****************************
 	// Рендер скайбокса
 
+	glCullFace( GL_BACK );
+
 	if ( Skybox != NULL )
 	{
 		GBuffer.Bind( GBuffer::RenderSkybox );
@@ -532,41 +472,11 @@ void le::Scene::GeometryRender_GBuffer()
 		glEnable( GL_DEPTH_TEST );
 	}
 
-	// ***************************************** //
-	// Рендер брашей уровня
-
-	GBuffer.Bind( GBuffer::RenderBuffers );
-	glCullFace( GL_FRONT );
-
-	if ( LevelRender != NULL && RenderBuffer_Level != NULL )
-	{
-		Shader::bind( LevelRender );
-		VAO::BindVAO( Level->GetArrayBuffer() );
-		LevelRender->setUniform( "PVMatrix", PVMatrix );
-
-		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
-		{
-			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, It->first );
-			le::Plane* Plane;
-
-			for ( size_t i = 0; i < It->second.size(); i++ )
-			{
-				Plane = It->second[ i ];
-
-				glActiveTexture( GL_TEXTURE1 );
-				glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
-
-				glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
-			}
-		}
-	}
-
 	// *****************************************
 	// Рендер анимируемых моделей
 
-	glCullFace( GL_BACK );
-
+	GBuffer.Bind( GBuffer::RenderBuffers );
+	
 	if ( AnimationModelsRender != NULL && !RenderBuffer_AnimationModel.empty() )
 	{
 		vector<le::Skeleton::Bone>* Bones;
@@ -583,7 +493,7 @@ void le::Scene::GeometryRender_GBuffer()
 			{
 				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
 
-				if ( !InfoMesh->IsRender ) continue;
+				if ( !*InfoMesh->IsRender ) continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
 				AnimationModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
@@ -614,12 +524,41 @@ void le::Scene::GeometryRender_GBuffer()
 			{
 				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
 
-				if ( !InfoMesh->IsRender ) continue;
+				if ( !*InfoMesh->IsRender ) continue;
 
 				StaticModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			}
+		}
+	}
+
+	// ***************************************** //
+	// Рендер брашей уровня
+	
+	glCullFace( GL_FRONT );
+
+	if ( LevelRender != NULL && RenderBuffer_Level != NULL )
+	{
+		Shader::bind( LevelRender );
+		VAO::BindVAO( Level->GetArrayBuffer() );
+		LevelRender->setUniform( "PVMatrix", PVMatrix );
+
+		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
+		{
+			glActiveTexture( GL_TEXTURE0 );
+			glBindTexture( GL_TEXTURE_2D, It->first );
+			le::Plane* Plane;
+
+			for ( size_t i = 0; i < It->second.size(); i++ )
+			{
+				Plane = It->second[ i ];
+
+				glActiveTexture( GL_TEXTURE1 );
+				glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+				glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
 			}
 		}
 	}
@@ -782,7 +721,7 @@ le::Scene::InfoMesh::InfoMesh() :
 	Skeleton( NULL ),
 	MatrixTransformation( NULL ),
 	Position( NULL ),
-	IsRender( true )
+	IsRender( NULL )
 {}
 
 //-------------------------------------------------------------------------//

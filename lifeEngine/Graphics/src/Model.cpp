@@ -5,6 +5,8 @@
 //-------------------------------------------------------------------------//
 
 le::Model::Model() :
+	NoSkeleton( true ),
+	IsRender( true ),
 	Scene( NULL )
 {}
 
@@ -66,6 +68,7 @@ void le::Model::LoadModel( Mesh& Mesh )
 		InfoMesh.BoundingBox = &BoundingBox; 
 		InfoMesh.VertexArray = VertexArray;
 		InfoMesh.Position = &Position;
+		InfoMesh.IsRender = &IsRender;
 		
 		VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Position ) ) );
 		VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( MeshVertex ), ( void* ) ( offsetof( MeshVertex, Normal ) ) );
@@ -133,6 +136,20 @@ glm::vec3& le::Model::GetPosition()
 glm::vec3& le::Model::GetScale()
 {
 	return ScaleModel;
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3& le::Model::GetMinVertex()
+{
+	return BoundingBox.GetMinVertex();
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3& le::Model::GetMaxVertex()
+{
+	return BoundingBox.GetMaxVertex();
 }
 
 //-------------------------------------------------------------------------//
@@ -263,6 +280,13 @@ void le::Model::Rotate( const glm::quat& FactorRotate )
 
 	MatrixTransformation = MatrixPosition * MatrixRotation * MatrixScale;
 	BoundingBox.SetTransformation( MatrixTransformation, Position, Rotation, ScaleModel );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Model::SetRender( bool IsRender )
+{
+	this->IsRender = IsRender;
 }
 
 //-------------------------------------------------------------------------//

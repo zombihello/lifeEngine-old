@@ -44,6 +44,7 @@ namespace le
 		int					FOV;					///< Угол обзора
 		int					RenderDistance;			///< Дальность прорисовки
 		int					QualityShadows;			///< Качество теней
+		static int			ShadowMapSize;			///< Разрешение карт теней
 		float				SensitivityMouse;		///< Чувствительность мыши
 		float				Time;					///< Прошедшие время
 

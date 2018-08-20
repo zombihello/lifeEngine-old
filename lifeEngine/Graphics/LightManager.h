@@ -80,7 +80,7 @@ namespace le
 		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddPointLight( const string& NameLight, float Radius, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 45.f, 45.f, 45.f, 255.f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить точечный источник света 
@@ -106,7 +106,7 @@ namespace le
 		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddDirectionalLight( const string& NameLight, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 45.f, 45.f, 45.f, 255.f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить направленый источник света 
@@ -135,7 +135,7 @@ namespace le
 		/// \param[in] Intensivity Интенсивность света
 		/// \param[in] Specular Отражение света
 		//////////////////////////////////////////////////////////////////////
-		void AddSpotLight( const string& NameLight, float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 0.0f, 0.0f, 0.0f, 1.0f ) );
+		void AddSpotLight( const string& NameLight, float Radius, float Height, const glm::vec3& Rotation, const glm::vec3& Position, const glm::vec4& Color, float Intensivity = 1.f, const glm::vec4& Specular = glm::vec4( 45.f, 45.f, 45.f, 255.f ) );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Добавить прожекторный источник света 
@@ -268,12 +268,12 @@ namespace le
 
 	private:
 
-		Scene*								Scene; ///< Сцена на котором находятся источники света	
-		Shader*								ShadowMapRender; ///< Шейдер для построения карты теней
+		Scene*								Scene;					///< Сцена на котором находятся источники света	
+		Shader*								ShadowMapRender;		///< Шейдер для построения карты теней
 
-		vector<PointLight>					PointLights; ///< Массив точечных источников света
-		vector<SpotLight>					SpotLights; ///< Массив прожекторных источников света
-		vector<DirectionalLight>			DirectionalLights; ///< Массив направленых источников света 
+		vector<PointLight>					PointLights;			///< Массив точечных источников света
+		vector<SpotLight>					SpotLights;				///< Массив прожекторных источников света
+		vector<DirectionalLight>			DirectionalLights;		///< Массив направленых источников света 
 	};
 
 	//-------------------------------------------------------------------------//

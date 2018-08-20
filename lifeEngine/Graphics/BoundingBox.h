@@ -164,14 +164,14 @@ namespace le
 		glm::vec3* GetVertexs();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить самую низкую вершину
+		/// \brief Получить самую высокую вершину
 		///
 		/// \return glm::vec3*
 		//////////////////////////////////////////////////////////////////////
 		glm::vec3& GetMaxVertex();
 
 		//////////////////////////////////////////////////////////////////////
-		/// \brief Получить самую высокую вершину
+		/// \brief Получить самую низкую вершину
 		///
 		/// \return glm::vec3*
 		//////////////////////////////////////////////////////////////////////
@@ -179,25 +179,26 @@ namespace le
 
 		BoundingBox& operator=( const BoundingBox& Copy );
 
-		Query				Query; ///< Объект для проверки перекрытия
+		Query				Query;						///< Объект для проверки перекрытия
 
 	private:
 
-		GLuint				ArrayBuffer; ///< VAO буффер
-		GLuint				VertexBuffer; ///< Вершиный буффер
-		GLuint				IndexBuffer; ///< Индексный буффер
+		GLuint				ArrayBuffer;				///< VAO буффер
+		GLuint				VertexBuffer;				///< Вершиный буффер
+		GLuint				IndexBuffer;				///< Индексный буффер
 
-		glm::vec3			LocalVertexs[ 8 ]; ///< Массив вершин в локальной СК
-		glm::vec3			GlobalVertexs[ 8 ]; ///< Массив вершин в глобальной СК
-		glm::vec3			MinVertex; ///< Самая низка вершина
-		glm::vec3			MaxVertex; ///< Самая высокая вершина
-		glm::vec3			Position; ///< Позиция	
-		glm::vec3			Scale; /// < Масштаб
-		glm::quat			Rotation; ///< Поворот
-		glm::mat4			MatrixPosition; ///< Матрица позиции
-		glm::mat4			MatrixRotation; ///< Матрица поворота
-		glm::mat4			MatrixScale; ///< Матрица масштаба
-		glm::mat4			Transformation; ///< Матрица трансформации
+		glm::vec3			LocalVertexs[ 8 ];			///< Массив вершин в локальной СК
+		glm::vec3			GlobalVertexs[ 8 ];			///< Массив вершин в глобальной СК
+		glm::vec3			MinVertex;					///< Самая низка вершина
+		glm::vec3			MaxVertex;					///< Самая высокая вершина
+		glm::vec3			Position;					///< Позиция	
+		glm::vec3			Scale;						/// < Масштаб
+		glm::quat			Rotation;					///< Поворот
+
+		glm::mat4			MatrixPosition;				///< Матрица позиции
+		glm::mat4			MatrixRotation;				///< Матрица поворота
+		glm::mat4			MatrixScale;				///< Матрица масштаба
+		glm::mat4			Transformation;				///< Матрица трансформации
 	};
 
 	//-------------------------------------------------------------------------//

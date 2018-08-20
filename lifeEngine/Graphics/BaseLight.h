@@ -15,7 +15,6 @@
 #pragma warning( disable: 4251 ) 
 
 #define COMPILING_LIBRARY
-#define SHADOWMAP_SIZE 1024
 #include <DllGlobal.h>
 
 ///////////////////////////

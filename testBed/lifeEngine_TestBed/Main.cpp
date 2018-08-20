@@ -30,6 +30,12 @@ public:
 		Level->LoadLevel( "../maps/" + NameMap + ".bsp" );
 		Level->AddToScene( *Scene );
 
+		le::Model* mdl = new le::Model();
+		mdl->LoadModel( "tt", "../models/leanna.lmd" );
+		mdl->SetScale( glm::vec3( 2.5f, 2.5f, 2.5f ) );
+		Scene->AddModel( mdl );
+		Models.push_back( mdl );
+
 		LightManager.AddSpotLight( "spot", 300, 300, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
 		Spot = LightManager.GetSpotLight( "spot" );
 
@@ -150,11 +156,10 @@ int main( int argc, char** argv )
 	string NameMap;
 
 	cout << "------------\n";
-	cout << "     Select Map					 \n";
-	cout << "> 1. Wolfenstein: Stalingrad		 \n";
-	cout << "> 2. Return to Castle Wolfenstein	 \n";
-	cout << "> 3. Quake							 \n";
-	cout << "> 4. Other..	   					 \n";
+	cout << "     Select Map\n";
+	cout << "> 1. Office\n";
+	cout << "> 2. Destroy Home\n";
+	cout << "> 3. Other..\n";
 	cout << "------------\n";
 
 	cout << "> Select: ";
@@ -162,22 +167,22 @@ int main( int argc, char** argv )
 
 	switch ( IndexMap )
 	{
+	case 1:
+		NameMap = "office";
+		break;
+
 	case 2:
-		NameMap = "escape2";
+		NameMap = "destroyHome";
 		break;
 
 	case 3:
-		NameMap = "QuakeMap";
-		break;
-
-	case 4:
 		cout << "> Enter Name Map: ";
 		cin >> NameMap;
 		cout << endl;
 		break;
 
 	default:
-		NameMap = "stalingrad";
+		NameMap = "office";
 		break;
 	}
 

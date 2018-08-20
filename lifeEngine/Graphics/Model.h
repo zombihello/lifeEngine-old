@@ -138,6 +138,13 @@ namespace le
 		void Rotate( const glm::quat& FactorRotate );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Активировать модель для рендера
+		///		
+		/// \param[in] IsRender Рендерить ли модель
+		//////////////////////////////////////////////////////////////////////
+		void SetRender( bool IsRender = true );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить информацию меша для рендера
 		///		
 		/// \return map<GLuint, Scene::InfoMesh>&
@@ -166,6 +173,20 @@ namespace le
 		glm::vec3& GetScale();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить самую низкую вершину
+		///
+		/// \return Самая низкая вершина в ограничивающем теле
+		//////////////////////////////////////////////////////////////////////
+		glm::vec3& GetMinVertex();
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить самую высокую вершину
+		///
+		/// \return Самая высокая вершина в ограничивающем теле
+		//////////////////////////////////////////////////////////////////////
+		glm::vec3& GetMaxVertex();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить поворот модели
 		///		
 		/// \return Поворот модели
@@ -188,26 +209,28 @@ namespace le
 
 	private:
 
-		bool							NoSkeleton; ///< Нет ли скелета
-		Scene*							Scene; ///< Сцена на котором находится модель
-		Skeleton						Skeleton; ///< Скелет модели
-		AnimationManager				AnimationManager; ///< Менеджер анимаций
-		BoundingBox						BoundingBox; ///< Ограничивающее тело модели
+		bool							NoSkeleton;				///< Нет ли скелета
+		bool							IsRender;				///< Рендерить ли модель
 
-		GLuint							VertexBuffer; ///< Вершиный буффер
+		Scene*							Scene;					///< Сцена на котором находится модель
+		Skeleton						Skeleton;				///< Скелет модели
+		AnimationManager				AnimationManager;		///< Менеджер анимаций
+		BoundingBox						BoundingBox;			///< Ограничивающее тело модели
 
-		glm::vec3						Position; ///< Позиция модели в пространстве
-		glm::vec3						ScaleModel; ///< Масштаб модели
-		glm::quat						Rotation; ///< Поворот модели
+		GLuint							VertexBuffer;			///< Вершиный буффер
 
-		glm::mat4x4						MatrixPosition; ///< Матрица позиции
-		glm::mat4x4						MatrixRotation; ///< Матрица вращения
-		glm::mat4x4						MatrixScale; ///< Матрица масштабирования
-		glm::mat4x4						MatrixTransformation; ///< Матрица трансформации (Pos+Scal+Rot)
+		glm::vec3						Position;				///< Позиция модели в пространстве
+		glm::vec3						ScaleModel;				///< Масштаб модели
+		glm::quat						Rotation;				///< Поворот модели
 
-		vector<GLuint>					IndexBuffers; ///< Массив индексных буфферов
-		vector<GLuint>					ArrayBuffers; ///< Массив VAO буфферов
-		map<GLuint, Scene::InfoMesh>	RenderMesh; ///< Информация о меше
+		glm::mat4x4						MatrixPosition;			///< Матрица позиции
+		glm::mat4x4						MatrixRotation;			///< Матрица вращения
+		glm::mat4x4						MatrixScale;			///< Матрица масштабирования
+		glm::mat4x4						MatrixTransformation;	///< Матрица трансформации (Pos+Scal+Rot)
+
+		vector<GLuint>					IndexBuffers;			///< Массив индексных буфферов
+		vector<GLuint>					ArrayBuffers;			///< Массив VAO буфферов
+		map<GLuint, Scene::InfoMesh>	RenderMesh;				///< Информация о меше
 	};
 
 	//-------------------------------------------------------------------------//

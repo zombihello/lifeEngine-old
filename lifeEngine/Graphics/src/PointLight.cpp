@@ -11,8 +11,8 @@ le::PointLight::PointLight() :
 	Logger::Log( Logger::None, "  Radius: " + to_string( Radius ) );
 	Logger::Log( Logger::None, "  Intensivity: " + to_string( Intensivity ) );
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
-	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
-	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
+	Logger::Log( Logger::None, "  Color: " + to_string( Color.x * 255.f ) + " " + to_string( Color.y * 255.f ) + " " + to_string( Color.z * 255.f ) + " " + to_string( Color.w * 255.f ) );
+	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x * 255.f ) + " " + to_string( Specular.y * 255.f ) + " " + to_string( Specular.z * 255.f ) + " " + to_string( Specular.w * 255.f ) );
 
 	LightSphere.InitSphere( Radius );
 	LightSphere.SetPosition( Position );

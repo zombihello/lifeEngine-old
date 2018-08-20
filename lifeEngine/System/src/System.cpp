@@ -30,9 +30,14 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.AntialiasingLevel = Config.GetValueInt( "AntialiasingLevel" );
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
 		Configuration.QualityShadows = Config.GetValueInt( "QualityShadows" );
+		Configuration::ShadowMapSize = Config.GetValueInt( "ShadowMapSize" );
 		Configuration.DynamicLights = Config.GetValueBool( "DynamicLights" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 		Configuration.SensitivityMouse = Config.GetValueFloat( "SensitivityMouse" );
+
+		// Проверяем, чтобы ShadowMapSize был степени двойки
+		if ( !( Configuration::ShadowMapSize && !( Configuration::ShadowMapSize & ( Configuration::ShadowMapSize - 1 ) ) ) )
+			Configuration::ShadowMapSize = NUMBER_TO_INT( pow( 2, NUMBER_TO_INT( log( Configuration::ShadowMapSize ) / log( 2 ) ) ) );
 	}
 	else
 	{
@@ -50,6 +55,7 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "AntialiasingLevel", Configuration.AntialiasingLevel );
 		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
 		Config.WriteValue( "QualityShadows", Configuration.QualityShadows );
+		Config.WriteValue( "ShadowMapSize", Configuration::ShadowMapSize );
 		Config.WriteValue( "DynamicLights", Configuration.DynamicLights );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );

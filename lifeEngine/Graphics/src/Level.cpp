@@ -3,6 +3,7 @@
 #include <Graphics\Camera.h>
 #include <Graphics\Scene.h>
 #include <Graphics\LightManager.h>
+#include <Graphics\Model.h>
 #include "..\Level.h"
 
 #define FACE_POLYGON 1
@@ -17,6 +18,7 @@ le::Level::Level( System& System ) :
 {
 	Skybox = new le::Skybox();
 	Skybox->SetSizeSkybox( 500 );
+	Skybox->LoadSkybox( "../textures/skybox1.jpg" );
 }
 
 //-------------------------------------------------------------------------//
@@ -105,7 +107,7 @@ bool le::Level::LoadLevel( const string& Route )
 	File.seekg( Lumps[ Vertices ].Offset, ios::beg );
 
 	for ( size_t IdVertex = 0; IdVertex < Array_Vertexes.size(); IdVertex++ )
-	{		
+	{
 		File.read( ( char* ) &Array_Vertexes[ IdVertex ], sizeof( BSPVertex ) );
 		BSPVertex* Vertex = &Array_Vertexes[ IdVertex ];
 
@@ -227,7 +229,7 @@ bool le::Level::LoadLevel( const string& Route )
 
 	// *************************************
 	// Загружаем все текстуры
-	
+
 	for ( size_t IdTexture = 0; IdTexture < Array_Textures.size(); IdTexture++ )
 	{
 		// Определяем формат текстуры
@@ -246,7 +248,7 @@ bool le::Level::LoadLevel( const string& Route )
 
 		File.clear();
 		File.close();
-		
+
 		// Загружаем текстуру
 		ResourcesManager::LoadGlTexture( Array_Textures[ IdTexture ].StrName, RouteToTexture );
 		GLTextures.push_back( ResourcesManager::GetGlTexture( Array_Textures[ IdTexture ].StrName ) );
@@ -373,6 +375,7 @@ void le::Level::ClearLevel()
 void le::Level::CalculateVisablePlanes( Camera& Camera )
 {
 	VisablePlanes.clear();
+	VisibleCluster.clear();
 	FacesDrawn.ClearAll();
 
 	int LeafIndex = FindLeaf( Camera.GetPosition() );
@@ -388,6 +391,8 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 
 		if ( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Camera.GetFrustum().IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
+
+		VisibleCluster.push_back( Leaf->Cluster );
 
 		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
 		{
@@ -411,6 +416,7 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frustum )
 {
 	VisablePlanes.clear();
+	VisibleCluster.clear();
 	FacesDrawn.ClearAll();
 
 	int LeafIndex = FindLeaf( Position );
@@ -427,6 +433,8 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 		if ( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
+		VisibleCluster.push_back( Leaf->Cluster );
+
 		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
 		{
 			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + j ];
@@ -442,6 +450,126 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 			}
 		}
 	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CalculateVisableModels( vector<Model*>& Models )
+{
+	for ( size_t IdModel = 0; IdModel < Models.size(); IdModel++ )
+	{
+		Model* Model = Models[ IdModel ];
+
+		bool IsFind = false;
+		int LeafIndex = FindLeaf( Model->GetMaxVertex() - Model->GetMinVertex() );
+		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+			{
+				IsFind = true;
+				break;
+			}
+
+		Model->SetRender( IsFind );
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CalculateVisableLights( vector<PointLight>& Lights )
+{
+	for ( size_t IdLight = 0; IdLight < Lights.size(); IdLight++ )
+	{
+		PointLight* Light = &Lights[ IdLight ];
+
+		Light->IsVisible = false;
+		int LeafIndex = FindLeaf( Light->Position );
+		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+			{
+				Light->IsVisible = true;
+				break;
+			}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CalculateVisableLights( vector<SpotLight>& Lights )
+{
+	for ( size_t IdLight = 0; IdLight < Lights.size(); IdLight++ )
+	{
+		SpotLight* Light = &Lights[ IdLight ];
+
+		Light->IsVisible = false;
+		int LeafIndex = FindLeaf( Light->Position );
+		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+			{
+				Light->IsVisible = true;
+				break;
+			}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Level::CalculateVisableModel( Model& Model )
+{
+	bool IsFind = false;
+	int LeafIndex = FindLeaf( Model.GetMaxVertex() - Model.GetMinVertex() );
+	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+		{
+			IsFind = true;
+			break;
+		}
+
+	Model.SetRender( IsFind );
+	return IsFind;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Level::CalculateVisableLight( PointLight& Light )
+{
+	Light.IsVisible = false;
+	int LeafIndex = FindLeaf( Light.Position );
+	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+		{
+			Light.IsVisible = true;
+			break;
+		}
+
+	return Light.IsVisible;
+}
+
+//-------------------------------------------------------------------------//
+
+bool le::Level::CalculateVisableLight( SpotLight& Light )
+{
+	Light.IsVisible = false;
+	int LeafIndex = FindLeaf( Light.Position );
+	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+
+	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
+		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
+		{
+			Light.IsVisible = true;
+			break;
+		}
+
+	return Light.IsVisible;
 }
 
 //-------------------------------------------------------------------------//
@@ -530,7 +658,7 @@ void le::Level::CreateLightmapTexture( byte* ImageBits, int Width, int Height )
 
 	if ( ImageBits )
 	{
-		ChangeGamma( ImageBits, Width * Height * 3, 10 );
+		//ChangeGamma( ImageBits, Width * Height * 3, 10 );
 		gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, Width, Height, GL_RGB, GL_UNSIGNED_BYTE, ImageBits );
 	}
 	else
@@ -548,35 +676,38 @@ void le::Level::CreateLightmapTexture( byte* ImageBits, int Width, int Height )
 
 int le::Level::FindLeaf( const glm::vec3 & Position )
 {
-	int			i = 0;
+	int			Index = 0;
 	float		Distance = 0.f;
 
-	while ( i >= 0 )
+	while ( Index >= 0 )
 	{
-		const BSPNode&  Node = ArrayNodes[ i ];
+		const BSPNode&  Node = ArrayNodes[ Index ];
 		const BSPPlane& Plane = ArrayBSPPlanes[ Node.Plane ];
 
-		Distance = Plane.Normal.x * Position.x + Plane.Normal.y * Position.y + Plane.Normal.z * Position.z - Plane.Distance;
+		Distance = glm::dot( Plane.Normal, Position ) - Plane.Distance;
 
 		if ( Distance >= 0 )
-			i = Node.Front;
+			Index = Node.Front;
 		else
-			i = Node.Back;
+			Index = Node.Back;
 	}
 
-	return ~i;
+	return ~Index;
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::IsClusterVisible( int CurrentCluster, int TestCluster )
+inline bool le::Level::IsClusterVisible( int CurrentCluster, int TestCluster )
 {
-	if ( !Сlusters.Bitsets || CurrentCluster < 0 ) return 1;
+	if ( !Сlusters.Bitsets || CurrentCluster < 0 )
+		return true;
 
-	byte VisSet = Сlusters.Bitsets[ ( CurrentCluster * Сlusters.BytesPerCluster ) + ( TestCluster / 8 ) ];
-	bool Result = VisSet & ( 1 << ( ( TestCluster ) & 7 ) );
+	byte VisSet = Сlusters.Bitsets[ CurrentCluster * Сlusters.BytesPerCluster + ( TestCluster >> 3 ) ];
 
-	return Result;
+	if ( !( VisSet & ( 1 << ( TestCluster & 7 ) ) ) )
+		return false;
+
+	return true;
 }
 
 //-------------------------------------------------------------------------//

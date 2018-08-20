@@ -1,4 +1,4 @@
-#include "..\ShaderManager.h"
+п»ї#include "..\ShaderManager.h"
 
 //-------------------------------------------------------------------------//
 
@@ -15,7 +15,7 @@ le::GraphicsSettings::GraphicsSettings() :
 
 void le::ShaderManager::LoadShaders()
 {
-	//TODO: [zombiHello] Сделать убершейдер для этих целей
+	//TODO: [zombiHello] РЎРґРµР»Р°С‚СЊ СѓР±РµСЂС€РµР№РґРµСЂ РґР»СЏ СЌС‚РёС… С†РµР»РµР№
 
 	string LevelRender_VertexShader;
 	string LevelRender_FragmentShader;
@@ -28,8 +28,8 @@ void le::ShaderManager::LoadShaders()
 	string DirectionalLight_FragmentShader;
 
 	// ******************************************
-	// Определяем путь к шейдеру рендера сцены
-	// в засимости включен/выключен дин. свет
+	// РћРїСЂРµРґРµР»СЏРµРј РїСѓС‚СЊ Рє С€РµР№РґРµСЂСѓ СЂРµРЅРґРµСЂР° СЃС†РµРЅС‹
+	// РІ Р·Р°СЃРёРјРѕСЃС‚Рё РІРєР»СЋС‡РµРЅ/РІС‹РєР»СЋС‡РµРЅ РґРёРЅ. СЃРІРµС‚
 
 	if ( GraphicsSettings.DynamicLights )
 	{
@@ -51,8 +51,8 @@ void le::ShaderManager::LoadShaders()
 	}
 
 	// ******************************************
-	// Определяем путь к шейдерам освещения в 
-	// зависимости от качества теней
+	// РћРїСЂРµРґРµР»СЏРµРј РїСѓС‚СЊ Рє С€РµР№РґРµСЂР°Рј РѕСЃРІРµС‰РµРЅРёСЏ РІ 
+	// Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РєР°С‡РµСЃС‚РІР° С‚РµРЅРµР№
 
 	switch ( GraphicsSettings.QualityShadows )
 	{
@@ -83,7 +83,7 @@ void le::ShaderManager::LoadShaders()
 	}
 
 	// ********************************
-	// Загружаем шейдера
+	// Р—Р°РіСЂСѓР¶Р°РµРј С€РµР№РґРµСЂР°
 
 	ResourcesManager::LoadShader( "ShadowMap", "../shaders/light/ShadowMapRender.vs", "../shaders/light/ShadowMapRender.fs" );
 	ResourcesManager::LoadShader( "AnimationModels", AnimationModels_VertexShader, AnimationModels_FragmentShader );

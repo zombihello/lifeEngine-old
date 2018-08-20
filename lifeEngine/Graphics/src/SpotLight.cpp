@@ -17,8 +17,8 @@ le::SpotLight::SpotLight() :
 	Logger::Log( Logger::None, "  Position: " + to_string( Position.x ) + " " + to_string( Position.y ) + " " + to_string( Position.z ) );
 	Logger::Log( Logger::None, "  Spot Direction: " + to_string( SpotDirection.x ) + " " + to_string( SpotDirection.y ) + " " + to_string( SpotDirection.z ) );
 	Logger::Log( Logger::None, "  Rotation: " + to_string( 0 ) + " " + to_string( 0 ) + " " + to_string( 0 ) );
-	Logger::Log( Logger::None, "  Color: " + to_string( Color.x ) + " " + to_string( Color.y ) + " " + to_string( Color.z ) + " " + to_string( Color.w ) );
-	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x ) + " " + to_string( Specular.y ) + " " + to_string( Specular.z ) + " " + to_string( Specular.w ) );
+	Logger::Log( Logger::None, "  Color: " + to_string( Color.x * 255.f ) + " " + to_string( Color.y * 255.f ) + " " + to_string( Color.z * 255.f ) + " " + to_string( Color.w * 255.f ) );
+	Logger::Log( Logger::None, "  Specular: " + to_string( Specular.x  * 255.f ) + " " + to_string( Specular.y * 255.f ) + " " + to_string( Specular.z * 255.f ) + " " + to_string( Specular.w * 255.f ) );
 
 	LightCone.InitCone( Height, Radius );
 	LightCone.SetPosition( Position );

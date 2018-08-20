@@ -1,4 +1,5 @@
-﻿#include <Graphics\Scene.h>
+﻿#include <System\System.h>
+#include <Graphics\Scene.h>
 #include "..\BaseLight.h"
 
 //-------------------------------------------------------------------------//
@@ -8,7 +9,7 @@ le::BaseLight::BaseLight() :
 	IsVisible( true ),
 	Intensivity( 1 ),
 	Color( 0.6f, 0.6f, 0.6f, 1 ),
-	Specular( 0, 0, 0, 1 )
+	Specular( 0.17f, 0.17f, 0.17f, 1.f )
 {}
 
 //-------------------------------------------------------------------------//
@@ -29,13 +30,13 @@ bool le::BaseLight::InitShadowMap( bool IsCubeMap )
 		if ( IsInitShadowMap )
 			return true;
 
-	GLsizei SizeShadowMap_Width = SHADOWMAP_SIZE;
-	GLsizei SizeShadowMap_Height = SHADOWMAP_SIZE;
+	GLsizei SizeShadowMap_Width = Configuration::ShadowMapSize;
+	GLsizei SizeShadowMap_Height = Configuration::ShadowMapSize;
 
 	if ( IsCubeMap )
 	{
-		SizeShadowMap_Width = 3 * SHADOWMAP_SIZE;
-		SizeShadowMap_Height = 2 * SHADOWMAP_SIZE;
+		SizeShadowMap_Width = 3 * Configuration::ShadowMapSize;
+		SizeShadowMap_Height = 2 * Configuration::ShadowMapSize;
 	}
 
 	// ***************************************** //

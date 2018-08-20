@@ -42,7 +42,6 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetVisablePlanes();
 
 	Shader::bind( ShadowMapRender );
-	VAO::BindVAO( Level.GetArrayBuffer() );
 	ShadowMapRender->setUniform( "IsPointLight", true );
 
 	// *****************************************
@@ -61,16 +60,50 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 			for ( int Face = 0; Face < 6; Face++ )
 			{
-				Level.CalculateVisablePlanes( PointLight->Position, PointLight->Frustums[ Face ] );
-
-				glViewport( OffsetX * SHADOWMAP_SIZE, OffsetY * SHADOWMAP_SIZE, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
+				glViewport( OffsetX * Configuration::ShadowMapSize, OffsetY * Configuration::ShadowMapSize, Configuration::ShadowMapSize, Configuration::ShadowMapSize );
+
+				// *****************************************
+				// Рендерим плоскости уровня
+
+				VAO::BindVAO( Level.GetArrayBuffer() );
 
 				for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
 					for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 					{
 						Plane* Plane = It->second[ IdPlane ];
 						glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					}
+
+				// *****************************************
+				// Рендерим анимируемые модели
+				// TODO: [zombiHello] Добавить анимацию моделям
+
+				for ( auto It = GeometryAnimationModels.begin(); It != GeometryAnimationModels.end(); It++ )
+					for ( size_t IdAnimationModel = 0; IdAnimationModel < It->second.size(); IdAnimationModel++ )
+					{
+						Scene::InfoMesh* InfoMesh = It->second[ IdAnimationModel ];
+
+						if ( !*InfoMesh->IsRender ) continue;
+
+						ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] * *InfoMesh->MatrixTransformation );
+						VAO::BindVAO( InfoMesh->VertexArray );
+						glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+					}
+
+				// *****************************************
+				// Рендерим статичные модели
+
+				for ( auto It = GeometryStaticModels.begin(); It != GeometryStaticModels.end(); It++ )
+					for ( size_t IdStaticModel = 0; IdStaticModel < It->second.size(); IdStaticModel++ )
+					{
+						Scene::InfoMesh* InfoMesh = It->second[ IdStaticModel ];
+
+						if ( !*InfoMesh->IsRender ) continue;
+
+						ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] * *InfoMesh->MatrixTransformation );
+						VAO::BindVAO( InfoMesh->VertexArray );
+						glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 					}
 
 				if ( OffsetX == 2 )
@@ -88,25 +121,60 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 	// *****************************************
 	// Строим карту теней для прожекторных источников
 
-	glViewport( 0, 0, SHADOWMAP_SIZE, SHADOWMAP_SIZE );
+	glViewport( 0, 0, Configuration::ShadowMapSize, Configuration::ShadowMapSize );
 	ShadowMapRender->setUniform( "IsPointLight", false );
 
 	for ( size_t IdSpotLight = 0; IdSpotLight < SpotLights.size(); IdSpotLight++ )
 		if ( SpotLights[ IdSpotLight ].InitShadowMap() )
 		{
 			SpotLight* SpotLight = &SpotLights[ IdSpotLight ];
-			Level.CalculateVisablePlanes( SpotLight->Position, SpotLight->Frustums[ 0 ] );
 
 			glBindFramebuffer( GL_FRAMEBUFFER, SpotLight->ShadowMap_FBO );
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
 
+			// *****************************************
+			// Рендерим плоскости уровня
+
+			VAO::BindVAO( Level.GetArrayBuffer() );
+
 			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
 				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 				{
 					Plane* Plane = It->second[ IdPlane ];
 					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+				}
+
+			// *****************************************
+			// Рендерим анимируемые модели
+			// TODO: [zombiHello] Добавить анимацию моделям
+
+			for ( auto It = GeometryAnimationModels.begin(); It != GeometryAnimationModels.end(); It++ )
+				for ( size_t IdAnimationModel = 0; IdAnimationModel < It->second.size(); IdAnimationModel++ )
+				{
+					Scene::InfoMesh* InfoMesh = It->second[ IdAnimationModel ];
+
+					if ( !InfoMesh->IsRender ) continue;
+
+					ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					VAO::BindVAO( InfoMesh->VertexArray );
+					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				}
+
+			// *****************************************
+			// Рендерим статичные модели
+
+			for ( auto It = GeometryStaticModels.begin(); It != GeometryStaticModels.end(); It++ )
+				for ( size_t IdStaticModel = 0; IdStaticModel < It->second.size(); IdStaticModel++ )
+				{
+					Scene::InfoMesh* InfoMesh = It->second[ IdStaticModel ];
+
+					if ( !*InfoMesh->IsRender ) continue;
+
+					ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					VAO::BindVAO( InfoMesh->VertexArray );
+					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
 		}
 
@@ -117,18 +185,53 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 		if ( DirectionalLights[ IdDirectionalLight ].InitShadowMap() )
 		{
 			DirectionalLight* DirectionalLight = &DirectionalLights[ IdDirectionalLight ];
-			Level.CalculateVisablePlanes( DirectionalLight->Position, DirectionalLight->Frustums[ 0 ] );
 
 			glBindFramebuffer( GL_FRAMEBUFFER, DirectionalLight->ShadowMap_FBO );
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
 
+			// *****************************************
+			// Рендерим плоскости уровня
+
+			VAO::BindVAO( Level.GetArrayBuffer() );
+
 			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
 				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 				{
 					Plane* Plane = It->second[ IdPlane ];
 					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+				}
+
+			// *****************************************
+			// Рендерим анимируемые модели
+			// TODO: [zombiHello] Добавить анимацию моделям
+
+			for ( auto It = GeometryAnimationModels.begin(); It != GeometryAnimationModels.end(); It++ )
+				for ( size_t IdAnimationModel = 0; IdAnimationModel < It->second.size(); IdAnimationModel++ )
+				{
+					Scene::InfoMesh* InfoMesh = It->second[ IdAnimationModel ];
+
+					if ( !InfoMesh->IsRender ) continue;
+
+					ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					VAO::BindVAO( InfoMesh->VertexArray );
+					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+				}
+
+			// *****************************************
+			// Рендерим статичные модели
+
+			for ( auto It = GeometryStaticModels.begin(); It != GeometryStaticModels.end(); It++ )
+				for ( size_t IdStaticModel = 0; IdStaticModel < It->second.size(); IdStaticModel++ )
+				{
+					Scene::InfoMesh* InfoMesh = It->second[ IdStaticModel ];
+
+					if ( !*InfoMesh->IsRender ) continue;
+
+					ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					VAO::BindVAO( InfoMesh->VertexArray );
+					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
 		}
 
