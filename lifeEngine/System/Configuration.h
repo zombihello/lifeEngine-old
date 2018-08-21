@@ -48,7 +48,6 @@ namespace le
 		float				SensitivityMouse;		///< Чувствительность мыши
 		float				Time;					///< Прошедшие время
 
-		bool				DynamicLights;			///< Включен ли динамический свет
 		bool				Fullscreen;				///< На весь ли экран окно
 		bool				VSinc;					///< Включина ли виртуальная синхронизация
 		static bool			IsWireframeRender;		///< Включен ли каркасный рендер

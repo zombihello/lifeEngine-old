@@ -31,7 +31,6 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Configuration.RenderDistance = Config.GetValueInt( "RenderDistance" );
 		Configuration.QualityShadows = Config.GetValueInt( "QualityShadows" );
 		Configuration::ShadowMapSize = Config.GetValueInt( "ShadowMapSize" );
-		Configuration.DynamicLights = Config.GetValueBool( "DynamicLights" );
 		Configuration.FOV = Config.GetValueInt( "FOV" );
 		Configuration.SensitivityMouse = Config.GetValueFloat( "SensitivityMouse" );
 
@@ -56,7 +55,6 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 		Config.WriteValue( "RenderDistance", Configuration.RenderDistance );
 		Config.WriteValue( "QualityShadows", Configuration.QualityShadows );
 		Config.WriteValue( "ShadowMapSize", Configuration::ShadowMapSize );
-		Config.WriteValue( "DynamicLights", Configuration.DynamicLights );
 		Config.WriteValue( "FOV", Configuration.FOV );
 		Config.SaveInFile( ConfigFile );
 	}
@@ -65,7 +63,6 @@ le::System::System( int argc, char** argv, const string& ConfigFile, const strin
 	// Инициализируем качество графики
 
 	GraphicsSettings GraphicsSettings;
-	GraphicsSettings.DynamicLights = Configuration.DynamicLights;
 	GraphicsSettings.QualityShadows = ( QualityShadows ) Configuration.QualityShadows;
 
 	ShaderManager::SetGraphicsSettings( GraphicsSettings );

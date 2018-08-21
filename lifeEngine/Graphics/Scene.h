@@ -219,11 +219,12 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		void CalculateLight();
 
-		void								( Scene::*Ptr_GeometryRender )( );		///< Указатель на метод для рендера геометрии сцены
-
 		Shader*								AnimationModelsRender;					///< Шейдер рендера анимируемых моделей
 		Shader*								StaticModelsRender;						///< Шейдер рендера статичных моделей
 		Shader*								LevelRender;							///< Шейдер рендера уровня
+		Shader*								AnimationModelsRender_GBuffer;			///< Шейдер рендера анимируемых моделей (с исп. GBuffer)
+		Shader*								StaticModelsRender_GBuffer;				///< Шейдер рендера статичных моделей (с исп. GBuffer)
+		Shader*								LevelRender_GBuffer;					///< Шейдер рендера уровня (с исп. GBuffer)
 		Shader*								TestRender;								///< Шейдер тестового рендера на перекрытия
 		Shader*								PointLightRender;						///< Шейдер точечного света
 		Shader*								DirectionalLightRender;					///< Шейдер направленого света

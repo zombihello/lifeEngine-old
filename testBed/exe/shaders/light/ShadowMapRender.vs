@@ -11,12 +11,13 @@ out vec4 FragPos;
 //------------------------------------------
 
 uniform mat4 LightMatrices;
+uniform mat4 Transformation;
 
 //------------------------------------------
 
 void main()
 {
-	FragPos = vec4( Position, 1.0f );
+	FragPos = Transformation * vec4( Position, 1.0f );
 	gl_Position = LightMatrices * FragPos;
 }
 

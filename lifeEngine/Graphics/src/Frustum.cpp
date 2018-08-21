@@ -126,6 +126,18 @@ bool le::Frustum::IsVisible( BoundingSphere& BoundingSphere )
 
 //-------------------------------------------------------------------------//
 
+bool le::Frustum::IsVisible( const glm::vec3 & Position, float Radius )
+{
+	for ( int Side = 0; Side < 6; Side++ )
+		if ( PyramidFrustum[ Side ].x * Position.x + PyramidFrustum[ Side ].y * Position.y +
+			 PyramidFrustum[ Side ].z * Position.z + PyramidFrustum[ Side ].w <= -Radius )
+			return false;
+
+	return true;
+}
+
+//-------------------------------------------------------------------------//
+
 void le::Frustum::NormalizePlanes()
 {
 	for ( int Side = 0; Side < 6; Side++ )

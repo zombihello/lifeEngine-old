@@ -375,11 +375,10 @@ void le::Level::ClearLevel()
 void le::Level::CalculateVisablePlanes( Camera& Camera )
 {
 	VisablePlanes.clear();
-	VisibleCluster.clear();
 	FacesDrawn.ClearAll();
 
 	int LeafIndex = FindLeaf( Camera.GetPosition() );
-	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	CameraCluster = ArrayLeafs[ LeafIndex ].Cluster;
 	int FaceIndex = 0;
 
 	BSPLeaf* Leaf;
@@ -389,10 +388,8 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 	{
 		Leaf = &ArrayLeafs[ IdLeaf ];
 
-		if ( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Camera.GetFrustum().IsVisible( Leaf->Min, Leaf->Max ) )
+		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Camera.GetFrustum().IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
-
-		VisibleCluster.push_back( Leaf->Cluster );
 
 		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
 		{
@@ -416,11 +413,10 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frustum )
 {
 	VisablePlanes.clear();
-	VisibleCluster.clear();
 	FacesDrawn.ClearAll();
 
 	int LeafIndex = FindLeaf( Position );
-	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	CameraCluster = ArrayLeafs[ LeafIndex ].Cluster;
 	int FaceIndex = 0;
 
 	BSPLeaf* Leaf;
@@ -430,10 +426,8 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 	{
 		Leaf = &ArrayLeafs[ IdLeaf ];
 
-		if ( !IsClusterVisible( Cluster, Leaf->Cluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
+		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
-
-		VisibleCluster.push_back( Leaf->Cluster );
 
 		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
 		{
@@ -454,120 +448,107 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 
 //-------------------------------------------------------------------------//
 
-void le::Level::CalculateVisableModels( vector<Model*>& Models )
+void le::Level::CalculateVisableModels( vector<Model*>& Models, Frustum& Frustum )
 {
 	for ( size_t IdModel = 0; IdModel < Models.size(); IdModel++ )
 	{
 		Model* Model = Models[ IdModel ];
 
-		bool IsFind = false;
-		int LeafIndex = FindLeaf( Model->GetMaxVertex() - Model->GetMinVertex() );
-		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+		int LeafIndex = FindLeaf( ( Model->GetMaxVertex() + Model->GetMinVertex() ) / 2.f );
+		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+		int Cluster = Leaf->Cluster;
 
-		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-			{
-				IsFind = true;
-				break;
-			}
-
-		Model->SetRender( IsFind );
+		Model->SetRender( IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Leaf->Min, Leaf->Max ) );
 	}
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Level::CalculateVisableLights( vector<PointLight>& Lights )
+bool le::Level::CalculateVisableLights( vector<PointLight>& Lights, Frustum& Frustum )
 {
+	bool IsVisibleLight = false;
+
 	for ( size_t IdLight = 0; IdLight < Lights.size(); IdLight++ )
 	{
 		PointLight* Light = &Lights[ IdLight ];
 
 		Light->IsVisible = false;
 		int LeafIndex = FindLeaf( Light->Position );
-		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+		int Cluster = Leaf->Cluster;
 
-		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-			{
-				Light->IsVisible = true;
-				break;
-			}
+		Light->IsVisible = IsClusterVisible( Cluster, CameraCluster ) && ( Frustum.IsVisible( Leaf->Min, Leaf->Max ) || Frustum.IsVisible( Light->Position, Light->Radius ) );
+
+		if ( !IsVisibleLight && Light->IsVisible )
+			IsVisibleLight = true;
 	}
+
+	return IsVisibleLight;
 }
 
 //-------------------------------------------------------------------------//
 
-void le::Level::CalculateVisableLights( vector<SpotLight>& Lights )
+bool le::Level::CalculateVisableLights( vector<SpotLight>& Lights, Frustum& Frustum )
 {
+	bool IsVisibleLight = false;
+
 	for ( size_t IdLight = 0; IdLight < Lights.size(); IdLight++ )
 	{
 		SpotLight* Light = &Lights[ IdLight ];
 
 		Light->IsVisible = false;
 		int LeafIndex = FindLeaf( Light->Position );
-		int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+		int Cluster = Leaf->Cluster;
 
-		for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-			if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-			{
-				Light->IsVisible = true;
-				break;
-			}
+		Light->IsVisible = IsClusterVisible( Cluster, CameraCluster ) && ( Frustum.IsVisible( Leaf->Min, Leaf->Max ) || Frustum.IsVisible( Light->Position, Light->Radius ) );
+
+		if ( !IsVisibleLight && Light->IsVisible )
+			IsVisibleLight = true;
 	}
+
+	return IsVisibleLight;
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::CalculateVisableModel( Model& Model )
+bool le::Level::CalculateVisableModel( Model& Model, Frustum& Frustum )
 {
-	bool IsFind = false;
-	int LeafIndex = FindLeaf( Model.GetMaxVertex() - Model.GetMinVertex() );
-	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	bool IsRender = false;
+	int LeafIndex = FindLeaf( ( Model.GetMaxVertex() + Model.GetMinVertex() ) / 2.f );
+	BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+	int Cluster = Leaf->Cluster;
 
-	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-		{
-			IsFind = true;
-			break;
-		}
+	IsRender = IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Leaf->Min, Leaf->Max );
+	Model.SetRender( IsRender );
 
-	Model.SetRender( IsFind );
-	return IsFind;
+	return IsRender;
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::CalculateVisableLight( PointLight& Light )
+bool le::Level::CalculateVisableLight( PointLight& Light, Frustum& Frustum )
 {
 	Light.IsVisible = false;
 	int LeafIndex = FindLeaf( Light.Position );
-	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+	int Cluster = Leaf->Cluster;
 
-	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-		{
-			Light.IsVisible = true;
-			break;
-		}
+	Light.IsVisible = IsClusterVisible( Cluster, CameraCluster ) && ( Frustum.IsVisible( Leaf->Min, Leaf->Max ) || Frustum.IsVisible( Light.Position, Light.Radius ) );
 
 	return Light.IsVisible;
 }
 
 //-------------------------------------------------------------------------//
 
-bool le::Level::CalculateVisableLight( SpotLight& Light )
+bool le::Level::CalculateVisableLight( SpotLight& Light, Frustum& Frustum )
 {
 	Light.IsVisible = false;
 	int LeafIndex = FindLeaf( Light.Position );
-	int Cluster = ArrayLeafs[ LeafIndex ].Cluster;
+	BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+	int Cluster = Leaf->Cluster;
 
-	for ( size_t IdVisibleCluster = 0; IdVisibleCluster < VisibleCluster.size(); IdVisibleCluster++ )
-		if ( Cluster == VisibleCluster[ IdVisibleCluster ] )
-		{
-			Light.IsVisible = true;
-			break;
-		}
+	Light.IsVisible = IsClusterVisible( Cluster, CameraCluster ) && ( Frustum.IsVisible( Leaf->Min, Leaf->Max ) || Frustum.IsVisible( Light.Position, Light.Radius ) );
 
 	return Light.IsVisible;
 }

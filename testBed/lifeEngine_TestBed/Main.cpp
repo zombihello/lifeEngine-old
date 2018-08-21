@@ -126,7 +126,23 @@ public:
 		}
 
 		for ( size_t Id = 0; Id < Models.size(); Id++ )
-			Models[ Id ]->GetAnimationManager()->Update();
+		{
+			le::Model* Model = Models[ Id ];
+
+			if ( Keyboard::isKeyPressed( Keyboard::Left ) )
+				Model->Move( glm::vec3( 1.f * Configuration->Time, 0, 0 ) );
+
+			if ( Keyboard::isKeyPressed( Keyboard::Right ) )
+				Model->Move( glm::vec3( -1.5f * Configuration->Time, 0, 0 ) );
+
+			if ( Keyboard::isKeyPressed( Keyboard::Up ) )
+				Model->Move( glm::vec3( 0, 0, 1.f * Configuration->Time ) );
+
+			if ( Keyboard::isKeyPressed( Keyboard::Down ) )
+				Model->Move( glm::vec3( 0, 0, -1.f * Configuration->Time ) );
+
+				Model->GetAnimationManager()->Update();
+		}
 
 		ActiveCamera->UpdateTargetPoint();
 		Scene->Render();

@@ -17,7 +17,6 @@ le::Configuration::Configuration() :
 	FOV( 75 ),
 	SensitivityMouse( 0.15f ),
 	Time( 0 ),
-	DynamicLights( true ),
 	Fullscreen( false ),
 	VSinc( false )
 {}

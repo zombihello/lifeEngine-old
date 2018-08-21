@@ -267,46 +267,54 @@ namespace le
 		/// \brief Посчитать видимые модели
 		///	
 		/// \param[in] Models Массив моделей для проверки
+		/// \param[in] Frustum Пирамида отсечения
 		//////////////////////////////////////////////////////////////////////
-		void CalculateVisableModels( vector<Model*>& Models );
+		void CalculateVisableModels( vector<Model*>& Models, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Посчитать видимые источники света
 		///	
 		/// \param[in] Lights Массив источников света для проверки
+		/// \param[in] Frustum Пирамида отсечения
+		/// \return Был ли увиден хотя бы один источник света
 		//////////////////////////////////////////////////////////////////////
-		void CalculateVisableLights( vector<PointLight>& Lights );
+		bool CalculateVisableLights( vector<PointLight>& Lights, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Посчитать видимые источники света
 		///	
 		/// \param[in] Lights Массив источников света для проверки
+		/// \param[in] Frustum Пирамида отсечения
+		/// \return Был ли увиден хотя бы один источник света
 		//////////////////////////////////////////////////////////////////////
-		void CalculateVisableLights( vector<SpotLight>& Lights );
+		bool CalculateVisableLights( vector<SpotLight>& Lights, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Проверить на видимость модель
 		///	
 		/// \param[in] Models Проверяемая модель
+		/// \param[in] Frustum Пирамида отсечения
 		/// \return True - видна модель, False - не видна
 		//////////////////////////////////////////////////////////////////////
-		bool CalculateVisableModel( Model& Model );
+		bool CalculateVisableModel( Model& Model, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Проверить на видимость источник света
 		///	
 		/// \param[in] Light Проверяемый источник света
+		/// \param[in] Frustum Пирамида отсечения
 		/// \return True - виден источник, False - не видн
 		//////////////////////////////////////////////////////////////////////
-		bool CalculateVisableLight( PointLight& Light );
+		bool CalculateVisableLight( PointLight& Light, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Проверить на видимость источник света
 		///	
 		/// \param[in] Light Проверяемый источник света
+		/// \param[in] Frustum Пирамида отсечения
 		/// \return True - виден источник, False - не видн
 		//////////////////////////////////////////////////////////////////////
-		bool CalculateVisableLight( SpotLight& Light);
+		bool CalculateVisableLight( SpotLight& Light, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить скайбокс уровня
@@ -395,7 +403,7 @@ namespace le
 		vector<int>							ArrayLeafsFaces;	///< Массив индексов фейсов в листе
 		vector<GLuint>						ArrayLightmaps;		///< Массив идентификаторов карт освещения
 
-		vector<int>							VisibleCluster;		///< Буфер видимых кластеров (обновляется при вызове CalculateVisablePlanes() )
+		int									CameraCluster;		///< Кластер в котором находится камера (обновляется при вызове CalculateVisablePlanes() )
 		map<GLuint, vector<le::Plane*> >	VisablePlanes;		///< Буфер видимых плоскостей (обновляется при вызове CalculateVisablePlanes() )
 	};
 

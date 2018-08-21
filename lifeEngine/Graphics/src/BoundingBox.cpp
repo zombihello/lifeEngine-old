@@ -74,14 +74,16 @@ void le::BoundingBox::InitBox( const glm::vec3& MinVertex, const glm::vec3& MaxV
 {
 	if ( ArrayBuffer != 0 ) return;
 
-	GlobalVertexs[ 0 ] = LocalVertexs[ 0 ] = glm::vec3( MinVertex.x, MinVertex.z, 0 );
-	GlobalVertexs[ 1 ] = LocalVertexs[ 1 ] = glm::vec3( MaxVertex.x, MinVertex.z, 0 );
-	GlobalVertexs[ 2 ] = LocalVertexs[ 2 ] = glm::vec3( MinVertex.x, MaxVertex.z, 0 );
-	GlobalVertexs[ 3 ] = LocalVertexs[ 3 ] = glm::vec3( MaxVertex.x, MaxVertex.z, 0 );
+	GlobalVertexs[ 0 ] = LocalVertexs[ 0 ] = glm::vec3( MinVertex.x, MinVertex.z, MinVertex.y );
+	GlobalVertexs[ 1 ] = LocalVertexs[ 1 ] = glm::vec3( MaxVertex.x, MinVertex.z, MinVertex.y );
+	GlobalVertexs[ 2 ] = LocalVertexs[ 2 ] = glm::vec3( MinVertex.x, MaxVertex.z, MinVertex.y );
+	GlobalVertexs[ 3 ] = LocalVertexs[ 3 ] = glm::vec3( MaxVertex.x, MaxVertex.z, MinVertex.y );
 	GlobalVertexs[ 4 ] = LocalVertexs[ 4 ] = glm::vec3( MinVertex.x, MinVertex.z, MaxVertex.y );
 	GlobalVertexs[ 5 ] = LocalVertexs[ 5 ] = glm::vec3( MaxVertex.x, MinVertex.z, MaxVertex.y );
 	GlobalVertexs[ 6 ] = LocalVertexs[ 6 ] = glm::vec3( MinVertex.x, MaxVertex.z, MaxVertex.y );
 	GlobalVertexs[ 7 ] = LocalVertexs[ 7 ] = glm::vec3( MaxVertex.x, MaxVertex.z, MaxVertex.y );
+
+	this->MaxVertex = this->MinVertex = GlobalVertexs[ 0 ];
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -131,6 +133,8 @@ void le::BoundingBox::InitBox( const vector<glm::vec3>& Vertexs )
 {
 	for ( int i = 0; i < 8; i++ )
 		GlobalVertexs[ i ] = LocalVertexs[ i ] = Vertexs[ i ];
+
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -209,6 +213,8 @@ void le::BoundingBox::InitBox( const glm::vec3& Size )
 	GlobalVertexs[ 6 ] = LocalVertexs[ 6 ] = glm::vec3( -HalfWidth, HalfHeight, -HalfDepth );
 	GlobalVertexs[ 7 ] = LocalVertexs[ 7 ] = glm::vec3( HalfWidth, HalfHeight, -HalfDepth );
 
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
+
 	for ( int i = 0; i < 8; i++ )
 	{
 		if ( MaxVertex.x < GlobalVertexs[ i ].x )
@@ -281,6 +287,8 @@ void le::BoundingBox::SetPosition( const glm::vec3& Position )
 	MatrixPosition = glm::translate( Position );
 	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
 
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
+
 	for ( int i = 0; i < 8; i++ )
 	{
 		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
@@ -321,6 +329,8 @@ void le::BoundingBox::SetRotation( const glm::vec3& Rotation )
 
 	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
 
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
+
 	for ( int i = 0; i < 8; i++ )
 	{
 		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
@@ -354,6 +364,8 @@ void le::BoundingBox::SetRotation( const glm::quat& Rotation )
 
 	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
 
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
+
 	for ( int i = 0; i < 8; i++ )
 	{
 		GlobalVertexs[ i ] = Transformation * glm::vec4( LocalVertexs[ i ], 1.f );
@@ -385,6 +397,8 @@ void le::BoundingBox::SetScale( const glm::vec3& Scale )
 	this->Scale = Scale;
 	MatrixScale = glm::scale( Scale );
 	Transformation = MatrixPosition * MatrixRotation * MatrixScale;
+
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
 
 	for ( int i = 0; i < 8; i++ )
 	{
@@ -418,6 +432,8 @@ void le::BoundingBox::SetTransformation( const glm::mat4& Transformation, const 
 	this->Position = Position;
 	this->Rotation = Rotation;
 	this->Scale = Scale;
+
+	MaxVertex = MinVertex = GlobalVertexs[ 0 ];
 
 	for ( int i = 0; i < 8; i++ )
 	{

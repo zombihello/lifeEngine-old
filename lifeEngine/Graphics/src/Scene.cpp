@@ -18,8 +18,7 @@ le::Scene::Scene() :
 	DirectionalLights( NULL ),
 	SpotLights( NULL ),
 	Skybox( NULL ),
-	PositionCamera( NULL ),
-	Ptr_GeometryRender( &Scene::GeometryRender )
+	PositionCamera( NULL )
 {
 	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
@@ -27,6 +26,11 @@ le::Scene::Scene() :
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
 	LevelRender = ResourcesManager::GetShader( "Brushes" );
+
+	AnimationModelsRender_GBuffer = ResourcesManager::GetShader( "AnimationModels_GBuffer" );
+	StaticModelsRender_GBuffer = ResourcesManager::GetShader( "StaticModels_GBuffer" );
+	LevelRender_GBuffer = ResourcesManager::GetShader( "Brushes_GBuffer" );
+
 	TestRender = ResourcesManager::GetShader( "TestRender" );
 	PointLightRender = ResourcesManager::GetShader( "PointLight" );
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
@@ -36,6 +40,9 @@ le::Scene::Scene() :
 	{
 		LevelRender->setUniform( "ColorMap", 0 );
 		LevelRender->setUniform( "LightMap", 1 );
+
+		LevelRender_GBuffer->setUniform( "ColorMap", 0 );
+		LevelRender_GBuffer->setUniform( "LightMap", 1 );
 	}
 
 	if ( PointLightRender != NULL )
@@ -171,9 +178,6 @@ void le::Scene::AddLightManager( le::LightManager* LightManager )
 
 	LightManager->SetScene( this );
 	this->LightManager = LightManager;
-
-	if ( System::Configuration.DynamicLights )
-		Ptr_GeometryRender = &Scene::GeometryRender_GBuffer;
 }
 
 //-------------------------------------------------------------------------//
@@ -186,7 +190,6 @@ void le::Scene::RemoveLightManager( le::LightManager* LightManager )
 
 	LightManager->SetScene( NULL );
 	this->LightManager = NULL;
-	Ptr_GeometryRender = &Scene::GeometryRender;
 }
 
 //-------------------------------------------------------------------------//
@@ -228,29 +231,32 @@ void le::Scene::RemoveAllCameras()
 
 void le::Scene::Render()
 {
+	bool IsVisiblePointLight = false, IsVisibleSpotLight = false;
+
 	if ( ActiveCamera )
 	{
 		ActiveCamera->UpdateViewMatrix();
 		PVMatrix = *ProjectionMatrix * ( *ViewMatrix );
-	}
 
-	// ****************************
-	// Проверка видимости геометрии
+		// ****************************
+		// Проверка видимости геометрии
 
-	if ( ActiveCamera && Level )
-	{
-		//TODO: [zombiHello] Добавить учет того, что камере может быть в радиусе действия света
-
-		Level->CalculateVisablePlanes( *ActiveCamera );
-		Level->CalculateVisableModels( Models );
-		Level->CalculateVisableLights( *PointLights );
-		Level->CalculateVisableLights( *SpotLights );
+		if ( Level )
+		{
+			Level->CalculateVisablePlanes( *ActiveCamera );
+			Level->CalculateVisableModels( Models, *Frustum );
+			IsVisiblePointLight = Level->CalculateVisableLights( *PointLights, *Frustum );
+			IsVisibleSpotLight = Level->CalculateVisableLights( *SpotLights, *Frustum );
+		}
 	}
 
 	// ****************************
 	// Рендер сцены
 
-	( this->*Ptr_GeometryRender )( );
+	if ( IsVisiblePointLight || IsVisibleSpotLight || !DirectionalLights->empty() )
+		GeometryRender_GBuffer();
+	else if ( !IsVisiblePointLight && !IsVisibleSpotLight && DirectionalLights->empty() )
+		GeometryRender();
 
 	Shader::bind( NULL );
 	VAO::UnbindVAO();
@@ -268,7 +274,6 @@ void le::Scene::Clear()
 	Level->SetScene( NULL );
 	LightManager->SetScene( NULL );
 
-	Ptr_GeometryRender = &Scene::GeometryRender;
 	PositionCamera = NULL;
 	ViewMatrix = NULL;
 	ProjectionMatrix = NULL;
@@ -476,13 +481,13 @@ void le::Scene::GeometryRender_GBuffer()
 	// Рендер анимируемых моделей
 
 	GBuffer.Bind( GBuffer::RenderBuffers );
-	
-	if ( AnimationModelsRender != NULL && !RenderBuffer_AnimationModel.empty() )
+
+	if ( AnimationModelsRender_GBuffer != NULL && !RenderBuffer_AnimationModel.empty() )
 	{
 		vector<le::Skeleton::Bone>* Bones;
 
-		Shader::bind( AnimationModelsRender );
-		AnimationModelsRender->setUniform( "PVMatrix", PVMatrix );
+		Shader::bind( AnimationModelsRender_GBuffer );
+		AnimationModelsRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( auto ItAnimationModel = RenderBuffer_AnimationModel.begin(); ItAnimationModel != RenderBuffer_AnimationModel.end(); ItAnimationModel++ )
 		{
@@ -496,10 +501,10 @@ void le::Scene::GeometryRender_GBuffer()
 				if ( !*InfoMesh->IsRender ) continue;
 
 				Bones = InfoMesh->Skeleton->GetAllBones();
-				AnimationModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+				AnimationModelsRender_GBuffer->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				for ( size_t IdBone = 0; IdBone < Bones->size(); IdBone++ )
-					AnimationModelsRender->setUniform( "Bones[" + to_string( IdBone ) + "]", ( *Bones )[ IdBone ].TransformMatrix );
+					AnimationModelsRender_GBuffer->setUniform( "Bones[" + to_string( IdBone ) + "]", ( *Bones )[ IdBone ].TransformMatrix );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -510,10 +515,10 @@ void le::Scene::GeometryRender_GBuffer()
 	// *****************************************
 	// Рендер статичных моделей (те которые не анимируются)
 
-	if ( StaticModelsRender != NULL && !RenderBuffer_StaticModel.empty() )
+	if ( StaticModelsRender_GBuffer != NULL && !RenderBuffer_StaticModel.empty() )
 	{
-		Shader::bind( StaticModelsRender );
-		StaticModelsRender->setUniform( "PVMatrix", PVMatrix );
+		Shader::bind( StaticModelsRender_GBuffer );
+		StaticModelsRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
 		{
@@ -526,7 +531,7 @@ void le::Scene::GeometryRender_GBuffer()
 
 				if ( !*InfoMesh->IsRender ) continue;
 
-				StaticModelsRender->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
+				StaticModelsRender_GBuffer->setUniform( "TransformMatrix", *InfoMesh->MatrixTransformation );
 
 				VAO::BindVAO( InfoMesh->VertexArray );
 				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
@@ -536,14 +541,14 @@ void le::Scene::GeometryRender_GBuffer()
 
 	// ***************************************** //
 	// Рендер брашей уровня
-	
+
 	glCullFace( GL_FRONT );
 
-	if ( LevelRender != NULL && RenderBuffer_Level != NULL )
+	if ( LevelRender_GBuffer != NULL && RenderBuffer_Level != NULL )
 	{
-		Shader::bind( LevelRender );
+		Shader::bind( LevelRender_GBuffer );
 		VAO::BindVAO( Level->GetArrayBuffer() );
-		LevelRender->setUniform( "PVMatrix", PVMatrix );
+		LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
 		{
@@ -580,7 +585,7 @@ void le::Scene::CalculateLight()
 	GBuffer.Bind( GBuffer::RenderLight );
 
 	glDepthMask( GL_FALSE );
-	glDisable( GL_CULL_FACE );
+	glCullFace( GL_FRONT );
 
 	glBlendEquation( GL_FUNC_ADD );
 	glBlendFunc( GL_ONE, GL_ONE );
@@ -614,6 +619,7 @@ void le::Scene::CalculateLight()
 				glStencilFunc( GL_ALWAYS, 0, 0 );
 
 				TestRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
+				PointLightRender->setUniform( "PVTMatrix", PVMatrix * PointLight->LightSphere.GetTransformation() );
 				PointLightRender->setUniform( "light.Position", PointLight->Position );
 				PointLightRender->setUniform( "light.Color", PointLight->Color );
 				PointLightRender->setUniform( "light.Specular", PointLight->Specular );
@@ -627,8 +633,8 @@ void le::Scene::CalculateLight()
 				glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 				glDisable( GL_DEPTH_TEST );
 
-				glEnable( GL_BLEND );
-				LightQuad.RenderQuad();
+				glEnable( GL_BLEND );				
+				PointLight->LightSphere.RenderSphere();
 				glDisable( GL_BLEND );
 			}
 		}
@@ -658,6 +664,7 @@ void le::Scene::CalculateLight()
 				glStencilFunc( GL_ALWAYS, 0, 0 );
 
 				TestRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
+				SpotLightRender->setUniform( "PVTMatrix", PVMatrix * SpotLight->LightCone.GetTransformation() );
 				SpotLightRender->setUniform( "light.LightMatrix", SpotLight->LightTransforms[ 0 ] );
 				SpotLightRender->setUniform( "light.Position", SpotLight->Position );
 				SpotLightRender->setUniform( "light.Intensivity", SpotLight->Intensivity );
@@ -675,7 +682,7 @@ void le::Scene::CalculateLight()
 				glDisable( GL_DEPTH_TEST );
 
 				glEnable( GL_BLEND );
-				LightQuad.RenderQuad();
+				SpotLight->LightCone.RenderCone();
 				glDisable( GL_BLEND );
 			}
 		}

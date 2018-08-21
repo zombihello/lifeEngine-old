@@ -43,7 +43,6 @@ namespace le
 		//////////////////////////////////////////////////////////////////////
 		GraphicsSettings();
 
-		bool				DynamicLights;				///< Использовать ли динамический свет
 		QualityShadows		QualityShadows;				///< Качество теней
 	};
 

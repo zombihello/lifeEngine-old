@@ -7,7 +7,6 @@ le::GraphicsSettings le::ShaderManager::GraphicsSettings = le::GraphicsSettings(
 //-------------------------------------------------------------------------//
 
 le::GraphicsSettings::GraphicsSettings() :
-	DynamicLights( true ),
 	QualityShadows( le::QualityShadows::High )
 {}
 
@@ -17,38 +16,9 @@ void le::ShaderManager::LoadShaders()
 {
 	//TODO: [zombiHello] Сделать убершейдер для этих целей
 
-	string LevelRender_VertexShader;
-	string LevelRender_FragmentShader;
-	string AnimationModels_VertexShader;
-	string AnimationModels_FragmentShader;
-	string StaticModels_VertexShader;
-	string StaticModels_FragmentShader;
 	string PointLight_FragmentShader;
 	string SpotLight_FragmentShader;
 	string DirectionalLight_FragmentShader;
-
-	// ******************************************
-	// Определяем путь к шейдеру рендера сцены
-	// в засимости включен/выключен дин. свет
-
-	if ( GraphicsSettings.DynamicLights )
-	{
-		LevelRender_VertexShader = "../shaders/geometry/LevelRender_GBuffer.vs";
-		LevelRender_FragmentShader = "../shaders/geometry/LevelRender_GBuffer.fs";
-		AnimationModels_VertexShader = "../shaders/geometry/AnimationModelsRender_GBuffer.vs";
-		AnimationModels_FragmentShader = "../shaders/geometry/AnimationModelsRender_GBuffer.fs";
-		StaticModels_VertexShader = "../shaders/geometry/StaticModelsRender_GBuffer.vs";
-		StaticModels_FragmentShader = "../shaders/geometry/StaticModelsRender_GBuffer.fs";
-	}
-	else
-	{
-		LevelRender_VertexShader = "../shaders/geometry/LevelRender.vs";
-		LevelRender_FragmentShader = "../shaders/geometry/LevelRender.fs";
-		AnimationModels_VertexShader = "../shaders/geometry/AnimationModelsRender.vs";
-		AnimationModels_FragmentShader = "../shaders/geometry/AnimationModelsRender.fs";
-		StaticModels_VertexShader = "../shaders/geometry/StaticModelsRender.vs";
-		StaticModels_FragmentShader = "../shaders/geometry/StaticModelsRender.fs";
-	}
 
 	// ******************************************
 	// Определяем путь к шейдерам освещения в 
@@ -85,10 +55,15 @@ void le::ShaderManager::LoadShaders()
 	// ********************************
 	// Загружаем шейдера
 
+	ResourcesManager::LoadShader( "AnimationModels", "../shaders/geometry/AnimationModelsRender.vs", "../shaders/geometry/AnimationModelsRender.fs" );
+	ResourcesManager::LoadShader( "StaticModels", "../shaders/geometry/StaticModelsRender.vs", "../shaders/geometry/StaticModelsRender.fs" );
+	ResourcesManager::LoadShader( "Brushes", "../shaders/geometry/LevelRender.vs", "../shaders/geometry/LevelRender.fs" );
+
+	ResourcesManager::LoadShader( "AnimationModels_GBuffer", "../shaders/geometry/AnimationModelsRender_GBuffer.vs", "../shaders/geometry/AnimationModelsRender_GBuffer.fs" );
+	ResourcesManager::LoadShader( "StaticModels_GBuffer", "../shaders/geometry/StaticModelsRender_GBuffer.vs", "../shaders/geometry/StaticModelsRender_GBuffer.fs" );
+	ResourcesManager::LoadShader( "Brushes_GBuffer", "../shaders/geometry/LevelRender_GBuffer.vs", "../shaders/geometry/LevelRender_GBuffer.fs" );
+
 	ResourcesManager::LoadShader( "ShadowMap", "../shaders/light/ShadowMapRender.vs", "../shaders/light/ShadowMapRender.fs" );
-	ResourcesManager::LoadShader( "AnimationModels", AnimationModels_VertexShader, AnimationModels_FragmentShader );
-	ResourcesManager::LoadShader( "StaticModels", StaticModels_VertexShader, StaticModels_FragmentShader );
-	ResourcesManager::LoadShader( "Brushes", LevelRender_VertexShader, LevelRender_FragmentShader );
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );
 	ResourcesManager::LoadShader( "PointLight", "../shaders/light/PointLightRender.vs", PointLight_FragmentShader );
 	ResourcesManager::LoadShader( "DirectionalLight", "../shaders/light/DirectionalLightRender.vs", DirectionalLight_FragmentShader );
@@ -103,6 +78,9 @@ void le::ShaderManager::DeleteShaders()
 	ResourcesManager::DeleteShader( "AnimationModels" );
 	ResourcesManager::DeleteShader( "StaticModels" );
 	ResourcesManager::DeleteShader( "Brushes" );
+	ResourcesManager::DeleteShader( "AnimationModels_GBuffer" );
+	ResourcesManager::DeleteShader( "StaticModels_GBuffer" );
+	ResourcesManager::DeleteShader( "Brushes_GBuffer" );
 	ResourcesManager::DeleteShader( "TestRender" );
 	ResourcesManager::DeleteShader( "PointLight" );
 	ResourcesManager::DeleteShader( "DirectionalLight" );

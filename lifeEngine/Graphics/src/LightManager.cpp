@@ -61,6 +61,8 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			for ( int Face = 0; Face < 6; Face++ )
 			{
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
+				ShadowMapRender->setUniform( "Transformation", glm::mat4() );
+
 				glViewport( OffsetX * Configuration::ShadowMapSize, OffsetY * Configuration::ShadowMapSize, Configuration::ShadowMapSize, Configuration::ShadowMapSize );
 
 				// *****************************************
@@ -86,7 +88,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 						if ( !*InfoMesh->IsRender ) continue;
 
-						ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] * *InfoMesh->MatrixTransformation );
+						ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 						VAO::BindVAO( InfoMesh->VertexArray );
 						glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 					}
@@ -101,7 +103,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 						if ( !*InfoMesh->IsRender ) continue;
 
-						ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] * *InfoMesh->MatrixTransformation );
+						ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 						VAO::BindVAO( InfoMesh->VertexArray );
 						glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 					}
@@ -133,6 +135,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
+			ShadowMapRender->setUniform( "Transformation", glm::mat4() );
 
 			// *****************************************
 			// Рендерим плоскости уровня
@@ -157,7 +160,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 					if ( !InfoMesh->IsRender ) continue;
 
-					ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 					VAO::BindVAO( InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
@@ -172,7 +175,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 					if ( !*InfoMesh->IsRender ) continue;
 
-					ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 					VAO::BindVAO( InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
@@ -190,6 +193,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
+			ShadowMapRender->setUniform( "Transformation", glm::mat4() );
 
 			// *****************************************
 			// Рендерим плоскости уровня
@@ -214,7 +218,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 					if ( !InfoMesh->IsRender ) continue;
 
-					ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 					VAO::BindVAO( InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
@@ -229,7 +233,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 					if ( !*InfoMesh->IsRender ) continue;
 
-					ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] * *InfoMesh->MatrixTransformation );
+					ShadowMapRender->setUniform( "Transformation", *InfoMesh->MatrixTransformation );
 					VAO::BindVAO( InfoMesh->VertexArray );
 					glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
 				}
