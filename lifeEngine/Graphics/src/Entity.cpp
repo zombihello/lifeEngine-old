@@ -2,34 +2,60 @@
 
 //-------------------------------------------------------------------------//
 
-le::Entity::Entity( TiXmlElement& ElementEntity )
+le::Entity::Entity( const string& EntityData )
 {
-	// ***************************************** //
-	// Загружаем название энтити
+	bool		IsBracket = false;
+	bool		IsName = false;
+	bool		IsValue = false;
 
-	NameEntity = ElementEntity.Attribute( "Name" );
+	string		Name;
+	string		Temp;
 
-	// ***************************************** //
-	// Загружаем позицию энтити в мире
+	// *****************************************
+	// Парсим информацию о энтити
 
-	TiXmlElement* position;
-	position = ElementEntity.FirstChildElement( "Position" );
-
-	Position.x = NUMBER_TO_FLOAT( atof( position->Attribute( "X" ) ) );
-	Position.y = NUMBER_TO_FLOAT( atof( position->Attribute( "Y" ) ) );
-	Position.z = NUMBER_TO_FLOAT( atof( position->Attribute( "Z" ) ) );
-
-	// ***************************************** //
-	// Загружаем значения у энтити
-
-	TiXmlElement* Value;
-	Value = ElementEntity.FirstChildElement( "Value" );
-
-	while ( Value )
+	for ( size_t IdChar = 0; IdChar < EntityData.size(); IdChar++ )
 	{
-		Values[ Value->Attribute( "Name" ) ] = Value->Attribute( "Value" );
-		Value = Value->NextSiblingElement();
+		if ( EntityData[ IdChar ] == '\"' && !IsName && !IsValue && !IsBracket )
+		{
+			IsName = IsBracket = true;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && !IsValue && IsBracket )
+		{
+			Name = Temp;
+			IsBracket = false;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && !IsValue && !IsBracket )
+		{
+			IsBracket = IsValue = true;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && IsValue && IsBracket )
+		{
+			IsBracket = IsValue = IsName = false;
+
+			Values[ Name ] = Temp;
+			Temp.clear();
+
+			continue;
+		}
+
+		Temp += EntityData[ IdChar ];
 	}
+
+	// *****************************************
+	// Запоминаем название энтити и позицию, если она есть
+
+	NameEntity = GetValueString( "classname" );
+	vector<float> ArrayPosition = GetVelueVectorFloat( "origin" );
+
+	if ( ArrayPosition.size() >= 3 )
+		Position = glm::vec3( ArrayPosition[ 0 ], ArrayPosition[ 2 ], -ArrayPosition[ 1 ] );
 }
 
 //-------------------------------------------------------------------------//

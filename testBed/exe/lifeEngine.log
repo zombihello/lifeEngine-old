@@ -38,24 +38,24 @@ lifeEngine v3.0.0
 [Info] GBuffer Initialized
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
-[Info] Loading Cube Texture With Name [Skybox]
-[Info] Cube Texture With Name [Skybox] Loaded
-[Info] Loading Level [../maps/office.bsp]
+[Info] Loading Level [../maps/test.bsp]
 [Info] Loading Texture [../textures/common/caulk.jpg] With Name [textures/common/caulk]
 [Error] Texture [../textures/common/caulk.jpg] Not Found
-[Info] Loading Texture [../textures/dev/dev_measurewall01a1.jpg] With Name [textures/dev/dev_measurewall01a1]
-[Info] Texture With Name [textures/dev/dev_measurewall01a1] Loaded
 [Info] Loading Texture [../noshader] With Name [noshader]
 [Error] Texture [../noshader] Not Found
-[Info] Loading Texture [../textures/dev/small.jpg] With Name [textures/dev/small]
-[Info] Texture With Name [textures/dev/small] Loaded
-[Info] Loading Texture [../textures/common/areaportal.tga] With Name [textures/common/areaportal]
-[Info] Texture With Name [textures/common/areaportal] Loaded
-[Info] Loading Texture [../textures/common/hintskip] With Name [textures/common/hintskip]
-[Error] Texture [../textures/common/hintskip] Not Found
-[Info] Loading Texture [../textures/common/hint.tga] With Name [textures/common/hint]
-[Info] Texture With Name [textures/common/hint] Loaded
-[Info] Level [../maps/office.bsp] Loaded
+[Info] Loading Texture [../textures/dev/dev_128_gr_032x.jpg] With Name [textures/dev/dev_128_gr_032x]
+[Info] Texture With Name [textures/dev/dev_128_gr_032x] Loaded
+[Info] Loading Texture [../textures/dev/dev_128_or_032x.jpg] With Name [textures/dev/dev_128_or_032x]
+[Info] Texture With Name [textures/dev/dev_128_or_032x] Loaded
+[Info] Loading Texture [../textures/dev/dev_192_or_032x.jpg] With Name [textures/dev/dev_192_or_032x]
+[Info] Texture With Name [textures/dev/dev_192_or_032x] Loaded
+[Info] Loading Texture [../textures/dev/dev_measuregeneric09.jpg] With Name [textures/dev/dev_measuregeneric09]
+[Info] Texture With Name [textures/dev/dev_measuregeneric09] Loaded
+[Info] Loading Texture [../textures/dev/dev_128_gr_064x.jpg] With Name [textures/dev/dev_128_gr_064x]
+[Info] Texture With Name [textures/dev/dev_128_gr_064x] Loaded
+[Info] Loading Cube Texture With Name [Skybox]
+[Info] Cube Texture With Name [Skybox] Loaded
+[Info] Level [../maps/test.bsp] Loaded
 [Info] Loading Mesh [../models/leanna.lmd]
 [Info] Loading Texture [..\textures\leanna.tga] With Name [leanna.tga]
 [Info] Texture With Name [leanna.tga] Loaded
@@ -84,11 +84,12 @@ lifeEngine v3.0.0
 [Info] Created Point Light
 [Info] Cube Texture With Name [Skybox] Deleted
 [Info] Texture With Name [leanna.tga] Deleted
-[Info] Texture With Name [textures/common/areaportal] Deleted
-[Info] Texture With Name [textures/common/hint] Deleted
-[Info] Texture With Name [textures/dev/dev_measurewall01a1] Deleted
-[Info] Texture With Name [textures/dev/small] Deleted
-[Info] Mesh With Name [tt] Deleted
+[Info] Texture With Name [textures/dev/dev_128_gr_032x] Deleted
+[Info] Texture With Name [textures/dev/dev_128_gr_064x] Deleted
+[Info] Texture With Name [textures/dev/dev_128_or_032x] Deleted
+[Info] Texture With Name [textures/dev/dev_192_or_032x] Deleted
+[Info] Texture With Name [textures/dev/dev_measuregeneric09] Deleted
+[Info] Mesh With Name [] Deleted
 [Info] Shader With Name [AnimationModels] Deleted
 [Info] Shader With Name [AnimationModels_GBuffer] Deleted
 [Info] Shader With Name [Brushes] Deleted

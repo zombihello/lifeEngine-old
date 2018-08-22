@@ -18,7 +18,6 @@ le::Level::Level( System& System ) :
 {
 	Skybox = new le::Skybox();
 	Skybox->SetSizeSkybox( 500 );
-	Skybox->LoadSkybox( "../textures/skybox1.jpg" );
 }
 
 //-------------------------------------------------------------------------//
@@ -66,6 +65,7 @@ bool le::Level::LoadLevel( const string& Route )
 
 	BSPHeader				Header = { 0 };
 	BSPLump					Lumps[ MaxLumps ] = { 0 };
+	BSPEntities				BSPEntities;
 
 	vector<BSPVertex>		Array_Vertexes;
 	vector<BSPVertex>		VAO_Vertexes;
@@ -91,6 +91,8 @@ bool le::Level::LoadLevel( const string& Route )
 	// *************************************
 	// Вычисляем необходимые размеры массивов прд данные
 
+	BSPEntities.EntitiesData = new char[ Lumps[ Entities ].Length ];				// Выделяем память под информацию энтити-объектов
+
 	Array_Vertexes.resize( Lumps[ Vertices ].Length / sizeof( BSPVertex ) );		// Массив вершин
 	Array_Faces.resize( Lumps[ Faces ].Length / sizeof( BSPFace ) );				// Массив фейсов
 	Array_Indices.resize( Lumps[ Indices ].Length / sizeof( unsigned int ) );		// Массив индексов
@@ -100,6 +102,38 @@ bool le::Level::LoadLevel( const string& Route )
 	ArrayLeafs.resize( Lumps[ Leafs ].Length / sizeof( BSPLeaf ) );					// Массив листьев BSP дерева
 	ArrayLeafsFaces.resize( Lumps[ LeafFaces ].Length / sizeof( int ) );			// Массив индексов фейсов в листе BSP дерева
 	ArrayBSPPlanes.resize( Lumps[ Planes ].Length / sizeof( BSPPlane ) );			// Массив секущих плоскостей
+
+	// *************************************
+	// Считываем информацию энтити-объектов
+
+	File.seekg( Lumps[ Entities ].Offset );
+	File.read( ( char * ) &BSPEntities.EntitiesData[ 0 ], Lumps[ Entities ].Length );
+
+	// *************************************
+	// Парсим информацию о энтити объектах
+
+	bool		IsEntity = false;
+	int			IdStart_EntityData = 0;
+	int			IdFinish_EntityData = 0;
+	string		EntityData;
+
+	for ( int IdChar = 0; IdChar < Lumps[ Entities ].Length; IdChar++ )
+	{
+		if ( BSPEntities.EntitiesData[ IdChar ] == '{' && !IsEntity )
+		{
+			IsEntity = true;
+			IdStart_EntityData = IdChar + 1;
+		}
+		else if ( BSPEntities.EntitiesData[ IdChar ] == '}' && IsEntity )
+		{
+			IsEntity = false;
+			IdFinish_EntityData = IdChar - 1;
+		
+			EntityData.assign( &BSPEntities.EntitiesData[ 0 ] + IdStart_EntityData, &BSPEntities.EntitiesData[ 0 ] + IdFinish_EntityData );
+			Entity Entity( EntityData );
+			ArrayEntitys.push_back( Entity );
+		}
+	}
 
 	// *************************************
 	// Считываем вершины
@@ -316,6 +350,20 @@ bool le::Level::LoadLevel( const string& Route )
 	VAO::UnbindVAO();
 	VAO::UnbindBuffer( VAO::Vertex_Buffer );
 	VAO::UnbindBuffer( VAO::Index_Buffer );
+
+	// *****************************************
+	// Считываем данные окружающей среды
+
+	Entity* Entity_Worldspawn = GetEntity( "worldspawn" );
+
+	if ( Entity_Worldspawn )
+	{
+		string SkyBoxName = Entity_Worldspawn->GetValueString( "Skybox" );
+
+		if ( !SkyBoxName.empty() )
+			//TODO: [zombiHello] Данный путь временный, сделать возможность задать где храниться скайбокс + сделать свой формат хранения скайбокса
+			Skybox->LoadSkybox( "../textures/skybox/" + SkyBoxName + ".jpg" );
+	}
 
 	FacesDrawn.Resize( Array_Faces.size() );
 	Logger::Log( Logger::Info, "Level [" + Route + "] Loaded" );
@@ -704,6 +752,36 @@ bool le::BSPVertex::operator==( BSPVertex& Vertex )
 		Color[ 1 ] == Vertex.Color[ 1 ] &&
 		Color[ 2 ] == Vertex.Color[ 2 ] &&
 		Color[ 3 ] == Vertex.Color[ 3 ];
+}
+
+//-------------------------------------------------------------------------//
+
+le::BSPVisData::BSPVisData() :
+	NumOfClusters( 0 ),
+	BytesPerCluster( 0 ),
+	Bitsets( NULL )
+{}
+
+//-------------------------------------------------------------------------//
+
+le::BSPVisData::~BSPVisData()
+{
+	if ( Bitsets )
+		delete[] Bitsets;
+}
+
+//-------------------------------------------------------------------------//
+
+le::BSPEntities::BSPEntities() :
+	EntitiesData( NULL )
+{}
+
+//-------------------------------------------------------------------------//
+
+le::BSPEntities::~BSPEntities()
+{
+	if ( EntitiesData )
+		delete[] EntitiesData;
 }
 
 //-------------------------------------------------------------------------//
