@@ -6,8 +6,6 @@
 #include <Graphics\Model.h>
 #include "..\Level.h"
 
-#define FACE_POLYGON 1
-
 //-------------------------------------------------------------------------//
 
 le::Level::Level( System& System ) :
@@ -73,6 +71,7 @@ bool le::Level::LoadLevel( const string& Route )
 	vector<BSPTexture>		Array_Textures;
 	vector<BSPLightmap>		Array_Lightmaps;
 	vector<GLuint>			GLTextures;
+	vector<int>				Buffer_ArrayLeafsFaces;
 	vector<unsigned int>	Array_Indices;
 	vector<unsigned int>	VAO_Indices;
 
@@ -100,13 +99,14 @@ bool le::Level::LoadLevel( const string& Route )
 	Array_Lightmaps.resize( Lumps[ Lightmaps ].Length / sizeof( BSPLightmap ) );	// Массив карт освещения
 	ArrayNodes.resize( Lumps[ Nodes ].Length / sizeof( BSPNode ) );					// Массив веток BSP дерева
 	ArrayLeafs.resize( Lumps[ Leafs ].Length / sizeof( BSPLeaf ) );					// Массив листьев BSP дерева
-	ArrayLeafsFaces.resize( Lumps[ LeafFaces ].Length / sizeof( int ) );			// Массив индексов фейсов в листе BSP дерева
+	Buffer_ArrayLeafsFaces.resize( Lumps[ LeafFaces ].Length / sizeof( int ) );		// Массив индексов фейсов в листе BSP дерева
 	ArrayBSPPlanes.resize( Lumps[ Planes ].Length / sizeof( BSPPlane ) );			// Массив секущих плоскостей
+	ArrayModels.resize( Lumps[ Models ].Length / sizeof( BSPModel ) );				// Массив моделей (движущиеся браши)
 
 	// *************************************
 	// Считываем информацию энтити-объектов
 
-	File.seekg( Lumps[ Entities ].Offset );
+	File.seekg( Lumps[ Entities ].Offset, ios::beg );
 	File.read( ( char * ) &BSPEntities.EntitiesData[ 0 ], Lumps[ Entities ].Length );
 
 	// *************************************
@@ -119,6 +119,7 @@ bool le::Level::LoadLevel( const string& Route )
 
 	for ( int IdChar = 0; IdChar < Lumps[ Entities ].Length; IdChar++ )
 	{
+		cout << BSPEntities.EntitiesData[ IdChar ];
 		if ( BSPEntities.EntitiesData[ IdChar ] == '{' && !IsEntity )
 		{
 			IsEntity = true;
@@ -128,7 +129,7 @@ bool le::Level::LoadLevel( const string& Route )
 		{
 			IsEntity = false;
 			IdFinish_EntityData = IdChar - 1;
-		
+
 			EntityData.assign( &BSPEntities.EntitiesData[ 0 ] + IdStart_EntityData, &BSPEntities.EntitiesData[ 0 ] + IdFinish_EntityData );
 			Entity Entity( EntityData );
 			ArrayEntitys.push_back( Entity );
@@ -174,6 +175,26 @@ bool le::Level::LoadLevel( const string& Route )
 
 	File.seekg( Lumps[ Textures ].Offset, ios::beg );
 	File.read( ( char* ) &Array_Textures[ 0 ], Array_Textures.size() * sizeof( BSPTexture ) );
+
+	// *************************************
+	// Считываем информацию о моделях уровня 
+
+	File.seekg( Lumps[ Models ].Offset, ios::beg );
+
+	for ( size_t IdModel = 0; IdModel < ArrayModels.size(); IdModel++ )
+	{
+		File.read( ( char * ) &ArrayModels[ IdModel ], sizeof( BSPModel ) );
+		BSPModel* Model = &ArrayModels[ IdModel ];
+
+		int Temp = Model->Min.y;
+		Model->Min.y = Model->Min.z;
+		Model->Min.z = -Temp;
+
+		Temp = Model->Max.y;
+		Model->Max.y = Model->Max.z;
+		Model->Max.z = -Temp;
+	}
+
 
 	// *************************************
 	// Считываем карту освещения
@@ -226,7 +247,30 @@ bool le::Level::LoadLevel( const string& Route )
 	// Считываем информацию о ветках BSP дерева
 
 	File.seekg( Lumps[ LeafFaces ].Offset, ios::beg );
-	File.read( ( char* ) &ArrayLeafsFaces[ 0 ], ArrayLeafsFaces.size() * sizeof( int ) );
+	File.read( ( char* ) &Buffer_ArrayLeafsFaces[ 0 ], Buffer_ArrayLeafsFaces.size() * sizeof( int ) );
+
+	// *************************************
+	// Убираем индексы фейсов относящиеся к движ. части уровня
+
+	int		FaceStart = ArrayModels[ 0 ].StartFaceIndex;
+	int		FaceEnd = ArrayModels[ 0 ].StartFaceIndex + ArrayModels[ 0 ].NumOfFaces - 1;
+
+	for ( size_t IdLeaf = 0; IdLeaf < ArrayLeafs.size(); IdLeaf++ )
+	{
+		BSPLeaf* Leaf = &ArrayLeafs[ IdLeaf ];
+		int LeafFace = ArrayLeafsFaces.size();
+
+		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
+		{
+			int FaceIndex = Buffer_ArrayLeafsFaces[ Leaf->LeafFace + j ];
+
+			if ( FaceIndex >= FaceStart && FaceIndex <= FaceEnd )
+				ArrayLeafsFaces.push_back( FaceIndex );
+		}
+
+		Leaf->LeafFace = LeafFace;
+		Leaf->NumOfLeafFaces = ArrayLeafsFaces.size() - LeafFace;
+	}
 
 	// *************************************
 	// Считываем информацию о секущих плоскостях BSP дерева
@@ -297,32 +341,10 @@ bool le::Level::LoadLevel( const string& Route )
 		BSPFace*	Face = &Array_Faces[ IdFace ];
 		int			StartIndex = VAO_Indices.size();
 
-		// *****************************************
-		// Конвертируем вершины и индексы для VAO
-
-		for ( int IdIndex = Face->StartIndex, Count = 0; Count < Face->NumOfIndices; Count++, IdIndex++ )
-		{
-			BSPVertex* TempVertex = &Array_Vertexes[ Face->StartVertIndex + Array_Indices[ IdIndex ] ];
-
-			bool IsFind = false;
-			for ( size_t Id = 0; Id < VAO_Vertexes.size(); Id++ )
-				if ( *TempVertex == VAO_Vertexes[ Id ] )
-				{
-					VAO_Indices.push_back( Id );
-					IsFind = true;
-					break;
-				}
-
-			if ( !IsFind )
-			{
-				VAO_Indices.push_back( VAO_Vertexes.size() );
-				VAO_Vertexes.push_back( *TempVertex );
-			}
-		}
-
 		Plane->Type = Face->Type;
-		Plane->StartIndex = StartIndex;
-		Plane->NumberIndices = VAO_Indices.size() - StartIndex;
+		Plane->StartVertex = Face->StartVertIndex;
+		Plane->StartIndex = Face->StartIndex;
+		Plane->NumberIndices = Face->NumOfIndices;
 		Plane->Texture = GLTextures[ Face->TextureID ];
 
 		if ( Face->LightmapID >= 0 )
@@ -339,8 +361,8 @@ bool le::Level::LoadLevel( const string& Route )
 	ArrayBuffer = VAO::CreateVAO();
 	VAO::BindVAO( ArrayBuffer );
 
-	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, VAO_Vertexes, VAO::Static_Draw );
-	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, VAO_Indices, VAO::Static_Draw );
+	VertexBuffer = VAO::CreateBuffer( VAO::Vertex_Buffer, Array_Vertexes, VAO::Static_Draw );
+	IndexBuffer = VAO::CreateBuffer( VAO::Index_Buffer, Array_Indices, VAO::Static_Draw );
 
 	VAO::SetVertexAttribPointer( VERT_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, Position ) ) );
 	VAO::SetVertexAttribPointer( VERT_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof( le::BSPVertex ), ( void* ) ( offsetof( le::BSPVertex, Normal ) ) );
@@ -423,20 +445,25 @@ void le::Level::ClearLevel()
 void le::Level::CalculateVisablePlanes( Camera& Camera )
 {
 	VisablePlanes.clear();
+	VisableModels.clear();
 	FacesDrawn.ClearAll();
 
 	int LeafIndex = FindLeaf( Camera.GetPosition() );
 	CameraCluster = ArrayLeafs[ LeafIndex ].Cluster;
 	int FaceIndex = 0;
 
-	BSPLeaf* Leaf;
-	Plane* Plane;
+	BSPLeaf*	Leaf;
+	Plane*		Plane;
+	Frustum*	Frustum = &Camera.GetFrustum();
+
+	// *****************************************
+	// Считаем видимые плоскости статической геометрии
 
 	for ( size_t IdLeaf = 0; IdLeaf < ArrayLeafs.size(); IdLeaf++ )
 	{
 		Leaf = &ArrayLeafs[ IdLeaf ];
 
-		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Camera.GetFrustum().IsVisible( Leaf->Min, Leaf->Max ) )
+		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Frustum->IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
 		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
@@ -447,12 +474,37 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 			{
 				Plane = ArrayPlanes[ FaceIndex ];
 
-				if ( Plane->Type != FACE_POLYGON ) continue;
-
 				FacesDrawn.Set( FaceIndex );
 				VisablePlanes[ Plane->Texture ].push_back( Plane );
 			}
 		}
+	}
+
+	// *****************************************
+	// Считаем видимые плоскости динамической 
+	// геометрии (двери, лифты и т.д)
+
+	for ( size_t IdModel = 1; IdModel < ArrayModels.size(); IdModel++ )
+	{
+		BSPModel* Model = &ArrayModels[ IdModel ];
+
+		LeafIndex = FindLeaf( ( Model->Max + Model->Min ) / 2.f );
+		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+		int Cluster = Leaf->Cluster;
+
+		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum->IsVisible( Leaf->Min, Leaf->Max ) )
+			continue;
+
+		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+
+		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
+			if ( !FacesDrawn.On( IdFace ) )
+			{
+				Plane = ArrayPlanes[ IdFace ];
+
+				FacesDrawn.Set( IdFace );
+				VisablePlanes[ Plane->Texture ].push_back( Plane );
+			}
 	}
 }
 
@@ -470,6 +522,9 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 	BSPLeaf* Leaf;
 	Plane* Plane;
 
+	// *****************************************
+	// Считаем видимые плоскости статической геометрии
+
 	for ( size_t IdLeaf = 0; IdLeaf < ArrayLeafs.size(); IdLeaf++ )
 	{
 		Leaf = &ArrayLeafs[ IdLeaf ];
@@ -485,12 +540,37 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 			{
 				Plane = ArrayPlanes[ FaceIndex ];
 
-				if ( Plane->Type != FACE_POLYGON ) continue;
-
 				FacesDrawn.Set( FaceIndex );
 				VisablePlanes[ Plane->Texture ].push_back( Plane );
 			}
 		}
+	}
+
+	// *****************************************
+	// Считаем видимые плоскости динамической 
+	// геометрии (двери, лифты и т.д)
+
+	for ( size_t IdModel = 1; IdModel < ArrayModels.size(); IdModel++ )
+	{
+		BSPModel* Model = &ArrayModels[ IdModel ];
+
+		LeafIndex = FindLeaf( ( Model->Max + Model->Min ) / 2.f );
+		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
+		int Cluster = Leaf->Cluster;
+
+		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
+			continue;
+
+		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+
+		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
+			if ( !FacesDrawn.On( IdFace ) )
+			{
+				Plane = ArrayPlanes[ IdFace ];
+
+				FacesDrawn.Set( IdFace );
+				VisablePlanes[ Plane->Texture ].push_back( Plane );
+			}
 	}
 }
 
@@ -633,6 +713,13 @@ map<GLuint, vector<le::Plane*> >& le::Level::GetVisablePlanes()
 	return VisablePlanes;
 }
 
+
+//-------------------------------------------------------------------------//
+map<GLuint, vector<le::Plane*>>& le::Level::GetVisableModels()
+{
+	return VisableModels;
+}
+
 //-------------------------------------------------------------------------//
 
 vector<le::Entity>& le::Level::GetAllEntitys()
@@ -721,7 +808,7 @@ int le::Level::FindLeaf( const glm::vec3 & Position )
 			Index = Node.Back;
 	}
 
-	return ~Index;
+	return -Index - 1;
 }
 
 //-------------------------------------------------------------------------//

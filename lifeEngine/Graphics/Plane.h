@@ -29,6 +29,7 @@ namespace le
 
 	struct DLL_API Plane
 	{
+		int					StartVertex;	///< Начальная вершина
 		int					StartIndex;		///< Начальный индекс в буфере индексов
 		int					NumberIndices;	///< Количество индексов в плоскости
 		int					Type;			///< Тип плоскости

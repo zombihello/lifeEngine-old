@@ -74,7 +74,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 					for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 					{
 						Plane* Plane = It->second[ IdPlane ];
-						glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
 					}
 
 				// *****************************************
@@ -146,7 +146,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 				{
 					Plane* Plane = It->second[ IdPlane ];
-					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
 				}
 
 			// *****************************************
@@ -204,7 +204,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
 				{
 					Plane* Plane = It->second[ IdPlane ];
-					glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
 				}
 
 			// *****************************************
