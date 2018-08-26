@@ -51,6 +51,7 @@ namespace le
 	class Frustum;
 	class Level;
 	struct Plane;
+	struct InfoBSPPolygon;
 	class Skeleton;
 	class PointLight;
 	class DirectionalLight;
@@ -250,7 +251,8 @@ namespace le
 		vector<DirectionalLight>*			DirectionalLights;						///< Массив направленных источников света которые нах. на сцене
 
 		map<string, le::Camera*>			CamerasInScene;							///< Массив камер на сцене
-		map<GLuint, vector<Plane*> >*		RenderBuffer_Level;						///< Буффер рендера карты
+		vector<InfoBSPPolygon>*				RenderBuffer_Level;						///< Буффер рендера карты
+			
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel;			///< Буффер рендера анимируемых моделей
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel;				///< Буффер рендера статичных моделей (не анимируемых)	
 	};

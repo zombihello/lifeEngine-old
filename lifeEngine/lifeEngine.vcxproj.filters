@@ -22,6 +22,9 @@
     <Filter Include="Graphics\Level">
       <UniqueIdentifier>{71af3d95-ecbe-406f-810e-cd11f7b2e227}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Level\Entityes">
+      <UniqueIdentifier>{ba5a7951-a13c-41cc-b0a1-81aba9dd10d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\System.cpp">
@@ -108,9 +111,6 @@
     <ClCompile Include="Graphics\src\Level.cpp">
       <Filter>Graphics\Level</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Entity.cpp">
-      <Filter>Graphics\Level</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\src\Skybox.cpp">
       <Filter>Graphics\Level</Filter>
     </ClCompile>
@@ -119,6 +119,21 @@
     </ClCompile>
     <ClCompile Include="System\src\ShaderManager.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Func_Door.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\BSPInfo.cpp">
+      <Filter>Graphics\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\BaseEntity.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Worldspawn.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Info_Player_Start.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +225,6 @@
     <ClInclude Include="Graphics\Plane.h">
       <Filter>Graphics\Level</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Entity.h">
-      <Filter>Graphics\Level</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Skybox.h">
       <Filter>Graphics\Level</Filter>
     </ClInclude>
@@ -221,6 +233,21 @@
     </ClInclude>
     <ClInclude Include="System\ShaderManager.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Func_Door.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BSPInfo.h">
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BaseEntity.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Worldspawn.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Info_Player_Start.h">
+      <Filter>Graphics\Level\Entityes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

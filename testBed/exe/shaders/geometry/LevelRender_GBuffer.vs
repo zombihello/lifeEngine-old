@@ -16,13 +16,13 @@ out vec2 TexCoord_LightMap;
 
 //------------------------------------------
 
-uniform mat4 PVMatrix;
+uniform mat4 PVTMatrix;
 
 //------------------------------------------
 
 void main()
 {		
-	gl_Position = PVMatrix * vec4( in_Position, 1.0f );
+	gl_Position = PVTMatrix * vec4( in_Position, 1.0f );
 
 	Position = in_Position;
 	Normal = in_Normal;	

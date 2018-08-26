@@ -5,6 +5,7 @@
 #include <Graphics\Level.h>
 #include <Graphics\LightManager.h>
 #include <Graphics\Skybox.h>
+#include <Graphics\BSPInfo.h>
 #include "..\Scene.h"
 
 //-------------------------------------------------------------------------//
@@ -375,22 +376,32 @@ void le::Scene::GeometryRender()
 	{
 		Shader::bind( LevelRender );
 		VAO::BindVAO( Level->GetArrayBuffer() );
-		LevelRender->setUniform( "PVMatrix", PVMatrix );
 
-		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
+		for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_Level->size(); IdInfoPolygon++ )
 		{
+			InfoBSPPolygon*								Info = &RenderBuffer_Level->at( IdInfoPolygon );
+			map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
+			le::Plane*									Plane;
+
 			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, It->first );
-			le::Plane* Plane;
+			glBindTexture( GL_TEXTURE_2D, Info->Texture );
 
-			for ( size_t i = 0; i < It->second.size(); i++ )
+			for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 			{
-				Plane = It->second[ i ];
+				if ( ItPlanes->first )
+					LevelRender->setUniform( "PVTMatrix", PVMatrix * *ItPlanes->first );
+				else
+					LevelRender->setUniform( "PVTMatrix", PVMatrix );
 
-				glActiveTexture( GL_TEXTURE1 );
-				glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+				for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+				{
+					Plane = ItPlanes->second[ IdPolygon ];
 
-				glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					glActiveTexture( GL_TEXTURE1 );
+					glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+				}
 			}
 		}
 	}
@@ -402,17 +413,17 @@ void le::Scene::GeometryRender()
 
 	if ( AnimationModelsRender != NULL && !RenderBuffer_AnimationModel.empty() )
 	{
-		vector<le::Skeleton::Bone>* Bones;
+		vector<Skeleton::Bone>*						Bones;
 		Shader::bind( AnimationModelsRender );
 
 		for ( auto ItAnimationModel = RenderBuffer_AnimationModel.begin(); ItAnimationModel != RenderBuffer_AnimationModel.end(); ItAnimationModel++ )
 		{
-			vector<InfoMesh*>* GeometryBuffer = &ItAnimationModel->second;
+			vector<InfoMesh*>*						GeometryBuffer = &ItAnimationModel->second;
 			glBindTexture( GL_TEXTURE_2D, ItAnimationModel->first );
 
 			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
 			{
-				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
+				InfoMesh*							InfoMesh = GeometryBuffer->at( Id );
 
 				if ( !*InfoMesh->IsRender ) continue;
 
@@ -438,12 +449,12 @@ void le::Scene::GeometryRender()
 
 		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
 		{
-			vector<InfoMesh*>* GeometryBuffer = &IdStaticModel->second;
+			vector<InfoMesh*>*						GeometryBuffer = &IdStaticModel->second;
 			glBindTexture( GL_TEXTURE_2D, IdStaticModel->first );
 
 			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
 			{
-				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
+				InfoMesh*							InfoMesh = GeometryBuffer->at( Id );
 
 				if ( !*InfoMesh->IsRender ) continue;
 
@@ -484,19 +495,19 @@ void le::Scene::GeometryRender_GBuffer()
 
 	if ( AnimationModelsRender_GBuffer != NULL && !RenderBuffer_AnimationModel.empty() )
 	{
-		vector<le::Skeleton::Bone>* Bones;
+		vector<Skeleton::Bone>*					Bones;
 
 		Shader::bind( AnimationModelsRender_GBuffer );
 		AnimationModelsRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( auto ItAnimationModel = RenderBuffer_AnimationModel.begin(); ItAnimationModel != RenderBuffer_AnimationModel.end(); ItAnimationModel++ )
 		{
-			vector<InfoMesh*>* GeometryBuffer = &ItAnimationModel->second;
+			vector<InfoMesh*>*					GeometryBuffer = &ItAnimationModel->second;
 			glBindTexture( GL_TEXTURE_2D, ItAnimationModel->first );
 
 			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
 			{
-				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
+				InfoMesh*						InfoMesh = GeometryBuffer->at( Id );
 
 				if ( !*InfoMesh->IsRender ) continue;
 
@@ -522,12 +533,12 @@ void le::Scene::GeometryRender_GBuffer()
 
 		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
 		{
-			vector<InfoMesh*>* GeometryBuffer = &IdStaticModel->second;
+			vector<InfoMesh*>*				GeometryBuffer = &IdStaticModel->second;
 			glBindTexture( GL_TEXTURE_2D, IdStaticModel->first );
 
 			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
 			{
-				InfoMesh* InfoMesh = GeometryBuffer->at( Id );
+				InfoMesh*					InfoMesh = GeometryBuffer->at( Id );
 
 				if ( !*InfoMesh->IsRender ) continue;
 
@@ -548,23 +559,32 @@ void le::Scene::GeometryRender_GBuffer()
 	{
 		Shader::bind( LevelRender_GBuffer );
 		VAO::BindVAO( Level->GetArrayBuffer() );
-		LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
-		for ( auto It = RenderBuffer_Level->begin(); It != RenderBuffer_Level->end(); It++ )
+		for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_Level->size(); IdInfoPolygon++ )
 		{
+			InfoBSPPolygon*								Info = &RenderBuffer_Level->at( IdInfoPolygon );
+			map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
+			le::Plane*									Plane;
+
 			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, It->first );
-			le::Plane* Plane;
+			glBindTexture( GL_TEXTURE_2D, Info->Texture );
 
-			for ( size_t i = 0; i < It->second.size(); i++ )
+			for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 			{
-				Plane = It->second[ i ];
+				if ( ItPlanes->first )
+					LevelRender_GBuffer->setUniform( "PVTMatrix", PVMatrix * *ItPlanes->first );
+				else
+					LevelRender_GBuffer->setUniform( "PVTMatrix", PVMatrix );
 
-				glActiveTexture( GL_TEXTURE1 );
-				glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+				for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+				{
+					Plane = ItPlanes->second[ IdPolygon ];
 
-				glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
-				//glDrawRangeElements( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ) );
+					glActiveTexture( GL_TEXTURE1 );
+					glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+				}
 			}
 		}
 	}
@@ -634,7 +654,7 @@ void le::Scene::CalculateLight()
 				glStencilFunc( GL_NOTEQUAL, 0, 0xFF );
 				glDisable( GL_DEPTH_TEST );
 
-				glEnable( GL_BLEND );				
+				glEnable( GL_BLEND );
 				PointLight->LightSphere.RenderSphere();
 				glDisable( GL_BLEND );
 			}

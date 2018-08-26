@@ -34,36 +34,38 @@ public:
 		string Name;
 		vector<int> LightColor;
 		vector<float> Rotation;
-		vector<le::Entity>* LevelEntitys = &Level->GetAllEntitys();
+		vector<le::BaseEntity*>* LevelEntitys = &Level->GetAllEntitys();
 
-		for ( auto it = LevelEntitys->begin(); it != LevelEntitys->end(); it++ )
+		for ( size_t IdEntity = 0; IdEntity < LevelEntitys->size(); IdEntity++ )
 		{
-			if ( it->GetNameEntity() == "info_start_position" )
+			le::BaseEntity* Entity = LevelEntitys->at( IdEntity );
+
+			if ( Entity->NameEntity == "info_player_start" )
 			{
-				Position = it->GetPosition();
-				Cameras[ 0 ]->SetPosition( Position );
-				Cameras[ 1 ]->SetPosition( Position );
-			}
-			else if ( it->GetNameEntity() == "info_static_prop" )
-			{
-				string ModelName = it->GetValueString( "ModelName" );
-				Name = it->GetValueString( "Name" );
-				string AnimationName = it->GetValueString( "AnimationName" );
-				Rotation = it->GetVelueVectorFloat( "Rotation" );
-				Position = it->GetPosition();
-
-				le::Model* Model = new le::Model();
-				Model->LoadModel( Name, "../models/" + ModelName + ".lmd" );
-				Model->GetAnimationManager()->Play( AnimationName, true );
-				Model->SetPosition( Position );
-
-				if ( !Rotation.empty() )
-				Model->SetRotation( glm::vec3( Rotation[ 0 ], Rotation[ 1 ], Rotation[ 2 ] ) );
-
-				Scene->AddModel( Model );
-				Models.push_back( Model );
+				Cameras[ 0 ]->SetPosition( Entity->Position );
+				Cameras[ 1 ]->SetPosition( Entity->Position );
 			}
 		}
+
+		//	if ( it->GetNameEntity() == "info_static_prop" )
+		//	{
+		//		string ModelName = it->GetValueString( "ModelName" );
+		//		Name = it->GetValueString( "Name" );
+		//		string AnimationName = it->GetValueString( "AnimationName" );
+		//		Rotation = it->GetVelueVectorFloat( "Rotation" );
+		//		Position = it->GetPosition();
+
+		//		le::Model* Model = new le::Model();
+		//		Model->LoadModel( Name, "../models/" + ModelName + ".lmd" );
+		//		Model->GetAnimationManager()->Play( AnimationName, true );
+		//		Model->SetPosition( Position );
+
+		//		if ( !Rotation.empty() )
+		//		Model->SetRotation( glm::vec3( Rotation[ 0 ], Rotation[ 1 ], Rotation[ 2 ] ) );
+
+		//		Scene->AddModel( Model );
+		//		Models.push_back( Model );
+		//	}
 
 		LightManager.AddSpotLight( "spot", 300, 300, glm::vec3( 0, -90, 0 ), glm::vec3(), glm::vec4( 164.f, 126.f, 0, 255.f ), 2.f );
 		Spot = LightManager.GetSpotLight( "spot" );

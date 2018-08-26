@@ -6,6 +6,10 @@
 #include <Graphics\Model.h>
 #include "..\Level.h"
 
+#include <Graphics\Func_Door.h>
+#include <Graphics\Info_Player_Start.h>
+#include <Graphics\Worldspawn.h>
+
 //-------------------------------------------------------------------------//
 
 le::Level::Level( System& System ) :
@@ -66,14 +70,12 @@ bool le::Level::LoadLevel( const string& Route )
 	BSPEntities				BSPEntities;
 
 	vector<BSPVertex>		Array_Vertexes;
-	vector<BSPVertex>		VAO_Vertexes;
 	vector<BSPFace>			Array_Faces;
 	vector<BSPTexture>		Array_Textures;
 	vector<BSPLightmap>		Array_Lightmaps;
 	vector<GLuint>			GLTextures;
 	vector<int>				Buffer_ArrayLeafsFaces;
 	vector<unsigned int>	Array_Indices;
-	vector<unsigned int>	VAO_Indices;
 
 	// *************************************
 	// Загружаем заголовок и куски файла
@@ -108,33 +110,6 @@ bool le::Level::LoadLevel( const string& Route )
 
 	File.seekg( Lumps[ Entities ].Offset, ios::beg );
 	File.read( ( char * ) &BSPEntities.EntitiesData[ 0 ], Lumps[ Entities ].Length );
-
-	// *************************************
-	// Парсим информацию о энтити объектах
-
-	bool		IsEntity = false;
-	int			IdStart_EntityData = 0;
-	int			IdFinish_EntityData = 0;
-	string		EntityData;
-
-	for ( int IdChar = 0; IdChar < Lumps[ Entities ].Length; IdChar++ )
-	{
-		cout << BSPEntities.EntitiesData[ IdChar ];
-		if ( BSPEntities.EntitiesData[ IdChar ] == '{' && !IsEntity )
-		{
-			IsEntity = true;
-			IdStart_EntityData = IdChar + 1;
-		}
-		else if ( BSPEntities.EntitiesData[ IdChar ] == '}' && IsEntity )
-		{
-			IsEntity = false;
-			IdFinish_EntityData = IdChar - 1;
-
-			EntityData.assign( &BSPEntities.EntitiesData[ 0 ] + IdStart_EntityData, &BSPEntities.EntitiesData[ 0 ] + IdFinish_EntityData );
-			Entity Entity( EntityData );
-			ArrayEntitys.push_back( Entity );
-		}
-	}
 
 	// *************************************
 	// Считываем вершины
@@ -339,7 +314,6 @@ bool le::Level::LoadLevel( const string& Route )
 	{
 		Plane*		Plane = new le::Plane();
 		BSPFace*	Face = &Array_Faces[ IdFace ];
-		int			StartIndex = VAO_Indices.size();
 
 		Plane->Type = Face->Type;
 		Plane->StartVertex = Face->StartVertIndex;
@@ -353,6 +327,31 @@ bool le::Level::LoadLevel( const string& Route )
 			Plane->Lightmap = 0;
 
 		ArrayPlanes.push_back( Plane );
+	}
+
+	// *************************************
+	// Парсим информацию о энтити объектах
+
+	bool		IsEntity = false;
+	int			IdStart_EntityData = 0;
+	int			IdFinish_EntityData = 0;
+	string		EntityData;
+
+	for ( int IdChar = 0; IdChar < Lumps[ Entities ].Length; IdChar++ )
+	{
+		if ( BSPEntities.EntitiesData[ IdChar ] == '{' && !IsEntity )
+		{
+			IsEntity = true;
+			IdStart_EntityData = IdChar + 1;
+		}
+		else if ( BSPEntities.EntitiesData[ IdChar ] == '}' && IsEntity )
+		{
+			IsEntity = false;
+			IdFinish_EntityData = IdChar - 1;
+
+			EntityData.assign( &BSPEntities.EntitiesData[ 0 ] + IdStart_EntityData, &BSPEntities.EntitiesData[ 0 ] + IdFinish_EntityData );
+			ParseEntity( EntityData );
+		}
 	}
 
 	// *****************************************
@@ -376,11 +375,11 @@ bool le::Level::LoadLevel( const string& Route )
 	// *****************************************
 	// Считываем данные окружающей среды
 
-	Entity* Entity_Worldspawn = GetEntity( "worldspawn" );
+	BaseEntity* Entity_Worldspawn = GetEntity( "worldspawn" );
 
 	if ( Entity_Worldspawn )
 	{
-		string SkyBoxName = Entity_Worldspawn->GetValueString( "Skybox" );
+		string SkyBoxName = Entity_Worldspawn->ArrayString[ "Skybox" ];
 
 		if ( !SkyBoxName.empty() )
 			//TODO: [zombiHello] Данный путь временный, сделать возможность задать где храниться скайбокс + сделать свой формат хранения скайбокса
@@ -445,16 +444,16 @@ void le::Level::ClearLevel()
 void le::Level::CalculateVisablePlanes( Camera& Camera )
 {
 	VisablePlanes.clear();
-	VisableModels.clear();
 	FacesDrawn.ClearAll();
 
-	int LeafIndex = FindLeaf( Camera.GetPosition() );
-	CameraCluster = ArrayLeafs[ LeafIndex ].Cluster;
-	int FaceIndex = 0;
+	int									LeafIndex = FindLeaf( Camera.GetPosition() );
+	int									FaceIndex = 0;
+	CameraCluster						= ArrayLeafs[ LeafIndex ].Cluster;
 
-	BSPLeaf*	Leaf;
-	Plane*		Plane;
-	Frustum*	Frustum = &Camera.GetFrustum();
+	BSPLeaf*							Leaf;
+	Plane*								Plane;
+	Frustum*							Frustum = &Camera.GetFrustum();
+	map<GLuint, int>					ArrayTextures;
 
 	// *****************************************
 	// Считаем видимые плоскости статической геометрии
@@ -466,16 +465,26 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Frustum->IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
-		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
+		for ( int IdLeafFace = 0; IdLeafFace < Leaf->NumOfLeafFaces; IdLeafFace++ )
 		{
-			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + j ];
+			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + IdLeafFace ];
 
 			if ( !FacesDrawn.On( FaceIndex ) )
 			{
 				Plane = ArrayPlanes[ FaceIndex ];
-
 				FacesDrawn.Set( FaceIndex );
-				VisablePlanes[ Plane->Texture ].push_back( Plane );
+
+				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ NULL ].push_back( Plane );
+				else
+				{
+					InfoBSPPolygon			InfoRender;
+					InfoRender.Texture = Plane->Texture;
+					InfoRender.RenderPlanes[ NULL ].push_back( Plane );
+
+					VisablePlanes.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+				}
 			}
 		}
 	}
@@ -484,9 +493,9 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 	// Считаем видимые плоскости динамической 
 	// геометрии (двери, лифты и т.д)
 
-	for ( size_t IdModel = 1; IdModel < ArrayModels.size(); IdModel++ )
+	for ( auto ItModel = ArrayModelEntitys.begin(); ItModel != ArrayModelEntitys.end(); ItModel++ )
 	{
-		BSPModel* Model = &ArrayModels[ IdModel ];
+		BSPModel* Model = ItModel->first;
 
 		LeafIndex = FindLeaf( ( Model->Max + Model->Min ) / 2.f );
 		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
@@ -496,14 +505,25 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 			continue;
 
 		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+		ItModel->second->Update();
 
 		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
 			if ( !FacesDrawn.On( IdFace ) )
 			{
 				Plane = ArrayPlanes[ IdFace ];
-
 				FacesDrawn.Set( IdFace );
-				VisablePlanes[ Plane->Texture ].push_back( Plane );
+
+				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+				else
+				{
+					InfoBSPPolygon			InfoRender;
+					InfoRender.Texture = Plane->Texture;
+					InfoRender.RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+
+					VisablePlanes.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+				}
 			}
 	}
 }
@@ -515,12 +535,13 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 	VisablePlanes.clear();
 	FacesDrawn.ClearAll();
 
-	int LeafIndex = FindLeaf( Position );
+	int									LeafIndex = FindLeaf( Position );
+	int									FaceIndex = 0;
 	CameraCluster = ArrayLeafs[ LeafIndex ].Cluster;
-	int FaceIndex = 0;
 
-	BSPLeaf* Leaf;
-	Plane* Plane;
+	BSPLeaf*							Leaf;
+	Plane*								Plane;
+	map<GLuint, int>					ArrayTextures;
 
 	// *****************************************
 	// Считаем видимые плоскости статической геометрии
@@ -532,16 +553,26 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 		if ( !IsClusterVisible( CameraCluster, Leaf->Cluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
-		for ( int j = 0; j < Leaf->NumOfLeafFaces; j++ )
+		for ( int IdLeafFace = 0; IdLeafFace < Leaf->NumOfLeafFaces; IdLeafFace++ )
 		{
-			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + j ];
+			FaceIndex = ArrayLeafsFaces[ Leaf->LeafFace + IdLeafFace ];
 
 			if ( !FacesDrawn.On( FaceIndex ) )
 			{
 				Plane = ArrayPlanes[ FaceIndex ];
-
 				FacesDrawn.Set( FaceIndex );
-				VisablePlanes[ Plane->Texture ].push_back( Plane );
+
+				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ NULL ].push_back( Plane );
+				else
+				{
+					InfoBSPPolygon			InfoRender;
+					InfoRender.Texture = Plane->Texture;
+					InfoRender.RenderPlanes[ NULL ].push_back( Plane );
+
+					VisablePlanes.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+				}
 			}
 		}
 	}
@@ -550,9 +581,9 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 	// Считаем видимые плоскости динамической 
 	// геометрии (двери, лифты и т.д)
 
-	for ( size_t IdModel = 1; IdModel < ArrayModels.size(); IdModel++ )
+	for ( auto ItModel = ArrayModelEntitys.begin(); ItModel != ArrayModelEntitys.end(); ItModel++ )
 	{
-		BSPModel* Model = &ArrayModels[ IdModel ];
+		BSPModel* Model = ItModel->first;
 
 		LeafIndex = FindLeaf( ( Model->Max + Model->Min ) / 2.f );
 		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
@@ -562,14 +593,25 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 			continue;
 
 		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+		ItModel->second->Update();
 
 		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
 			if ( !FacesDrawn.On( IdFace ) )
 			{
 				Plane = ArrayPlanes[ IdFace ];
-
 				FacesDrawn.Set( IdFace );
-				VisablePlanes[ Plane->Texture ].push_back( Plane );
+
+				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+				else
+				{
+					InfoBSPPolygon			InfoRender;
+					InfoRender.Texture = Plane->Texture;
+					InfoRender.RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+
+					VisablePlanes.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+				}
 			}
 	}
 }
@@ -697,34 +739,111 @@ GLuint& le::Level::GetArrayBuffer()
 
 //-------------------------------------------------------------------------//
 
-le::Entity* le::Level::GetEntity( const string& NameEntity )
+le::BaseEntity* le::Level::GetEntity( const string& NameEntity )
 {
 	for ( size_t i = 0; i < ArrayEntitys.size(); i++ )
-		if ( ArrayEntitys[ i ].GetNameEntity() == NameEntity )
-			return &ArrayEntitys[ i ];
+		if ( ArrayEntitys[ i ]->NameEntity == NameEntity )
+			return ArrayEntitys[ i ];
 
 	return NULL;
 }
 
 //-------------------------------------------------------------------------//
 
-map<GLuint, vector<le::Plane*> >& le::Level::GetVisablePlanes()
+vector< le::InfoBSPPolygon >& le::Level::GetVisablePlanes()
 {
 	return VisablePlanes;
 }
 
-
 //-------------------------------------------------------------------------//
-map<GLuint, vector<le::Plane*>>& le::Level::GetVisableModels()
+
+map<string, map<string, string>>& le::Level::GetNoParseEntity()
 {
-	return VisableModels;
+	return NoParseEntity;
 }
 
 //-------------------------------------------------------------------------//
 
-vector<le::Entity>& le::Level::GetAllEntitys()
+vector<le::BaseEntity*>& le::Level::GetAllEntitys()
 {
 	return ArrayEntitys;
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::ParseEntity( const string& EntityData )
+{
+	bool		IsBracket = false;
+	bool		IsName = false;
+	bool		IsValue = false;
+
+	string					Name;
+	string					NameEntity;
+	string					Temp;
+	map<string, string>		Values;
+
+	// *****************************************
+	// Парсим информацию о энтити
+
+	for ( size_t IdChar = 0; IdChar < EntityData.size(); IdChar++ )
+	{
+		if ( EntityData[ IdChar ] == '\"' && !IsName && !IsValue && !IsBracket )
+		{
+			IsName = IsBracket = true;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && !IsValue && IsBracket )
+		{
+			Name = Temp;
+			IsBracket = false;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && !IsValue && !IsBracket )
+		{
+			IsBracket = IsValue = true;
+			Temp.clear();
+			continue;
+		}
+		else if ( EntityData[ IdChar ] == '\"' && IsName && IsValue && IsBracket )
+		{
+			IsBracket = IsValue = IsName = false;
+
+			Values[ Name ] = Temp;
+			Temp.clear();
+
+			continue;
+		}
+
+		Temp += EntityData[ IdChar ];
+	}
+
+	// *****************************************
+	// Создаем объект класса для этого энтити
+
+	if ( Values.find( "classname" ) == Values.end() )
+		return;
+
+	NameEntity = Values[ "classname" ];
+
+	if ( NameEntity == "func_door" )
+	{
+		string IdModel = Values[ "model" ];
+		BSPModel* Model;
+
+		if ( IdModel[ 0 ] == '*' ) IdModel.erase( 0, 1 );
+
+		Model = &ArrayModels[ atoi( IdModel.c_str() ) ];
+		ArrayModelEntitys[ Model ] = new Func_Door( Values, Model );
+		ArrayEntitys.push_back( ArrayModelEntitys[ Model ] );
+	}
+	else if ( NameEntity == "worldspawn" )
+		ArrayEntitys.push_back( new Worldspawn( Values ) );
+	else if ( NameEntity == "info_player_start" )
+		ArrayEntitys.push_back( new Info_Player_Start( Values ) );
+	else
+		NoParseEntity[ NameEntity ] = Values;
 }
 
 //-------------------------------------------------------------------------//
@@ -824,51 +943,6 @@ inline bool le::Level::IsClusterVisible( int CurrentCluster, int TestCluster )
 		return false;
 
 	return true;
-}
-
-//-------------------------------------------------------------------------//
-
-bool le::BSPVertex::operator==( BSPVertex& Vertex )
-{
-	return
-		Position == Vertex.Position &&
-		TextureCoord == Vertex.TextureCoord &&
-		LightmapCoord == Vertex.LightmapCoord &&
-		Normal == Vertex.Normal &&
-		Color[ 0 ] == Vertex.Color[ 0 ] &&
-		Color[ 1 ] == Vertex.Color[ 1 ] &&
-		Color[ 2 ] == Vertex.Color[ 2 ] &&
-		Color[ 3 ] == Vertex.Color[ 3 ];
-}
-
-//-------------------------------------------------------------------------//
-
-le::BSPVisData::BSPVisData() :
-	NumOfClusters( 0 ),
-	BytesPerCluster( 0 ),
-	Bitsets( NULL )
-{}
-
-//-------------------------------------------------------------------------//
-
-le::BSPVisData::~BSPVisData()
-{
-	if ( Bitsets )
-		delete[] Bitsets;
-}
-
-//-------------------------------------------------------------------------//
-
-le::BSPEntities::BSPEntities() :
-	EntitiesData( NULL )
-{}
-
-//-------------------------------------------------------------------------//
-
-le::BSPEntities::~BSPEntities()
-{
-	if ( EntitiesData )
-		delete[] EntitiesData;
 }
 
 //-------------------------------------------------------------------------//

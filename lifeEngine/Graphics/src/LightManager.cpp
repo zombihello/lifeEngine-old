@@ -2,6 +2,7 @@
 #include <Graphics\Level.h>
 #include <System\ResourcesManager.h>
 #include <System\VAO.h>
+#include <Graphics\BSPInfo.h>
 #include "..\LightManager.h"
 
 //-------------------------------------------------------------------------//
@@ -39,7 +40,7 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 	int									OffsetX = 0;
 	int									OffsetY = 0;
-	map<GLuint, vector<Plane*> >*		Brushes = &Level.GetVisablePlanes();
+	vector< InfoBSPPolygon >*			Brushes = &Level.GetVisablePlanes();
 
 	Shader::bind( ShadowMapRender );
 	ShadowMapRender->setUniform( "IsPointLight", true );
@@ -61,8 +62,6 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			for ( int Face = 0; Face < 6; Face++ )
 			{
 				ShadowMapRender->setUniform( "LightMatrices", PointLight->LightTransforms[ Face ] );
-				ShadowMapRender->setUniform( "Transformation", glm::mat4() );
-
 				glViewport( OffsetX * Configuration::ShadowMapSize, OffsetY * Configuration::ShadowMapSize, Configuration::ShadowMapSize, Configuration::ShadowMapSize );
 
 				// *****************************************
@@ -70,12 +69,34 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 
 				VAO::BindVAO( Level.GetArrayBuffer() );
 
-				for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
-					for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
+				for ( size_t IdInfoPolygon = 0; IdInfoPolygon < Brushes->size(); IdInfoPolygon++ )
+				{
+					InfoBSPPolygon*								Info = &Brushes->at( IdInfoPolygon );
+
+					glActiveTexture( GL_TEXTURE0 );
+					glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+					le::Plane*									Plane;
+					map<glm::mat4*, vector<le::Plane*> >*		Planes = &Info->RenderPlanes;
+
+					for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 					{
-						Plane* Plane = It->second[ IdPlane ];
-						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+						if ( ItPlanes->first )
+							ShadowMapRender->setUniform( "Transformation", *ItPlanes->first );
+						else
+							ShadowMapRender->setUniform( "Transformation", glm::mat4() );
+
+						for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+						{
+							Plane = ItPlanes->second[ IdPolygon ];
+
+							glActiveTexture( GL_TEXTURE1 );
+							glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+							glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+						}
 					}
+				}
 
 				// *****************************************
 				// Рендерим анимируемые модели
@@ -135,19 +156,40 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", SpotLight->LightTransforms[ 0 ] );
-			ShadowMapRender->setUniform( "Transformation", glm::mat4() );
 
 			// *****************************************
 			// Рендерим плоскости уровня
 
 			VAO::BindVAO( Level.GetArrayBuffer() );
 
-			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
-				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
+			for ( size_t IdInfoPolygon = 0; IdInfoPolygon < Brushes->size(); IdInfoPolygon++ )
+			{
+				InfoBSPPolygon*								Info = &Brushes->at( IdInfoPolygon );
+
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+				le::Plane*									Plane;
+				map<glm::mat4*, vector<le::Plane*> >*		Planes = &Info->RenderPlanes;
+
+				for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 				{
-					Plane* Plane = It->second[ IdPlane ];
-					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					if ( ItPlanes->first )
+						ShadowMapRender->setUniform( "Transformation", *ItPlanes->first );
+					else
+						ShadowMapRender->setUniform( "Transformation", glm::mat4() );
+
+					for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+					{
+						Plane = ItPlanes->second[ IdPolygon ];
+
+						glActiveTexture( GL_TEXTURE1 );
+						glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					}
 				}
+			}
 
 			// *****************************************
 			// Рендерим анимируемые модели
@@ -193,19 +235,40 @@ void le::LightManager::BuildShadowMaps( Level& Level, map<GLuint, vector<le::Sce
 			glClear( GL_DEPTH_BUFFER_BIT );
 
 			ShadowMapRender->setUniform( "LightMatrices", DirectionalLight->LightTransforms[ 0 ] );
-			ShadowMapRender->setUniform( "Transformation", glm::mat4() );
 
 			// *****************************************
 			// Рендерим плоскости уровня
 
 			VAO::BindVAO( Level.GetArrayBuffer() );
 
-			for ( auto It = Brushes->begin(); It != Brushes->end(); It++ )
-				for ( size_t IdPlane = 0; IdPlane < It->second.size(); IdPlane++ )
+			for ( size_t IdInfoPolygon = 0; IdInfoPolygon < Brushes->size(); IdInfoPolygon++ )
+			{
+				InfoBSPPolygon*								Info = &Brushes->at( IdInfoPolygon );
+
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+				le::Plane*									Plane;
+				map<glm::mat4*, vector<le::Plane*> >*		Planes = &Info->RenderPlanes;
+
+				for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 				{
-					Plane* Plane = It->second[ IdPlane ];
-					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					if ( ItPlanes->first )
+						ShadowMapRender->setUniform( "Transformation", *ItPlanes->first );
+					else
+						ShadowMapRender->setUniform( "Transformation", glm::mat4() );
+
+					for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+					{
+						Plane = ItPlanes->second[ IdPolygon ];
+
+						glActiveTexture( GL_TEXTURE1 );
+						glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					}
 				}
+			}
 
 			// *****************************************
 			// Рендерим анимируемые модели
