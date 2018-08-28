@@ -1,17 +1,17 @@
 #include <System\System.h>
 #include <System\ResourcesManager.h>
-#include <Graphics\Mesh.h>
-#include <Graphics\Model.h>
+#include <Graphics\Models\Mesh.h>
+#include <Graphics\Models\Model.h>
 #include <Graphics\Scene.h>
 #include <Graphics\Camera.h>
-#include <Graphics\Level.h>
-#include <Graphics\LightManager.h>
+#include <Graphics\Level\Level.h>
+#include <Graphics\Light\LightManager.h>
 #include <System\Logger.h>
 
 class Game : public le::BasicApplication
 {
 public:
-	Game( le::System& System, const string& NameMap ) : le::BasicApplication( System )
+	Game( le::System& System ) : le::BasicApplication( System )
 	{
 		le::ResourcesManager::SetErrorTexture( "../textures/Error.png" );
 
@@ -27,7 +27,7 @@ public:
 		Cameras.push_back( ActiveCamera );
 
 		Level = new le::Level( System );
-		Level->LoadLevel( "../maps/" + NameMap + ".bsp" );
+		Level->LoadLevel( "../maps/testbed_c0a0.bsp" );
 		Level->AddToScene( *Scene );
 
 		glm::vec3 Position, LightRotation;
@@ -40,7 +40,7 @@ public:
 		{
 			le::BaseEntity* Entity = LevelEntitys->at( IdEntity );
 
-			if ( Entity->NameEntity == "info_player_start" )
+			if ( Entity->ClassName == "info_player_start" )
 			{
 				Cameras[ 0 ]->SetPosition( Entity->Position );
 				Cameras[ 1 ]->SetPosition( Entity->Position );
@@ -199,44 +199,10 @@ public:
 
 int main( int argc, char** argv )
 {
-	int IndexMap;
-	string NameMap;
-
-	cout << "------------\n";
-	cout << "     Select Map\n";
-	cout << "> 1. Office\n";
-	cout << "> 2. Destroy Home\n";
-	cout << "> 3. Other..\n";
-	cout << "------------\n";
-
-	cout << "> Select: ";
-	cin >> IndexMap;
-
-	switch ( IndexMap )
-	{
-	case 1:
-		NameMap = "office";
-		break;
-
-	case 2:
-		NameMap = "destroyHome";
-		break;
-
-	case 3:
-		cout << "> Enter Name Map: ";
-		cin >> NameMap;
-		cout << endl;
-		break;
-
-	default:
-		NameMap = "office";
-		break;
-	}
-
 	le::System System( argc, argv, "../config.cfg", "../" ENGINE ".log" );
 	System.WindowCreate( ENGINE " | " ENGINE_VERSION, Style::Default );
 
-	Game Game( System, NameMap );
+	Game Game( System );
 	System.MainLoop( Game );
 
 	return 0;

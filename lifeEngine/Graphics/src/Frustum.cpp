@@ -1,7 +1,7 @@
 ﻿#include <System\System.h>
-#include <Graphics\BoundingBox.h>
-#include <Graphics\BoundingSphere.h>
-#include "..\Frustum.h"
+#include <Graphics\Bounding Volume\BoundingBox.h>
+#include <Graphics\Bounding Volume\BoundingSphere.h>
+#include <Graphics\Frustum.h>
 
 //-------------------------------------------------------------------------//
 

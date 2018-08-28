@@ -6,55 +6,55 @@ default
 	longestCurve 0.000000
 }
 
-0 // SURFACE_META V: 27 I: 54 planar
+0 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 1 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 2 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 3 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 4 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 5 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 6 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-7 // SURFACE_META V: 6 I: 12 planar
+7 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	shader textures/dev/dev_064_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-8 // SURFACE_META V: 4 I: 6 planar
+8 // SURFACE_META V: 27 I: 54 planar
 {
 	shader textures/dev/dev_128_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
@@ -69,91 +69,91 @@ default
 10 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 11 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 12 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 13 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-14 // SURFACE_META V: 8 I: 18 planar
+14 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-15 // SURFACE_META V: 4 I: 6 planar
+15 // SURFACE_META V: 6 I: 12 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 16 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 17 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 18 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 19 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 20 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	shader textures/dev/dev_128_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 21 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
+	shader textures/dev/dev_128_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-22 // SURFACE_META V: 4 I: 6 planar
+22 // SURFACE_META V: 8 I: 18 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 23 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 24 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 25 // SURFACE_META V: 4 I: 6 planar
@@ -165,13 +165,13 @@ default
 26 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 27 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 28 // SURFACE_META V: 4 I: 6 planar
@@ -183,133 +183,133 @@ default
 29 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 30 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 31 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 32 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-33 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-34 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-35 // SURFACE_META V: 9 I: 18 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-36 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-37 // SURFACE_META V: 8 I: 18 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-38 // SURFACE_META V: 11 I: 24 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-39 // SURFACE_META V: 8 I: 18 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-40 // SURFACE_META V: 13 I: 27 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-41 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-42 // SURFACE_META V: 8 I: 15 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-43 // SURFACE_META V: 6 I: 12 planar
+33 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-44 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-45 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-46 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-47 // SURFACE_META V: 4 I: 6 planar
+34 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-48 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-49 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-50 // SURFACE_META V: 4 I: 6 planar
+35 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+36 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+37 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+38 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+39 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+40 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+41 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+42 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+43 // SURFACE_META V: 9 I: 18 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+44 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+45 // SURFACE_META V: 8 I: 18 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+46 // SURFACE_META V: 11 I: 24 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+47 // SURFACE_META V: 8 I: 18 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+48 // SURFACE_META V: 13 I: 27 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+49 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+50 // SURFACE_META V: 8 I: 15 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 51 // SURFACE_META V: 6 I: 12 planar
@@ -324,118 +324,118 @@ default
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-53 // SURFACE_META V: 5 I: 9 planar
+53 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 54 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-55 // SURFACE_META V: 7 I: 12 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-56 // SURFACE_META V: 7 I: 12 planar
+55 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+56 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 57 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 58 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-59 // SURFACE_META V: 5 I: 9 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-60 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-61 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-62 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-63 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
-}
-
-64 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-65 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-66 // SURFACE_META V: 4 I: 6 planar
+59 // SURFACE_META V: 6 I: 12 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-67 // SURFACE_META V: 4 I: 6 planar
+60 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+61 // SURFACE_META V: 5 I: 9 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-68 // SURFACE_META V: 4 I: 6 planar
+62 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+63 // SURFACE_META V: 7 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+64 // SURFACE_META V: 7 I: 12 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+65 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+66 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+67 // SURFACE_META V: 5 I: 9 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+68 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 69 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 70 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 71 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 72 // SURFACE_META V: 4 I: 6 planar
@@ -447,103 +447,103 @@ default
 73 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-74 // SURFACE_META V: 8 I: 24 planar
+74 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 75 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-76 // SURFACE_META V: 4 I: 6 planar
+76 // SURFACE_META V: 8 I: 24 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
 77 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-78 // SURFACE_META V: 8 I: 24 planar
+78 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 79 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-80 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
-}
-
-81 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-82 // SURFACE_META V: 8 I: 24 planar
+80 // SURFACE_META V: 8 I: 24 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-83 // SURFACE_META V: 4 I: 6 planar
+81 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-84 // SURFACE_META V: 4 I: 6 planar
+82 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_128_gr_032x
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-85 // SURFACE_META V: 6 I: 12 planar
+83 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+84 // SURFACE_META V: 8 I: 24 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+85 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+86 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_128_gr_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+87 // SURFACE_META V: 6 I: 12 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-86 // SURFACE_META V: 38 I: 117 planar
+88 // SURFACE_META V: 38 I: 117 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-87 // SURFACE_META V: 42 I: 126 planar
+89 // SURFACE_META V: 42 I: 126 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-88 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
-}
-
-89 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 90 // SURFACE_META V: 4 I: 6 planar
@@ -555,13 +555,13 @@ default
 91 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 92 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 93 // SURFACE_META V: 4 I: 6 planar
@@ -579,13 +579,13 @@ default
 95 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 96 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 97 // SURFACE_META V: 4 I: 6 planar
@@ -594,46 +594,46 @@ default
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-98 // SURFACE_META V: 6 I: 12 planar
+98 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-99 // SURFACE_META V: 9 I: 24 planar
+99 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-100 // SURFACE_META V: 32 I: 81 planar
+100 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+101 // SURFACE_META V: 9 I: 24 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+102 // SURFACE_META V: 32 I: 81 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-101 // SURFACE_META V: 29 I: 75 planar
+103 // SURFACE_META V: 29 I: 75 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-102 // SURFACE_META V: 29 I: 75 planar
+104 // SURFACE_META V: 29 I: 75 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-103 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
-}
-
-104 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 105 // SURFACE_META V: 4 I: 6 planar
@@ -645,13 +645,13 @@ default
 106 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 107 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 108 // SURFACE_META V: 4 I: 6 planar
@@ -669,73 +669,73 @@ default
 110 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 111 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-112 // SURFACE_META V: 38 I: 105 planar
+112 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 113 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+114 // SURFACE_META V: 38 I: 105 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+115 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-114 // SURFACE_META V: 5 I: 9 planar
+116 // SURFACE_META V: 5 I: 9 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-115 // SURFACE_META V: 6 I: 12 planar
+117 // SURFACE_META V: 6 I: 12 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-116 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-117 // SURFACE_META V: 37 I: 99 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 118 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-119 // SURFACE_META V: 4 I: 6 planar
+119 // SURFACE_META V: 37 I: 99 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 120 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 121 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 122 // SURFACE_META V: 4 I: 6 planar
@@ -753,25 +753,25 @@ default
 124 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 125 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 126 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 127 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 128 // SURFACE_META V: 4 I: 6 planar
@@ -789,13 +789,13 @@ default
 130 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 131 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 132 // SURFACE_META V: 4 I: 6 planar
@@ -804,88 +804,88 @@ default
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-133 // SURFACE_META V: 9 I: 24 planar
+133 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-134 // SURFACE_META V: 5 I: 9 planar
+134 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+135 // SURFACE_META V: 9 I: 24 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+136 // SURFACE_META V: 5 I: 9 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
-135 // SURFACE_META V: 3 I: 3 planar
+137 // SURFACE_META V: 3 I: 3 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-136 // SURFACE_META V: 11 I: 24 planar
+138 // SURFACE_META V: 11 I: 24 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-137 // SURFACE_META V: 11 I: 24 planar
+139 // SURFACE_META V: 11 I: 24 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
-}
-
-138 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-139 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 140 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }
 
 141 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-142 // SURFACE_META V: 64 I: 159 planar
+142 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-143 // SURFACE_META V: 5 I: 9 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-144 // SURFACE_META V: 60 I: 165 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
-}
-
-145 // SURFACE_META V: 4 I: 6 planar
+143 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-146 // SURFACE_META V: 4 I: 6 planar
+144 // SURFACE_META V: 64 I: 159 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+145 // SURFACE_META V: 5 I: 9 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+146 // SURFACE_META V: 61 I: 165 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
 147 // SURFACE_META V: 4 I: 6 planar
@@ -897,7 +897,7 @@ default
 148 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 149 // SURFACE_META V: 4 I: 6 planar
@@ -909,43 +909,43 @@ default
 150 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-151 // SURFACE_META V: 6 I: 12 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-152 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
-}
-
-153 // SURFACE_META V: 4 I: 6 planar
+151 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
-154 // SURFACE_META V: 4 I: 6 planar
+152 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-155 // SURFACE_META V: 4 I: 6 planar
+153 // SURFACE_META V: 6 I: 12 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+154 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
+155 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
 156 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 157 // SURFACE_META V: 4 I: 6 planar
@@ -957,61 +957,61 @@ default
 158 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 159 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 160 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 161 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 162 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 163 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 164 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 165 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
 166 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 167 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_or_032x
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 168 // SURFACE_META V: 4 I: 6 planar
@@ -1020,152 +1020,410 @@ default
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-169 // SURFACE_META V: 3 I: 3 planar
+169 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_192_gr_032x
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-170 // SURFACE_META V: 3 I: 3 planar
+170 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_192_gr_032x
-	lightmapAxis ( 0.000000 0.000000 1.000000 )
+	shader textures/dev/dev_192_or_032x
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
 171 // SURFACE_META V: 3 I: 3 planar
 {
 	shader textures/dev/dev_192_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-172 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_192_gr_032x
-	lightmapAxis ( 0.000000 0.000000 -1.000000 )
-}
-
-173 // SURFACE_META V: 8 I: 18 planar
+172 // SURFACE_META V: 3 I: 3 planar
 {
 	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-174 // SURFACE_META V: 9 I: 21 planar
+173 // SURFACE_META V: 3 I: 3 planar
 {
 	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-175 // SURFACE_META V: 8 I: 18 planar
+174 // SURFACE_META V: 4 I: 6 planar
 {
 	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-176 // SURFACE_META V: 5 I: 9 planar
+175 // SURFACE_META V: 9 I: 21 planar
 {
 	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-177 // SURFACE_META V: 3 I: 3 planar
+176 // SURFACE_META V: 3 I: 3 planar
 {
 	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-178 // SURFACE_META V: 4 I: 6 planar
+177 // SURFACE_META V: 12 I: 30 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 21
-	castShadows 0
-	lightmapAxis ( 1.000000 0.000000 0.000000 )
+	shader textures/dev/dev_192_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+178 // SURFACE_META V: 3 I: 3 planar
+{
+	shader textures/dev/dev_192_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 179 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 21
-	castShadows 0
-	lightmapAxis ( 0.000000 1.000000 0.000000 )
+	shader textures/dev/dev_192_gr_032x
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 180 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 21
-	castShadows 0
+	shader textures/dev/dev_192_gr_032x
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
 181 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 21
-	castShadows 0
-	lightmapAxis ( 0.000000 -1.000000 0.000000 )
-}
-
-182 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
+	shader textures/dev/dev_064_or_032x
 	entity 21
 	castShadows 0
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
-183 // SURFACE_META V: 4 I: 6 planar
+182 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
+	shader textures/dev/dev_064_or_032x
 	entity 21
-	castShadows 0
-	lightmapAxis ( -1.000000 0.000000 0.000000 )
-}
-
-184 // SURFACE_META V: 4 I: 6 planar
-{
-	shader textures/dev/dev_128_gr_032x
-	entity 22
 	castShadows 0
 	lightmapAxis ( 1.000000 0.000000 0.000000 )
 }
 
-185 // SURFACE_META V: 4 I: 6 planar
+183 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 22
+	shader textures/dev/dev_064_or_032x
+	entity 21
 	castShadows 0
 	lightmapAxis ( 0.000000 1.000000 0.000000 )
 }
 
-186 // SURFACE_META V: 4 I: 6 planar
+184 // SURFACE_META V: 12 I: 30 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 22
+	shader textures/dev/dev_064_or_032x
+	entity 21
 	castShadows 0
 	lightmapAxis ( 0.000000 0.000000 1.000000 )
 }
 
-187 // SURFACE_META V: 4 I: 6 planar
+185 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 22
+	shader textures/dev/dev_064_or_032x
+	entity 21
 	castShadows 0
 	lightmapAxis ( 0.000000 -1.000000 0.000000 )
 }
 
+186 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+187 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
 188 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
-	entity 22
+	shader textures/dev/dev_064_or_032x
+	entity 21
 	castShadows 0
 	lightmapAxis ( 0.000000 0.000000 -1.000000 )
 }
 
 189 // SURFACE_META V: 4 I: 6 planar
 {
-	shader textures/dev/dev_128_gr_032x
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+190 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+191 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+192 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+193 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+194 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+195 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+196 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+197 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+198 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 21
+	castShadows 0
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+199 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
 	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+200 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+201 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+202 // SURFACE_META V: 12 I: 30 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+203 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+204 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+205 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+206 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+207 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+208 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+209 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+210 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+211 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+212 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+213 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+214 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+215 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+216 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_032x
+	entity 22
+	castShadows 0
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+217 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_door2_or
+	entity 23
+	castShadows 0
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+218 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_door2_or
+	entity 23
+	castShadows 0
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+219 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_000x
+	entity 23
+	castShadows 0
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+220 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_000x
+	entity 23
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+
+221 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_000x
+	entity 23
+	castShadows 0
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+222 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/dev/dev_064_or_000x
+	entity 23
 	castShadows 0
 	lightmapAxis ( -1.000000 0.000000 0.000000 )
 }

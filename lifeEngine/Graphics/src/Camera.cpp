@@ -1,5 +1,5 @@
-﻿#include <Graphics\BoundingBox.h>
-#include "..\Camera.h"
+﻿#include <Graphics\Bounding Volume\BoundingBox.h>
+#include <Graphics\Camera.h>
 
 //-------------------------------------------------------------------------//
 

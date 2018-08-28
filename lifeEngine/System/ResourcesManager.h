@@ -38,7 +38,7 @@ using namespace sf;
 //////////////////
 // LIFEENGINE
 //////////////////
-#include <Graphics\Mesh.h>
+#include <Graphics\Models\Mesh.h>
 #include <System\Logger.h>
 
 namespace le

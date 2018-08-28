@@ -1,12 +1,12 @@
 ﻿#include <System\VAO.h>
 #include <System\ResourcesManager.h>
-#include <Graphics\Model.h>
+#include <Graphics\Models\Model.h>
 #include <Graphics\Camera.h>
-#include <Graphics\Level.h>
-#include <Graphics\LightManager.h>
-#include <Graphics\Skybox.h>
-#include <Graphics\BSPInfo.h>
-#include "..\Scene.h"
+#include <Graphics\Level\Level.h>
+#include <Graphics\Light\LightManager.h>
+#include <Graphics\Level\Skybox.h>
+#include <Graphics\Level\BSPInfo.h>
+#include <Graphics\Scene.h>
 
 //-------------------------------------------------------------------------//
 
@@ -559,6 +559,7 @@ void le::Scene::GeometryRender_GBuffer()
 	{
 		Shader::bind( LevelRender_GBuffer );
 		VAO::BindVAO( Level->GetArrayBuffer() );
+		LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_Level->size(); IdInfoPolygon++ )
 		{
@@ -571,10 +572,12 @@ void le::Scene::GeometryRender_GBuffer()
 
 			for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
 			{
+				// TODO: [zombiHello] Оптимизировать. Разделить плоскости на статичные и данмичные
+
 				if ( ItPlanes->first )
-					LevelRender_GBuffer->setUniform( "PVTMatrix", PVMatrix * *ItPlanes->first );
+					LevelRender_GBuffer->setUniform( "TransformMatrix", *ItPlanes->first );
 				else
-					LevelRender_GBuffer->setUniform( "PVTMatrix", PVMatrix );
+					LevelRender_GBuffer->setUniform( "TransformMatrix", glm::mat4() );
 
 				for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
 				{

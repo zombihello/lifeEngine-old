@@ -39,7 +39,7 @@ using namespace sf;
 ///////////////
 #include <System\System.h>
 #include <System\GBuffer.h>
-#include <Graphics\LightQuad.h>
+#include <Graphics\Light\LightQuad.h>
 
 namespace le
 {

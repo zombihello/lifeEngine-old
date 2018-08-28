@@ -39,20 +39,28 @@ lifeEngine v3.0.0
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
 [Info] Loading Level [../maps/testbed_c0a0.bsp]
-[Info] Loading Texture [../textures/dev/dev_128_gr_032x.jpg] With Name [textures/dev/dev_128_gr_032x]
-[Info] Texture With Name [textures/dev/dev_128_gr_032x] Loaded
-[Info] Loading Texture [../textures/common/caulk.tga] With Name [textures/common/caulk]
-[Info] Texture With Name [textures/common/caulk] Loaded
+[Info] Loading Texture [../textures/common/caulk.jpg] With Name [textures/common/caulk]
+[Error] Texture [../textures/common/caulk.jpg] Not Found
+[Info] Loading Texture [../textures/dev/dev_064_gr_032x.jpg] With Name [textures/dev/dev_064_gr_032x]
+[Info] Texture With Name [textures/dev/dev_064_gr_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_192_or_032x.jpg] With Name [textures/dev/dev_192_or_032x]
 [Info] Texture With Name [textures/dev/dev_192_or_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_128_or_032x.jpg] With Name [textures/dev/dev_128_or_032x]
 [Info] Texture With Name [textures/dev/dev_128_or_032x] Loaded
 [Info] Loading Texture [../noshader] With Name [noshader]
 [Error] Texture [../noshader] Not Found
+[Info] Loading Texture [../textures/dev/dev_128_gr_032x.jpg] With Name [textures/dev/dev_128_gr_032x]
+[Info] Texture With Name [textures/dev/dev_128_gr_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_192_gr_032x.jpg] With Name [textures/dev/dev_192_gr_032x]
 [Info] Texture With Name [textures/dev/dev_192_gr_032x] Loaded
 [Info] Loading Texture [../textures/common/clusterportal.tga] With Name [textures/common/clusterportal]
 [Info] Texture With Name [textures/common/clusterportal] Loaded
+[Info] Loading Texture [../textures/dev/dev_064_or_032x.jpg] With Name [textures/dev/dev_064_or_032x]
+[Info] Texture With Name [textures/dev/dev_064_or_032x] Loaded
+[Info] Loading Texture [../textures/dev/dev_064_or_000x.jpg] With Name [textures/dev/dev_064_or_000x]
+[Info] Texture With Name [textures/dev/dev_064_or_000x] Loaded
+[Info] Loading Texture [../textures/dev/dev_door2_or.jpg] With Name [textures/dev/dev_door2_or]
+[Info] Texture With Name [textures/dev/dev_door2_or] Loaded
 [Info] Loading Cube Texture With Name [Skybox]
 [Info] Cube Texture With Name [Skybox] Loaded
 [Info] Level [../maps/testbed_c0a0.bsp] Loaded
@@ -75,12 +83,15 @@ lifeEngine v3.0.0
   Specular: 45.000000 45.000000 45.000000 255.000000
 [Info] Created Point Light
 [Info] Cube Texture With Name [Skybox] Deleted
-[Info] Texture With Name [textures/common/caulk] Deleted
 [Info] Texture With Name [textures/common/clusterportal] Deleted
+[Info] Texture With Name [textures/dev/dev_064_gr_032x] Deleted
+[Info] Texture With Name [textures/dev/dev_064_or_000x] Deleted
+[Info] Texture With Name [textures/dev/dev_064_or_032x] Deleted
 [Info] Texture With Name [textures/dev/dev_128_gr_032x] Deleted
 [Info] Texture With Name [textures/dev/dev_128_or_032x] Deleted
 [Info] Texture With Name [textures/dev/dev_192_gr_032x] Deleted
 [Info] Texture With Name [textures/dev/dev_192_or_032x] Deleted
+[Info] Texture With Name [textures/dev/dev_door2_or] Deleted
 [Info] Shader With Name [AnimationModels] Deleted
 [Info] Shader With Name [AnimationModels_GBuffer] Deleted
 [Info] Shader With Name [Brushes] Deleted

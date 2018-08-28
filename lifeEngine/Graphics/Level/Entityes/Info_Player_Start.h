@@ -1,0 +1,43 @@
+﻿//////////////////////////////////////////////////////////////////////////
+// 
+//			*** lifeEngine (Двигатель Жизни) ***
+//					Copyright (C) 2017
+//
+// Связь со мной:		https://vk.com/zombihello
+// Репозиторий движка:  https://github.com/zombihello/lifeEngine
+// 
+//////////////////////////////////////////////////////////////////////////
+
+#ifndef INFO_PLAYER_START_H
+#define INFO_PLAYER_START_H
+
+#define COMPILING_LIBRARY
+#include <DllGlobal.h>
+
+//////////////////
+// LIFEENGINE
+//////////////////
+#include <Graphics\Level\Entityes\BaseEntity.h>
+
+namespace le
+{
+	//////////////////////////////////////////////////////////////////////
+	/// \brief Класс энтити-объекта хранящий информацию о старте игрока
+	//////////////////////////////////////////////////////////////////////
+	class DLL_API Info_Player_Start : public BaseEntity
+	{
+	public:
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Конструктор
+		///
+		/// \param[in] Values Переменные энтити-объекта
+		//////////////////////////////////////////////////////////////////////
+		Info_Player_Start( map<string, string>& Values );
+
+		int			Healtch;		///< Здоровье игрока
+		int			Armor;			///< Броня игрока
+	};	
+}
+
+#endif // INFO_PLAYER_START_H

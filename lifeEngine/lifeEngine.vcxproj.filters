@@ -54,45 +54,6 @@
     <ClCompile Include="Graphics\src\Frustum.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\BoundingBox.cpp">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\BoundingSphere.cpp">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\BaseLight.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\DirectionalLight.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\LightManager.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\PointLight.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\SpotLight.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Animation.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\AnimationManager.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Model.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\MeshVertex.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Mesh.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Skeleton.cpp">
-      <Filter>Graphics\Models</Filter>
-    </ClCompile>
     <ClCompile Include="System\src\GBuffer.cpp">
       <Filter>System\OpenGL</Filter>
     </ClCompile>
@@ -102,37 +63,82 @@
     <ClCompile Include="System\src\VAO.cpp">
       <Filter>System\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\LightQuad.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\LightCone.cpp">
-      <Filter>Graphics\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Level.cpp">
-      <Filter>Graphics\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\src\Skybox.cpp">
-      <Filter>Graphics\Level</Filter>
-    </ClCompile>
     <ClCompile Include="System\src\Bitset.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="System\src\ShaderManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Func_Door.cpp">
-      <Filter>Graphics\Level\Entityes</Filter>
+    <ClCompile Include="Graphics\src\Bounding Volume\BoundingBox.cpp">
+      <Filter>Graphics\Bounding Volume</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\BSPInfo.cpp">
+    <ClCompile Include="Graphics\src\Bounding Volume\BoundingSphere.cpp">
+      <Filter>Graphics\Bounding Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\BSPInfo.cpp">
       <Filter>Graphics\Level</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\BaseEntity.cpp">
+    <ClCompile Include="Graphics\src\Level\Level.cpp">
+      <Filter>Graphics\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Skybox.cpp">
+      <Filter>Graphics\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Entityes\BaseEntity.cpp">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Worldspawn.cpp">
+    <ClCompile Include="Graphics\src\Level\Entityes\EntityParser.cpp">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\src\Info_Player_Start.cpp">
+    <ClCompile Include="Graphics\src\Light\BaseLight.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\DirectionalLight.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\LightCone.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\LightManager.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\LightQuad.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\PointLight.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Light\SpotLight.cpp">
+      <Filter>Graphics\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\Animation.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\AnimationManager.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\Mesh.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\MeshVertex.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\Model.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Models\Skeleton.cpp">
+      <Filter>Graphics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Entityes\Func_Door.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Entityes\Info_Player_Start.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Entityes\Worldspawn.cpp">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\src\Level\Entityes\Func_Rotating.cpp">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -165,45 +171,6 @@
     <ClInclude Include="Graphics\Frustum.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\BoundingBox.h">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BoundingSphere.h">
-      <Filter>Graphics\Bounding Volume</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BaseLight.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\DirectionalLight.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\LightManager.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\PointLight.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\SpotLight.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Animation.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\AnimationManager.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Model.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\MeshVertex.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Mesh.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Skeleton.h">
-      <Filter>Graphics\Models</Filter>
-    </ClInclude>
     <ClInclude Include="System\GBuffer.h">
       <Filter>System\OpenGL</Filter>
     </ClInclude>
@@ -213,40 +180,85 @@
     <ClInclude Include="System\VAO.h">
       <Filter>System\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\LightQuad.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\LightCone.h">
-      <Filter>Graphics\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Level.h">
-      <Filter>Graphics\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Plane.h">
-      <Filter>Graphics\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Skybox.h">
-      <Filter>Graphics\Level</Filter>
-    </ClInclude>
     <ClInclude Include="System\Bitset.h">
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\ShaderManager.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Func_Door.h">
-      <Filter>Graphics\Level\Entityes</Filter>
+    <ClInclude Include="Graphics\Bounding Volume\BoundingBox.h">
+      <Filter>Graphics\Bounding Volume</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\BSPInfo.h">
+    <ClInclude Include="Graphics\Bounding Volume\BoundingSphere.h">
+      <Filter>Graphics\Bounding Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\BSPInfo.h">
       <Filter>Graphics\Level</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\BaseEntity.h">
+    <ClInclude Include="Graphics\Level\Level.h">
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Plane.h">
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Skybox.h">
+      <Filter>Graphics\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Entityes\BaseEntity.h">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Worldspawn.h">
+    <ClInclude Include="Graphics\Level\Entityes\EntityParser.h">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Info_Player_Start.h">
+    <ClInclude Include="Graphics\Light\BaseLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\DirectionalLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\LightCone.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\LightManager.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\LightQuad.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\PointLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Light\SpotLight.h">
+      <Filter>Graphics\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\Animation.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\AnimationManager.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\Mesh.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\MeshVertex.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\Model.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Models\Skeleton.h">
+      <Filter>Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Entityes\Func_Door.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Entityes\Info_Player_Start.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Entityes\Worldspawn.h">
+      <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Level\Entityes\Func_Rotating.h">
       <Filter>Graphics\Level\Entityes</Filter>
     </ClInclude>
   </ItemGroup>
