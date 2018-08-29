@@ -16,14 +16,18 @@ lifeEngine v3.0.0
 [Info] Shader With Name [AnimationModels] Loaded
 [Info] Loading Shader With Name [StaticModels]
 [Info] Shader With Name [StaticModels] Loaded
-[Info] Loading Shader With Name [Brushes]
-[Info] Shader With Name [Brushes] Loaded
+[Info] Loading Shader With Name [StaticLevel]
+[Info] Shader With Name [StaticLevel] Loaded
+[Info] Loading Shader With Name [DynamicLevel]
+[Info] Shader With Name [DynamicLevel] Loaded
 [Info] Loading Shader With Name [AnimationModels_GBuffer]
 [Info] Shader With Name [AnimationModels_GBuffer] Loaded
 [Info] Loading Shader With Name [StaticModels_GBuffer]
 [Info] Shader With Name [StaticModels_GBuffer] Loaded
-[Info] Loading Shader With Name [Brushes_GBuffer]
-[Info] Shader With Name [Brushes_GBuffer] Loaded
+[Info] Loading Shader With Name [StaticLevel_GBuffer]
+[Info] Shader With Name [StaticLevel_GBuffer] Loaded
+[Info] Loading Shader With Name [DynamicLevel_GBuffer]
+[Info] Shader With Name [DynamicLevel_GBuffer] Loaded
 [Info] Loading Shader With Name [ShadowMap]
 [Info] Shader With Name [ShadowMap] Loaded
 [Info] Loading Shader With Name [TestRender]
@@ -39,18 +43,18 @@ lifeEngine v3.0.0
 [Info] Loading Shader With Name [Skybox]
 [Info] Shader With Name [Skybox] Loaded
 [Info] Loading Level [../maps/testbed_c0a0.bsp]
-[Info] Loading Texture [../textures/common/caulk.jpg] With Name [textures/common/caulk]
-[Error] Texture [../textures/common/caulk.jpg] Not Found
+[Info] Loading Texture [../textures/dev/dev_128_gr_032x.jpg] With Name [textures/dev/dev_128_gr_032x]
+[Info] Texture With Name [textures/dev/dev_128_gr_032x] Loaded
+[Info] Loading Texture [../textures/common/caulk.tga] With Name [textures/common/caulk]
+[Info] Texture With Name [textures/common/caulk] Loaded
+[Info] Loading Texture [../noshader] With Name [noshader]
+[Error] Texture [../noshader] Not Found
 [Info] Loading Texture [../textures/dev/dev_064_gr_032x.jpg] With Name [textures/dev/dev_064_gr_032x]
 [Info] Texture With Name [textures/dev/dev_064_gr_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_192_or_032x.jpg] With Name [textures/dev/dev_192_or_032x]
 [Info] Texture With Name [textures/dev/dev_192_or_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_128_or_032x.jpg] With Name [textures/dev/dev_128_or_032x]
 [Info] Texture With Name [textures/dev/dev_128_or_032x] Loaded
-[Info] Loading Texture [../noshader] With Name [noshader]
-[Error] Texture [../noshader] Not Found
-[Info] Loading Texture [../textures/dev/dev_128_gr_032x.jpg] With Name [textures/dev/dev_128_gr_032x]
-[Info] Texture With Name [textures/dev/dev_128_gr_032x] Loaded
 [Info] Loading Texture [../textures/dev/dev_192_gr_032x.jpg] With Name [textures/dev/dev_192_gr_032x]
 [Info] Texture With Name [textures/dev/dev_192_gr_032x] Loaded
 [Info] Loading Texture [../textures/common/clusterportal.tga] With Name [textures/common/clusterportal]
@@ -83,6 +87,7 @@ lifeEngine v3.0.0
   Specular: 45.000000 45.000000 45.000000 255.000000
 [Info] Created Point Light
 [Info] Cube Texture With Name [Skybox] Deleted
+[Info] Texture With Name [textures/common/caulk] Deleted
 [Info] Texture With Name [textures/common/clusterportal] Deleted
 [Info] Texture With Name [textures/dev/dev_064_gr_032x] Deleted
 [Info] Texture With Name [textures/dev/dev_064_or_000x] Deleted
@@ -94,13 +99,15 @@ lifeEngine v3.0.0
 [Info] Texture With Name [textures/dev/dev_door2_or] Deleted
 [Info] Shader With Name [AnimationModels] Deleted
 [Info] Shader With Name [AnimationModels_GBuffer] Deleted
-[Info] Shader With Name [Brushes] Deleted
-[Info] Shader With Name [Brushes_GBuffer] Deleted
 [Info] Shader With Name [DirectionalLight] Deleted
+[Info] Shader With Name [DynamicLevel] Deleted
+[Info] Shader With Name [DynamicLevel_GBuffer] Deleted
 [Info] Shader With Name [PointLight] Deleted
 [Info] Shader With Name [ShadowMap] Deleted
 [Info] Shader With Name [Skybox] Deleted
 [Info] Shader With Name [SpotLight] Deleted
+[Info] Shader With Name [StaticLevel] Deleted
+[Info] Shader With Name [StaticLevel_GBuffer] Deleted
 [Info] Shader With Name [StaticModels] Deleted
 [Info] Shader With Name [StaticModels_GBuffer] Deleted
 [Info] Shader With Name [TestRender] Deleted

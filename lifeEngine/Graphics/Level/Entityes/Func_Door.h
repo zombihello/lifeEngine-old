@@ -60,7 +60,11 @@ namespace le
 		int					IdModel;			///< Индекс модели в массиве
 		float				Angle;				///< Угол на который повернулась дверь
 		float				AngleMax;			///< Максимальный угол поворота двери
-		BSPModel*			Model;				///< Модель привязанная к энтити		
+		BSPModel*			Model;				///< Модель привязанная к энтити	
+
+		glm::quat			StartQuat;
+		glm::quat			EndQuat;
+		glm::quat			TempQuat;
 	};
 }
 

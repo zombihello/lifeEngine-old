@@ -57,11 +57,13 @@ void le::ShaderManager::LoadShaders()
 
 	ResourcesManager::LoadShader( "AnimationModels", "../shaders/geometry/AnimationModelsRender.vs", "../shaders/geometry/AnimationModelsRender.fs" );
 	ResourcesManager::LoadShader( "StaticModels", "../shaders/geometry/StaticModelsRender.vs", "../shaders/geometry/StaticModelsRender.fs" );
-	ResourcesManager::LoadShader( "Brushes", "../shaders/geometry/LevelRender.vs", "../shaders/geometry/LevelRender.fs" );
+	ResourcesManager::LoadShader( "StaticLevel", "../shaders/geometry/Static_LevelRender.vs", "../shaders/geometry/Static_LevelRender.fs" );
+	ResourcesManager::LoadShader( "DynamicLevel", "../shaders/geometry/Dynamic_LevelRender.vs", "../shaders/geometry/Dynamic_LevelRender.fs" );
 
 	ResourcesManager::LoadShader( "AnimationModels_GBuffer", "../shaders/geometry/AnimationModelsRender_GBuffer.vs", "../shaders/geometry/AnimationModelsRender_GBuffer.fs" );
 	ResourcesManager::LoadShader( "StaticModels_GBuffer", "../shaders/geometry/StaticModelsRender_GBuffer.vs", "../shaders/geometry/StaticModelsRender_GBuffer.fs" );
-	ResourcesManager::LoadShader( "Brushes_GBuffer", "../shaders/geometry/LevelRender_GBuffer.vs", "../shaders/geometry/LevelRender_GBuffer.fs" );
+	ResourcesManager::LoadShader( "StaticLevel_GBuffer", "../shaders/geometry/Static_LevelRender_GBuffer.vs", "../shaders/geometry/Static_LevelRender_GBuffer.fs" );
+	ResourcesManager::LoadShader( "DynamicLevel_GBuffer", "../shaders/geometry/Dynamic_LevelRender_GBuffer.vs", "../shaders/geometry/Dynamic_LevelRender_GBuffer.fs" );
 
 	ResourcesManager::LoadShader( "ShadowMap", "../shaders/light/ShadowMapRender.vs", "../shaders/light/ShadowMapRender.fs" );
 	ResourcesManager::LoadShader( "TestRender", "../shaders/TestRender.vs", "../shaders/TestRender.fs" );

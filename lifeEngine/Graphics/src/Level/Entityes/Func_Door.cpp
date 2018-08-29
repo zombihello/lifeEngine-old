@@ -14,6 +14,9 @@ le::Func_Door::Func_Door( map<string, string>& Values ) :
 	Position = ValueToVec3( Values[ "origin" ] );
 
 	Transformation = glm::translate( Position );
+
+	StartQuat = TempQuat = glm::quat( glm::vec3( 0.f, 0.f, 0.f ) );
+	EndQuat = glm::quat( glm::vec3( 0.f, AngleMax, 0.f ) );
 }
 
 //-------------------------------------------------------------------------//
@@ -22,27 +25,16 @@ void le::Func_Door::Update()
 {
 	if ( !Model ) return;
 
-	glm::vec3 Axis( sin( 0 ) );
-	glm::vec3 Rotations( cos( 0 ) );
-
-	if ( Keyboard::isKeyPressed( Keyboard::F ) && Angle < AngleMax )
+	if ( Keyboard::isKeyPressed( Keyboard::F ) && TempQuat != EndQuat )
 	{
-		Axis.y = sin( System::Configuration.Time * 0.02f );
-		Rotations.y = cos( System::Configuration.Time * 0.02f );
+		TempQuat = glm::lerp( TempQuat, EndQuat, 100.f * System::Configuration.Time / 1000.f  );
+		Transformation = glm::translate( Position ) * glm::mat4_cast( TempQuat );
 	}
-	else if ( !Keyboard::isKeyPressed( Keyboard::F ) && Angle > 0 )
+	else if ( !Keyboard::isKeyPressed( Keyboard::F ) && TempQuat != StartQuat )
 	{
-		Axis.y = sin( System::Configuration.Time * -0.02f );
-		Rotations.y = cos( System::Configuration.Time * -0.02f );
+		TempQuat = glm::lerp( TempQuat, StartQuat, 100.f * System::Configuration.Time / 1000.f );
+		Transformation = glm::translate( Position ) * glm::mat4_cast( TempQuat );
 	}
-
-	glm::quat RotateX( Rotations.x, Axis.x, 0, 0 );
-	glm::quat RotateY( Rotations.y, 0, Axis.y, 0 );
-	glm::quat RotateZ( Rotations.z, 0, 0, Axis.z );
-	glm::quat Rotate = RotateX * RotateY * RotateZ;
-
-	Angle += glm::eulerAngles( Rotate ).y;
-	Transformation *= glm::mat4_cast( Rotate );
 }
 
 //-------------------------------------------------------------------------//

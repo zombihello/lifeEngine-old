@@ -345,7 +345,7 @@ bool le::Level::LoadLevel( const string& Route )
 			Func_Door*		Func_Door = new le::Func_Door( ItEntityes->Values );
 			int				IdModel = Func_Door->GetIdModel();
 
-			if ( IdModel == -1 || IdModel >= ArrayModels.size() )
+			if ( IdModel == -1 || IdModel >= NUMBER_TO_INT( ArrayModels.size() ) )
 			{
 				delete Func_Door;
 				continue;
@@ -362,7 +362,7 @@ bool le::Level::LoadLevel( const string& Route )
 			Func_Rotating*		Func_Rotating = new le::Func_Rotating( ItEntityes->Values );
 			int					IdModel = Func_Rotating->GetIdModel();
 
-			if ( IdModel == -1 || IdModel >= ArrayModels.size() )
+			if ( IdModel == -1 || IdModel >= NUMBER_TO_INT( ArrayModels.size() ) )
 			{
 				delete Func_Rotating;
 				continue;
@@ -480,6 +480,7 @@ void le::Level::ClearLevel()
 void le::Level::CalculateVisablePlanes( Camera& Camera )
 {
 	VisablePlanes.clear();
+	VisableModels.clear();
 	FacesDrawn.ClearAll();
 
 	int									LeafIndex = FindLeaf( Camera.GetPosition() );
@@ -511,12 +512,12 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 				FacesDrawn.Set( FaceIndex );
 
 				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
-					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ NULL ].push_back( Plane );
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes.push_back( Plane );
 				else
 				{
 					InfoBSPPolygon			InfoRender;
 					InfoRender.Texture = Plane->Texture;
-					InfoRender.RenderPlanes[ NULL ].push_back( Plane );
+					InfoRender.RenderPlanes.push_back( Plane );
 
 					VisablePlanes.push_back( InfoRender );
 					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
@@ -529,6 +530,8 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 	// Считаем видимые плоскости динамической 
 	// геометрии (двери, лифты и т.д)
 
+	ArrayTextures.clear();
+
 	for ( auto ItModel = ArrayModelEntitys.begin(); ItModel != ArrayModelEntitys.end(); ItModel++ )
 	{
 		BSPModel* Model = ItModel->first;
@@ -540,7 +543,7 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum->IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
-		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+		size_t EndFace = Model->StartFaceIndex + Model->NumOfFaces;
 		ItModel->second->Update();
 
 		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
@@ -550,15 +553,15 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 				FacesDrawn.Set( IdFace );
 
 				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
-					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+					VisableModels[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
 				else
 				{
-					InfoBSPPolygon			InfoRender;
+					InfoBSPModel			InfoRender;
 					InfoRender.Texture = Plane->Texture;
 					InfoRender.RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
 
-					VisablePlanes.push_back( InfoRender );
-					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+					VisableModels.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisableModels.size() - 1;
 				}
 			}
 	}
@@ -569,6 +572,7 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frustum )
 {
 	VisablePlanes.clear();
+	VisableModels.clear();
 	FacesDrawn.ClearAll();
 
 	int									LeafIndex = FindLeaf( Position );
@@ -599,12 +603,12 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 				FacesDrawn.Set( FaceIndex );
 
 				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
-					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ NULL ].push_back( Plane );
+					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes.push_back( Plane );
 				else
 				{
 					InfoBSPPolygon			InfoRender;
 					InfoRender.Texture = Plane->Texture;
-					InfoRender.RenderPlanes[ NULL ].push_back( Plane );
+					InfoRender.RenderPlanes.push_back( Plane );
 
 					VisablePlanes.push_back( InfoRender );
 					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
@@ -617,6 +621,8 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 	// Считаем видимые плоскости динамической 
 	// геометрии (двери, лифты и т.д)
 
+	ArrayTextures.clear();
+
 	for ( auto ItModel = ArrayModelEntitys.begin(); ItModel != ArrayModelEntitys.end(); ItModel++ )
 	{
 		BSPModel* Model = ItModel->first;
@@ -628,7 +634,7 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
 			continue;
 
-		int EndFace = Model->StartFaceIndex + Model->NumOfFaces;
+		size_t EndFace = Model->StartFaceIndex + Model->NumOfFaces;
 		ItModel->second->Update();
 
 		for ( size_t IdFace = Model->StartFaceIndex; IdFace < EndFace; IdFace++ )
@@ -638,15 +644,15 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 				FacesDrawn.Set( IdFace );
 
 				if ( ArrayTextures.find( Plane->Texture ) != ArrayTextures.end() )
-					VisablePlanes[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
+					VisableModels[ ArrayTextures[ Plane->Texture ] ].RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
 				else
 				{
-					InfoBSPPolygon			InfoRender;
+					InfoBSPModel			InfoRender;
 					InfoRender.Texture = Plane->Texture;
 					InfoRender.RenderPlanes[ &ItModel->second->Transformation ].push_back( Plane );
 
-					VisablePlanes.push_back( InfoRender );
-					ArrayTextures[ Plane->Texture ] = VisablePlanes.size() - 1;
+					VisableModels.push_back( InfoRender );
+					ArrayTextures[ Plane->Texture ] = VisableModels.size() - 1;
 				}
 			}
 	}
@@ -778,6 +784,13 @@ GLuint& le::Level::GetArrayBuffer()
 vector< le::InfoBSPPolygon >& le::Level::GetVisablePlanes()
 {
 	return VisablePlanes;
+}
+
+//-------------------------------------------------------------------------//
+
+vector<le::InfoBSPModel>& le::Level::GetVisableModels()
+{
+	return VisableModels;
 }
 
 //-------------------------------------------------------------------------//

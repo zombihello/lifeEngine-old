@@ -148,7 +148,7 @@ void le::System::MainLoop( BasicApplication& Application )
 {
 	while ( RenderWindow.isOpen() )
 	{
-		Configuration.Time = Clock.restart().asSeconds() * 60; // 60 - 1 тик
+		Configuration.Time = Clock.restart().asSeconds() * 60.f; // 60 - 1 тик
 
 		while ( RenderWindow.pollEvent( Event ) )
 		{

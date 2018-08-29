@@ -19,31 +19,50 @@ le::Scene::Scene() :
 	DirectionalLights( NULL ),
 	SpotLights( NULL ),
 	Skybox( NULL ),
-	PositionCamera( NULL )
+	PositionCamera( NULL ),
+	RenderBuffer_StaticLevel( NULL ),
+	RenderBuffer_DynamicLevel( NULL )
 {
 	ProjectionMatrix = &System::Configuration.ProjectionMatrix;
 	PVMatrix = *ProjectionMatrix;
 
 	AnimationModelsRender = ResourcesManager::GetShader( "AnimationModels" );
 	StaticModelsRender = ResourcesManager::GetShader( "StaticModels" );
-	LevelRender = ResourcesManager::GetShader( "Brushes" );
+	Static_LevelRender = ResourcesManager::GetShader( "StaticLevel" );
+	Dynamic_LevelRender = ResourcesManager::GetShader( "DynamicLevel" );
 
 	AnimationModelsRender_GBuffer = ResourcesManager::GetShader( "AnimationModels_GBuffer" );
 	StaticModelsRender_GBuffer = ResourcesManager::GetShader( "StaticModels_GBuffer" );
-	LevelRender_GBuffer = ResourcesManager::GetShader( "Brushes_GBuffer" );
+	Static_LevelRender_GBuffer = ResourcesManager::GetShader( "StaticLevel_GBuffer" );
+	Dynamic_LevelRender_GBuffer = ResourcesManager::GetShader( "DynamicLevel_GBuffer" );
 
 	TestRender = ResourcesManager::GetShader( "TestRender" );
 	PointLightRender = ResourcesManager::GetShader( "PointLight" );
 	DirectionalLightRender = ResourcesManager::GetShader( "DirectionalLight" );
 	SpotLightRender = ResourcesManager::GetShader( "SpotLight" );
 
-	if ( LevelRender != NULL )
+	if ( Static_LevelRender != NULL )
 	{
-		LevelRender->setUniform( "ColorMap", 0 );
-		LevelRender->setUniform( "LightMap", 1 );
+		Static_LevelRender->setUniform( "ColorMap", 0 );
+		Static_LevelRender->setUniform( "LightMap", 1 );
+	}
 
-		LevelRender_GBuffer->setUniform( "ColorMap", 0 );
-		LevelRender_GBuffer->setUniform( "LightMap", 1 );
+	if ( Dynamic_LevelRender != NULL )
+	{
+		Dynamic_LevelRender->setUniform( "ColorMap", 0 );
+		Dynamic_LevelRender->setUniform( "LightMap", 1 );
+	}
+
+	if ( Static_LevelRender_GBuffer != NULL )
+	{
+		Static_LevelRender_GBuffer->setUniform( "ColorMap", 0 );
+		Static_LevelRender_GBuffer->setUniform( "LightMap", 1 );
+	}
+
+	if ( Dynamic_LevelRender_GBuffer != NULL )
+	{
+		Dynamic_LevelRender_GBuffer->setUniform( "ColorMap", 0 );
+		Dynamic_LevelRender_GBuffer->setUniform( "LightMap", 1 );
 	}
 
 	if ( PointLightRender != NULL )
@@ -155,7 +174,8 @@ void le::Scene::AddLevel( le::Level* Level )
 		Skybox->SetPlayerCamera( *ActiveCamera );
 
 	Level->SetScene( this );
-	RenderBuffer_Level = &Level->GetVisablePlanes();
+	RenderBuffer_StaticLevel = &Level->GetVisablePlanes();
+	RenderBuffer_DynamicLevel = &Level->GetVisableModels();
 }
 
 //-------------------------------------------------------------------------//
@@ -166,7 +186,8 @@ void le::Scene::RemoveLevel()
 	Skybox->RemovePlayerCamera();
 	Skybox = NULL;
 	Level = NULL;
-	RenderBuffer_Level = NULL;
+	RenderBuffer_StaticLevel = NULL;
+	RenderBuffer_DynamicLevel = NULL;
 }
 
 //-------------------------------------------------------------------------//
@@ -286,7 +307,8 @@ void le::Scene::Clear()
 	PointLights = NULL;
 	SpotLights = NULL;
 	DirectionalLights = NULL;
-	RenderBuffer_Level = NULL;
+	RenderBuffer_StaticLevel = NULL;
+	RenderBuffer_DynamicLevel = NULL;
 
 	CamerasInScene.clear();
 	RenderBuffer_AnimationModel.clear();
@@ -357,10 +379,16 @@ void le::Scene::BuildShadowMaps()
 
 void le::Scene::GeometryRender()
 {
+	bool IsRender_Skybox = Skybox != NULL;
+	bool IsRender_StaticLevel = Static_LevelRender != NULL && ( RenderBuffer_StaticLevel != NULL && !RenderBuffer_StaticLevel->empty() );
+	bool IsRender_DynamicLevel = Dynamic_LevelRender != NULL && ( RenderBuffer_DynamicLevel != NULL && !RenderBuffer_DynamicLevel->empty() );
+	bool IsRender_AnimationModel = AnimationModelsRender != NULL && !RenderBuffer_AnimationModel.empty();
+	bool IsRender_StaticModel = StaticModelsRender != NULL && !RenderBuffer_StaticModel.empty();
+
 	// ****************************
 	// Рендер скайбокса
 
-	if ( Skybox != NULL )
+	if ( IsRender_Skybox )
 	{
 		glDisable( GL_DEPTH_TEST );
 		Skybox->RenderSkybox();
@@ -368,34 +396,32 @@ void le::Scene::GeometryRender()
 	}
 
 	// *****************************************
-	// Рендер брашей уровня
+	// Рендер уровня
 
-	glCullFace( GL_FRONT );
-
-	if ( LevelRender != NULL && RenderBuffer_Level != NULL )
+	if ( IsRender_StaticLevel || IsRender_DynamicLevel )
 	{
-		Shader::bind( LevelRender );
+		glCullFace( GL_FRONT );
 		VAO::BindVAO( Level->GetArrayBuffer() );
+		
+		// *****************************************
+		// Рендер статичной части уровня
 
-		for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_Level->size(); IdInfoPolygon++ )
+		if ( IsRender_StaticLevel )
 		{
-			InfoBSPPolygon*								Info = &RenderBuffer_Level->at( IdInfoPolygon );
-			map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
-			le::Plane*									Plane;
+			Shader::bind( Static_LevelRender );
+			Static_LevelRender->setUniform( "PVMatrix", PVMatrix );
 
-			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, Info->Texture );
-
-			for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
+			for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_StaticLevel->size(); IdInfoPolygon++ )
 			{
-				if ( ItPlanes->first )
-					LevelRender->setUniform( "PVTMatrix", PVMatrix * *ItPlanes->first );
-				else
-					LevelRender->setUniform( "PVTMatrix", PVMatrix );
+				InfoBSPPolygon*								Info = &RenderBuffer_StaticLevel->at( IdInfoPolygon );
+				le::Plane*									Plane;
 
-				for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+				for ( size_t IdPolygon = 0; IdPolygon < Info->RenderPlanes.size(); IdPolygon++ )
 				{
-					Plane = ItPlanes->second[ IdPolygon ];
+					Plane = Info->RenderPlanes[ IdPolygon ];
 
 					glActiveTexture( GL_TEXTURE1 );
 					glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
@@ -404,14 +430,75 @@ void le::Scene::GeometryRender()
 				}
 			}
 		}
+
+		// *****************************************
+		// Рендер динамической части уровня
+
+		if ( IsRender_DynamicLevel )
+		{
+			Shader::bind( Dynamic_LevelRender );
+
+			for ( size_t IdInfoModel = 0; IdInfoModel < RenderBuffer_DynamicLevel->size(); IdInfoModel++ )
+			{
+				InfoBSPModel*								Info = &RenderBuffer_DynamicLevel->at( IdInfoModel );
+				map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
+				le::Plane*									Plane;
+
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+				for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
+				{
+					PVTMatrix = PVMatrix * *ItPlanes->first;
+					Dynamic_LevelRender->setUniform( "PVTMatrix", PVTMatrix );
+
+					for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+					{
+						Plane = ItPlanes->second[ IdPolygon ];
+
+						glActiveTexture( GL_TEXTURE1 );
+						glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					}
+				}
+			}
+		}
+
+		glCullFace( GL_BACK );
+	}
+
+	// *****************************************
+	// Рендер не анимируемых моделей 
+
+	if ( IsRender_StaticModel )
+	{
+		Shader::bind( StaticModelsRender );
+
+		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
+		{
+			vector<InfoMesh*>*						GeometryBuffer = &IdStaticModel->second;
+			glBindTexture( GL_TEXTURE_2D, IdStaticModel->first );
+
+			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
+			{
+				InfoMesh*							InfoMesh = GeometryBuffer->at( Id );
+
+				if ( !*InfoMesh->IsRender ) continue;
+
+				PVTMatrix = PVMatrix * *InfoMesh->MatrixTransformation;
+				StaticModelsRender->setUniform( "PVTMatrix", PVTMatrix );
+
+				VAO::BindVAO( InfoMesh->VertexArray );
+				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
+			}
+		}
 	}
 
 	// *****************************************
 	// Рендер анимируемых моделей
 
-	glCullFace( GL_BACK );
-
-	if ( AnimationModelsRender != NULL && !RenderBuffer_AnimationModel.empty() )
+	if ( IsRender_AnimationModel )
 	{
 		vector<Skeleton::Bone>*						Bones;
 		Shader::bind( AnimationModelsRender );
@@ -439,39 +526,18 @@ void le::Scene::GeometryRender()
 			}
 		}
 	}
-
-	// *****************************************
-	// Рендер статичных моделей (те которые не анимируются)
-
-	if ( StaticModelsRender != NULL && !RenderBuffer_StaticModel.empty() )
-	{
-		Shader::bind( StaticModelsRender );
-
-		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
-		{
-			vector<InfoMesh*>*						GeometryBuffer = &IdStaticModel->second;
-			glBindTexture( GL_TEXTURE_2D, IdStaticModel->first );
-
-			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
-			{
-				InfoMesh*							InfoMesh = GeometryBuffer->at( Id );
-
-				if ( !*InfoMesh->IsRender ) continue;
-
-				PVTMatrix = PVMatrix * *InfoMesh->MatrixTransformation;
-				StaticModelsRender->setUniform( "PVTMatrix", PVTMatrix );
-
-				VAO::BindVAO( InfoMesh->VertexArray );
-				glDrawElements( GL_TRIANGLES, InfoMesh->CountIndexs, GL_UNSIGNED_INT, 0 );
-			}
-		}
-	}
 }
 
 //-------------------------------------------------------------------------//
 
 void le::Scene::GeometryRender_GBuffer()
 {
+	bool IsRender_Skybox = Skybox != NULL;
+	bool IsRender_StaticLevel = Static_LevelRender_GBuffer != NULL && ( RenderBuffer_StaticLevel != NULL && !RenderBuffer_StaticLevel->empty() );
+	bool IsRender_DynamicLevel = Dynamic_LevelRender_GBuffer != NULL && ( RenderBuffer_DynamicLevel != NULL && !RenderBuffer_DynamicLevel->empty() );
+	bool IsRender_AnimationModel = AnimationModelsRender_GBuffer != NULL && !RenderBuffer_AnimationModel.empty();
+	bool IsRender_StaticModel = StaticModelsRender_GBuffer != NULL && !RenderBuffer_StaticModel.empty();
+
 	GBuffer.ClearFrame();
 
 	// ****************************
@@ -479,7 +545,7 @@ void le::Scene::GeometryRender_GBuffer()
 
 	glCullFace( GL_BACK );
 
-	if ( Skybox != NULL )
+	if ( IsRender_Skybox )
 	{
 		GBuffer.Bind( GBuffer::RenderSkybox );
 
@@ -493,7 +559,7 @@ void le::Scene::GeometryRender_GBuffer()
 
 	GBuffer.Bind( GBuffer::RenderBuffers );
 
-	if ( AnimationModelsRender_GBuffer != NULL && !RenderBuffer_AnimationModel.empty() )
+	if ( IsRender_AnimationModel )
 	{
 		vector<Skeleton::Bone>*					Bones;
 
@@ -524,21 +590,21 @@ void le::Scene::GeometryRender_GBuffer()
 	}
 
 	// *****************************************
-	// Рендер статичных моделей (те которые не анимируются)
+	// Рендер не анимируемых моделей 
 
-	if ( StaticModelsRender_GBuffer != NULL && !RenderBuffer_StaticModel.empty() )
+	if ( IsRender_StaticModel )
 	{
 		Shader::bind( StaticModelsRender_GBuffer );
 		StaticModelsRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
 		for ( auto IdStaticModel = RenderBuffer_StaticModel.begin(); IdStaticModel != RenderBuffer_StaticModel.end(); IdStaticModel++ )
 		{
-			vector<InfoMesh*>*				GeometryBuffer = &IdStaticModel->second;
+			vector<InfoMesh*>*						GeometryBuffer = &IdStaticModel->second;
 			glBindTexture( GL_TEXTURE_2D, IdStaticModel->first );
 
 			for ( size_t Id = 0; Id < GeometryBuffer->size(); Id++ )
 			{
-				InfoMesh*					InfoMesh = GeometryBuffer->at( Id );
+				InfoMesh*							InfoMesh = GeometryBuffer->at( Id );
 
 				if ( !*InfoMesh->IsRender ) continue;
 
@@ -550,43 +616,73 @@ void le::Scene::GeometryRender_GBuffer()
 		}
 	}
 
-	// ***************************************** //
-	// Рендер брашей уровня
+	// *****************************************
+	// Рендер уровня
 
-	glCullFace( GL_FRONT );
-
-	if ( LevelRender_GBuffer != NULL && RenderBuffer_Level != NULL )
+	if ( IsRender_StaticLevel || IsRender_DynamicLevel )
 	{
-		Shader::bind( LevelRender_GBuffer );
+		glCullFace( GL_FRONT );
 		VAO::BindVAO( Level->GetArrayBuffer() );
-		LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
-		for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_Level->size(); IdInfoPolygon++ )
+		// *****************************************
+		// Рендер статичной части уровня
+
+		if ( IsRender_StaticLevel )
 		{
-			InfoBSPPolygon*								Info = &RenderBuffer_Level->at( IdInfoPolygon );
-			map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
-			le::Plane*									Plane;
+			Shader::bind( Static_LevelRender_GBuffer );
+			Static_LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
 
-			glActiveTexture( GL_TEXTURE0 );
-			glBindTexture( GL_TEXTURE_2D, Info->Texture );
 
-			for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
+			for ( size_t IdInfoPolygon = 0; IdInfoPolygon < RenderBuffer_StaticLevel->size(); IdInfoPolygon++ )
 			{
-				// TODO: [zombiHello] Оптимизировать. Разделить плоскости на статичные и данмичные
+				InfoBSPPolygon*								Info = &RenderBuffer_StaticLevel->at( IdInfoPolygon );
+				le::Plane*									Plane;
 
-				if ( ItPlanes->first )
-					LevelRender_GBuffer->setUniform( "TransformMatrix", *ItPlanes->first );
-				else
-					LevelRender_GBuffer->setUniform( "TransformMatrix", glm::mat4() );
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
 
-				for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+				for ( size_t IdPolygon = 0; IdPolygon < Info->RenderPlanes.size(); IdPolygon++ )
 				{
-					Plane = ItPlanes->second[ IdPolygon ];
+					Plane = Info->RenderPlanes[ IdPolygon ];
 
 					glActiveTexture( GL_TEXTURE1 );
 					glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
 
 					glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+				}
+			}
+		}
+
+		// *****************************************
+		// Рендер динамической части уровня
+
+		if ( IsRender_DynamicLevel )
+		{
+			Shader::bind( Dynamic_LevelRender_GBuffer );
+			Dynamic_LevelRender_GBuffer->setUniform( "PVMatrix", PVMatrix );
+
+			for ( size_t IdInfoModel = 0; IdInfoModel < RenderBuffer_DynamicLevel->size(); IdInfoModel++ )
+			{
+				InfoBSPModel*								Info = &RenderBuffer_DynamicLevel->at( IdInfoModel );
+				map<glm::mat4*, vector<Plane*> >*			Planes = &Info->RenderPlanes;
+				le::Plane*									Plane;
+
+				glActiveTexture( GL_TEXTURE0 );
+				glBindTexture( GL_TEXTURE_2D, Info->Texture );
+
+				for ( auto ItPlanes = Planes->begin(); ItPlanes != Planes->end(); ItPlanes++ )
+				{
+					Dynamic_LevelRender_GBuffer->setUniform( "TransformationMatrix", *ItPlanes->first );
+
+					for ( size_t IdPolygon = 0; IdPolygon < ItPlanes->second.size(); IdPolygon++ )
+					{
+						Plane = ItPlanes->second[ IdPolygon ];
+
+						glActiveTexture( GL_TEXTURE1 );
+						glBindTexture( GL_TEXTURE_2D, Plane->Lightmap );
+
+						glDrawRangeElementsBaseVertex( GL_TRIANGLES, 0, Plane->NumberIndices, Plane->NumberIndices, GL_UNSIGNED_INT, ( void* ) ( Plane->StartIndex * sizeof( unsigned int ) ), Plane->StartVertex );
+					}
 				}
 			}
 		}

@@ -191,6 +191,13 @@ namespace le
 		vector<InfoBSPPolygon>& GetVisablePlanes();
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Получить буфер видимых моделей
+		///
+		/// \return Буфер видимых моделей на уровне
+		//////////////////////////////////////////////////////////////////////
+		vector<InfoBSPModel>& GetVisableModels();
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить список энтити-объектов которые не созданы
 		///
 		/// \return Список энтити-объектов которые не созданы
@@ -251,6 +258,7 @@ namespace le
 		vector<Plane*> 						ArrayPlanes;		///< Массив плоскостей уровня
 		vector<BSPModel>					ArrayModels;		///< Массив моделей уровня (движущиеся браши)
 		vector<InfoBSPPolygon>				VisablePlanes;		///< Буфер видимых плоскостей (обновляется при вызове CalculateVisablePlanes() )
+		vector<InfoBSPModel>				VisableModels;		///< Буфер видимых моделей (обновляется при вызове CalculateVisablePlanes() )
 
 		vector<BSPNode>						ArrayNodes;			///< Массив веток BSP дерева
 		vector<BSPLeaf>						ArrayLeafs;			///< Массив листьев BSP дерева

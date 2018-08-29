@@ -52,6 +52,7 @@ namespace le
 	class Level;
 	struct Plane;
 	struct InfoBSPPolygon;
+	struct InfoBSPModel;
 	class Skeleton;
 	class PointLight;
 	class DirectionalLight;
@@ -222,10 +223,12 @@ namespace le
 
 		Shader*								AnimationModelsRender;					///< Шейдер рендера анимируемых моделей
 		Shader*								StaticModelsRender;						///< Шейдер рендера статичных моделей
-		Shader*								LevelRender;							///< Шейдер рендера уровня
+		Shader*								Static_LevelRender;						///< Шейдер рендера статичных частей уровня
+		Shader*								Dynamic_LevelRender;					///< Шейдер рендера динамичных частей уровня
 		Shader*								AnimationModelsRender_GBuffer;			///< Шейдер рендера анимируемых моделей (с исп. GBuffer)
 		Shader*								StaticModelsRender_GBuffer;				///< Шейдер рендера статичных моделей (с исп. GBuffer)
-		Shader*								LevelRender_GBuffer;					///< Шейдер рендера уровня (с исп. GBuffer)
+		Shader*								Static_LevelRender_GBuffer;				///< Шейдер рендера статичных частей уровня (с исп. GBuffer)
+		Shader*								Dynamic_LevelRender_GBuffer;			///< Шейдер рендера динамичных частей уровня (с исп. GBuffer)
 		Shader*								TestRender;								///< Шейдер тестового рендера на перекрытия
 		Shader*								PointLightRender;						///< Шейдер точечного света
 		Shader*								DirectionalLightRender;					///< Шейдер направленого света
@@ -251,8 +254,9 @@ namespace le
 		vector<DirectionalLight>*			DirectionalLights;						///< Массив направленных источников света которые нах. на сцене
 
 		map<string, le::Camera*>			CamerasInScene;							///< Массив камер на сцене
-		vector<InfoBSPPolygon>*				RenderBuffer_Level;						///< Буффер рендера карты
-			
+		vector<InfoBSPPolygon>*				RenderBuffer_StaticLevel;				///< Буффер рендера статичной части карты
+		vector<InfoBSPModel>*				RenderBuffer_DynamicLevel;				///< Буффер рендера динамической части карты
+
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_AnimationModel;			///< Буффер рендера анимируемых моделей
 		map<GLuint, vector<InfoMesh*> >		RenderBuffer_StaticModel;				///< Буффер рендера статичных моделей (не анимируемых)	
 	};

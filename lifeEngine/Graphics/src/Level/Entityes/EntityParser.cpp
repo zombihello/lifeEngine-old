@@ -1,4 +1,4 @@
-#include <Graphics\Level\Entityes\EntityParser.h>
+п»ї#include <Graphics\Level\Entityes\EntityParser.h>
 
 //-------------------------------------------------------------------------//
 
@@ -17,7 +17,7 @@ le::EntityParser::EntityParser( const BSPEntities& BSPEntities, int Size )
 void le::EntityParser::Parse( const BSPEntities& BSPEntities, int Size )
 {
 	bool						IsEntity = false, IsBracket = false, IsName = false, IsValue = false;
-	int							IdStart_EntityData = 0, IdFinish_EntityData = 0;
+	size_t						IdStart_EntityData = 0, IdFinish_EntityData = 0;
 
 	string						Name;
 	string						Temp;
@@ -25,7 +25,7 @@ void le::EntityParser::Parse( const BSPEntities& BSPEntities, int Size )
 	map<string, string>			Values;
 
 	// *************************************
-	// Парсим информацию о энтити-объектах
+	// РџР°СЂСЃРёРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЌРЅС‚РёС‚Рё-РѕР±СЉРµРєС‚Р°С…
 
 	for ( int IdChar_Entities = 0; IdChar_Entities < Size; IdChar_Entities++ )
 	{
