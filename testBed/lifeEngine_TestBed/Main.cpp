@@ -101,13 +101,13 @@ public:
 
 		if ( MoveRight )
 		{
-			Point->SetPosition( glm::vec3( Point->Position.x + 1.f * Configuration->Time, Point->Position.y, Point->Position.z ) );
-			Count += 1.f;
+			Point->SetPosition( glm::vec3( Point->Position.x + 60.f * Configuration->Time, Point->Position.y, Point->Position.z ) );
+			Count += Configuration->Time;
 		}
 		else
 		{
-			Point->SetPosition( glm::vec3( Point->Position.x - 1.f * Configuration->Time, Point->Position.y, Point->Position.z ) );
-			Count -= 1.f;
+			Point->SetPosition( glm::vec3( Point->Position.x - 60.f * Configuration->Time, Point->Position.y, Point->Position.z ) );
+			Count -= Configuration->Time;
 		}
 
 		if ( Count > 100 )
@@ -116,14 +116,14 @@ public:
 			MoveRight = true;
 
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			ActiveCamera->Move( le::Camera::Forward, 5.25f * Configuration->Time );
+			ActiveCamera->Move( le::Camera::Forward, 300.f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			ActiveCamera->Move( le::Camera::Back, 5.25f * Configuration->Time );
+			ActiveCamera->Move( le::Camera::Back, 300.f * Configuration->Time );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
 		{
-			ActiveCamera->Move( le::Camera::Left, 3.25f * Configuration->Time );
+			ActiveCamera->Move( le::Camera::Left, 220.f * Configuration->Time );
 
 			if ( ActiveCamera->GetInclinationCamera() > -5 )
 				ActiveCamera->TiltCamera( -0.2f );
@@ -131,7 +131,7 @@ public:
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
 		{
-			ActiveCamera->Move( le::Camera::Right, 3.25f * Configuration->Time );
+			ActiveCamera->Move( le::Camera::Right, 220.f * Configuration->Time );
 
 			if ( ActiveCamera->GetInclinationCamera() < 5 )
 				ActiveCamera->TiltCamera( 0.2f );
@@ -161,16 +161,16 @@ public:
 			le::Model* Model = Models[ Id ];
 
 			if ( Keyboard::isKeyPressed( Keyboard::Left ) )
-				Model->Move( glm::vec3( 1.f * Configuration->Time, 0, 0 ) );
+				Model->Move( glm::vec3( 60.f * Configuration->Time, 0, 0 ) );
 
 			if ( Keyboard::isKeyPressed( Keyboard::Right ) )
-				Model->Move( glm::vec3( -1.5f * Configuration->Time, 0, 0 ) );
+				Model->Move( glm::vec3( -60.f * Configuration->Time, 0, 0 ) );
 
 			if ( Keyboard::isKeyPressed( Keyboard::Up ) )
-				Model->Move( glm::vec3( 0, 0, 1.f * Configuration->Time ) );
+				Model->Move( glm::vec3( 0, 0, 60.f * Configuration->Time ) );
 
 			if ( Keyboard::isKeyPressed( Keyboard::Down ) )
-				Model->Move( glm::vec3( 0, 0, -1.f * Configuration->Time ) );
+				Model->Move( glm::vec3( 0, 0, -60.f * Configuration->Time ) );
 
 			Model->GetAnimationManager()->Update();
 		}
