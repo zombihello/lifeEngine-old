@@ -540,7 +540,7 @@ void le::Level::CalculateVisablePlanes( Camera& Camera )
 		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
 		int Cluster = Leaf->Cluster;
 
-		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum->IsVisible( Leaf->Min, Leaf->Max ) )
+		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum->IsVisible( Model->Min, Model->Max ) )
 			continue;
 
 		size_t EndFace = Model->StartFaceIndex + Model->NumOfFaces;
@@ -631,7 +631,7 @@ void le::Level::CalculateVisablePlanes( const glm::vec3& Position, Frustum& Frus
 		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
 		int Cluster = Leaf->Cluster;
 
-		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum.IsVisible( Leaf->Min, Leaf->Max ) )
+		if ( !IsClusterVisible( Cluster, CameraCluster ) || !Frustum.IsVisible( Model->Min, Model->Max ) )
 			continue;
 
 		size_t EndFace = Model->StartFaceIndex + Model->NumOfFaces;
@@ -670,7 +670,7 @@ void le::Level::CalculateVisableModels( vector<Model*>& Models, Frustum& Frustum
 		BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
 		int Cluster = Leaf->Cluster;
 
-		Model->SetRender( IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Leaf->Min, Leaf->Max ) );
+		Model->SetRender( IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Model->GetMinVertex(), Model->GetMaxVertex() ) );
 	}
 }
 
@@ -731,7 +731,7 @@ bool le::Level::CalculateVisableModel( Model& Model, Frustum& Frustum )
 	BSPLeaf* Leaf = &ArrayLeafs[ LeafIndex ];
 	int Cluster = Leaf->Cluster;
 
-	IsRender = IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Leaf->Min, Leaf->Max );
+	IsRender = IsClusterVisible( Cluster, CameraCluster ) && Frustum.IsVisible( Model.GetMinVertex(), Model.GetMaxVertex() );
 	Model.SetRender( IsRender );
 
 	return IsRender;

@@ -19,7 +19,7 @@ le::Func_Door::Func_Door( map<string, string>& Values ) :
 
 	Transformation	= MatrixPosition = glm::translate( Position );
 
-	StartRotation	= Rotation = glm::quat( glm::vec3( 0.f, 0.f, 0.f ) );
+	StartRotation	= glm::quat( glm::vec3( 0.f, 0.f, 0.f ) );
 	EndRotation		= glm::quat( glm::vec3( 0.f, glm::radians( AngleMax ), 0.f ) );
 }
 
@@ -28,8 +28,6 @@ le::Func_Door::Func_Door( map<string, string>& Values ) :
 void le::Func_Door::Update()
 {
 	if ( !Model ) return;
-
-	// TODO: [zombiHello] Исправить вращение мин. и макс. вершин для отсечения по фрустуму
 
 	if ( Keyboard::isKeyPressed( Keyboard::F ) )
 	{
@@ -45,20 +43,20 @@ void le::Func_Door::Update()
 	if ( InOpen && DonePercentag < 1.f )
 	{
 		DonePercentag = glm::min( 1.f, DonePercentag + ( System::Configuration.Time / SpeedOpen ) );
-		Rotation = glm::slerp( StartRotation, EndRotation, DonePercentag );
+		glm::quat Rotation = glm::slerp( StartRotation, EndRotation, DonePercentag );
 
 		Transformation = MatrixPosition * glm::mat4_cast( Rotation );
-		//Model->Max = Rotation * ( Local_Max + Position );
-		//Model->Min = Rotation * ( Local_Min + Position );
+		Model->Max =  ( Rotation * Local_Max + Position );
+		Model->Min = ( Rotation * Local_Min + Position );
 	}
 	else if ( InClose && DonePercentag > 0.f )
 	{
 		DonePercentag = glm::max( 0.f, DonePercentag - ( System::Configuration.Time / SpeedClose ) );
-		Rotation = glm::slerp( StartRotation, EndRotation, DonePercentag );
+		glm::quat Rotation = glm::slerp( StartRotation, EndRotation, DonePercentag );
 
 		Transformation = MatrixPosition * glm::mat4_cast( Rotation );
-		//Model->Max = Rotation * ( Local_Max + Position );
-		//Model->Min = Rotation * ( Local_Min + Position );
+		Model->Max = ( Rotation * Local_Max + Position );
+		Model->Min = ( Rotation * Local_Min + Position );
 	}
 }
 

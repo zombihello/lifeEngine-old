@@ -19,10 +19,16 @@ le::Func_Rotating::Func_Rotating( map<string, string>& Values ) :
 
 void le::Func_Rotating::Update()
 {
+	// TODO: [zombiHello] Проверить на правильность работу врещения Min и Max вершин
+
 	if ( !Model ) return;
 
-	// TODO: [zombiHello] Сделать вращение мин. и макс. вершин для отсечения по фрустуму
-	Transformation *= glm::mat4_cast( glm::quat( glm::vec3( 0.f, glm::radians( System::Configuration.Time * Speed ), 0.f ) ) );
+	glm::quat Rotation = glm::quat( glm::vec3( 0.f, glm::radians( System::Configuration.Time * Speed ), 0.f ) );
+
+	Transformation *= glm::mat4_cast( Rotation );
+	Model->Max = Rotation * Local_Max + Position;
+	Model->Min = Rotation * Local_Min + Position;
+
 }
 
 //-------------------------------------------------------------------------//
@@ -30,6 +36,9 @@ void le::Func_Rotating::Update()
 void le::Func_Rotating::SetModel( BSPModel& BSPModel )
 {
 	Model = &BSPModel;
+	Local_Max = Model->Max;
+	Local_Min = Model->Min;
+
 	Model->Max += Position;
 	Model->Min += Position;
 }

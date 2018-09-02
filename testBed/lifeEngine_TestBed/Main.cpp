@@ -34,7 +34,7 @@ public:
 		string Name;
 		vector<int> LightColor;
 		vector<float> Rotation;
-		vector<le::BaseEntity*>* LevelEntitys = &Level->GetAllEntitys();
+		vector<le::BaseEntity*>* LevelEntitys = &Level->GetAllEntitys();		
 
 		for ( size_t IdEntity = 0; IdEntity < LevelEntitys->size(); IdEntity++ )
 		{

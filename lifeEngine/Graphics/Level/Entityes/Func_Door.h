@@ -72,7 +72,6 @@ namespace le
 
 		glm::quat			StartRotation;				///< Кватернион старта вращения  
 		glm::quat			EndRotation;				///< Кватернион конца вращения
-		glm::quat			Rotation;					///< Кватернион вращения
 
 		glm::mat4			MatrixPosition;				///< Матрица позиции
 	};
