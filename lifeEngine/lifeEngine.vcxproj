@@ -182,6 +182,8 @@
     <ClInclude Include="Graphics\Models\Model.h" />
     <ClInclude Include="Graphics\Models\Skeleton.h" />
     <ClInclude Include="Graphics\Scene.h" />
+    <ClInclude Include="Physics\Body.h" />
+    <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="System\BasicApplication.h" />
     <ClInclude Include="System\Bitset.h" />
     <ClInclude Include="System\ConfigFile.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="System\GBuffer.h" />
     <ClInclude Include="System\Logger.h" />
     <ClInclude Include="System\Query.h" />
+    <ClInclude Include="System\Ray.h" />
     <ClInclude Include="System\ResourcesManager.h" />
     <ClInclude Include="System\ShaderManager.h" />
     <ClInclude Include="System\System.h" />
@@ -222,6 +225,8 @@
     <ClCompile Include="Graphics\src\Models\Model.cpp" />
     <ClCompile Include="Graphics\src\Models\Skeleton.cpp" />
     <ClCompile Include="Graphics\src\Scene.cpp" />
+    <ClCompile Include="Physics\src\Body.cpp" />
+    <ClCompile Include="Physics\src\Physics.cpp" />
     <ClCompile Include="System\src\BasicApplication.cpp" />
     <ClCompile Include="System\src\Bitset.cpp" />
     <ClCompile Include="System\src\ConfigFile.cpp" />
@@ -229,6 +234,7 @@
     <ClCompile Include="System\src\GBuffer.cpp" />
     <ClCompile Include="System\src\Logger.cpp" />
     <ClCompile Include="System\src\Query.cpp" />
+    <ClCompile Include="System\src\Ray.cpp" />
     <ClCompile Include="System\src\ResourcesManager.cpp" />
     <ClCompile Include="System\src\ShaderManager.cpp" />
     <ClCompile Include="System\src\System.cpp" />

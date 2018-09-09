@@ -221,11 +221,11 @@ glm::vec3 le::Camera::GetVectorMove( TypeMove typeMove, float MoveSpeed )
 		break;
 
 	case TypeMove::Back:
-		OffsetMove = -Direction * MoveSpeed;
+		OffsetMove = -( Direction * MoveSpeed );
 		break;
 
 	case TypeMove::Left:
-		OffsetMove = -CameraRight * MoveSpeed;
+		OffsetMove = -( CameraRight * MoveSpeed );
 		break;
 
 	case TypeMove::Right:

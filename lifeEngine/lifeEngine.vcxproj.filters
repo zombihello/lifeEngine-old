@@ -25,6 +25,9 @@
     <Filter Include="Graphics\Level\Entityes">
       <UniqueIdentifier>{ba5a7951-a13c-41cc-b0a1-81aba9dd10d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{7d54872d-0716-48c7-a458-bbfb1d913abd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\src\System.cpp">
@@ -140,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="Graphics\src\Level\Entityes\Func_Rotating.cpp">
       <Filter>Graphics\Level\Entityes</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\src\Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\src\Body.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="System\src\Ray.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +272,15 @@
     </ClInclude>
     <ClInclude Include="Graphics\Level\Entityes\Func_Rotating.h">
       <Filter>Graphics\Level\Entityes</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Body.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Ray.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

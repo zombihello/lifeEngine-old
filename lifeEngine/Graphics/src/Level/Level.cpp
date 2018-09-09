@@ -75,7 +75,6 @@ bool le::Level::LoadLevel( const string& Route )
 
 	vector<BSPVertex>		Array_Vertexes;
 	vector<BSPFace>			Array_Faces;
-	vector<BSPTexture>		Array_Textures;
 	vector<BSPLightmap>		Array_Lightmaps;
 	vector<GLuint>			GLTextures;
 	vector<int>				Buffer_ArrayLeafsFaces;
@@ -101,13 +100,16 @@ bool le::Level::LoadLevel( const string& Route )
 	Array_Vertexes.resize( Lumps[ Vertices ].Length / sizeof( BSPVertex ) );		// Массив вершин
 	Array_Faces.resize( Lumps[ Faces ].Length / sizeof( BSPFace ) );				// Массив фейсов
 	Array_Indices.resize( Lumps[ Indices ].Length / sizeof( unsigned int ) );		// Массив индексов
-	Array_Textures.resize( Lumps[ Textures ].Length / sizeof( BSPTexture ) );		// Массив текстур
+	ArrayTextures.resize( Lumps[ Textures ].Length / sizeof( BSPTexture ) );		// Массив текстур
 	Array_Lightmaps.resize( Lumps[ Lightmaps ].Length / sizeof( BSPLightmap ) );	// Массив карт освещения
 	ArrayNodes.resize( Lumps[ Nodes ].Length / sizeof( BSPNode ) );					// Массив веток BSP дерева
 	ArrayLeafs.resize( Lumps[ Leafs ].Length / sizeof( BSPLeaf ) );					// Массив листьев BSP дерева
 	Buffer_ArrayLeafsFaces.resize( Lumps[ LeafFaces ].Length / sizeof( int ) );		// Массив индексов фейсов в листе BSP дерева
 	ArrayBSPPlanes.resize( Lumps[ Planes ].Length / sizeof( BSPPlane ) );			// Массив секущих плоскостей
 	ArrayModels.resize( Lumps[ Models ].Length / sizeof( BSPModel ) );				// Массив моделей (движущиеся браши)
+	ArrayBrushes.resize( Lumps[ Brushes ].Length / sizeof( BSPBrush ) );			// Массив брашей
+	ArrayBrushSides.resize( Lumps[ BrushSides ].Length / sizeof( BSPBrushSide ) );	// Массив сторон браша
+	ArrayLeafsBrushes.resize( Lumps[ LeafBrushes ].Length / sizeof( int ) );		// Массив индексов брашей в листе BSP дерева
 
 	// *************************************
 	// Считываем информацию энтити-объектов
@@ -153,7 +155,7 @@ bool le::Level::LoadLevel( const string& Route )
 	// Считываем информацию о текстурах
 
 	File.seekg( Lumps[ Textures ].Offset, ios::beg );
-	File.read( ( char* ) &Array_Textures[ 0 ], Array_Textures.size() * sizeof( BSPTexture ) );
+	File.read( ( char* ) &ArrayTextures[ 0 ], ArrayTextures.size() * sizeof( BSPTexture ) );
 
 	// *************************************
 	// Считываем информацию о моделях уровня 
@@ -285,12 +287,30 @@ bool le::Level::LoadLevel( const string& Route )
 		Сlusters.Bitsets = NULL;
 
 	// *************************************
+	// Считываем информацию о брашах
+
+	File.seekg( Lumps[ Brushes ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayBrushes[ 0 ], ArrayBrushes.size() * sizeof( BSPBrush ) );
+
+	// *************************************
+	// Считываем информацию о сторонах браша
+
+	File.seekg( Lumps[ BrushSides ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayBrushSides[ 0 ], ArrayBrushSides.size() * sizeof( BSPBrushSide ) );
+
+	// *************************************
+	// Считываем индексы брашей в листах BSP дерева
+
+	File.seekg( Lumps[ LeafBrushes ].Offset, ios::beg );
+	File.read( ( char* ) &ArrayLeafsBrushes[ 0 ], ArrayLeafsBrushes.size() * sizeof( int ) );
+
+	// *************************************
 	// Загружаем все текстуры
 
-	for ( size_t IdTexture = 0; IdTexture < Array_Textures.size(); IdTexture++ )
+	for ( size_t IdTexture = 0; IdTexture < ArrayTextures.size(); IdTexture++ )
 	{
 		// Определяем формат текстуры
-		string RouteToTexture = "../" + string( Array_Textures[ IdTexture ].StrName );
+		string RouteToTexture = "../" + string( ArrayTextures[ IdTexture ].StrName );
 		File.open( RouteToTexture + ".jpg", ios::binary );
 
 		if ( File.is_open() )
@@ -307,8 +327,8 @@ bool le::Level::LoadLevel( const string& Route )
 		File.close();
 
 		// Загружаем текстуру
-		ResourcesManager::LoadGlTexture( Array_Textures[ IdTexture ].StrName, RouteToTexture );
-		GLTextures.push_back( ResourcesManager::GetGlTexture( Array_Textures[ IdTexture ].StrName ) );
+		ResourcesManager::LoadGlTexture( ArrayTextures[ IdTexture ].StrName, RouteToTexture );
+		GLTextures.push_back( ResourcesManager::GetGlTexture( ArrayTextures[ IdTexture ].StrName ) );
 	}
 
 	// *****************************************
@@ -866,6 +886,165 @@ void le::Level::CreateLightmapTexture( byte* ImageBits, int Width, int Height )
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 
 	ArrayLightmaps.push_back( Texture );
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CheckNode( int NodeIndex, float StartRatio, float EndRatio, const Ray& Ray )
+{
+	if ( NodeIndex < 0 )
+	{
+		BSPLeaf* pLeaf = &ArrayLeafs[ -( NodeIndex + 1 ) ];
+
+		for ( int i = 0; i < pLeaf->NumOfLeafBrushes; i++ )
+		{
+			BSPBrush *pBrush = &ArrayBrushes[ ArrayLeafsBrushes[ pLeaf->LeafBrush + i ] ];
+
+			if ( ( pBrush->NumOfBrushSides > 0 ) && ( ArrayTextures[ pBrush->TextureID ].Type & 1 ) )
+				CheckBrush( pBrush, Ray );
+		}
+
+		return;
+	}
+
+	BSPNode *pNode = &ArrayNodes[ NodeIndex ];
+	BSPPlane *pPlane = &ArrayBSPPlanes[ pNode->Plane ];
+
+	float startDistance = glm::dot( Ray.Start, pPlane->Normal ) - pPlane->Distance;
+	float endDistance = glm::dot( Ray.End, pPlane->Normal ) - pPlane->Distance;
+	float offset = 0.0f;
+
+	if ( Ray.TraceType == TraceType::TRACE_TYPE_SPHERE )
+		offset = Ray.TraceRadius;
+
+	float kEpsilon = 0.125f;
+
+	if ( startDistance >= offset && endDistance >= offset )
+	{
+		CheckNode( pNode->Front, startDistance, endDistance, Ray );
+	}
+	else if ( startDistance < -offset && endDistance < -offset )
+	{
+		CheckNode( pNode->Back, startDistance, endDistance, Ray );
+	}
+	else
+	{
+		float Ratio1 = 1.0f, Ratio2 = 0.0f, middleRatio = 0.0f;
+		glm::vec3 vMiddle;
+		int side = pNode->Front;
+
+		if ( startDistance < endDistance )
+		{
+			side = pNode->Back;
+
+			float inverseDistance = 1.0f / ( startDistance - endDistance );
+			Ratio1 = ( startDistance - offset - kEpsilon ) * inverseDistance;
+			Ratio2 = ( startDistance + offset + kEpsilon ) * inverseDistance;
+		}
+		else if ( startDistance > endDistance )
+		{
+			float inverseDistance = 1.0f / ( startDistance - endDistance );
+			Ratio1 = ( startDistance + offset + kEpsilon ) * inverseDistance;
+			Ratio2 = ( startDistance - offset - kEpsilon ) * inverseDistance;
+		}
+
+		if ( Ratio1 < 0.0f ) Ratio1 = 0.0f;
+		else if ( Ratio1 > 1.0f ) Ratio1 = 1.0f;
+
+		if ( Ratio2 < 0.0f ) Ratio2 = 0.0f;
+		else if ( Ratio2 > 1.0f ) Ratio2 = 1.0f;
+
+		middleRatio = StartRatio + ( ( EndRatio - StartRatio ) * Ratio1 );
+		vMiddle = Ray.Start + ( ( Ray.End - Ray.Start ) * Ratio1 );
+
+		CheckNode( side, StartRatio, middleRatio, Ray );
+
+		middleRatio = StartRatio + ( ( EndRatio - StartRatio ) * Ratio2 );
+		vMiddle = Ray.Start + ( ( Ray.End - Ray.Start ) * Ratio2 );
+
+		if ( side == pNode->Back )
+			CheckNode( pNode->Front, middleRatio, EndRatio, Ray );
+		else
+			CheckNode( pNode->Back, middleRatio, EndRatio, Ray );
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+void le::Level::CheckBrush( BSPBrush * Brush, const Ray& Ray )
+{
+	float kEpsilon = 0.125f;
+	float startRatio = -1.0f;
+	float endRatio = 1.0f;
+	bool startsOut = false;
+
+	for ( int i = 0; i < Brush->NumOfBrushSides; i++ )
+	{
+		BSPBrushSide *pBrushSide = &ArrayBrushSides[ Brush->BrushSide + i ];
+		BSPPlane *pPlane = &ArrayBSPPlanes[ pBrushSide->Plane ];
+
+		float offset = 0.0f;
+
+		if ( Ray.TraceType == TraceType::TRACE_TYPE_SPHERE )
+			offset = Ray.TraceRadius;
+
+		float startDistance = glm::dot( Ray.Start, pPlane->Normal ) - ( pPlane->Distance + offset );
+		float endDistance = glm::dot( Ray.End, pPlane->Normal ) - ( pPlane->Distance + offset );
+
+		if ( startDistance > 0 )	startsOut = true;
+
+		if ( startDistance > 0 && endDistance > 0 )
+			return;
+
+		if ( startDistance <= 0 && endDistance <= 0 )
+			continue;
+
+		if ( startDistance > endDistance )
+		{
+			float Ratio1 = ( startDistance - kEpsilon ) / ( startDistance - endDistance );
+
+			if ( Ratio1 > startRatio )
+			{
+				startRatio = Ratio1;
+			}
+		}
+		else
+		{
+			float Ratio = ( startDistance + kEpsilon ) / ( startDistance - endDistance );
+
+			if ( Ratio < endRatio )
+				endRatio = Ratio;
+		}
+	}
+
+	if ( startsOut == false )
+	{
+		return;
+	}
+
+	if ( startRatio < endRatio )
+	{
+		if ( startRatio > -1 && startRatio < m_traceRatio )
+		{
+			if ( startRatio < 0 )
+				startRatio = 0;
+
+			m_traceRatio = startRatio;
+		}
+	}
+}
+
+//-------------------------------------------------------------------------//
+
+glm::vec3 le::Level::Trace( const Ray& Ray )
+{
+	m_traceRatio = 1.0f;
+	CheckNode( 0, 0.0f, 1.0f, Ray );
+
+	if ( m_traceRatio == 1.0f )
+		return Ray.End;
+
+	return Ray.Start + ( ( Ray.End - Ray.Start ) * m_traceRatio );
 }
 
 //-------------------------------------------------------------------------//

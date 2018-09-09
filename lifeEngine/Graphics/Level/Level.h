@@ -19,6 +19,7 @@
 //////////////////
 #include <System\VAO.h>
 #include <System\Bitset.h>
+#include <System\Ray.h>
 #include <Graphics\Level\Entityes\EntityParser.h>
 #include <Graphics\Level\Skybox.h>
 #include <Graphics\Level\Plane.h>
@@ -33,6 +34,8 @@ namespace le
 	class Model;
 	class PointLight;
 	class SpotLight;
+	class Frustum;
+	class Camera;
 
 	//-------------------------------------------------------------------------//
 
@@ -154,6 +157,14 @@ namespace le
 		bool CalculateVisableLight( SpotLight& Light, Frustum& Frustum );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Проверить столкновение с брашем
+		///	
+		/// \param[in] Ray Трасирующий луч
+		/// \return Позиция луча с учетом столкновения
+		//////////////////////////////////////////////////////////////////////
+		glm::vec3 Trace( const Ray& Ray );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить скайбокс уровня
 		///		
 		/// \return Skybox&.
@@ -232,6 +243,26 @@ namespace le
 		void CreateLightmapTexture( byte *ImageBits, int Width, int Height );
 
 		//////////////////////////////////////////////////////////////////////
+		/// \brief Рекурсивно проверить все узлы чтобы найти браши
+		///	
+		/// \param[in] NodeIndex Индекс узла для старта
+		/// \param[in] StartRatio Стартовый коэффициент
+		/// \param[in] EndRatio Конечный коэффициент
+		/// \param[in] Ray Трасирующий луч
+		/// \return Позиция с учетом столкновения
+		//////////////////////////////////////////////////////////////////////
+		void CheckNode( int NodeIndex, float StartRatio, float EndRatio, const Ray& Ray );
+
+		//////////////////////////////////////////////////////////////////////
+		/// \brief Проверить столкновение вектора движения и браша
+		///	
+		/// \param[in] Brush Браш
+		/// \param[in] Ray Трасирующий луч
+		/// \return Позиция с учетом столкновения
+		//////////////////////////////////////////////////////////////////////
+		void CheckBrush( BSPBrush* Brush, const Ray& Ray );
+
+		//////////////////////////////////////////////////////////////////////
 		/// \brief Получить индекс листа в котором нах. камера
 		///		
 		/// \return Индекс листа
@@ -250,6 +281,9 @@ namespace le
 		Bitset								FacesDrawn;			///< Хранит нарисованные фейсы в битах
 		BSPVisData							Сlusters;			///< Кластеры
 
+		float m_traceRatio;			// This stores the ratio from our start pos to the intersection pt.
+	//	bool m_bCollided;
+
 		int									CameraCluster;		///< Кластер в котором находится камера (обновляется при вызове CalculateVisablePlanes() )
 		GLuint								VertexBuffer;		///< Вершиный буфер
 		GLuint								IndexBuffer;		///< Индексный буфер
@@ -261,11 +295,15 @@ namespace le
 		vector<InfoBSPModel>				VisableModels;		///< Буфер видимых моделей (обновляется при вызове CalculateVisablePlanes() )
 
 		vector<BSPNode>						ArrayNodes;			///< Массив веток BSP дерева
+		vector<BSPBrushSide>				ArrayBrushSides;	///< Массив сторон браша
 		vector<BSPLeaf>						ArrayLeafs;			///< Массив листьев BSP дерева
+		vector<BSPBrush>					ArrayBrushes;		///< Массив брашей
 		vector<BSPPlane>					ArrayBSPPlanes;		///< Массив секущих плоскостей
 		vector<BaseEntity*>					ArrayEntitys;		///< Массив энтити-объектов		
 		vector<int>							ArrayLeafsFaces;	///< Массив индексов фейсов в листе
+		vector<int>							ArrayLeafsBrushes;	///< Массив индексов брашей в листе
 		vector<GLuint>						ArrayLightmaps;		///< Массив идентификаторов карт освещения
+		vector<BSPTexture>					ArrayTextures;		///< Массив текстур
 		vector<Entity>						NoInitEntity;		///< Энтити-объекты которые не созданы
 
 		map<BSPModel*, BaseEntity*>			ArrayModelEntitys;	///< Массив энтити-объектов с моделью		

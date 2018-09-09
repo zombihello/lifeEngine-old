@@ -7,6 +7,7 @@
 #include <Graphics\Level\Level.h>
 #include <Graphics\Light\LightManager.h>
 #include <System\Logger.h>
+#include <Physics\Physics.h>
 
 class Game : public le::BasicApplication
 {
@@ -30,6 +31,10 @@ public:
 		Level->LoadLevel( "../maps/testbed_c0a0.bsp" );
 		Level->AddToScene( *Scene );
 
+		Physics.AddLevel( *Level );
+		PlayerBody = Physics.CreateBody();
+		PlayerBody->SetTraceType( le::TRACE_TYPE_SPHERE, 25.f );
+
 		glm::vec3 Position, LightRotation;
 		string Name;
 		vector<int> LightColor;
@@ -42,6 +47,8 @@ public:
 
 			if ( Entity->ClassName == "info_player_start" )
 			{
+				PlayerBody->SetPosition( Entity->Position );
+
 				Cameras[ 0 ]->SetPosition( Entity->Position );
 				Cameras[ 1 ]->SetPosition( Entity->Position );
 			}
@@ -116,14 +123,14 @@ public:
 			MoveRight = true;
 
 		if ( Keyboard::isKeyPressed( Keyboard::W ) )
-			ActiveCamera->Move( le::Camera::Forward, 300.f * Configuration->Time );
+			PlayerBody->Move( ActiveCamera->GetVectorMove( le::Camera::Forward, 300.f * Configuration->Time ) );
 
 		if ( Keyboard::isKeyPressed( Keyboard::S ) )
-			ActiveCamera->Move( le::Camera::Back, 300.f * Configuration->Time );
+			PlayerBody->Move( ActiveCamera->GetVectorMove( le::Camera::Back, 300.f * Configuration->Time ) );
 
 		if ( Keyboard::isKeyPressed( Keyboard::A ) )
 		{
-			ActiveCamera->Move( le::Camera::Left, 220.f * Configuration->Time );
+			PlayerBody->Move( ActiveCamera->GetVectorMove( le::Camera::Left, 220.f * Configuration->Time ) );
 
 			if ( ActiveCamera->GetInclinationCamera() > -5 )
 				ActiveCamera->TiltCamera( -0.2f );
@@ -131,7 +138,7 @@ public:
 
 		if ( Keyboard::isKeyPressed( Keyboard::D ) )
 		{
-			ActiveCamera->Move( le::Camera::Right, 220.f * Configuration->Time );
+			PlayerBody->Move( ActiveCamera->GetVectorMove( le::Camera::Right, 220.f * Configuration->Time ) );
 
 			if ( ActiveCamera->GetInclinationCamera() < 5 )
 				ActiveCamera->TiltCamera( 0.2f );
@@ -174,8 +181,10 @@ public:
 
 			Model->GetAnimationManager()->Update();
 		}
-
-		ActiveCamera->UpdateTargetPoint();
+		
+		Physics.Update();
+		ActiveCamera->SetPosition( PlayerBody->GetPosition() );
+		ActiveCamera->UpdateTargetPoint();		
 		Scene->Render();
 
 		if ( Keyboard::isKeyPressed( Keyboard::E ) )
@@ -192,6 +201,8 @@ public:
 	le::LightManager			LightManager;
 	le::SpotLight*				Spot;
 	le::PointLight*				Point;
+	le::Physics					Physics;
+	le::Body*					PlayerBody;
 
 	vector<le::Model*>			Models;
 	vector<le::Camera*>			Cameras;
